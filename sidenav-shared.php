@@ -31,31 +31,17 @@ function genSideBar() {
 </li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link" href="../chat.html">
-<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-comments"></span></span><span class="nav-link-text"> Chat</span>
-</div>
-</a>
-</li>
-<li class="nav-item"><a class="nav-link" href="../kanban.html">
-<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-trello"></span></span><span class="nav-link-text"> Kanban</span>
-</div>
-</a>
-</li>
-<li class="nav-item"><a class="nav-link" href="../calendar.html">
-<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-alt"></span></span><span class="nav-link-text"> Calendar</span>
-</div>
-</a>
-</li>
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#email" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="email">
-<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span><span class="nav-link-text"> Email</span>
+<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span><span class="nav-link-text"> Procurement</span>
 </div>
 </a>
 <ul class="nav collapse" id="email" data-parent="#navbarVerticalCollapse">
-<li class="nav-item"><a class="nav-link" href="../email/inbox.html">Inbox</a>
+<li class="nav-item"><a class="nav-link" href="../email/inbox.html">Purchase Requisition</a>
 </li>
-<li class="nav-item"><a class="nav-link" href="../email/email-detail.html">Email detail</a>
+<li class="nav-item"><a class="nav-link" href="../email/email-detail.html">Purchase Order</a>
 </li>
-<li class="nav-item"><a class="nav-link" href="../email/compose.html">Compose</a>
+<li class="nav-item"><a class="nav-link" href="../email/compose.html">Import Purchase Order</a>
+<li class="nav-item"><a class="nav-link" href="../email/compose.html">Manage Purchase Orders</a>
 </li>
 </ul>
 </li>
