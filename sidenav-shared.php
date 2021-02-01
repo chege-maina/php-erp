@@ -19,65 +19,15 @@ function genSideBar() {
 </ul>
 </li>
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#pages" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="pages">
-<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-copy"></span></span><span class="nav-link-text"> Pages</span>
+<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-copy"></span></span><span class="nav-link-text"> Products</span>
 </div>
 </a>
 <ul class="nav collapse show" id="pages" data-parent="#navbarVerticalCollapse">
-<li class="nav-item"><a class="nav-link active" href="../pages/activity.html">Activity</a>
+<li class="nav-item"><a class="nav-link active" href="../pages/activity.html">Add New Product</a>
 </li>
-<li class="nav-item"><a class="nav-link" href="../pages/associations.html">Associations</a>
+<li class="nav-item"><a class="nav-link" href="../pages/associations.html">Manage Products</a>
 </li>
-<li class="nav-item"><a class="nav-link" href="../pages/billing.html">Billing</a>
-</li>
-<li class="nav-item"><a class="nav-link dropdown-indicator" href="#pages-errors" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="pages-errors">Errors</a>
-<ul class="nav collapse" id="pages-errors" data-parent="#pages">
-<li class="nav-item"><a class="nav-link" href="../pages/errors/404.html">404</a>
-</li>
-<li class="nav-item"><a class="nav-link" href="../pages/errors/500.html">500</a>
-</li>
-</ul>
-</li>
-<li class="nav-item"><a class="nav-link" href="../pages/event-create.html">Event create</a>
-</li>
-<li class="nav-item"><a class="nav-link" href="../pages/event-detail.html">Event detail</a>
-</li>
-<li class="nav-item"><a class="nav-link" href="../pages/events.html">Events</a>
-</li>
-<li class="nav-item"><a class="nav-link dropdown-indicator" href="#pages-faq" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="pages-faq">
-<div class="d-flex align-items-center">Faq<span class="badge rounded-pill ml-2 badge-soft-success">New</span>
-</div>
-</a>
-<ul class="nav collapse" id="pages-faq" data-parent="#pages">
-<li class="nav-item"><a class="nav-link" href="../pages/faq/faq-basic.html">Faq basic</a>
-</li>
-<li class="nav-item"><a class="nav-link" href="../pages/faq/faq-alt.html">Faq alt</a>
-</li>
-<li class="nav-item"><a class="nav-link" href="../pages/faq/faq-accordion.html">Faq accordion</a>
-</li>
-</ul>
-</li>
-<li class="nav-item"><a class="nav-link" href="../pages/invite-people.html">Invite people</a>
-</li>
-<li class="nav-item"><a class="nav-link" href="../pages/invoice.html">Invoice</a>
-</li>
-<li class="nav-item"><a class="nav-link" href="../pages/notifications.html">Notifications</a>
-</li>
-<li class="nav-item"><a class="nav-link" href="../pages/people.html">People</a>
-</li>
-<li class="nav-item"><a class="nav-link" href="../pages/pricing.html">Pricing</a>
-</li>
-<li class="nav-item"><a class="nav-link" href="../pages/pricing-alt.html">Pricing alt</a>
-</li>
-<li class="nav-item"><a class="nav-link" href="../pages/privacy-policy.html">
-<div class="d-flex align-items-center">Privacy policy<span class="badge rounded-pill ml-2 badge-soft-success">New</span>
-</div>
-</a>
-</li>
-<li class="nav-item"><a class="nav-link" href="../pages/profile.html">Profile</a>
-</li>
-<li class="nav-item"><a class="nav-link" href="../pages/settings.html">Settings</a>
-</li>
-<li class="nav-item"><a class="nav-link" href="../pages/starter.html">Starter</a>
+<li class="nav-item"><a class="nav-link" href="../pages/billing.html">Product Listing</a>
 </li>
 </ul>
 </li>
