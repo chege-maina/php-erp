@@ -1,4 +1,13 @@
 <!-- has the logo and sidenav -->
+<script>
+  var isFluid = JSON.parse(localStorage.getItem('isFluid'));
+  if (isFluid) {
+    var container = document.querySelector('[data-layout]');
+    container.classList.remove('container');
+    container.classList.add('container-fluid');
+  }
+</script>
+
 <nav class="navbar navbar-light navbar-vertical navbar-expand-xl">
   <script>
     var navbarStyle = localStorage.getItem("navbarStyle");
