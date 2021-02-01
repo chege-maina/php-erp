@@ -16,44 +16,44 @@
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="../assets/img/favicons/apple-touch-icon.png"
+      href="./assets/img/favicons/apple-touch-icon.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="../assets/img/favicons/favicon-32x32.png"
+      href="./assets/img/favicons/favicon-32x32.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="../assets/img/favicons/favicon-16x16.png"
+      href="./assets/img/favicons/favicon-16x16.png"
     />
     <link
       rel="shortcut icon"
       type="image/x-icon"
-      href="../assets/img/favicons/favicon.ico"
+      href="./assets/img/favicons/favicon.ico"
     />
-    <link rel="manifest" href="../assets/img/favicons/manifest.json" />
+    <link rel="manifest" href="./assets/img/favicons/manifest.json" />
     <meta
       name="msapplication-TileImage"
-      content="../assets/img/favicons/mstile-150x150.png"
+      content="./assets/img/favicons/mstile-150x150.png"
     />
     <meta name="theme-color" content="#ffffff" />
-    <script src="../assets/js/config.js"></script>
+    <script src="./assets/js/config.js"></script>
 
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
-    <link href="../vendors/swiper/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="./vendors/swiper/swiper-bundle.min.css" rel="stylesheet" />
     <link
-      href="../assets/css/theme-rtl.min.css"
+      href="./assets/css/theme-rtl.min.css"
       rel="stylesheet"
       id="style-rtl"
     />
     <link
-      href="../assets/css/theme.min.css"
+      href="./assets/css/theme.min.css"
       rel="stylesheet"
       id="style-default"
     />
@@ -68,11 +68,11 @@
         linkRTL.setAttribute('disabled', true);
       }
     </script>
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
 
   <body style="height: 100%;
-    background-image: url(../assets/img/generic/bg-1.jpg);
+    background-image: url(./assets/img/generic/bg-1.jpg);
     height: 100%;
 
         /* Center and scale the image nicely */
@@ -89,7 +89,7 @@
         data-navbar-darken-on-scroll="data-navbar-darken-on-scroll"
       >
         <div class="container">
-          <a class="navbar-brand" href="../index.html"
+          <a class="navbar-brand" href="./index.html"
             ><span class="text-white dark__text-white">Falcon</span></a
           >
         </div>
@@ -143,7 +143,7 @@
                   <div class="col-auto">
                     <a
                       class="fs--1"
-                      href="../authentication/basic/forgot-password.html"
+                      href="./authentication/basic/forgot-password.html"
                       >Forgot Password?</a
                     >
                   </div>
