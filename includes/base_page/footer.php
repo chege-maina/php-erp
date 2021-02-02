@@ -12,10 +12,10 @@
 
 <!-- Modals begin here --->
 <?php
-include './includes/base_page/modal-settings.php';
+include 'modal-settings.php';
 ?>
 <?php
-include './includes/base_page/modal-authentication.php';
+include 'modal-authentication.php';
 ?>
 <!-- End of Modals -->
 
