@@ -93,19 +93,31 @@ include '../includes/base_page/head.php';
           <h5 class="p-2 mt-4">Tax</h5>
           <div class="card">
             <div class="card-body fs--1 p-4">
-              <label for="tax_type">Tax Type*</label><br />
-              <div class="border-dashed pt-3 pl-3 w-25">
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" id="inclusive" type="radio" name="tax_type" value="inclusive" required />
-                  <label class="form-check-label" for="inclusive">Inclusive</label>
+              <div class="row">
+                <div class="col">
+                  <label for="tax_type">Tax Type*</label><br />
+                  <select class="form-select" name="tax_type" id="tax_type" required>
+                    <option value="exclusive">exclusive</option>
+                    <option value="inclusive">inclusive</option>
+                  </select>
+                  <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" id="exclusive" type="radio" name="tax_type" value="exclusive" required />
-                  <label class="form-check-label" for="exclusive">Exclusive</label>
+                <div class="col">
+                  <label for="applicable_tax">Applicable Tax*</label><br />
+                  <select class="form-select" name="applicable_tax" id="applicable_tax" required>
+                    <option value="0">none</option>
+                    <option value="16">16%</option>
+                    <option value="14">14%</option>
+                    <option value="8">8%</option>
+                  </select>
+                  <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
-                <div class="invalid-feedback">This field cannot be left blank.</div>
+                <div class="col">
+                  <label class="form-label" for="ammount_before_tax">Amount Before Tax*</label>
+                  <input type="number" class="form-control" name="ammount_before_tax" id="ammount_before_tax" required>
+                  <div class="invalid-feedback">This field cannot be left blank.</div>
+                </div>
               </div>
-              <div class="w-75"></div>
               <!-- Tax table -->
               <table class="table mt-3">
                 <thead>
@@ -121,12 +133,12 @@ include '../includes/base_page/head.php';
                       <div class="row">
                         <div class="col">
                           <label class="form-label" for="dpp_exc_tax">Exc. Tax*</label>
-                          <input type="number" class="form-control" name="dpp_exc_tax" id="dpp_exc_tax" required>
+                          <input type="number" class="form-control" name="dpp_exc_tax" id="dpp_exc_tax" required readonly>
                           <div class="invalid-feedback">This field cannot be left blank.</div>
                         </div>
                         <div class="col">
                           <label class="form-label" for="dpp_inc_tax">Inc. Tax*</label>
-                          <input type="number" class="form-control" name="dpp_inc_tax" id="dpp_inc_tax" required>
+                          <input type="number" class="form-control" name="dpp_inc_tax" id="dpp_inc_tax" required readonly>
                           <div class="invalid-feedback">This field cannot be left blank.</div>
                         </div>
                     </td>
@@ -140,7 +152,7 @@ include '../includes/base_page/head.php';
                     </td>
                     <td>
                       <label class="form-label" for="dsp_price">Exc. Tax*</label>
-                      <input type="number" class="form-control" name="dsp_price" id="dsp_price" required>
+                      <input type="number" class="form-control" name="dsp_price" id="dsp_price" required readonly>
                       <div class="invalid-feedback">This field cannot be left blank.</div>
                     </td>
                   </tr>
