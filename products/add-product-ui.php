@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 <?php
+session_start();
+  // If the user is not logged in redirect to the login page...
+  if (!isset($_SESSION['loggedin'])) {
+    header('Location: index.php');
+    exit();
+  }
+include_once '../includes/dbconnect.php';
 include '../includes/base_page/head.php';
 ?>
 
@@ -27,7 +34,7 @@ include '../includes/base_page/head.php';
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <h5 class="p-2">Add New Product</h5>
         <!-- Content is to start here -->
-        <form>
+        <form action ="add_product.php"  method="post">
           <div class="card">
             <div class="card-body fs--1 p-4">
               <div class="row">
@@ -161,13 +168,26 @@ include '../includes/base_page/head.php';
             </div>
           </div>
 
-          <input type="submit" class="btn btn-primary m-2" value="Submit">
+          <input type="submit" class="btn btn-primary m-2" name= "submit" value="Submit">
         </form>
         <!-- Content ends here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <!-- body ends here -->
         <!-- =========================================================== -->
 
+        <script>
+        // listen for the DOMContentLoaded event, then bind our function
+        document.addEventListener('DOMContentLoaded', function() {
+
+          const product_code = document.querySelector("#product_code")
+          fetch('add_product.php')
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            product_code.value = data;
+            });
+          });
+        </script>
 
 
         <!-- =========================================================== -->

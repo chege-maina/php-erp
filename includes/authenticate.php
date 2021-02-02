@@ -32,7 +32,10 @@ if ($stmt->num_rows > 0) {
 		$_SESSION['loggedin'] = TRUE;
 		$_SESSION['name'] = $username;
 		$_SESSION['id'] = $_POST['email'];
-		header('Location: ../Dashboard.php');
+
+		echo 'Dashboard';
+
+		//header('Location: ../dashtmp.php');
 	} else {
 		echo 'Incorrect password!';
 	}
