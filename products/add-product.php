@@ -52,7 +52,7 @@ include '../includes/base_page/head.php';
                 <div class="col">
                   <!-- Make Combo -->
                   <label class="form-label" for="product_unit">Unit*</label>
-                  <input type="number" class="form-control" name="product_unit" id="product_unit" required>
+                  <input type="text" class="form-control" name="product_unit" id="product_unit" required>
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
                 <div class="col">
