@@ -71,17 +71,17 @@ include '../includes/base_page/head.php';
               <div class="row">
                 <div class="col">
                   <label class="form-label" for="min_level">Minimum Level*</label>
-                  <input type="number" class="form-control" name="min_level" id="min_level">
+                  <input type="number" class="form-control" name="min_level" id="min_level" required>
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
                 <div class="col">
                   <label class="form-label" for="max_level">Maximum Level*</label>
-                  <input type="number" class="form-control" name="max_level" id="max_level">
+                  <input type="number" class="form-control" name="max_level" id="max_level" required>
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
                 <div class="col">
                   <label class="form-label" for="reorder">Reorder Level*</label>
-                  <input type="number" class="form-control" name="reorder" id="reorder">
+                  <input type="number" class="form-control" name="reorder" id="reorder" required>
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
               </div>
@@ -94,16 +94,58 @@ include '../includes/base_page/head.php';
           <div class="card">
             <div class="card-body fs--1 p-4">
               <label for="tax_type">Tax Type*</label><br />
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" id="inclusive" type="radio" name="tax_type" value="inclusive" required />
-                <label class="form-check-label" for="inclusive">Inclusive</label>
+              <div class="border-dashed pt-3 pl-3 w-25">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" id="inclusive" type="radio" name="tax_type" value="inclusive" required />
+                  <label class="form-check-label" for="inclusive">Inclusive</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" id="exclusive" type="radio" name="tax_type" value="exclusive" required />
+                  <label class="form-check-label" for="exclusive">Exclusive</label>
+                </div>
+                <div class="invalid-feedback">This field cannot be left blank.</div>
               </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" id="exclusive" type="radio" name="tax_type" value="exclusive" required />
-                <label class="form-check-label" for="exclusive">Exclusive</label>
-              </div>
-              <div class="invalid-feedback">This field cannot be left blank.</div>
+              <div class="w-75"></div>
               <!-- Tax table -->
+              <table class="table mt-3">
+                <thead>
+                  <tr>
+                    <th scope="col">Default Purchase Price</th>
+                    <th scope="col">Profit Margin(%)</th>
+                    <th scope="col">Default Selling Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="row">
+                        <div class="col">
+                          <label class="form-label" for="dpp_exc_tax">Exc. Tax*</label>
+                          <input type="number" class="form-control" name="dpp_exc_tax" id="dpp_exc_tax" required>
+                          <div class="invalid-feedback">This field cannot be left blank.</div>
+                        </div>
+                        <div class="col">
+                          <label class="form-label" for="dpp_inc_tax">Inc. Tax*</label>
+                          <input type="number" class="form-control" name="dpp_inc_tax" id="dpp_inc_tax" required>
+                          <div class="invalid-feedback">This field cannot be left blank.</div>
+                        </div>
+                    </td>
+                    <td>
+                      <label class="form-label" for="profit_margin">*</label>
+                      <div class="input-group mb-3 col col-md-2">
+                        <input type="number" class="form-control" name="profit_margin" aria-describedby="margin-percentage-label" id="profit_margin" required>
+                        <span class="input-group-text" id="margin-percentage-label">%</span>
+                      </div>
+                      <div class="invalid-feedback">This field cannot be left blank.</div>
+                    </td>
+                    <td>
+                      <label class="form-label" for="dsp_price">Exc. Tax*</label>
+                      <input type="number" class="form-control" name="dsp_price" id="dsp_price" required>
+                      <div class="invalid-feedback">This field cannot be left blank.</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
 
