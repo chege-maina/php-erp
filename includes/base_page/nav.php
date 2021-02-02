@@ -21,7 +21,7 @@
       <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-toggle="tooltip" data-placement="left" title="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
 
     </div><a class="navbar-brand" href="../index.html">
-      <div class="d-flex align-items-center py-3"><img class="mr-2" src="../../assets/img/logos/qubes.jpeg" alt="OG LOL" width="40" /><span class="font-sans-serif">Qubes</span>
+      <div class="d-flex align-items-center py-3"><img class="mr-2" src="../assets/img/logos/qubes.jpeg" alt="OG LOL" width="40" /><span class="font-sans-serif">Qubes</span>
       </div>
     </a>
   </div>
