@@ -42,7 +42,7 @@
       linkRTL.setAttribute('disabled', true);
     }
   </script>
-  <link rel="stylesheet" href="./assets/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
 </head>
 
 <body style="height: 100%;
@@ -130,7 +130,12 @@
               data: data1,
               success: function(data) {
                 $('#loginfrm')[0].reset();
-                alert(data)
+                if(data=='Dashboard'){
+                  window.location.replace("dashtmp.php");
+                }
+                else{
+                alert(data)}
+                
                 //console.log('response:' + data);
               }
             })
