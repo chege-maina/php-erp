@@ -168,7 +168,7 @@ include '../includes/base_page/head.php';
         document.addEventListener('DOMContentLoaded', function() {
 
           const product_code = document.querySelector("#product_code")
-          fetch('add_product.php')
+          fetch('get-item-code.php')
           .then(response => response.json())
           .then(data => {
             console.log(data);
