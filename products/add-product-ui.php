@@ -2,11 +2,11 @@
 <html lang="en-US" dir="ltr">
 <?php
 session_start();
-  // If the user is not logged in redirect to the login page...
-  if (!isset($_SESSION['loggedin'])) {
-    header('Location: ../index.php');
-    exit();
-  }
+// If the user is not logged in redirect to the login page...
+if (!isset($_SESSION['loggedin'])) {
+  header('Location: ../index.php');
+  exit();
+}
 include_once '../includes/dbconnect.php';
 include '../includes/base_page/head.php';
 ?>
@@ -34,7 +34,7 @@ include '../includes/base_page/head.php';
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <h5 class="p-2">Add New Product</h5>
         <!-- Content is to start here -->
-        <form action ="add_product.php"  method="post">
+        <form action="add_product.php" method="post">
           <div class="card">
             <div class="card-body fs--1 p-4">
               <div class="row">
@@ -103,15 +103,15 @@ include '../includes/base_page/head.php';
               <div class="row">
                 <div class="col">
                   <label for="tax_type">Tax Type*</label><br />
-                  <select class="form-select" name="tax_type" id="tax_type" required>
-                    <option value="exclusive">exclusive</option>
+                  <select class="form-select" name="tax_type" id="tax_type" required onchange="calculatePrices();">
+                    <option value=" exclusive">exclusive</option>
                     <option value="inclusive">inclusive</option>
                   </select>
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
                 <div class="col">
                   <label for="applicable_tax">Applicable Tax*</label><br />
-                  <select class="form-select" name="applicable_tax" id="applicable_tax" required>
+                  <select class="form-select" name="applicable_tax" id="applicable_tax" required onchange="calculatePrices();">
                     <option value="0">none</option>
                     <option value="16">16%</option>
                     <option value="14">14%</option>
@@ -120,8 +120,8 @@ include '../includes/base_page/head.php';
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
                 <div class="col">
-                  <label class="form-label" for="ammount_before_tax">Amount Before Tax*</label>
-                  <input type="number" class="form-control" name="ammount_before_tax" id="ammount_before_tax" required>
+                  <label class="form-label" for="amount_before_tax">Amount Before Tax*</label>
+                  <input type="number" class="form-control" name="amount_before_tax" id="amount_before_tax" required onchange="calculatePrices();">
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
               </div>
@@ -152,7 +152,7 @@ include '../includes/base_page/head.php';
                     <td>
                       <label class="form-label" for="profit_margin">*</label>
                       <div class="input-group mb-3 col col-md-2">
-                        <input type="number" class="form-control" name="profit_margin" aria-describedby="margin-percentage-label" id="profit_margin" required>
+                        <input type="number" class="form-control" name="profit_margin" aria-describedby="margin-percentage-label" value="25" id="profit_margin" required>
                         <span class="input-group-text" id="margin-percentage-label">%</span>
                       </div>
                       <div class="invalid-feedback">This field cannot be left blank.</div>
@@ -168,7 +168,7 @@ include '../includes/base_page/head.php';
             </div>
           </div>
 
-          <input type="submit" class="btn btn-primary m-2" name= "submit" value="Submit">
+          <input type="submit" class="btn btn-primary m-2" name="submit" value="Submit">
         </form>
         <!-- Content ends here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
@@ -176,17 +176,40 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
 
         <script>
-        // listen for the DOMContentLoaded event, then bind our function
-        document.addEventListener('DOMContentLoaded', function() {
+          // listen for the DOMContentLoaded event, then bind our function
+          document.addEventListener('DOMContentLoaded', function() {
 
-          const product_code = document.querySelector("#product_code")
-          fetch('get-item-code.php')
-          .then(response => response.json())
-          .then(data => {
-            console.log(data);
-            product_code.value = data;
-            });
+            const product_code = document.querySelector("#product_code")
+            fetch('get-item-code.php')
+              .then(response => response.json())
+              .then(data => {
+                console.log(data);
+                product_code.value = data;
+              });
           });
+
+          function calculatePrices() {
+            const tax_type = document.querySelector("#tax_type");
+            const applicable_tax = document.querySelector("#applicable_tax");
+            const amount_before_tax = document.querySelector("#amount_before_tax");
+
+            const dpp_exc_tax = document.querySelector("#dpp_exc_tax");
+            const dpp_inc_tax = document.querySelector("#dpp_inc_tax");
+            const profit_margin = document.querySelector("#profit_margin");
+            const dsp_price = document.querySelector("#dsp_price");
+
+
+            dpp_exc_tax.value = amount_before_tax.value
+
+            if (tax_type.value == "inclusive" && applicable_tax.value > 0) {
+              dpp_inc_tax.value = (applicable_tax.value / 100 * amount_before_tax.value) + Number(amount_before_tax.value);
+            } else {
+              dpp_inc_tax.value = amount_before_tax.value;
+            }
+
+            dsp_price.value = (profit_margin.value / 100 * amount_before_tax.value) + Number(amount_before_tax.value)
+            console.log(tax_type.value, applicable_tax.value, amount_before_tax.value);
+          }
         </script>
 
 
