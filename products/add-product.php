@@ -52,9 +52,8 @@ include '../includes/base_page/head.php';
                   <input type="text" class="form-control" name="product_unit" id="product_unit">
                 </div>
                 <div class="col">
-                  <!-- Make Combo -->
                   <label class="form-label" for="product_image">Product Image*</label>
-                  <input class="form-control" id="product_image" name="product_image" type="file" />
+                  <input class="form-control" id="product_image" name="product_image" type="file" accept="image/*" />
                 </div>
               </div>
             </div>
