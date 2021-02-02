@@ -104,7 +104,7 @@ include '../includes/base_page/head.php';
                 <div class="col">
                   <label for="tax_type">Tax Type*</label><br />
                   <select class="form-select" name="tax_type" id="tax_type" required onchange="calculatePrices();">
-                    <option value=" exclusive">exclusive</option>
+                    <option value="exclusive">exclusive</option>
                     <option value="inclusive">inclusive</option>
                   </select>
                   <div class="invalid-feedback">This field cannot be left blank.</div>
@@ -202,7 +202,15 @@ include '../includes/base_page/head.php';
             dpp_exc_tax.value = amount_before_tax.value
 
             if (tax_type.value == "inclusive" && applicable_tax.value > 0) {
+              // dpp_inc_tax.value = (applicable_tax.value / 100 * amount_before_tax.value) + Number(amount_before_tax.value);
+              dpp_inc_tax.value = amount_before_tax.value
+              dpp_inc_tax.value = Number(dpp_inc_tax.value).toFixed(2)
+              dpp_exc_tax.value = Number(amount_before_tax.value) / ((Number(applicable_tax.value) + 100) / 100)
+              dpp_exc_tax.value = Number(dpp_exc_tax.value).toFixed(2)
+            } else if (tax_type.value == "exclusive" && applicable_tax.value > 0) {
+              console.log("here");
               dpp_inc_tax.value = (applicable_tax.value / 100 * amount_before_tax.value) + Number(amount_before_tax.value);
+              dpp_inc_tax.value = Number(dpp_inc_tax.value).toFixed(2)
             } else {
               dpp_inc_tax.value = amount_before_tax.value;
             }
