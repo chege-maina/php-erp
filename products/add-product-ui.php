@@ -7,7 +7,7 @@ session_start();
     header('Location: index.php');
     exit();
   }
-  include_once 'includes/dbconnect.php';
+include_once '../includes/dbconnect.php';
 include '../includes/base_page/head.php';
 ?>
 
