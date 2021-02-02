@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
+<?php
+include './includes/base_page/head.php';
+?>
 
-<head>
-  <?php
-  include './includes/base_page/head.php';
-  ?>
-</head>
 
 
 <body>
-
   <!-- ===============================================-->
   <!--    Main Content-->
   <!-- ===============================================-->
@@ -62,5 +59,4 @@
         <!-- Footer End -->
         <!-- =========================================================== -->
 </body>
-
 </html>
