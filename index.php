@@ -131,7 +131,7 @@
               success: function(data) {
                 $('#loginfrm')[0].reset();
                 if(data=='Dashboard'){
-                  window.location.replace("dashtmp.php");
+                  window.location.replace("products/add-product-ui.php");
                 }
                 else{
                 alert(data)}
