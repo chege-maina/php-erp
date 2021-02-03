@@ -32,12 +32,24 @@ function genSideBar()
     </li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link dropdown-indicator" href="#purchase_rqn" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="purchase_rqn">
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span><span class="nav-link-text"> Purchase Requisition</span>
+  </div>
+</a>
+<ul class="nav collapse" id="purchase_rqn" data-parent="#navbarVerticalCollapse">
+  <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/warehouse_add_pr.php">Create Requisition</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../email/email-detail.html">Manage Requisitions</a>
+  </li>
+  </ul>
+</li>
+<!-- Purchase order -->
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#email" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="email">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span><span class="nav-link-text"> Procurement</span>
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span><span class="nav-link-text"> Purchase Order</span>
   </div>
 </a>
 <ul class="nav collapse" id="email" data-parent="#navbarVerticalCollapse">
-  <li class="nav-item"><a class="nav-link" href="../email/inbox.html">Purchase Requisition</a>
+  <li class="nav-item"><a class="nav-link" href="../purchase_orders/create_purchase_order.php">Create Purchase Order</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../email/email-detail.html">Purchase Order</a>
   </li>
