@@ -34,7 +34,7 @@ include '../includes/base_page/head.php';
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <h5 class="p-2">Add New Product</h5>
         <!-- Content is to start here -->
-        <form action ="add_product.php"  method="post" name="add_product" id="add_product" enctype="multipart/form-data">
+        <form action="add_product.php" method="post" name="add_product" id="add_product" enctype="multipart/form-data">
           <div class="card">
             <div class="card-body fs--1 p-4">
               <div class="row">
@@ -51,7 +51,8 @@ include '../includes/base_page/head.php';
                 <div class="col">
                   <!-- Make Combo -->
                   <label class="form-label" for="product_category">Category*</label>
-                  <input type="text" class="form-control" name="product_category" id="product_category" required>
+                  <select class="form-select" name="product_category" id="product_category" required>
+                  </select>
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
               </div>
@@ -59,7 +60,7 @@ include '../includes/base_page/head.php';
                 <div class="col">
                   <!-- Make Combo -->
                   <label class="form-label" for="product_unit">Unit*</label>
-                  <input type="text" class="form-control" name="product_unit" id="product_unit" required>
+                  <select class="form-select" name="product_unit" id="product_unit" required></select>
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
                 <div class="col">
@@ -167,7 +168,7 @@ include '../includes/base_page/head.php';
               </table>
             </div>
           </div>
-          <input type="submit" class="btn btn-primary m-2" name= "submit" id= "submit" value="Submit">
+          <input type="submit" class="btn btn-falcon-primary m-2" name="submit" id="submit" value="Submit">
         </form>
         <!-- Content ends here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
@@ -185,6 +186,9 @@ include '../includes/base_page/head.php';
                 console.log(data);
                 product_code.value = data;
               });
+
+            const product_unit = document.querySelector("#product_unit");
+            const product_category = document.querySelector("#product_category");
           });
 
           function calculatePrices() {
