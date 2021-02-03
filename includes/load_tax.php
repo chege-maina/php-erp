@@ -4,7 +4,7 @@ header("Content-type:application/json");
 
 include_once 'dbconnect.php';
 
-	$query = "SELECT * FROM tbl_tax";
+	$query = "SELECT * FROM tbl_tax ORDER BY col_tax asc";
 	
 	$result = mysqli_query($conn, $query);
 	$response = array();
