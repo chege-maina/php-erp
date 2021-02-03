@@ -196,15 +196,30 @@ include '../includes/base_page/head.php';
 
             const product_unit = document.querySelector("#product_unit");
             const product_category = document.querySelector("#product_category");
+
+            // Populate categories combobox
             fetch('../includes/load_category.php')
               .then(response => response.json())
               .then(data => {
-                console.log(data);
                 data.forEach((value) => {
                   let opt = document.createElement("option");
                   opt.appendChild(document.createTextNode(value['category'].toLowerCase()));
                   opt.value = value['category'].toLowerCase();
                   product_category.appendChild(opt);
+                });
+              });
+
+            // Populate units combobox
+            fetch('../includes/load_unit.php')
+              .then(response => response.json())
+              .then(data => {
+                console.log(data);
+                data.forEach((value) => {
+                  console.log(value);
+                  let opt = document.createElement("option");
+                  opt.appendChild(document.createTextNode(value['unit'] + " (" + value['desc'].toLowerCase() + ")"));
+                  opt.value = value['unit'].toLowerCase();
+                  product_unit.appendChild(opt);
                 });
               });
           });
