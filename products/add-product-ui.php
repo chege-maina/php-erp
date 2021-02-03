@@ -287,7 +287,7 @@ include '../includes/base_page/head.php';
             fetch('get-item-code.php')
               .then(response => response.json())
               .then(data => {
-                console.log(data);
+                // console.log(data);
                 product_code.value = data;
               });
 
