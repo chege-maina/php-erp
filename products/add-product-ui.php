@@ -218,6 +218,7 @@ include '../includes/base_page/head.php';
             //console.log(tax_type.value, applicable_tax.value, amount_before_tax.value);
           }
         </script>
+        
 
 
         <!-- =========================================================== -->
