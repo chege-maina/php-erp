@@ -69,22 +69,24 @@ include '../includes/base_page/head.php';
               </div>
               <div class="row pt-3">
                 <div class="col">
-                  <!-- Units -->
+                  <div class="col">
+                    <!-- Units -->
 
-                  <label class="form-label" for="product_unit">Unit*</label>
-                  <div class="input-group">
-                    <select class="form-select" name="product_unit" id="product_unit" required>
-                      <option value disabled selected>
-                        -- Select Unit --
-                      </option>
-                    </select>
+                    <label class="form-label" for="product_unit">Unit*</label>
+                    <div class="input-group">
+                      <select class="form-select" name="product_unit" id="product_unit" required>
+                        <option value disabled selected>
+                          -- Select Unit --
+                        </option>
+                      </select>
 
-                    <div class="invalid-feedback">This field cannot be left blank.</div>
+                      <div class="invalid-feedback">This field cannot be left blank.</div>
 
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addUnit">
-                      +
-                    </button>
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addUnit">
+                        +
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <div class="col">
@@ -137,10 +139,6 @@ include '../includes/base_page/head.php';
                 <div class="col">
                   <label for="applicable_tax">Applicable Tax*</label><br />
                   <select class="form-select" name="applicable_tax" id="applicable_tax" required onchange="calculatePrices();">
-                    <option value="0">none</option>
-                    <option value="16">16%</option>
-                    <option value="14">14%</option>
-                    <option value="8">8%</option>
                   </select>
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
@@ -274,7 +272,11 @@ include '../includes/base_page/head.php';
         <script>
           // listen for the DOMContentLoaded event, then bind our function
           document.addEventListener('DOMContentLoaded', function() {
+            updateComboBoxes();
+          });
 
+
+          function updateComboBoxes() {
             const product_code = document.querySelector("#product_code")
             fetch('get-item-code.php')
               .then(response => response.json())
@@ -285,6 +287,7 @@ include '../includes/base_page/head.php';
 
             const product_unit = document.querySelector("#product_unit");
             const product_category = document.querySelector("#product_category");
+            const applicable_tax = document.querySelector("#applicable_tax");
 
             // Populate categories combobox
             fetch('../includes/load_category.php')
@@ -302,16 +305,28 @@ include '../includes/base_page/head.php';
             fetch('../includes/load_unit.php')
               .then(response => response.json())
               .then(data => {
-                console.log(data);
                 data.forEach((value) => {
-                  console.log(value);
                   let opt = document.createElement("option");
                   opt.appendChild(document.createTextNode(value['unit'] + " (" + value['desc'].toLowerCase() + ")"));
                   opt.value = value['unit'].toLowerCase();
                   product_unit.appendChild(opt);
                 });
               });
-          });
+
+            // Populate taxess combobox
+            fetch('../includes/load_tax.php')
+              .then(response => response.json())
+              .then(data => {
+                console.log(data);
+                data.forEach((value) => {
+                  console.log(value);
+                  let opt = document.createElement("option");
+                  opt.appendChild(document.createTextNode(value['tax'] + "%"));
+                  opt.value = value['tax'];
+                  applicable_tax.appendChild(opt);
+                });
+              });
+          }
 
           function calculatePrices() {
             const tax_type = document.querySelector("#tax_type");
