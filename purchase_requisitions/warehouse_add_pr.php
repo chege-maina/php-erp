@@ -25,20 +25,62 @@ include '../includes/base_page/head.php';
                 <!-- =========================================================== -->
                 <!-- body begins here -->
                 <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+                <h5 class="p-2">Add Purchase Requisition</h5>
                 <div class="card">
-                    <div class="card-header bg-light">
-                        <h5 class="mb-0">Change My Title</h5>
-                    </div>
                     <div class="card-body fs--1 p-4">
                         <!-- Content is to start here -->
-                        <div class="mb-3">
-                            <label class="form-label" for="exampleFormControlInput1">Email address</label>
-                            <input class="form-control" id="exampleFormControlInput1" type="search" placeholder="name@example.com" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="exampleFormControlTextarea1">Example textarea</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                        </div>
+                        <form>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="requisition_number" class="form-label">Requisition Number*</label>
+                                    <input type="number" name="requisition_number" id="requisition_number" class="form-control">
+                                </div>
+                                <div class="col">
+                                    <label for="requisition_date" class="form-label">Date</label>
+                                    <!-- autofill current date  -->
+                                    <input type="date" name="requisition_date" id="requisition_date" class="form-control">
+                                </div>
+                                <div class="col">
+                                    <label for="requisition_time" class="form-label">Time</label>
+                                    <!-- autofill current time  -->
+                                    <input type="time" name="requisition_time" id="requisition_time" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row my-3">
+                                <div class="col">
+                                    <div class="input-group mb-3">
+                                        <select name="reorderble_items" id="reorderble_items" class="form-select">
+                                            <option value="tanks">tanks</option>
+                                        </select>
+                                        <button class="input-group-button btn btn-primary">
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row my-3">
+                                <div class="col">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Product Code</th>
+                                                <th scope="col">Product Name</th>
+                                                <th scope="col">Units</th>
+                                                <th scope="col">Quantity</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">033</th>
+                                                <td>Roto</td>
+                                                <td>Pieces</td>
+                                                <td>3</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </form>
                         <!-- Content ends here -->
                     </div>
                     <!-- Additional cards can be added here -->
