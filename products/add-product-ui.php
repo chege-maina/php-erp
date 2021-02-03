@@ -167,12 +167,7 @@ include '../includes/base_page/head.php';
               </table>
             </div>
           </div>
-
-<<<<<<< HEAD
           <input type="submit" class="btn btn-primary m-2" name= "submit" id= "submit" value="Submit">
-=======
-          <input type="submit" class="btn btn-primary m-2" name="submit" value="Submit">
->>>>>>> 90dcc98c5eff6ebb4b33d74eb1d6d3221b972a17
         </form>
         <!-- Content ends here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
