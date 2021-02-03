@@ -3,7 +3,7 @@ include_once '../includes/dbconnect.php';
 
 $allow = array("jpg", "jpeg", "gif", "png");
 
-$todir = '../assets/img/item-images';
+$todir = '../assets/img/item-images/';
 
 if ( !!$_FILES['product_image']['tmp_name'] ) // is the file uploaded yet?
 {

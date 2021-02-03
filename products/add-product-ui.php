@@ -34,7 +34,7 @@ include '../includes/base_page/head.php';
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <h5 class="p-2">Add New Product</h5>
         <!-- Content is to start here -->
-        <form action ="add_product.php"  method="post">
+        <form action ="add_product.php"  method="post" name="add_product" id="add_product" enctype="multipart/form-data">
           <div class="card">
             <div class="card-body fs--1 p-4">
               <div class="row">
@@ -168,7 +168,7 @@ include '../includes/base_page/head.php';
             </div>
           </div>
 
-          <input type="submit" class="btn btn-primary m-2" name= "submit" value="Submit">
+          <input type="submit" class="btn btn-primary m-2" name= "submit" id= "submit" value="Submit">
         </form>
         <!-- Content ends here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
