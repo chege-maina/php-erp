@@ -62,13 +62,43 @@ include '../includes/base_page/head.php';
               <div class="row pt-3">
                 <div class="col">
                   <!-- Make Combo -->
+
                   <label class="form-label" for="product_unit">Unit*</label>
-                  <select class="form-select" name="product_unit" id="product_unit" required>
-                    <option value disabled selected>
-                      -- Select Unit --
-                    </option>
-                  </select>
-                  <div class="invalid-feedback">This field cannot be left blank.</div>
+                  <div class="input-group">
+                    <select class="form-select" name="product_unit" id="product_unit" required>
+                      <option value disabled selected>
+                        -- Select Unit --
+                      </option>
+                    </select>
+
+                    <div class="invalid-feedback">This field cannot be left blank.</div>
+
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addUnit">
+                      +
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="addUnit" tabindex="-1" role="dialog" aria-labelledby="addUnitLabel" aria-hidden="true" data-backdrop="static">
+                      <div class="modal-dialog" role="document">
+
+                        <div class="modal-content border-0">
+                          <div class="position-absolute top-0 right-0 mt-3 mr-3 z-index-1">
+                            <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body p-0">
+                            <div class="bg-light rounded-top-lg py-3 pl-4 pr-6">
+                              <h4 class="mb-1" id="adddUnitLabel">Add Content</h4>
+                            </div>
+                            <div class="p-4">
+                              Content
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="col">
                   <label class="form-label" for="product_image">Product Image*</label>
