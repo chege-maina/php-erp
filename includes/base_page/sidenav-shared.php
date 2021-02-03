@@ -1,5 +1,6 @@
 <?php
-function genSideBar() {
+function genSideBar()
+{
   echo <<<EOD
   <div class="navbar-vertical-content scrollbar">
   <ul class="navbar-nav flex-column">
@@ -18,12 +19,12 @@ function genSideBar() {
       </li>
     </ul>
   </li>
-  <li class="nav-item"><a class="nav-link dropdown-indicator" href="#pages" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="pages">
+  <li class="nav-item"><a class="nav-link dropdown-indicator" href="#pages" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="pages">
     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-copy"></span></span><span class="nav-link-text"> Products</span>
     </div>
   </a>
-  <ul class="nav collapse show" id="pages" data-parent="#navbarVerticalCollapse">
-    <li class="nav-item"><a class="nav-link active" href="../pages/activity.html">Add New Product</a>
+  <ul class="nav collapse" id="pages" data-parent="#navbarVerticalCollapse">
+    <li class="nav-item"><a class="nav-link" href="../products/add-product-ui.php">Add New Product</a>
     </li>
     <li class="nav-item"><a class="nav-link" href="../pages/associations.html">Manage Products</a>
     </li>
@@ -397,4 +398,3 @@ function genSideBar() {
 </div>
 EOD;
 }
-?>
