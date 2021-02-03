@@ -52,15 +52,22 @@ include '../includes/base_page/head.php';
                   <!-- Make Combo -->
                   <label class="form-label" for="product_category">Category*</label>
                   <select class="form-select" name="product_category" id="product_category" required>
+                    <option value disabled selected>
+                      -- Select Category --
+                    </option>
                   </select>
-                  <div class="invalid-feedback">This field cannot be left blank.</div>
+                  <div class="invalid-tooltip">This field cannot be left blank.</div>
                 </div>
               </div>
               <div class="row pt-3">
                 <div class="col">
                   <!-- Make Combo -->
                   <label class="form-label" for="product_unit">Unit*</label>
-                  <select class="form-select" name="product_unit" id="product_unit" required></select>
+                  <select class="form-select" name="product_unit" id="product_unit" required>
+                    <option value disabled selected>
+                      -- Select Unit --
+                    </option>
+                  </select>
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
                 <div class="col">
@@ -189,6 +196,17 @@ include '../includes/base_page/head.php';
 
             const product_unit = document.querySelector("#product_unit");
             const product_category = document.querySelector("#product_category");
+            fetch('../includes/load_category.php')
+              .then(response => response.json())
+              .then(data => {
+                console.log(data);
+                data.forEach((value) => {
+                  let opt = document.createElement("option");
+                  opt.appendChild(document.createTextNode(value['category'].toLowerCase()));
+                  opt.value = value['category'].toLowerCase();
+                  product_category.appendChild(opt);
+                });
+              });
           });
 
           function calculatePrices() {
