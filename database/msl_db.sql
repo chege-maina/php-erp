@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 03, 2021 at 01:44 PM
+-- Generation Time: Feb 03, 2021 at 02:00 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -57,6 +57,20 @@ INSERT INTO `tbl_category` (`category_code`, `category_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_customer`
+--
+
+CREATE TABLE `tbl_customer` (
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `telephone_no` varchar(100) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `customer_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_product`
 --
 
@@ -92,7 +106,8 @@ CREATE TABLE `tbl_requisition` (
   `requisition_No` bigint(20) NOT NULL,
   `date` date NOT NULL,
   `time` varchar(50) NOT NULL,
-  `user` varchar(50) NOT NULL
+  `user` varchar(50) NOT NULL,
+  `branch` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -109,6 +124,20 @@ CREATE TABLE `tbl_requisition_items` (
   `product_unit` varchar(10) NOT NULL,
   `product_quantity` varchar(200) NOT NULL,
   `status` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_supplier`
+--
+
+CREATE TABLE `tbl_supplier` (
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `telephone_no` varchar(100) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `supplier_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -197,6 +226,13 @@ ALTER TABLE `tbl_category`
   ADD UNIQUE KEY `category_name` (`category_name`);
 
 --
+-- Indexes for table `tbl_customer`
+--
+ALTER TABLE `tbl_customer`
+  ADD PRIMARY KEY (`customer_id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
 -- Indexes for table `tbl_product`
 --
 ALTER TABLE `tbl_product`
@@ -215,6 +251,13 @@ ALTER TABLE `tbl_requisition`
 ALTER TABLE `tbl_requisition_items`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `requisition_No` (`requisition_No`);
+
+--
+-- Indexes for table `tbl_supplier`
+--
+ALTER TABLE `tbl_supplier`
+  ADD PRIMARY KEY (`supplier_id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indexes for table `tbl_tax`
@@ -252,6 +295,12 @@ ALTER TABLE `tbl_category`
   MODIFY `category_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `tbl_customer`
+--
+ALTER TABLE `tbl_customer`
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tbl_product`
 --
 ALTER TABLE `tbl_product`
@@ -268,6 +317,12 @@ ALTER TABLE `tbl_requisition`
 --
 ALTER TABLE `tbl_requisition_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_supplier`
+--
+ALTER TABLE `tbl_supplier`
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_unit`
