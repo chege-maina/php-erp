@@ -39,7 +39,7 @@ function genSideBar()
 <ul class="nav collapse" id="purchase_rqn" data-parent="#navbarVerticalCollapse">
   <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/warehouse_add_pr.php">Create Requisition</a>
   </li>
-  <li class="nav-item"><a class="nav-link" href="../email/email-detail.html">Manage Requisitions</a>
+  <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions.php">Manage Requisitions</a>
   </li>
   </ul>
 </li>

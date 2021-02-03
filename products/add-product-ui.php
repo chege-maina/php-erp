@@ -34,7 +34,7 @@ include '../includes/base_page/head.php';
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <h5 class="p-2">Add New Product</h5>
         <!-- Content is to start here -->
-        <form action ="add_product.php"  method="post" name="add_product" id="add_product" enctype="multipart/form-data">
+        <form action="add_product.php" method="post" name="add_product" id="add_product" enctype="multipart/form-data">
           <div class="card">
             <div class="card-body fs--1 p-4">
               <div class="row">
@@ -51,16 +51,41 @@ include '../includes/base_page/head.php';
                 <div class="col">
                   <!-- Make Combo -->
                   <label class="form-label" for="product_category">Category*</label>
-                  <input type="text" class="form-control" name="product_category" id="product_category" required>
-                  <div class="invalid-feedback">This field cannot be left blank.</div>
+                  <div class="input-group">
+                    <select class="form-select" name="product_category" id="product_category" required>
+                      <option value disabled selected>
+                        -- Select Category --
+                      </option>
+                    </select>
+                    <div class="invalid-tooltip">This field cannot be left blank.</div>
+
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addCategory">
+                      +
+                    </button>
+
+                  </div>
                 </div>
               </div>
               <div class="row pt-3">
                 <div class="col">
-                  <!-- Make Combo -->
+                  <!-- Units -->
+
                   <label class="form-label" for="product_unit">Unit*</label>
-                  <input type="text" class="form-control" name="product_unit" id="product_unit" required>
-                  <div class="invalid-feedback">This field cannot be left blank.</div>
+                  <div class="input-group">
+                    <select class="form-select" name="product_unit" id="product_unit" required>
+                      <option value disabled selected>
+                        -- Select Unit --
+                      </option>
+                    </select>
+
+                    <div class="invalid-feedback">This field cannot be left blank.</div>
+
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addUnit">
+                      +
+                    </button>
+                  </div>
                 </div>
                 <div class="col">
                   <label class="form-label" for="product_image">Product Image*</label>
@@ -167,12 +192,84 @@ include '../includes/base_page/head.php';
               </table>
             </div>
           </div>
-          <input type="submit" class="btn btn-primary m-2" name= "submit" id= "submit" value="Submit">
+          <input type="submit" class="btn btn-falcon-primary m-2" name="submit" id="submit" value="Submit">
         </form>
         <!-- Content ends here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <!-- body ends here -->
         <!-- =========================================================== -->
+
+        <!-- =========================================================== -->
+        <!-- modals -->
+        <!-- =========================================================== -->
+        <!-- Category Modal -->
+        <div class="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-labelledby="addCategoryLabel" aria-hidden="true" data-backdrop="static">
+          <div class="modal-dialog" role="document">
+
+            <div class="modal-content border-0">
+              <div class="position-absolute top-0 right-0 mt-3 mr-3 z-index-1">
+                <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body p-0">
+                <div class="bg-light rounded-top-lg py-3 pl-4 pr-6">
+                  <h4 class="mb-1" id="addUnitLabel">Add Category</h4>
+                </div>
+                <div class="p-4">
+                  <!-- Category Form -->
+                  <form>
+                    <div class="p2">
+                      <label for="modal_category_name" class="form-label">Category Name*</label>
+                      <input type="text" name="category_name" id="modal_category_name" class="form-control" required>
+                      <div class="invalid-feedback">This field cannot be left blank.</div>
+                    </div>
+                    <input type="button" value="Add" class="btn btn-falcon-primary mt-2">
+                  </form>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Units Modal -->
+        <div class="modal fade" id="addUnit" tabindex="-1" role="dialog" aria-labelledby="addUnitLabel" aria-hidden="true" data-backdrop="static">
+          <div class="modal-dialog" role="document">
+
+            <div class="modal-content border-0">
+              <div class="position-absolute top-0 right-0 mt-3 mr-3 z-index-1">
+                <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body p-0">
+                <div class="bg-light rounded-top-lg py-3 pl-4 pr-6">
+                  <h4 class="mb-1" id="addUnitLabel">Add Unit</h4>
+                </div>
+                <div class="p-4">
+                  <!-- Units form  -->
+                  <form>
+                    <div class="row">
+                      <div class="col">
+                        <label for="modal_unit_name" class="form-label">Unit*</label>
+                        <input type="text" name="unit_name" id="modal_unit_name" class="form-control" required>
+                        <div class="invalid-feedback">This field cannot be left blank.</div>
+                      </div>
+                    </div>
+
+                    <div class="row mt-2">
+                      <div class="col">
+                        <label for="modal_unit_description" class="form-label">Unit Description*</label>
+                        <input type="text" name="unit_description" id="modal_unit_description" class="form-control" required>
+                        <div class="invalid-feedback">This field cannot be left blank.</div>
+                      </div>
+                    </div>
+
+                    <input type="button" value="Add" class="btn btn-falcon-primary mt-2">
+                  </form>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
 
         <script>
           // listen for the DOMContentLoaded event, then bind our function
@@ -184,6 +281,35 @@ include '../includes/base_page/head.php';
               .then(data => {
                 console.log(data);
                 product_code.value = data;
+              });
+
+            const product_unit = document.querySelector("#product_unit");
+            const product_category = document.querySelector("#product_category");
+
+            // Populate categories combobox
+            fetch('../includes/load_category.php')
+              .then(response => response.json())
+              .then(data => {
+                data.forEach((value) => {
+                  let opt = document.createElement("option");
+                  opt.appendChild(document.createTextNode(value['category'].toLowerCase()));
+                  opt.value = value['category'].toLowerCase();
+                  product_category.appendChild(opt);
+                });
+              });
+
+            // Populate units combobox
+            fetch('../includes/load_unit.php')
+              .then(response => response.json())
+              .then(data => {
+                console.log(data);
+                data.forEach((value) => {
+                  console.log(value);
+                  let opt = document.createElement("option");
+                  opt.appendChild(document.createTextNode(value['unit'] + " (" + value['desc'].toLowerCase() + ")"));
+                  opt.value = value['unit'].toLowerCase();
+                  product_unit.appendChild(opt);
+                });
               });
           });
 
@@ -218,6 +344,7 @@ include '../includes/base_page/head.php';
             //console.log(tax_type.value, applicable_tax.value, amount_before_tax.value);
           }
         </script>
+
 
 
         <!-- =========================================================== -->

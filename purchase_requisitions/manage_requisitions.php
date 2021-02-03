@@ -25,19 +25,41 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+        <h5 class="p-2">Manage Requisitions</h5>
         <div class="card">
-          <div class="card-header bg-light">
-            <h5 class="mb-0">Change My Title</h5>
-          </div>
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
-            <div class="mb-3">
-              <label class="form-label" for="exampleFormControlInput1">Email address</label>
-              <input class="form-control" id="exampleFormControlInput1" type="search" placeholder="name@example.com" />
+            <div class="row pb-2">
+              <div class="col">
+                <label for="req_nbr" class="form-label">Requisition Number</label>
+                <input type="text" name="req_nbr" id="req_nbr" class="form-control" readonly>
+              </div>
+              <div class="col">
+                <label for="req_date" class="form-label">Date</label>
+                <input type="date" name="req_date" id="req_date" class="form-control" readonly>
+              </div>
+              <div class="col">
+                <label for="req_time" class="form-label">Time</label>
+                <input type="time" name="req_time" id="req_time" class="form-control" readonly>
+              </div>
             </div>
-            <div class="mb-3">
-              <label class="form-label" for="exampleFormControlTextarea1">Example textarea</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <table class="table mt-2">
+              <thead>
+                <tr>
+                  <th>Product Code</th>
+                  <th>Product Name</th>
+                  <th>Units</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+            </table>
+            <div class="col">
+              <button class="btn btn-falcon-success mr-1 mb-1" type="button">Approve
+              </button>
+              <button class="btn btn-falcon-danger mr-1 mb-1" type="button">Reject
+              </button>
+              <button class="btn btn-falcon-primary mr-1 mb-1" type="button">Cancel
+              </button>
             </div>
             <!-- Content ends here -->
           </div>
