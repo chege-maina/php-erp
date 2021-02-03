@@ -25,13 +25,13 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <h5 class="p-2">Add Purchase Requisition</h5>
+        <h5 class="p-2">Create Purchase Order</h5>
         <div class="card">
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
             <div class="row">
               <div class="col">
-                <label for="requisition_number" class="form-label">Requisition Number*</label>
+                <label for="requisition_number" class="form-label">Purchase Order Number*</label>
                 <input type="number" name="requisition_number" id="requisition_number" class="form-control">
               </div>
               <div class="col">
@@ -43,6 +43,15 @@ include '../includes/base_page/head.php';
                 <label for="requisition_time" class="form-label">Time</label>
                 <!-- autofill current time  -->
                 <input type="time" name="requisition_time" id="requisition_time" class="form-control">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col">
+                <label for="supplier" class="form-label">Supplier*</label>
+                <select name="supplier" id="supplier" class="form-select">
+                  <option value="a">a</option>
+                  <option value="b">b</option>
+                </select>
               </div>
             </div>
             <div class="row my-3">
@@ -89,6 +98,12 @@ include '../includes/base_page/head.php';
                     <tr>
                       <th>033</th>
                       <td>Roto</td>
+                      <td>Pieces</td>
+                      <td>3</td>
+                    </tr>
+                    <tr>
+                      <th>033</th>
+                      <td>Mabati</td>
                       <td>Pieces</td>
                       <td>3</td>
                     </tr>

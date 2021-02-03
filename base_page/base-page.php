@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 <?php
-include './includes/base_page/head.php';
+include '../includes/base_page/head.php';
 ?>
 
 
@@ -14,12 +14,12 @@ include './includes/base_page/head.php';
     <div class="container" data-layout="container">
       <!--nav starts here -->
       <?php
-      include './includes/base_page/nav.php';
+      include '../includes/base_page/nav.php';
       ?>
 
       <div class="content">
         <?php
-        include './navbar-shared.php';
+        include '../navbar-shared.php';
         ?>
 
         <!-- =========================================================== -->
@@ -53,10 +53,11 @@ include './includes/base_page/head.php';
         <!-- Footer Begin -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <?php
-        include './includes/base_page/footer.php';
+        include '../includes/base_page/footer.php';
         ?>
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <!-- Footer End -->
         <!-- =========================================================== -->
 </body>
+
 </html>
