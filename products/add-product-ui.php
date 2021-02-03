@@ -216,7 +216,12 @@ include '../includes/base_page/head.php';
                 </div>
                 <div class="p-4">
                   <form>
-                    <label for="modal_category_name" class="form-label"></label><input type="text" name="" id="modal_category_name" class="form-control">
+                    <div class="p2">
+                      <label for="modal_category_name" class="form-label">Category Name*</label>
+                      <input type="text" name="category_name" id="modal_category_name" class="form-control" required>
+
+                    </div>
+                    <input type="button" value="Add" class="btn btn-falcon-primary mt-2">
                   </form>
                 </div>
               </div>
