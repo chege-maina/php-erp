@@ -64,26 +64,6 @@ include '../includes/base_page/head.php';
                       +
                     </button>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-labelledby="addCategoryLabel" aria-hidden="true" data-backdrop="static">
-                      <div class="modal-dialog" role="document">
-
-                        <div class="modal-content border-0">
-                          <div class="position-absolute top-0 right-0 mt-3 mr-3 z-index-1">
-                            <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body p-0">
-                            <div class="bg-light rounded-top-lg py-3 pl-4 pr-6">
-                              <h4 class="mb-1" id="addUnitLabel">Add Category</h4>
-                            </div>
-                            <div class="p-4">
-                              Content
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -105,27 +85,6 @@ include '../includes/base_page/head.php';
                     <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addUnit">
                       +
                     </button>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="addUnit" tabindex="-1" role="dialog" aria-labelledby="addUnitLabel" aria-hidden="true" data-backdrop="static">
-                      <div class="modal-dialog" role="document">
-
-                        <div class="modal-content border-0">
-                          <div class="position-absolute top-0 right-0 mt-3 mr-3 z-index-1">
-                            <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body p-0">
-                            <div class="bg-light rounded-top-lg py-3 pl-4 pr-6">
-                              <h4 class="mb-1" id="addUnitLabel">Add Units</h4>
-                            </div>
-                            <div class="p-4">
-                              Content
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div class="col">
@@ -239,6 +198,53 @@ include '../includes/base_page/head.php';
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <!-- body ends here -->
         <!-- =========================================================== -->
+
+        <!-- =========================================================== -->
+        <!-- modals -->
+        <!-- =========================================================== -->
+        <!-- Category Modal -->
+        <div class="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-labelledby="addCategoryLabel" aria-hidden="true" data-backdrop="static">
+          <div class="modal-dialog" role="document">
+
+            <div class="modal-content border-0">
+              <div class="position-absolute top-0 right-0 mt-3 mr-3 z-index-1">
+                <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body p-0">
+                <div class="bg-light rounded-top-lg py-3 pl-4 pr-6">
+                  <h4 class="mb-1" id="addUnitLabel">Add Category</h4>
+                </div>
+                <div class="p-4">
+                  <form>
+                    <label for="modal_category_name" class="form-label"></label><input type="text" name="" id="modal_category_name" class="form-control">
+                  </form>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Units Modal -->
+        <div class="modal fade" id="addUnit" tabindex="-1" role="dialog" aria-labelledby="addUnitLabel" aria-hidden="true" data-backdrop="static">
+          <div class="modal-dialog" role="document">
+
+            <div class="modal-content border-0">
+              <div class="position-absolute top-0 right-0 mt-3 mr-3 z-index-1">
+                <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body p-0">
+                <div class="bg-light rounded-top-lg py-3 pl-4 pr-6">
+                  <h4 class="mb-1" id="addUnitLabel">Add Units</h4>
+                </div>
+                <div class="p-4">
+                  Content
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
 
         <script>
           // listen for the DOMContentLoaded event, then bind our function
