@@ -47,21 +47,28 @@ include '../includes/base_page/head.php';
             </div>
             <div class="row my-3">
               <div class="col">
+
                 <div class="dropdown font-sans-serif position-static">
                   <button class="btn text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="customer-dropdown-0" data-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false">
                     Items to Requisition
                   </button>
-                  <div class="dropdown-menu dropdown-menu border py-0" aria-labelledby="customer-dropdown-0">
+                  <div class="dropdown-menu dropdown-menu-left border py-0" aria-labelledby="customer-dropdown-0">
                     <div class="bg-white py-2">
-                      <a class="dropdown-item" href="#!">
-                        <table class="table">
-                          <tbody>
+                      <table class="table table-hover">
+
+                        <thead>
+                          <tr>
+                            <th>Product Name</th>
+                            <th>Product Balance</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
                             <td>Tanks</td>
                             <td>2</td>
-                          </tbody>
-                        </table>
-                      </a>
-                      <a class="dropdown-item text-danger" href="#!">Delete</a>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
