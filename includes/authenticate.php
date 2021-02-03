@@ -14,14 +14,14 @@ if ( !isset($_POST['email'], $_POST['password']) ) {
 	die ('Please fill both the username and password field!');
 }
 // Prepare our SQL, preparing the SQL statement will prevent SQL injection.
-if ($stmt = $con->prepare('SELECT email, password FROM tbl_user WHERE email = ?')) {
+if ($stmt = $con->prepare('SELECT email, password, designation, branch, first_name, last_name FROM tbl_user WHERE email = ?')) {
 	// Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
 	$stmt->bind_param('s', $_POST['email']);
 	$stmt->execute();
 	// Store the result so we can check if the account exists in the database.
 	$stmt->store_result();
 if ($stmt->num_rows > 0) {
-	$stmt->bind_result($username, $password);
+	$stmt->bind_result($email, $password, $desigantion, $branch, $first_name, $last_name);
 	$stmt->fetch();
 	// Account exists, now we verify the password.
 	// Note: remember to use password_hash in your registration file to store the hashed passwords.
@@ -30,7 +30,8 @@ if ($stmt->num_rows > 0) {
 		// Create sessions so we know the user is logged in, they basically act like cookies but remember the data on the server.
 		session_regenerate_id();
 		$_SESSION['loggedin'] = TRUE;
-		$_SESSION['name'] = $username;
+		$_SESSION['branch'] = $branch;
+		$_SESSION['name'] = $first_name." ".$last_name;
 		$_SESSION['id'] = $_POST['email'];
 
 		echo 'Dashboard';
