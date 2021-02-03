@@ -215,7 +215,7 @@ include '../includes/base_page/head.php';
             }
 
             dsp_price.value = (profit_margin.value / 100 * amount_before_tax.value) + Number(amount_before_tax.value)
-            console.log(tax_type.value, applicable_tax.value, amount_before_tax.value);
+            //console.log(tax_type.value, applicable_tax.value, amount_before_tax.value);
           }
         </script>
 
