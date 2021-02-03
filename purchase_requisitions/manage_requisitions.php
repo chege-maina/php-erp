@@ -54,7 +54,12 @@ include '../includes/base_page/head.php';
               </thead>
             </table>
             <div class="col">
-
+              <button class="btn btn-falcon-success mr-1 mb-1" type="button">Approve
+              </button>
+              <button class="btn btn-falcon-danger mr-1 mb-1" type="button">Reject
+              </button>
+              <button class="btn btn-falcon-primary mr-1 mb-1" type="button">Cancel
+              </button>
             </div>
             <!-- Content ends here -->
           </div>
