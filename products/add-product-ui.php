@@ -69,23 +69,29 @@ include '../includes/base_page/head.php';
               </div>
               <div class="row pt-3">
                 <div class="col">
-                  <div class="col">
-                    <!-- Units -->
+                  <div class="row">
+                    <div class="col">
+                      <!-- Units -->
 
-                    <label class="form-label" for="product_unit">Unit*</label>
-                    <div class="input-group">
-                      <select class="form-select" name="product_unit" id="product_unit" required>
-                        <option value disabled selected>
-                          -- Select Unit --
-                        </option>
-                      </select>
+                      <label class="form-label" for="product_unit">Unit*</label>
+                      <div class="input-group">
+                        <select class="form-select" name="product_unit" id="product_unit" required>
+                          <option value disabled selected>
+                            -- Select Unit --
+                          </option>
+                        </select>
 
-                      <div class="invalid-feedback">This field cannot be left blank.</div>
+                        <div class="invalid-feedback">This field cannot be left blank.</div>
 
-                      <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addUnit">
-                        +
-                      </button>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addUnit">
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <label for="product_supplier" class="form-label">Supplier</label>
+                      <select name="product_supplier" id="product_supplier" class="form-select"></select>
                     </div>
                   </div>
                 </div>
