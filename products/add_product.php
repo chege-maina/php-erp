@@ -14,9 +14,18 @@ if ( !!$_FILES['product_image']['tmp_name'] ) // is the file uploaded yet?
         if ( move_uploaded_file( $_FILES['product_image']['tmp_name'], $todir . basename($_FILES['product_image']['name'] ) ) )
         {
             // the file has been moved correctly
+            
+            $rows = ("SELECT * FROM tbl_product WHERE product_code= '$_POST[product_code] '") ;
+            $result = mysqli_query($conn,$rows);
+            if ($result){
+            if (mysqli_num_rows($result) > 0){
+                echo "The product exists";
+            }
+            else
+            {
             if (isset($_POST["submit"])){
 	
-	$sql ="INSERT INTO `tbl_product`( `product_code`, `product_name`, `product_unit`, `product_category`, `min_level`,`max_level`,`reorder`, `product_image`,`dsp_price` )  values(NULL,'$_POST[product_name]', '$_POST[product_unit]', '$_POST[product_category]', '$_POST[min_level]', '$_POST[max_level]', '$_POST[reorder]', '/assets/img/item-images/".$_FILES['product_image']['name']."', '$_POST[dsp_price]') ";
+	$sql ="INSERT INTO `tbl_product`( `product_code`, `product_name`, `product_unit`, `product_category`, `min_level`,`max_level`,`reorder`, `product_image`,`dsp_price`,`amount_before_tax`,`dpp_inc_tax`,`applicable_tax`, `profit_margin` )  values(NULL,'$_POST[product_name]', '$_POST[product_unit]', '$_POST[product_category]', '$_POST[min_level]', '$_POST[max_level]', '$_POST[reorder]', '/assets/img/item-images/".$_FILES['product_image']['name']."', '$_POST[dsp_price]', '$_POST[amount_before_tax]', '$_POST[dpp_inc_tax]', '$_POST[applicable_tax]', '$_POST[profit_margin]') ";
 	if($qsql = mysqli_query($conn,$sql))
 	{
 		echo "<script>alert('record inserted successfully...');</script>";
@@ -27,20 +36,22 @@ if ( !!$_FILES['product_image']['tmp_name'] ) // is the file uploaded yet?
 	}
 
 }
+            }
         }
+    }   
         else
     {
-        // error this file could not be uploaded
+    echo "error this file could not be uploaded";
     }
     }
     else
     {
-        // error this file ext is not allowed
+      echo "  error this file ext is not allowed";
     }
 }
 else
     {
-        // error file not uploaded
+    echo "error file not uploaded";
     }
 
 

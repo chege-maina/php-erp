@@ -215,11 +215,12 @@ include '../includes/base_page/head.php';
                   <h4 class="mb-1" id="addUnitLabel">Add Category</h4>
                 </div>
                 <div class="p-4">
+                  <!-- Category Form -->
                   <form>
                     <div class="p2">
                       <label for="modal_category_name" class="form-label">Category Name*</label>
                       <input type="text" name="category_name" id="modal_category_name" class="form-control" required>
-
+                      <div class="invalid-feedback">This field cannot be left blank.</div>
                     </div>
                     <input type="button" value="Add" class="btn btn-falcon-primary mt-2">
                   </form>
@@ -240,10 +241,29 @@ include '../includes/base_page/head.php';
               </div>
               <div class="modal-body p-0">
                 <div class="bg-light rounded-top-lg py-3 pl-4 pr-6">
-                  <h4 class="mb-1" id="addUnitLabel">Add Units</h4>
+                  <h4 class="mb-1" id="addUnitLabel">Add Unit</h4>
                 </div>
                 <div class="p-4">
-                  Content
+                  <!-- Units form  -->
+                  <form>
+                    <div class="row">
+                      <div class="col">
+                        <label for="modal_unit_name" class="form-label">Unit*</label>
+                        <input type="text" name="unit_name" id="modal_unit_name" class="form-control" required>
+                        <div class="invalid-feedback">This field cannot be left blank.</div>
+                      </div>
+                    </div>
+
+                    <div class="row mt-2">
+                      <div class="col">
+                        <label for="modal_unit_description" class="form-label">Unit Description*</label>
+                        <input type="text" name="unit_description" id="modal_unit_description" class="form-control" required>
+                        <div class="invalid-feedback">This field cannot be left blank.</div>
+                      </div>
+                    </div>
+
+                    <input type="button" value="Add" class="btn btn-falcon-primary mt-2">
+                  </form>
                 </div>
               </div>
             </div>
@@ -324,7 +344,7 @@ include '../includes/base_page/head.php';
             //console.log(tax_type.value, applicable_tax.value, amount_before_tax.value);
           }
         </script>
-        
+
 
 
         <!-- =========================================================== -->
