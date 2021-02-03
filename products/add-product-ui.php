@@ -34,7 +34,7 @@ include '../includes/base_page/head.php';
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <h5 class="p-2">Add New Product</h5>
         <!-- Content is to start here -->
-        <form action="add_product.php" method="post">
+        <form action="add_product.php" method="post" enctype="multipart/form-data">
           <div class="card">
             <div class="card-body fs--1 p-4">
               <div class="row">
