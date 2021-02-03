@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 03, 2021 at 11:46 AM
+-- Generation Time: Feb 03, 2021 at 12:06 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -43,16 +43,23 @@ CREATE TABLE `tbl_branch` (
 
 CREATE TABLE `tbl_category` (
   `category_code` int(11) NOT NULL,
-  `category_name` varchar(254) NOT NULL
+  `category_name` varchar(254) NOT NULL,
+  `category_description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `tbl_category`
+-- Table structure for table `tbl_customer`
 --
 
-INSERT INTO `tbl_category` (`category_code`, `category_name`) VALUES
-(2, 'CEMENT'),
-(1, 'METAL BARS');
+CREATE TABLE `tbl_customer` (
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `telephone_no` varchar(100) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `customer_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -69,18 +76,20 @@ CREATE TABLE `tbl_product` (
   `max_level` varchar(50) NOT NULL,
   `reorder` varchar(50) NOT NULL,
   `product_image` varchar(254) NOT NULL,
-  `dsp_price` int(254) NOT NULL
+  `dsp_price` int(254) NOT NULL,
+  `amount_before_tax` int(100) NOT NULL,
+  `dpp_inc_tax` int(100) NOT NULL,
+  `applicable_tax` int(100) NOT NULL,
+  `profit_margin` int(100) NOT NULL,
+  `supplier_id` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_product`
 --
 
-INSERT INTO `tbl_product` (`product_code`, `product_name`, `product_unit`, `product_category`, `min_level`, `max_level`, `reorder`, `product_image`, `dsp_price`) VALUES
-(1, 'TANK', 'Piece', 'tanks', '12', '13', '13', 'weretrtet.png', 0),
-(2, 'TARAJI', 'PIECES', 'PENCIL', '9', '17', '33', 'OIP.jpg', 3000),
-(4, 'image upload', 'asd,jbhkj', 'asdhgjkh', '344', '33333', '33333', '/assets/img/item-images/php.png', 0),
-(6, 'CHANK', 'asd,jbhkj', 'TANK', '667', '667', '76', '/assets/img/item-images/php.png', 0);
+INSERT INTO `tbl_product` (`product_code`, `product_name`, `product_unit`, `product_category`, `min_level`, `max_level`, `reorder`, `product_image`, `dsp_price`, `amount_before_tax`, `dpp_inc_tax`, `applicable_tax`, `profit_margin`, `supplier_id`) VALUES
+(2, 'TARAJI', 'PIECES', 'PENCIL', '9', '17', '33', 'OIP.jpg', 3000, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -92,7 +101,8 @@ CREATE TABLE `tbl_requisition` (
   `requisition_No` bigint(20) NOT NULL,
   `date` date NOT NULL,
   `time` varchar(50) NOT NULL,
-  `user` varchar(50) NOT NULL
+  `user` varchar(50) NOT NULL,
+  `status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -114,6 +124,20 @@ CREATE TABLE `tbl_requisition_items` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_supplier`
+--
+
+CREATE TABLE `tbl_supplier` (
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `telephone_no` varchar(100) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `supplier_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_tax`
 --
 
@@ -129,19 +153,9 @@ CREATE TABLE `tbl_tax` (
 
 CREATE TABLE `tbl_unit` (
   `unit_code` int(11) NOT NULL,
-  `product_unit` varchar(254) NOT NULL,
-  `unit_description` text NOT NULL
+  `product_unit` varchar(20) NOT NULL,
+  `unit_description` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_unit`
---
-
-INSERT INTO `tbl_unit` (`unit_code`, `product_unit`, `unit_description`) VALUES
-(1, 'KGS', 'KILOGRAMS'),
-(2, 'BGS', 'BAGS'),
-(3, 'PCS', 'PIECES'),
-(4, 'LTRS', 'LITRES');
 
 -- --------------------------------------------------------
 
@@ -165,7 +179,7 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`email`, `password`, `designation`, `branch`, `first_name`, `last_name`, `status`, `level`) VALUES
-('dir@maisha.com', '$2y$10$Jisk2Nl0cHrTa0id8f2kIeQ9My1mruHswrJwj3J1tMenC538wbPCa', 'director', 'mm2', 'Kesav', 'Kesav', 'ON', 'ON'),
+('dir@maisha.com', '$2y$10$X8iX9WGJ3TcbPmCEToBCFu7DvMVBmJmltiztGgozvPk3H6w0ZiYD6', 'director', 'mm2', 'Kesav', 'Kesav', 'ON', 'ON'),
 ('procurement.maishasteel@gmail.com', 'procurement123', 'procurement', 'main', 'James', 'Kevin', 'ON', 'OFF'),
 ('storemanager.maishasteel@gmail.com', 'storemanager123', 'store manager', 'mm1', 'Jael', 'Joel', 'OFF', 'ON');
 
@@ -187,11 +201,19 @@ ALTER TABLE `tbl_category`
   ADD UNIQUE KEY `category_name` (`category_name`);
 
 --
+-- Indexes for table `tbl_customer`
+--
+ALTER TABLE `tbl_customer`
+  ADD PRIMARY KEY (`customer_id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
 -- Indexes for table `tbl_product`
 --
 ALTER TABLE `tbl_product`
   ADD PRIMARY KEY (`product_code`),
-  ADD UNIQUE KEY `product_name` (`product_name`);
+  ADD UNIQUE KEY `product_name` (`product_name`),
+  ADD UNIQUE KEY `supplier_id` (`supplier_id`);
 
 --
 -- Indexes for table `tbl_requisition`
@@ -205,6 +227,13 @@ ALTER TABLE `tbl_requisition`
 ALTER TABLE `tbl_requisition_items`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `requisition_No` (`requisition_No`);
+
+--
+-- Indexes for table `tbl_supplier`
+--
+ALTER TABLE `tbl_supplier`
+  ADD PRIMARY KEY (`supplier_id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indexes for table `tbl_unit`
@@ -233,13 +262,19 @@ ALTER TABLE `tbl_branch`
 -- AUTO_INCREMENT for table `tbl_category`
 --
 ALTER TABLE `tbl_category`
-  MODIFY `category_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `category_code` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_customer`
+--
+ALTER TABLE `tbl_customer`
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_product`
 --
 ALTER TABLE `tbl_product`
-  MODIFY `product_code` bigint(254) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `product_code` bigint(254) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_requisition`
@@ -254,10 +289,16 @@ ALTER TABLE `tbl_requisition_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `tbl_supplier`
+--
+ALTER TABLE `tbl_supplier`
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tbl_unit`
 --
 ALTER TABLE `tbl_unit`
-  MODIFY `unit_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `unit_code` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
