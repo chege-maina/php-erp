@@ -28,13 +28,24 @@ if ($stmt->num_rows > 0) {
 	if (password_verify($_POST['password'], $password)) {
 		// Verification success! User has loggedin!
 		// Create sessions so we know the user is logged in, they basically act like cookies but remember the data on the server.
+		if ($designation==='Procurement officer'){
 		session_regenerate_id();
 		$_SESSION['loggedin'] = TRUE;
 		$_SESSION['branch'] = $branch;
 		$_SESSION['name'] = $first_name." ".$last_name;
 		$_SESSION['designation'] = $designation;
 
-		echo 'Dashboard';
+		echo 'Dashboard1';
+	}
+	else if ($designation==='Warehouse manager'){
+		session_regenerate_id();
+		$_SESSION['loggedin'] = TRUE;
+		$_SESSION['branch'] = $branch;
+		$_SESSION['name'] = $first_name." ".$last_name;
+		$_SESSION['designation'] = $designation;
+
+		echo 'Dashboard2';
+	}
 
 		//header('Location: ../dashtmp.php');
 	} else {

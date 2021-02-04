@@ -130,8 +130,11 @@
               data: data1,
               success: function(data) {
                 $('#loginfrm')[0].reset();
-                if(data=='Dashboard'){
+                if(data=='Dashboard1'){
                   window.location.replace("products/add-product-ui.php");
+                }
+                else if(data=='Dashboard2'){
+                  window.location.replace("purchase_requisitions/warehouse_add_pr.php");
                 }
                 else{
                 alert(data)}
