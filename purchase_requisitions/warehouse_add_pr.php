@@ -112,7 +112,9 @@ include '../includes/base_page/head.php';
                     balance: value["balance"]
                   };
                 });
-                items_in_combobox = all_requisitionable_items;
+                items_in_combobox = {
+                  ...all_requisitionable_items
+                };
                 updateReqItems();
               });
           });
@@ -135,56 +137,77 @@ include '../includes/base_page/head.php';
             }
           }
 
+          function updateTable() {
+            table_body.innerHTML = "";
+            for (let item in items_in_table) {
+
+              let tr = document.createElement("tr");
+              // Id will be like 1Tank
+              tr.setAttribute("id", items_in_table[item]["code"] + items_in_table[item]["name"]);
+
+              let code_td = document.createElement("td");
+              code_td.appendChild(document.createTextNode(items_in_table[item]["code"]));
+              code_td.classList.add("align-middle");
+
+              let name_td = document.createElement("td");
+              name_td.appendChild(document.createTextNode(items_in_table[item]["name"]));
+              name_td.classList.add("align-middle");
+
+              let units_td = document.createElement("td");
+              units_td.appendChild(document.createTextNode(items_in_table[item]["unit"]));
+              units_td.classList.add("align-middle");
+
+              let quantity = document.createElement("input");
+              quantity.setAttribute("type", "number");
+              quantity.setAttribute("required", "");
+              quantity.classList.add("form-control", "form-control-sm", "align-middle");
+              let quantityWrapper = document.createElement("td");
+              quantityWrapper.classList.add("m-2");
+              quantityWrapper.appendChild(quantity);
+
+              let actionWrapper = document.createElement("td");
+              actionWrapper.classList.add("m-2");
+              let action = document.createElement("button");
+              action.setAttribute("id", items_in_table[item]["name"]);
+              action.setAttribute("onclick", "removeItem(this.id);");
+              let icon = document.createElement("span");
+              icon.classList.add("fas", "fa-minus", "mt-1");
+              action.appendChild(icon);
+              action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
+              actionWrapper.appendChild(action);
+
+              tr.append(code_td, name_td, units_td, quantityWrapper, actionWrapper);
+              table_body.appendChild(tr);
+
+            }
+            return;
+          }
+
           function addItem() {
-            const item_to_add = all_requisitionable_items[requisitionable_item.value]
+            const item_to_add = all_requisitionable_items[requisitionable_item.value];
             if (!item_to_add) {
               return;
             }
+
+            items_in_table[requisitionable_item.value] = item_to_add;
+            console.log("Now in table: ", items_in_table);
+
             console.log(item_to_add);
-            let tr = document.createElement("tr");
-            // Id will be like 1Tank
-            tr.setAttribute("id", item_to_add["code"] + item_to_add["name"]);
-
-            let code_td = document.createElement("td");
-            code_td.appendChild(document.createTextNode(item_to_add["code"]));
-            code_td.classList.add("align-middle");
-
-            let name_td = document.createElement("td");
-            name_td.appendChild(document.createTextNode(item_to_add["name"]));
-            name_td.classList.add("align-middle");
-
-            let units_td = document.createElement("td");
-            units_td.appendChild(document.createTextNode(item_to_add["unit"]));
-            units_td.classList.add("align-middle");
-
-            let quantity = document.createElement("input");
-            quantity.setAttribute("type", "number");
-            quantity.setAttribute("required", "");
-            quantity.classList.add("form-control", "form-control-sm", "align-middle");
-            let quantityWrapper = document.createElement("td");
-            quantityWrapper.classList.add("m-2");
-            quantityWrapper.appendChild(quantity);
-
-            let actionWrapper = document.createElement("td");
-            actionWrapper.classList.add("m-2");
-            let action = document.createElement("button");
-            action.setAttribute("id", item_to_add["name"]);
-            action.setAttribute("onclick", "removeItem(this.id);");
-            let icon = document.createElement("span");
-            icon.classList.add("fas", "fa-minus", "mt-1");
-            action.appendChild(icon);
-            action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
-            actionWrapper.appendChild(action);
-
-            tr.append(code_td, name_td, units_td, quantityWrapper, actionWrapper);
-            table_body.appendChild(tr);
 
             delete items_in_combobox[item_to_add["name"]];
+            updateTable();
             updateReqItems();
           }
 
           function removeItem(item) {
-            console.log(item);
+            console.log("Before", all_requisitionable_items);
+            delete items_in_table[String(item)];
+            console.log("After: ", items_in_table);
+            const item_to_add = all_requisitionable_items[item];
+            console.log("Removing", item_to_add);
+            items_in_combobox[item] = item_to_add;
+            updateTable();
+            updateReqItems();
           }
         </script>
 
