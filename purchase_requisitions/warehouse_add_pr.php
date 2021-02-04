@@ -58,7 +58,7 @@ include '../includes/base_page/head.php';
                     <option value="12 Gauge Steel">
                     <option value="Marble">
                   </datalist>
-                  <input type="button" value="+" class="btn btn-falcon-primary">
+                  <input type="button" value="+" class="btn btn-primary">
                 </div>
               </div>
             </div>
