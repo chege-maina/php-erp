@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2021 at 10:39 AM
+-- Generation Time: Feb 04, 2021 at 11:45 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -300,9 +300,9 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`email`, `password`, `designation`, `branch`, `first_name`, `last_name`, `status`, `level`) VALUES
-('dir@maisha.com', '$2y$10$Jisk2Nl0cHrTa0id8f2kIeQ9My1mruHswrJwj3J1tMenC538wbPCa', 'director', 'mm2', 'Kesav', 'Kesav', 'ON', 'ON'),
-('procurement.maishasteel@gmail.com', 'procurement123', 'procurement', 'main', 'James', 'Kevin', 'ON', 'OFF'),
-('storemanager.maishasteel@gmail.com', 'storemanager123', 'store manager', 'mm1', 'Jael', 'Joel', 'OFF', 'ON');
+('dir@maisha.com', '$2y$10$Jisk2Nl0cHrTa0id8f2kIeQ9My1mruHswrJwj3J1tMenC538wbPCa', 'Director', 'mm2', 'Kesav', 'Kesav', 'ON', 'ON'),
+('pro@maisha.com', '$2y$10$6k7MhrmNzez4yVGYfv7puuj3sBd9Ruq.h4F5iSI9o13fx/jojQx.y', 'Procurement officer', 'main', 'James', 'Kevin', 'ON', 'OFF'),
+('war@maisha.com', '$2y$10$6cjuL5jaX3lBxr8NpKZ5VunRdrSUoHGU7bEuFHGDZ4Jrzhp/5DS8u', 'Warehouse manager', 'mm1', 'Jael', 'Joel', 'OFF', 'ON');
 
 --
 -- Indexes for dumped tables
