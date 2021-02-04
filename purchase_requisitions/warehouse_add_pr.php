@@ -70,17 +70,11 @@ include '../includes/base_page/head.php';
                       <th scope="col">Product Code</th>
                       <th scope="col">Product Name</th>
                       <th scope="col">Units</th>
-                      <th scope="col">Quantity</th>
-                      <!-- <th scope="col">Actions</th> -->
+                      <th scope="col" class="w-25">Quantity</th>
+                      <th scope="col">Actions</th>
                     </tr>
                   </thead>
                   <tbody id="table_body">
-                    <tr>
-                      <th>033</th>
-                      <td>Roto</td>
-                      <td>Pieces</td>
-                      <td>3</td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -164,11 +158,22 @@ include '../includes/base_page/head.php';
             let quantity = document.createElement("input");
             quantity.setAttribute("type", "number");
             quantity.setAttribute("required", "");
-            quantity.classList.add("form-control", "form-control-sm");
+            quantity.classList.add("form-control", "form-control-sm", "align-middle");
             let quantityWrapper = document.createElement("td");
             quantityWrapper.classList.add("m-2");
             quantityWrapper.appendChild(quantity);
-            tr.append(code_td, name_td, units_td, quantityWrapper);
+
+            let actionWrapper = document.createElement("td");
+            actionWrapper.classList.add("m-2");
+            let action = document.createElement("button");
+            // <span class="fas fa-plus mr-1" data-fa-transform="shrink-3"></span
+            let icon = document.createElement("span");
+            icon.classList.add("fas", "fa-minus", "mt-1");
+            action.appendChild(icon);
+            action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
+            actionWrapper.appendChild(action);
+
+            tr.append(code_td, name_td, units_td, quantityWrapper, actionWrapper);
             table_body.appendChild(tr);
 
             delete items_in_combobox[item_to_add["name"]];
