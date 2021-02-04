@@ -73,19 +73,19 @@ echo '<p style="color:#FF0000;">'.$status.'</p>';
               <div class="row">
                 <div class="col">
                   <label class="form-label" for="product_code">Product Code*</label>
-                  <input type="text" class="form-control" name="product_code" id="product_code" readonly>
+                  <input type="text" class="form-control" name="product_code" id="product_code"  value="<?php echo $row['product_code'];?>"  readonly>
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
                 <div class="col">
                   <label class="form-label" for="product_name">Product Name*</label>
-                  <input type="text" class="form-control" name="product_name" id="product_name" required>
+                  <input type="text" class="form-control" name="product_name" id="product_name" value="<?php echo $row['product_name'];?>" required>
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
                 <div class="col">
                   <!-- Make Combo -->
                   <label class="form-label" for="product_category">Category*</label>
                   <div class="input-group">
-                    <select class="form-select" name="product_category" id="product_category" required>
+                    <select class="form-select" name="product_category" id="product_category" value="<?php echo $row['product_category'];?>" required>
                       <option value disabled selected>
                         -- Select Category --
                       </option>
@@ -106,7 +106,7 @@ echo '<p style="color:#FF0000;">'.$status.'</p>';
 
                   <label class="form-label" for="product_unit">Unit*</label>
                   <div class="input-group">
-                    <select class="form-select" name="product_unit" id="product_unit" required>
+                    <select class="form-select" name="product_unit" id="product_unit" value="<?php echo $row['product_unit'];?>" required>
                       <option value disabled selected>
                         -- Select Unit --
                       </option>
@@ -122,7 +122,7 @@ echo '<p style="color:#FF0000;">'.$status.'</p>';
                 </div>
                 <div class="col">
                   <label class="form-label" for="product_image">Product Image*</label>
-                  <input class="form-control" id="product_image" name="product_image" type="file" accept="image/*" required>
+                  <input class="form-control" id="product_image" name="product_image" value="<?php echo $row['product_image'];?>" type="file" accept="image/*" required>
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
               </div>
@@ -136,17 +136,17 @@ echo '<p style="color:#FF0000;">'.$status.'</p>';
               <div class="row">
                 <div class="col">
                   <label class="form-label" for="min_level">Minimum Level*</label>
-                  <input type="number" class="form-control" name="min_level" id="min_level" required>
+                  <input type="number" class="form-control" name="min_level" id="min_level"  value="<?php echo $row['min_level'];?>" required>
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
                 <div class="col">
                   <label class="form-label" for="max_level">Maximum Level*</label>
-                  <input type="number" class="form-control" name="max_level" id="max_level" required>
+                  <input type="number" class="form-control" name="max_level" id="max_level" value="<?php echo $row['max_level'];?>" required>
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
                 <div class="col">
                   <label class="form-label" for="reorder">Reorder Level*</label>
-                  <input type="number" class="form-control" name="reorder" id="reorder" required>
+                  <input type="number" class="form-control" name="reorder" id="reorder" value="<?php echo $row['reorder'];?>" required>
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
               </div>
@@ -179,7 +179,7 @@ echo '<p style="color:#FF0000;">'.$status.'</p>';
                 </div>
                 <div class="col">
                   <label class="form-label" for="amount_before_tax">Amount Before Tax*</label>
-                  <input type="number" class="form-control" name="amount_before_tax" id="amount_before_tax" required onchange="calculatePrices();">
+                  <input type="number" class="form-control" name="amount_before_tax" value="<?php echo $row['amount_before_tax'];?>" id="amount_before_tax" required onchange="calculatePrices();">
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
               </div>
@@ -203,7 +203,7 @@ echo '<p style="color:#FF0000;">'.$status.'</p>';
                         </div>
                         <div class="col">
                           <label class="form-label" for="dpp_inc_tax">Inc. Tax*</label>
-                          <input type="number" class="form-control" name="dpp_inc_tax" id="dpp_inc_tax" required readonly>
+                          <input type="number" class="form-control" name="dpp_inc_tax" id="dpp_inc_tax" value="<?php echo $row['dpp_inc_tax'];?>" required readonly>
                           <div class="invalid-feedback">This field cannot be left blank.</div>
                         </div>
                     </td>
@@ -217,7 +217,7 @@ echo '<p style="color:#FF0000;">'.$status.'</p>';
                     </td>
                     <td>
                       <label class="form-label" for="dsp_price">Exc. Tax*</label>
-                      <input type="number" class="form-control" name="dsp_price" id="dsp_price" required readonly>
+                      <input type="number" class="form-control" name="dsp_price" id="dsp_price" value="<?php echo $row['dsp_price'];?>" required readonly>
                       <div class="invalid-feedback">This field cannot be left blank.</div>
                     </td>
                   </tr>

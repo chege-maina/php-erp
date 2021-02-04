@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2021 at 09:17 AM
+-- Generation Time: Feb 04, 2021 at 10:39 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -88,18 +88,18 @@ CREATE TABLE `tbl_product` (
   `dpp_inc_tax` int(50) NOT NULL,
   `applicable_tax` int(50) NOT NULL,
   `profit_margin` int(50) NOT NULL,
-  `product_supplier` varchar(50) NOT NULL
+  `product_supplier` varchar(50) NOT NULL,
+  `user` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_product`
 --
 
-INSERT INTO `tbl_product` (`product_code`, `product_name`, `product_unit`, `product_category`, `min_level`, `max_level`, `reorder`, `product_image`, `dsp_price`, `amount_before_tax`, `dpp_inc_tax`, `applicable_tax`, `profit_margin`, `product_supplier`) VALUES
-(1, 'TANK', 'Piece', 'tanks', '12', '13', '13', 'weretrtet.png', 0, 0, 0, 0, 0, ''),
-(2, 'TARAJI', 'PIECES', 'PENCIL', '9', '17', '33', 'OIP.jpg', 3000, 0, 0, 0, 0, ''),
-(4, 'image upload', 'asd,jbhkj', 'asdhgjkh', '344', '33333', '33333', '/assets/img/item-images/php.png', 0, 0, 0, 0, 0, ''),
-(6, 'CHANK', 'asd,jbhkj', 'TANK', '667', '667', '76', '/assets/img/item-images/php.png', 0, 0, 0, 0, 0, '');
+INSERT INTO `tbl_product` (`product_code`, `product_name`, `product_unit`, `product_category`, `min_level`, `max_level`, `reorder`, `product_image`, `dsp_price`, `amount_before_tax`, `dpp_inc_tax`, `applicable_tax`, `profit_margin`, `product_supplier`, `user`) VALUES
+(1, 'TANK', 'Piece', 'tanks', '12', '13', '13', 'weretrtet.png', 0, 0, 0, 0, 0, '', ''),
+(2, 'TARAJI', 'PIECES', 'PENCIL', '9', '17', '33', 'OIP.jpg', 3000, 0, 0, 0, 0, '', ''),
+(3, 'CHANK', 'asd,jbhkj', 'TANK', '667', '667', '76', '/assets/img/item-images/php.png', 0, 0, 0, 0, 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -160,6 +160,17 @@ CREATE TABLE `tbl_sale_items` (
   `id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tbl_sale_items`
+--
+
+INSERT INTO `tbl_sale_items` (`product_code`, `product_name`, `qty`, `sales_invoice_no`, `branch_location`, `id`) VALUES
+('1', 'TANK', '50', '12345', 'MAISHA STEEL 1', 1),
+('2', 'TARAJI', '20', '2344555', 'OLA', 2),
+('3', 'CHANK', '50', '09983', 'MAISHE STEEL 2', 3),
+('2', 'TARAJI', '10', '768644', 'OLA', 4),
+('2', 'TARAJI', '3', '758655', 'OLA', 5);
+
 -- --------------------------------------------------------
 
 --
@@ -168,11 +179,11 @@ CREATE TABLE `tbl_sale_items` (
 
 CREATE TABLE `tbl_store` (
   `date` date NOT NULL,
-  `time` time(6) NOT NULL,
+  `time` varchar(10) NOT NULL,
   `branch_location` varchar(100) NOT NULL,
   `warehouse_manager` varchar(100) NOT NULL,
   `supplier_id` varchar(100) NOT NULL,
-  `store_invoice_no` int(100) NOT NULL,
+  `store_invoice_no` varchar(100) NOT NULL,
   `receipt_no` bigint(100) NOT NULL,
   `lpo_number` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -191,6 +202,17 @@ CREATE TABLE `tbl_store_item` (
   `receipt_no` varchar(100) NOT NULL,
   `id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_store_item`
+--
+
+INSERT INTO `tbl_store_item` (`qty`, `product_name`, `product_code`, `branch_location`, `receipt_no`, `id`) VALUES
+('100', 'TANK', '1', 'MAISHA STEEL 1', '34565', 1),
+('30', 'TARAJI', '2', 'OLA', '25365', 2),
+('100', 'CHANK', '3', 'MAISHA STEEL 2', '977557', 3),
+('33', 'TARAJI', '2', 'OLA', '997898', 4),
+('3', 'TARAJI', '2', 'OLA', '32552', 5);
 
 -- --------------------------------------------------------
 
@@ -418,7 +440,7 @@ ALTER TABLE `tbl_requisition_items`
 -- AUTO_INCREMENT for table `tbl_sale_items`
 --
 ALTER TABLE `tbl_sale_items`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_store`
@@ -430,7 +452,7 @@ ALTER TABLE `tbl_store`
 -- AUTO_INCREMENT for table `tbl_store_item`
 --
 ALTER TABLE `tbl_store_item`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_unit`
