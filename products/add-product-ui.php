@@ -32,7 +32,9 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <h5 class="p-2">Add New Product</h5>
+        <h5 class="p-2" id="title-header">Add New Product
+          <div id="spinner" class="spinner-border text-warning" role="status"></div>
+        </h5>
         <!-- Content is to start here -->
         <form action="add_product.php" method="post" name="add_product" id="add_product" enctype="multipart/form-data">
           <div class="card">
@@ -91,9 +93,9 @@ include '../includes/base_page/head.php';
                     </div>
                     <div class="col">
                       <label for="product_supplier" class="form-label">Supplier</label>
-                      <select name="product_supplier" id="product_supplier" class="form-select">
+                      <select name="product_supplier" id="product_supplier" class="form-select" required>
                         <option value disabled selected>
-                          -- Select Unit --
+                          -- Select Supplier --
                         </option>
                       </select>
                     </div>
@@ -334,6 +336,16 @@ include '../includes/base_page/head.php';
             const applicable_tax = document.querySelector("#applicable_tax");
             const product_supplier = document.querySelector("#product_supplier");
 
+
+            // Clear it
+            product_category.innerHTML = "";
+            // Add the no-selectable item first
+            let opt = document.createElement("option");
+            opt.appendChild(document.createTextNode("-- Select Category --"));
+            opt.setAttribute("value", "");
+            opt.setAttribute("disabled", "");
+            opt.setAttribute("selected", "");
+            product_category.appendChild(opt);
             // Populate categories combobox
             fetch('../includes/load_category.php')
               .then(response => response.json())
@@ -346,6 +358,15 @@ include '../includes/base_page/head.php';
                 });
               });
 
+            // Clear it
+            product_unit.innerHTML = "";
+            // Add the no-selectable item first
+            opt = document.createElement("option");
+            opt.appendChild(document.createTextNode("-- Select Unit --"));
+            opt.setAttribute("value", "");
+            opt.setAttribute("disabled", "");
+            opt.setAttribute("selected", "");
+            product_unit.appendChild(opt);
             // Populate units combobox
             fetch('../includes/load_unit.php')
               .then(response => response.json())
@@ -358,6 +379,8 @@ include '../includes/base_page/head.php';
                 });
               });
 
+            // Clear it
+            applicable_tax.innerHTML = "";
             // Populate taxes combobox
             fetch('../includes/load_tax.php')
               .then(response => response.json())
@@ -370,6 +393,15 @@ include '../includes/base_page/head.php';
                 });
               });
 
+            // Clear it
+            product_supplier.innerHTML = "";
+            // Add the no-selectable item first
+            opt = document.createElement("option");
+            opt.appendChild(document.createTextNode("-- Select Supplier --"));
+            opt.setAttribute("value", "");
+            opt.setAttribute("disabled", "");
+            opt.setAttribute("selected", "");
+            product_supplier.appendChild(opt);
             // Populate suppliers combobox
             fetch('../includes/load_supplier.php')
               .then(response => response.json())
@@ -416,6 +448,12 @@ include '../includes/base_page/head.php';
 
             dsp_price.value = (profit_margin.value / 100 * amount_before_tax.value) + Number(amount_before_tax.value)
             //console.log(tax_type.value, applicable_tax.value, amount_before_tax.value);
+          }
+
+          function changeSpinner() {
+            const spinner = document.querySelector("#spinner");
+            spinner.classList.remove("text-warning");
+            spinner.classList.add("text-info");
           }
         </script>
 
