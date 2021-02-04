@@ -93,7 +93,7 @@ include '../includes/base_page/head.php';
         <!-- body ends here -->
         <!-- =========================================================== -->
         <script>
-          let requisitionable_items = {};
+          let all_requisitionable_items = {};
 
           // const items_in_requisitionable_item
           const requisitionable_item = document.querySelector("#requisitionable_item");
@@ -109,7 +109,7 @@ include '../includes/base_page/head.php';
               .then(response => response.json())
               .then(data => {
                 data.forEach((value) => {
-                  requisitionable_items[value["product_name"]] = {
+                  all_requisitionable_items[value["product_name"]] = {
                     name: value["product_name"],
                     code: value["product_code"],
                     unit: value["unit"],
@@ -121,25 +121,25 @@ include '../includes/base_page/head.php';
           });
 
           function updateReqItems() {
-            console.log("hello ", requisitionable_items);
+            console.log("hello ", all_requisitionable_items);
             var i = 1;
-            for (let item in requisitionable_items) {
-              console.log(requisitionable_items[item]);
+            for (let item in all_requisitionable_items) {
+              console.log(all_requisitionable_items[item]);
               let opt = document.createElement("option");
               opt.appendChild(
                 document.createTextNode(
-                  "Remaining " + requisitionable_items[item]["balance"] +
-                  " " + requisitionable_items[item]["unit"]
+                  "Remaining " + all_requisitionable_items[item]["balance"] +
+                  " " + all_requisitionable_items[item]["unit"]
                 )
               );
-              opt.setAttribute("value", requisitionable_items[item]["name"]);
+              opt.setAttribute("value", all_requisitionable_items[item]["name"]);
               requisitionable_items_datalist.appendChild(opt);
               i++;
             }
           }
 
           function addItem() {
-            const item_to_add = requisitionable_items[requisitionable_item.value]
+            const item_to_add = all_requisitionable_items[requisitionable_item.value]
             if (!item_to_add) {
               return;
             }
