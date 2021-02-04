@@ -222,7 +222,7 @@ include '../includes/base_page/head.php';
                       <input type="text" name="modal_category_name" id="modal_category_name" class="form-control" required>
                       <div class="invalid-feedback">This field cannot be left blank.</div>
                     </div>
-                    <input type="submit" value="Add" class="btn btn-falcon-primary mt-2" id="add_ct_submit" name="add_ct_submit">
+                    <input type="button" value="Add" class="btn btn-falcon-primary mt-2" id="add_ct_submit" name="add_ct_submit">
                   </form>
                 </div>
               </div>
