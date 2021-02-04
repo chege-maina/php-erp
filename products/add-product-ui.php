@@ -378,7 +378,9 @@ include '../includes/base_page/head.php';
                 data.forEach((value) => {
                   console.log(value);
                   let opt = document.createElement("option");
-                  opt.appendChild(document.createTextNode(value['supplier']));
+                  // Convert the supplier name to lowercase first so that it can be capitalized
+                  opt.appendChild(document.createTextNode(value['supplier'].toLowerCase()));
+                  opt.style.textTransform = "capitalize";
                   opt.value = value['supplier'];
                   product_supplier.appendChild(opt);
                 });
