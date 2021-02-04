@@ -249,11 +249,11 @@ include '../includes/base_page/head.php';
                 </div>
                 <div class="p-4">
                   <!-- Units form  -->
-                  <form>
+                  <form id="add_ut_frm" name="add_ut_frm">
                     <div class="row">
                       <div class="col">
                         <label for="modal_unit_name" class="form-label">Unit*</label>
-                        <input type="text" name="unit_name" id="modal_unit_name" class="form-control" required>
+                        <input type="text" name="modal_unit_name" id="modal_unit_name" class="form-control" required>
                         <div class="invalid-feedback">This field cannot be left blank.</div>
                       </div>
                     </div>
@@ -261,12 +261,12 @@ include '../includes/base_page/head.php';
                     <div class="row mt-2">
                       <div class="col">
                         <label for="modal_unit_description" class="form-label">Unit Description*</label>
-                        <input type="text" name="unit_description" id="modal_unit_description" class="form-control" required>
+                        <input type="text" name="modal_unit_description" id="modal_unit_description" class="form-control" required>
                         <div class="invalid-feedback">This field cannot be left blank.</div>
                       </div>
                     </div>
 
-                    <input type="button" value="Add" class="btn btn-falcon-primary mt-2">
+                    <input type="button" value="Add" class="btn btn-falcon-primary mt-2" id="add_ut_submit" name="add_ut_submit">
                   </form>
                 </div>
               </div>
@@ -275,6 +275,40 @@ include '../includes/base_page/head.php';
           </div>
         </div>
 
+        <script>
+          $(document).ready(function() {
+            $('#add_ut_submit').click(function(e) {
+              e.preventDefault();
+              var unt_name = $('#modal_unit_name').val();
+              var unt_desc = $('#modal_unit_description').val();
+              var data1 = {
+                modal_unit_name: unt_name, modal_unit_description: unt_desc
+              }
+
+              if (unt_name == '' || unt_desc=='') {
+                alert("Please complete form!")
+              } else {
+                var conf = confirm("Do You Want to Add a New Unit?")
+                if (conf) {
+                  $.ajax({
+                    url: "../includes/add_unit.php",
+                    method: "POST",
+                    data: data1,
+                    success: function(data) {
+                      $('#add_ut_frm')[0].reset();
+                      //$('form').trigger("reset");
+                      if (data == 'New Unit Added Successfully') {
+                        updateComboBoxes();
+                      }
+                      alert(data)
+                    }
+                  })
+
+                }
+              }
+            })
+          })
+        </script>
         <script>
           $(document).ready(function() {
             $('#add_ct_submit').click(function(e) {
