@@ -91,7 +91,11 @@ include '../includes/base_page/head.php';
                     </div>
                     <div class="col">
                       <label for="product_supplier" class="form-label">Supplier</label>
-                      <select name="product_supplier" id="product_supplier" class="form-select"></select>
+                      <select name="product_supplier" id="product_supplier" class="form-select">
+                        <option value disabled selected>
+                          -- Select Unit --
+                        </option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -328,6 +332,7 @@ include '../includes/base_page/head.php';
             const product_unit = document.querySelector("#product_unit");
             const product_category = document.querySelector("#product_category");
             const applicable_tax = document.querySelector("#applicable_tax");
+            const product_supplier = document.querySelector("#product_supplier");
 
             // Populate categories combobox
             fetch('../includes/load_category.php')
@@ -353,17 +358,29 @@ include '../includes/base_page/head.php';
                 });
               });
 
-            // Populate taxess combobox
+            // Populate taxes combobox
             fetch('../includes/load_tax.php')
+              .then(response => response.json())
+              .then(data => {
+                data.forEach((value) => {
+                  let opt = document.createElement("option");
+                  opt.appendChild(document.createTextNode(value['tax'] + "%"));
+                  opt.value = value['tax'];
+                  applicable_tax.appendChild(opt);
+                });
+              });
+
+            // Populate suppliers combobox
+            fetch('../includes/load_supplier.php')
               .then(response => response.json())
               .then(data => {
                 console.log(data);
                 data.forEach((value) => {
                   console.log(value);
                   let opt = document.createElement("option");
-                  opt.appendChild(document.createTextNode(value['tax'] + "%"));
-                  opt.value = value['tax'];
-                  applicable_tax.appendChild(opt);
+                  opt.appendChild(document.createTextNode(value['supplier']));
+                  opt.value = value['supplier'];
+                  product_supplier.appendChild(opt);
                 });
               });
           }
