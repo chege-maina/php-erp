@@ -25,7 +25,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <h5 class="p-2">Manage Requisitions</h5>
+        <h5 class="p-2">Inventory Management</h5>
         <div class="card">
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
@@ -41,13 +41,13 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="status" class="form-label">Status*</label>
                 <select name="status" id="status" class="form-select">
-                  <option value="active">active</option>
-                  <option value="inactive">inactive</option>
+                  <option value="approved">Approved</option>
+                  <option value="pending">Pending</option>
                 </select>
               </div>
               <div class="col">
-              <label class="form-label">Approvals</label>
-              <button class="form-control" class="btn btn-falcon-success mr-1 mb-1" type="button">Approve
+              <label class="form-label">Filters</label>
+              <button class="form-control" class="btn btn-falcon-primary mr-1 mb-1" type="button">Filter
               </button>
               </div>
               
@@ -71,14 +71,6 @@ include '../includes/base_page/head.php';
                 </tr>
               </tbody>
             </table>
-            <div class="col">
-              <button class="btn btn-falcon-success mr-1 mb-1" type="button">Approve
-              </button>
-              <button class="btn btn-falcon-danger mr-1 mb-1" type="button">Reject
-              </button>
-              <button class="btn btn-falcon-primary mr-1 mb-1" type="button">Cancel
-              </button>
-            </div>
             <!-- Content ends here -->
           </div>
           <!-- Additional cards can be added here -->
