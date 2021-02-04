@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 03, 2021 at 02:00 PM
+-- Generation Time: Feb 04, 2021 at 07:39 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -65,7 +65,7 @@ CREATE TABLE `tbl_customer` (
   `email` varchar(100) NOT NULL,
   `telephone_no` varchar(100) NOT NULL,
   `address` varchar(100) NOT NULL,
-  `customer_id` int(11) NOT NULL
+  `customer_id` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -83,18 +83,23 @@ CREATE TABLE `tbl_product` (
   `max_level` varchar(50) NOT NULL,
   `reorder` varchar(50) NOT NULL,
   `product_image` varchar(254) NOT NULL,
-  `dsp_price` int(254) NOT NULL
+  `dsp_price` int(254) NOT NULL,
+  `amount_before_tax` int(50) NOT NULL,
+  `dpp_inc_tax` int(50) NOT NULL,
+  `applicable_tax` int(50) NOT NULL,
+  `profit_margin` int(50) NOT NULL,
+  `product_supplier` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_product`
 --
 
-INSERT INTO `tbl_product` (`product_code`, `product_name`, `product_unit`, `product_category`, `min_level`, `max_level`, `reorder`, `product_image`, `dsp_price`) VALUES
-(1, 'TANK', 'Piece', 'tanks', '12', '13', '13', 'weretrtet.png', 0),
-(2, 'TARAJI', 'PIECES', 'PENCIL', '9', '17', '33', 'OIP.jpg', 3000),
-(4, 'image upload', 'asd,jbhkj', 'asdhgjkh', '344', '33333', '33333', '/assets/img/item-images/php.png', 0),
-(6, 'CHANK', 'asd,jbhkj', 'TANK', '667', '667', '76', '/assets/img/item-images/php.png', 0);
+INSERT INTO `tbl_product` (`product_code`, `product_name`, `product_unit`, `product_category`, `min_level`, `max_level`, `reorder`, `product_image`, `dsp_price`, `amount_before_tax`, `dpp_inc_tax`, `applicable_tax`, `profit_margin`, `product_supplier`) VALUES
+(1, 'TANK', 'Piece', 'tanks', '12', '13', '13', 'weretrtet.png', 0, 0, 0, 0, 0, ''),
+(2, 'TARAJI', 'PIECES', 'PENCIL', '9', '17', '33', 'OIP.jpg', 3000, 0, 0, 0, 0, ''),
+(4, 'image upload', 'asd,jbhkj', 'asdhgjkh', '344', '33333', '33333', '/assets/img/item-images/php.png', 0, 0, 0, 0, 0, ''),
+(6, 'CHANK', 'asd,jbhkj', 'TANK', '667', '667', '76', '/assets/img/item-images/php.png', 0, 0, 0, 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -137,8 +142,16 @@ CREATE TABLE `tbl_supplier` (
   `email` varchar(100) NOT NULL,
   `telephone_no` varchar(100) NOT NULL,
   `address` varchar(100) NOT NULL,
-  `supplier_id` int(11) NOT NULL
+  `supplier_id` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_supplier`
+--
+
+INSERT INTO `tbl_supplier` (`name`, `email`, `telephone_no`, `address`, `supplier_id`) VALUES
+('SIMBA CEMENT', 'simba@mabati.com', '+254783467854', '20100-45', '120934567'),
+('DEVKI', 'devki@steel.com', '+254756432168', '10010-69', '238495968');
 
 -- --------------------------------------------------------
 
@@ -237,7 +250,8 @@ ALTER TABLE `tbl_customer`
 --
 ALTER TABLE `tbl_product`
   ADD PRIMARY KEY (`product_code`),
-  ADD UNIQUE KEY `product_name` (`product_name`);
+  ADD UNIQUE KEY `product_name` (`product_name`),
+  ADD KEY `supplier_id` (`product_supplier`);
 
 --
 -- Indexes for table `tbl_requisition`
@@ -295,12 +309,6 @@ ALTER TABLE `tbl_category`
   MODIFY `category_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `tbl_customer`
---
-ALTER TABLE `tbl_customer`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `tbl_product`
 --
 ALTER TABLE `tbl_product`
@@ -317,12 +325,6 @@ ALTER TABLE `tbl_requisition`
 --
 ALTER TABLE `tbl_requisition_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tbl_supplier`
---
-ALTER TABLE `tbl_supplier`
-  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_unit`

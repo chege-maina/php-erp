@@ -5,8 +5,15 @@
 include '../includes/base_page/head.php';
 include_once '../includes/dbconnect.php';
 ?>
+<?php
 
+include_once '../includes/dbconnect.php';
+$product_code= $_REQUEST['product_code'];
+$query = "SELECT * FROM tbl_product WHERE product_code = '".$product_code."'" ; 
+$result = mysqli_query($conn, $query) or die ( mysqli_error($conn));
+$row = mysqli_fetch_assoc($result);
 
+?>
 
 <body>
   <!-- ===============================================-->
@@ -27,7 +34,7 @@ include_once '../includes/dbconnect.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <h5 class="p-2">Update Record</h5>
+        <h5 class="p-2">View Record</h5>
         <div class="card">
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
@@ -67,7 +74,7 @@ while($row = mysqli_fetch_assoc($result)) { ?>
 <td scope="col"><?php echo $row["dpp_inc_tax"]; ?></td>
 <td scope="col"><?php echo $row["profit_margin"]; ?></td>
 <td scope="col">
-<a href="view_ product.php?id=<?php echo $row["product_code"]; ?>">Edit</a>
+<a href="edit_ product.php?id=<?php echo $row["product_code"]; ?>">Edit</a>
 </td>
 <td scope="col">
 <a href="delete_product.php?id=<?php echo $row["product_code"]; ?>">Delete</a>

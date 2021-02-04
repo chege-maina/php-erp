@@ -25,7 +25,7 @@ if ( !!$_FILES['product_image']['tmp_name'] ) // is the file uploaded yet?
             {
             if (isset($_POST["submit"])){
 	
-	$sql ="INSERT INTO `tbl_product`( `product_code`, `product_name`, `product_unit`, `product_category`, `min_level`,`max_level`,`reorder`, `product_image`,`dsp_price`,`amount_before_tax`,`dpp_inc_tax`,`applicable_tax`, `profit_margin` )  values(NULL,'$_POST[product_name]', '$_POST[product_unit]', '$_POST[product_category]', '$_POST[min_level]', '$_POST[max_level]', '$_POST[reorder]', '/assets/img/item-images/".$_FILES['product_image']['name']."', '$_POST[dsp_price]', '$_POST[amount_before_tax]', '$_POST[dpp_inc_tax]', '$_POST[applicable_tax]', '$_POST[profit_margin]') ";
+	$sql ="INSERT INTO `tbl_product`( `product_code`, `product_name`, `product_unit`, `product_category`, `min_level`,`max_level`,`reorder`, `product_image`,`dsp_price`,`amount_before_tax`,`dpp_inc_tax`,`applicable_tax`, `profit_margin`, `product_supplier` )  values(NULL,'$_POST[product_name]', '$_POST[product_unit]', '$_POST[product_category]', '$_POST[min_level]', '$_POST[max_level]', '$_POST[reorder]', '/assets/img/item-images/".$_FILES['product_image']['name']."', '$_POST[dsp_price]', '$_POST[amount_before_tax]', '$_POST[dpp_inc_tax]', '$_POST[applicable_tax]', '$_POST[profit_margin]', '$_POST[product_supplier]' ";
 	if($qsql = mysqli_query($conn,$sql))
 	{
 		echo "<script>alert('record inserted successfully...');</script>";
