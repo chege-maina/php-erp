@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2021 at 07:39 AM
+-- Generation Time: Feb 04, 2021 at 09:17 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -129,6 +129,67 @@ CREATE TABLE `tbl_requisition_items` (
   `product_unit` varchar(10) NOT NULL,
   `product_quantity` varchar(200) NOT NULL,
   `status` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_sale`
+--
+
+CREATE TABLE `tbl_sale` (
+  `sales_invoice_no` varchar(50) NOT NULL,
+  `date` date NOT NULL,
+  `time` varchar(15) NOT NULL,
+  `cashier` varchar(100) NOT NULL,
+  `customer_name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_sale_items`
+--
+
+CREATE TABLE `tbl_sale_items` (
+  `product_code` varchar(50) NOT NULL,
+  `product_name` varchar(50) NOT NULL,
+  `qty` varchar(50) NOT NULL,
+  `sales_invoice_no` varchar(100) NOT NULL,
+  `branch_location` varchar(50) NOT NULL,
+  `id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_store`
+--
+
+CREATE TABLE `tbl_store` (
+  `date` date NOT NULL,
+  `time` time(6) NOT NULL,
+  `branch_location` varchar(100) NOT NULL,
+  `warehouse_manager` varchar(100) NOT NULL,
+  `supplier_id` varchar(100) NOT NULL,
+  `store_invoice_no` int(100) NOT NULL,
+  `receipt_no` bigint(100) NOT NULL,
+  `lpo_number` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_store_item`
+--
+
+CREATE TABLE `tbl_store_item` (
+  `qty` varchar(50) NOT NULL,
+  `product_name` varchar(100) NOT NULL,
+  `product_code` varchar(100) NOT NULL,
+  `branch_location` varchar(50) NOT NULL,
+  `receipt_no` varchar(100) NOT NULL,
+  `id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -267,6 +328,33 @@ ALTER TABLE `tbl_requisition_items`
   ADD UNIQUE KEY `requisition_No` (`requisition_No`);
 
 --
+-- Indexes for table `tbl_sale`
+--
+ALTER TABLE `tbl_sale`
+  ADD PRIMARY KEY (`sales_invoice_no`),
+  ADD UNIQUE KEY `customer_name` (`customer_name`);
+
+--
+-- Indexes for table `tbl_sale_items`
+--
+ALTER TABLE `tbl_sale_items`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `sales_invoice_no` (`sales_invoice_no`);
+
+--
+-- Indexes for table `tbl_store`
+--
+ALTER TABLE `tbl_store`
+  ADD PRIMARY KEY (`receipt_no`);
+
+--
+-- Indexes for table `tbl_store_item`
+--
+ALTER TABLE `tbl_store_item`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `receipt_no` (`receipt_no`);
+
+--
 -- Indexes for table `tbl_supplier`
 --
 ALTER TABLE `tbl_supplier`
@@ -325,6 +413,24 @@ ALTER TABLE `tbl_requisition`
 --
 ALTER TABLE `tbl_requisition_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_sale_items`
+--
+ALTER TABLE `tbl_sale_items`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_store`
+--
+ALTER TABLE `tbl_store`
+  MODIFY `receipt_no` bigint(100) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_store_item`
+--
+ALTER TABLE `tbl_store_item`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_unit`
