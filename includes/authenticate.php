@@ -21,7 +21,7 @@ if ($stmt = $con->prepare('SELECT email, password, designation, branch, first_na
 	// Store the result so we can check if the account exists in the database.
 	$stmt->store_result();
 if ($stmt->num_rows > 0) {
-	$stmt->bind_result($email, $password, $desigantion, $branch, $first_name, $last_name);
+	$stmt->bind_result($email, $password, $designation, $branch, $first_name, $last_name);
 	$stmt->fetch();
 	// Account exists, now we verify the password.
 	// Note: remember to use password_hash in your registration file to store the hashed passwords.
@@ -32,7 +32,7 @@ if ($stmt->num_rows > 0) {
 		$_SESSION['loggedin'] = TRUE;
 		$_SESSION['branch'] = $branch;
 		$_SESSION['name'] = $first_name." ".$last_name;
-		$_SESSION['id'] = $_POST['email'];
+		$_SESSION['designation'] = $designation;
 
 		echo 'Dashboard';
 
