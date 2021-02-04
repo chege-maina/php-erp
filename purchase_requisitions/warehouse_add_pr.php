@@ -142,6 +142,8 @@ include '../includes/base_page/head.php';
             }
             console.log(item_to_add);
             let tr = document.createElement("tr");
+            // Id will be like 1Tank
+            tr.setAttribute("id", item_to_add["code"] + item_to_add["name"]);
 
             let code_td = document.createElement("td");
             code_td.appendChild(document.createTextNode(item_to_add["code"]));
@@ -166,7 +168,8 @@ include '../includes/base_page/head.php';
             let actionWrapper = document.createElement("td");
             actionWrapper.classList.add("m-2");
             let action = document.createElement("button");
-            // <span class="fas fa-plus mr-1" data-fa-transform="shrink-3"></span
+            action.setAttribute("id", item_to_add["name"]);
+            action.setAttribute("onclick", "removeItem(this.id);");
             let icon = document.createElement("span");
             icon.classList.add("fas", "fa-minus", "mt-1");
             action.appendChild(icon);
@@ -178,6 +181,10 @@ include '../includes/base_page/head.php';
 
             delete items_in_combobox[item_to_add["name"]];
             updateReqItems();
+          }
+
+          function removeItem(item) {
+            console.log(item);
           }
         </script>
 
