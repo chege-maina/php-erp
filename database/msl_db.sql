@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2021 at 10:39 AM
+-- Generation Time: Feb 04, 2021 at 12:33 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -165,11 +165,12 @@ CREATE TABLE `tbl_sale_items` (
 --
 
 INSERT INTO `tbl_sale_items` (`product_code`, `product_name`, `qty`, `sales_invoice_no`, `branch_location`, `id`) VALUES
-('1', 'TANK', '50', '12345', 'MAISHA STEEL 1', 1),
-('2', 'TARAJI', '20', '2344555', 'OLA', 2),
-('3', 'CHANK', '50', '09983', 'MAISHE STEEL 2', 3),
-('2', 'TARAJI', '10', '768644', 'OLA', 4),
-('2', 'TARAJI', '3', '758655', 'OLA', 5);
+('1', 'TANK', '50', '12345', 'MM1', 1),
+('2', 'TARAJI', '20', '2344555', 'MM2', 2),
+('3', 'CHANK', '50', '09983', 'MM1', 3),
+('2', 'TARAJI', '10', '768644', 'MM2', 4),
+('2', 'TARAJI', '3', '758655', 'MM2', 5),
+('2', 'TARAJI', '20', '35345', 'MM1', 6);
 
 -- --------------------------------------------------------
 
@@ -208,11 +209,12 @@ CREATE TABLE `tbl_store_item` (
 --
 
 INSERT INTO `tbl_store_item` (`qty`, `product_name`, `product_code`, `branch_location`, `receipt_no`, `id`) VALUES
-('100', 'TANK', '1', 'MAISHA STEEL 1', '34565', 1),
-('30', 'TARAJI', '2', 'OLA', '25365', 2),
-('100', 'CHANK', '3', 'MAISHA STEEL 2', '977557', 3),
-('33', 'TARAJI', '2', 'OLA', '997898', 4),
-('3', 'TARAJI', '2', 'OLA', '32552', 5);
+('100', 'TANK', '1', 'MM1', '34565', 1),
+('30', 'TARAJI', '2', 'MM2', '25365', 2),
+('100', 'CHANK', '3', 'MM1', '977557', 3),
+('33', 'TARAJI', '2', 'MM2', '997898', 4),
+('3', 'TARAJI', '2', 'MM2', '32552', 5),
+('50', 'TARAJI', '2', 'MM1', '456346', 6);
 
 -- --------------------------------------------------------
 
@@ -300,9 +302,9 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`email`, `password`, `designation`, `branch`, `first_name`, `last_name`, `status`, `level`) VALUES
-('dir@maisha.com', '$2y$10$Jisk2Nl0cHrTa0id8f2kIeQ9My1mruHswrJwj3J1tMenC538wbPCa', 'director', 'mm2', 'Kesav', 'Kesav', 'ON', 'ON'),
-('procurement.maishasteel@gmail.com', 'procurement123', 'procurement', 'main', 'James', 'Kevin', 'ON', 'OFF'),
-('storemanager.maishasteel@gmail.com', 'storemanager123', 'store manager', 'mm1', 'Jael', 'Joel', 'OFF', 'ON');
+('dir@maisha.com', '$2y$10$Jisk2Nl0cHrTa0id8f2kIeQ9My1mruHswrJwj3J1tMenC538wbPCa', 'Director', 'MM1', 'Kesav', 'Kesav', 'ON', 'ON'),
+('pro@maisha.com', '$2y$10$6k7MhrmNzez4yVGYfv7puuj3sBd9Ruq.h4F5iSI9o13fx/jojQx.y', 'Procurement officer', 'MM1', 'James', 'Kevin', 'ON', 'OFF'),
+('war@maisha.com', '$2y$10$6cjuL5jaX3lBxr8NpKZ5VunRdrSUoHGU7bEuFHGDZ4Jrzhp/5DS8u', 'Warehouse manager', 'MM2', 'Jael', 'Joel', 'OFF', 'ON');
 
 --
 -- Indexes for dumped tables
@@ -440,7 +442,7 @@ ALTER TABLE `tbl_requisition_items`
 -- AUTO_INCREMENT for table `tbl_sale_items`
 --
 ALTER TABLE `tbl_sale_items`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_store`
@@ -452,7 +454,7 @@ ALTER TABLE `tbl_store`
 -- AUTO_INCREMENT for table `tbl_store_item`
 --
 ALTER TABLE `tbl_store_item`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_unit`

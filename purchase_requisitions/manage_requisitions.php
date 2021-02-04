@@ -31,27 +31,45 @@ include '../includes/base_page/head.php';
             <!-- Content is to start here -->
             <div class="row pb-2">
               <div class="col">
-                <label for="req_nbr" class="form-label">Requisition Number</label>
-                <input type="text" name="req_nbr" id="req_nbr" class="form-control" readonly>
-              </div>
-              <div class="col">
-                <label for="req_date" class="form-label">Date</label>
+                <label for="req_date" class="form-label">From </label>
                 <input type="date" name="req_date" id="req_date" class="form-control" readonly>
               </div>
               <div class="col">
-                <label for="req_time" class="form-label">Time</label>
-                <input type="time" name="req_time" id="req_time" class="form-control" readonly>
+                <label for="req_date" class="form-label">To </label>
+                <input type="date" name="req_date" id="req_date" class="form-control" readonly>
               </div>
+              <div class="col">
+                <label for="status" class="form-label">Status*</label>
+                <select name="status" id="status" class="form-select">
+                  <option value="active">active</option>
+                  <option value="inactive">inactive</option>
+                </select>
+              </div>
+              <div class="col">
+              <label class="form-label">Approvals</label>
+              <button class="form-control" class="btn btn-falcon-success mr-1 mb-1" type="button">Approve
+              </button>
+              </div>
+              
+            </div>
             </div>
             <table class="table mt-2">
               <thead>
                 <tr>
-                  <th>Product Code</th>
-                  <th>Product Name</th>
-                  <th>Units</th>
-                  <th>Quantity</th>
+                  <th>Requisition Number*</th>
+                  <th>Date </th>
+                  <th>Created By</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
+              <tbody id="table_body">
+                <tr>
+                  <th>033</th>
+                  <td>2-4-2021</td>
+                  <td>Kesav</td>
+                  <td> </td>
+                </tr>
+              </tbody>
             </table>
             <div class="col">
               <button class="btn btn-falcon-success mr-1 mb-1" type="button">Approve
