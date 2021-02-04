@@ -122,7 +122,7 @@
         if (name == '' || passw == '') {
           alert("Please complete the login form!")
         } else {
-          var conf = confirm("Do You Want to Login to Dashboard?")
+          var conf = confirm("Do You Want to Log into Dashboard?")
           if (conf) {
             $.ajax({
               url: "includes/authenticate.php",

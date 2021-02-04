@@ -220,13 +220,13 @@ include '../includes/base_page/head.php';
                 </div>
                 <div class="p-4">
                   <!-- Category Form -->
-                  <form>
+                  <form id="add_ct_frm" name="add_ct_frm">
                     <div class="p2">
                       <label for="modal_category_name" class="form-label">Category Name*</label>
-                      <input type="text" name="category_name" id="modal_category_name" class="form-control" required>
+                      <input type="text" name="modal_category_name" id="modal_category_name" class="form-control" required>
                       <div class="invalid-feedback">This field cannot be left blank.</div>
                     </div>
-                    <input type="button" value="Add" class="btn btn-falcon-primary mt-2">
+                    <input type="submit" value="Add" class="btn btn-falcon-primary mt-2" id="add_ct_submit" name="add_ct_submit">
                   </form>
                 </div>
               </div>
@@ -274,6 +274,39 @@ include '../includes/base_page/head.php';
 
           </div>
         </div>
+
+        <script>
+  $(document).ready(function(){
+    $('#add_ct_submit').click(function(e){
+      e.preventDefault();
+      var cat_name = $('#modal_category_name').val();
+      var data1 = {
+        modal_category_name: cat_name
+        }
+
+      if (cat_name=='')
+      {
+        alert("Please complete form!")
+      }
+      else
+      {
+        var conf = confirm("Do You Want to Add a New Category?")
+        if (conf){
+        $.ajax({
+          url:"../includes/add_category.php",
+          method: "POST",
+              data: data1,
+              success: function(data){
+                $('#add_ct_frm')[0].reset();
+            //$('form').trigger("reset");
+            alert(data)
+          }
+        })
+
+      }}
+    })
+  })
+</script>
 
         <script>
           // listen for the DOMContentLoaded event, then bind our function
