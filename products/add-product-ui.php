@@ -33,7 +33,7 @@ include '../includes/base_page/head.php';
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <h5 class="p-2" id="title-header">Add New Product
-          <div id="spinner" class="spinner-border text-warning" role="status"></div>
+          <div id="spinner" class="spinner-border" role="status"></div>
         </h5>
         <!-- Content is to start here -->
         <form action="add_product.php" method="post" name="add_product" id="add_product" enctype="multipart/form-data">
@@ -415,6 +415,8 @@ include '../includes/base_page/head.php';
                   opt.style.textTransform = "capitalize";
                   opt.value = value['supplier'];
                   product_supplier.appendChild(opt);
+                  // Update spinner we are done
+                  removeSpinner();
                 });
               });
           }
@@ -450,10 +452,9 @@ include '../includes/base_page/head.php';
             //console.log(tax_type.value, applicable_tax.value, amount_before_tax.value);
           }
 
-          function changeSpinner() {
+          function removeSpinner() {
             const spinner = document.querySelector("#spinner");
-            spinner.classList.remove("text-warning");
-            spinner.classList.add("text-info");
+            spinner.setAttribute("class", "invinsible");
           }
         </script>
 
