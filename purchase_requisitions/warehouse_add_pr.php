@@ -94,10 +94,12 @@ include '../includes/base_page/head.php';
         <script>
           const requisitionable_items = {
             Tank: {
+              name: "Tank",
               code: 33,
               units: "Kg",
             },
             Steel: {
+              name: "Steel",
               code: 52,
               units: "Pcs",
             }
@@ -109,8 +111,34 @@ include '../includes/base_page/head.php';
           const table_body = document.querySelector("#table_body");
 
           function addItem() {
-            console.log(requisitionable_items[requisitionable_item.value]);
+            const item_to_add = requisitionable_items[requisitionable_item.value]
+            if (!item_to_add) {
+              return;
+            }
+            console.log(item_to_add);
             let tr = document.createElement("tr");
+
+            let code_td = document.createElement("td");
+            code_td.appendChild(document.createTextNode(item_to_add["code"]));
+            code_td.classList.add("align-middle");
+
+            let name_td = document.createElement("td");
+            name_td.appendChild(document.createTextNode(item_to_add["name"]));
+            name_td.classList.add("align-middle");
+
+            let units_td = document.createElement("td");
+            units_td.appendChild(document.createTextNode(item_to_add["units"]));
+            units_td.classList.add("align-middle");
+
+            let quantity = document.createElement("input");
+            quantity.setAttribute("type", "number");
+            quantity.setAttribute("required", "");
+            quantity.classList.add("form-control", "form-control-sm");
+            let quantityWrapper = document.createElement("td");
+            quantityWrapper.classList.add("m-2");
+            quantityWrapper.appendChild(quantity);
+            tr.append(code_td, name_td, units_td, quantityWrapper);
+            table_body.appendChild(tr);
           }
         </script>
 
