@@ -49,15 +49,8 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="browser" class="form-label">Items to Requisition</label>
                 <div class="input-group">
-                  <input list="requisitionable_items" name="requisitionable_item" id="requisitionable_item" class="form-select">
-
-                  <datalist id="requisitionable_items" class="bg-light">
-                    <option value="Tank">Remaining 2 pieces</option>
-                    <option value="Steel">
-                    <option value="Box profile tile">
-                    <option value="12 Gauge Steel">
-                    <option value="Marble">
-                  </datalist>
+                  <input list="requisitionable_items" id="requisitionable_item" class="form-select">
+                  <datalist id="requisitionable_items" class="bg-light"></datalist>
                   <input type="button" value="+" class="btn btn-primary" onclick="addItem();">
                 </div>
               </div>
@@ -71,6 +64,7 @@ include '../includes/base_page/head.php';
                       <th scope="col">Product Name</th>
                       <th scope="col">Units</th>
                       <th scope="col">Quantity</th>
+                      <!-- <th scope="col">Actions</th> -->
                     </tr>
                   </thead>
                   <tbody id="table_body">
@@ -92,23 +86,50 @@ include '../includes/base_page/head.php';
         <!-- body ends here -->
         <!-- =========================================================== -->
         <script>
-          const requisitionable_items = {
-            Tank: {
-              name: "Tank",
-              code: 33,
-              units: "Kg",
-            },
-            Steel: {
-              name: "Steel",
-              code: 52,
-              units: "Pcs",
-            }
-          }
+          let requisitionable_items = {};
+
+          // const items_in_requisitionable_item
           const requisitionable_item = document.querySelector("#requisitionable_item");
+          const requisitionable_items_datalist = document.querySelector("#requisitionable_items");
           const requisition_date = document.querySelector("#requisition_date");
           const requisition_number = document.querySelector("#requisition_number");
           const requisition_time = document.querySelector("#requisition_time");
           const table_body = document.querySelector("#table_body");
+
+          document.addEventListener('DOMContentLoaded', function() {
+            // Fetch items and balance
+            fetch('../includes/requisition_items.php')
+              .then(response => response.json())
+              .then(data => {
+                data.forEach((value) => {
+                  requisitionable_items[value["product_name"]] = {
+                    name: value["product_name"],
+                    code: value["product_code"],
+                    unit: value["unit"],
+                    balance: value["balance"]
+                  };
+                });
+                updateReqItems();
+              });
+          });
+
+          function updateReqItems() {
+            console.log("hello ", requisitionable_items);
+            var i = 1;
+            for (let item in requisitionable_items) {
+              console.log(requisitionable_items[item]);
+              let opt = document.createElement("option");
+              opt.appendChild(
+                document.createTextNode(
+                  "Remaining " + requisitionable_items[item]["balance"] +
+                  " " + requisitionable_items[item]["unit"]
+                )
+              );
+              opt.setAttribute("value", requisitionable_items[item]["name"]);
+              requisitionable_items_datalist.appendChild(opt);
+              i++;
+            }
+          }
 
           function addItem() {
             const item_to_add = requisitionable_items[requisitionable_item.value]
@@ -127,7 +148,7 @@ include '../includes/base_page/head.php';
             name_td.classList.add("align-middle");
 
             let units_td = document.createElement("td");
-            units_td.appendChild(document.createTextNode(item_to_add["units"]));
+            units_td.appendChild(document.createTextNode(item_to_add["unit"]));
             units_td.classList.add("align-middle");
 
             let quantity = document.createElement("input");
