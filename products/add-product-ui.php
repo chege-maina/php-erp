@@ -276,37 +276,35 @@ include '../includes/base_page/head.php';
         </div>
 
         <script>
-  $(document).ready(function(){
-    $('#add_ct_submit').click(function(e){
-      e.preventDefault();
-      var cat_name = $('#modal_category_name').val();
-      var data1 = {
-        modal_category_name: cat_name
-        }
+          $(document).ready(function() {
+            $('#add_ct_submit').click(function(e) {
+              e.preventDefault();
+              var cat_name = $('#modal_category_name').val();
+              var data1 = {
+                modal_category_name: cat_name
+              }
 
-      if (cat_name=='')
-      {
-        alert("Please complete form!")
-      }
-      else
-      {
-        var conf = confirm("Do You Want to Add a New Category?")
-        if (conf){
-        $.ajax({
-          url:"../includes/add_category.php",
-          method: "POST",
-              data: data1,
-              success: function(data){
-                $('#add_ct_frm')[0].reset();
-            //$('form').trigger("reset");
-            alert(data)
-          }
-        })
+              if (cat_name == '') {
+                alert("Please complete form!")
+              } else {
+                var conf = confirm("Do You Want to Add a New Category?")
+                if (conf) {
+                  $.ajax({
+                    url: "../includes/add_category.php",
+                    method: "POST",
+                    data: data1,
+                    success: function(data) {
+                      $('#add_ct_frm')[0].reset();
+                      //$('form').trigger("reset");
+                      alert(data)
+                    }
+                  })
 
-      }}
-    })
-  })
-</script>
+                }
+              }
+            })
+          })
+        </script>
 
         <script>
           // listen for the DOMContentLoaded event, then bind our function
