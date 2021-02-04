@@ -47,30 +47,18 @@ include '../includes/base_page/head.php';
             </div>
             <div class="row my-3">
               <div class="col">
+                <label for="browser" class="form-label">Items to Requisition</label>
+                <div class="input-group">
+                  <input list="requisitionable_items" name="requisitionable_item" id="requisitionable_item" class="form-select">
 
-                <div class="dropdown font-sans-serif position-static">
-                  <button class="btn text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="customer-dropdown-0" data-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false">
-                    Items to Requisition
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-left border py-0" aria-labelledby="customer-dropdown-0">
-                    <div class="bg-white py-2">
-                      <table class="table table-hover">
-
-                        <thead>
-                          <tr>
-                            <th>Product Name</th>
-                            <th>Product Balance</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>Tanks</td>
-                            <td>2</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
+                  <datalist id="requisitionable_items" class="bg-light">
+                    <option value="Tank">Remaining 2 pieces</option>
+                    <option value="Steel">
+                    <option value="Box profile tile">
+                    <option value="12 Gauge Steel">
+                    <option value="Marble">
+                  </datalist>
+                  <input type="button" value="+" class="btn btn-primary" onclick="addItem();">
                 </div>
               </div>
             </div>
@@ -104,11 +92,26 @@ include '../includes/base_page/head.php';
         <!-- body ends here -->
         <!-- =========================================================== -->
         <script>
+          const requisitionable_items = {
+            Tank: {
+              code: 33,
+              units: "Kg",
+            },
+            Steel: {
+              code: 52,
+              units: "Pcs",
+            }
+          }
+          const requisitionable_item = document.querySelector("#requisitionable_item");
           const requisition_date = document.querySelector("#requisition_date");
           const requisition_number = document.querySelector("#requisition_number");
           const requisition_time = document.querySelector("#requisition_time");
-          const reorderble_items = document.querySelector("#reorderble_items");
           const table_body = document.querySelector("#table_body");
+
+          function addItem() {
+            console.log(requisitionable_items[requisitionable_item.value]);
+            let tr = document.createElement("tr");
+          }
         </script>
 
 
