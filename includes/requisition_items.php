@@ -18,17 +18,18 @@ include_once 'dbconnect.php';
         $unit = $row['product_unit'];
         $reorder = $row['reorder'];
 
-        $query1 ="SELECT sum(qty) as qtystore FROM tbl_store_item WHERE product_name = ".$product."";
+
+        $query1 ="SELECT sum(qty) FROM tbl_store_item WHERE product_name = '$product'";
         $result1 = mysqli_query($conn, $query1);
         if($row1 = mysqli_fetch_assoc($result1)){
-            $totalstore = $row1['qtystore'];
+            $totalstore = $row1['sum(qty)'];
             
             
         }
-        $query2 ="SELECT sum(qty) as qtysale FROM tbl_sale_items WHERE product_name = ".$product."";
+        $query2 ="SELECT sum(qty) FROM tbl_sale_items WHERE product_name = '$product'";
         $result2 = mysqli_query($conn, $query2);
         if($row2 = mysqli_fetch_assoc($result2)){
-            $totalsale = $row2['qtysale'];
+            $totalsale = $row2['sum(qty)'];
                         
         }
         
