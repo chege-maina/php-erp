@@ -94,6 +94,8 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <script>
           let all_requisitionable_items = {};
+          let items_in_combobox = {};
+          let items_in_table = {};
 
           // const items_in_requisitionable_item
           const requisitionable_item = document.querySelector("#requisitionable_item");
@@ -116,25 +118,26 @@ include '../includes/base_page/head.php';
                     balance: value["balance"]
                   };
                 });
+                items_in_combobox = all_requisitionable_items;
                 updateReqItems();
               });
           });
 
           function updateReqItems() {
-            console.log("hello ", all_requisitionable_items);
-            var i = 1;
-            for (let item in all_requisitionable_items) {
-              console.log(all_requisitionable_items[item]);
+            // Clear datalist
+            requisitionable_items_datalist.innerHTML = "";
+            requisitionable_item.value = "";
+            for (let item in items_in_combobox) {
+              console.log(items_in_combobox[item]);
               let opt = document.createElement("option");
               opt.appendChild(
                 document.createTextNode(
-                  "Remaining " + all_requisitionable_items[item]["balance"] +
-                  " " + all_requisitionable_items[item]["unit"]
+                  "Remaining " + items_in_combobox[item]["balance"] +
+                  " " + items_in_combobox[item]["unit"]
                 )
               );
-              opt.setAttribute("value", all_requisitionable_items[item]["name"]);
+              opt.setAttribute("value", items_in_combobox[item]["name"]);
               requisitionable_items_datalist.appendChild(opt);
-              i++;
             }
           }
 
@@ -167,6 +170,9 @@ include '../includes/base_page/head.php';
             quantityWrapper.appendChild(quantity);
             tr.append(code_td, name_td, units_td, quantityWrapper);
             table_body.appendChild(tr);
+
+            delete items_in_combobox[item_to_add["name"]];
+            updateReqItems();
           }
         </script>
 
