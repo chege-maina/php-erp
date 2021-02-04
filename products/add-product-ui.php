@@ -150,7 +150,7 @@ include '../includes/base_page/head.php';
                 </div>
                 <div class="col">
                   <label class="form-label" for="amount_before_tax">Amount Before Tax*</label>
-                  <input type="number" class="form-control" name="amount_before_tax" id="amount_before_tax" required onchange="calculatePrices();">
+                  <input type="number" class="form-control" name="amount_before_tax" id="amount_before_tax" required onkeyup="calculatePrices();">
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
               </div>
@@ -299,6 +299,9 @@ include '../includes/base_page/head.php';
               success: function(data){
                 $('#add_ct_frm')[0].reset();
             //$('form').trigger("reset");
+            if(data=='New Category Added Successfully'){
+              updateComboBoxes();
+            }
             alert(data)
           }
         })
