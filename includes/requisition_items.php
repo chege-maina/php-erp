@@ -3,6 +3,9 @@
 header("Content-type:application/json");
 
 include_once 'dbconnect.php';
+session_start();
+
+    $branch =$_SESSION['branch'];
 
     $query = "SELECT * FROM tbl_product";
     $totalstore = 0;
@@ -19,14 +22,14 @@ include_once 'dbconnect.php';
         $reorder = $row['reorder'];
 
 
-        $query1 ="SELECT sum(qty) FROM tbl_store_item WHERE product_name = '$product'";
+        $query1 ="SELECT sum(qty) FROM tbl_store_item WHERE product_name = '$product' and branch_location = '$branch'";
         $result1 = mysqli_query($conn, $query1);
         if($row1 = mysqli_fetch_assoc($result1)){
             $totalstore = $row1['sum(qty)'];
             
             
         }
-        $query2 ="SELECT sum(qty) FROM tbl_sale_items WHERE product_name = '$product'";
+        $query2 ="SELECT sum(qty) FROM tbl_sale_items WHERE product_name = '$product' and branch_location = '$branch'";
         $result2 = mysqli_query($conn, $query2);
         if($row2 = mysqli_fetch_assoc($result2)){
             $totalsale = $row2['sum(qty)'];
