@@ -52,13 +52,13 @@ include '../includes/base_page/head.php';
                   <input list="requisitionable_items" name="requisitionable_item" id="requisitionable_item" class="form-select">
 
                   <datalist id="requisitionable_items" class="bg-light">
-                    <option value="Tank">
+                    <option value="Tank">Remaining 2 pieces</option>
                     <option value="Steel">
                     <option value="Box profile tile">
                     <option value="12 Gauge Steel">
                     <option value="Marble">
                   </datalist>
-                  <input type="button" value="+" class="btn btn-falcon-primary">
+                  <input type="button" value="+" class="btn btn-primary" onclick="addItem();">
                 </div>
               </div>
             </div>
@@ -92,11 +92,26 @@ include '../includes/base_page/head.php';
         <!-- body ends here -->
         <!-- =========================================================== -->
         <script>
+          const requisitionable_items = {
+            Tank: {
+              code: 33,
+              units: "Kg",
+            },
+            Steel: {
+              code: 52,
+              units: "Pcs",
+            }
+          }
+          const requisitionable_item = document.querySelector("#requisitionable_item");
           const requisition_date = document.querySelector("#requisition_date");
           const requisition_number = document.querySelector("#requisition_number");
           const requisition_time = document.querySelector("#requisition_time");
-          const reorderble_items = document.querySelector("#reorderble_items");
           const table_body = document.querySelector("#table_body");
+
+          function addItem() {
+            console.log(requisitionable_items[requisitionable_item.value]);
+            let tr = document.createElement("tr");
+          }
         </script>
 
 
