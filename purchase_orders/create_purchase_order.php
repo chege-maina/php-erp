@@ -25,96 +25,243 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <h5 class="p-2">Create Purchase Order</h5>
-        <div class="card">
-          <div class="card-body fs--1 p-4">
-            <!-- Content is to start here -->
-            <div class="row">
-              <div class="col">
-                <label for="requisition_number" class="form-label">Purchase Order Number*</label>
-                <input type="number" name="requisition_number" id="requisition_number" class="form-control">
-              </div>
-              <div class="col">
-                <label for="requisition_date" class="form-label">Date</label>
-                <!-- autofill current date  -->
-                <input type="date" name="requisition_date" id="requisition_date" class="form-control">
-              </div>
-              <div class="col">
-                <label for="requisition_time" class="form-label">Time</label>
-                <!-- autofill current time  -->
-                <input type="time" name="requisition_time" id="requisition_time" class="form-control">
-              </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col">
-                <label for="supplier" class="form-label">Supplier*</label>
-                <select name="supplier" id="supplier" class="form-select">
-                  <option value="a">a</option>
-                  <option value="b">b</option>
-                </select>
-              </div>
-            </div>
-            <div class="row my-3">
-              <div class="col">
-
-                <div class="dropdown font-sans-serif position-static">
-                  <button class="btn text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="customer-dropdown-0" data-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false">
-                    Items to Requisition
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-left border py-0" aria-labelledby="customer-dropdown-0">
-                    <div class="bg-white py-2">
-                      <table class="table table-hover">
-
-                        <thead>
-                          <tr>
-                            <th>Product Name</th>
-                            <th>Product Balance</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>Tanks</td>
-                            <td>2</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
+        <div class="card mb-3">
+            <div class="card-body">
+              <div class="row flex-between-center">
+                <div class="col-md">
+                  <h5 class="mb-2 mb-md-0">New Sales</h5>
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-falcon-default btn-sm mr-2" role="button">Manage Sales</button>
+                  <button class="btn btn-falcon-primary btn-sm" role="button"> POS Sale </button>
                 </div>
               </div>
             </div>
-            <div class="row my-3">
-              <div class="col">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Product Code</th>
-                      <th scope="col">Product Name</th>
-                      <th scope="col">Units</th>
-                      <th scope="col">Quantity</th>
-                    </tr>
-                  </thead>
-                  <tbody id="table_body">
-                    <tr>
-                      <th>033</th>
-                      <td>Roto</td>
-                      <td>Pieces</td>
-                      <td>3</td>
-                    </tr>
-                    <tr>
-                      <th>033</th>
-                      <td>Mabati</td>
-                      <td>Pieces</td>
-                      <td>3</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <!-- Content ends here -->
           </div>
-          <!-- Additional cards can be added here -->
-        </div>
+ 
+          <div class="row g-0">
+            <div class="col-lg-12 pr-lg-2">
+              <div class="card mb-3">
+                <div class="card-body bg-light">
+                  <form action="" method="GET">
+                    <div class="row gx-2">
+
+                      <div class="col-sm-3 mb-3">
+                        <label class="form-label" for="event-name" >Customer Name</label>
+                        <input class="form-control" id="event-name" name="customer_name" value="Walking Customer "type="text" placeholder="Walkin Customer" value="" />
+                      </div>
+    
+
+                      <div class="col-12">
+                        <div class="border-dashed-bottom my-3"></div>
+                      </div>
+
+                  <table  >
+                    <thead>
+                      <tr  class=" fs--1">
+          
+                        <th>Product Category</th>
+                        <th>Product Name</th>
+                        <th>Unit</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>
+                            <div id="add" class="btn btn-link btn-sm"><span class="fas fa-plus" data-fa-transform="shrink-2"></span></div>
+                        </th>
+
+                      </tr>
+                    </thead>
+                    <tbody id="dynamic_field">
+                      <tr  id="row1">
+                        <td class="">
+                        <select name="branch1" class="form-control  form-select-sm " id="" type="text"  >
+                          
+                          <option selected="selected">options</option>
+                          <option selected="selected">options</option>
+                        </select>
+                        </td>
+
+                        <td>
+                        <select name="pcategory1" class="form-control form-select-sm " id="" type="text"  >
+                          <option selected="selected">options</option>
+                        </select>
+                        </td>
+                        <td>
+                          <input name="pname1" class="form-control form-control-sm" type="text" placeholder="Price" value="" />
+                        </td>
+                        <td>
+                          <input name="punit1" class="form-control form-control-sm" type="text" placeholder="Price" value="" />
+                        </td>
+                        <td>
+                          <input name="pquantity1" class="form-control form-control-sm" type="text" placeholder="Price" value="" />
+                        </td>
+                        <td>
+                          <input name="total1" class="form-control form-control-sm" type="text" placeholder="Price" value="" />
+                        </td>
+                        <td  class=" btn_remove " id="1">
+                          <div class="btn  btn-sm btn_remove"><span class="fas fa-times-circle text-danger"></span></div>
+                        </td>
+
+
+                        </tr> </tbody>
+                        <tr>
+                        <td>  
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <th>Tax</th>
+                        <td>
+                          <input class="form-control form-control-sm" type="text" placeholder="Product Name" value="" />
+                        </td>
+                      </tr>
+                        <tr>
+                        <td>  
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <th>Transport Cost</th>
+                        <td>
+                          <input class="form-control form-control-sm" type="text" placeholder="Product Name" value="" />
+                        </td>
+                      </tr>
+                        <tr>
+                        <td>  
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <th>Cash Payment</th>
+                        <td>
+                          <input class="form-control form-control-sm" type="text" placeholder="Product Name" value="" />
+                        </td>
+                      </tr>
+                        <tr>
+                        <td>  
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <th>Mobile Money Payment</th>
+                        <td>
+                          <input class="form-control form-control-sm" type="text" placeholder="Product Name" value="" />
+                        </td>
+                      </tr>
+                        <tr>
+                        <td>  
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <th>Credit Card Payment:</th>
+                        <td>
+                          <input class="form-control form-control-sm" type="text" placeholder="Product Name" value="" />
+                        </td>
+                      </tr>
+                        <tr>
+                        <td>  
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <th>Credit Card Payment:</th>
+                        <td>
+                          <input class="form-control form-control-sm" type="text" placeholder="Product Name" value="" />
+                        </td>
+                      </tr>
+                        <tr>
+                        <td>  
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <th>Uncleared Cheques Payment:</th>
+                        <td>
+                          <input class="form-control form-control-sm" type="text" placeholder="Product Name" value="" />
+                        </td>
+                      </tr>
+
+                   
+                  </table>
+                  
+                    </div>
+                      <div class="col-12">
+                        <div class="border-dashed-bottom my-3"></div>
+                      </div>
+                       <div class="row gx-2">
+
+                      <div class="col-sm-3 mb-3">
+                        <label class="form-label" for="event-name">Delivery Method</label>
+                        <select class="form-control" id="event-name" type="text" placeholder="Walkin Customer" value="" >
+                            <option selected="selected">Self Collect</option>
+                            <option selected="selected">Delivered</option>
+                        </select>
+                      </div>
+
+
+                      <div class="col-sm-3 mb-3">
+                        <label class="form-label" for="event-name">Vehicle No.</label>
+                        <input class="form-control" id="event-name" type="text" placeholder="Walkin Customer" value="" >
+                        </input>
+                      </div>
+                      <div class="col-sm-3 mb-3">
+                        <label class="form-label" for="event-name">Drivers Name</label>
+                        <input class="form-control" id="event-name" type="text" placeholder="Walkin Customer" value="" >
+                        </input>
+                      </div>
+                      <div class="col-sm-3 mb-3">
+                        <label class="form-label" for="event-name">Drivers Phone</label>
+                        <input class="form-control" id="event-name" type="text" placeholder="Walkin Customer" value="" >
+                        </input>
+                      </div>
+
+                                            
+                        
+                          
+                        
+                  </div>
+
+                    <div class="col-12">
+                        <label class="form-label" for="event-description">Sale Details</label>
+                        <textarea class="form-control" id="event-description" rows="2"></textarea>
+                      </div>
+                                            <div class="col-12">
+                        <div class="border-dashed-bottom my-3"></div>
+                      </div>
+
+
+
+                  <button class="btn btn-falcon-primary btn-sm" role="button"> Submit Sale </button>
+                 <!-- <input type="submit" name="print" id="print" value="Print" onclick="myFunction()"/> -->
+                </div>
+                   
+                  </form>
+
+                </div>
+            </div>
+          </div>
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <!-- body ends here -->
         <!-- =========================================================== -->
