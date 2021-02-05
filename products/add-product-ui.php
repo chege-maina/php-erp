@@ -36,7 +36,7 @@ include '../includes/base_page/head.php';
           <div id="spinner" class="spinner-border" role="status"></div>
         </h5>
         <!-- Content is to start here -->
-        <form action="add_product.php" method="post" name="add_product" id="add_product" enctype="multipart/form-data">
+        <form name="add_product" id="add_product" onsubmit="return submitForm();">
           <div class="card">
             <div class="card-body fs--1 p-4">
               <div class="row">
@@ -288,10 +288,11 @@ include '../includes/base_page/head.php';
               var unt_name = $('#modal_unit_name').val();
               var unt_desc = $('#modal_unit_description').val();
               var data1 = {
-                modal_unit_name: unt_name, modal_unit_description: unt_desc
+                modal_unit_name: unt_name,
+                modal_unit_description: unt_desc
               }
 
-              if (unt_name == '' || unt_desc=='') {
+              if (unt_name == '' || unt_desc == '') {
                 alert("Please complete form!")
               } else {
                 var conf = confirm("Do You Want to Add a New Unit?")
@@ -347,6 +348,66 @@ include '../includes/base_page/head.php';
               }
             })
           })
+
+          function submitForm() {
+            console.log("Submitting");
+            const product_code = document.querySelector("#product_code").value;
+            const product_name = document.querySelector("#product_name").value;
+            const product_category = document.querySelector("#product_category").value;
+            const product_unit = document.querySelector("#product_unit").value;
+            const product_supplier = document.querySelector("#product_supplier").value;
+            const product_image = document.querySelector("#product_image").files[0];
+
+            const min_level = document.querySelector("#min_level").value;
+            const max_level = document.querySelector("#max_level").value;
+            const reorder = document.querySelector("#reorder").value;
+
+            const tax_type = document.querySelector("#tax_type").value;
+            const applicable_tax = document.querySelector("#applicable_tax").value;
+            const amount_before_tax = document.querySelector("#amount_before_tax").value;
+
+            const dpp_exc_tax = document.querySelector("#dpp_exc_tax").value;
+            const dpp_inc_tax = document.querySelector("#dpp_inc_tax").value;
+            const profit_margin = document.querySelector("#profit_margin").value;
+            const dsp_price = document.querySelector("#dsp_price").value;
+
+            const formData = new FormData();
+            formData.append("user_name", user_name);
+
+            formData.append("product_code", product_code);
+            formData.append("product_name", product_name);
+            formData.append("product_category", product_category);
+            formData.append("product_unit", product_unit);
+            formData.append("product_supplier", product_supplier);
+            formData.append("product_image", product_image);
+
+            formData.append("min_level", min_level);
+            formData.append("max_level", max_level);
+            formData.append("reorder", reorder);
+
+            formData.append("tax_type", tax_type);
+            formData.append("applicable_tax", applicable_tax);
+            formData.append("amount_before_tax", amount_before_tax);
+
+            formData.append("dpp_exc_tax", dpp_exc_tax);
+            formData.append("dpp_inc_tax", dpp_inc_tax);
+            formData.append("profit_margin", profit_margin);
+            formData.append("dsp_price", dsp_price);
+
+            fetch('add_product.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.text())
+              .then(data => {
+                console.log(data);
+              })
+              .catch(error => {
+                console.error(error);
+              });
+
+            return false;
+          }
         </script>
 
         <script>
@@ -475,7 +536,6 @@ include '../includes/base_page/head.php';
               dpp_exc_tax.value = Number(amount_before_tax.value) / ((Number(applicable_tax.value) + 100) / 100)
               dpp_exc_tax.value = Number(dpp_exc_tax.value).toFixed(2)
             } else if (tax_type.value == "exclusive" && applicable_tax.value > 0) {
-              console.log("here");
               dpp_inc_tax.value = (applicable_tax.value / 100 * amount_before_tax.value) + Number(amount_before_tax.value);
               dpp_inc_tax.value = Number(dpp_inc_tax.value).toFixed(2)
             } else {
