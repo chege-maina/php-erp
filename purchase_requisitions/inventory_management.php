@@ -46,50 +46,50 @@ include '../includes/base_page/head.php';
                 </select>
               </div>
               <div class="col">
-              <label class="form-label">Filters</label>
-              <button class="form-control" class="btn btn-falcon-primary mr-1 mb-1" type="button">Filter
-              </button>
+                <label class="form-label">Filters</label>
+                <button class="form-control" class="btn btn-falcon-primary mr-1 mb-1" type="button">Filter
+                </button>
               </div>
-              
+
             </div>
-            </div>
-            <table class="table mt-2">
-              <thead>
-                <tr>
-                  <th>Requisition Number*</th>
-                  <th>Date </th>
-                  <th>Created By</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="table_body">
-                <tr>
-                  <th>033</th>
-                  <td>2-4-2021</td>
-                  <td>Kesav</td>
-                  <td> </td>
-                </tr>
-              </tbody>
-            </table>
-            <!-- Content ends here -->
           </div>
-          <!-- Additional cards can be added here -->
+          <table class="table mt-2">
+            <thead>
+              <tr>
+                <th>Requisition Number*</th>
+                <th>Date </th>
+                <th>Created By</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="table_body">
+              <tr>
+                <th>033</th>
+                <td>2-4-2021</td>
+                <td>Kesav</td>
+                <td> </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- Content ends here -->
         </div>
-        <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <!-- body ends here -->
-        <!-- =========================================================== -->
+        <!-- Additional cards can be added here -->
+      </div>
+      <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+      <!-- body ends here -->
+      <!-- =========================================================== -->
 
 
 
-        <!-- =========================================================== -->
-        <!-- Footer Begin -->
-        <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <?php
-        include '../includes/base_page/footer.php';
-        ?>
-        <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <!-- Footer End -->
-        <!-- =========================================================== -->
+      <!-- =========================================================== -->
+      <!-- Footer Begin -->
+      <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+      <?php
+      include '../includes/base_page/footer.php';
+      ?>
+      <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+      <!-- Footer End -->
+      <!-- =========================================================== -->
 </body>
 
 </html>

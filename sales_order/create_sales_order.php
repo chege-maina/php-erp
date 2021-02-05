@@ -50,60 +50,53 @@ include '../includes/base_page/head.php';
                         <label class="form-label" for="event-name" >Customer Name</label>
                         <input class="form-control" id="event-name" name="customer_name" value="Walking Customer "type="text" placeholder="Walkin Customer" value="" />
                       </div>
-    
-
-                      <div class="col-12">
-                        <div class="border-dashed-bottom my-3"></div>
-                      </div>
-
-                  <table  >
+                  <div class="row pb-2">
+                  <table class="table mt-2" >
                     <thead>
-                      <tr  class=" fs--1">
+                      <tr >
           
                         <th>Product Category</th>
                         <th>Product Name</th>
                         <th>Unit</th>
                         <th>Quantity</th>
                         <th>Total</th>
-                        <th>
-                            <div id="add" class="btn btn-link btn-sm"><span class="fas fa-plus" data-fa-transform="shrink-2"></span></div>
-                        </th>
+                        <th>Actions</th>
+                        
 
                       </tr>
                     </thead>
-                    <tbody id="dynamic_field">
-                      <tr  id="row1">
-                        <td class="">
-                        <select name="branch1" class="form-control  form-select-sm " id="" type="text"  >
+                    <tbody id="table_body">
+                      <tr>
+                        <td >
+                        <select name="product_category" id="product_category" class="form-select" type="text"  >
                           
-                          <option selected="selected">options</option>
-                          <option selected="selected">options</option>
+                          <option value="options">option</option>
+                          <option value="options">option</option>
                         </select>
                         </td>
 
                         <td>
-                        <select name="pcategory1" class="form-control form-select-sm " id="" type="text"  >
-                          <option selected="selected">options</option>
-                        </select>
+                           <input type="text" name="product_name" id="product_name" class="form-control">
                         </td>
                         <td>
-                          <input name="pname1" class="form-control form-control-sm" type="text" placeholder="Price" value="" />
+                          <input name="product_unit" class="form-control form-control-sm m-3" type="text" placeholder="Price" value="" />
                         </td>
                         <td>
-                          <input name="punit1" class="form-control form-control-sm" type="text" placeholder="Price" value="" />
+                          <input name="qty" class="form-control form-control-sm m-3" type="text" placeholder="Price" value="" />
                         </td>
                         <td>
-                          <input name="pquantity1" class="form-control form-control-sm" type="text" placeholder="Price" value="" />
+                          <input name="total" class="form-control form-control-sm m-3" type="text" placeholder="Price" value="" />
                         </td>
-                        <td>
-                          <input name="total1" class="form-control form-control-sm" type="text" placeholder="Price" value="" />
+                        
+                        <td id="1">
+                          <div id="add" class="btn btn-link btn-sm"><span class="fas fa-plus" data-fa-transform="shrink-2"></span></div>
+                
+                          <div class="btn  btn-sm btn_remove"><span class="fas fa-times-circle text-danger m-3"></span></div>
                         </td>
-                        <td  class=" btn_remove " id="1">
-                          <div class="btn  btn-sm btn_remove"><span class="fas fa-times-circle text-danger"></span></div>
-                        </td>
-
-
-                        </tr> </tbody>
+                        </tr> 
+                    </tbody>
+                    </div>
+                    
                         <tr>
                         <td>  
                         </td>
@@ -115,7 +108,7 @@ include '../includes/base_page/head.php';
                         </td>
                         <th>Tax</th>
                         <td>
-                          <input class="form-control form-control-sm" type="text" placeholder="Product Name" value="" />
+                          <input class="form-control form-control-sm m-3" type="text" placeholder="Tax" value="" required/>
                         </td>
                       </tr>
                         <tr>
@@ -129,7 +122,7 @@ include '../includes/base_page/head.php';
                         </td>
                         <th>Transport Cost</th>
                         <td>
-                          <input class="form-control form-control-sm" type="text" placeholder="Product Name" value="" />
+                          <input class="form-control form-control-sm m-3" type="text" placeholder="Transport Cost" value="" />
                         </td>
                       </tr>
                         <tr>
@@ -143,7 +136,7 @@ include '../includes/base_page/head.php';
                         </td>
                         <th>Cash Payment</th>
                         <td>
-                          <input class="form-control form-control-sm" type="text" placeholder="Product Name" value="" />
+                          <input class="form-control form-control-sm m-3" type="text" placeholder="Cash Payment" value="" />
                         </td>
                       </tr>
                         <tr>
@@ -157,7 +150,7 @@ include '../includes/base_page/head.php';
                         </td>
                         <th>Mobile Money Payment</th>
                         <td>
-                          <input class="form-control form-control-sm" type="text" placeholder="Product Name" value="" />
+                          <input class="form-control form-control-sm m-3" type="text" placeholder="Mobile Payment" value="" />
                         </td>
                       </tr>
                         <tr>
@@ -171,7 +164,7 @@ include '../includes/base_page/head.php';
                         </td>
                         <th>Credit Card Payment:</th>
                         <td>
-                          <input class="form-control form-control-sm" type="text" placeholder="Product Name" value="" />
+                       <input class="form-control form-control-sm m-3" type="text" placeholder="Credit Card Payment" value="" />
                         </td>
                       </tr>
                         <tr>
@@ -185,7 +178,7 @@ include '../includes/base_page/head.php';
                         </td>
                         <th>Credit Card Payment:</th>
                         <td>
-                          <input class="form-control form-control-sm" type="text" placeholder="Product Name" value="" />
+                          <input class="form-control form-control-sm m-3" type="text" placeholder="Credit Card Payment" value="" />
                         </td>
                       </tr>
                         <tr>
@@ -199,28 +192,23 @@ include '../includes/base_page/head.php';
                         </td>
                         <th>Uncleared Cheques Payment:</th>
                         <td>
-                          <input class="form-control form-control-sm" type="text" placeholder="Product Name" value="" />
+                          <input class="form-control form-control-sm m-3" type="text" placeholder="Uncleared Cheques Payment" value="" />
                         </td>
-                      </tr>
-
-                   
-                  </table>
+                      </tr>                   
+                    </table>
                   
                     </div>
                       <div class="col-12">
                         <div class="border-dashed-bottom my-3"></div>
                       </div>
                        <div class="row gx-2">
-
                       <div class="col-sm-3 mb-3">
                         <label class="form-label" for="event-name">Delivery Method</label>
-                        <select class="form-control" id="event-name" type="text" placeholder="Walkin Customer" value="" >
-                            <option selected="selected">Self Collect</option>
-                            <option selected="selected">Delivered</option>
+                        <select  placeholder="Walkin Customer" name="status" id="status" class="form-select">
+                            <option value="Self Collect">Self Collect</option>
+                            <option value="Devlivered">Delivered</option>
                         </select>
                       </div>
-
-
                       <div class="col-sm-3 mb-3">
                         <label class="form-label" for="event-name">Vehicle No.</label>
                         <input class="form-control" id="event-name" type="text" placeholder="Walkin Customer" value="" >
@@ -236,40 +224,19 @@ include '../includes/base_page/head.php';
                         <input class="form-control" id="event-name" type="text" placeholder="Walkin Customer" value="" >
                         </input>
                       </div>
-
-                                            
-                        
-                          
-                        
                   </div>
-
-                    <div class="col-12">
-                        <label class="form-label" for="event-description">Sale Details</label>
-                        <textarea class="form-control" id="event-description" rows="2"></textarea>
-                      </div>
-                                            <div class="col-12">
-                        <div class="border-dashed-bottom my-3"></div>
-                      </div>
-
-
-
+                  <div class="col">
                   <button class="btn btn-falcon-primary btn-sm" role="button"> Submit Sale </button>
-                 <!-- <input type="submit" name="print" id="print" value="Print" onclick="myFunction()"/> -->
-                </div>
-                   
-                  </form>
-
-                </div>
+                  </div>
+                </div>   
+                </form>
+              </div>
             </div>
           </div>
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <!-- body ends here -->
         <!-- =========================================================== -->
         <script>
-          const requisition_date = document.querySelector("#requisition_date");
-          const requisition_number = document.querySelector("#requisition_number");
-          const requisition_time = document.querySelector("#requisition_time");
-          const reorderble_items = document.querySelector("#reorderble_items");
           const table_body = document.querySelector("#table_body");
         </script>
 
