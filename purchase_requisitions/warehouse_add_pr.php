@@ -32,6 +32,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+        <div id="alert-div"></div>
         <h5 class="p-2">Add Purchase Requisition</h5>
         <div class="card">
           <div class="card-body fs--1 p-4">
@@ -44,12 +45,12 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="requisition_date" class="form-label">Date</label>
                 <!-- autofill current date  -->
-                <input type="date" name="requisition_date" id="requisition_date" class="form-control">
+                <input type="date" name="requisition_date" id="requisition_date" class="form-control" required readonly>
               </div>
               <div class="col">
                 <label for="requisition_time" class="form-label">Time</label>
                 <!-- autofill current time  -->
-                <input type="time" name="requisition_time" id="requisition_time" class="form-control">
+                <input type="time" name="requisition_time" id="requisition_time" class="form-control" required readonly>
               </div>
             </div>
             <div class="row my-3">
@@ -81,7 +82,7 @@ include '../includes/base_page/head.php';
               </div>
             </div>
 
-            <button class="btn btn-falcon-primary" id="submit" onclick="sendData();">
+            <button class="btn btn-falcon-primary" id="submit">
               <span class="fas fa-save mr-1" data-fa-transform="shrink-3"></span>
               Create Requisition
             </button>
@@ -132,8 +133,11 @@ include '../includes/base_page/head.php';
                   //console.log('response:' + data);
                 })
 
+                // Send the table data too
+                // TODO:  Move sendTableData here
               }
-
+              // Move it to only if success is chosen
+              sendTableData();
             })
 
 
@@ -155,7 +159,7 @@ include '../includes/base_page/head.php';
           const table_body = document.querySelector("#table_body");
 
           document.addEventListener('DOMContentLoaded', function() {
-            console.log(user_name);
+            // console.log(user_name);
             // Fetch items and balance
             fetch('../includes/requisition_items.php')
               .then(response => response.json())
@@ -180,7 +184,7 @@ include '../includes/base_page/head.php';
             requisitionable_items_datalist.innerHTML = "";
             requisitionable_item.value = "";
             for (let item in items_in_combobox) {
-              console.log(items_in_combobox[item]);
+              // console.log(items_in_combobox[item]);
               let opt = document.createElement("option");
               opt.appendChild(
                 document.createTextNode(
@@ -221,6 +225,14 @@ include '../includes/base_page/head.php';
               quantity.setAttribute("type", "number");
               quantity.setAttribute("required", "");
               quantity.classList.add("form-control", "form-control-sm", "align-middle");
+              quantity.setAttribute("data-ref", items_in_table[item]["name"]);
+              quantity.setAttribute("min", 1);
+              // make sure the quantity is always greater than 0
+              quantity.setAttribute("onfocusout", "this.value = this.value <= 0 ? 1 : this.value;");
+              quantity.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value);");
+              quantity.setAttribute("onclick", "this.select();");
+              items_in_table[item]['quantity'] = 'quantity' in items_in_table[item] ? items_in_table[item]['quantity'] : 1;
+              quantity.value = items_in_table[item]['quantity'];
               let quantityWrapper = document.createElement("td");
               quantityWrapper.classList.add("m-2");
               quantityWrapper.appendChild(quantity);
@@ -243,6 +255,11 @@ include '../includes/base_page/head.php';
             return;
           }
 
+          function addQuantityToReqItem(item, value) {
+            items_in_table[item]['quantity'] = value;
+            console.log(value);
+          }
+
           function addItem() {
             const item_to_add = all_requisitionable_items[requisitionable_item.value];
             if (!item_to_add) {
@@ -250,9 +267,9 @@ include '../includes/base_page/head.php';
             }
 
             items_in_table[requisitionable_item.value] = item_to_add;
-            console.log("Now in table: ", items_in_table);
+            // console.log("Now in table: ", items_in_table);
 
-            console.log(item_to_add);
+            // console.log(item_to_add);
 
             delete items_in_combobox[item_to_add["name"]];
             updateTable();
@@ -260,11 +277,9 @@ include '../includes/base_page/head.php';
           }
 
           function removeItem(item) {
-            console.log("Before", all_requisitionable_items);
+            items_in_table[item]['quantity'] = 0;
             delete items_in_table[String(item)];
-            console.log("After: ", items_in_table);
             const item_to_add = all_requisitionable_items[item];
-            console.log("Removing", item_to_add);
             items_in_combobox[item] = item_to_add;
             updateTable();
             updateReqItems();
@@ -279,9 +294,69 @@ include '../includes/base_page/head.php';
             updateReqItems();
           }
 
-          function sendData() {
-            console.log("sending data");
+          function sendTableData() {
+            let table_items = [];
+            for (let item in items_in_table) {
+              table_items.push(items_in_table[item]);
+            }
+            if (table_items.length == 0) {
+              const alertVar =
+                `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Warning!</strong> Cannot submit empty table.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+              var divAlert = document.querySelector("#alert-div");
+              divAlert.innerHTML = alertVar;
+              divAlert.scrollIntoView();
+              return;
+            } else {
+              console.log(table_items);
+              const formData = new FormData();
+              formData.append("requisition_number", requisition_number.value)
+              formData.append("requisition_date", requisition_date.value)
+              formData.append("requisition_time", requisition_time.value)
+              formData.append("table_items", JSON.stringify(table_items));
+
+              // Send the data
+              fetch('../includes/create_requisition_items.php', {
+                  method: 'POST',
+                  body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                  console.log("from server", data);
+                  const alertVar =
+                    `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>${data["message"]}!</strong> Product added to the database.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                  var divAlert = document.querySelector("#alert-div");
+                  divAlert.innerHTML = alertVar;
+                  divAlert.scrollIntoView();
+                  setTimeout(function() {
+                    location.reload();
+                  }, 2500);
+                })
+                .catch(error => {
+                  console.error(error);
+                });
+            }
           }
+
+
+          function d_toString(value) {
+            return value < 10 ? '0' + value : String(value);
+          }
+          document.addEventListener('DOMContentLoaded', function() {
+            const date = new Date();
+            let month = d_toString(date.getMonth() + 1);
+            let day = d_toString(date.getDate());
+            let hours = d_toString(date.getHours());
+            let minutes = d_toString(date.getMinutes());
+
+            requisition_date.value = String(date.getFullYear()) + '-' + month + '-' + day;
+            requisition_time.value = hours + ":" + minutes;
+          });
         </script>
 
 
