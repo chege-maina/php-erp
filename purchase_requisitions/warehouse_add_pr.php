@@ -44,12 +44,12 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="requisition_date" class="form-label">Date</label>
                 <!-- autofill current date  -->
-                <input type="date" name="requisition_date" id="requisition_date" class="form-control">
+                <input type="date" name="requisition_date" id="requisition_date" class="form-control" required readonly>
               </div>
               <div class="col">
                 <label for="requisition_time" class="form-label">Time</label>
                 <!-- autofill current time  -->
-                <input type="time" name="requisition_time" id="requisition_time" class="form-control">
+                <input type="time" name="requisition_time" id="requisition_time" class="form-control" required readonly>
               </div>
             </div>
             <div class="row my-3">
@@ -81,7 +81,7 @@ include '../includes/base_page/head.php';
               </div>
             </div>
 
-            <button class="btn btn-falcon-primary" id="submit" onclick="sendData();">
+            <button class="btn btn-falcon-primary" id="submit">
               <span class="fas fa-save mr-1" data-fa-transform="shrink-3"></span>
               Create Requisition
             </button>
@@ -132,8 +132,11 @@ include '../includes/base_page/head.php';
                   //console.log('response:' + data);
                 })
 
+                // Send the table data too
+                // TODO:  Move sendTableData here
               }
-
+              // Move it to only if success is chosen
+              sendTableData();
             })
 
 
@@ -155,7 +158,7 @@ include '../includes/base_page/head.php';
           const table_body = document.querySelector("#table_body");
 
           document.addEventListener('DOMContentLoaded', function() {
-            console.log(user_name);
+            // console.log(user_name);
             // Fetch items and balance
             fetch('../includes/requisition_items.php')
               .then(response => response.json())
@@ -180,7 +183,7 @@ include '../includes/base_page/head.php';
             requisitionable_items_datalist.innerHTML = "";
             requisitionable_item.value = "";
             for (let item in items_in_combobox) {
-              console.log(items_in_combobox[item]);
+              // console.log(items_in_combobox[item]);
               let opt = document.createElement("option");
               opt.appendChild(
                 document.createTextNode(
@@ -221,6 +224,9 @@ include '../includes/base_page/head.php';
               quantity.setAttribute("type", "number");
               quantity.setAttribute("required", "");
               quantity.classList.add("form-control", "form-control-sm", "align-middle");
+              quantity.setAttribute("data-ref", items_in_table[item]["name"]);
+              quantity.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value);");
+              quantity.value = 'quantity' in items_in_table[item] ? items_in_table[item]['quantity'] : 0;
               let quantityWrapper = document.createElement("td");
               quantityWrapper.classList.add("m-2");
               quantityWrapper.appendChild(quantity);
@@ -243,6 +249,11 @@ include '../includes/base_page/head.php';
             return;
           }
 
+          function addQuantityToReqItem(item, value) {
+            items_in_table[item]['quantity'] = value;
+            console.log(value);
+          }
+
           function addItem() {
             const item_to_add = all_requisitionable_items[requisitionable_item.value];
             if (!item_to_add) {
@@ -250,9 +261,9 @@ include '../includes/base_page/head.php';
             }
 
             items_in_table[requisitionable_item.value] = item_to_add;
-            console.log("Now in table: ", items_in_table);
+            // console.log("Now in table: ", items_in_table);
 
-            console.log(item_to_add);
+            // console.log(item_to_add);
 
             delete items_in_combobox[item_to_add["name"]];
             updateTable();
@@ -260,11 +271,9 @@ include '../includes/base_page/head.php';
           }
 
           function removeItem(item) {
-            console.log("Before", all_requisitionable_items);
+            items_in_table[item]['quantity'] = 0;
             delete items_in_table[String(item)];
-            console.log("After: ", items_in_table);
             const item_to_add = all_requisitionable_items[item];
-            console.log("Removing", item_to_add);
             items_in_combobox[item] = item_to_add;
             updateTable();
             updateReqItems();
@@ -279,27 +288,26 @@ include '../includes/base_page/head.php';
             updateReqItems();
           }
 
-          function sendData() {
+          function sendTableData() {
             console.log("sending data");
+            console.log("Date", requisition_date.value);
+            console.log("Time", requisition_time.value);
+            console.log(items_in_table);
           }
 
+
+          function d_toString(value) {
+            return value < 10 ? '0' + value : String(value);
+          }
           document.addEventListener('DOMContentLoaded', function() {
             const date = new Date();
-            let month = date.getMonth() + 1;
-            let day = date.getDate();
-            if (month < 10) {
-              month = '0' + month;
-            } else {
-              month = String(month);
-            }
+            let month = d_toString(date.getMonth() + 1);
+            let day = d_toString(date.getDate());
+            let hours = d_toString(date.getHours());
+            let minutes = d_toString(date.getMinutes());
 
-            if (day < 10) {
-              day = '0' + day;
-            } else {
-              day = String(day);
-            }
             requisition_date.value = String(date.getFullYear()) + '-' + month + '-' + day;
-            // requisition_time.value = Date();
+            requisition_time.value = String(date.getHours()) + ":" + String(date.getMinutes());
           });
         </script>
 
