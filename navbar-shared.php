@@ -94,7 +94,7 @@
           <div id="name" class="dropdown-item"><?= $_SESSION['name'] ?></div>
           <div id="designation" class="dropdown-item"><?= $_SESSION['designation'] ?></div>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="../authentication/card/logout.html">Logout</a>
+          <a class="dropdown-item" href="../index.php">Logout</a>
         </div>
       </div>
     </li>
