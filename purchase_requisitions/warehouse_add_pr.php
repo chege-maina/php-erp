@@ -32,6 +32,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+        <div id="alert-div"></div>
         <h5 class="p-2">Add Purchase Requisition</h5>
         <div class="card">
           <div class="card-body fs--1 p-4">
@@ -225,8 +226,13 @@ include '../includes/base_page/head.php';
               quantity.setAttribute("required", "");
               quantity.classList.add("form-control", "form-control-sm", "align-middle");
               quantity.setAttribute("data-ref", items_in_table[item]["name"]);
+              quantity.setAttribute("min", 1);
+              // make sure the quantity is always greater than 0
+              quantity.setAttribute("onfocusout", "this.value = this.value <= 0 ? 1 : this.value;");
               quantity.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value);");
-              quantity.value = 'quantity' in items_in_table[item] ? items_in_table[item]['quantity'] : 0;
+              quantity.setAttribute("onclick", "this.select();");
+              items_in_table[item]['quantity'] = 'quantity' in items_in_table[item] ? items_in_table[item]['quantity'] : 1;
+              quantity.value = items_in_table[item]['quantity'];
               let quantityWrapper = document.createElement("td");
               quantityWrapper.classList.add("m-2");
               quantityWrapper.appendChild(quantity);
@@ -289,10 +295,27 @@ include '../includes/base_page/head.php';
           }
 
           function sendTableData() {
-            console.log("sending data");
-            console.log("Date", requisition_date.value);
-            console.log("Time", requisition_time.value);
-            console.log(items_in_table);
+            let table_items = [];
+            for (let item in items_in_table) {
+              table_items.push(items_in_table[item]);
+            }
+            if (table_items.length == 0) {
+              const alertVar =
+                `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Warning!</strong> Cannot submit empty table.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+              var divAlert = document.querySelector("#alert-div");
+              divAlert.innerHTML = alertVar;
+              divAlert.scrollIntoView();
+              return;
+            } else {
+              const formData = new FormData();
+              formData.append("requisition_number", requisition_number.value)
+              formData.append("requisition_date", requisition_date.value)
+              formData.append("requisition_time", requisition_time.value)
+              console.log(table_items);
+            }
           }
 
 
