@@ -64,7 +64,7 @@ include '../includes/base_page/head.php';
             </div>
             <div class="row my-3">
               <div class="col">
-                <table class="table table-striped">
+                <table class="table table-striped" id="table_id">
                   <thead>
                     <tr>
                       <th scope="col">Product Code</th>
@@ -97,6 +97,50 @@ include '../includes/base_page/head.php';
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <!-- body ends here -->
         <!-- =========================================================== -->
+
+        <script>
+          $(document).ready(function() {
+            $('#submit').click(function(e) {
+              e.preventDefault();
+              var requisition_number = $('#requisition_number').val();
+              var requisition_date = $('#requisition_date').val();
+              var requisition_time = $('#requisition_time').val();
+              var requisition_user = user_name;
+              var requisition_branch = user_branch;
+              var data1 = {
+                requisition_number: requisition_number,
+                requisition_date: requisition_date,
+                requisition_time: requisition_time,
+                requisition_user: requisition_user,
+                requisition_branch: requisition_branch
+              }
+
+              var conf = confirm("Do You Want to Create a Purchases Requisition?")
+              if (conf) {
+                $.ajax({
+                  url: "../includes/create_requisition.php",
+                  method: "POST",
+                  data: data1,
+                  success: function(data) {
+                    if (data == 'Successful') {
+
+                      alert(data)
+                    }
+
+                  }
+
+                  //console.log('response:' + data);
+                })
+
+              }
+
+            })
+
+
+          })
+        </script>
+
+
         <script>
           let all_requisitionable_items = {};
           let items_in_combobox = {};
