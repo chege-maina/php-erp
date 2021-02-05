@@ -88,9 +88,9 @@ include '../includes/base_page/head.php';
             </div>
           </div>
           <!-- Content ends here -->
-          <div class="row my-3">
-            <div class="col ">
-              <table class="table mt-2">
+          <div class="row ">
+            <div class="col">
+              <table class="table">
                 <tbody id="table_body">
                   <tr>
                     <td>
@@ -127,7 +127,13 @@ include '../includes/base_page/head.php';
                     </td>
                     <td>
                     </td>
-                    <th>Total</th>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <th scope="col">Total</th>
                     <td>
                       <input class="form-control form-control-sm" type="text" placeholder="Total" value="" required />
                     </td>
@@ -154,6 +160,12 @@ include '../includes/base_page/head.php';
                     <td>
                     </td>
                     <td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
                     </td>
                     <td>
                     </td>
@@ -167,7 +179,7 @@ include '../includes/base_page/head.php';
                     </td>
                     <td>
                     </td>
-                    <th>Discount</th>
+                    <th scope="col">Discount</th>
                     <td>
                       <input class="form-control form-control-sm" type="text" placeholder="Discount" value="" required />
                     </td>
@@ -207,7 +219,13 @@ include '../includes/base_page/head.php';
                     </td>
                     <td>
                     </td>
-                    <th>Grand Total</th>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <th scope="col">Grand Total</th>
                     <td>
                       <input class="form-control form-control-sm" type="text" placeholder="Grand Total" value="" required />
                     </td>
@@ -247,7 +265,13 @@ include '../includes/base_page/head.php';
                     </td>
                     <td>
                     </td>
-                    <th>Paid Amount</th>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <th scope="col">Paid Amount</th>
                     <td>
                       <input class="form-control form-control-sm" type="text" placeholder="Paid Amount" value="" required />
                     </td>
@@ -287,7 +311,13 @@ include '../includes/base_page/head.php';
                     </td>
                     <td>
                     </td>
-                    <th>Due Amount</th>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <th scope="col">Due Amount</th>
                     <td>
                       <input class="form-control form-control-sm" type="text" placeholder="Due Amount" value="" required />
                     </td>
@@ -296,7 +326,6 @@ include '../includes/base_page/head.php';
               </table>
             </div>
           </div>
-
           <div class="col">
             <button class="btn btn-falcon-primary btn-sm m-3" role="button"> Submit </button>
           </div>
