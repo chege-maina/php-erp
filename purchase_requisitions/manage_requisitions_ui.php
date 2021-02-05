@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 <?php
+session_start();
+// If the user is not logged in redirect to the login page...
+if (!isset($_SESSION['loggedin'])) {
+  header('Location: ../index.php');
+  exit();
+}
+include_once '../includes/dbconnect.php';
 include '../includes/base_page/head.php';
 ?>
 
@@ -25,7 +32,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <h5 class="p-2">Inventory Management</h5>
+        <h5 class="p-2">Manage Requisitions</h5>
         <div class="card">
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->

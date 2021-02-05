@@ -26,9 +26,9 @@ function genSideBar()
   <ul class="nav collapse" id="pages" data-parent="#navbarVerticalCollapse">
     <li class="nav-item"><a class="nav-link" href="../products/add-product-ui.php">Add New Product</a>
     </li>
-    <li class="nav-item"><a class="nav-link" href="../pages/associations.html">Manage Products</a>
+    <li class="nav-item"><a class="nav-link" href="../products/manage-products-ui.php">Manage Products</a>
     </li>
-    <li class="nav-item"><a class="nav-link" href="../pages/billing.html">Product Listing</a>
+    <li class="nav-item"><a class="nav-link" href="../products/product-listing-ui.php">Products Listing</a>
     </li>
   </ul>
 </li>
@@ -39,7 +39,7 @@ function genSideBar()
 <ul class="nav collapse" id="purchase_rqn" data-parent="#navbarVerticalCollapse">
   <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/warehouse_add_pr.php">Create Requisition</a>
   </li>
-  <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions.php">Manage Requisitions</a>
+  <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Manage Requisitions</a>
   </li>
   </ul>
 </li>

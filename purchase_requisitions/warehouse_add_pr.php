@@ -81,7 +81,7 @@ include '../includes/base_page/head.php';
               </div>
             </div>
 
-            <button class="btn btn-falcon-primary" id="submit">
+            <button class="btn btn-falcon-primary" id="submit" onclick="sendData();">
               <span class="fas fa-save mr-1" data-fa-transform="shrink-3"></span>
               Create Requisition
             </button>
@@ -233,6 +233,10 @@ include '../includes/base_page/head.php';
             };
             updateTable();
             updateReqItems();
+          }
+
+          function sendData() {
+            console.log("sending data");
           }
         </script>
 
