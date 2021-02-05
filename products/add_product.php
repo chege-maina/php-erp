@@ -1,5 +1,11 @@
 <?php
-// include_once '../includes/dbconnect.php';
+include_once '../includes/dbconnect.php';
+$con = $conn;
+if ( mysqli_connect_errno() ) {
+    // If there is an error with the connection, stop the script and display the error.
+    die ('Failed to connect to MySQL: ' . mysqli_connect_error());
+    
+}
 
 // $allow = array("jpg", "jpeg", "gif", "png");
 
@@ -63,12 +69,9 @@ function sanitize_input($data)
     return $data;
 }
 
-$filename = $_FILES["product_image"]["name"];
-$filetype = $_FILES["product_image"]["type"];
-$filesize = $_FILES["product_image"]["size"];
-$tempfile = $_FILES["product_image"]["tmp_name"];
-// Make sure the folder already exists
-$filenameWithDirectory = "../uploads/" . $filename;
+
+
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_name = sanitize_input($_POST["user_name"]);
@@ -91,18 +94,66 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dpp_inc_tax = sanitize_input($_POST["dpp_inc_tax"]);
     $profit_margin = sanitize_input($_POST["profit_margin"]);
     $dsp_price = sanitize_input($_POST["dsp_price"]);
+
+    $filename = $_FILES["product_image"]["name"];
+$filetype = $_FILES["product_image"]["type"];
+$filesize = $_FILES["product_image"]["size"];
+$tempfile = $_FILES["product_image"]["tmp_name"];
+// Make sure the folder already exists
+$filenameWithDirectory = "../uploads/" . $filename;
+$allow = array("jpg", "jpeg", "gif", "png");
+$info = explode('.', strtolower( $_FILES['product_image']['name']) );
+
+    if ( in_array( end($info), $allow) ) // is this file allowed
+   {
+
+    // Upload the file
+if (move_uploaded_file($tempfile, $filenameWithDirectory)) {
+    if ($stmt = $con->prepare('SELECT product_name FROM tbl_product WHERE product_name = ?')) {
+        // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
+        $stmt->bind_param('s', $product_name);
+        $stmt->execute();
+        // Store the result so we can check if the account exists in the database.
+        $stmt->store_result();
+    if ($stmt->num_rows == 0) {
+        $path = "/uploads/" . $filename;
+        if ($stmt = $con->prepare('INSERT INTO tbl_product (product_name, product_unit, product_category, min_level, max_level, reorder, product_image, dsp_price, amount_before_tax, dpp_inc_tax, applicable_tax, profit_margin, product_supplier, user) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)')) {
+            $stmt->bind_param('ssssssssssssss', $product_name, $product_unit, $product_category, $min_level, $max_level, $reorder, $path, $dsp_price, $amount_before_tax, $dpp_inc_tax, $applicable_tax, $profit_margin, $product_supplier, $user_name);
+            $stmt->execute();
+
+    $responseArray = array(
+        "message" => "success");
+    echo json_encode($responseArray);
+	}
+	else {
+        echo json_encode(array("message" => "error",
+    "desc"=>mysqli_error($con)));
+    } 
+    }
+    else {
+        echo json_encode(array("message" => "error",
+    "desc"=>"Product Already exists.."));
+    }
+}
+else {
+    echo json_encode(array("message" => "error",
+"desc"=>"Database Connection Error.."));
+}
+    
+} else {
+    echo json_encode(array("message" => "error",
+"desc"=>"Image photo not uploaded"));
+}
+}
+else {
+    echo json_encode(array("message" => "error",
+"desc"=>"Image Files only..."));
+}}
+else {
+    echo json_encode(array("message" => "error",
+"desc"=>"Fields required!"));
+
 }
 
-// Upload the file
-if (move_uploaded_file($tempfile, $filenameWithDirectory)) {
-    $responseArray = array(
-        "filename;" => $filename,
-        "user_name" => $user_name,
-        "product_name" => $product_name,
-        "dsp_price" => $dsp_price,
-        "message" => "success"
-    );
-    echo json_encode($responseArray);
-} else {
-    echo json_encode(array("message" => "error"));
-}
+
+
