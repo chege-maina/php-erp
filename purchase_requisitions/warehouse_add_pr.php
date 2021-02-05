@@ -64,11 +64,12 @@ include '../includes/base_page/head.php';
             </div>
             <div class="row my-3">
               <div class="col">
-                <table class="table">
+                <table class="table table-striped">
                   <thead>
                     <tr>
                       <th scope="col">Product Code</th>
                       <th scope="col">Product Name</th>
+                      <th scope="col">Balance</th>
                       <th scope="col">Units</th>
                       <th scope="col" class="w-25">Quantity</th>
                       <th scope="col">Actions</th>
@@ -79,6 +80,9 @@ include '../includes/base_page/head.php';
                 </table>
               </div>
             </div>
+
+            <button class="btn btn-falcon-primary" id="submit">Create</button>
+
             <!-- Content ends here -->
           </div>
           <!-- Additional cards can be added here -->
@@ -100,6 +104,7 @@ include '../includes/base_page/head.php';
           const table_body = document.querySelector("#table_body");
 
           document.addEventListener('DOMContentLoaded', function() {
+            console.log(user_name);
             // Fetch items and balance
             fetch('../includes/requisition_items.php')
               .then(response => response.json())
@@ -153,6 +158,10 @@ include '../includes/base_page/head.php';
               name_td.appendChild(document.createTextNode(items_in_table[item]["name"]));
               name_td.classList.add("align-middle");
 
+              let balance_td = document.createElement("td");
+              balance_td.appendChild(document.createTextNode(items_in_table[item]["balance"]));
+              balance_td.classList.add("align-middle");
+
               let units_td = document.createElement("td");
               units_td.appendChild(document.createTextNode(items_in_table[item]["unit"]));
               units_td.classList.add("align-middle");
@@ -176,7 +185,7 @@ include '../includes/base_page/head.php';
               action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
               actionWrapper.appendChild(action);
 
-              tr.append(code_td, name_td, units_td, quantityWrapper, actionWrapper);
+              tr.append(code_td, name_td, balance_td, units_td, quantityWrapper, actionWrapper);
               table_body.appendChild(tr);
 
             }
