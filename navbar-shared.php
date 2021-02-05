@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-light navbar-glass navbar-top navbar-expand">
 
   <button class="btn navbar-toggler-humburger-icon navbar-toggler mr-1 mr-sm-3" type="button" data-toggle="collapse" data-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
@@ -9,7 +8,7 @@
   <ul class="navbar-nav navbar-nav-icons ml-auto flex-row align-items-center">
     <ul class="navbar-nav align-items-center d-none d-lg-block">
       <li class="nav-item">
-        <h6 id="branch" class="mt-3 mr-2"><?=$_SESSION['branch']?></h6>
+        <h6 id="branch" class="mt-3 mr-2"><?= $_SESSION['branch'] ?></h6>
       </li>
     </ul>
     <li class="nav-item"><a class="nav-link settings-popover" href="#settings-modal" data-toggle="modal"><span class="ripple"></span><span class="fa-spin position-absolute all-0 d-flex flex-center"><span class="icon-spin position-absolute all-0 d-flex flex-center">
@@ -92,8 +91,8 @@
       </a>
       <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdownUser">
         <div class="bg-white dark__bg-1000 rounded-2 py-2">
-          <div id="name" class="dropdown-item"><?=$_SESSION['name']?></div>
-          <div id="designation" class="dropdown-item"><?=$_SESSION['designation']?></div>
+          <div id="name" class="dropdown-item"><?= $_SESSION['name'] ?></div>
+          <div id="designation" class="dropdown-item"><?= $_SESSION['designation'] ?></div>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="../authentication/card/logout.html">Logout</a>
         </div>
@@ -101,3 +100,8 @@
     </li>
   </ul>
 </nav>
+<script>
+  const user_name = "<?= $_SESSION['name'] ?>";
+  const user_branch = " <?= $_SESSION['branch'] ?>";
+  const user_designation = "<?= $_SESSION['designation'] ?>";
+</script>
