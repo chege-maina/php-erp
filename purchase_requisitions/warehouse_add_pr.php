@@ -333,9 +333,9 @@ include '../includes/base_page/head.php';
                   var divAlert = document.querySelector("#alert-div");
                   divAlert.innerHTML = alertVar;
                   divAlert.scrollIntoView();
-                  // setTimeout(function() {
-                  // location.reload();
-                  // }, 2500);
+                  setTimeout(function() {
+                    location.reload();
+                  }, 2500);
                 })
                 .catch(error => {
                   console.error(error);
