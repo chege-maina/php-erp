@@ -32,6 +32,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+        <div id="alert-div"></div>
         <h5 class="p-2" id="title-header">Add New Product
           <div id="spinner" class="spinner-border" role="status"></div>
         </h5>
@@ -401,6 +402,17 @@ include '../includes/base_page/head.php';
               .then(response => response.text())
               .then(data => {
                 console.log(data);
+                const alertVar =
+                  `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> Product added to the database.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                var divAlert = document.querySelector("#alert-div");
+                divAlert.innerHTML = alertVar;
+                divAlert.scrollIntoView();
+                setTimeout(function() {
+                  location.reload();
+                }, 2500);
               })
               .catch(error => {
                 console.error(error);
