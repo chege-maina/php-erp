@@ -81,7 +81,14 @@ include '../includes/base_page/head.php';
               </div>
             </div>
 
-            <button class="btn btn-falcon-primary" id="submit">Create Requisition</button>
+            <button class="btn btn-falcon-primary" id="submit">
+              <span class="fas fa-save mr-1" data-fa-transform="shrink-3"></span>
+              Create Requisition
+            </button>
+            <button class="btn ml-2 btn-falcon-warning" id="clear-table" onclick="clearTable();">
+              <span class="fas fa-eraser mr-1" data-fa-transform="shrink-3"></span>
+              Clear Table
+            </button>
 
             <!-- Content ends here -->
           </div>
@@ -215,6 +222,15 @@ include '../includes/base_page/head.php';
             const item_to_add = all_requisitionable_items[item];
             console.log("Removing", item_to_add);
             items_in_combobox[item] = item_to_add;
+            updateTable();
+            updateReqItems();
+          }
+
+          function clearTable() {
+            items_in_table = {};
+            items_in_combobox = {
+              ...all_requisitionable_items
+            };
             updateTable();
             updateReqItems();
           }
