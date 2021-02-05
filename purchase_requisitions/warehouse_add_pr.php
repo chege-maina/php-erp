@@ -81,7 +81,7 @@ include '../includes/base_page/head.php';
               </div>
             </div>
 
-            <button class="btn btn-falcon-primary" id="submit">Create</button>
+            <button class="btn btn-falcon-primary" id="submit">Create Requisition</button>
 
             <!-- Content ends here -->
           </div>
