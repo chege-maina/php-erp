@@ -282,6 +282,25 @@ include '../includes/base_page/head.php';
           function sendData() {
             console.log("sending data");
           }
+
+          document.addEventListener('DOMContentLoaded', function() {
+            const date = new Date();
+            let month = date.getMonth() + 1;
+            let day = date.getDate();
+            if (month < 10) {
+              month = '0' + month;
+            } else {
+              month = String(month);
+            }
+
+            if (day < 10) {
+              day = '0' + day;
+            } else {
+              day = String(day);
+            }
+            requisition_date.value = String(date.getFullYear()) + '-' + month + '-' + day;
+            // requisition_time.value = Date();
+          });
         </script>
 
 
