@@ -355,7 +355,7 @@ include '../includes/base_page/head.php';
             let minutes = d_toString(date.getMinutes());
 
             requisition_date.value = String(date.getFullYear()) + '-' + month + '-' + day;
-            requisition_time.value = String(date.getHours()) + ":" + String(date.getMinutes());
+            requisition_time.value = hours + ":" + minutes;
           });
         </script>
 
