@@ -310,11 +310,36 @@ include '../includes/base_page/head.php';
               divAlert.scrollIntoView();
               return;
             } else {
+              console.log(table_items);
               const formData = new FormData();
               formData.append("requisition_number", requisition_number.value)
               formData.append("requisition_date", requisition_date.value)
               formData.append("requisition_time", requisition_time.value)
-              console.log(table_items);
+              formData.append("table_items", JSON.stringify(table_items));
+
+              // Send the data
+              fetch('../includes/create_requisition_items.php', {
+                  method: 'POST',
+                  body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                  console.log("from server", data);
+                  const alertVar =
+                    `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>${data["message"]}!</strong> Product added to the database.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                  var divAlert = document.querySelector("#alert-div");
+                  divAlert.innerHTML = alertVar;
+                  divAlert.scrollIntoView();
+                  // setTimeout(function() {
+                  // location.reload();
+                  // }, 2500);
+                })
+                .catch(error => {
+                  console.error(error);
+                });
             }
           }
 
