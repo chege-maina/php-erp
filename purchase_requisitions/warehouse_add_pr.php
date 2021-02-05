@@ -333,9 +333,9 @@ include '../includes/base_page/head.php';
                   var divAlert = document.querySelector("#alert-div");
                   divAlert.innerHTML = alertVar;
                   divAlert.scrollIntoView();
-                  // setTimeout(function() {
-                  // location.reload();
-                  // }, 2500);
+                  setTimeout(function() {
+                    location.reload();
+                  }, 2500);
                 })
                 .catch(error => {
                   console.error(error);
@@ -355,7 +355,7 @@ include '../includes/base_page/head.php';
             let minutes = d_toString(date.getMinutes());
 
             requisition_date.value = String(date.getFullYear()) + '-' + month + '-' + day;
-            requisition_time.value = String(date.getHours()) + ":" + String(date.getMinutes());
+            requisition_time.value = hours + ":" + minutes;
           });
         </script>
 
