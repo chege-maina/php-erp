@@ -12,7 +12,7 @@ session_start();
     $totalsale = 0;
     $totalreq = 0;
     $stats = "pending";
-    $stats = "approved";
+    $stats1 = "approved";
     	
 	$result = mysqli_query($conn, $query);
     $response = array();
