@@ -43,11 +43,11 @@ include '../includes/base_page/head.php';
             <div class="row pb-2">
               <div class="col">
                 <label for="req_date" class="form-label">From </label>
-                <input type="date" name="req_date" id="req_date" class="form-control" readonly>
+                <input type="date" name="req_date" id="req_date_from" class="form-control" required onchange="updateDateFilters();">
               </div>
               <div class="col">
                 <label for="req_date" class="form-label">To </label>
-                <input type="date" name="req_date" id="req_date" class="form-control" readonly>
+                <input type="date" name="req_date" id="req_date_to" class="form-control" required onchange="updateDateFilters();">
               </div>
               <div class="col">
                 <label for="status" class="form-label">Status*</label>
@@ -89,6 +89,29 @@ include '../includes/base_page/head.php';
       <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
       <!-- body ends here -->
       <!-- =========================================================== -->
+
+      <script>
+        const req_date_from = document.querySelector("#req_date_from");
+        const req_date_to = document.querySelector("#req_date_to");
+
+        function updateDateFilters() {
+          console.log("From: ", req_date_from.value, " To: ", req_date_to.value);
+        }
+
+        function d_toString(value) {
+          return value < 10 ? '0' + value : String(value);
+        }
+        window.addEventListener('DOMContentLoaded', (event) => {
+          const date = new Date();
+          let month = d_toString(date.getMonth() + 1);
+          let day = d_toString(date.getDate());
+          let day_to = d_toString(date.getDate() + 1);
+
+          req_date_from.value = String(date.getFullYear()) + '-' + month + '-' + day;
+          req_date_to.value = String(date.getFullYear()) + '-' + month + '-' + day_to;
+          req_date_to.setAttribute("min", req_date_to.value);
+        });
+      </script>
 
 
 
