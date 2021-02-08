@@ -46,7 +46,6 @@ session_start();
             $totalreq = $row3['sum(product_quantity)'];
                         
         }
-        echo "HII NI ".$totalreq;
         
         $balance = ($totalstore + $totalreq) - $totalsale;
 

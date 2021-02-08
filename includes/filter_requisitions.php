@@ -1,16 +1,15 @@
 <?php
-
-header("Content-type:application/json");
-
-include_once 'dbconnect.php';
+include_once '../includes/dbconnect.php';
 session_start();
 
-    $branch =$_SESSION['branch'];
-    $stat = "pending";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $start_date = $_POST["date1"];
+  $end_date = $_POST["date2"];
+  $status = $_POST["status"];
+  $branch =$_SESSION['branch'];
 
-$query = "SELECT * FROM tbl_requisition WHERE status='$stat' and branch='$branch'";
-    
-    	
+  $query = "SELECT * FROM tbl_requisition WHERE status='$status' and branch='$branch' and date>='$start_date' and date<= '$end_date'";
+        	
 	$result = mysqli_query($conn, $query);
     $response = array();
 	
@@ -28,5 +27,11 @@ $query = "SELECT * FROM tbl_requisition WHERE status='$stat' and branch='$branch
                 echo json_encode($response);
 
 mysqli_close($conn);
+            }
+            else{
+                $message = "Fields have no data...";
+                echo json_encode($message);
+            }
+
 ?>
     
