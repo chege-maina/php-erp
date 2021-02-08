@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2021 at 01:36 PM
+-- Generation Time: Feb 08, 2021 at 08:06 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -112,7 +112,8 @@ CREATE TABLE `tbl_requisition` (
   `date` date NOT NULL,
   `time` varchar(50) NOT NULL,
   `user` varchar(50) NOT NULL,
-  `branch` varchar(100) NOT NULL
+  `branch` varchar(100) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -122,13 +123,14 @@ CREATE TABLE `tbl_requisition` (
 --
 
 CREATE TABLE `tbl_requisition_items` (
-  `id` int(11) NOT NULL,
-  `requisition_No` bigint(100) NOT NULL,
-  `prroduct_code` varchar(100) NOT NULL,
+  `id` bigint(100) NOT NULL,
+  `requisition_No` varchar(50) NOT NULL,
+  `product_code` varchar(100) NOT NULL,
   `product_name` varchar(100) NOT NULL,
   `product_unit` varchar(10) NOT NULL,
   `product_quantity` varchar(200) NOT NULL,
-  `status` varchar(10) NOT NULL
+  `status` varchar(10) NOT NULL DEFAULT 'pending',
+  `branch` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -223,20 +225,24 @@ INSERT INTO `tbl_store_item` (`qty`, `product_name`, `product_code`, `branch_loc
 --
 
 CREATE TABLE `tbl_supplier` (
-  `name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `telephone_no` varchar(100) NOT NULL,
-  `address` varchar(100) NOT NULL,
-  `supplier_id` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `supplier_id` text NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `tel_no` varchar(100) NOT NULL,
+  `address` varchar(50) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_supplier`
 --
 
-INSERT INTO `tbl_supplier` (`name`, `email`, `telephone_no`, `address`, `supplier_id`) VALUES
-('SIMBA CEMENT', 'simba@mabati.com', '+254783467854', '20100-45', '120934567'),
-('DEVKI', 'devki@steel.com', '+254756432168', '10010-69', '238495968');
+INSERT INTO `tbl_supplier` (`id`, `name`, `supplier_id`, `email`, `tel_no`, `address`) VALUES
+(1, 'Bruce Tom', '2627643875', 'tom@gmail.com', '0745673456', '1656 Edsel Road\r\nSherman Oaks, CA 91403'),
+(5, 'Clara Gilliam', '96665649', 'clara@gmail.com', '0745678723', '63 Woodridge Lane\r\nMemphis, TN 38138'),
+(6, 'Barbra K. Hurley', '87567446', 'barbra@gmail.com', '0847893437', '1241 Canis Heights Drive\r\nLos Angeles, CA 90017'),
+(7, 'Antonio J. Forbes', '57688900', 'anto@gmail.com', '9867454657', '403 Snyder Avenue\r\nCharlotte, NC 28208'),
+(8, 'Charles D. Horst', '456666', 'Charlse@gmail.com', '098754445', '1636 Walnut Hill Drive\r\nCincinnati, OH 45202');
 
 -- --------------------------------------------------------
 
@@ -349,8 +355,7 @@ ALTER TABLE `tbl_requisition`
 -- Indexes for table `tbl_requisition_items`
 --
 ALTER TABLE `tbl_requisition_items`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `requisition_No` (`requisition_No`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_sale`
@@ -383,8 +388,7 @@ ALTER TABLE `tbl_store_item`
 -- Indexes for table `tbl_supplier`
 --
 ALTER TABLE `tbl_supplier`
-  ADD PRIMARY KEY (`supplier_id`),
-  ADD UNIQUE KEY `name` (`name`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_tax`
@@ -437,7 +441,7 @@ ALTER TABLE `tbl_requisition`
 -- AUTO_INCREMENT for table `tbl_requisition_items`
 --
 ALTER TABLE `tbl_requisition_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_sale_items`
@@ -456,6 +460,12 @@ ALTER TABLE `tbl_store`
 --
 ALTER TABLE `tbl_store_item`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `tbl_supplier`
+--
+ALTER TABLE `tbl_supplier`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
 
 --
 -- AUTO_INCREMENT for table `tbl_unit`
