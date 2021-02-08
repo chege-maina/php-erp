@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en-US" dir="ltr">
 <?php
 session_start();
 // If the user is not logged in redirect to the login page...
@@ -12,6 +10,8 @@ include '../includes/base_page/head.php';
 ?>
 
 
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
 
 <body>
   <!-- ===============================================-->
