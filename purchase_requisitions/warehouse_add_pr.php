@@ -87,7 +87,7 @@ include '../includes/base_page/head.php';
               </div>
             </div>
 
-            <button class="btn btn-falcon-primary" id="submit">
+            <button class="btn btn-falcon-primary" id="submit" onclick="sendTableData();">
               <span class="fas fa-save mr-1" data-fa-transform="shrink-3"></span>
               Create Requisition
             </button>
@@ -104,7 +104,7 @@ include '../includes/base_page/head.php';
         <!-- body ends here -->
         <!-- =========================================================== -->
 
-        
+
         <script>
           let all_requisitionable_items = {};
           let items_in_combobox = {};
@@ -191,7 +191,8 @@ include '../includes/base_page/head.php';
               quantity.setAttribute("onfocusout", "this.value = this.value <= 0 ? 1 : this.value;");
               quantity.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value);");
               quantity.setAttribute("onclick", "this.select();");
-              items_in_table[item]['quantity'] = 'quantity' in items_in_table[item] ? items_in_table[item]['quantity'] : 1;
+              items_in_table[item]['quantity'] = ('quantity' in items_in_table[item] && items_in_table[item]['quantity'] > 0) ?
+                items_in_table[item]['quantity'] : 1;
               quantity.value = items_in_table[item]['quantity'];
               let quantityWrapper = document.createElement("td");
               quantityWrapper.classList.add("m-2");
@@ -252,20 +253,6 @@ include '../includes/base_page/head.php';
             };
             updateTable();
             updateReqItems();
-          }
-
-          function checktable() {
-            if (table_items.length == 0) {
-              const alertVar =
-                `<div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <strong>Warning!</strong> Cannot submit empty table.
-              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
-              </div>`;
-              var divAlert = document.querySelector("#alert-div");
-              divAlert.innerHTML = alertVar;
-              divAlert.scrollIntoView();
-              return;
-            }
           }
 
           function sendTableData() {
