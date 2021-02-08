@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en-US" dir="ltr">
 <?php
 session_start();
 // If the user is not logged in redirect to the login page...
@@ -12,6 +10,8 @@ include '../includes/base_page/head.php';
 ?>
 
 
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
 
 <body>
   <!-- ===============================================-->
@@ -325,6 +325,8 @@ include '../includes/base_page/head.php';
             } else {
               console.log(table_items);
               const formData = new FormData();
+              formData.append("user_name", user_name);
+              formData.append("user_branch", user_branch);
               formData.append("requisition_number", requisition_number.value)
               formData.append("requisition_date", requisition_date.value)
               formData.append("requisition_time", requisition_time.value)
