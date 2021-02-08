@@ -312,6 +312,8 @@ include '../includes/base_page/head.php';
             } else {
               console.log(table_items);
               const formData = new FormData();
+              formData.append("user_name", user_name);
+              formData.append("user_branch", user_branch);
               formData.append("requisition_number", requisition_number.value)
               formData.append("requisition_date", requisition_date.value)
               formData.append("requisition_time", requisition_time.value)
