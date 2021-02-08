@@ -103,7 +103,7 @@
                      <label>Enter Address</label>
                      <input type="text" name="address" id="address" class="form-control" />
                      <br />
-                     <input type="hidden" name="supplier_id" id="supplier_id" />
+                     <!--<input type="hidden" name="supplier_id" id="supplier_id" /> -->
                      <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success" />
                  </form>
              </div>
@@ -134,7 +134,7 @@
                      $('#email').val(data.email);
                      $('#tel_no').val(data.tel_no);
                      $('#address').val(data.address);
-                     $('#supplier_id').val(data.id);
+                     //   $('#supplier_id').val(data.id);
                      $('#insert').val("Update");
                      $('#add_data_Modal').modal('show');
                  }
