@@ -294,6 +294,19 @@ include '../includes/base_page/head.php';
             updateReqItems();
           }
 
+          function checktable(){
+            if (table_items.length == 0) {
+              const alertVar =
+                `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Warning!</strong> Cannot submit empty table.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+              var divAlert = document.querySelector("#alert-div");
+              divAlert.innerHTML = alertVar;
+              divAlert.scrollIntoView();
+              return;
+            }}
+
           function sendTableData() {
             let table_items = [];
             for (let item in items_in_table) {
