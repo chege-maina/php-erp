@@ -10,6 +10,9 @@ session_start();
     $query = "SELECT * FROM tbl_product";
     $totalstore = 0;
     $totalsale = 0;
+    $totalreq = 0;
+    $stats = "pending";
+    $stats = "approved";
     	
 	$result = mysqli_query($conn, $query);
     $response = array();
@@ -35,8 +38,14 @@ session_start();
             $totalsale = $row2['sum(qty)'];
                         
         }
+        $query3 ="SELECT sum(product_quantity) FROM tbl_requisition_items WHERE product_name = '$product' and branch = '$branch' and (status = '$stats' or status = '$stats1')";
+        $result3 = mysqli_query($conn, $query3);
+        if($row3 = mysqli_fetch_assoc($result3)){
+            $totalreq = $row3['sum(product_quantity)'];
+                        
+        }
         
-        $balance = $totalstore - $totalsale;
+        $balance = ($totalstore + $totalreq) - $totalsale;
 
         if ($balance==$reorder || $balance<$reorder){
 		    $total = 0;

@@ -99,52 +99,7 @@ include '../includes/base_page/head.php';
         <!-- body ends here -->
         <!-- =========================================================== -->
 
-        <script>
-          $(document).ready(function() {
-            $('#submit').click(function(e) {
-              e.preventDefault();
-              var requisition_number = $('#requisition_number').val();
-              var requisition_date = $('#requisition_date').val();
-              var requisition_time = $('#requisition_time').val();
-              var requisition_user = user_name;
-              var requisition_branch = user_branch;
-              var data1 = {
-                requisition_number: requisition_number,
-                requisition_date: requisition_date,
-                requisition_time: requisition_time,
-                requisition_user: requisition_user,
-                requisition_branch: requisition_branch
-              }
-
-              var conf = confirm("Do You Want to Create a Purchases Requisition?")
-              if (conf) {
-                $.ajax({
-                  url: "../includes/create_requisition.php",
-                  method: "POST",
-                  data: data1,
-                  success: function(data) {
-                    if (data == 'Successful') {
-
-                      alert(data)
-                    }
-
-                  }
-
-                  //console.log('response:' + data);
-                })
-
-                // Send the table data too
-                // TODO:  Move sendTableData here
-              }
-              // Move it to only if success is chosen
-              sendTableData();
-            })
-
-
-          })
-        </script>
-
-
+        
         <script>
           let all_requisitionable_items = {};
           let items_in_combobox = {};
