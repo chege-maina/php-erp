@@ -38,5 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_query($conn, $mysql);
   }
 
+
+
   echo json_encode($table_items);
+
+  $conn->close();
 }
