@@ -95,7 +95,21 @@ include '../includes/base_page/head.php';
         const req_date_to = document.querySelector("#req_date_to");
 
         function updateDateFilters() {
-          console.log("From: ", req_date_from.value, " To: ", req_date_to.value);
+          const fromDate = new Date(req_date_from.value);
+          const toDate = new Date(req_date_to.value);
+          if (fromDate >= toDate) {
+            let month = d_toString(fromDate.getMonth() + 1);
+            let day = d_toString(fromDate.getDate() + 1);
+            req_date_to.value = String(fromDate.getFullYear()) + '-' + month + '-' + day;
+            req_date_to.setAttribute("min", req_date_to.value);
+          } else {
+            let month = d_toString(fromDate.getMonth() + 1);
+            let day = d_toString(fromDate.getDate() + 1);
+            const min = String(fromDate.getFullYear()) + '-' + month + '-' + day;
+            req_date_to.setAttribute("min", min);
+          }
+
+          console.log("From: ", fromDate.getDate(), " To: ", req_date_to.value);
         }
 
         function d_toString(value) {
