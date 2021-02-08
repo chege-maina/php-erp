@@ -290,7 +290,7 @@ include '../includes/base_page/head.php';
                   console.log("from server", data);
                   const alertVar =
                     `<div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>${data["message"]}!</strong> Product added to the database.
+              <strong>Success!</strong> ${data}
               <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
               </div>`;
                   var divAlert = document.querySelector("#alert-div");
