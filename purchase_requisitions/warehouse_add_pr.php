@@ -87,7 +87,7 @@ include '../includes/base_page/head.php';
               </div>
             </div>
 
-            <button class="btn btn-falcon-primary" id="submit">
+            <button class="btn btn-falcon-primary" id="submit" onclick="sendTableData();">
               <span class="fas fa-save mr-1" data-fa-transform="shrink-3"></span>
               Create Requisition
             </button>
@@ -103,51 +103,6 @@ include '../includes/base_page/head.php';
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <!-- body ends here -->
         <!-- =========================================================== -->
-
-        <script>
-          $(document).ready(function() {
-            $('#submit').click(function(e) {
-              e.preventDefault();
-              var requisition_number = $('#requisition_number').val();
-              var requisition_date = $('#requisition_date').val();
-              var requisition_time = $('#requisition_time').val();
-              var requisition_user = user_name;
-              var requisition_branch = user_branch;
-              var data1 = {
-                requisition_number: requisition_number,
-                requisition_date: requisition_date,
-                requisition_time: requisition_time,
-                requisition_user: requisition_user,
-                requisition_branch: requisition_branch
-              }
-
-              var conf = confirm("Do You Want to Create a Purchases Requisition?")
-              if (conf) {
-                $.ajax({
-                  url: "../includes/create_requisition.php",
-                  method: "POST",
-                  data: data1,
-                  success: function(data) {
-                    if (data == 'Successful') {
-
-                      alert(data)
-                    }
-
-                  }
-
-                  //console.log('response:' + data);
-                })
-
-                // Send the table data too
-                // TODO:  Move sendTableData here
-              }
-              // Move it to only if success is chosen
-              sendTableData();
-            })
-
-
-          })
-        </script>
 
 
         <script>
@@ -236,7 +191,8 @@ include '../includes/base_page/head.php';
               quantity.setAttribute("onfocusout", "this.value = this.value <= 0 ? 1 : this.value;");
               quantity.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value);");
               quantity.setAttribute("onclick", "this.select();");
-              items_in_table[item]['quantity'] = 'quantity' in items_in_table[item] ? items_in_table[item]['quantity'] : 1;
+              items_in_table[item]['quantity'] = ('quantity' in items_in_table[item] && items_in_table[item]['quantity'] > 0) ?
+                items_in_table[item]['quantity'] : 1;
               quantity.value = items_in_table[item]['quantity'];
               let quantityWrapper = document.createElement("td");
               quantityWrapper.classList.add("m-2");
@@ -299,20 +255,6 @@ include '../includes/base_page/head.php';
             updateReqItems();
           }
 
-          function checktable() {
-            if (table_items.length == 0) {
-              const alertVar =
-                `<div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <strong>Warning!</strong> Cannot submit empty table.
-              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
-              </div>`;
-              var divAlert = document.querySelector("#alert-div");
-              divAlert.innerHTML = alertVar;
-              divAlert.scrollIntoView();
-              return;
-            }
-          }
-
           function sendTableData() {
             let table_items = [];
             for (let item in items_in_table) {
@@ -348,7 +290,7 @@ include '../includes/base_page/head.php';
                   console.log("from server", data);
                   const alertVar =
                     `<div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>${data["message"]}!</strong> Product added to the database.
+              <strong>Success!</strong> ${data}
               <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
               </div>`;
                   var divAlert = document.querySelector("#alert-div");

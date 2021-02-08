@@ -102,6 +102,6 @@
 </nav>
 <script>
   const user_name = "<?= $_SESSION['name'] ?>";
-  const user_branch = " <?= $_SESSION['branch'] ?>";
+  const user_branch = "<?= $_SESSION['branch'] ?>";
   const user_designation = "<?= $_SESSION['designation'] ?>";
 </script>

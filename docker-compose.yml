@@ -13,6 +13,7 @@ services:
     ports:
       - 5000:80
     volumes:
+      - ./uploads:/var/www/html/uploads
       - .:/var/www/html/
 
   db:
@@ -45,3 +46,4 @@ services:
 
 volumes:
   mysql-data:
+  uploads:
