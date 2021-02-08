@@ -64,7 +64,7 @@ include '../includes/base_page/head.php';
 
             </div>
           </div>
-          <table class="table table-sm table-stiped m-2">
+          <table class="table table-sm table-stiped m-2 mb-5" id="table-main">
             <thead>
               <tr>
                 <th>Requisition Number</th>
@@ -131,20 +131,44 @@ include '../includes/base_page/head.php';
 
                 const req_no = document.createElement("td");
                 req_no.appendChild(document.createTextNode(value["req_no"]));
+                req_no.classList.add("align-middle");
 
                 const req_date = document.createElement("td");
                 req_date.appendChild(document.createTextNode(value["date"]));
+                req_date.classList.add("align-middle");
 
                 const req_branch = document.createElement("td");
                 req_branch.appendChild(document.createTextNode(value["branch"]));
+                req_branch.classList.add("align-middle");
 
                 const req_user = document.createElement("td");
                 req_user.appendChild(document.createTextNode(value["user"]));
+                req_user.classList.add("align-middle");
 
                 const req_status = document.createElement("td");
-                req_status.appendChild(document.createTextNode(value["status"]));
+                const tmp_status = value["status"];
+                const badge = document.createElement("span");
+                badge.appendChild(document.createTextNode(tmp_status));
+                badge.classList.add("badge", "rounded-pill");
+                // <span class="badge rounded-pill badge-soft-primary">Primary</span>
+                if (tmp_status == "pending") {
+                  badge.classList.add("badge-soft-secondary");
+                } else if (tmp_status == "approved") {
+                  badge.classList.add("badge-soft-success");
+                } else if (tmp_status == "rejected") {
+                  badge.classList.add("badge-soft-danger");
+                }
 
-                this_row.append(req_no, req_date, req_user, req_branch, req_status);
+                req_status.appendChild(badge);
+                req_status.classList.add("align-middle");
+
+                const req_actions = document.createElement("td");
+                const btn = document.createElement("button");
+                btn.appendChild(document.createTextNode("Manage"));
+                btn.classList.add("btn", "btn-falcon-primary", "btn-sm");
+                req_actions.appendChild(btn);
+
+                this_row.append(req_no, req_date, req_user, req_branch, req_status, req_actions);
                 table_body.appendChild(this_row);
               });
             })
