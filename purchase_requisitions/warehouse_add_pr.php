@@ -5,13 +5,18 @@ if (!isset($_SESSION['loggedin'])) {
   header('Location: ../index.php');
   exit();
 }
-include_once '../includes/dbconnect.php';
-include '../includes/base_page/head.php';
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
+
+<?php
+include_once '../includes/dbconnect.php';
+include '../includes/base_page/head.php';
+?>
+
+
 
 <body>
   <!-- ===============================================-->
@@ -294,7 +299,7 @@ include '../includes/base_page/head.php';
             updateReqItems();
           }
 
-          function checktable(){
+          function checktable() {
             if (table_items.length == 0) {
               const alertVar =
                 `<div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -305,7 +310,8 @@ include '../includes/base_page/head.php';
               divAlert.innerHTML = alertVar;
               divAlert.scrollIntoView();
               return;
-            }}
+            }
+          }
 
           function sendTableData() {
             let table_items = [];
