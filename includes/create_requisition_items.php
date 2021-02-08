@@ -39,8 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
 
-
-  echo json_encode($table_items);
+ $message ="Requisition Number ".$requisition_number."Created Successfully..";
+  echo json_encode($message);
 
   $conn->close();
 }
