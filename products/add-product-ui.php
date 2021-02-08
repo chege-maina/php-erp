@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en-US" dir="ltr">
 <?php
 session_start();
 // If the user is not logged in redirect to the login page...
@@ -7,11 +5,14 @@ if (!isset($_SESSION['loggedin'])) {
   header('Location: ../index.php');
   exit();
 }
+?>
+
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<?php
 include_once '../includes/dbconnect.php';
 include '../includes/base_page/head.php';
 ?>
-
-
 
 <body>
   <!-- ===============================================-->
@@ -402,27 +403,27 @@ include '../includes/base_page/head.php';
               .then(response => response.json())
               .then(data => {
                 console.log(data);
-                if(data["message"] == "success"){
-                const alertVar =
-                  `<div class="alert alert-success alert-dismissible fade show" role="alert">
+                if (data["message"] == "success") {
+                  const alertVar =
+                    `<div class="alert alert-success alert-dismissible fade show" role="alert">
               <strong>Success!</strong> Product added to the database.
               <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
               </div>`;
-                var divAlert = document.querySelector("#alert-div");
-                divAlert.innerHTML = alertVar;
-                divAlert.scrollIntoView();
-                setTimeout(function() {
-                  location.reload();
-                }, 2500);
+                  var divAlert = document.querySelector("#alert-div");
+                  divAlert.innerHTML = alertVar;
+                  divAlert.scrollIntoView();
+                  setTimeout(function() {
+                    location.reload();
+                  }, 2500);
                 } else {
                   const alertVar =
-                  `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    `<div class="alert alert-warning alert-dismissible fade show" role="alert">
               <strong>Error!</strong> ${data["desc"]}.
               <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
               </div>`;
-                var divAlert = document.querySelector("#alert-div");
-                divAlert.innerHTML = alertVar;
-                divAlert.scrollIntoView();
+                  var divAlert = document.querySelector("#alert-div");
+                  divAlert.innerHTML = alertVar;
+                  divAlert.scrollIntoView();
                 }
               })
               .catch(error => {

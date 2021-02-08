@@ -5,13 +5,18 @@ if (!isset($_SESSION['loggedin'])) {
   header('Location: ../index.php');
   exit();
 }
-include_once '../includes/dbconnect.php';
-include '../includes/base_page/head.php';
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
+
+<?php
+include_once '../includes/dbconnect.php';
+include '../includes/base_page/head.php';
+?>
+
+
 
 <body>
   <!-- ===============================================-->
@@ -294,6 +299,20 @@ include '../includes/base_page/head.php';
             updateReqItems();
           }
 
+          function checktable() {
+            if (table_items.length == 0) {
+              const alertVar =
+                `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Warning!</strong> Cannot submit empty table.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+              var divAlert = document.querySelector("#alert-div");
+              divAlert.innerHTML = alertVar;
+              divAlert.scrollIntoView();
+              return;
+            }
+          }
+
           function sendTableData() {
             let table_items = [];
             for (let item in items_in_table) {
@@ -312,6 +331,8 @@ include '../includes/base_page/head.php';
             } else {
               console.log(table_items);
               const formData = new FormData();
+              formData.append("user_name", user_name);
+              formData.append("user_branch", user_branch);
               formData.append("requisition_number", requisition_number.value)
               formData.append("requisition_date", requisition_date.value)
               formData.append("requisition_time", requisition_time.value)
