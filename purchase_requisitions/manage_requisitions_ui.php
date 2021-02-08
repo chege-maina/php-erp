@@ -64,20 +64,22 @@ include '../includes/base_page/head.php';
 
             </div>
           </div>
-          <table class="table table-sm table-stiped m-2 mb-5" id="table-main">
-            <thead>
-              <tr>
-                <th>Requisition Number</th>
-                <th>Date </th>
-                <th>Created By</th>
-                <th>Branch</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="table_body">
-            </tbody>
-          </table>
+          <div class="m-2 mb-2">
+            <table class="table table-sm table-striped" id="table-main">
+              <thead>
+                <tr>
+                  <th>Requisition Number</th>
+                  <th>Date </th>
+                  <th>Created By</th>
+                  <th>Branch</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="table_body">
+              </tbody>
+            </table>
+          </div>
           <!-- Content ends here -->
         </div>
         <!-- Additional cards can be added here -->
