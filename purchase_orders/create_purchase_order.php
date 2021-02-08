@@ -5,13 +5,15 @@ if (!isset($_SESSION['loggedin'])) {
   header('Location: ../index.php');
   exit();
 }
-include_once '../includes/dbconnect.php';
-include '../includes/base_page/head.php';
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
-
+<?php
+include_once '../includes/dbconnect.php';
+include '../includes/base_page/head.php';
+?>
 
 <body>
   <!-- ===============================================-->
