@@ -40,7 +40,7 @@ include '../includes/base_page/head.php';
         <div class="card">
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
-            <div class="row pb-2">
+            <div class="row pb-2 ">
               <div class="col">
                 <label for="req_date" class="form-label">From </label>
                 <input type="date" name="req_date" id="req_date_from" class="form-control" required onchange="updateDateFilters();">
@@ -56,30 +56,26 @@ include '../includes/base_page/head.php';
                   <option value="pending">Pending</option>
                 </select>
               </div>
-              <div class="col">
-                <label class="form-label">Filters</label>
-                <button class="form-control" class="btn btn-falcon-primary mr-1 mb-1" type="button">Filter
+              <div class="col-auto d-flex align-items-end">
+                <button class="btn btn-falcon-primary" type="button">
+                  <span class="fas fa-filter mr-1" data-fa-transform="shrink-3"></span>Filter
                 </button>
               </div>
 
             </div>
           </div>
-          <table class="table mt-2">
+          <table class="table table-sm table-stiped m-2">
             <thead>
               <tr>
-                <th>Requisition Number*</th>
+                <th>Requisition Number</th>
                 <th>Date </th>
                 <th>Created By</th>
+                <th>Branch</th>
+                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody id="table_body">
-              <tr>
-                <th>033</th>
-                <td>2-4-2021</td>
-                <td>Kesav</td>
-                <td> </td>
-              </tr>
             </tbody>
           </table>
           <!-- Content ends here -->
@@ -124,6 +120,37 @@ include '../includes/base_page/head.php';
           req_date_from.value = String(date.getFullYear()) + '-' + month + '-' + day;
           req_date_to.value = String(date.getFullYear()) + '-' + month + '-' + day_to;
           req_date_to.setAttribute("min", req_date_to.value);
+
+          fetch('../includes/load_requisitions.php')
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+              const table_body = document.querySelector("#table_body");
+              data.forEach(value => {
+                const this_row = document.createElement("tr");
+
+                const req_no = document.createElement("td");
+                req_no.appendChild(document.createTextNode(value["req_no"]));
+
+                const req_date = document.createElement("td");
+                req_date.appendChild(document.createTextNode(value["date"]));
+
+                const req_branch = document.createElement("td");
+                req_branch.appendChild(document.createTextNode(value["branch"]));
+
+                const req_user = document.createElement("td");
+                req_user.appendChild(document.createTextNode(value["user"]));
+
+                const req_status = document.createElement("td");
+                req_status.appendChild(document.createTextNode(value["status"]));
+
+                this_row.append(req_no, req_date, req_user, req_branch, req_status);
+                table_body.appendChild(this_row);
+              });
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
         });
       </script>
 
