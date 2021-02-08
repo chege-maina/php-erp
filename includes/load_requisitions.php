@@ -8,7 +8,7 @@ session_start();
     $branch =$_SESSION['branch'];
     $stat = "pending";
 
-$query = "SELECT * FROM tbl_requisition";
+$query = "SELECT * FROM tbl_requisition WHERE status='$stat' and branch='$branch'";
     
     	
 	$result = mysqli_query($conn, $query);
