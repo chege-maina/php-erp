@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
 
- $message ="Requisition Number ".$requisition_number."Created Successfully..";
+ $message ="Requisition Number ".$requisition_number." Created Successfully..";
   echo json_encode($message);
 
   $conn->close();
