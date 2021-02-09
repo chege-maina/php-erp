@@ -136,8 +136,18 @@ include '../includes/base_page/head.php';
           const table_body = document.querySelector("#table_body");
 
           window.addEventListener('DOMContentLoaded', (event) => {
-            const formData = new FormData();
+            if (sessionStorage.length === 0) {
+              location.href = "./manage_requisitions_ui.php";
+            }
+
+            // Get passed requisition number
             const reqNo = sessionStorage.getItem('req_no');
+            // Clear data
+            sessionStorage.clear();
+
+
+            // Load the requisition item for the number
+            const formData = new FormData();
             formData.append("req_no", reqNo)
             fetch('../includes/requisition_manage.php', {
                 method: 'POST',
@@ -321,6 +331,7 @@ include '../includes/base_page/head.php';
               // Reject item
               console.log("Rejecting: ", qtt.value);
               alert("Are you sure you want to reject?")
+              const formData = new FormData();
             } else if (value[0] == "s") {
               // Save item
               qtt.setAttribute("readonly", "");
