@@ -43,10 +43,12 @@ include '../includes/base_page/head.php';
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
             <div class="row">
-              <div class="col">
-                <label for="requisition_number" class="form-label">Requisition Number*</label>
-                <input type="number" name="requisition_number" id="requisition_number" class="form-control">
+              <!--
+              <div class="col invisible">
+                <label for="requisition_number" class="form-label invisible">Requisition Number*</label>
+                <input type="number" name="requisition_number" id="requisition_number" class="form-control invisible">
               </div>
+              -->
               <div class="col">
                 <label for="requisition_date" class="form-label">Date</label>
                 <!-- autofill current date  -->
@@ -57,8 +59,6 @@ include '../includes/base_page/head.php';
                 <!-- autofill current time  -->
                 <input type="time" name="requisition_time" id="requisition_time" class="form-control" required readonly>
               </div>
-            </div>
-            <div class="row my-3">
               <div class="col">
                 <label for="browser" class="form-label">Items to Requisition</label>
                 <div class="input-group">
@@ -114,7 +114,7 @@ include '../includes/base_page/head.php';
           const requisitionable_item = document.querySelector("#requisitionable_item");
           const requisitionable_items_datalist = document.querySelector("#requisitionable_items");
           const requisition_date = document.querySelector("#requisition_date");
-          const requisition_number = document.querySelector("#requisition_number");
+          // const requisition_number = document.querySelector("#requisition_number");
           const requisition_time = document.querySelector("#requisition_time");
           const table_body = document.querySelector("#table_body");
 
@@ -275,7 +275,8 @@ include '../includes/base_page/head.php';
               const formData = new FormData();
               formData.append("user_name", user_name);
               formData.append("user_branch", user_branch);
-              formData.append("requisition_number", requisition_number.value)
+              // TODO: Remove this from here and from the subsequent php
+              formData.append("requisition_number", -1);
               formData.append("requisition_date", requisition_date.value)
               formData.append("requisition_time", requisition_time.value)
               formData.append("table_items", JSON.stringify(table_items));
