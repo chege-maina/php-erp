@@ -2,7 +2,10 @@
 include_once '../includes/dbconnect.php';
 session_start();
 
-$query = "SELECT count(branch), branch FROM tbl_requisition WHERE status= 'approved' GROUP BY branch ASC";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $branch = $_POST["date1"];
+
+$query = "SELECT count(branch), branch FROM tbl_requisition WHERE status= 'approved' and branch= '$branch'";
 	
 	$result = mysqli_query($conn, $query);
 	$response = array();
@@ -17,5 +20,10 @@ $query = "SELECT count(branch), branch FROM tbl_requisition WHERE status= 'appro
 	echo json_encode($response);
 
 mysqli_close($conn);
-
+}
+} else {
+    $message = "Fields have no data...";
+    echo json_encode($message);
+  }
+  
 ?>

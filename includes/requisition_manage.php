@@ -4,6 +4,7 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $req_no = $_POST["req_no"];
+  
 
   $query = "SELECT * FROM tbl_requisition WHERE requisition_No ='$req_no'";
         	

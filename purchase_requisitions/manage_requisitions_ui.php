@@ -52,8 +52,8 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="status" class="form-label">Status*</label>
                 <select name="status" id="status" class="form-select">
-                  <option value="approved">Approved</option>
                   <option value="pending">Pending</option>
+                  <option value="approved">Approved</option>
                 </select>
               </div>
               <div class="col-auto d-flex align-items-end">
@@ -97,17 +97,12 @@ include '../includes/base_page/head.php';
         function updateDateFilters() {
           const fromDate = new Date(req_date_from.value);
           const toDate = new Date(req_date_to.value);
-          if (fromDate >= toDate) {
+          if (fromDate > toDate) {
             let month = d_toString(fromDate.getMonth() + 1);
             let day = d_toString(fromDate.getDate() + 1);
             req_date_to.value = String(fromDate.getFullYear()) + '-' + month + '-' + day;
-            req_date_to.setAttribute("min", req_date_to.value);
-          } else {
-            let month = d_toString(fromDate.getMonth() + 1);
-            let day = d_toString(fromDate.getDate() + 1);
-            const min = String(fromDate.getFullYear()) + '-' + month + '-' + day;
-            req_date_to.setAttribute("min", min);
           }
+          req_date_to.setAttribute("min", fromDate);
 
           console.log("From: ", fromDate.getDate(), " To: ", req_date_to.value);
         }
@@ -153,6 +148,7 @@ include '../includes/base_page/head.php';
 
             const req_actions = document.createElement("td");
             const btn = document.createElement("button");
+            btn.setAttribute("onclick", "detailedView(" + value["req_no"] + ")");
             btn.appendChild(document.createTextNode("Manage"));
             btn.classList.add("btn", "btn-falcon-primary", "btn-sm");
             req_actions.appendChild(btn);
@@ -163,6 +159,11 @@ include '../includes/base_page/head.php';
 
         }
 
+        function detailedView(req_no) {
+          console.log("Req no: ", req_no);
+          sessionStorage.setItem('req_no', req_no);
+          window.location.href = "manage_pr.php";
+        }
 
         function d_toString(value) {
           return value < 10 ? '0' + value : String(value);
@@ -176,11 +177,12 @@ include '../includes/base_page/head.php';
 
           req_date_from.value = String(date.getFullYear()) + '-' + month + '-' + day;
           req_date_to.value = String(date.getFullYear()) + '-' + month + '-' + day_to;
-          req_date_to.setAttribute("min", req_date_to.value);
+          req_date_to.setAttribute("min", req_date_from.value);
 
           fetch('../includes/load_requisitions.php')
             .then(response => response.json())
             .then(data => {
+              console.log(data);
               updateTable(data);
             })
             .catch((error) => {
