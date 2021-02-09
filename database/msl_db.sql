@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2021 at 08:06 AM
+-- Generation Time: Feb 09, 2021 at 07:21 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -20,6 +20,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `msl_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `supplier_product`
+--
+
+CREATE TABLE `supplier_product` (
+  `product_name` varchar(50) NOT NULL,
+  `supplier_name` varchar(50) NOT NULL,
+  `product_cost` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -130,7 +142,8 @@ CREATE TABLE `tbl_requisition_items` (
   `product_unit` varchar(10) NOT NULL,
   `product_quantity` varchar(200) NOT NULL,
   `status` varchar(10) NOT NULL DEFAULT 'pending',
-  `branch` varchar(50) NOT NULL
+  `branch` varchar(50) NOT NULL,
+  `balance` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -226,8 +239,8 @@ INSERT INTO `tbl_store_item` (`qty`, `product_name`, `product_code`, `branch_loc
 
 CREATE TABLE `tbl_supplier` (
   `id` int(11) NOT NULL,
+  `supplier_id` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `supplier_id` text NOT NULL,
   `email` varchar(50) NOT NULL,
   `tel_no` varchar(100) NOT NULL,
   `address` varchar(50) NOT NULL
@@ -237,12 +250,19 @@ CREATE TABLE `tbl_supplier` (
 -- Dumping data for table `tbl_supplier`
 --
 
-INSERT INTO `tbl_supplier` (`id`, `name`, `supplier_id`, `email`, `tel_no`, `address`) VALUES
-(1, 'Bruce Tom', '2627643875', 'tom@gmail.com', '0745673456', '1656 Edsel Road\r\nSherman Oaks, CA 91403'),
-(5, 'Clara Gilliam', '96665649', 'clara@gmail.com', '0745678723', '63 Woodridge Lane\r\nMemphis, TN 38138'),
-(6, 'Barbra K. Hurley', '87567446', 'barbra@gmail.com', '0847893437', '1241 Canis Heights Drive\r\nLos Angeles, CA 90017'),
-(7, 'Antonio J. Forbes', '57688900', 'anto@gmail.com', '9867454657', '403 Snyder Avenue\r\nCharlotte, NC 28208'),
-(8, 'Charles D. Horst', '456666', 'Charlse@gmail.com', '098754445', '1636 Walnut Hill Drive\r\nCincinnati, OH 45202');
+INSERT INTO `tbl_supplier` (`id`, `supplier_id`, `name`, `email`, `tel_no`, `address`) VALUES
+(1, '6826892', 'Bruce Tom', 'tom@gmail.com', '0745673456', '1656 Edsel Road\r\nSherman Oaks, CA 91403'),
+(5, '4902363', 'Clara Gilliam', 'clara@gmail.com', '0745678723', '63 Woodridge Lane\r\nMemphis, TN 38138'),
+(6, '975395', 'Fredrick Jaji', 'fredrickjaji@hotmail.com', '0710334287', 'Nairobi'),
+(7, '947932', 'Antonio J. Forbes', 'anto@gmail.com', '9867454657', '403 Snyder Avenue\r\nCharlotte, NC 28208'),
+(8, '4890597', 'Charles D. Horst', 'Charlse@gmail.com', '098754445', '1636 Walnut Hill Drive\r\nCincinnati, OH 45202'),
+(208, '869000', 'Fredrick Jaji', 'fredrickjaji@hotmail.com', '0710334287', 'Nairobi'),
+(209, '2324', 'Fredrick Jaji', 'fredrickjaji@hotmail.com', '0710334287', 'Nairobi'),
+(210, '', '', '', '', ''),
+(211, '', '', '', '', ''),
+(212, '', '', '', '', ''),
+(213, '2324', 'Fredrick Jaji', 'fredrickjaji@hotmail.com', '0710334287', 'Nairobi'),
+(214, '2324', 'Fredrick Jaji', 'fredrickjaji@hotmail.com', '0710334287', 'Nairobi');
 
 -- --------------------------------------------------------
 
@@ -318,6 +338,12 @@ INSERT INTO `tbl_user` (`email`, `password`, `designation`, `branch`, `first_nam
 --
 
 --
+-- Indexes for table `supplier_product`
+--
+ALTER TABLE `supplier_product`
+  ADD PRIMARY KEY (`product_name`,`supplier_name`);
+
+--
 -- Indexes for table `tbl_branch`
 --
 ALTER TABLE `tbl_branch`
@@ -388,7 +414,8 @@ ALTER TABLE `tbl_store_item`
 -- Indexes for table `tbl_supplier`
 --
 ALTER TABLE `tbl_supplier`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `supplier_id` (`supplier_id`);
 
 --
 -- Indexes for table `tbl_tax`
@@ -465,7 +492,7 @@ ALTER TABLE `tbl_store_item`
 -- AUTO_INCREMENT for table `tbl_supplier`
 --
 ALTER TABLE `tbl_supplier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=215;
 
 --
 -- AUTO_INCREMENT for table `tbl_unit`
