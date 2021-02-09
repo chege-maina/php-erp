@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2021 at 07:21 AM
+-- Generation Time: Feb 09, 2021 at 10:24 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -42,9 +42,10 @@ CREATE TABLE `supplier_product` (
 CREATE TABLE `tbl_branch` (
   `branch_id` int(11) NOT NULL,
   `branch_name` varchar(100) NOT NULL,
-  `branch_location` varchar(100) NOT NULL,
-  `contact_person` varchar(100) NOT NULL,
-  `telephone_no` int(100) NOT NULL
+  `email` varchar(20) NOT NULL,
+  `tel_no` varchar(20) NOT NULL,
+  `postal_address` varchar(20) NOT NULL,
+  `physical_address` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -112,6 +113,41 @@ INSERT INTO `tbl_product` (`product_code`, `product_name`, `product_unit`, `prod
 (1, 'TANK', 'Piece', 'tanks', '12', '13', '13', 'weretrtet.png', 0, 0, 0, 0, 0, '', ''),
 (2, 'TARAJI', 'PIECES', 'PENCIL', '9', '17', '33', 'OIP.jpg', 3000, 0, 0, 0, 0, '', ''),
 (3, 'CHANK', 'asd,jbhkj', 'TANK', '667', '667', '76', '/assets/img/item-images/php.png', 0, 0, 0, 0, 0, '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_purchaseorder`
+--
+
+CREATE TABLE `tbl_purchaseorder` (
+  `po_number` bigint(20) NOT NULL,
+  `supplier_name` varchar(50) NOT NULL,
+  `supplier_id` varchar(50) NOT NULL,
+  `branch` varchar(20) NOT NULL,
+  `date` date NOT NULL,
+  `time` varchar(20) NOT NULL,
+  `user` varchar(50) NOT NULL,
+  `status` varchar(15) NOT NULL DEFAULT 'pending'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_purchaseorder_items`
+--
+
+CREATE TABLE `tbl_purchaseorder_items` (
+  `id` bigint(20) NOT NULL,
+  `po_number` varchar(20) NOT NULL,
+  `product_code` varchar(20) NOT NULL,
+  `product_name` varchar(20) NOT NULL,
+  `product_unit` varchar(20) NOT NULL,
+  `product_quantity` varchar(20) NOT NULL,
+  `product_cost` varchar(20) NOT NULL,
+  `total` varchar(20) NOT NULL,
+  `status` varchar(10) NOT NULL DEFAULT 'pending'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -238,31 +274,28 @@ INSERT INTO `tbl_store_item` (`qty`, `product_name`, `product_code`, `branch_loc
 --
 
 CREATE TABLE `tbl_supplier` (
-  `id` int(11) NOT NULL,
-  `supplier_id` varchar(50) NOT NULL,
+  `supplier_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `tel_no` varchar(100) NOT NULL,
-  `address` varchar(50) NOT NULL
+  `postal_address` varchar(50) NOT NULL,
+  `physical_address` varchar(50) NOT NULL,
+  `tax_id` varchar(50) NOT NULL,
+  `credit_limit` varchar(50) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_supplier`
 --
 
-INSERT INTO `tbl_supplier` (`id`, `supplier_id`, `name`, `email`, `tel_no`, `address`) VALUES
-(1, '6826892', 'Bruce Tom', 'tom@gmail.com', '0745673456', '1656 Edsel Road\r\nSherman Oaks, CA 91403'),
-(5, '4902363', 'Clara Gilliam', 'clara@gmail.com', '0745678723', '63 Woodridge Lane\r\nMemphis, TN 38138'),
-(6, '975395', 'Fredrick Jaji', 'fredrickjaji@hotmail.com', '0710334287', 'Nairobi'),
-(7, '947932', 'Antonio J. Forbes', 'anto@gmail.com', '9867454657', '403 Snyder Avenue\r\nCharlotte, NC 28208'),
-(8, '4890597', 'Charles D. Horst', 'Charlse@gmail.com', '098754445', '1636 Walnut Hill Drive\r\nCincinnati, OH 45202'),
-(208, '869000', 'Fredrick Jaji', 'fredrickjaji@hotmail.com', '0710334287', 'Nairobi'),
-(209, '2324', 'Fredrick Jaji', 'fredrickjaji@hotmail.com', '0710334287', 'Nairobi'),
-(210, '', '', '', '', ''),
-(211, '', '', '', '', ''),
-(212, '', '', '', '', ''),
-(213, '2324', 'Fredrick Jaji', 'fredrickjaji@hotmail.com', '0710334287', 'Nairobi'),
-(214, '2324', 'Fredrick Jaji', 'fredrickjaji@hotmail.com', '0710334287', 'Nairobi');
+INSERT INTO `tbl_supplier` (`supplier_id`, `name`, `email`, `tel_no`, `postal_address`, `physical_address`, `tax_id`, `credit_limit`) VALUES
+(1, 'Bruce Tom', 'tom@gmail.com', '0745673456', '1656 Edsel Road\r\nSherman Oaks, CA 91403', '', '3463', '234355'),
+(5, 'Clara Gilliam', 'clara@gmail.com', '0745678723', '63 Woodridge Lane\r\nMemphis, TN 38138', '', '34645', '56465'),
+(6, 'Fredrick Jaji', 'fredrickjaji@hotmail.com', '0710334287', 'Nairobi', '', '6u5u85', '3463'),
+(7, 'Antonio J. Forbes', 'anto@gmail.com', '9867454657', '403 Snyder Avenue\r\nCharlotte, NC 28208', '', '34645', '34645'),
+(8, 'Charles D. Horst', 'Charlse@gmail.com', '098754445', '1636 Walnut Hill Drive\r\nCincinnati, OH 45202', '', 'e6654e', '34645'),
+(238, 'Pius Wairimu', 'pius@gmail.com', '5097945790', 'PO BOX 85532-80100', '', '214533', '5667788'),
+(224, 'Jael Joy', 'jaji@newageassociates.co.ke', ' 10710334287', 'Nairobi', '', 'AO123247o9', '1,000,000');
 
 -- --------------------------------------------------------
 
@@ -372,6 +405,18 @@ ALTER TABLE `tbl_product`
   ADD KEY `supplier_id` (`product_supplier`);
 
 --
+-- Indexes for table `tbl_purchaseorder`
+--
+ALTER TABLE `tbl_purchaseorder`
+  ADD PRIMARY KEY (`po_number`);
+
+--
+-- Indexes for table `tbl_purchaseorder_items`
+--
+ALTER TABLE `tbl_purchaseorder_items`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_requisition`
 --
 ALTER TABLE `tbl_requisition`
@@ -414,8 +459,8 @@ ALTER TABLE `tbl_store_item`
 -- Indexes for table `tbl_supplier`
 --
 ALTER TABLE `tbl_supplier`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `supplier_id` (`supplier_id`);
+  ADD PRIMARY KEY (`supplier_id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indexes for table `tbl_tax`
@@ -459,6 +504,18 @@ ALTER TABLE `tbl_product`
   MODIFY `product_code` bigint(254) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `tbl_purchaseorder`
+--
+ALTER TABLE `tbl_purchaseorder`
+  MODIFY `po_number` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_purchaseorder_items`
+--
+ALTER TABLE `tbl_purchaseorder_items`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tbl_requisition`
 --
 ALTER TABLE `tbl_requisition`
@@ -492,7 +549,7 @@ ALTER TABLE `tbl_store_item`
 -- AUTO_INCREMENT for table `tbl_supplier`
 --
 ALTER TABLE `tbl_supplier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=215;
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=239;
 
 --
 -- AUTO_INCREMENT for table `tbl_unit`
