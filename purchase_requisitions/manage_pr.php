@@ -137,7 +137,8 @@ include '../includes/base_page/head.php';
 
           window.addEventListener('DOMContentLoaded', (event) => {
             const formData = new FormData();
-            formData.append("req_no", 1)
+            const reqNo = sessionStorage.getItem('req_no');
+            formData.append("req_no", reqNo)
             fetch('../includes/requisition_manage.php', {
                 method: 'POST',
                 body: formData

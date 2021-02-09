@@ -52,8 +52,8 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="status" class="form-label">Status*</label>
                 <select name="status" id="status" class="form-select">
-                  <option value="approved">Approved</option>
                   <option value="pending">Pending</option>
+                  <option value="approved">Approved</option>
                 </select>
               </div>
               <div class="col-auto d-flex align-items-end">
@@ -148,6 +148,7 @@ include '../includes/base_page/head.php';
 
             const req_actions = document.createElement("td");
             const btn = document.createElement("button");
+            btn.setAttribute("onclick", "detailedView(" + value["req_no"] + ")");
             btn.appendChild(document.createTextNode("Manage"));
             btn.classList.add("btn", "btn-falcon-primary", "btn-sm");
             req_actions.appendChild(btn);
@@ -158,6 +159,11 @@ include '../includes/base_page/head.php';
 
         }
 
+        function detailedView(req_no) {
+          console.log("Req no: ", req_no);
+          sessionStorage.setItem('req_no', req_no);
+          window.location.href = "manage_pr.php";
+        }
 
         function d_toString(value) {
           return value < 10 ? '0' + value : String(value);
@@ -176,6 +182,7 @@ include '../includes/base_page/head.php';
           fetch('../includes/load_requisitions.php')
             .then(response => response.json())
             .then(data => {
+              console.log(data);
               updateTable(data);
             })
             .catch((error) => {
