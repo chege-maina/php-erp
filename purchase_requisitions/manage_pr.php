@@ -82,7 +82,7 @@ include '../includes/base_page/head.php';
           <div class="card-header bg-light">
             <h6>Products</h6>
           </div>
-          <div class="card-body fs--1 p-4">
+          <div class="card-body fs--1 p-2">
             <!-- Content is to start here -->
 
             <div class="table-responsive">
@@ -90,11 +90,11 @@ include '../includes/base_page/head.php';
                 <thead>
                   <tr>
                     <th>Product Code</th>
-                    <th>Product Name</th>
+                    <th class="w-25">Product Name</th>
                     <th>Quantity</th>
                     <th>Balance</th>
                     <th>Units</th>
-                    <th>Actions</th>
+                    <th class="col-lg-2">Actions</th>
                   </tr>
                 </thead>
                 <tbody id="table_body"></tbody>
@@ -166,13 +166,9 @@ include '../includes/base_page/head.php';
                     method: 'POST',
                     body: formData
                   })
-                  .then(response => response.text())
+                  .then(response => response.json())
                   .then(result => {
-                    console.log('Success:', result);
-                    result.forEach(data => {
-
-
-                    });
+                    updateTable(result);
                   })
                   .catch(error => {
                     console.error('Error:', error);
@@ -187,63 +183,96 @@ include '../includes/base_page/head.php';
           });
 
 
-          function updateTable() {
+          function updateTable(result) {
+            console.log('Result:', result);
             table_body.innerHTML = "";
-            for (let item in items_in_table) {
+            result.forEach((data) => {
 
               let tr = document.createElement("tr");
               // Id will be like 1Tank
-              tr.setAttribute("id", items_in_table[item]["code"] + items_in_table[item]["name"]);
+              tr.setAttribute("id", data["code"] + data["name"]);
 
               let code_td = document.createElement("td");
-              code_td.appendChild(document.createTextNode(items_in_table[item]["code"]));
+              code_td.appendChild(document.createTextNode(data["code"]));
               code_td.classList.add("align-middle");
 
               let name_td = document.createElement("td");
-              name_td.appendChild(document.createTextNode(items_in_table[item]["name"]));
-              name_td.classList.add("align-middle");
+              name_td.appendChild(document.createTextNode(data["name"]));
+              name_td.classList.add("align-middle", "w-25");
 
               let balance_td = document.createElement("td");
-              balance_td.appendChild(document.createTextNode(items_in_table[item]["balance"]));
+              balance_td.appendChild(document.createTextNode(data["balance"]));
               balance_td.classList.add("align-middle");
 
               let units_td = document.createElement("td");
-              units_td.appendChild(document.createTextNode(items_in_table[item]["unit"]));
+              units_td.appendChild(document.createTextNode(data["unit"]));
               units_td.classList.add("align-middle");
 
-              let quantity = document.createElement("input");
-              quantity.setAttribute("type", "number");
-              quantity.setAttribute("required", "");
-              quantity.classList.add("form-control", "form-control-sm", "align-middle");
-              quantity.setAttribute("data-ref", items_in_table[item]["name"]);
-              quantity.setAttribute("min", 1);
-              // make sure the quantity is always greater than 0
-              quantity.setAttribute("onfocusout", "this.value = this.value <= 0 ? 1 : this.value;");
-              quantity.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value);");
-              quantity.setAttribute("onclick", "this.select();");
-              items_in_table[item]['quantity'] = ('quantity' in items_in_table[item] && items_in_table[item]['quantity'] > 0) ?
-                items_in_table[item]['quantity'] : 1;
-              quantity.value = items_in_table[item]['quantity'];
-              let quantityWrapper = document.createElement("td");
-              quantityWrapper.classList.add("m-2");
-              quantityWrapper.appendChild(quantity);
+              let qty_td = document.createElement("td");
+              qty_td.appendChild(document.createTextNode(data["qty"]));
+              qty_td.classList.add("align-middle");
 
               let actionWrapper = document.createElement("td");
               actionWrapper.classList.add("m-2");
-              let action = document.createElement("button");
-              action.setAttribute("id", items_in_table[item]["name"]);
-              action.setAttribute("onclick", "removeItem(this.id);");
-              let icon = document.createElement("span");
-              icon.classList.add("fas", "fa-minus", "mt-1");
-              action.appendChild(icon);
-              action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
-              actionWrapper.appendChild(action);
 
-              tr.append(code_td, name_td, balance_td, units_td, quantityWrapper, actionWrapper);
+
+              let actionDiv = document.createElement("div");
+              actionDiv.classList.add("row");
+
+              // data-toggle="tooltip" data-placement="top" title="Tooltip on top"
+              let edit = document.createElement("button");
+              edit.setAttribute("id", "e " + data["name"] + " " + data["code"]);
+              edit.setAttribute("onclick", "actionRespond(this.id);");
+              edit.setAttribute("data-toggle", "tooltip");
+              edit.setAttribute("title", "Edit");
+              let icon = document.createElement("span");
+              icon.classList.add("fas", "fa-pencil-alt", "mt-1", "fa-sm");
+              edit.appendChild(icon);
+              edit.classList.add("btn", "btn-falcon-primary", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
+
+              let save = document.createElement("button");
+              save.setAttribute("id", "s " + data["name"] + " " + data["code"]);
+              save.setAttribute("onclick", "actionRespond(this.id);");
+              save.setAttribute("data-toggle", "tooltip");
+              save.setAttribute("title", "Save");
+              let icon_s = document.createElement("span");
+              icon_s.classList.add("fas", "fa-save", "mt-1", "fa-sm");
+              save.appendChild(icon_s);
+              save.classList.add("btn", "btn-falcon-primary", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
+
+              let cancel = document.createElement("button");
+              cancel.setAttribute("id", "c " + data["name"] + " " + data["code"]);
+              cancel.setAttribute("onclick", "actionRespond(this.id);");
+              cancel.setAttribute("data-toggle", "tooltip");
+              cancel.setAttribute("title", "Cancel");
+              let icon_c = document.createElement("span");
+              icon_c.classList.add("fas", "fa-ban", "mt-1", "fa-sm");
+              cancel.appendChild(icon_c);
+              cancel.classList.add("btn", "btn-falcon-primary", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
+
+
+              let reject = document.createElement("button");
+              reject.setAttribute("id", "r " + data["name"] + " " + data["code"]);
+              reject.setAttribute("onclick", "actionRespond(this.id);");
+              reject.setAttribute("data-toggle", "tooltip");
+              reject.setAttribute("title", "Reject");
+              let icon_r = document.createElement("span");
+              icon_r.classList.add("fas", "fa-times", "mt-1", "fa-sm");
+              reject.appendChild(icon_r);
+              reject.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
+
+
+              actionDiv.append(edit, save, cancel, reject);
+              actionWrapper.appendChild(actionDiv);
+
+              tr.append(code_td, name_td, balance_td, qty_td, units_td, actionWrapper);
               table_body.appendChild(tr);
 
-            }
-            return;
+            });
+          }
+
+          function actionRespond(value) {
+            console.log(value.split(" "));
           }
         </script>
 
