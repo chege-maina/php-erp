@@ -97,17 +97,12 @@ include '../includes/base_page/head.php';
         function updateDateFilters() {
           const fromDate = new Date(req_date_from.value);
           const toDate = new Date(req_date_to.value);
-          if (fromDate >= toDate) {
+          if (fromDate > toDate) {
             let month = d_toString(fromDate.getMonth() + 1);
             let day = d_toString(fromDate.getDate() + 1);
             req_date_to.value = String(fromDate.getFullYear()) + '-' + month + '-' + day;
-            req_date_to.setAttribute("min", req_date_to.value);
-          } else {
-            let month = d_toString(fromDate.getMonth() + 1);
-            let day = d_toString(fromDate.getDate() + 1);
-            const min = String(fromDate.getFullYear()) + '-' + month + '-' + day;
-            req_date_to.setAttribute("min", min);
           }
+          req_date_to.setAttribute("min", fromDate);
 
           console.log("From: ", fromDate.getDate(), " To: ", req_date_to.value);
         }
@@ -176,7 +171,7 @@ include '../includes/base_page/head.php';
 
           req_date_from.value = String(date.getFullYear()) + '-' + month + '-' + day;
           req_date_to.value = String(date.getFullYear()) + '-' + month + '-' + day_to;
-          req_date_to.setAttribute("min", req_date_to.value);
+          req_date_to.setAttribute("min", req_date_from.value);
 
           fetch('../includes/load_requisitions.php')
             .then(response => response.json())

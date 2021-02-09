@@ -133,10 +133,11 @@ include '../includes/base_page/head.php';
           const created_by = document.querySelector("#created_by");
           const branch = document.querySelector("#req_branch");
           const requisition_status = document.querySelector("#requisition_status");
+          const table_body = document.querySelector("#table_body");
 
           window.addEventListener('DOMContentLoaded', (event) => {
             const formData = new FormData();
-            formData.append("req_no", 24)
+            formData.append("req_no", 1)
             fetch('../includes/requisition_manage.php', {
                 method: 'POST',
                 body: formData
@@ -168,6 +169,10 @@ include '../includes/base_page/head.php';
                   .then(response => response.text())
                   .then(result => {
                     console.log('Success:', result);
+                    result.forEach(data => {
+
+
+                    });
                   })
                   .catch(error => {
                     console.error('Error:', error);
@@ -180,6 +185,66 @@ include '../includes/base_page/head.php';
               });
 
           });
+
+
+          function updateTable() {
+            table_body.innerHTML = "";
+            for (let item in items_in_table) {
+
+              let tr = document.createElement("tr");
+              // Id will be like 1Tank
+              tr.setAttribute("id", items_in_table[item]["code"] + items_in_table[item]["name"]);
+
+              let code_td = document.createElement("td");
+              code_td.appendChild(document.createTextNode(items_in_table[item]["code"]));
+              code_td.classList.add("align-middle");
+
+              let name_td = document.createElement("td");
+              name_td.appendChild(document.createTextNode(items_in_table[item]["name"]));
+              name_td.classList.add("align-middle");
+
+              let balance_td = document.createElement("td");
+              balance_td.appendChild(document.createTextNode(items_in_table[item]["balance"]));
+              balance_td.classList.add("align-middle");
+
+              let units_td = document.createElement("td");
+              units_td.appendChild(document.createTextNode(items_in_table[item]["unit"]));
+              units_td.classList.add("align-middle");
+
+              let quantity = document.createElement("input");
+              quantity.setAttribute("type", "number");
+              quantity.setAttribute("required", "");
+              quantity.classList.add("form-control", "form-control-sm", "align-middle");
+              quantity.setAttribute("data-ref", items_in_table[item]["name"]);
+              quantity.setAttribute("min", 1);
+              // make sure the quantity is always greater than 0
+              quantity.setAttribute("onfocusout", "this.value = this.value <= 0 ? 1 : this.value;");
+              quantity.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value);");
+              quantity.setAttribute("onclick", "this.select();");
+              items_in_table[item]['quantity'] = ('quantity' in items_in_table[item] && items_in_table[item]['quantity'] > 0) ?
+                items_in_table[item]['quantity'] : 1;
+              quantity.value = items_in_table[item]['quantity'];
+              let quantityWrapper = document.createElement("td");
+              quantityWrapper.classList.add("m-2");
+              quantityWrapper.appendChild(quantity);
+
+              let actionWrapper = document.createElement("td");
+              actionWrapper.classList.add("m-2");
+              let action = document.createElement("button");
+              action.setAttribute("id", items_in_table[item]["name"]);
+              action.setAttribute("onclick", "removeItem(this.id);");
+              let icon = document.createElement("span");
+              icon.classList.add("fas", "fa-minus", "mt-1");
+              action.appendChild(icon);
+              action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
+              actionWrapper.appendChild(action);
+
+              tr.append(code_td, name_td, balance_td, units_td, quantityWrapper, actionWrapper);
+              table_body.appendChild(tr);
+
+            }
+            return;
+          }
         </script>
 
 
