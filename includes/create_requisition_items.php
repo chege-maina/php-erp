@@ -32,9 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   foreach ($table_items as $key => $value) {
 
-    $mysql = "INSERT INTO tbl_requisition_items (requisition_No, product_code, product_name, product_unit, product_quantity, branch)
+    $mysql = "INSERT INTO tbl_requisition_items (requisition_No, product_code, product_name, product_unit, product_quantity, branch, balance)
   VALUES('" . $requisition_number . "','" . $value["code"] . "','" . $value["name"] . "','" . $value["unit"] . "',
-  '" . $value["quantity"] . "', '" . $user_branch . "')";
+  '" . $value["quantity"] . "', '" . $user_branch . "','" . $value["balance"] . "')";
     mysqli_query($conn, $mysql);
   }
 
