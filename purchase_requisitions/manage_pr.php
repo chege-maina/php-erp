@@ -91,8 +91,8 @@ include '../includes/base_page/head.php';
                   <tr>
                     <th>Product Code</th>
                     <th class="w-25">Product Name</th>
+                    <th class="col-lg-1">Balance</th>
                     <th>Quantity</th>
-                    <th>Balance</th>
                     <th>Units</th>
                     <th class="col-lg-2">Actions</th>
                   </tr>
@@ -212,6 +212,24 @@ include '../includes/base_page/head.php';
               qty_td.appendChild(document.createTextNode(data["qty"]));
               qty_td.classList.add("align-middle");
 
+
+              let quantity = document.createElement("input");
+              quantity.setAttribute("type", "number");
+              quantity.setAttribute("required", "");
+              quantity.classList.add("form-control", "form-control-sm", "align-middle");
+              // quantity.setAttribute("data-ref", da["name"]);
+              quantity.setAttribute("min", 1);
+              // make sure the quantity is always greater than 0
+              quantity.setAttribute("onfocusout", "this.value = this.value <= 0 ? 1 : this.value;");
+              // quantity.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value);");
+              // quantity.setAttribute("onclick", "this.select();");
+              quantity.value = data["qty"];
+              let quantityWrapper = document.createElement("td");
+              quantityWrapper.classList.add("m-2");
+              quantityWrapper.appendChild(quantity);
+
+
+
               let actionWrapper = document.createElement("td");
               actionWrapper.classList.add("m-2");
 
@@ -265,7 +283,7 @@ include '../includes/base_page/head.php';
               actionDiv.append(edit, save, cancel, reject);
               actionWrapper.appendChild(actionDiv);
 
-              tr.append(code_td, name_td, balance_td, qty_td, units_td, actionWrapper);
+              tr.append(code_td, name_td, balance_td, quantityWrapper, units_td, actionWrapper);
               table_body.appendChild(tr);
 
             });
