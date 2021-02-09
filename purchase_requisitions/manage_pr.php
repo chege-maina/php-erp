@@ -86,13 +86,13 @@ include '../includes/base_page/head.php';
             <!-- Content is to start here -->
 
             <div class="table-responsive">
-              <table class="table table-sm fs--1 mb-0">
+              <table class="table table-sm table-striped fs--1 mb-0">
                 <thead>
                   <tr>
                     <th>Product Code</th>
                     <th class="w-25">Product Name</th>
-                    <th class="col-lg-1">Balance</th>
-                    <th>Quantity</th>
+                    <th>Balance</th>
+                    <th class="col-lg-1">Quantity</th>
                     <th>Units</th>
                     <th class="col-lg-2">Actions</th>
                   </tr>
@@ -216,6 +216,8 @@ include '../includes/base_page/head.php';
               let quantity = document.createElement("input");
               quantity.setAttribute("type", "number");
               quantity.setAttribute("required", "");
+              quantity.setAttribute("readonly", "");
+              quantity.setAttribute("id", "q-" + data["name"] + "-" + data["code"]);
               quantity.classList.add("form-control", "form-control-sm", "align-middle");
               // quantity.setAttribute("data-ref", da["name"]);
               quantity.setAttribute("min", 1);
@@ -239,7 +241,7 @@ include '../includes/base_page/head.php';
 
               // data-toggle="tooltip" data-placement="top" title="Tooltip on top"
               let edit = document.createElement("button");
-              edit.setAttribute("id", "e " + data["name"] + " " + data["code"]);
+              edit.setAttribute("id", "e-" + data["name"] + "-" + data["code"]);
               edit.setAttribute("onclick", "actionRespond(this.id);");
               edit.setAttribute("data-toggle", "tooltip");
               edit.setAttribute("title", "Edit");
@@ -249,20 +251,22 @@ include '../includes/base_page/head.php';
               edit.classList.add("btn", "btn-falcon-primary", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
 
               let save = document.createElement("button");
-              save.setAttribute("id", "s " + data["name"] + " " + data["code"]);
+              save.setAttribute("id", "s-" + data["name"] + "-" + data["code"]);
               save.setAttribute("onclick", "actionRespond(this.id);");
               save.setAttribute("data-toggle", "tooltip");
               save.setAttribute("title", "Save");
+              save.disabled = true;
               let icon_s = document.createElement("span");
               icon_s.classList.add("fas", "fa-save", "mt-1", "fa-sm");
               save.appendChild(icon_s);
               save.classList.add("btn", "btn-falcon-primary", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
 
               let cancel = document.createElement("button");
-              cancel.setAttribute("id", "c " + data["name"] + " " + data["code"]);
+              cancel.setAttribute("id", "c-" + data["name"] + "-" + data["code"]);
               cancel.setAttribute("onclick", "actionRespond(this.id);");
               cancel.setAttribute("data-toggle", "tooltip");
               cancel.setAttribute("title", "Cancel");
+              cancel.disabled = true;
               let icon_c = document.createElement("span");
               icon_c.classList.add("fas", "fa-ban", "mt-1", "fa-sm");
               cancel.appendChild(icon_c);
@@ -270,7 +274,7 @@ include '../includes/base_page/head.php';
 
 
               let reject = document.createElement("button");
-              reject.setAttribute("id", "r " + data["name"] + " " + data["code"]);
+              reject.setAttribute("id", "r-" + data["name"] + "-" + data["code"]);
               reject.setAttribute("onclick", "actionRespond(this.id);");
               reject.setAttribute("data-toggle", "tooltip");
               reject.setAttribute("title", "Reject");
@@ -290,7 +294,40 @@ include '../includes/base_page/head.php';
           }
 
           function actionRespond(value) {
-            console.log(value.split(" "));
+            value = value.split("-");
+            console.log(value);
+            // Get the quantity input in the same row
+            const qtt = document.querySelector("#q-" + value[1] + "-" + value[2]);
+            const btn_save = document.querySelector("#s-" + value[1] + "-" + value[2]);
+            const btn_edit = document.querySelector("#e-" + value[1] + "-" + value[2]);
+            const btn_cancel = document.querySelector("#c-" + value[1] + "-" + value[2]);
+            const btn_reject = document.querySelector("#r-" + value[1] + "-" + value[2]);
+
+            if (value[0] == "e") {
+              // Edit item
+              qtt.removeAttribute("readonly");
+              btn_save.disabled = false;
+              btn_cancel.disabled = false;
+              btn_edit.disabled = true;
+            } else if (value[0] == "c") {
+              // Cancel edit
+              qtt.setAttribute("readonly", "");
+
+              btn_save.disabled = true;
+              btn_cancel.disabled = true;
+              btn_edit.disabled = false;
+            } else if (value[0] == "r") {
+              // Reject item
+              console.log("Rejecting: ", qtt.value);
+              alert("Are you sure you want to reject?")
+            } else if (value[0] == "s") {
+              // Save item
+              qtt.setAttribute("readonly", "");
+
+              btn_save.disabled = true;
+              btn_cancel.disabled = true;
+              btn_edit.disabled = false;
+            }
           }
         </script>
 
