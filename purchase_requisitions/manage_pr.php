@@ -128,6 +128,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
 
         <script>
+          let requisition_number = -1;
           const req_no = document.querySelector("#req_no");
           const requisition_date = document.querySelector("#requisition_date");
           const created_by = document.querySelector("#created_by");
@@ -145,7 +146,6 @@ include '../includes/base_page/head.php';
             // Clear data
             sessionStorage.clear();
 
-
             // Load the requisition item for the number
             const formData = new FormData();
             formData.append("req_no", reqNo)
@@ -157,6 +157,7 @@ include '../includes/base_page/head.php';
               .then(result => {
                 data = result[0];
                 req_no.appendChild(document.createTextNode(data["req_no"]));
+                requisition_number = data["req_no"];
                 requisition_date.value = data["date"];
                 branch.value = data["branch"];
                 created_by.value = data["user"];
@@ -329,9 +330,35 @@ include '../includes/base_page/head.php';
               btn_edit.disabled = false;
             } else if (value[0] == "r") {
               // Reject item
-              console.log("Rejecting: ", qtt.value);
-              alert("Are you sure you want to reject?")
+              if (!confirm("Are you sure you want to reject?")) {
+                return;
+              }
+
+              console.log("Rejecting");
               const formData = new FormData();
+              formData.append("checker", "item_rejected");
+              formData.append("name", value[1]);
+              formData.append("qty", qtt.value);
+              formData.append("req_no", requisition_number);
+
+              console.log("checker", "item_rejected");
+              console.log("name", value[1]);
+              console.log("qty", qtt.value);
+              console.log("req_no", requisition_number);
+
+
+              fetch('../includes/update_requisition.php', {
+                  method: 'POST',
+                  body: formData
+                })
+                .then(response => response.text())
+                .then(result => {
+                  console.log('Success:', result);
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                });
+
             } else if (value[0] == "s") {
               // Save item
               qtt.setAttribute("readonly", "");
