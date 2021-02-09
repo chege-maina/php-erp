@@ -4,9 +4,9 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $req_no = $_POST["req_no"];
-  $stats = 'pending';
+  
 
-  $query = "SELECT * FROM tbl_requisition WHERE requisition_No ='$req_no' and status='$stats'";
+  $query = "SELECT * FROM tbl_requisition WHERE requisition_No ='$req_no'";
         	
 	$result = mysqli_query($conn, $query);
     $response = array();
