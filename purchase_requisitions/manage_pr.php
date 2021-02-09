@@ -48,7 +48,7 @@ include '../includes/base_page/head.php';
 
 
             <div class="col-lg-8 mb-3">
-              <h5>Requisition Number <span id="req_no" class="text-info"></span></h5>
+              <h5>Requisition Number <span id="req_no" class="text-info h2 mr-3"></span></h5>
             </div>
 
             <div class="row">
@@ -113,7 +113,7 @@ include '../includes/base_page/head.php';
                   <span class="fas fa-check mr-1" data-fa-transform="shrink-3"></span>
                   Approve
                 </button>
-                <button class="btn btn-falcon-danger btn-sm" id="reject_req">
+                <button class="btn btn-falcon-danger btn-sm" id="reject_req" onclick="rejectRequisition();">
                   <span class="fas fa-times mr-1" data-fa-transform="shrink-3"></span>
                   Reject
                 </button>
@@ -305,6 +305,37 @@ include '../includes/base_page/head.php';
             });
           }
 
+          function rejectRequisition() {
+            if (!confirm("Are you sure you want to reject?")) {
+              return;
+            }
+            console.log("Rejecting");
+            const formData = new FormData();
+            formData.append("checker", "req_rejected");
+            formData.append("name", "");
+            formData.append("qty", -1);
+            formData.append("req_no", requisition_number);
+
+
+            console.log("checker", "req_rejected");
+            console.log("name", "");
+            console.log("qty", -1);
+            console.log("req_no", requisition_number);
+
+            fetch('../includes/update_requisition.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.text())
+              .then(result => {
+                console.log('Success:', result);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+
+          }
+
           function actionRespond(value) {
             value = value.split("-");
             console.log(value);
@@ -345,6 +376,8 @@ include '../includes/base_page/head.php';
               console.log("name", value[1]);
               console.log("qty", qtt.value);
               console.log("req_no", requisition_number);
+
+              // On submit reload page
 
 
               fetch('../includes/update_requisition.php', {

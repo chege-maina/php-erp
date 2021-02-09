@@ -23,6 +23,7 @@ else if(strcmp($checker, 'req_rejected') == 0){
     $sql = "UPDATE tbl_requisition_items SET status = 'rejected' WHERE requisition_No = '".$req_no."'";
     $sql2 = "UPDATE tbl_requisition SET status = 'rejected' WHERE requisition_No = '".$req_no."'";
     mysqli_query($conn, $sql);
+    mysqli_query($conn, $sql2);
     $response['message']="Selected Requisition Rejected..";
 }
 else {
@@ -45,4 +46,3 @@ mysqli_close($conn);
                 echo json_encode($response);
             }
 
-?>
