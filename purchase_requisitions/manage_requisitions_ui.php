@@ -57,7 +57,7 @@ include '../includes/base_page/head.php';
                 </select>
               </div>
               <div class="col-auto d-flex align-items-end">
-                <button class="btn btn-falcon-primary" type="button">
+                <button class="btn btn-falcon-primary" type="button" onclick="filterRequisitions();">
                   <span class="fas fa-filter mr-1" data-fa-transform="shrink-3"></span>Filter
                 </button>
               </div>
@@ -91,6 +91,8 @@ include '../includes/base_page/head.php';
       <script>
         const req_date_from = document.querySelector("#req_date_from");
         const req_date_to = document.querySelector("#req_date_to");
+        const r_status = document.querySelector("#status");
+        const table_body = document.querySelector("#table_body");
 
         function updateDateFilters() {
           const fromDate = new Date(req_date_from.value);
@@ -110,9 +112,62 @@ include '../includes/base_page/head.php';
           console.log("From: ", fromDate.getDate(), " To: ", req_date_to.value);
         }
 
+
+        let updateTable = (data) => {
+          table_body.innerHTML = "";
+          data.forEach(value => {
+            const this_row = document.createElement("tr");
+
+            const req_no = document.createElement("td");
+            req_no.appendChild(document.createTextNode(value["req_no"]));
+            req_no.classList.add("align-middle");
+
+            const req_date = document.createElement("td");
+            req_date.appendChild(document.createTextNode(value["date"]));
+            req_date.classList.add("align-middle");
+
+            const req_branch = document.createElement("td");
+            req_branch.appendChild(document.createTextNode(value["branch"]));
+            req_branch.classList.add("align-middle");
+
+            const req_user = document.createElement("td");
+            req_user.appendChild(document.createTextNode(value["user"]));
+            req_user.classList.add("align-middle");
+
+            const req_status = document.createElement("td");
+            const tmp_status = value["status"];
+            const badge = document.createElement("span");
+            badge.appendChild(document.createTextNode(tmp_status));
+            badge.classList.add("badge", "rounded-pill");
+            // <span class="badge rounded-pill badge-soft-primary">Primary</span>
+            if (tmp_status == "pending") {
+              badge.classList.add("badge-soft-secondary");
+            } else if (tmp_status == "approved") {
+              badge.classList.add("badge-soft-success");
+            } else if (tmp_status == "rejected") {
+              badge.classList.add("badge-soft-danger");
+            }
+
+            req_status.appendChild(badge);
+            req_status.classList.add("align-middle");
+
+            const req_actions = document.createElement("td");
+            const btn = document.createElement("button");
+            btn.appendChild(document.createTextNode("Manage"));
+            btn.classList.add("btn", "btn-falcon-primary", "btn-sm");
+            req_actions.appendChild(btn);
+
+            this_row.append(req_no, req_date, req_user, req_branch, req_status, req_actions);
+            table_body.appendChild(this_row);
+          });
+
+        }
+
+
         function d_toString(value) {
           return value < 10 ? '0' + value : String(value);
         }
+
         window.addEventListener('DOMContentLoaded', (event) => {
           const date = new Date();
           let month = d_toString(date.getMonth() + 1);
@@ -126,58 +181,32 @@ include '../includes/base_page/head.php';
           fetch('../includes/load_requisitions.php')
             .then(response => response.json())
             .then(data => {
-              console.log(data);
-              const table_body = document.querySelector("#table_body");
-              data.forEach(value => {
-                const this_row = document.createElement("tr");
-
-                const req_no = document.createElement("td");
-                req_no.appendChild(document.createTextNode(value["req_no"]));
-                req_no.classList.add("align-middle");
-
-                const req_date = document.createElement("td");
-                req_date.appendChild(document.createTextNode(value["date"]));
-                req_date.classList.add("align-middle");
-
-                const req_branch = document.createElement("td");
-                req_branch.appendChild(document.createTextNode(value["branch"]));
-                req_branch.classList.add("align-middle");
-
-                const req_user = document.createElement("td");
-                req_user.appendChild(document.createTextNode(value["user"]));
-                req_user.classList.add("align-middle");
-
-                const req_status = document.createElement("td");
-                const tmp_status = value["status"];
-                const badge = document.createElement("span");
-                badge.appendChild(document.createTextNode(tmp_status));
-                badge.classList.add("badge", "rounded-pill");
-                // <span class="badge rounded-pill badge-soft-primary">Primary</span>
-                if (tmp_status == "pending") {
-                  badge.classList.add("badge-soft-secondary");
-                } else if (tmp_status == "approved") {
-                  badge.classList.add("badge-soft-success");
-                } else if (tmp_status == "rejected") {
-                  badge.classList.add("badge-soft-danger");
-                }
-
-                req_status.appendChild(badge);
-                req_status.classList.add("align-middle");
-
-                const req_actions = document.createElement("td");
-                const btn = document.createElement("button");
-                btn.appendChild(document.createTextNode("Manage"));
-                btn.classList.add("btn", "btn-falcon-primary", "btn-sm");
-                req_actions.appendChild(btn);
-
-                this_row.append(req_no, req_date, req_user, req_branch, req_status, req_actions);
-                table_body.appendChild(this_row);
-              });
+              updateTable(data);
             })
             .catch((error) => {
               console.error('Error:', error);
             });
         });
+
+        function filterRequisitions() {
+          const formData = new FormData();
+          formData.append("date1", req_date_from.value);
+          formData.append("date2", req_date_to.value);
+          formData.append("status", r_status.value);
+          formData.append("branch", user_branch);
+          fetch('../includes/filter_requisitions.php', {
+              method: 'POST',
+              body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
+              console.log('Success:', result);
+              updateTable(result);
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        }
       </script>
 
 
