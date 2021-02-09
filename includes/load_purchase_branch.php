@@ -17,6 +17,5 @@ $query = "SELECT count(branch), branch FROM tbl_requisition WHERE status= 'appro
 	echo json_encode($response);
 
 mysqli_close($conn);
-          
 
 ?>
