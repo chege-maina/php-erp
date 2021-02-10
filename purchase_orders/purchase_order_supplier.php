@@ -119,10 +119,11 @@ include '../includes/base_page/head.php';
 
         <script>
           const po_branch = document.querySelector("#po_branch");
+          const table_items = [];
 
           window.addEventListener('DOMContentLoaded', (event) => {
             if (sessionStorage.length === 0) {
-              location.href = "select_po.php";
+              location.href = "./select_po.php";
             }
 
             // Get passed branch
@@ -132,17 +133,27 @@ include '../includes/base_page/head.php';
             po_branch.value = branch;
 
             // Make fetch request
-            fetch('../includes/')
-              .then(response => response.json())
-              .then(data => {
-
+            const formData = new FormData();
+            formData.append("branch", branch);
+            fetch('../includes/load_purchase_items.php', {
+                method: 'POST',
+                body: formData
               })
-              .catch((error) => {
+              .then(response => response.json())
+              .then(result => {
+                console.log('Success:', result);
+                table_items = result;
+              })
+              .catch(error => {
                 console.error('Error:', error);
               });
           });
-        </script>
 
+
+          // function updateTable() {
+
+          // }
+        </script>
 
 
         <!-- =========================================================== -->
