@@ -43,6 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
  $message ="Supplier Added Successfully..";
   echo json_encode($message);
-
-  $conn->close();
 }
+  mysqli_close($conn);
+  ?>
