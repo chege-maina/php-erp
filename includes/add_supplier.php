@@ -10,6 +10,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $payment_terms = $_POST["payment_terms"];
   $table_items = json_decode($_POST["table_items"], true);
 
+  $name = trim($name);
+  $email = trim($email);
+
   $mysql = "INSERT INTO tbl_supplier (name, email, tel_no, postal_address, physical_address, tax_id, payment_terms)
    VALUES ('" . $name . "', '" . $email . "', '" . $tel_no . "', '" . $postal_address . "' , '" . $physical_address . "'
    , '" . $tax_id . "', '" . $payment_terms . "');";

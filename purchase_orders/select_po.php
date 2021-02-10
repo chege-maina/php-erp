@@ -87,7 +87,7 @@ include '../includes/base_page/head.php';
         let updateTable = (data) => {
           table_body.innerHTML = "";
 
-          if (data[0]['count'] <= 0) {
+          if (Object.keys(data).length === 0 || data[0]['count'] <= 0) {
             return;
           }
 
@@ -104,6 +104,7 @@ include '../includes/base_page/head.php';
 
             const req_actions = document.createElement("td");
             const btn = document.createElement("button");
+            btn.setAttribute('onclick', "expandBranch('" + value["branch"] + "');");
             btn.appendChild(document.createTextNode("Create Purchase Order"));
             btn.classList.add("btn", "btn-falcon-primary", "btn-sm");
             req_actions.appendChild(btn);
@@ -113,6 +114,13 @@ include '../includes/base_page/head.php';
 
           });
         }
+
+
+        let expandBranch = (branch) => {
+          sessionStorage.setItem('branch', branch);
+          window.location.href = "purchase_order_supplier.php";
+        }
+
         window.addEventListener('DOMContentLoaded', (event) => {
           fetch('../includes/load_purchase_branch.php')
             .then(response => response.json())
