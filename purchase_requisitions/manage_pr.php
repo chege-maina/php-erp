@@ -431,6 +431,9 @@ include '../includes/base_page/head.php';
               btn_edit.disabled = true;
             } else if (value[0] == "c") {
               // Cancel edit
+
+              // reload table
+              fetchTableItems();
               qtt.setAttribute("readonly", "");
 
               btn_save.disabled = true;
@@ -475,6 +478,45 @@ include '../includes/base_page/head.php';
                 });
 
             } else if (value[0] == "s") {
+
+
+              console.log("Saving");
+              const formData = new FormData();
+              formData.append("checker", "item_qty");
+              // TODO: Take these and in corresponding if cases to above the if to avoid copypasting
+              formData.append("name", value[1]);
+              formData.append("qty", qtt.value);
+              formData.append("req_no", reqNo);
+
+              fetch('../includes/update_requisition.php', {
+                  method: 'POST',
+                  body: formData
+                })
+                .then(response => response.json())
+                .then(result => {
+                  const alertVar =
+                    `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> ${result['message']}
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                  var divAlert = document.querySelector("#alert-div");
+                  divAlert.innerHTML = alertVar;
+                  divAlert.scrollIntoView();
+                  // On submit reload table
+                  fetchTableItems();
+
+                  window.setTimeout(() => {
+                    divAlert.innerHTML = "";
+                  }, 2500);
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                });
+
+
+
+              // If page is reloading, this is no longer needed. Delete
+
               // Save item
               qtt.setAttribute("readonly", "");
 
