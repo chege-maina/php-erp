@@ -119,8 +119,6 @@ include '../includes/base_page/head.php';
               supplier.focus();
               return;
             }
-            sessionStorage.setItem('branch', po_branch.value);
-            sessionStorage.setItem('supplier', supplier.value);
 
             let table_body_items = []
             table_body.childNodes.forEach(row => {
@@ -142,7 +140,8 @@ include '../includes/base_page/head.php';
                     product_row.set('p_quantity', cell.innerHTML);
                     break;
                   case 4:
-                    product_row.set('p_cost', cell.firstChild.value);
+                    product_row.set('p_sup', cell.firstChild.value);
+                    product_row.set('p_cost', selectedProductSuppliers.get(product_row.get('p_code')).get(product_row.get('p_sup')));
                     break;
                 }
 
@@ -151,8 +150,14 @@ include '../includes/base_page/head.php';
 
               });
 
-              table_body_items.push(product_row);
+              if (product_row.get('p_sup') === supplier.value) {
+                table_body_items.push(product_row);
+              }
             });
+
+            sessionStorage.setItem('branch', po_branch.value);
+            sessionStorage.setItem('supplier', supplier.value);
+            sessionStorage.setItem('items', table_body_items);
             console.log(table_body_items);
           }
 
