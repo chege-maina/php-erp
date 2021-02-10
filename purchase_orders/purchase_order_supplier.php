@@ -115,6 +115,12 @@ include '../includes/base_page/head.php';
 
           function createPurchaseOrder() {
             console.log("Item Prices", selectedProductSuppliers);
+            console.log("Supplier value", supplier.value);
+            if (!supplier.value) {
+              supplier.focus();
+              return;
+            }
+            // sessionStorage.setItem('branch', po)
           }
 
           window.addEventListener('DOMContentLoaded', (event) => {
@@ -161,9 +167,15 @@ include '../includes/base_page/head.php';
 
             console.log(supplier_list);
 
+            let opt = document.createElement("option");
+            opt.appendChild(document.createTextNode("-- Select Supplier --"));
+            opt.setAttribute("value", "");
+            opt.setAttribute("disabled", "");
+            opt.setAttribute("selected", "");
+            supplier.appendChild(opt);
 
             supplier_list.forEach(value => {
-              let opt = document.createElement("option");
+              opt = document.createElement("option");
 
               opt.appendChild(
                 document.createTextNode(
