@@ -34,102 +34,104 @@ include '../includes/base_page/head.php';
         include '../navbar-shared.php';
         ?>
 
-        <!-- =========================================================== -->
-        <!-- body begins here -->
-        <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <div id="alert-div"></div>
-        <h3 class="mb-0 p-2">Manage Requisition</h3>
-        <div class="card mb-1">
+        <div id="main-body">
+          <!-- =========================================================== -->
+          <!-- body begins here -->
+          <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+          <div id="alert-div"></div>
+          <h3 class="mb-0 p-2">Manage Requisition</h3>
+          <div class="card mb-1">
 
-          <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/illustrations/corner-4.png);">
+            <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/illustrations/corner-4.png);">
+            </div>
+            <!--/.bg-holder-->
+
+            <div class="card-body position-relative">
+
+
+              <div class="col-lg-8 mb-3">
+                <h5>Requisition Number <span id="req_no" class="text-info h2 mr-3"></span></h5>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <label for="requisition_date" class="form-label">Date</label>
+                  <input type="date" name="requisition_name" id="requisition_date" class="form-control" required readonly>
+                </div>
+                <div class="col">
+                  <label for="created_by" class="form-label">Created By</label>
+                  <input type="text" name="created_by" id="created_by" class="form-control" required readonly>
+                </div>
+
+                <div class="col col-md-4">
+                  <label for="req_branch" class="form-label">Branch</label>
+                  <input type="text" name="req_branch" id="req_branch" class="form-control" required readonly>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-auto">
+                  <span class="fw-bold mr-2">Status: </span>
+                  <span id="requisition_status"></span>
+                </div>
+              </div>
+
+            </div>
           </div>
-          <!--/.bg-holder-->
-
-          <div class="card-body position-relative">
 
 
-            <div class="col-lg-8 mb-3">
-              <h5>Requisition Number <span id="req_no" class="text-info h2 mr-3"></span></h5>
+          <div class="card">
+
+            <div class="card-header bg-light">
+              <h6>Products</h6>
             </div>
+            <div class="card-body fs--1 p-2">
+              <!-- Content is to start here -->
 
-            <div class="row">
-              <div class="col">
-                <label for="requisition_date" class="form-label">Date</label>
-                <input type="date" name="requisition_name" id="requisition_date" class="form-control" required readonly>
+              <div class="table-responsive">
+                <table class="table table-sm table-striped fs--1 mb-0">
+                  <thead>
+                    <tr>
+                      <th>Product Code</th>
+                      <th class="w-25">Product Name</th>
+                      <th>Balance</th>
+                      <th class="col-lg-1">Quantity</th>
+                      <th>Units</th>
+                      <th class="col-lg-2">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table_body"></tbody>
+                </table>
               </div>
-              <div class="col">
-                <label for="created_by" class="form-label">Created By</label>
-                <input type="text" name="created_by" id="created_by" class="form-control" required readonly>
-              </div>
-
-              <div class="col col-md-4">
-                <label for="req_branch" class="form-label">Branch</label>
-                <input type="text" name="req_branch" id="req_branch" class="form-control" required readonly>
-              </div>
+              <!-- Content ends here -->
             </div>
-            <div class="row mt-3">
-              <div class="col-auto">
-                <span class="fw-bold mr-2">Status: </span>
-                <span id="requisition_status"></span>
-              </div>
-            </div>
-
+            <!-- Additional cards can be added here -->
           </div>
+
+          <div class="card mt-1 mb-3 h-xxl-100">
+            <div class="card-body">
+              <div class="row justify-content-between align-items-center">
+                <div class="col-auto">
+                  <button class="btn btn-falcon-success btn-sm mr-2" id="approve_req" onclick="approveRequisition();">
+                    <span class="fas fa-check mr-1" data-fa-transform="shrink-3"></span>
+                    Approve
+                  </button>
+                  <button class="btn btn-falcon-danger btn-sm" id="reject_req" onclick="rejectRequisition();">
+                    <span class="fas fa-times mr-1" data-fa-transform="shrink-3"></span>
+                    Reject
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+          <!-- body ends here -->
+          <!-- =========================================================== -->
         </div>
-
-
-        <div class="card">
-
-          <div class="card-header bg-light">
-            <h6>Products</h6>
-          </div>
-          <div class="card-body fs--1 p-2">
-            <!-- Content is to start here -->
-
-            <div class="table-responsive">
-              <table class="table table-sm table-striped fs--1 mb-0">
-                <thead>
-                  <tr>
-                    <th>Product Code</th>
-                    <th class="w-25">Product Name</th>
-                    <th>Balance</th>
-                    <th class="col-lg-1">Quantity</th>
-                    <th>Units</th>
-                    <th class="col-lg-2">Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="table_body"></tbody>
-              </table>
-            </div>
-            <!-- Content ends here -->
-          </div>
-          <!-- Additional cards can be added here -->
-        </div>
-
-        <div class="card mt-1 mb-3 h-xxl-100">
-          <div class="card-body">
-            <div class="row justify-content-between align-items-center">
-              <div class="col-auto">
-                <button class="btn btn-falcon-success btn-sm mr-2" id="approve_req" onclick="approveRequisition();">
-                  <span class="fas fa-check mr-1" data-fa-transform="shrink-3"></span>
-                  Approve
-                </button>
-                <button class="btn btn-falcon-danger btn-sm" id="reject_req" onclick="rejectRequisition();">
-                  <span class="fas fa-times mr-1" data-fa-transform="shrink-3"></span>
-                  Reject
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <!-- body ends here -->
-        <!-- =========================================================== -->
 
         <script>
           let reqNo = -1;
+          let reqStatus = "";
           const req_no = document.querySelector("#req_no");
           const requisition_date = document.querySelector("#requisition_date");
           const created_by = document.querySelector("#created_by");
@@ -161,6 +163,7 @@ include '../includes/base_page/head.php';
                 requisition_date.value = data["date"];
                 branch.value = data["branch"];
                 created_by.value = data["user"];
+                reqStatus = data['status'];
                 switch (data["status"]) {
                   case "pending":
                     requisition_status.innerHTML = `<span class="badge badge-soft-secondary">Pending</span>`;
@@ -177,12 +180,21 @@ include '../includes/base_page/head.php';
                 fetchTableItems();
                 // Nested fetch end
 
+
               })
               .catch(error => {
                 console.error('Error:', error);
               });
 
           });
+
+          function disableAllButtons() {
+            const buttons = document.querySelectorAll("div#main-body button");
+            console.log("Buttons", buttons);
+            buttons.forEach(button => {
+              button.disabled = true;
+            })
+          }
 
           function fetchTableItems() {
             const formData = new FormData();
@@ -194,6 +206,11 @@ include '../includes/base_page/head.php';
               .then(response => response.json())
               .then(result => {
                 updateTable(result);
+
+                // Disable buttons if necessary
+                if (reqStatus !== "pending") {
+                  disableAllButtons();
+                }
               })
               .catch(error => {
                 console.error('Error:', error);
@@ -205,6 +222,7 @@ include '../includes/base_page/head.php';
           function updateTable(result) {
             console.log('Result:', result);
             table_body.innerHTML = "";
+
             result.forEach((data) => {
 
               let tr = document.createElement("tr");
@@ -301,6 +319,7 @@ include '../includes/base_page/head.php';
               icon_r.classList.add("fas", "fa-times", "mt-1", "fa-sm");
               reject.appendChild(icon_r);
               reject.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
+              reject.disabled = result.length <= 1;
 
 
               actionDiv.append(edit, save, cancel, reject);
@@ -317,6 +336,9 @@ include '../includes/base_page/head.php';
               return;
             }
             console.log("Rejecting");
+
+            disableAllButtons();
+
             const formData = new FormData();
             formData.append("checker", "req_rejected");
             formData.append("name", "");
@@ -355,6 +377,9 @@ include '../includes/base_page/head.php';
               return;
             }
             console.log("Rejecting");
+
+            disableAllButtons();
+
             const formData = new FormData();
             formData.append("checker", "approve_req");
             formData.append("name", "");
@@ -406,6 +431,9 @@ include '../includes/base_page/head.php';
               btn_edit.disabled = true;
             } else if (value[0] == "c") {
               // Cancel edit
+
+              // reload table
+              fetchTableItems();
               qtt.setAttribute("readonly", "");
 
               btn_save.disabled = true;
@@ -423,13 +451,6 @@ include '../includes/base_page/head.php';
               formData.append("name", value[1]);
               formData.append("qty", qtt.value);
               formData.append("req_no", reqNo);
-
-              console.log("checker", "item_rejected");
-              console.log("name", value[1]);
-              console.log("qty", qtt.value);
-              console.log("req_no", reqNo);
-
-
 
               fetch('../includes/update_requisition.php', {
                   method: 'POST',
@@ -457,6 +478,45 @@ include '../includes/base_page/head.php';
                 });
 
             } else if (value[0] == "s") {
+
+
+              console.log("Saving");
+              const formData = new FormData();
+              formData.append("checker", "item_qty");
+              // TODO: Take these and in corresponding if cases to above the if to avoid copypasting
+              formData.append("name", value[1]);
+              formData.append("qty", qtt.value);
+              formData.append("req_no", reqNo);
+
+              fetch('../includes/update_requisition.php', {
+                  method: 'POST',
+                  body: formData
+                })
+                .then(response => response.json())
+                .then(result => {
+                  const alertVar =
+                    `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> ${result['message']}
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                  var divAlert = document.querySelector("#alert-div");
+                  divAlert.innerHTML = alertVar;
+                  divAlert.scrollIntoView();
+                  // On submit reload table
+                  fetchTableItems();
+
+                  window.setTimeout(() => {
+                    divAlert.innerHTML = "";
+                  }, 2500);
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                });
+
+
+
+              // If page is reloading, this is no longer needed. Delete
+
               // Save item
               qtt.setAttribute("readonly", "");
 
