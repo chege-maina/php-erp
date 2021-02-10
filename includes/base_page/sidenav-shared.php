@@ -51,10 +51,7 @@ function genSideBar()
 <ul class="nav collapse" id="email" data-parent="#navbarVerticalCollapse">
   <li class="nav-item"><a class="nav-link" href="../purchase_orders/select_po.php">Create Purchase Order</a>
   </li>
-  <li class="nav-item"><a class="nav-link" href="../email/email-detail.html">Purchase Order</a>
-  </li>
-  <li class="nav-item"><a class="nav-link" href="../email/compose.html">Import Purchase Order</a>
-    <li class="nav-item"><a class="nav-link" href="../email/compose.html">Manage Purchase Orders</a>
+    <li class="nav-item"><a class="nav-link" href="../email/compose.html">Manage Purchase Order</a>
     </li>
   </ul>
 </li>
