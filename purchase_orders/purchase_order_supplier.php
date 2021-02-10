@@ -95,7 +95,7 @@ include '../includes/base_page/head.php';
           <div class="card-body">
             <div class="row justify-content-between align-items-center">
               <div class="col-auto">
-                <button class="btn btn-falcon-primary ">Create Purchase Order</button>
+                <button class="btn btn-falcon-primary" onclick="createPurchaseOrder();">Create Purchase Order</button>
               </div>
             </div>
           </div>
@@ -111,6 +111,11 @@ include '../includes/base_page/head.php';
           const supplier = document.querySelector("#supplier");
           const table_body = document.querySelector("#table_body");
           let table_items = [];
+          let selectedProductSuppliers = new Map();
+
+          function createPurchaseOrder() {
+            console.log("Item Prices", selectedProductSuppliers);
+          }
 
           window.addEventListener('DOMContentLoaded', (event) => {
             if (sessionStorage.length === 0) {
@@ -146,7 +151,6 @@ include '../includes/base_page/head.php';
             let supplier_list = new Map();
             supplier.innerHTML = "";
             const supplier_inputs = document.querySelectorAll("#table_body input");
-            console.log(supplier_inputs);
             supplier_inputs.forEach(s_input => {
               const value = s_input.value.trim();
               if (value === "") {
@@ -206,27 +210,33 @@ include '../includes/base_page/head.php';
               supplierInput.setAttribute('value', value['suppliers'][0]['supplier']);
               supplierInput.setAttribute('onclick', "this.select();");
 
+
+              let tmp_product_supplier_list = [];
+
               const supplierDatalist = document.createElement("datalist");
               supplierDatalist.setAttribute('id', "dl-" + value["code"] + "-" + value["name"]);
 
-              let i = 0;
-              value['suppliers'].forEach(value => {
+              value['suppliers'].forEach(supl => {
                 let opt = document.createElement("option");
-
-                if (i === 0) {
-                  opt.setAttribute("selected", "");
-                }
-
-                i++;
 
                 opt.appendChild(
                   document.createTextNode(
-                    "Cost " + value["cost"]
+                    "Cost " + supl["cost"]
                   )
                 );
-                opt.setAttribute("value", value["supplier"]);
+                opt.setAttribute("value", supl["supplier"]);
                 supplierDatalist.appendChild(opt);
+
+                let item_supplier = new Map();
+                item_supplier.set("supplier", supl["supplier"]);
+                item_supplier.set("cost", supl["cost"]);
+                tmp_product_supplier_list.push(item_supplier);
               });
+
+
+              // Store this, will need when submitting form
+              selectedProductSuppliers.set(value['code'], tmp_product_supplier_list);
+
 
               console.log(value["suppliers"]);
               supplierWrapper.append(supplierInput, supplierDatalist);
