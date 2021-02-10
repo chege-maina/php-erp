@@ -104,11 +104,8 @@ include '../includes/base_page/head.php';
                   </table>
                 </div>
               </div>
-              <div class="row my-3">
-                <div class="col">
-                  <input type="submit" class="btn btn-falcon-primary m-3" name="submit" id="submit" value="Insert">
-                </div>
-              </div>
+
+              <input type="submit" class="btn btn-falcon-primary mt-2" name="submit" id="submit" value="Insert">
             </div>
           </div>
       </div>
@@ -255,6 +252,75 @@ include '../includes/base_page/head.php';
           delete items_in_combobox[item_to_add["name"]];
           updateTable();
           updateReqItems();
+        }
+
+        function removeItem(item) {
+          items_in_table[item]['cost'] = 0;
+          delete items_in_table[String(item)];
+          const item_to_add = all_requisitionable_items[item];
+          items_in_combobox[item] = item_to_add;
+          updateTable();
+          updateReqItems();
+        }
+
+        function clearTable() {
+          items_in_table = {};
+          items_in_combobox = {
+            ...all_requisitionable_items
+          };
+          updateTable();
+          updateReqItems();
+        }
+
+        function sendTableData() {
+          let table_items = [];
+          for (let item in items_in_table) {
+            table_items.push(items_in_table[item]);
+          }
+          if (table_items.length == 0) {
+            const alertVar =
+              `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Warning!</strong> Cannot submit empty table.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+            var divAlert = document.querySelector("#alert-div");
+            divAlert.innerHTML = alertVar;
+            divAlert.scrollIntoView();
+            return;
+          } else {
+            console.log(table_items);
+            const formData = new FormData();
+            formData.append("name", user_name);
+
+            // TODO: Remove this from here and from the subsequent php
+            formData.append("requisition_number", -1);
+
+            formData.append("table_items", JSON.stringify(table_items));
+
+            // Send the data
+            fetch('../includes/load_items.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(data => {
+                console.log("from server", data);
+                const alertVar =
+                  `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> ${data}
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                var divAlert = document.querySelector("#alert-div");
+                divAlert.innerHTML = alertVar;
+                divAlert.scrollIntoView();
+                setTimeout(function() {
+                  location.reload();
+                }, 2500);
+              })
+              .catch(error => {
+                console.error(error);
+              });
+          }
         }
       </script>
       <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
