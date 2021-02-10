@@ -37,6 +37,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+        <div id="alert-div"></div>
         <h3 class="mb-0 p-2">Manage Requisition</h3>
         <div class="card mb-1">
 
@@ -128,7 +129,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
 
         <script>
-          let requisition_number = -1;
+          let reqNo = -1;
           const req_no = document.querySelector("#req_no");
           const requisition_date = document.querySelector("#requisition_date");
           const created_by = document.querySelector("#created_by");
@@ -142,7 +143,7 @@ include '../includes/base_page/head.php';
             }
 
             // Get passed requisition number
-            const reqNo = sessionStorage.getItem('req_no');
+            reqNo = sessionStorage.getItem('req_no');
             // Clear data
             sessionStorage.clear();
 
@@ -174,17 +175,7 @@ include '../includes/base_page/head.php';
                 }
 
                 // Nested fetch start
-                fetch('../includes/requisition_manage_items.php', {
-                    method: 'POST',
-                    body: formData
-                  })
-                  .then(response => response.json())
-                  .then(result => {
-                    updateTable(result);
-                  })
-                  .catch(error => {
-                    console.error('Error:', error);
-                  });
+                fetchTableItems(formData);
                 // Nested fetch end
 
               })
@@ -193,6 +184,21 @@ include '../includes/base_page/head.php';
               });
 
           });
+
+          function fetchTableItems(formData) {
+            fetch('../includes/requisition_manage_items.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+                updateTable(result);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+
+          }
 
 
           function updateTable(result) {
@@ -377,16 +383,24 @@ include '../includes/base_page/head.php';
               console.log("qty", qtt.value);
               console.log("req_no", requisition_number);
 
-              // On submit reload page
 
 
               fetch('../includes/update_requisition.php', {
                   method: 'POST',
                   body: formData
                 })
-                .then(response => response.text())
+                .then(response => response.json())
                 .then(result => {
-                  console.log('Success:', result);
+                  const alertVar =
+                    `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> ${result['message']}
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                  var divAlert = document.querySelector("#alert-div");
+                  divAlert.innerHTML = alertVar;
+                  divAlert.scrollIntoView();
+                  // On submit reload page
+
                 })
                 .catch(error => {
                   console.error('Error:', error);
