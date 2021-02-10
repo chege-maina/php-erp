@@ -8,6 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $qty = $_POST["qty"];
   $req_no = $_POST["req_no"];
 
+  $stats = "pending";
+
   if (strcmp($checker, 'item_rejected') == 0) {
     $sql = "UPDATE tbl_requisition_items SET status = 'rejected' WHERE product_name = '" . $name . "' and requisition_No = '" . $req_no . "'";
     mysqli_query($conn, $sql);
@@ -23,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_query($conn, $sql2);
     $response['message'] = "Selected Requisition Rejected..";
   } else {
-    $sql1 = "UPDATE tbl_requisition_items SET status = 'approved' WHERE requisition_No = '" . $req_no . "'";
+    $sql1 = "UPDATE tbl_requisition_items SET status = 'approved' WHERE requisition_No = '" . $req_no . "' and status= '$stats'";
     $sql = "UPDATE tbl_requisition SET status = 'approved' WHERE requisition_No = '" . $req_no . "'";
     mysqli_query($conn, $sql);
     mysqli_query($conn, $sql1);
