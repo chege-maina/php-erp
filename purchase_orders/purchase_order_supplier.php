@@ -115,12 +115,45 @@ include '../includes/base_page/head.php';
 
           function createPurchaseOrder() {
             console.log("Item Prices", selectedProductSuppliers);
-            console.log("Supplier value", supplier.value);
             if (!supplier.value) {
               supplier.focus();
               return;
             }
-            // sessionStorage.setItem('branch', po)
+            sessionStorage.setItem('branch', po_branch.value);
+            sessionStorage.setItem('supplier', supplier.value);
+
+            let table_body_items = []
+            table_body.childNodes.forEach(row => {
+
+              let i = 0;
+              let product_row = new Map();
+              row.childNodes.forEach(cell => {
+                switch (i) {
+                  case 0:
+                    product_row.set('p_code', cell.innerHTML);
+                    break;
+                  case 1:
+                    product_row.set('p_name', cell.innerHTML);
+                    break;
+                  case 2:
+                    product_row.set('p_units', cell.innerHTML);
+                    break;
+                  case 3:
+                    product_row.set('p_quantity', cell.innerHTML);
+                    break;
+                  case 4:
+                    product_row.set('p_cost', cell.firstChild.value);
+                    break;
+                }
+
+                i++;
+                i = i >= 5 ? 0 : i;
+
+              });
+
+              table_body_items.push(product_row);
+            });
+            console.log(table_body_items);
           }
 
           window.addEventListener('DOMContentLoaded', (event) => {
@@ -223,7 +256,7 @@ include '../includes/base_page/head.php';
               supplierInput.setAttribute('onclick', "this.select();");
 
 
-              let tmp_product_supplier_list = [];
+              let item_suppliers = new Map();
 
               const supplierDatalist = document.createElement("datalist");
               supplierDatalist.setAttribute('id', "dl-" + value["code"] + "-" + value["name"]);
@@ -239,15 +272,12 @@ include '../includes/base_page/head.php';
                 opt.setAttribute("value", supl["supplier"]);
                 supplierDatalist.appendChild(opt);
 
-                let item_supplier = new Map();
-                item_supplier.set("supplier", supl["supplier"]);
-                item_supplier.set("cost", supl["cost"]);
-                tmp_product_supplier_list.push(item_supplier);
+                item_suppliers.set(supl['supplier'], supl["cost"]);
               });
 
 
               // Store this, will need when submitting form
-              selectedProductSuppliers.set(value['code'], tmp_product_supplier_list);
+              selectedProductSuppliers.set(value['code'], item_suppliers);
 
 
               console.log(value["suppliers"]);
