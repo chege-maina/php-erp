@@ -403,6 +403,10 @@ include '../includes/base_page/head.php';
                   divAlert.scrollIntoView();
                   // On submit reload table
                   fetchTableItems();
+
+                  window.setTimeout(() => {
+                    divAlert.innerHTML = "";
+                  }, 2500);
                 })
                 .catch(error => {
                   console.error('Error:', error);
