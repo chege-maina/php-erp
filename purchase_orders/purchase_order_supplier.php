@@ -119,7 +119,8 @@ include '../includes/base_page/head.php';
 
         <script>
           const po_branch = document.querySelector("#po_branch");
-          const table_items = [];
+          const table_body = document.querySelector("#table_body");
+          let table_items = [];
 
           window.addEventListener('DOMContentLoaded', (event) => {
             if (sessionStorage.length === 0) {
@@ -143,6 +144,7 @@ include '../includes/base_page/head.php';
               .then(result => {
                 console.log('Success:', result);
                 table_items = result;
+                updateTable();
               })
               .catch(error => {
                 console.error('Error:', error);
@@ -150,9 +152,37 @@ include '../includes/base_page/head.php';
           });
 
 
-          // function updateTable() {
+          function updateTable() {
+            table_body.innerHTML = "";
+            table_items.forEach(value => {
 
-          // }
+              const this_row = document.createElement("tr");
+
+              const prd_code = document.createElement("td");
+              prd_code.appendChild(document.createTextNode(value["code"]));
+              prd_code.classList.add("align-middle");
+
+              const prd_name = document.createElement("td");
+              prd_name.appendChild(document.createTextNode(value["name"]));
+              prd_name.classList.add("align-middle");
+
+              const unit = document.createElement("td");
+              unit.appendChild(document.createTextNode(value["unit"]));
+              unit.classList.add("align-middle");
+
+              const qty = document.createElement("td");
+              qty.appendChild(document.createTextNode(value["qty"]));
+              qty.classList.add("align-middle");
+
+              const supplier = document.createElement("td");
+              supplier.appendChild(document.createTextNode("Suppliers"));
+              supplier.classList.add("align-middle");
+
+              this_row.append(prd_code, prd_name, unit, qty, supplier);
+              table_body.appendChild(this_row);
+            });
+
+          }
         </script>
 
 
