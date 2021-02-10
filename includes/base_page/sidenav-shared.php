@@ -33,7 +33,7 @@ function genSideBar()
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#purchase_rqn" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="purchase_rqn">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span><span class="nav-link-text"> Purchase Requisition</span>
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span><span class="nav-link-text"> Warehouse</span>
   </div>
 </a>
 <ul class="nav collapse" id="purchase_rqn" data-parent="#navbarVerticalCollapse">
@@ -45,7 +45,7 @@ function genSideBar()
 </li>
 <!-- Purchase order -->
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#email" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="email">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span><span class="nav-link-text"> Purchase Order</span>
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span><span class="nav-link-text"> Procurement</span>
   </div>
 </a>
 <ul class="nav collapse" id="email" data-parent="#navbarVerticalCollapse">
@@ -55,8 +55,20 @@ function genSideBar()
     </li>
   </ul>
 </li>
+<!-- Suppliers -->
+<li class="nav-item"><a class="nav-link dropdown-indicator" href="#supply" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="email">
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span><span class="nav-link-text"> Suppliers</span>
+  </div>
+</a>
+<ul class="nav collapse" id="supply" data-parent="#navbarVerticalCollapse">
+  <li class="nav-item"><a class="nav-link" href="../supplier/create.php">Add New Supplier</a>
+  </li>
+    <li class="nav-item"><a class="nav-link" href="../email/compose.html">Manage Supplier Details</a>
+    </li>
+  </ul>
+</li>
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#authentication" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authentication">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-unlock-alt"></span></span><span class="nav-link-text"> Authentication</span>
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-unlock-alt"></span></span><span class="nav-link-text"> Suppliers</span>
   </div>
 </a>
 <ul class="nav collapse" id="authentication" data-parent="#navbarVerticalCollapse">
