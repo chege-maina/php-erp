@@ -104,8 +104,11 @@ include '../includes/base_page/head.php';
                   </table>
                 </div>
               </div>
-
-              <input type="submit" class="btn btn-falcon-primary mt-2" name="submit" id="submit" value="Insert">
+              <div class="row my-3">
+                <div class="col">
+                  <input type="submit" class="btn btn-falcon-primary m-3" name="submit" id="submit" value="Insert">
+                </div>
+              </div>
             </div>
           </div>
       </div>
