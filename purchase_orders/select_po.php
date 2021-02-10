@@ -87,7 +87,7 @@ include '../includes/base_page/head.php';
         let updateTable = (data) => {
           table_body.innerHTML = "";
 
-          if (data[0]['count'] <= 0) {
+          if (Object.keys(data).length === 0 || data[0]['count'] <= 0) {
             return;
           }
 
