@@ -41,9 +41,10 @@ include '../includes/base_page/head.php';
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Telephone Number</th>
-                                            <th>Address</th>
+                                            <th>Postal Address</th>
+                                            <th>Physical Address</th>
                                             <th>Tax ID</th>
-                                            <th>Credit Limit</th>
+                                            <th>Payment Terms</th>
 
                                         </tr>
                                     </thead>
@@ -68,9 +69,10 @@ include '../includes/base_page/head.php';
                                                     html += "<td>" + data[a].name + "</td>";
                                                     html += "<td>" + data[a].email + "</td>";
                                                     html += "<td>" + data[a].tel_no + "</td>";
-                                                    html += "<td>" + data[a].address + "</td>";
+                                                    html += "<td>" + data[a].postal_address + "</td>";
+                                                    html += "<td>" + data[a].physical_address + "</td>";
                                                     html += "<td>" + data[a].tax_id + "</td>";
-                                                    html += "<td>" + data[a].credit_limit + "</td>";
+                                                    html += "<td>" + data[a].payment_terms + "</td>";
                                                     html += "</tr>";
                                                 }
 
