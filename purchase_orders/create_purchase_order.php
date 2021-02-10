@@ -60,30 +60,14 @@ include '../includes/base_page/head.php';
                 <!-- autofill current date  -->
                 <input type="time" id="time" class="form-control" readonly>
               </div>
-              <script>
-                function d_toString(value) {
-                  return value < 10 ? '0' + value : String(value);
-                }
-                document.addEventListener('DOMContentLoaded', function() {
-                  const date = new Date();
-                  let month = d_toString(date.getMonth() + 1);
-                  let day = d_toString(date.getDate());
-                  let hours = d_toString(date.getHours());
-                  let minutes = d_toString(date.getMinutes());
 
-
-                  time.value = hours + ":" + minutes;
-                });
-
-                // Clear datalist
-              </script>
             </div>
           </div>
         </div>
 
         <div class="card mt-1">
           <div class="card-body fs--1 p-4">
-            <div class="row my-3">
+            <div class="row my-1">
               <div class="col">
                 <table class="table">
                   <thead>
@@ -114,7 +98,7 @@ include '../includes/base_page/head.php';
                       </td>
                       <th>Total Before Tax</th>
                       <td>
-                        <input class="form-control form-control-sm" type="text" placeholder="Total Before Tax" value="" />
+                        <input class="form-control form-control-sm" type="text" placeholder="Total Before Tax" value="" readonly />
                       </td>
                     </tr>
                     <tr>
@@ -128,7 +112,7 @@ include '../includes/base_page/head.php';
                       </td>
                       <th>Tax 16 %</th>
                       <td>
-                        <input class="form-control form-control-sm" type="text" placeholder="Tax 16 %" value="" />
+                        <input class="form-control form-control-sm" type="text" placeholder="Tax 16 %" value="" readonly />
                       </td>
                     </tr>
                     <tr>
@@ -142,7 +126,7 @@ include '../includes/base_page/head.php';
                       </td>
                       <th>Purchase Order Total</th>
                       <td>
-                        <input class="form-control form-control-sm" type="text" placeholder="Purchase Order Total" value="" />
+                        <input class="form-control form-control-sm" type="text" placeholder="Purchase Order Total" value="" readonly />
                       </td>
                     </tr>
                   </div>
@@ -166,7 +150,23 @@ include '../includes/base_page/head.php';
     <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
     <!-- body ends here -->
     <!-- =========================================================== -->
+    <script>
+      function d_toString(value) {
+        return value < 10 ? '0' + value : String(value);
+      }
+      document.addEventListener('DOMContentLoaded', function() {
+        const date = new Date();
+        let month = d_toString(date.getMonth() + 1);
+        let day = d_toString(date.getDate());
+        let hours = d_toString(date.getHours());
+        let minutes = d_toString(date.getMinutes());
 
+
+        time.value = hours + ":" + minutes;
+      });
+
+      // Clear datalist
+    </script>
 
 
     <!-- =========================================================== -->
