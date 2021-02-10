@@ -43,14 +43,14 @@ include '../includes/base_page/head.php';
                         <div class="row pb-2 ">
                             <div class="col-sm-4 ">
                                 <label for="branch" class="form-label">Branch</label>
-                                <select name="branch" id="branch" class="form-select">
+                                <select name="branch" id="el_branch" class="form-select">
                                     <option value="MM1">MM1</option>
                                     <option value="MM2">MM2</option>
                                 </select>
                             </div>
 
                             <div class="col-auto d-flex align-items-end">
-                                <button class="btn btn-falcon-primary" type="button" onclick="">
+                                <button class="btn btn-falcon-primary" type="button" onclick="filterRequisitions();">
                                     <span type="submit" class="fas fa-filter mr-1" data-fa-transform="shrink-3"></span>Filter
                                 </button>
                             </div>
@@ -62,7 +62,7 @@ include '../includes/base_page/head.php';
                             <thead>
                                 <tr>
                                     <th>Branch</th>
-                                    <th>Pending Requisitions</th>
+                                    <th>Approved Requisitions</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -79,6 +79,9 @@ include '../includes/base_page/head.php';
             <!-- =========================================================== -->
 
             <script>
+                const branch = document.querySelector("#el_branch");
+                const table_body = document.querySelector("#table_body");
+
                 let updateTable = (data) => {
                     table_body.innerHTML = "";
                     data.forEach(value => {
@@ -107,13 +110,32 @@ include '../includes/base_page/head.php';
                     fetch('../includes/load_purchase_branch.php')
                         .then(response => response.json())
                         .then(data => {
-                            console.log(data);
                             updateTable(data);
                         })
                         .catch((error) => {
                             console.error('Error:', error);
                         });
                 });
+
+                function filterRequisitions() {
+                    const formData = new FormData();
+
+                    formData.append("branch", branch.value);
+                    console.log(branch);
+
+                    fetch('../includes/load_purchase_branch_filter.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(result => {
+                            console.log('Success:', result);
+                            updateTable(result);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                }
             </script>
 
 
