@@ -104,8 +104,17 @@ include '../includes/base_page/head.php';
                   </table>
                 </div>
               </div>
-
               <input type="submit" class="btn btn-falcon-primary mt-2" name="submit" id="submit" value="Insert">
+
+              <button class="btn btn-falcon-primary" id="submit" onclick="sendTableData();">
+                <span class="fas fa-save mr-1" data-fa-transform="shrink-3"></span>
+                Create Requisition
+              </button>
+              <button class="btn ml-2 btn-falcon-warning" id="clear-table" onclick="clearTable();">
+                <span class="fas fa-eraser mr-1" data-fa-transform="shrink-3"></span>
+                Clear Table
+              </button>
+
             </div>
           </div>
       </div>
@@ -151,7 +160,7 @@ include '../includes/base_page/head.php';
         document.addEventListener('DOMContentLoaded', function() {
           // console.log(user_name);
           // Fetch items and balance
-          fetch('../includes/load_items.php.php')
+          fetch('../includes/load_items.php')
             .then(response => response.json())
             .then(data => {
               data.forEach((value) => {
@@ -226,7 +235,7 @@ include '../includes/base_page/head.php';
             action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
             actionWrapper.appendChild(action);
 
-            tr.append(name, cost);
+            tr.append(name, cost, actionWrapper);
             table_body.appendChild(tr);
 
           }
