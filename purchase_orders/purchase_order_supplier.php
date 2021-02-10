@@ -56,7 +56,6 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="supplier" class="form-label">Supplier</label>
                 <select name="supplier" id="supplier" class="form-select">
-                  <option value="Supplier">Supplier 1</option>
                 </select>
               </div>
             </div>
@@ -109,6 +108,7 @@ include '../includes/base_page/head.php';
 
         <script>
           const po_branch = document.querySelector("#po_branch");
+          const supplier = document.querySelector("#supplier");
           const table_body = document.querySelector("#table_body");
           let table_items = [];
 
@@ -142,6 +142,38 @@ include '../includes/base_page/head.php';
           });
 
 
+          function updateSuppliers() {
+            let supplier_list = new Map();
+            supplier.innerHTML = "";
+            const supplier_inputs = document.querySelectorAll("#table_body input");
+            console.log(supplier_inputs);
+            supplier_inputs.forEach(s_input => {
+              const value = s_input.value.trim();
+              if (value === "") {
+                return;
+              }
+              supplier_list.set(value, value);
+            });
+
+            console.log(supplier_list);
+
+
+            supplier_list.forEach(value => {
+              let opt = document.createElement("option");
+
+              opt.appendChild(
+                document.createTextNode(
+                  value
+                )
+              );
+              opt.setAttribute("value", value);
+              supplier.appendChild(opt);
+            });
+
+
+          }
+
+
           function updateTable() {
             table_body.innerHTML = "";
             table_items.forEach(value => {
@@ -170,7 +202,7 @@ include '../includes/base_page/head.php';
               supplierInput.setAttribute('id', "s-" + value["code"] + "-" + value["name"]);
               supplierInput.setAttribute('list', "dl-" + value["code"] + "-" + value["name"]);
               supplierInput.classList.add("form-select", "form-select-sm");
-              supplierInput.setAttribute('onchange', "console.log(this.value);");
+              supplierInput.setAttribute('onchange', "updateSuppliers()");
               supplierInput.setAttribute('value', value['suppliers'][0]['supplier']);
               supplierInput.setAttribute('onclick', "this.select();");
 
@@ -204,6 +236,7 @@ include '../includes/base_page/head.php';
               table_body.appendChild(this_row);
             });
 
+            updateSuppliers();
           }
         </script>
 
