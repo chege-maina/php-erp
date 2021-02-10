@@ -336,6 +336,9 @@ include '../includes/base_page/head.php';
               return;
             }
             console.log("Rejecting");
+
+            disableAllButtons();
+
             const formData = new FormData();
             formData.append("checker", "req_rejected");
             formData.append("name", "");
@@ -374,6 +377,9 @@ include '../includes/base_page/head.php';
               return;
             }
             console.log("Rejecting");
+
+            disableAllButtons();
+
             const formData = new FormData();
             formData.append("checker", "approve_req");
             formData.append("name", "");
