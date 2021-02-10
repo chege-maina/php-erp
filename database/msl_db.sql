@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 10, 2021 at 10:39 AM
+-- Generation Time: Feb 10, 2021 at 02:13 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -110,9 +110,20 @@ CREATE TABLE `tbl_product` (
 --
 
 INSERT INTO `tbl_product` (`product_code`, `product_name`, `product_unit`, `product_category`, `min_level`, `max_level`, `reorder`, `product_image`, `dsp_price`, `amount_before_tax`, `dpp_inc_tax`, `applicable_tax`, `profit_margin`, `product_supplier`, `user`) VALUES
-(1, 'TANK', 'Piece', 'tanks', '12', '13', '13', 'weretrtet.png', 0, 0, 0, 0, 0, '', ''),
-(2, 'TARAJI', 'PIECES', 'PENCIL', '9', '17', '33', 'OIP.jpg', 3000, 0, 0, 0, 0, '', ''),
-(3, 'CHANK', 'asd,jbhkj', 'TANK', '667', '667', '76', '/assets/img/item-images/php.png', 0, 0, 0, 0, 0, '', '');
+(1, 'Garden', 'UA', 'Business Development', '24', '70', '54', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAHVSURBVDjLjZPLaiJBFIZNHmJWCeQdMuT1Mi/gYlARBRUkao+abHUhmhgU0QHtARVxJ0bxhvfGa07Of5Iu21yYFPyLrqrz1f+f6rIRkQ3icca6ZF39', 46833, 18779, 93640, 92713, 93510, 'Schuster-Rolfson', 'Adan Metzig'),
+(2, 'Games', 'CN', 'Support', '21', '92', '44', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAALPSURBVDjLpZFdTFJhGMdJyq2cLttss2wrZ1TiBx9m0gwkJyofIuiCcrl0IgZLh6iDPhQpxajmpBU3jtaF1WraRc2yRlMkL7pgLi1vAo5e2dpERSUk', 60131, 52804, 54111, 37263, 3790, 'Bergstrom-Quitzon', 'Leupold Beetham'),
+(3, 'Music', 'CN', 'Product Management', '73', '4', '11', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAIgSURBVDjLpVPPaxNBFP6SXZuYZWlsQbQhqRFsD1ahVgUPIuhBEDyKAU+ehB49FQTpQbwKggj+Cx6UgigloJQsqJcWCykppJVqTILi2iRms7szO86b', 89572, 61062, 26203, 16322, 27716, 'Doyle Group', 'Glyn Beastall'),
+(4, 'Outdoors', 'CN', 'Training', '13', '72', '30', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJmSURBVDjLjZJdSFNhGMdXW9BtdxEEeRFMJKiTladSajoqSOnOqy5CgyIkKFDLyI/Q5sZgRYpQFtJNpYgIkm5mVFpTc7Cw47Dmml/RZufs65yzr86/', 39416, 86230, 93160, 73251, 72333, 'Bins Group', 'Jessalyn Rosenzwig'),
+(5, 'Shoes', 'PT', 'Human Resources', '47', '43', '85', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABbSURBVCjPY/jPgB8yDDkFmyVWv14kh1PBeoll31f/n/ytUw6rgtUSi76s+L/x/8z/Vd8KFbEomPt16f/1/1f+X/S/7X/qeSwK+v63/K/6X/g/83/S', 39025, 72185, 21446, 1763, 83642, 'Leannon-Hamill', 'Justus Last'),
+(6, 'Clothing', 'ID', 'Training', '97', '56', '81', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAIxSURBVDjLpdNdSFNhGAdwKSNyg6ALC8GLoE8so49VRHVRFFQISlJeREXQBxWSSZDUpNrOTDoxSGvhmokV1TazLeekTBda9rVKmW5lYq6slgutOI7j', 15062, 99242, 82592, 70966, 82774, 'Orn-Wunsch', 'Kendall Furmagier'),
+(8, 'Computers', 'ID', 'Training', '38', '2', '29', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJPSURBVDjLjZJPSFRRFMZ/7804ODhT42iaxZR/NiEFFVESGFHWTilo1SoqEGplQUQEtnSV4KrARRAELZKgVRshgoggUKgoDCUEIxumxpyZ996995wW', 92789, 23008, 74938, 72982, 74202, 'Bailey, Weber and Sawayn', 'Consuela Senter'),
+(9, 'Grocery', 'LV', 'Services', '85', '57', '83', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAFOSURBVDjLtVK7SgNRED0b9iuM2lr4QK1DQIyk0FZsJAj+gH+ilRZb2NjaRHTLmA9QFKz9huzm7t37Hu+u7IJgQjR6YLjDzOXMmcMERIR5EE5qXA4z', 29850, 79161, 52392, 38677, 85212, 'Torp, Schamberger and Strosin', 'Breena Crabb'),
+(10, 'Tools', 'SE', 'Accounting', '26', '15', '70', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAGkSURBVDjLpZM/T8JAGMZf/gRU0lgU1EZDok5KSIwOfgKJhsGlgyaOfAE/Abo7dNfQ1W9AmNk0kjYO6ISLk4tBDJb27nzfKyWNFhLjJZeXlnue5/fe', 36088, 57447, 4391, 88208, 29355, 'Auer-Gulgowski', 'Andre McFeate'),
+(11, 'TANK', 'Piece', 'tanks', '12', '13', '13', 'weretrtet.png', 0, 0, 0, 0, 0, '', ''),
+(12, 'TARAJI', 'PIECES', 'PENCIL', '9', '17', '33', 'OIP.jpg', 3000, 0, 0, 0, 0, '', ''),
+(13, 'CHANK', 'asd,jbhkj', 'TANK', '667', '667', '76', '/assets/img/item-images/php.png', 0, 0, 0, 0, 0, '', ''),
+(14, 'Home', 'PT', 'Sales', '50', '89', '91', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJ2SURBVBgZBcFLiJVlGADg5/3+b87cbLyFNBJ4oexGQYqIi6hFQambgohoE0aLUqGCaBcuonWLUFe1CIJolWCLaiK1C0FUREpRBgmWNpqi4XjOnP97', 37607, 27789, 87077, 25848, 74604, 'Schroeder-Gutkowski', 'Karyn Dirand'),
+(15, 'Baby', 'FR', 'Legal', '28', '52', '78', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAIsSURBVDjLpZPPS1RRFMc/970341N7Ehjij/wVQWqrFgmBiyAhiDYtAqNFmyAIWhSEgSC2CeofsF20bVMIblRkAtsPCgmGEpk246+ZcX6/d+89LcZf', 20360, 38613, 99895, 94913, 11560, 'Feest LLC', 'Buddie Colegate');
 
 -- --------------------------------------------------------
 
@@ -299,21 +310,22 @@ CREATE TABLE `tbl_supplier` (
   `postal_address` varchar(50) NOT NULL,
   `physical_address` varchar(50) NOT NULL,
   `tax_id` varchar(50) NOT NULL,
-  `payment_terms` varchar(100) NOT NULL
+  `payment_terms` varchar(100) NOT NULL,
+  `number_of_days` varchar(50) NOT NULL DEFAULT '30'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_supplier`
 --
 
-INSERT INTO `tbl_supplier` (`supplier_id`, `name`, `email`, `tel_no`, `postal_address`, `physical_address`, `tax_id`, `payment_terms`) VALUES
-(1, 'Bruce Tom', 'tom@gmail.com', '0745673456', '1656 Edsel Road\r\nSherman Oaks, CA 91403', '', '3463', '234355'),
-(5, 'Clara Gilliam', 'clara@gmail.com', '0745678723', '63 Woodridge Lane\r\nMemphis, TN 38138', '', '34645', '56465'),
-(6, 'Fredrick Jaji', 'fredrickjaji@hotmail.com', '0710334287', 'Nairobi', '', '6u5u85', '3463'),
-(7, 'Antonio J. Forbes', 'anto@gmail.com', '9867454657', '403 Snyder Avenue\r\nCharlotte, NC 28208', '', '34645', '34645'),
-(8, 'Charles D. Horst', 'Charlse@gmail.com', '098754445', '1636 Walnut Hill Drive\r\nCincinnati, OH 45202', '', 'e6654e', '34645'),
-(238, 'Pius Wairimu', 'pius@gmail.com', '5097945790', 'PO BOX 85532-80100', '', '214533', '5667788'),
-(224, 'Jael Joy', 'jaji@newageassociates.co.ke', ' 10710334287', 'Nairobi', '', 'AO123247o9', '1,000,000');
+INSERT INTO `tbl_supplier` (`supplier_id`, `name`, `email`, `tel_no`, `postal_address`, `physical_address`, `tax_id`, `payment_terms`, `number_of_days`) VALUES
+(1, 'Bruce Tom', 'tom@gmail.com', '0745673456', '1656 Edsel Road\r\nSherman Oaks, CA 91403', '', '3463', '234355', '30'),
+(5, 'Clara Gilliam', 'clara@gmail.com', '0745678723', '63 Woodridge Lane\r\nMemphis, TN 38138', '', '34645', '56465', '30'),
+(6, 'Fredrick Jaji', 'fredrickjaji@hotmail.com', '0710334287', 'Nairobi', '', '6u5u85', '3463', '30'),
+(7, 'Antonio J. Forbes', 'anto@gmail.com', '9867454657', '403 Snyder Avenue\r\nCharlotte, NC 28208', '', '34645', '34645', '30'),
+(8, 'Charles D. Horst', 'Charlse@gmail.com', '098754445', '1636 Walnut Hill Drive\r\nCincinnati, OH 45202', '', 'e6654e', '34645', '30'),
+(238, 'Pius Wairimu', 'pius@gmail.com', '5097945790', 'PO BOX 85532-80100', '', '214533', '5667788', '30'),
+(224, 'Jael Joy', 'jaji@newageassociates.co.ke', ' 10710334287', 'Nairobi', '', 'AO123247o9', '1,000,000', '30');
 
 -- --------------------------------------------------------
 
@@ -520,7 +532,7 @@ ALTER TABLE `tbl_category`
 -- AUTO_INCREMENT for table `tbl_product`
 --
 ALTER TABLE `tbl_product`
-  MODIFY `product_code` bigint(254) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `product_code` bigint(254) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `tbl_purchaseorder`
