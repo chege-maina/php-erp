@@ -164,11 +164,43 @@ include '../includes/base_page/head.php';
               qty.appendChild(document.createTextNode(value["qty"]));
               qty.classList.add("align-middle");
 
-              const supplier = document.createElement("td");
-              supplier.appendChild(document.createTextNode("Suppliers"));
-              supplier.classList.add("align-middle");
+              const supplierWrapper = document.createElement("td");
 
-              this_row.append(prd_code, prd_name, unit, qty, supplier);
+              const supplierInput = document.createElement("input");
+              supplierInput.setAttribute('id', "s-" + value["code"] + "-" + value["name"]);
+              supplierInput.setAttribute('list', "dl-" + value["code"] + "-" + value["name"]);
+              supplierInput.classList.add("form-select", "form-select-sm");
+              supplierInput.setAttribute('onchange', "console.log(this.value);");
+              supplierInput.setAttribute('value', value['suppliers'][0]['supplier']);
+              supplierInput.setAttribute('onclick', "this.select();");
+
+              const supplierDatalist = document.createElement("datalist");
+              supplierDatalist.setAttribute('id', "dl-" + value["code"] + "-" + value["name"]);
+
+              let i = 0;
+              value['suppliers'].forEach(value => {
+                let opt = document.createElement("option");
+
+                if (i === 0) {
+                  opt.setAttribute("selected", "");
+                }
+
+                i++;
+
+                opt.appendChild(
+                  document.createTextNode(
+                    "Cost " + value["cost"]
+                  )
+                );
+                opt.setAttribute("value", value["supplier"]);
+                supplierDatalist.appendChild(opt);
+              });
+
+              console.log(value["suppliers"]);
+              supplierWrapper.append(supplierInput, supplierDatalist);
+              supplierWrapper.classList.add("align-middle");
+
+              this_row.append(prd_code, prd_name, unit, qty, supplierWrapper);
               table_body.appendChild(this_row);
             });
 
