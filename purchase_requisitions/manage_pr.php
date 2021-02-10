@@ -175,7 +175,7 @@ include '../includes/base_page/head.php';
                 }
 
                 // Nested fetch start
-                fetchTableItems(formData);
+                fetchTableItems();
                 // Nested fetch end
 
               })
@@ -185,7 +185,9 @@ include '../includes/base_page/head.php';
 
           });
 
-          function fetchTableItems(formData) {
+          function fetchTableItems() {
+            const formData = new FormData();
+            formData.append("req_no", reqNo)
             fetch('../includes/requisition_manage_items.php', {
                 method: 'POST',
                 body: formData
@@ -399,8 +401,8 @@ include '../includes/base_page/head.php';
                   var divAlert = document.querySelector("#alert-div");
                   divAlert.innerHTML = alertVar;
                   divAlert.scrollIntoView();
-                  // On submit reload page
-
+                  // On submit reload table
+                  fetchTableItems();
                 })
                 .catch(error => {
                   console.error('Error:', error);
