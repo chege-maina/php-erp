@@ -59,9 +59,6 @@ include '../includes/base_page/head.php';
                   <option value="Supplier">Supplier 1</option>
                 </select>
               </div>
-              <div class="col-auto d-flex align-items-end">
-                <button class="btn btn-falcon-primary ">Create Purchase Order</button>
-              </div>
             </div>
 
           </div>
@@ -99,14 +96,7 @@ include '../includes/base_page/head.php';
           <div class="card-body">
             <div class="row justify-content-between align-items-center">
               <div class="col-auto">
-                <button class="btn btn-falcon-success btn-sm mr-2" id="approve_req">
-                  <span class="fas fa-check mr-1" data-fa-transform="shrink-3"></span>
-                  Approve
-                </button>
-                <button class="btn btn-falcon-danger btn-sm" id="reject_req" onclick="rejectRequisition();">
-                  <span class="fas fa-times mr-1" data-fa-transform="shrink-3"></span>
-                  Reject
-                </button>
+                <button class="btn btn-falcon-primary ">Create Purchase Order</button>
               </div>
             </div>
           </div>
