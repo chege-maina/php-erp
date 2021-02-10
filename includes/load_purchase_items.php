@@ -5,11 +5,11 @@ header("Content-type:application/json");
 include_once 'dbconnect.php';
 session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
+
     $branch = $_POST["branch"];
     $stat = "approved";
 
-$query = "SELECT * FROM tbl_requisition_items WHERE status='$stat' and branch='$branch'";
+$query = "SELECT product_code, product_name, product_unit, sum(product_quantity) FROM tbl_requisition_items WHERE status='$stat' and branch='$branch' GROUP BY product_code ORDER BY product_code ASC";
 	$result = mysqli_query($conn, $query);
     $response = array();
 	while($row = mysqli_fetch_assoc($result)){
@@ -32,7 +32,7 @@ $query = "SELECT * FROM tbl_requisition_items WHERE status='$stat' and branch='$
                    'code'=>$row['product_code'],
                    'name'=>$row['product_name'],
                    'unit'=>$row['product_unit'],
-                   'qty'=>$row['product_quantity'],
+                   'qty'=>$row['sum(product_quantity)'],
                    'suppliers'=>$response1)
                    );
                 }
