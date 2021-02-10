@@ -88,6 +88,7 @@ include '../includes/base_page/head.php';
           </div>
           <div class="card mt-1">
             <div class="card-body fs--1 p-4">
+              <h6 class="p-2">Supplier Products</h6>
               <div class="row my-3">
                 <div class="col">
                   <table class="table table-striped" id="table_id">
@@ -104,7 +105,7 @@ include '../includes/base_page/head.php';
                 </div>
               </div>
 
-              <input type="submit" class="btn btn-falcon-primary mt-2" name="submit" id="submit" value="Insert" onclick="newFunction()">
+              <input type="submit" class="btn btn-falcon-primary mt-2" name="submit" id="submit" value="Insert">
             </div>
           </div>
       </div>
@@ -137,6 +138,122 @@ include '../includes/base_page/head.php';
         }
       </script>
 
+      <script>
+        let all_requisitionable_items = {};
+        let items_in_combobox = {};
+        let items_in_table = {};
+
+        // const items_in_requisitionable_item
+        const requisitionable_item = document.querySelector("#requisitionable_item");
+        const requisitionable_items_datalist = document.querySelector("#requisitionable_items");
+        const table_body = document.querySelector("#table_body");
+
+        document.addEventListener('DOMContentLoaded', function() {
+          // console.log(user_name);
+          // Fetch items and balance
+          fetch('../includes/load_items.php.php')
+            .then(response => response.json())
+            .then(data => {
+              data.forEach((value) => {
+                all_requisitionable_items[value["name"]] = {
+                  name: value["name"]
+
+                };
+              });
+              items_in_combobox = {
+                ...all_requisitionable_items
+              };
+              console.log(data);
+              updateReqItems();
+            });
+        });
+
+        function updateReqItems() {
+          // Clear datalist
+          requisitionable_items_datalist.innerHTML = "";
+          requisitionable_item.value = "";
+          for (let item in items_in_combobox) {
+            // console.log(items_in_combobox[item]);
+            let opt = document.createElement("option");
+            opt.appendChild(
+              document.createTextNode(
+                "Remaining " + items_in_combobox[item]["name"]
+              )
+            );
+            opt.setAttribute("value", items_in_combobox[item]["name"]);
+            requisitionable_items_datalist.appendChild(opt);
+          }
+        }
+
+
+        function updateTable() {
+          table_body.innerHTML = "";
+          for (let item in items_in_table) {
+
+            let tr = document.createElement("tr");
+            // Id will be like 1Tank
+
+            let name = document.createElement("td");
+            name.appendChild(document.createTextNode(items_in_table[item]["name"]));
+            name.classList.add("align-middle");
+
+
+            let cost = document.createElement("input");
+            cost.setAttribute("type", "number");
+            cost.setAttribute("required", "");
+            cost.classList.add("form-control", "form-control-sm", "align-middle");
+            cost.setAttribute("data-ref", items_in_table[item]["name"]);
+            cost.setAttribute("min", 1);
+            // make sure the cost is always greater than 0
+            cost.setAttribute("onfocusout", "this.value = this.value <= 0 ? 1 : this.value;");
+            cost.setAttribute("onkeyup", "addCostToReqItem(this.dataset.ref, this.value);");
+            cost.setAttribute("onclick", "this.select();");
+            items_in_table[item]['cost'] = ('cost' in items_in_table[item] && items_in_table[item]['cost'] > 0) ?
+              items_in_table[item]['cost'] : 1;
+            cost.value = items_in_table[item]['cost'];
+            let costWrapper = document.createElement("td");
+            costWrapper.classList.add("m-2");
+            costWrapper.appendChild(cost);
+
+            let actionWrapper = document.createElement("td");
+            actionWrapper.classList.add("m-2");
+            let action = document.createElement("button");
+            action.setAttribute("id", items_in_table[item]["name"]);
+            action.setAttribute("onclick", "removeItem(this.id);");
+            let icon = document.createElement("span");
+            icon.classList.add("fas", "fa-minus", "mt-1");
+            action.appendChild(icon);
+            action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
+            actionWrapper.appendChild(action);
+
+            tr.append(name, cost);
+            table_body.appendChild(tr);
+
+          }
+          return;
+        }
+
+        function addCostToReqItem(item, value) {
+          items_in_table[item]['cost'] = value;
+          console.log(value);
+        }
+
+        function addItem() {
+          const item_to_add = all_requisitionable_items[requisitionable_item.value];
+          if (!item_to_add) {
+            return;
+          }
+
+          items_in_table[requisitionable_item.value] = item_to_add;
+          // console.log("Now in table: ", items_in_table);
+
+          // console.log(item_to_add);
+
+          delete items_in_combobox[item_to_add["name"]];
+          updateTable();
+          updateReqItems();
+        }
+      </script>
       <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
       <?php
       include '../includes/base_page/footer.php';

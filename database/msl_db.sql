@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2021 at 10:24 AM
+-- Generation Time: Feb 10, 2021 at 10:39 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -164,6 +164,15 @@ CREATE TABLE `tbl_requisition` (
   `status` varchar(20) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tbl_requisition`
+--
+
+INSERT INTO `tbl_requisition` (`requisition_No`, `date`, `time`, `user`, `branch`, `status`) VALUES
+(1, '2021-02-09', '14:07', 'Jael Joel', 'MM2', 'approved'),
+(2, '2021-02-09', '14:07', 'Jael Joel', 'MM2', 'approved'),
+(3, '2021-02-09', '16:33', 'Monica Njeri', 'MM1', 'approved');
+
 -- --------------------------------------------------------
 
 --
@@ -181,6 +190,15 @@ CREATE TABLE `tbl_requisition_items` (
   `branch` varchar(50) NOT NULL,
   `balance` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_requisition_items`
+--
+
+INSERT INTO `tbl_requisition_items` (`id`, `requisition_No`, `product_code`, `product_name`, `product_unit`, `product_quantity`, `status`, `branch`, `balance`) VALUES
+(1, '1', '2', 'TARAJI', 'PIECES', '1', 'pending', 'MM2', '33'),
+(2, '2', '3', 'CHANK', 'asd,jbhkj', '1', 'pending', 'MM2', '0'),
+(3, '3', '3', 'CHANK', 'asd,jbhkj', '1', 'pending', 'MM1', '50');
 
 -- --------------------------------------------------------
 
@@ -281,14 +299,14 @@ CREATE TABLE `tbl_supplier` (
   `postal_address` varchar(50) NOT NULL,
   `physical_address` varchar(50) NOT NULL,
   `tax_id` varchar(50) NOT NULL,
-  `credit_limit` varchar(50) NOT NULL
+  `payment_terms` varchar(100) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_supplier`
 --
 
-INSERT INTO `tbl_supplier` (`supplier_id`, `name`, `email`, `tel_no`, `postal_address`, `physical_address`, `tax_id`, `credit_limit`) VALUES
+INSERT INTO `tbl_supplier` (`supplier_id`, `name`, `email`, `tel_no`, `postal_address`, `physical_address`, `tax_id`, `payment_terms`) VALUES
 (1, 'Bruce Tom', 'tom@gmail.com', '0745673456', '1656 Edsel Road\r\nSherman Oaks, CA 91403', '', '3463', '234355'),
 (5, 'Clara Gilliam', 'clara@gmail.com', '0745678723', '63 Woodridge Lane\r\nMemphis, TN 38138', '', '34645', '56465'),
 (6, 'Fredrick Jaji', 'fredrickjaji@hotmail.com', '0710334287', 'Nairobi', '', '6u5u85', '3463'),
@@ -460,7 +478,8 @@ ALTER TABLE `tbl_store_item`
 --
 ALTER TABLE `tbl_supplier`
   ADD PRIMARY KEY (`supplier_id`),
-  ADD UNIQUE KEY `name` (`name`);
+  ADD UNIQUE KEY `name` (`name`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `tbl_tax`
@@ -519,13 +538,13 @@ ALTER TABLE `tbl_purchaseorder_items`
 -- AUTO_INCREMENT for table `tbl_requisition`
 --
 ALTER TABLE `tbl_requisition`
-  MODIFY `requisition_No` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `requisition_No` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_requisition_items`
 --
 ALTER TABLE `tbl_requisition_items`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_sale_items`
