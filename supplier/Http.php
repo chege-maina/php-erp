@@ -3,13 +3,14 @@
 $connection = mysqli_connect("localhost", "root", "", "msl_db");
 
 if (isset($_POST["do_insert"])) {
-    $supplier_id = $_POST["supplier_id"];
+
     $name = $_POST["name"];
     $email = $_POST["email"];
     $tel_no = $_POST["tel_no"];
-    $address = $_POST["address"];
+    $postal_address = $_POST["postal_address"];
+    $physical_address = $_POST["physical_address"];
     $tax_id = $_POST["tax_id"];
-    $credit_limit = $_POST["credit_limit"];
+    $payment_terms = $_POST["payment_terms"];
 
     $query = "SELECT * FROM tbl_supplier WHERE supplier_id = '$supplier_id'";
     $result = mysqli_query($connection, $query);
@@ -18,7 +19,7 @@ if (isset($_POST["do_insert"])) {
             echo 'Record already Exists!';
         } else {
 
-            $sql = "INSERT INTO `tbl_supplier`(`supplier_id`, `name`, `email`, `tel_no`, `address`, `tax_id`, `credit_limit`) VALUES ('$supplier_id', '$name', '$email', '$tel_no', '$address', '$tax_id', '$credit_limit')";
+            $sql = "INSERT INTO `tbl_supplier`(`name`, `email`, `tel_no`, `address`, `tax_id`, `payment_terms`) VALUES ('$name', '$email', '$tel_no', '$address', '$tax_id', '$payment_terms')";
             mysqli_query($connection, $sql);
 
             echo "Record has been inserted successfully.";

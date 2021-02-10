@@ -46,6 +46,7 @@ include '../includes/base_page/head.php';
                                 <select name="branch" id="el_branch" class="form-select">
                                     <option value="MM1">MM1</option>
                                     <option value="MM2">MM2</option>
+
                                 </select>
                             </div>
 
@@ -54,7 +55,6 @@ include '../includes/base_page/head.php';
                                     <span type="submit" class="fas fa-filter mr-1" data-fa-transform="shrink-3"></span>Filter
                                 </button>
                             </div>
-
                         </div>
                     </div>
                     <div class="m-2 mb-2">
