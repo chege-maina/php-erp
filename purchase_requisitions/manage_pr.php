@@ -323,19 +323,25 @@ include '../includes/base_page/head.php';
             formData.append("qty", -1);
             formData.append("req_no", reqNo);
 
-
-            console.log("checker", "req_rejected");
-            console.log("name", "");
-            console.log("qty", -1);
-            console.log("req_no", reqNo);
-
             fetch('../includes/update_requisition.php', {
                 method: 'POST',
                 body: formData
               })
-              .then(response => response.text())
+              .then(response => response.json())
               .then(result => {
-                console.log('Success:', result);
+                const alertVar =
+                  `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> ${result['message']}
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                var divAlert = document.querySelector("#alert-div");
+                divAlert.innerHTML = alertVar;
+                divAlert.scrollIntoView();
+
+                window.setTimeout(() => {
+                  location.href = "manage_pr.php"
+                }, 2500);
+
               })
               .catch(error => {
                 console.error('Error:', error);
@@ -355,19 +361,25 @@ include '../includes/base_page/head.php';
             formData.append("qty", -1);
             formData.append("req_no", reqNo);
 
-
-            console.log("checker", "req_rejected");
-            console.log("name", "");
-            console.log("qty", -1);
-            console.log("req_no", reqNo);
-
             fetch('../includes/update_requisition.php', {
                 method: 'POST',
                 body: formData
               })
-              .then(response => response.text())
+              .then(response => response.json())
               .then(result => {
-                console.log('Success:', result);
+                const alertVar =
+                  `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> ${result['message']}
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                var divAlert = document.querySelector("#alert-div");
+                divAlert.innerHTML = alertVar;
+                divAlert.scrollIntoView();
+
+                window.setTimeout(() => {
+                  location.href = "manage_pr.php"
+                }, 2500);
+
               })
               .catch(error => {
                 console.error('Error:', error);
