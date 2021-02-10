@@ -222,6 +222,7 @@ include '../includes/base_page/head.php';
           function updateTable(result) {
             console.log('Result:', result);
             table_body.innerHTML = "";
+
             result.forEach((data) => {
 
               let tr = document.createElement("tr");
@@ -318,6 +319,7 @@ include '../includes/base_page/head.php';
               icon_r.classList.add("fas", "fa-times", "mt-1", "fa-sm");
               reject.appendChild(icon_r);
               reject.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
+              reject.disabled = result.length <= 1;
 
 
               actionDiv.append(edit, save, cancel, reject);
@@ -440,13 +442,6 @@ include '../includes/base_page/head.php';
               formData.append("name", value[1]);
               formData.append("qty", qtt.value);
               formData.append("req_no", reqNo);
-
-              console.log("checker", "item_rejected");
-              console.log("name", value[1]);
-              console.log("qty", qtt.value);
-              console.log("req_no", reqNo);
-
-
 
               fetch('../includes/update_requisition.php', {
                   method: 'POST',
