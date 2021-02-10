@@ -15,10 +15,13 @@ include_once '../includes/dbconnect.php';
 include '../includes/base_page/head.php';
 ?>
 
+
+
 <body>
   <!-- ===============================================-->
   <!--    Main Content-->
   <!-- ===============================================-->
+
   <main class="main" id="top">
     <div class="container" data-layout="container">
       <!--nav starts here -->
@@ -55,51 +58,115 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="time" class="form-label">Purchase Time</label>
                 <!-- autofill current date  -->
-                <input type="time" name="time" id="time" class="form-control" readonly>
+                <input type="time" id="time" class="form-control" readonly>
               </div>
+              <script>
+                function d_toString(value) {
+                  return value < 10 ? '0' + value : String(value);
+                }
+                document.addEventListener('DOMContentLoaded', function() {
+                  const date = new Date();
+                  let month = d_toString(date.getMonth() + 1);
+                  let day = d_toString(date.getDate());
+                  let hours = d_toString(date.getHours());
+                  let minutes = d_toString(date.getMinutes());
+
+
+                  time.value = hours + ":" + minutes;
+                });
+
+                // Clear datalist
+              </script>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="card mt-1">
-        <div class="card-body fs--1 p-4">
-          <div class="row my-3">
-            <div class="col">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Product Code</th>
-                    <th scope="col">Product Name</th>
-                    <th scope="col">Units</th>
-                    <th scope="col" class="w-25">Quantity</th>
-                    <th scope="col">Unit Cost</th>
-                    <th scope="col">Total</th>
-                  </tr>
-                </thead>
-                <tbody id="table_body">
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="row my-3">
-            <div class="col">
-              <div class="col">
-                <button class="btn btn-falcon-primary btn-sm m-2" role="button"> Submit </button>
-              </div>
-            </div>
-          </div>
-          <!-- Content ends here -->
         </div>
 
+        <div class="card mt-1">
+          <div class="card-body fs--1 p-4">
+            <div class="row my-3">
+              <div class="col">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Product Code</th>
+                      <th scope="col">Product Name</th>
+                      <th scope="col">Units</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Unit Cost</th>
+                      <th scope="col">Total</th>
+                      <br>
+                      <br>
+                    </tr>
+                  </thead>
+
+                  <tbody id="table_body">
+                  </tbody>
+                  <div class="row m-3">
+
+                    <tr>
+                      <td>
+                      </td>
+                      <td>
+                      </td>
+                      <td>
+                      </td>
+                      <td>
+                      </td>
+                      <th>Total Before Tax</th>
+                      <td>
+                        <input class="form-control form-control-sm" type="text" placeholder="Total Before Tax" value="" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                      </td>
+                      <td>
+                      </td>
+                      <td>
+                      </td>
+                      <td>
+                      </td>
+                      <th>Tax 16 %</th>
+                      <td>
+                        <input class="form-control form-control-sm" type="text" placeholder="Tax 16 %" value="" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                      </td>
+                      <td>
+                      </td>
+                      <td>
+                      </td>
+                      <td>
+                      </td>
+                      <th>Purchase Order Total</th>
+                      <td>
+                        <input class="form-control form-control-sm" type="text" placeholder="Purchase Order Total" value="" />
+                      </td>
+                    </tr>
+                  </div>
+                </table>
+              </div>
+            </div>
+            <div class="row my-3">
+              <div class="col">
+                <div class="col">
+                  <button class="btn btn-falcon-primary btn-sm m-2" role="button"> Submit </button>
+                </div>
+              </div>
+            </div>
+            <!-- Content ends here -->
+          </div>
+
+        </div>
+        <!-- Additional cards can be added here -->
       </div>
-      <!-- Additional cards can be added here -->
     </div>
     <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
     <!-- body ends here -->
     <!-- =========================================================== -->
-    <script>
-      // Clear datalist
-    </script>
+
 
 
     <!-- =========================================================== -->
