@@ -37,6 +37,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+        <div id="alert-div"></div>
         <h3 class="mb-0 p-2">Manage Requisition</h3>
         <div class="card mb-1">
 
@@ -109,7 +110,7 @@ include '../includes/base_page/head.php';
           <div class="card-body">
             <div class="row justify-content-between align-items-center">
               <div class="col-auto">
-                <button class="btn btn-falcon-success btn-sm mr-2" id="approve_req">
+                <button class="btn btn-falcon-success btn-sm mr-2" id="approve_req" onclick="approveRequisition();">
                   <span class="fas fa-check mr-1" data-fa-transform="shrink-3"></span>
                   Approve
                 </button>
@@ -128,7 +129,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
 
         <script>
-          let requisition_number = -1;
+          let reqNo = -1;
           const req_no = document.querySelector("#req_no");
           const requisition_date = document.querySelector("#requisition_date");
           const created_by = document.querySelector("#created_by");
@@ -142,7 +143,7 @@ include '../includes/base_page/head.php';
             }
 
             // Get passed requisition number
-            const reqNo = sessionStorage.getItem('req_no');
+            reqNo = sessionStorage.getItem('req_no');
             // Clear data
             sessionStorage.clear();
 
@@ -157,7 +158,6 @@ include '../includes/base_page/head.php';
               .then(result => {
                 data = result[0];
                 req_no.appendChild(document.createTextNode(data["req_no"]));
-                requisition_number = data["req_no"];
                 requisition_date.value = data["date"];
                 branch.value = data["branch"];
                 created_by.value = data["user"];
@@ -174,17 +174,7 @@ include '../includes/base_page/head.php';
                 }
 
                 // Nested fetch start
-                fetch('../includes/requisition_manage_items.php', {
-                    method: 'POST',
-                    body: formData
-                  })
-                  .then(response => response.json())
-                  .then(result => {
-                    updateTable(result);
-                  })
-                  .catch(error => {
-                    console.error('Error:', error);
-                  });
+                fetchTableItems();
                 // Nested fetch end
 
               })
@@ -193,6 +183,23 @@ include '../includes/base_page/head.php';
               });
 
           });
+
+          function fetchTableItems() {
+            const formData = new FormData();
+            formData.append("req_no", reqNo)
+            fetch('../includes/requisition_manage_items.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+                updateTable(result);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+
+          }
 
 
           function updateTable(result) {
@@ -314,13 +321,13 @@ include '../includes/base_page/head.php';
             formData.append("checker", "req_rejected");
             formData.append("name", "");
             formData.append("qty", -1);
-            formData.append("req_no", requisition_number);
+            formData.append("req_no", reqNo);
 
 
             console.log("checker", "req_rejected");
             console.log("name", "");
             console.log("qty", -1);
-            console.log("req_no", requisition_number);
+            console.log("req_no", reqNo);
 
             fetch('../includes/update_requisition.php', {
                 method: 'POST',
@@ -333,6 +340,39 @@ include '../includes/base_page/head.php';
               .catch(error => {
                 console.error('Error:', error);
               });
+
+          }
+
+
+          function approveRequisition() {
+            if (!confirm("Are you sure you want to approve?")) {
+              return;
+            }
+            console.log("Rejecting");
+            const formData = new FormData();
+            formData.append("checker", "approve_req");
+            formData.append("name", "");
+            formData.append("qty", -1);
+            formData.append("req_no", reqNo);
+
+
+            console.log("checker", "req_rejected");
+            console.log("name", "");
+            console.log("qty", -1);
+            console.log("req_no", reqNo);
+
+            fetch('../includes/update_requisition.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.text())
+              .then(result => {
+                console.log('Success:', result);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+
 
           }
 
@@ -370,23 +410,35 @@ include '../includes/base_page/head.php';
               formData.append("checker", "item_rejected");
               formData.append("name", value[1]);
               formData.append("qty", qtt.value);
-              formData.append("req_no", requisition_number);
+              formData.append("req_no", reqNo);
 
               console.log("checker", "item_rejected");
               console.log("name", value[1]);
               console.log("qty", qtt.value);
-              console.log("req_no", requisition_number);
+              console.log("req_no", reqNo);
 
-              // On submit reload page
 
 
               fetch('../includes/update_requisition.php', {
                   method: 'POST',
                   body: formData
                 })
-                .then(response => response.text())
+                .then(response => response.json())
                 .then(result => {
-                  console.log('Success:', result);
+                  const alertVar =
+                    `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> ${result['message']}
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                  var divAlert = document.querySelector("#alert-div");
+                  divAlert.innerHTML = alertVar;
+                  divAlert.scrollIntoView();
+                  // On submit reload table
+                  fetchTableItems();
+
+                  window.setTimeout(() => {
+                    divAlert.innerHTML = "";
+                  }, 2500);
                 })
                 .catch(error => {
                   console.error('Error:', error);
