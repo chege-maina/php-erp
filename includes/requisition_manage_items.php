@@ -25,12 +25,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 echo json_encode($response);
 
-mysqli_close($conn);
+
             }
             else{
                 $message = "Fields have no data...";
                 echo json_encode($message);
             }
+            mysqli_close($conn);
 
 ?>
     
