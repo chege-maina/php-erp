@@ -40,7 +40,7 @@ session_start();
             $totalsale = $row2['sum(qty)'];
                         
         }
-        $query3 ="SELECT sum(product_quantity) FROM tbl_requisition_items WHERE product_name = '$product' and branch = '$branch' and (status='pending' or status='approved')";
+        $query3 ="SELECT sum(product_quantity) FROM tbl_requisition_items WHERE product_name = '$product' and branch = '$branch' and (status='pending' or status='approved' or status='done')";
         $result3 = mysqli_query($conn, $query3);
         if($row3 = mysqli_fetch_assoc($result3)){
             $totalreq = $row3['sum(product_quantity)'];
