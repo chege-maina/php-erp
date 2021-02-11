@@ -19,6 +19,7 @@ session_start();
         $productcode = $row['product_code'];
         $unit = $row['product_unit'];
         $reorder = $row['reorder'];
+        $max = $row['max_level'];
 
     $totalstore = 0;
     $totalsale = 0;
@@ -57,7 +58,8 @@ session_start();
                    'product_code'=>$productcode,
                    'product_name'=>$product,
                    'unit'=>$unit,
-                   'balance'=>$balance)
+                   'balance'=>$balance,
+                   'max'=>$max)
                    );
                 }
 	}
