@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       /* store first result set */
       if ($result = mysqli_store_result($conn)) {
         while ($row = mysqli_fetch_row($result)) {
-          $prod_name = $row['name'];
+          $prod_name = $row[0];
         }
         mysqli_free_result($result);
       }
@@ -39,13 +39,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   foreach ($table_items as $key => $value) {
 
     $mysql = "INSERT INTO supplier_product (supplier_name, product_name, product_cost)
-  VALUES('" . $prod_name . "','" . $value["name"] . "','" . $value["cost"] . "')";
+  VALUES('" . $name . "','" . $value["name"] . "','" . $value["cost"] . "')";
     mysqli_query($conn, $mysql);
   }
 
 
- $message ="Supplier Added Successfully..";
+  $message = "Supplier Added Successfully..";
   echo json_encode($message);
 }
-  mysqli_close($conn);
-  ?>
+mysqli_close($conn);
