@@ -46,7 +46,7 @@ include '../includes/base_page/head.php';
                 </div>
                 <div class="col">
                   <label for="email" class="form-label">Email*</label>
-                  <input name="email" class="form-control" type="text" placeholder="Email" id="sup_email" required>
+                  <input name="email" class="form-control" type="email" placeholder="Email" id="sup_email" required>
                 </div>
                 <div class="col">
                   <label for="tel_no" class="form-label">Telephone Number*</label>
@@ -318,9 +318,9 @@ include '../includes/base_page/head.php';
               var divAlert = document.querySelector("#alert-div");
               divAlert.innerHTML = alertVar;
               divAlert.scrollIntoView();
-              // setTimeout(function() {
-              // location.reload();
-              // }, 2500);
+              setTimeout(function() {
+                location.reload();
+              }, 2500);
             })
             .catch(error => {
               console.error(error);

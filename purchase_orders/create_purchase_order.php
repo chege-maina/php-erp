@@ -226,20 +226,20 @@ include '../includes/base_page/head.php';
       function submitPO() {
         const formData = new FormData();
         formData.append("supplier_name", supplier_name.value);
-        formData.append("po_branch", po_branch.value);
-        formData.append("po_date", po_date.value);
-        formData.append("po_time", po_time.value);
-        formData.append("total_without_tax", cumulativeTotal);
-        formData.append("tax", withTax);
-        formData.append("total_with_tax", totalWithTax);
-        formData.append("items", JSON.stringify(items));
+        formData.append("branch", po_branch.value);
+        formData.append("user", user_name);
+        formData.append("date", po_date.value);
+        formData.append("time", po_time.value);
+        formData.append("before_tax", cumulativeTotal);
+        formData.append("tax_amount", withTax);
+        formData.append("po_total", totalWithTax);
+        formData.append("table_items", JSON.stringify(items));
 
-        return;
-        fetch('https://example.com/profile/avatar', {
+        fetch('../includes/create_purchase_order.php', {
             method: 'POST',
             body: formData
           })
-          .then(response => response.json())
+          .then(response => response.text())
           .then(result => {
             console.log('Success:', result);
           })
