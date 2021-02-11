@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2021 at 11:15 AM
+-- Generation Time: Feb 11, 2021 at 11:58 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -123,13 +123,12 @@ INSERT INTO `tbl_product` (`product_code`, `product_name`, `product_unit`, `prod
 CREATE TABLE `tbl_purchaseorder` (
   `po_number` bigint(20) NOT NULL,
   `supplier_name` varchar(50) NOT NULL,
-  `supplier_id` varchar(50) NOT NULL,
   `branch` varchar(20) NOT NULL,
   `date` date NOT NULL,
   `time` varchar(20) NOT NULL,
   `user` varchar(50) NOT NULL,
   `status` varchar(15) NOT NULL DEFAULT 'pending',
-  `tt_before_tax` varchar(50) NOT NULL,
+  `before_tax` varchar(50) NOT NULL,
   `tax_amt` varchar(50) NOT NULL,
   `po_total` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
