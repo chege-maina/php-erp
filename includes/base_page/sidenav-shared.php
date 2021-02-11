@@ -41,6 +41,10 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Manage Requisitions</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Receive Products</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Approve Receipt</a>
+  </li>
   </ul>
 </li>
 <!-- Purchase order -->
