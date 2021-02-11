@@ -113,21 +113,21 @@ include '../includes/base_page/head.php';
           data.forEach(value => {
             const this_row = document.createElement("tr");
 
-            const req_no = document.createElement("td");
-            req_no.appendChild(document.createTextNode(value["req_no"]));
-            req_no.classList.add("align-middle");
+            const po_number = document.createElement("td");
+            po_number.appendChild(document.createTextNode(value["po_number"]));
+            po_number.classList.add("align-middle");
 
-            const req_date = document.createElement("td");
-            req_date.appendChild(document.createTextNode(value["date"]));
-            req_date.classList.add("align-middle");
+            const po_date = document.createElement("td");
+            po_date.appendChild(document.createTextNode(value["date"]));
+            po_date.classList.add("align-middle");
 
-            // const req_supplier = document.createElement("td");
-            // req_suppler.appendChild(document.createTextNode(value["supplier"]));
-            // req_suppler.classList.add("align-middle");
+            const po_supplier = document.createElement("td");
+            po_supplier.appendChild(document.createTextNode(value["supplier"]));
+            po_supplier.classList.add("align-middle");
 
-            const req_user = document.createElement("td");
-            req_user.appendChild(document.createTextNode(value["user"]));
-            req_user.classList.add("align-middle");
+            const po_user = document.createElement("td");
+            po_user.appendChild(document.createTextNode(value["user"]));
+            po_user.classList.add("align-middle");
 
             const req_status = document.createElement("td");
             const tmp_status = value["status"];
@@ -148,12 +148,12 @@ include '../includes/base_page/head.php';
 
             const req_actions = document.createElement("td");
             const btn = document.createElement("button");
-            btn.setAttribute("onclick", "detailedView(" + value["req_no"] + ")");
+            btn.setAttribute("onclick", "detailedView(" + value["po_number"] + ")");
             btn.appendChild(document.createTextNode("Manage"));
             btn.classList.add("btn", "btn-falcon-primary", "btn-sm");
             req_actions.appendChild(btn);
 
-            this_row.append(req_no, req_date, req_supplier, req_user, req_status, req_actions);
+            this_row.append(po_number, po_supplier, po_date, po_user, req_status, req_actions);
             table_body.appendChild(this_row);
           });
 
@@ -179,7 +179,7 @@ include '../includes/base_page/head.php';
           req_date_to.value = String(date.getFullYear()) + '-' + month + '-' + day_to;
           req_date_to.setAttribute("min", req_date_from.value);
 
-          fetch('../includes/load_requisitions.php')
+          fetch('../includes/purchase_order_manage.php')
             .then(response => response.json())
             .then(data => {
               console.log(data);
@@ -196,7 +196,7 @@ include '../includes/base_page/head.php';
           formData.append("date2", req_date_to.value);
           formData.append("status", r_status.value);
           formData.append("supplier", user_branch);
-          fetch('../includes/filter_requisitions.php', {
+          fetch('../includes/filter_purchaseorder.php', {
               method: 'POST',
               body: formData
             })
