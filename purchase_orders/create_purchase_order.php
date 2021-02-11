@@ -48,7 +48,7 @@ include '../includes/base_page/head.php';
               </div>
               <div class="col">
                 <label for="branch" class="form-label">Branch*</label>
-                <input type="text" name="branch" id="branch" class="form-control" readonly>
+                <input type="text" name="po_branch" id="po_branch" class="form-control" readonly>
               </div>
               <div class="col">
                 <label for="date" class="form-label">Purchase Date</label>
@@ -128,9 +128,16 @@ include '../includes/base_page/head.php';
     <!-- body ends here -->
     <!-- =========================================================== -->
     <script>
+      const supplier_name = document.querySelector("#supplier_name");
+      const po_branch = document.querySelector("#po_branch");
+      const po_date = document.querySelector("#date");
+      const po_time = document.querySelector("#time");
+      const table_body = document.querySelector("#table_body");
+
       function d_toString(value) {
         return value < 10 ? '0' + value : String(value);
       }
+
       document.addEventListener('DOMContentLoaded', function() {
         const date = new Date();
         let month = d_toString(date.getMonth() + 1);
@@ -149,9 +156,46 @@ include '../includes/base_page/head.php';
         console.log(supplier);
         console.log(branch);
         console.log(items);
-      });
+        // Populate the fields
+        supplier_name.value = supplier;
+        po_branch.value = branch;
+        let i = 0;
+        items.forEach(value => {
+          console.log(value);
 
-      // Clear datalist
+
+          const this_row = document.createElement("tr");
+
+          const p_code = document.createElement("td");
+          p_code.appendChild(document.createTextNode(value["p_code"]));
+          p_code.classList.add("align-middle");
+
+          const p_name = document.createElement("td");
+          p_name.appendChild(document.createTextNode(value["p_name"]));
+          p_name.classList.add("align-middle");
+
+          const p_units = document.createElement("td");
+          p_units.appendChild(document.createTextNode(value["p_units"]));
+          p_units.classList.add("align-middle");
+
+          const p_quantity = document.createElement("td");
+          p_quantity.appendChild(document.createTextNode(value["p_quantity"]));
+          p_quantity.classList.add("align-middle");
+
+          const p_cost = document.createElement("td");
+          p_cost.appendChild(document.createTextNode(value["p_cost"]));
+          p_cost.classList.add("align-middle");
+
+          const p_total = document.createElement("td");
+          items[i]['p_total'] =
+            Number(value["p_cost"]) * Number(value["p_quantity"]);
+          p_total.appendChild(document.createTextNode(items[i]['p_total']));
+          i++;
+          p_total.classList.add("align-middle");
+          this_row.append(p_code, p_name, p_units, p_quantity, p_cost, p_total);
+          table_body.appendChild(this_row);
+        });
+      });
     </script>
 
 
