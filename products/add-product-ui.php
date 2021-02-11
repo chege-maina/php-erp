@@ -93,14 +93,6 @@ include '../includes/base_page/head.php';
                         </button>
                       </div>
                     </div>
-                    <div class="col">
-                      <label for="product_supplier" class="form-label">Supplier</label>
-                      <select name="product_supplier" id="product_supplier" class="form-select" required>
-                        <option value disabled selected>
-                          -- Select Supplier --
-                        </option>
-                      </select>
-                    </div>
                   </div>
                 </div>
                 <div class="col">
@@ -204,6 +196,22 @@ include '../includes/base_page/head.php';
               </table>
             </div>
           </div>
+          <h5 class="p-2 mt-4">Supplier</h5>
+          <div class="card">
+            <div class="card-body fs--1 px-3">
+              <table class="table table-striped table-sm" id="table_id">
+                <thead>
+                  <tr>
+                    <th scope="col">Product Name</th>
+                    <th scope="col" class="w-25">Product Cost</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="table_body">
+                </tbody>
+              </table>
+            </div>
+          </div>
           <input type="submit" class="btn btn-falcon-primary m-2" name="submit" id="submit" value="Submit">
         </form>
         <!-- Content ends here -->
@@ -273,7 +281,6 @@ include '../includes/base_page/head.php';
                         <div class="invalid-feedback">This field cannot be left blank.</div>
                       </div>
                     </div>
-
                     <input type="button" value="Add" class="btn btn-falcon-primary mt-2" id="add_ut_submit" name="add_ut_submit">
                   </form>
                 </div>
@@ -282,6 +289,8 @@ include '../includes/base_page/head.php';
 
           </div>
         </div>
+
+        <!--product - supplier -->
 
         <script>
           $(document).ready(function() {
@@ -357,7 +366,7 @@ include '../includes/base_page/head.php';
             const product_name = document.querySelector("#product_name").value;
             const product_category = document.querySelector("#product_category").value;
             const product_unit = document.querySelector("#product_unit").value;
-            const product_supplier = document.querySelector("#product_supplier").value;
+            // const product_supplier = document.querySelector("#product_supplier").value;
             const product_image = document.querySelector("#product_image").files[0];
 
             const min_level = document.querySelector("#min_level").value;
@@ -380,7 +389,7 @@ include '../includes/base_page/head.php';
             formData.append("product_name", product_name);
             formData.append("product_category", product_category);
             formData.append("product_unit", product_unit);
-            formData.append("product_supplier", product_supplier);
+            //  formData.append("product_supplier", product_supplier);
             formData.append("product_image", product_image);
 
             formData.append("min_level", min_level);
