@@ -66,77 +66,54 @@ include '../includes/base_page/head.php';
         </div>
 
         <div class="card mt-1">
-          <div class="card-body fs--1 p-4">
-            <div class="row my-1">
-              <div class="col">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Product Code</th>
-                      <th scope="col">Product Name</th>
-                      <th scope="col">Units</th>
-                      <th scope="col">Quantity</th>
-                      <th scope="col">Unit Cost</th>
-                      <th scope="col">Total</th>
-                      <br>
-                      <br>
-                    </tr>
-                  </thead>
+          <div class="card-header bg-light p-2 pt-3 pl-3">
+            <h6>Products</h6>
+          </div>
+          <div class="card-body fs--1 p-2">
+            <div class="table-responsive">
+              <table class="table table-sm table-striped mt-0">
+                <thead>
+                  <tr>
+                    <th scope="col">Product Code</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Units</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Unit Cost</th>
+                    <th scope="col">Total</th>
+                  </tr>
+                </thead>
+                <tbody id="table_body">
+                </tbody>
+              </table>
+            </div>
 
-                  <tbody id="table_body">
-                  </tbody>
-                  <div class="row m-3">
-
-                    <tr>
-                      <td>
-                      </td>
-                      <td>
-                      </td>
-                      <td>
-                      </td>
-                      <td>
-                      </td>
-                      <th>Total Before Tax</th>
-                      <td>
-                        <input class="form-control form-control-sm" type="text" placeholder="Total Before Tax" value="" readonly />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                      </td>
-                      <td>
-                      </td>
-                      <td>
-                      </td>
-                      <td>
-                      </td>
-                      <th>Tax 16 %</th>
-                      <td>
-                        <input class="form-control form-control-sm" type="text" placeholder="Tax 16 %" value="" readonly />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                      </td>
-                      <td>
-                      </td>
-                      <td>
-                      </td>
-                      <td>
-                      </td>
-                      <th>Purchase Order Total</th>
-                      <td>
-                        <input class="form-control form-control-sm" type="text" placeholder="Purchase Order Total" value="" readonly />
-                      </td>
-                    </tr>
-                  </div>
-                </table>
+            <div class="row m-3">
+              <div class="col text-right fw-bold">
+                Total Before Tax</div>
+              <div class="col col-auto">
+                <input class="form-control form-control-sm" type="number" readonly id="total_before_tax" />
+              </div>
+            </div>
+            <div class="row m-3">
+              <div class="col text-right fw-bold">
+                Tax 16 %
+              </div>
+              <div class="col col-auto">
+                <input class="form-control form-control-sm" type="number" readonly id="tax_pc" />
+              </div>
+            </div>
+            <div class="row m-3">
+              <div class="col text-right fw-bold">
+                Purchase Order Total
+              </div>
+              <div class="col col-auto">
+                <input class="form-control form-control-sm" type="number" readonly id="po_total" />
               </div>
             </div>
             <div class="row my-3">
               <div class="col">
                 <div class="col">
-                  <button class="btn btn-falcon-primary btn-sm m-2" role="button"> Submit </button>
+                  <button class="btn btn-falcon-primary btn-sm m-2" role="button" id="submit"> Submit </button>
                 </div>
               </div>
             </div>
@@ -163,6 +140,15 @@ include '../includes/base_page/head.php';
 
 
         time.value = hours + ":" + minutes;
+
+
+        // Load Data
+        const supplier = sessionStorage.getItem('supplier');
+        const branch = sessionStorage.getItem('branch');
+        const items = JSON.parse(sessionStorage.getItem('items'));
+        console.log(supplier);
+        console.log(branch);
+        console.log(items);
       });
 
       // Clear datalist
