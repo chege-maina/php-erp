@@ -111,7 +111,7 @@ include '../includes/base_page/head.php';
           const supplier = document.querySelector("#supplier");
           const table_body = document.querySelector("#table_body");
           let table_items = [];
-          let selectedProductSuppliers = new Map();
+          let selectedProductSuppliers = {};
 
           function createPurchaseOrder() {
             console.log("Item Prices", selectedProductSuppliers);
@@ -124,24 +124,24 @@ include '../includes/base_page/head.php';
             table_body.childNodes.forEach(row => {
 
               let i = 0;
-              let product_row = new Map();
+              let product_row = {};
               row.childNodes.forEach(cell => {
                 switch (i) {
                   case 0:
-                    product_row.set('p_code', cell.innerHTML);
+                    product_row['p_code'] = cell.innerHTML;
                     break;
                   case 1:
-                    product_row.set('p_name', cell.innerHTML);
+                    product_row['p_name'] = cell.innerHTML;
                     break;
                   case 2:
-                    product_row.set('p_units', cell.innerHTML);
+                    product_row['p_units'] = cell.innerHTML;
                     break;
                   case 3:
-                    product_row.set('p_quantity', cell.innerHTML);
+                    product_row['p_quantity'] = cell.innerHTML;
                     break;
                   case 4:
-                    product_row.set('p_sup', cell.firstChild.value);
-                    product_row.set('p_cost', selectedProductSuppliers.get(product_row.get('p_code')).get(product_row.get('p_sup')));
+                    product_row['p_sup'] = cell.firstChild.value;
+                    product_row['p_cost'] = selectedProductSuppliers[product_row['p_code']][product_row['p_sup']];
                     break;
                 }
 
@@ -150,15 +150,16 @@ include '../includes/base_page/head.php';
 
               });
 
-              if (product_row.get('p_sup') === supplier.value) {
+              if (product_row['p_sup'] === supplier.value) {
                 table_body_items.push(product_row);
               }
             });
 
             sessionStorage.setItem('branch', po_branch.value);
             sessionStorage.setItem('supplier', supplier.value);
-            sessionStorage.setItem('items', table_body_items);
+            sessionStorage.setItem('items', JSON.stringify(table_body_items));
             console.log(table_body_items);
+            location.href = "create_purchase_order.php";
           }
 
           window.addEventListener('DOMContentLoaded', (event) => {
@@ -261,7 +262,7 @@ include '../includes/base_page/head.php';
               supplierInput.setAttribute('onclick', "this.select();");
 
 
-              let item_suppliers = new Map();
+              let item_suppliers = {};
 
               const supplierDatalist = document.createElement("datalist");
               supplierDatalist.setAttribute('id', "dl-" + value["code"] + "-" + value["name"]);
@@ -277,12 +278,12 @@ include '../includes/base_page/head.php';
                 opt.setAttribute("value", supl["supplier"]);
                 supplierDatalist.appendChild(opt);
 
-                item_suppliers.set(supl['supplier'], supl["cost"]);
+                item_suppliers[supl['supplier']] = supl["cost"];
               });
 
 
               // Store this, will need when submitting form
-              selectedProductSuppliers.set(value['code'], item_suppliers);
+              selectedProductSuppliers[value['code']] = item_suppliers;
 
 
               console.log(value["suppliers"]);
