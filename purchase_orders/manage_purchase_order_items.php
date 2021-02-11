@@ -177,66 +177,66 @@ include '../includes/base_page/head.php';
               tax_pc.value = value['tax_amt'];
               po_total.value = value['po_total'];
               created_by.value = value["user"];
-            })
+            });
+
+            // Nested fetch
+            fetch('../includes/po_manage_items.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+                console.log('Success:', result);
+                updateTable(result);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+            // Nested fetch end
+
           })
           .catch(error => {
             console.error('Error:', error);
           });
 
-        // const branch = sessionStorage.getItem('branch');
-        // items = JSON.parse(sessionStorage.getItem('items'));
-        // sessionStorage.clear();
-        // console.log(supplier);
-        // console.log(branch);
-        // console.log(items);
-        // // Populate the fields
-        // supplier_name.value = supplier;
-        // po_branch.value = branch;
-        // let i = 0;
-        // items.forEach(value => {
-        // console.log(value);
-
-
-        // const this_row = document.createElement("tr");
-
-        // const p_code = document.createElement("td");
-        // p_code.appendChild(document.createTextNode(value["p_code"]));
-        // p_code.classList.add("align-middle");
-
-        // const p_name = document.createElement("td");
-        // p_name.appendChild(document.createTextNode(value["p_name"]));
-        // p_name.classList.add("align-middle");
-
-        // const p_units = document.createElement("td");
-        // p_units.appendChild(document.createTextNode(value["p_units"]));
-        // p_units.classList.add("align-middle");
-
-        // const p_quantity = document.createElement("td");
-        // p_quantity.appendChild(document.createTextNode(value["p_quantity"]));
-        // p_quantity.classList.add("align-middle");
-
-        // const p_cost = document.createElement("td");
-        // p_cost.appendChild(document.createTextNode(value["p_cost"]));
-        // p_cost.classList.add("align-middle");
-
-        // const p_total = document.createElement("td");
-        // items[i]['p_total'] =
-        // Number(value["p_cost"]) * Number(value["p_quantity"]);
-        // cumulativeTotal += items[i]['p_total'];
-        // p_total.appendChild(document.createTextNode(items[i]['p_total']));
-        // i++;
-        // p_total.classList.add("align-middle");
-        // this_row.append(p_code, p_name, p_units, p_quantity, p_cost, p_total);
-        // table_body.appendChild(this_row);
-        // });
-
-        // withTax = cumulativeTotal * 0.16;
-        // totalWithTax = cumulativeTotal + withTax;
-
-        // tax_pc.value = withTax;
-        // po_total.value = totalWithTax;
-
       });
+
+      function updateTable(items) {
+        console.log(items);
+        // Populate the fields
+        items.forEach(value => {
+          console.log(value);
+
+          const this_row = document.createElement("tr");
+
+          const p_code = document.createElement("td");
+          p_code.appendChild(document.createTextNode(value["code"]));
+          p_code.classList.add("align-middle");
+
+          const p_name = document.createElement("td");
+          p_name.appendChild(document.createTextNode(value["name"]));
+          p_name.classList.add("align-middle");
+
+          const p_units = document.createElement("td");
+          p_units.appendChild(document.createTextNode(value["unit"]));
+          p_units.classList.add("align-middle");
+
+          const p_quantity = document.createElement("td");
+          p_quantity.appendChild(document.createTextNode(value["qty"]));
+          p_quantity.classList.add("align-middle");
+
+          const p_cost = document.createElement("td");
+          p_cost.appendChild(document.createTextNode(value["cost"]));
+          p_cost.classList.add("align-middle");
+
+          const p_total = document.createElement("td");
+          p_total.appendChild(document.createTextNode(value['total']));
+          p_total.classList.add("align-middle");
+
+          this_row.append(p_code, p_name, p_units, p_quantity, p_cost, p_total);
+          table_body.appendChild(this_row);
+        });
+      }
     </script>
 
 
