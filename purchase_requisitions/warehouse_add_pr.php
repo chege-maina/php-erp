@@ -129,7 +129,8 @@ include '../includes/base_page/head.php';
                     name: value["product_name"],
                     code: value["product_code"],
                     unit: value["unit"],
-                    balance: value["balance"]
+                    balance: value["balance"],
+                    max: value["max"]
                   };
                 });
                 items_in_combobox = {
@@ -155,6 +156,14 @@ include '../includes/base_page/head.php';
               opt.setAttribute("value", items_in_combobox[item]["name"]);
               requisitionable_items_datalist.appendChild(opt);
             }
+          }
+
+
+          function validateQuantity(elmt, value, max) {
+            value = Number(value);
+            max = Number(max);
+            elmt.value = elmt.value <= 0 ? 1 : elmt.value;
+            elmt.value = elmt.value > max ? max : elmt.value;
           }
 
           function updateTable() {
@@ -187,8 +196,10 @@ include '../includes/base_page/head.php';
               quantity.classList.add("form-control", "form-control-sm", "align-middle");
               quantity.setAttribute("data-ref", items_in_table[item]["name"]);
               quantity.setAttribute("min", 1);
+              quantity.setAttribute("max", items_in_table[item]['max']);
+
               // make sure the quantity is always greater than 0
-              quantity.setAttribute("onfocusout", "this.value = this.value <= 0 ? 1 : this.value;");
+              quantity.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
               quantity.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value);");
               quantity.setAttribute("onclick", "this.select();");
               items_in_table[item]['quantity'] = ('quantity' in items_in_table[item] && items_in_table[item]['quantity'] > 0) ?
