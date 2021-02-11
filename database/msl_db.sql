@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2021 at 09:42 AM
+-- Generation Time: Feb 11, 2021 at 11:15 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -128,7 +128,10 @@ CREATE TABLE `tbl_purchaseorder` (
   `date` date NOT NULL,
   `time` varchar(20) NOT NULL,
   `user` varchar(50) NOT NULL,
-  `status` varchar(15) NOT NULL DEFAULT 'pending'
+  `status` varchar(15) NOT NULL DEFAULT 'pending',
+  `tt_before_tax` varchar(50) NOT NULL,
+  `tax_amt` varchar(50) NOT NULL,
+  `po_total` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -146,7 +149,8 @@ CREATE TABLE `tbl_purchaseorder_items` (
   `product_quantity` varchar(20) NOT NULL,
   `product_cost` varchar(20) NOT NULL,
   `total` varchar(20) NOT NULL,
-  `status` varchar(10) NOT NULL DEFAULT 'pending'
+  `status` varchar(10) NOT NULL DEFAULT 'pending',
+  `branch` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -302,21 +306,6 @@ CREATE TABLE `tbl_supplier` (
   `payment_terms` varchar(100) NOT NULL,
   `number_of_days` varchar(50) NOT NULL DEFAULT '30'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_supplier`
---
-
-INSERT INTO `tbl_supplier` (`supplier_id`, `name`, `email`, `tel_no`, `postal_address`, `physical_address`, `tax_id`, `payment_terms`, `number_of_days`) VALUES
-(1, 'Bruce Tom', 'tom@gmail.com', '0745673456', '1656 Edsel Road\r\nSherman Oaks, CA 91403', '', '3463', '234355', '30'),
-(5, 'Clara Gilliam', 'clara@gmail.com', '0745678723', '63 Woodridge Lane\r\nMemphis, TN 38138', '', '34645', '56465', '30'),
-(6, 'Fredrick Jaji', 'fredrickjaji@hotmail.com', '0710334287', 'Nairobi', '', '6u5u85', '3463', '30'),
-(7, 'Antonio J. Forbes', 'anto@gmail.com', '9867454657', '403 Snyder Avenue\r\nCharlotte, NC 28208', '', '34645', '34645', '30'),
-(8, 'Charles D. Horst', 'Charlse@gmail.com', '098754445', '1636 Walnut Hill Drive\r\nCincinnati, OH 45202', '', 'e6654e', '34645', '30'),
-(238, 'Pius Wairimu', 'pius@gmail.com', '5097945790', 'PO BOX 85532-80100', '', '214533', '5667788', '30'),
-(224, 'Jael Joy', 'jaji@newageassociates.co.ke', ' 10710334287', 'Nairobi', '', 'AO123247o9', '1,000,000', '30'),
-(239, 'Kevin', 'kevo@gmail.com', '656735455', 'PO BOX 85532-80100', 'PO BOX 85532-80100', 'A079768968', '120', '30'),
-(240, 'Fredrick Kalume Jaji', 'dgreyhtc@gmail.com', '+10737528000', 'P.O BOX 85532', 'PO BOX 85532-80100', 'Aoueh94370', '120', '30');
 
 -- --------------------------------------------------------
 
