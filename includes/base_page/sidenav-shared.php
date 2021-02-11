@@ -53,7 +53,7 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Request Transfer</a>
   </li>
-  <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Acknowledge Transfer</a>
+  <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Accept Transfer</a>
   </li>
   </ul>
 </li>
