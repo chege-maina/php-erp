@@ -110,12 +110,14 @@ include '../includes/base_page/head.php';
                 <input class="form-control form-control-sm" type="number" readonly id="po_total" />
               </div>
             </div>
-            <div class="row my-3">
-              <div class="col">
-                <div class="col">
-                  <button class="btn btn-falcon-primary btn-sm m-2" role="button" id="submit"> Submit </button>
-                </div>
-              </div>
+          </div>
+        </div>
+        <div class="card mt-1">
+          <div class="card-body fs--1 p-1">
+            <div class="d-flex flex-row-reverse">
+              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitPO();">
+                Submit
+              </button>
             </div>
             <!-- Content ends here -->
           </div>
@@ -140,6 +142,7 @@ include '../includes/base_page/head.php';
       let cumulativeTotal = 0;
       let withTax = 0;
       let totalWithTax = 0;
+      let items = {};
 
       function d_toString(value) {
         return value < 10 ? '0' + value : String(value);
@@ -159,7 +162,7 @@ include '../includes/base_page/head.php';
         // Load Data
         const supplier = sessionStorage.getItem('supplier');
         const branch = sessionStorage.getItem('branch');
-        const items = JSON.parse(sessionStorage.getItem('items'));
+        items = JSON.parse(sessionStorage.getItem('items'));
         console.log(supplier);
         console.log(branch);
         console.log(items);
@@ -212,6 +215,25 @@ include '../includes/base_page/head.php';
         total_before_tax.value = cumulativeTotal;
 
       });
+
+
+      function submitPO() {
+        console.log("supplier_name", supplier_name.value);
+        console.log("po_branch", po_branch.value);
+        console.log("po_date", po_date.value);
+        console.log("po_time", po_time.value);
+        console.log("total_without_tax", cumulativeTotal);
+        console.log("tax", withTax);
+        console.log("total_with_tax", totalWithTax);
+        console.log("items", items);
+      }
+    </script>
+
+
+    <!-- =========================================================== -->
+    <!-- Footer Begin -->
+    <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+    }
     </script>
 
 
