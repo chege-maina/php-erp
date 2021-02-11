@@ -55,6 +55,8 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Accept Transfer</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Return Faulty Products</a>
+  </li>
   </ul>
 </li>
 <!-- Purchase order -->
