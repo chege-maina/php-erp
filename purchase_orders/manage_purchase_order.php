@@ -179,7 +179,7 @@ include '../includes/base_page/head.php';
           req_date_to.value = String(date.getFullYear()) + '-' + month + '-' + day_to;
           req_date_to.setAttribute("min", req_date_from.value);
 
-          fetch('../includes/load_requisitions.php')
+          fetch('../includes/purchase_order_manage.php')
             .then(response => response.json())
             .then(data => {
               console.log(data);
