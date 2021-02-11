@@ -134,6 +134,13 @@ include '../includes/base_page/head.php';
       const po_time = document.querySelector("#time");
       const table_body = document.querySelector("#table_body");
 
+      const total_before_tax = document.querySelector("#total_before_tax");
+      const tax_pc = document.querySelector("#tax_pc");
+      const po_total = document.querySelector("#po_total");
+      let cumulativeTotal = 0;
+      let withTax = 0;
+      let totalWithTax = 0;
+
       function d_toString(value) {
         return value < 10 ? '0' + value : String(value);
       }
@@ -189,12 +196,21 @@ include '../includes/base_page/head.php';
           const p_total = document.createElement("td");
           items[i]['p_total'] =
             Number(value["p_cost"]) * Number(value["p_quantity"]);
+          cumulativeTotal += items[i]['p_total'];
           p_total.appendChild(document.createTextNode(items[i]['p_total']));
           i++;
           p_total.classList.add("align-middle");
           this_row.append(p_code, p_name, p_units, p_quantity, p_cost, p_total);
           table_body.appendChild(this_row);
         });
+
+        withTax = cumulativeTotal * 0.16;
+        totalWithTax = cumulativeTotal + withTax;
+
+        tax_pc.value = withTax;
+        po_total.value = totalWithTax;
+        total_before_tax.value = cumulativeTotal;
+
       });
     </script>
 
