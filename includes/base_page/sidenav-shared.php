@@ -41,9 +41,19 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Manage Requisitions</a>
   </li>
-  <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Receive Products</a>
-  </li>
+  <li class="nav-item"><a class="nav-link dropdown-indicator" href="#receive" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authentication-basic">Receive Products</a>
+    <ul class="nav collapse" id="receive" data-parent="#authentication">
+      <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Receive Form Supplier</a>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Receive Form Transfer</a>
+      </li>
+      </ul>
+      </li>
   <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Approve Receipt</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Request Transfer</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Acknowledge Transfer</a>
   </li>
   </ul>
 </li>
