@@ -41,6 +41,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       mysqli_query($conn, $sql);
     }
 
+    $sql = "SELECT * from tbl_requisition WHERE status= 'approved' and branch='$branch'";
+    $result = mysqli_query($conn, $sql);	
+	while($row = mysqli_fetch_assoc($result)){
+        $req_no = $row['requisition_No'];
+
+        $sql2 = "SELECT count(*) from tbl_requisition_items WHERE requisition_No='$req_no' and status='done'"; 
+        $sql1 = "SELECT count(*) from tbl_requisition_items WHERE requisition_No='$req_no'";
+        
+        $result1 = mysqli_query($conn, $sql1);
+        $result2 = mysqli_query($conn, $sql2);
+
+        $row1 = mysqli_fetch_assoc($result1);
+        $row2 = mysqli_fetch_assoc($result2);
+
+        $all = $row1['count(*)'];
+        $done = $row2['count(*)'];
+
+        $bal = $all - $done;
+
+        if($bal>0){
+            $sql = "UPDATE tbl_requisition SET status = 'done' WHERE requisition_No = '$req_no'";
+      mysqli_query($conn, $sql);
+
+        }
+
+    }
+
 
     $message = "Purchase Order number " . $po_number . " Created Successfully..";
     echo json_encode($message);
