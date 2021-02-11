@@ -159,7 +159,7 @@ include '../includes/base_page/head.php';
             sessionStorage.setItem('supplier', supplier.value);
             sessionStorage.setItem('items', JSON.stringify(table_body_items));
             console.log(table_body_items);
-            // location.href = "create_purchase_order.php";
+            location.href = "create_purchase_order.php";
           }
 
           window.addEventListener('DOMContentLoaded', (event) => {
