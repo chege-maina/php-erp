@@ -33,7 +33,7 @@ include '../includes/base_page/head.php';
         <div id="alert-div"></div>
         <h5 class="p-2">Add Supplier</h5>
 
-        <form method="POST" onsubmit="return doInsert(this);">
+        <form method="POST" action="../includes/add_supplier.php">
           <div class="card">
             <div class="card-body fs--1 p-4">
               <div class="row">
@@ -72,7 +72,7 @@ include '../includes/base_page/head.php';
                 </div>
                 <div class="col">
                   <label for="payment_terms" class="form-label">Payment Terms*</label>
-                  <input name="payment_terms" class="form-control" placeholder="Credit Limit" required>
+                  <input name="payment_terms" class="form-control" placeholder="  Payment Terms" required>
                 </div>
 
                 <div class="col">
@@ -104,12 +104,8 @@ include '../includes/base_page/head.php';
                   </table>
                 </div>
               </div>
-              <input type="submit" class="btn btn-falcon-primary mt-2" name="submit" id="submit" value="Insert">
+              <input type="submit" class="btn btn-falcon-primary mr-1" name="submit" id="submit" value="Submit">
 
-              <button class="btn btn-falcon-primary" id="submit" onclick="sendTableData();">
-                <span class="fas fa-save mr-1" data-fa-transform="shrink-3"></span>
-                Create Requisition
-              </button>
               <button class="btn ml-2 btn-falcon-warning" id="clear-table" onclick="clearTable();">
                 <span class="fas fa-eraser mr-1" data-fa-transform="shrink-3"></span>
                 Clear Table
@@ -120,7 +116,7 @@ include '../includes/base_page/head.php';
       </div>
       </form>
 
-
+      <!--
 
       <script>
         function doInsert(form) {
@@ -146,11 +142,14 @@ include '../includes/base_page/head.php';
           return false;
         }
       </script>
-
+-->
       <script>
         let all_requisitionable_items = {};
         let items_in_combobox = {};
+        let selectedProductSuppliers = new Map();
         let items_in_table = {};
+
+
 
         // const items_in_requisitionable_item
         const requisitionable_item = document.querySelector("#requisitionable_item");
@@ -197,6 +196,10 @@ include '../includes/base_page/head.php';
 
         function updateTable() {
           table_body.innerHTML = "";
+
+          if (Object.keys(data).length === 0 || data[0]['count'] <= 0) {
+            return;
+          }
           for (let item in items_in_table) {
 
             let tr = document.createElement("tr");
