@@ -39,6 +39,12 @@ include '../includes/base_page/head.php';
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <h5 class="p-2">Create Purchase Order</h5>
         <div class="card">
+
+
+          <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/illustrations/corner-4.png);">
+          </div>
+          <!--/.bg-holder-->
+
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
             <div class="row">
@@ -218,14 +224,28 @@ include '../includes/base_page/head.php';
 
 
       function submitPO() {
-        console.log("supplier_name", supplier_name.value);
-        console.log("po_branch", po_branch.value);
-        console.log("po_date", po_date.value);
-        console.log("po_time", po_time.value);
-        console.log("total_without_tax", cumulativeTotal);
-        console.log("tax", withTax);
-        console.log("total_with_tax", totalWithTax);
-        console.log("items", items);
+        const formData = new FormData();
+        formData.append("supplier_name", supplier_name.value);
+        formData.append("po_branch", po_branch.value);
+        formData.append("po_date", po_date.value);
+        formData.append("po_time", po_time.value);
+        formData.append("total_without_tax", cumulativeTotal);
+        formData.append("tax", withTax);
+        formData.append("total_with_tax", totalWithTax);
+        formData.append("items", JSON.stringify(items));
+
+        return;
+        fetch('https://example.com/profile/avatar', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(result => {
+            console.log('Success:', result);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
       }
     </script>
 
