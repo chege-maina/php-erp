@@ -62,8 +62,8 @@ include '../includes/base_page/head.php';
                             </div>
 
                         </div>
-                        <div class="row">
-                            <div class="col">
+                        <div class="row pb-2 ">
+                            <div class="col-sm-3 mt-2 ">
                                 <label for="lpo" class="form-label">Enter Invoice No./Delivery Note No.*</label>
                                 <input type="text" name="lpo" id="lpo" class="form-control">
                             </div>
@@ -101,7 +101,7 @@ include '../includes/base_page/head.php';
                                                 <td>
                                                 </td>
                                                 <td>
-                                                    <input class="form-control form-control-sm" type="text" placeholder="Quantity Received" value="" readonly />
+                                                    <input class="form-control form-control-sm" type="text" placeholder="Quantity Received" value="" />
                                                 </td>
                                             </tr>
                                         </div>
