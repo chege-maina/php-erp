@@ -37,6 +37,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+        <div id="alert-div"></div>
         <h5 class="p-2">Create Purchase Order</h5>
         <div class="card">
 
@@ -166,9 +167,13 @@ include '../includes/base_page/head.php';
 
 
         // Load Data
+        if (sessionStorage.length <= 0) {
+          location.href = "select_po.php"
+        }
         const supplier = sessionStorage.getItem('supplier');
         const branch = sessionStorage.getItem('branch');
         items = JSON.parse(sessionStorage.getItem('items'));
+        sessionStorage.clear();
         console.log(supplier);
         console.log(branch);
         console.log(items);
@@ -239,9 +244,21 @@ include '../includes/base_page/head.php';
             method: 'POST',
             body: formData
           })
-          .then(response => response.text())
+          .then(response => response.json())
           .then(result => {
-            console.log('Success:', result);
+            const alertVar =
+              `<div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>Success!</strong> ${result}
+          <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+          </div>`;
+            var divAlert = document.querySelector("#alert-div");
+            divAlert.innerHTML = alertVar;
+            divAlert.scrollIntoView();
+            setTimeout(function() {
+              location.href = "select_po.php"
+            }, 2500);
+
+
           })
           .catch(error => {
             console.error('Error:', error);

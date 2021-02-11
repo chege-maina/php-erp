@@ -74,7 +74,7 @@ include '../includes/base_page/head.php';
                 </div>
                 <div class="col">
                   <label for="payment_terms" class="form-label">Payment Terms*</label>
-                  <input name="payment_terms" id="payment_terms" class="form-control" placeholder="Payment Terms" type="text" required>
+                  <input name="payment_terms" id="payment_terms" class="form-control" placeholder="Payment Terms" type="number" required>
                 </div>
 
                 <div class="col">

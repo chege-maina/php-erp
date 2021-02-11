@@ -68,10 +68,10 @@ include '../includes/base_page/head.php';
             <table class="table table-sm table-striped" id="table-main">
               <thead>
                 <tr>
-                  <th>Requisition Number</th>
+                  <th>PO Number</th>
+                  <th>Supplier </th>
                   <th>Date </th>
                   <th>Created By</th>
-                  <th>Branch</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
@@ -121,9 +121,9 @@ include '../includes/base_page/head.php';
             req_date.appendChild(document.createTextNode(value["date"]));
             req_date.classList.add("align-middle");
 
-            const req_branch = document.createElement("td");
-            req_branch.appendChild(document.createTextNode(value["branch"]));
-            req_branch.classList.add("align-middle");
+            // const req_supplier = document.createElement("td");
+            // req_suppler.appendChild(document.createTextNode(value["supplier"]));
+            // req_suppler.classList.add("align-middle");
 
             const req_user = document.createElement("td");
             req_user.appendChild(document.createTextNode(value["user"]));
@@ -153,7 +153,7 @@ include '../includes/base_page/head.php';
             btn.classList.add("btn", "btn-falcon-primary", "btn-sm");
             req_actions.appendChild(btn);
 
-            this_row.append(req_no, req_date, req_user, req_branch, req_status, req_actions);
+            this_row.append(req_no, req_date, req_supplier, req_user, req_status, req_actions);
             table_body.appendChild(this_row);
           });
 
@@ -195,7 +195,7 @@ include '../includes/base_page/head.php';
           formData.append("date1", req_date_from.value);
           formData.append("date2", req_date_to.value);
           formData.append("status", r_status.value);
-          formData.append("branch", user_branch);
+          formData.append("supplier", user_branch);
           fetch('../includes/filter_requisitions.php', {
               method: 'POST',
               body: formData
