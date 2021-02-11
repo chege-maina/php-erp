@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $mysql = "INSERT INTO tbl_purchaseorder (supplier_name, branch, date, time, user, 
   before_tax, tax_amt, po_total) VALUES ('" . $supplier_name . "', 
-  '" . $branch . "', '" . $date . "', '" . $time . "', '" . $user . "', '" . $before_tax . "', '" . $tax_amt . "', '" . $po_total . "');";
+  '" . $branch . "', '" . $date . "', '" . $time . "', '" . $user . "', '" . $before_tax . "', '" . $tax_amount . "', '" . $po_total . "');";
   $mysql .= "SELECT po_number FROM tbl_purchaseorder ORDER BY po_number DESC LIMIT 1";
 
   if (mysqli_multi_query($conn, $mysql)) {
