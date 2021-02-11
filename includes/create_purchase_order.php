@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $bal = $all - $done;
 
-        if($bal>0){
+        if($bal<1){
             $sql = "UPDATE tbl_requisition SET status = 'done' WHERE requisition_No = '$req_no'";
       mysqli_query($conn, $sql);
 
