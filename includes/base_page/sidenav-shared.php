@@ -43,9 +43,9 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link dropdown-indicator" href="#receive" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authentication-basic">Receive Products</a>
     <ul class="nav collapse" id="receive" data-parent="#authentication">
-      <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/received_goods.php">Receive Form Supplier</a>
+      <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/received_goods.php">Receive From Supplier</a>
       </li>
-      <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Receive Form Transfer</a>
+      <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Receive From Transfer</a>
       </li>
       </ul>
       </li>
@@ -55,7 +55,7 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Accept Transfer</a>
   </li>
-  <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Return Faulty Products</a>
+  <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Return Goods</a>
   </li>
   </ul>
 </li>

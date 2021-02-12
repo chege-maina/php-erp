@@ -159,10 +159,10 @@ include '../includes/base_page/head.php';
 
         }
 
-        function detailedView(req_no) {
-          console.log("Req no: ", req_no);
-          sessionStorage.setItem('req_no', req_no);
-          window.location.href = "manage_pr.php";
+        function detailedView(po_number) {
+          console.log("PO no: ", po_number);
+          sessionStorage.setItem('po_number', po_number);
+          window.location.href = "manage_purchase_order_items.php";
         }
 
         function d_toString(value) {
