@@ -17,12 +17,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     array_push(
       $response,
       array(
-        'po_number'=>$row['po_number'],
-                   'supplier'=>$row['supplier_name'],
-                   'date'=>$row['date'],
-                   'user'=>$row['user'],
-                   'status'=>$row['status'])
-      );
+        'po_number' => $row['po_number'],
+        'supplier' => $row['supplier_name'],
+        'date' => $row['date'],
+        'user' => $row['user'],
+        'branch' => $row['branch'],
+        'status' => $row['status']
+      )
+    );
   }
 
   echo json_encode($response);
@@ -32,4 +34,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $message = "Fields have no data...";
   echo json_encode($message);
 }
-

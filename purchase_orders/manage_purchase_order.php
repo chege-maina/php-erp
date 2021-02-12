@@ -68,10 +68,11 @@ include '../includes/base_page/head.php';
             <table class="table table-sm table-striped" id="table-main">
               <thead>
                 <tr>
-                  <th>PO Number</th>
+                  <th class="col-lg-1">No. </th>
                   <th>Supplier </th>
-                  <th>Date </th>
+                  <th class="col-lg-1">Date </th>
                   <th>Created By</th>
+                  <th class="col-lg-1">Branch</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
@@ -125,6 +126,10 @@ include '../includes/base_page/head.php';
             po_supplier.appendChild(document.createTextNode(value["supplier"]));
             po_supplier.classList.add("align-middle");
 
+            const po_branch = document.createElement("td");
+            po_branch.appendChild(document.createTextNode(value["branch"]));
+            po_branch.classList.add("align-middle");
+
             const po_user = document.createElement("td");
             po_user.appendChild(document.createTextNode(value["user"]));
             po_user.classList.add("align-middle");
@@ -153,7 +158,7 @@ include '../includes/base_page/head.php';
             btn.classList.add("btn", "btn-falcon-primary", "btn-sm");
             req_actions.appendChild(btn);
 
-            this_row.append(po_number, po_supplier, po_date, po_user, req_status, req_actions);
+            this_row.append(po_number, po_supplier, po_date, po_user, po_branch, req_status, req_actions);
             table_body.appendChild(this_row);
           });
 

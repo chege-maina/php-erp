@@ -37,6 +37,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+        <div id="alert-div"></div>
         <h5 class="p-2">Manage Purchase Order Items</h5>
         <div class="card">
 
@@ -71,6 +72,12 @@ include '../includes/base_page/head.php';
                 <input type="text" id="created_by" class="form-control" readonly>
               </div>
 
+            </div>
+            <div class="row mt-3">
+              <div class="col-auto">
+                <span class="fw-bold mr-2">Status: </span>
+                <span id="requisition_status"></span>
+              </div>
             </div>
           </div>
         </div>
@@ -156,16 +163,48 @@ include '../includes/base_page/head.php';
       const tax_pc = document.querySelector("#tax_pc");
       const po_total = document.querySelector("#po_total");
       const table_body = document.querySelector("#table_body");
+      const requisition_status = document.querySelector("#requisition_status");
+      const submit_btn = document.querySelector("#submit");
+      let po_number;
 
-      // Clear datalist
+      function submitPO() {
+        const formData = new FormData();
+        formData.append("po_number", po_number);
+        console.log("PO", po_number);
+
+        fetch('../includes/update_po.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(result => {
+            console.log('Success:', result);
+            const alertVar =
+              `<div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>Success!</strong> ${result['message']}
+          <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+          </div>`;
+            var divAlert = document.querySelector("#alert-div");
+            divAlert.innerHTML = alertVar;
+            divAlert.scrollIntoView();
+            setTimeout(function() {
+              sessionStorage.clear();
+              history.back();
+            }, 2500);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      }
 
       document.addEventListener('DOMContentLoaded', function() {
         // Load Data
-        // if (sessionStorage.length <= 0) {
-        // window.history.back();
-        // }
-        const po_number = sessionStorage.getItem('po_number');
+        if (sessionStorage.length <= 0) {
+          window.history.back();
+        }
+        po_number = sessionStorage.getItem('po_number');
         po_nbr.innerHTML = po_number;
+        sessionStorage.clear();
         const formData = new FormData();
         formData.append("po_number", po_number);
 
@@ -185,6 +224,20 @@ include '../includes/base_page/head.php';
               tax_pc.value = value['tax_amt'];
               po_total.value = value['po_total'];
               created_by.value = value["user"];
+
+              switch (value["status"]) {
+                case "pending":
+                  requisition_status.innerHTML = `<span class="badge badge-soft-secondary">Pending</span>`;
+                  break;
+                case "approved":
+                  requisition_status.innerHTML = `<span class="badge badge-soft-success">Approved</span>`;
+                  submit_btn.disabled = true;
+                  break;
+                case "rejected":
+                  requisition_status.innerHTML = `<span class="badge badge-soft-warning">Rejected</span>`;
+                  break;
+              }
+
             });
 
             // Nested fetch
