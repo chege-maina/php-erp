@@ -31,22 +31,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } while (mysqli_next_result($conn));
         foreach ($table_items as $key => $value) {
 
-            $mysql = "INSERT INTO tbl_store_item (lpo_number, product_code, product_name, product_unit, qty, branch, product_cost, total)
+            $mysql = "INSERT INTO tbl_store_item (lpo_number, product_code, product_name, product_unit, qty, branch)
       VALUES('" . $po_number . "','" . $value["p_code"] . "','" . $value["p_name"] . "','" . $value["p_units"] . "',
-      '" . $value["p_quantity"] . "', '" . $branch . "','" . $value["p_cost"] . "' ,'" . $value["p_total"] . "')";
+      '" . $value["p_quantity_received"] . "', '" . $branch . "')";
             mysqli_query($conn, $mysql);
 
-            $sql = "UPDATE tbl_requisition_items SET status = 'done' WHERE status = 'approved' and branch= '$branch' and product_name='" . $value["p_name"] . "'";
-            mysqli_query($conn, $sql);
+
+            if ($value["p_quantity_received"] == $value["p_quantity"]) {
+                $sql = "UPDATE tbl_purchaseorder_items SET status = 'done' WHERE po_number = '$po_number' and product_name='" . $value["p_name"] . "'";
+                mysqli_query($conn, $sql);
+            } else {
+                $sql = "UPDATE tbl_purchaseorder_items SET status = 'partial' WHERE po_number = '$po_number' and product_name='" . $value["p_name"] . "'";
+                mysqli_query($conn, $sql);
+                $sql = "UPDATE tbl_purchaseorder SET status = 'partial' WHERE po_number = '$po_number'";
+                mysqli_query($conn, $sql);
+            }
         }
 
-        $sql = "SELECT * from tbl_requisition WHERE status= 'approved' and branch='$branch'";
+        $sql = "SELECT * from tbl_purchaseorder WHERE (status= 'approved' or status='partial') and branch='$branch'";
         $result = mysqli_query($conn, $sql);
         while ($row = mysqli_fetch_assoc($result)) {
-            $req_no = $row['requisition_No'];
+            $req_no = $row['po_number'];
 
-            $sql2 = "SELECT count(*) from tbl_requisition_items WHERE requisition_No='$req_no' and status='done'";
-            $sql1 = "SELECT count(*) from tbl_requisition_items WHERE requisition_No='$req_no'";
+            $sql2 = "SELECT count(*) from tbl_purchaseorder_items WHERE po_number='$req_no' and status='done'";
+            $sql1 = "SELECT count(*) from tbl_purchaseorder_items WHERE po_number='$req_no'";
 
             $result1 = mysqli_query($conn, $sql1);
             $result2 = mysqli_query($conn, $sql2);
@@ -60,13 +68,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $bal = $all - $done;
 
             if ($bal < 1) {
-                $sql = "UPDATE tbl_requisition SET status = 'done' WHERE requisition_No = '$req_no'";
+                $sql = "UPDATE tbl_purchaseorder SET status = 'done' WHERE po_number = '$req_no'";
                 mysqli_query($conn, $sql);
             }
         }
 
 
-        $message = "Purchase Order number " . $po_number . " Created Successfully..";
+        $message = "Goods Receipt Note " . $po_number . " Created Successfully..";
         echo json_encode($message);
     } else {
         // echo "Multiquery failed: " . $mysql;
