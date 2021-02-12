@@ -44,7 +44,13 @@ include '../includes/base_page/head.php';
           </div>
           <!--/.bg-holder-->
 
-          <div class="card-body fs--1 p-4">
+          <div class="card-body fs--1 pr-2">
+
+            <div class="d-flex align-items-center mb-2 flex-row" style="height: 5rem;">
+              <h5>PO. Number </h5>
+              <span id="po_nbr" class="text-info h2 ml-2"></span>
+            </div>
+
             <!-- Content is to start here -->
             <div class="row">
               <div class="col">
@@ -123,7 +129,7 @@ include '../includes/base_page/head.php';
           <div class="card-body fs--1 p-1">
             <div class="d-flex flex-row-reverse">
               <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitPO();">
-                Submit
+                Approve
               </button>
             </div>
             <!-- Content ends here -->
@@ -142,6 +148,7 @@ include '../includes/base_page/head.php';
     <script>
       const supplier_name = document.querySelector("#supplier_name");
       const po_branch = document.querySelector("#po_branch");
+      const po_nbr = document.querySelector("#po_nbr");
       const po_date = document.querySelector("#date");
       const created_by = document.querySelector("#created_by");
 
@@ -158,6 +165,7 @@ include '../includes/base_page/head.php';
         // window.history.back();
         // }
         const po_number = sessionStorage.getItem('po_number');
+        po_nbr.innerHTML = po_number;
         const formData = new FormData();
         formData.append("po_number", po_number);
 
