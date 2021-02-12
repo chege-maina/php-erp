@@ -121,6 +121,56 @@ include '../includes/base_page/head.php';
       const po_time = document.querySelector("#time");
       const po_invoice = document.querySelector("#invoice");
 
+      function updateTable(result) {
+        console.log('Result:', result);
+        table_body.innerHTML = "";
+        // return;
+        result.forEach((data) => {
+
+          let tr = document.createElement("tr");
+          // Id will be like 1Tank
+          tr.setAttribute("id", data["code"] + data["name"]);
+
+          let code_td = document.createElement("td");
+          code_td.appendChild(document.createTextNode(data["code"]));
+          code_td.classList.add("align-middle");
+
+          let name_td = document.createElement("td");
+          name_td.appendChild(document.createTextNode(data["name"]));
+          name_td.classList.add("align-middle", "w-25");
+
+          let units_td = document.createElement("td");
+          units_td.appendChild(document.createTextNode(data["unit"]));
+          units_td.classList.add("align-middle");
+
+          let qty_td = document.createElement("td");
+          qty_td.appendChild(document.createTextNode(data["qty"]));
+          qty_td.classList.add("align-middle");
+
+
+          let quantity = document.createElement("input");
+          quantity.setAttribute("type", "number");
+          quantity.setAttribute("required", "");
+          // quantity.setAttribute("readonly", "");
+          quantity.setAttribute("id", "q-" + data["name"] + "-" + data["code"]);
+          quantity.classList.add("form-control", "form-control-sm", "align-middle");
+          // quantity.setAttribute("data-ref", da["name"]);
+          quantity.setAttribute("min", 1);
+          // make sure the quantity is always greater than 0
+          quantity.setAttribute("onfocusout", "this.value = this.value <= 0 ? 1 : this.value;");
+          // quantity.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value);");
+          // quantity.setAttribute("onclick", "this.select();");
+          // quantity.value = data["qty"];
+          let quantityWrapper = document.createElement("td");
+          quantityWrapper.classList.add("m-2", "form-control-sm", "col-lg-2");
+          quantityWrapper.appendChild(quantity);
+
+          tr.append(code_td, name_td, units_td, qty_td, quantityWrapper);
+          table_body.appendChild(tr);
+
+        });
+      }
+
       function d_toString(value) {
         return value < 10 ? '0' + value : String(value);
       }
@@ -148,9 +198,10 @@ include '../includes/base_page/head.php';
             method: 'POST',
             body: formData
           })
-          .then(response => response.text())
+          .then(response => response.json())
           .then(result => {
             console.log('Success:', result);
+            updateTable(result);
           })
           .catch(error => {
             console.error('Error:', error);
