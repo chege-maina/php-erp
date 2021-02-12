@@ -136,7 +136,8 @@ include '../includes/base_page/head.php';
                 product_row['p_quantity'] = cell.innerHTML;
                 break;
               case 4:
-                if (Number(cell.firstChild.value) <= 0) {
+                const test_val = Number(cell.firstChild.value);
+                if (test_val <= 0 || test_val > Number(product_row['p_quantity'])) {
                   cell.firstChild.focus();
                   error_detected = true;
                 }
@@ -164,17 +165,19 @@ include '../includes/base_page/head.php';
 
         const formData = new FormData();
         formData.append("supplier_name", supplier_name.value);
-        formData.append("lpo_number", p_number.value);
-        formData.append("po_date", po_date.value);
-        formData.append("po_time", po_time.value);
-        formData.append("po_invoice", po_invoice.value);
-        formData.append("items", JSON.stringify(table_body_items));
+        formData.append("po_number", p_number.value);
+        formData.append("date", po_date.value);
+        formData.append("branch", user_branch);
+        formData.append("user", user_name);
+        formData.append("time", po_time.value);
+        formData.append("invoice", po_invoice.value);
+        formData.append("table_items", JSON.stringify(table_body_items));
 
-        fetch('https: //example.com/profile/avatar', {
+        fetch('../includes/add_items_supplier.php', {
             method: 'POST',
             body: formData
           })
-          .then(response => response.json())
+          .then(response => response.text())
           .then(result => {
             console.log('Success:', result);
           })
@@ -214,7 +217,7 @@ include '../includes/base_page/head.php';
           let quantity = document.createElement("input");
           quantity.setAttribute("type", "number");
           quantity.setAttribute("required", "");
-          // quantity.setAttribute("readonly", "");
+          quantity.setAttribute("max", data["qty"]);
           quantity.setAttribute("id", "q-" + data["name"] + "-" + data["code"]);
           quantity.classList.add("form-control", "form-control-sm", "align-middle");
           // quantity.setAttribute("data-ref", da["name"]);
