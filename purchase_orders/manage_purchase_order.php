@@ -68,11 +68,11 @@ include '../includes/base_page/head.php';
             <table class="table table-sm table-striped" id="table-main">
               <thead>
                 <tr>
-                  <th>PO Number</th>
+                  <th class="col-lg-1">No. </th>
                   <th>Supplier </th>
-                  <th>Date </th>
+                  <th class="col-lg-1">Date </th>
                   <th>Created By</th>
-                  <th>Branch</th>
+                  <th class="col-lg-1">Branch</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
