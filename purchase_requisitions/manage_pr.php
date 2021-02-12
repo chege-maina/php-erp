@@ -91,12 +91,12 @@ include '../includes/base_page/head.php';
                 <table class="table table-sm table-striped fs--1 mb-0">
                   <thead>
                     <tr>
-                      <th>Product Code</th>
-                      <th class="w-25">Product Name</th>
+                      <th class="col-lg-1">Code</th>
+                      <th class="w-25">Name</th>
                       <th>Balance</th>
                       <th class="col-lg-1">Quantity</th>
                       <th>Units</th>
-                      <th class="col-lg-2">Actions</th>
+                      <th class="col-lg-3">Actions</th>
                     </tr>
                   </thead>
                   <tbody id="table_body"></tbody>

@@ -462,7 +462,7 @@ include '../includes/base_page/head.php';
             const product_unit = document.querySelector("#product_unit");
             const product_category = document.querySelector("#product_category");
             const applicable_tax = document.querySelector("#applicable_tax");
-            const product_supplier = document.querySelector("#product_supplier");
+            // const product_supplier = document.querySelector("#product_supplier");
 
 
             // Clear it
@@ -518,35 +518,36 @@ include '../includes/base_page/head.php';
                   opt.appendChild(document.createTextNode(value['tax'] + "%"));
                   opt.value = value['tax'];
                   applicable_tax.appendChild(opt);
+                  removeSpinner();
                 });
               });
 
             // Clear it
-            product_supplier.innerHTML = "";
-            // Add the no-selectable item first
-            opt = document.createElement("option");
-            opt.appendChild(document.createTextNode("-- Select Supplier --"));
-            opt.setAttribute("value", "");
-            opt.setAttribute("disabled", "");
-            opt.setAttribute("selected", "");
-            product_supplier.appendChild(opt);
-            // Populate suppliers combobox
-            fetch('../includes/load_supplier.php')
-              .then(response => response.json())
-              .then(data => {
-                console.log(data);
-                data.forEach((value) => {
-                  console.log(value);
-                  let opt = document.createElement("option");
-                  // Convert the supplier name to lowercase first so that it can be capitalized
-                  opt.appendChild(document.createTextNode(value['supplier'].toLowerCase()));
-                  opt.style.textTransform = "capitalize";
-                  opt.value = value['supplier'];
-                  product_supplier.appendChild(opt);
-                  // Update spinner we are done
-                  removeSpinner();
-                });
-              });
+            // product_supplier.innerHTML = "";
+            // // Add the no-selectable item first
+            // opt = document.createElement("option");
+            // opt.appendChild(document.createTextNode("-- Select Supplier --"));
+            // opt.setAttribute("value", "");
+            // opt.setAttribute("disabled", "");
+            // opt.setAttribute("selected", "");
+            // product_supplier.appendChild(opt);
+            // // Populate suppliers combobox
+            // fetch('../includes/load_supplier.php')
+            //   .then(response => response.json())
+            //   .then(data => {
+            //     console.log(data);
+            //     data.forEach((value) => {
+            //       console.log(value);
+            //       let opt = document.createElement("option");
+            //       // Convert the supplier name to lowercase first so that it can be capitalized
+            //       opt.appendChild(document.createTextNode(value['supplier'].toLowerCase()));
+            //       opt.style.textTransform = "capitalize";
+            //       opt.value = value['supplier'];
+            //       product_supplier.appendChild(opt);
+            //       // Update spinner we are done
+
+            //     });
+            //   });
           }
 
           function calculatePrices() {
