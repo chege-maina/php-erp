@@ -41,22 +41,22 @@ include '../includes/base_page/head.php';
                 <div class="card">
                     <div class="card-body fs--1 p-4">
                         <!-- Content is to start here -->
-                        <div class="row">
+                        <div class="row flex">
                             <div class="col">
                                 <label for="supplier_name" class="form-label">Supplier Name*</label>
                                 <input type="text" name="supplier_name" id="supplier_name" class="form-control" readonly>
                             </div>
                             <div class="col">
-                                <label for="lpo" class="form-label">LPO Number*</label>
-                                <input type="text" name="lpo" id="lpo" class="form-control" readonly>
+                                <label for="po_number" class="form-label">LPO Number*</label>
+                                <input type="text" name="po_number" id="po_number" class="form-control" readonly>
                             </div>
                             <div class="col">
-                                <label for="date" class="form-label">Purchase Date</label>
+                                <label for="date" class="form-label">Date</label>
                                 <!-- autofill current date  -->
                                 <input type="date" value="<?php echo date("Y-m-d"); ?>" id="date" class="form-control" readonly>
                             </div>
                             <div class="col">
-                                <label for="time" class="form-label">Purchase Time</label>
+                                <label for="time" class="form-label">Time</label>
                                 <!-- autofill current date  -->
                                 <input type="time" id="time" class="form-control" readonly>
                             </div>
@@ -64,8 +64,8 @@ include '../includes/base_page/head.php';
                         </div>
                         <div class="row pb-2 ">
                             <div class="col-sm-3 mt-2 ">
-                                <label for="lpo" class="form-label">Enter Invoice No./Delivery Note No.*</label>
-                                <input type="text" name="lpo" id="lpo" class="form-control">
+                                <label for="invoice" class="form-label">Enter Invoice No./Delivery Note No.*</label>
+                                <input type="text" name="invoice" id="invoice" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -140,7 +140,13 @@ include '../includes/base_page/head.php';
 
                 time.value = hours + ":" + minutes;
             });
+            document.addEventListener('DOMContentLoaded', function() {
+                const po_number = sessionStorage.getItem('po_number');
+                po_number.innerHTML = po_number;
+                const formData = new FormData();
+                formData.append("po_number", po_number);
 
+            });
             // Clear datalist
         </script>
 
