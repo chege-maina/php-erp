@@ -41,7 +41,7 @@ include '../includes/base_page/head.php';
                 <div class="card">
                     <div class="card-body fs--1 p-4">
                         <!-- Content is to start here -->
-                        <div class="row flex">
+                        <div class="row">
                             <div class="col">
                                 <label for="supplier_name" class="form-label">Supplier Name*</label>
                                 <input type="text" name="supplier_name" id="supplier_name" class="form-control" readonly>
