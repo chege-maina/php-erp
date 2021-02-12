@@ -143,11 +143,12 @@ include '../includes/base_page/head.php';
         const formData = new FormData();
         formData.append("po_number", po_number);
 
-        fetch('../includes/.php', {
-            method: 'PUT',
+
+        fetch('../includes/receive_goods_manage_items.php', {
+            method: 'POST',
             body: formData
           })
-          .then(response => response.json())
+          .then(response => response.text())
           .then(result => {
             console.log('Success:', result);
           })
