@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2021 at 11:58 AM
+-- Generation Time: Feb 12, 2021 at 12:53 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -101,7 +101,6 @@ CREATE TABLE `tbl_product` (
   `dpp_inc_tax` int(50) NOT NULL,
   `applicable_tax` int(50) NOT NULL,
   `profit_margin` int(50) NOT NULL,
-  `product_supplier` varchar(50) NOT NULL,
   `user` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -109,10 +108,10 @@ CREATE TABLE `tbl_product` (
 -- Dumping data for table `tbl_product`
 --
 
-INSERT INTO `tbl_product` (`product_code`, `product_name`, `product_unit`, `product_category`, `min_level`, `max_level`, `reorder`, `product_image`, `dsp_price`, `amount_before_tax`, `dpp_inc_tax`, `applicable_tax`, `profit_margin`, `product_supplier`, `user`) VALUES
-(11, 'TANK', 'Piece', 'tanks', '12', '13', '13', 'weretrtet.png', 0, 0, 0, 0, 0, '', ''),
-(12, 'TARAJI', 'PIECES', 'PENCIL', '9', '17', '33', 'OIP.jpg', 3000, 0, 0, 0, 0, '', ''),
-(13, 'CHANK', 'asd,jbhkj', 'TANK', '667', '667', '76', '/assets/img/item-images/php.png', 0, 0, 0, 0, 0, '', '');
+INSERT INTO `tbl_product` (`product_code`, `product_name`, `product_unit`, `product_category`, `min_level`, `max_level`, `reorder`, `product_image`, `dsp_price`, `amount_before_tax`, `dpp_inc_tax`, `applicable_tax`, `profit_margin`, `user`) VALUES
+(11, 'TANK', 'Piece', 'tanks', '12', '13', '13', 'weretrtet.png', 0, 0, 0, 0, 0, ''),
+(12, 'TARAJI', 'PIECES', 'PENCIL', '9', '17', '33', 'OIP.jpg', 3000, 0, 0, 0, 0, ''),
+(13, 'CHANK', 'asd,jbhkj', 'TANK', '667', '667', '76', '/assets/img/item-images/php.png', 0, 0, 0, 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -132,6 +131,13 @@ CREATE TABLE `tbl_purchaseorder` (
   `tax_amt` varchar(50) NOT NULL,
   `po_total` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_purchaseorder`
+--
+
+INSERT INTO `tbl_purchaseorder` (`po_number`, `supplier_name`, `branch`, `date`, `time`, `user`, `status`, `before_tax`, `tax_amt`, `po_total`) VALUES
+(1, 'KANYE', 'MM2', '2021-02-11', '14:47', 'Jael Joel', 'approved', '9090', '1454.4', '10544.4');
 
 -- --------------------------------------------------------
 
@@ -199,9 +205,9 @@ CREATE TABLE `tbl_requisition_items` (
 --
 
 INSERT INTO `tbl_requisition_items` (`id`, `requisition_No`, `product_code`, `product_name`, `product_unit`, `product_quantity`, `status`, `branch`, `balance`) VALUES
-(1, '1', '2', 'TARAJI', 'PIECES', '1', 'pending', 'MM2', '33'),
-(2, '2', '3', 'CHANK', 'asd,jbhkj', '1', 'pending', 'MM2', '0'),
-(3, '3', '3', 'CHANK', 'asd,jbhkj', '1', 'pending', 'MM1', '50');
+(1, '1', '2', 'TARAJI', 'PIECES', '1', 'approved', 'MM2', '33'),
+(2, '2', '3', 'CHANK', 'asd,jbhkj', '1', 'approved', 'MM2', '0'),
+(3, '3', '3', 'CHANK', 'asd,jbhkj', '1', 'approved', 'MM1', '50');
 
 -- --------------------------------------------------------
 
@@ -253,10 +259,10 @@ INSERT INTO `tbl_sale_items` (`product_code`, `product_name`, `qty`, `sales_invo
 CREATE TABLE `tbl_store` (
   `date` date NOT NULL,
   `time` varchar(10) NOT NULL,
-  `branch_location` varchar(100) NOT NULL,
-  `warehouse_manager` varchar(100) NOT NULL,
-  `supplier_id` varchar(100) NOT NULL,
-  `store_invoice_no` varchar(100) NOT NULL,
+  `branch` varchar(100) NOT NULL,
+  `user` varchar(100) NOT NULL,
+  `supplier_name` varchar(100) NOT NULL,
+  `invoice_no` varchar(100) NOT NULL,
   `receipt_no` bigint(100) NOT NULL,
   `lpo_number` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -271,22 +277,23 @@ CREATE TABLE `tbl_store_item` (
   `qty` varchar(50) NOT NULL,
   `product_name` varchar(100) NOT NULL,
   `product_code` varchar(100) NOT NULL,
-  `branch_location` varchar(50) NOT NULL,
+  `branch` varchar(50) NOT NULL,
   `receipt_no` varchar(100) NOT NULL,
-  `id` bigint(20) NOT NULL
+  `id` bigint(20) NOT NULL,
+  `lpo_number` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_store_item`
 --
 
-INSERT INTO `tbl_store_item` (`qty`, `product_name`, `product_code`, `branch_location`, `receipt_no`, `id`) VALUES
-('100', 'TANK', '1', 'MM1', '34565', 1),
-('30', 'TARAJI', '2', 'MM2', '25365', 2),
-('100', 'CHANK', '3', 'MM1', '977557', 3),
-('33', 'TARAJI', '2', 'MM2', '997898', 4),
-('3', 'TARAJI', '2', 'MM2', '32552', 5),
-('50', 'TARAJI', '2', 'MM1', '456346', 6);
+INSERT INTO `tbl_store_item` (`qty`, `product_name`, `product_code`, `branch`, `receipt_no`, `id`, `lpo_number`) VALUES
+('100', 'TANK', '1', 'MM1', '34565', 1, ''),
+('30', 'TARAJI', '2', 'MM2', '25365', 2, ''),
+('100', 'CHANK', '3', 'MM1', '977557', 3, ''),
+('33', 'TARAJI', '2', 'MM2', '997898', 4, ''),
+('3', 'TARAJI', '2', 'MM2', '32552', 5, ''),
+('50', 'TARAJI', '2', 'MM1', '456346', 6, '');
 
 -- --------------------------------------------------------
 
@@ -302,8 +309,7 @@ CREATE TABLE `tbl_supplier` (
   `postal_address` varchar(50) NOT NULL,
   `physical_address` varchar(50) NOT NULL,
   `tax_id` varchar(50) NOT NULL,
-  `payment_terms` varchar(100) NOT NULL,
-  `number_of_days` varchar(50) NOT NULL DEFAULT '30'
+  `payment_terms` varchar(30) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -443,8 +449,7 @@ ALTER TABLE `tbl_customer`
 --
 ALTER TABLE `tbl_product`
   ADD PRIMARY KEY (`product_code`),
-  ADD UNIQUE KEY `product_name` (`product_name`),
-  ADD KEY `supplier_id` (`product_supplier`);
+  ADD UNIQUE KEY `product_name` (`product_name`);
 
 --
 -- Indexes for table `tbl_purchaseorder`
@@ -562,7 +567,7 @@ ALTER TABLE `tbl_product`
 -- AUTO_INCREMENT for table `tbl_purchaseorder`
 --
 ALTER TABLE `tbl_purchaseorder`
-  MODIFY `po_number` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `po_number` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_purchaseorder_items`
