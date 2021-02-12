@@ -91,17 +91,10 @@ include '../includes/base_page/head.php';
               </div>
             </div>
 
-            <div class="row m-3">
-              <div class="col"></div>
-              <div class="col col-auto">
-                <input class="form-control form-control-sm" type="text" placeholder="Quantity Received" value="" />
-              </div>
-            </div>
-
             <div class="row my-3">
               <div class="col">
                 <div class="col">
-                  <button class="btn btn-falcon-primary btn-sm m-2" role="button"> Submit </button>
+                  <button class="btn btn-falcon-primary btn-sm m-2" role="button" onclick="createReceiptNote();"> Submit </button>
                 </div>
               </div>
             </div>
@@ -120,6 +113,76 @@ include '../includes/base_page/head.php';
       const po_date = document.querySelector("#date");
       const po_time = document.querySelector("#time");
       const po_invoice = document.querySelector("#invoice");
+
+      function createReceiptNote() {
+        let table_body_items = [];
+        let error_detected = false;
+        table_body.childNodes.forEach(row => {
+
+          let i = 0;
+          let product_row = {};
+          row.childNodes.forEach(cell => {
+            switch (i) {
+              case 0:
+                product_row['p_code'] = cell.innerHTML;
+                break;
+              case 1:
+                product_row['p_name'] = cell.innerHTML;
+                break;
+              case 2:
+                product_row['p_units'] = cell.innerHTML;
+                break;
+              case 3:
+                product_row['p_quantity'] = cell.innerHTML;
+                break;
+              case 4:
+                if (Number(cell.firstChild.value) <= 0) {
+                  cell.firstChild.focus();
+                  error_detected = true;
+                }
+                product_row['p_quantity_received'] = cell.firstChild.value;
+                break;
+            }
+
+            i++;
+            i = i >= 5 ? 0 : i;
+
+          });
+
+          // if (product_row['p_sup'] === supplier.value) {
+          table_body_items.push(product_row);
+          // }
+        });
+
+        if (error_detected) {
+          return;
+        } else if (po_invoice.value.trim() === "") {
+          po_invoice.focus();
+          return
+        }
+        console.log(table_body_items);
+
+        const formData = new FormData();
+        formData.append("supplier_name", supplier_name.value);
+        formData.append("lpo_number", p_number.value);
+        formData.append("po_date", po_date.value);
+        formData.append("po_time", po_time.value);
+        formData.append("po_invoice", po_invoice.value);
+        formData.append("items", JSON.stringify(table_body_items));
+
+        fetch('https: //example.com/profile/avatar', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(result => {
+            console.log('Success:', result);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+
+      }
 
       function updateTable(result) {
         console.log('Result:', result);
