@@ -20,6 +20,7 @@ $query = "SELECT * FROM tbl_purchaseorder WHERE status='$stat'";
                    'supplier'=>$row['supplier_name'],
                    'date'=>$row['date'],
                    'user'=>$row['user'],
+                   'branch'=>$row['branch'],
                    'status'=>$row['status'])
                    );
                 }
@@ -27,4 +28,3 @@ $query = "SELECT * FROM tbl_purchaseorder WHERE status='$stat'";
                 echo json_encode($response);
 
 mysqli_close($conn);
-?>
