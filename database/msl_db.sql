@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2021 at 01:11 PM
+-- Generation Time: Feb 12, 2021 at 01:59 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -293,22 +293,23 @@ CREATE TABLE `tbl_store_item` (
   `product_name` varchar(100) NOT NULL,
   `product_code` varchar(100) NOT NULL,
   `branch` varchar(50) NOT NULL,
-  `receipt_no` varchar(100) NOT NULL,
+  `receipt_no` varchar(50) NOT NULL,
   `id` bigint(20) NOT NULL,
-  `lpo_number` varchar(100) NOT NULL
+  `lpo_number` varchar(100) NOT NULL,
+  `product_unit` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_store_item`
 --
 
-INSERT INTO `tbl_store_item` (`qty`, `product_name`, `product_code`, `branch`, `receipt_no`, `id`, `lpo_number`) VALUES
-('100', 'TANK', '1', 'MM1', '34565', 1, ''),
-('30', 'TARAJI', '2', 'MM2', '25365', 2, ''),
-('100', 'CHANK', '3', 'MM1', '977557', 3, ''),
-('33', 'TARAJI', '2', 'MM2', '997898', 4, ''),
-('3', 'TARAJI', '2', 'MM2', '32552', 5, ''),
-('50', 'TARAJI', '2', 'MM1', '456346', 6, '');
+INSERT INTO `tbl_store_item` (`qty`, `product_name`, `product_code`, `branch`, `receipt_no`, `id`, `lpo_number`, `product_unit`) VALUES
+('100', 'TANK', '1', 'MM1', '', 1, '', ''),
+('30', 'TARAJI', '2', 'MM2', '', 2, '', ''),
+('100', 'CHANK', '3', 'MM1', '', 3, '', ''),
+('33', 'TARAJI', '2', 'MM2', '', 4, '', ''),
+('3', 'TARAJI', '2', 'MM2', '', 5, '', ''),
+('50', 'TARAJI', '2', 'MM1', '', 6, '', '');
 
 -- --------------------------------------------------------
 
@@ -524,8 +525,7 @@ ALTER TABLE `tbl_store`
 -- Indexes for table `tbl_store_item`
 --
 ALTER TABLE `tbl_store_item`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `receipt_no` (`receipt_no`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_supplier`
