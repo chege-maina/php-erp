@@ -189,7 +189,7 @@ include '../includes/base_page/head.php';
                     formData.append("date2", req_date_to.value);
                     // formData.append("status", r_status.value);
                     formData.append("supplier", user_branch);
-                    fetch('../includes/filter_purchaseorder.php', {
+                    fetch('../includes/filter_receive_goods.php', {
                             method: 'POST',
                             body: formData
                         })
