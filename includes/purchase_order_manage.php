@@ -28,4 +28,3 @@ $query = "SELECT * FROM tbl_purchaseorder WHERE status='$stat'";
                 echo json_encode($response);
 
 mysqli_close($conn);
-?>
