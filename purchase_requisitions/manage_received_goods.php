@@ -84,7 +84,7 @@ include '../includes/base_page/head.php';
             <script>
                 const req_date_from = document.querySelector("#req_date_from");
                 const req_date_to = document.querySelector("#req_date_to");
-                // const r_status = document.querySelector("#status");
+                //   const r_status = document.querySelector("#status");
                 const table_body = document.querySelector("#table_body");
 
                 function updateDateFilters() {
@@ -110,19 +110,19 @@ include '../includes/base_page/head.php';
                         po_number.appendChild(document.createTextNode(value["po_number"]));
                         po_number.classList.add("align-middle");
 
-                        const po_date = document.createElement("td");
-                        po_date.appendChild(document.createTextNode(value["date"]));
-                        po_date.classList.add("align-middle");
+                        const date = document.createElement("td");
+                        date.appendChild(document.createTextNode(value["date"]));
+                        date.classList.add("align-middle");
 
-                        const po_supplier = document.createElement("td");
-                        po_supplier.appendChild(document.createTextNode(value["supplier"]));
-                        po_supplier.classList.add("align-middle");
+                        const supplier = document.createElement("td");
+                        supplier.appendChild(document.createTextNode(value["supplier"]));
+                        supplier.classList.add("align-middle");
 
-                        const po_user = document.createElement("td");
-                        po_user.appendChild(document.createTextNode(value["user"]));
-                        po_user.classList.add("align-middle");
+                        const user = document.createElement("td");
+                        user.appendChild(document.createTextNode(value["user"]));
+                        user.classList.add("align-middle");
 
-                        const req_status = document.createElement("td");
+                        const status = document.createElement("td");
                         const tmp_status = value["status"];
                         const badge = document.createElement("span");
                         badge.appendChild(document.createTextNode(tmp_status));
@@ -136,17 +136,17 @@ include '../includes/base_page/head.php';
                             badge.classList.add("badge-soft-danger");
                         }
 
-                        req_status.appendChild(badge);
-                        req_status.classList.add("align-middle");
+                        status.appendChild(badge);
+                        status.classList.add("align-middle");
 
                         const req_actions = document.createElement("td");
                         const btn = document.createElement("button");
                         btn.setAttribute("onclick", "detailedView(" + value["po_number"] + ")");
-                        btn.appendChild(document.createTextNode("Manage"));
+                        btn.appendChild(document.createTextNode("Receive Goods"));
                         btn.classList.add("btn", "btn-falcon-primary", "btn-sm");
                         req_actions.appendChild(btn);
 
-                        this_row.append(po_number, po_supplier, po_date, po_user, req_status, req_actions);
+                        this_row.append(po_number, supplier, date, user, status, req_actions);
                         table_body.appendChild(this_row);
                     });
 
@@ -172,7 +172,7 @@ include '../includes/base_page/head.php';
                     req_date_to.value = String(date.getFullYear()) + '-' + month + '-' + day_to;
                     req_date_to.setAttribute("min", req_date_from.value);
 
-                    fetch('../includes/purchase_order_manage.php')
+                    fetch('../includes/load_receive_mgnt.php')
                         .then(response => response.json())
                         .then(data => {
                             console.log(data);
