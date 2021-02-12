@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2021 at 12:53 PM
+-- Generation Time: Feb 12, 2021 at 01:11 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -32,6 +32,21 @@ CREATE TABLE `supplier_product` (
   `supplier_name` varchar(50) NOT NULL,
   `product_cost` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `supplier_product`
+--
+
+INSERT INTO `supplier_product` (`product_name`, `supplier_name`, `product_cost`) VALUES
+('CHANK', 'KANYE', '8890'),
+('CHANK', 'KIM JONG', '3564'),
+('CHANK', 'KIM JONTE', '877'),
+('TANK', 'KANYE', '778'),
+('TANK', 'KIM JONG', '2679'),
+('TANK', 'KIM JONTE', '77'),
+('TARAJI', 'KANYE', '200'),
+('TARAJI', 'KIM JONG', '1660'),
+('TARAJI', 'KIM JONTE', '277');
 
 -- --------------------------------------------------------
 
@@ -309,8 +324,18 @@ CREATE TABLE `tbl_supplier` (
   `postal_address` varchar(50) NOT NULL,
   `physical_address` varchar(50) NOT NULL,
   `tax_id` varchar(50) NOT NULL,
-  `payment_terms` varchar(30) NOT NULL
+  `payment_terms` varchar(100) NOT NULL,
+  `number_of_days` varchar(50) NOT NULL DEFAULT '30'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_supplier`
+--
+
+INSERT INTO `tbl_supplier` (`supplier_id`, `name`, `email`, `tel_no`, `postal_address`, `physical_address`, `tax_id`, `payment_terms`, `number_of_days`) VALUES
+(241, 'KIM JONG', 'jjj', '98839ukjn', ',jo8o8j0j', 'kjjh8809pjjpok', 'klkjpjj0k', 'jkhohpi', '30'),
+(242, 'KIM JONTE', 'jjjhhhh', '98839ukjn', ',jo8o8j0j', 'kjjh8809pjjpok', 'klkjpjj0k', 'jkhohpi', '30'),
+(243, 'KANYE', 'jjjhhhhhh', '98839ukjn', ',jo8o8j0j', 'kjjh8809pjjpok', 'klkjpjj0k', 'jkhohpi', '30');
 
 -- --------------------------------------------------------
 
@@ -609,7 +634,7 @@ ALTER TABLE `tbl_store_item`
 -- AUTO_INCREMENT for table `tbl_supplier`
 --
 ALTER TABLE `tbl_supplier`
-  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=244;
 
 --
 -- AUTO_INCREMENT for table `tbl_transfer`
