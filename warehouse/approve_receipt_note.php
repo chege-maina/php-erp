@@ -37,12 +37,33 @@ include '../includes/base_page/head.php';
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <div id="alert-div"></div>
         <h5 class="mb-2">Approve Receipt Note</h5>
+
+
         <div class="card">
 
           <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/illustrations/corner-4.png);">
           </div>
 
           <div class="card-body fs--1 p-4 position-relative">
+
+
+
+            <div class="row">
+              <div class="col">
+                <select class="form-select form-select-sm" name="product_category" id="product_category" required>
+                  <option value disabled selected>
+                    -- Select Receipt Note Number --
+                  </option>
+                </select>
+              </div>
+              <div class="col">
+                <button class="btn btn-falcon-primary btn-sm" id="selectReceipt" onclick="selectReceipt();">
+                  Select
+                </button>
+              </div>
+            </div>
+            <hr>
+
 
             <div class="row flex">
               <div class="col">
