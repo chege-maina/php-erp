@@ -196,22 +196,6 @@ include '../includes/base_page/head.php';
               </table>
             </div>
           </div>
-          <h5 class="p-2 mt-4">Supplier</h5>
-          <div class="card">
-            <div class="card-body fs--1 px-3">
-              <table class="table table-striped table-sm" id="table_id">
-                <thead>
-                  <tr>
-                    <th scope="col">Product Name</th>
-                    <th scope="col" class="w-25">Product Cost</th>
-                    <th scope="col">Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="table_body">
-                </tbody>
-              </table>
-            </div>
-          </div>
           <input type="submit" class="btn btn-falcon-primary m-2" name="submit" id="submit" value="Submit">
         </form>
         <!-- Content ends here -->
@@ -422,7 +406,7 @@ include '../includes/base_page/head.php';
                   divAlert.innerHTML = alertVar;
                   divAlert.scrollIntoView();
                   setTimeout(function() {
-                    location.reload();
+                    location.href = "../supplier/create.php"
                   }, 2500);
                 } else {
                   const alertVar =
