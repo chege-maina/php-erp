@@ -200,7 +200,7 @@ include '../includes/base_page/head.php';
 
               // make sure the quantity is always greater than 0
               quantity.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
-              quantity.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value);");
+              quantity.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
               quantity.setAttribute("onclick", "this.select();");
               items_in_table[item]['quantity'] = ('quantity' in items_in_table[item] && items_in_table[item]['quantity'] > 0) ?
                 items_in_table[item]['quantity'] : 1;
@@ -227,7 +227,11 @@ include '../includes/base_page/head.php';
             return;
           }
 
-          function addQuantityToReqItem(item, value) {
+          function addQuantityToReqItem(item, value, max) {
+            value = Number(value);
+            max = Number(max);
+            value = value <= 0 ? 1 : value;
+            value = value > max ? max : value;
             items_in_table[item]['quantity'] = value;
             console.log(value);
           }
