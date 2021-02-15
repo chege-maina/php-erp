@@ -298,7 +298,7 @@ include '../includes/base_page/head.php';
                             formData.append("table_items", JSON.stringify(table_items));
 
                             // Send the data
-                            fetch('../includes/create_requisition_items.php', {
+                            fetch('../includes/request_transfer.php', {
                                     method: 'POST',
                                     body: formData
                                 })

@@ -28,5 +28,3 @@ $query = "SELECT * FROM tbl_requisition WHERE status='$stat' and branch='$branch
                 echo json_encode($response);
 
 mysqli_close($conn);
-?>
-    

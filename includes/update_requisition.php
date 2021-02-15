@@ -32,9 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $response['message'] = "Selected Requisition Approved..";
   }
 
-
-
-
   echo json_encode($response);
 
   mysqli_close($conn);
