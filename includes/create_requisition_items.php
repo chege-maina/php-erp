@@ -26,22 +26,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // echo "-----------------\n";
       }
     } while (mysqli_next_result($conn));
+
+    foreach ($table_items as $key => $value) {
+
+      $mysql = "INSERT INTO tbl_requisition_items (requisition_No, product_code, product_name, product_unit, product_quantity, branch, balance)
+  VALUES('" . $requisition_number . "','" . $value["code"] . "','" . $value["name"] . "','" . $value["unit"] . "',
+  '" . $value["quantity"] . "', '" . $user_branch . "','" . $value["balance"] . "')";
+      mysqli_query($conn, $mysql);
+    }
+
+
+    $message = "Requisition Number " . $requisition_number . " Created Successfully..";
+    echo json_encode($message);
   } else {
     echo "Multiquery failed";
   }
-
-  foreach ($table_items as $key => $value) {
-
-    $mysql = "INSERT INTO tbl_requisition_items (requisition_No, product_code, product_name, product_unit, product_quantity, branch, balance)
-  VALUES('" . $requisition_number . "','" . $value["code"] . "','" . $value["name"] . "','" . $value["unit"] . "',
-  '" . $value["quantity"] . "', '" . $user_branch . "','" . $value["balance"] . "')";
-    mysqli_query($conn, $mysql);
-  }
-
-
- $message ="Requisition Number ".$requisition_number." Created Successfully..";
-  echo json_encode($message);
 }
-  
-  mysqli_close($conn);
-  ?>
+mysqli_close($conn);
