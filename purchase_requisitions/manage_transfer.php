@@ -36,7 +36,7 @@ include '../includes/base_page/head.php';
                 <!-- =========================================================== -->
                 <!-- body begins here -->
                 <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-                <h5 class="p-2">Manage Transfer</h5>
+                <h5 class="p-2">Manage Transfers</h5>
                 <div class="card">
                     <div class="card-body fs--1 p-4">
                         <!-- Content is to start here -->
