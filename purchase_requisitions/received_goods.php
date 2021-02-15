@@ -191,7 +191,7 @@ include '../includes/base_page/head.php';
             divAlert.innerHTML = alertVar;
             divAlert.scrollIntoView();
             setTimeout(function() {
-              location.reload();
+              location.href = "manage_received_goods.php"
             }, 2500);
 
           })
