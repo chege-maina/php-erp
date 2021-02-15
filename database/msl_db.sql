@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2021 at 08:26 AM
+-- Generation Time: Feb 15, 2021 at 10:22 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -47,6 +47,14 @@ CREATE TABLE `tbl_branch` (
   `postal_address` varchar(20) NOT NULL,
   `physical_address` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_branch`
+--
+
+INSERT INTO `tbl_branch` (`branch_id`, `branch_name`, `email`, `tel_no`, `postal_address`, `physical_address`) VALUES
+(1, 'MM1', 'war2@maisha.com', '+254756473898', '567-00100', 'Ruiru,Nairobi'),
+(2, 'MM2', 'war@maisha.com', '+254743120978', '8976-00100', 'Bungoma, Kenya');
 
 -- --------------------------------------------------------
 
@@ -227,7 +235,8 @@ CREATE TABLE `tbl_store_item` (
   `receipt_no` varchar(50) NOT NULL,
   `id` bigint(20) NOT NULL,
   `lpo_number` varchar(100) NOT NULL,
-  `product_unit` varchar(50) NOT NULL
+  `product_unit` varchar(50) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -474,7 +483,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_branch`
 --
 ALTER TABLE `tbl_branch`
-  MODIFY `branch_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `branch_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_category`
