@@ -15,7 +15,7 @@ $query = "SELECT product_code, product_name, product_unit, sum(product_quantity)
 	while($row = mysqli_fetch_assoc($result)){
         $prodnme = $row['product_name'];
 
-        $query1 = "SELECT * FROM supplier_product WHERE product_name='$prodnme' ORDER BY product_cost DESC";
+        $query1 = "SELECT * FROM supplier_product WHERE product_name='$prodnme' ORDER BY product_cost ASC";
         $result1 = mysqli_query($conn, $query1);
         $response1 = array();
         while($row1 = mysqli_fetch_assoc($result1)){
@@ -45,6 +45,3 @@ $query = "SELECT product_code, product_name, product_unit, sum(product_quantity)
                 echo json_encode($message);
             }
             mysqli_close($conn);
-
-?>
-    

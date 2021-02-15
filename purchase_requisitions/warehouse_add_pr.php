@@ -124,6 +124,7 @@ include '../includes/base_page/head.php';
             fetch('../includes/requisition_items.php')
               .then(response => response.json())
               .then(data => {
+                console.log(data)
                 data.forEach((value) => {
                   all_requisitionable_items[value["product_name"]] = {
                     name: value["product_name"],

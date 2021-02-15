@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $mysql = "INSERT INTO tbl_store (supplier_name, branch, date, time, user, 
   invoice_no, lpo_number) VALUES ('" . $supplier_name . "', 
-  '" . $branch . "', '" . $date . "', '" . $time . "', '" . $user . "', " . $invoice . ", " . $po_number . ");";
+  '" . $branch . "', '" . $date . "', '" . $time . "', '" . $user . "', '" . $invoice . "', " . $po_number . ");";
     $mysql .= "SELECT receipt_no FROM tbl_store ORDER BY receipt_no DESC LIMIT 1";
 
     if (mysqli_multi_query($conn, $mysql)) {
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             /* store first result set */
             if ($result = mysqli_store_result($conn)) {
                 while ($row = mysqli_fetch_row($result)) {
-                    $po_number = $row[0];
+                    $rec_no = $row[0];
                 }
                 mysqli_free_result($result);
             }
@@ -31,8 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } while (mysqli_next_result($conn));
         foreach ($table_items as $key => $value) {
 
-            $mysql = "INSERT INTO tbl_store_item (lpo_number, product_code, product_name, product_unit, qty, branch)
-      VALUES('" . $po_number . "','" . $value["p_code"] . "','" . $value["p_name"] . "','" . $value["p_units"] . "',
+            $mysql = "INSERT INTO tbl_store_item (receipt_no, lpo_number, product_code, product_name, product_unit, qty, branch)
+      VALUES('" . $rec_no . "','" . $po_number . "','" . $value["p_code"] . "','" . $value["p_name"] . "','" . $value["p_units"] . "',
       '" . $value["p_quantity_received"] . "', '" . $branch . "')";
             mysqli_query($conn, $mysql);
 
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo json_encode($message);
     } else {
         // echo "Multiquery failed: " . $mysql;
-        echo "Multi query failed: (" . $conn->errno . ") " . $conn->error;
+        echo "Multi query failed: (" . $conn->errno . ") " . $conn->error . "sql: " . $mysql;
     }
 }
 
