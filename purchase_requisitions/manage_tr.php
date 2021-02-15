@@ -58,12 +58,12 @@ include '../includes/base_page/head.php';
                                     <div class="col">
                                         <!-- Make Combo -->
 
-                                        <label class="form-label" for="product_category">Branch*</label>
+                                        <label class="form-label" for="product_branch">Branch*</label>
                                         <div class="input-group">
 
-                                            <select class="form-select" name="product_category" id="product_category" required>
+                                            <select class="form-select" name="product_branch" id="product_branch" required>
                                                 <option value disabled selected>
-                                                    -- Select --
+                                                    -- Branch --
                                                 </option>
                                             </select>
                                             <div class="invalid-tooltip">This field cannot be left blank.</div>
@@ -158,6 +158,40 @@ include '../includes/base_page/head.php';
                 </div>
 
                 <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        updateComboBoxes();
+                    });
+
+                    function updateComboBoxes() {
+
+                        const product_branch = document.querySelector("#product_branch");
+
+
+                        // Clear it
+                        product_branch.innerHTML = "";
+                        // Add the no-selectable item first
+                        let opt = document.createElement("option");
+                        opt.appendChild(document.createTextNode("-- Select  --"));
+                        opt.setAttribute("value", "");
+                        opt.setAttribute("disabled", "");
+                        opt.setAttribute("selected", "");
+                        product_branch.appendChild(opt);
+                        // Populate categories combobox
+                        fetch('../includes/load_branch.php')
+                            .then(response => response.json())
+                            .then(data => {
+                                data.forEach((value) => {
+                                    let opt = document.createElement("option");
+                                    opt.appendChild(document.createTextNode(value['branch'].toLowerCase()));
+                                    opt.value = value['branch'].toLowerCase();
+                                    product_branch.appendChild(opt);
+                                });
+                            });
+
+                        // Clear it
+
+                    }
+
                     let reqNo = -1;
                     let reqStatus = "";
                     const req_no = document.querySelector("#req_no");
@@ -168,9 +202,9 @@ include '../includes/base_page/head.php';
                     const table_body = document.querySelector("#table_body");
 
                     window.addEventListener('DOMContentLoaded', (event) => {
-                        // if (sessionStorage.length === 0) {
-                        //     location.href = "./manage_transfer.php";
-                        // }
+                        if (sessionStorage.length === 0) {
+                            location.href = "./manage_transfer.php";
+                        }
 
                         // Get passed requisition number
                         reqNo = sessionStorage.getItem('req_no');
@@ -201,6 +235,15 @@ include '../includes/base_page/head.php';
                                         break;
                                     case "rejected":
                                         requisition_status.innerHTML = `<span class="badge badge-soft-warning">Rejected</span>`;
+                                        break;
+                                    case "authorized":
+                                        requisition_status.innerHTML = `<span class="badge badge-soft-warning">Authorized</span>`;
+                                        break;
+                                    case "released":
+                                        requisition_status.innerHTML = `<span class="badge badge-soft-warning">Released</span>`;
+                                        break;
+                                    case "received":
+                                        requisition_status.innerHTML = `<span class="badge badge-soft-warning">Received</span>`;
                                         break;
                                 }
 
