@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2021 at 01:59 PM
+-- Generation Time: Feb 15, 2021 at 08:26 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -33,21 +33,6 @@ CREATE TABLE `supplier_product` (
   `product_cost` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `supplier_product`
---
-
-INSERT INTO `supplier_product` (`product_name`, `supplier_name`, `product_cost`) VALUES
-('CHANK', 'KANYE', '8890'),
-('CHANK', 'KIM JONG', '3564'),
-('CHANK', 'KIM JONTE', '877'),
-('TANK', 'KANYE', '778'),
-('TANK', 'KIM JONG', '2679'),
-('TANK', 'KIM JONTE', '77'),
-('TARAJI', 'KANYE', '200'),
-('TARAJI', 'KIM JONG', '1660'),
-('TARAJI', 'KIM JONTE', '277');
-
 -- --------------------------------------------------------
 
 --
@@ -73,14 +58,6 @@ CREATE TABLE `tbl_category` (
   `category_code` int(11) NOT NULL,
   `category_name` varchar(254) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_category`
---
-
-INSERT INTO `tbl_category` (`category_code`, `category_name`) VALUES
-(2, 'CEMENT'),
-(1, 'METAL BARS');
 
 -- --------------------------------------------------------
 
@@ -119,15 +96,6 @@ CREATE TABLE `tbl_product` (
   `user` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tbl_product`
---
-
-INSERT INTO `tbl_product` (`product_code`, `product_name`, `product_unit`, `product_category`, `min_level`, `max_level`, `reorder`, `product_image`, `dsp_price`, `amount_before_tax`, `dpp_inc_tax`, `applicable_tax`, `profit_margin`, `user`) VALUES
-(11, 'TANK', 'Piece', 'tanks', '12', '13', '13', 'weretrtet.png', 0, 0, 0, 0, 0, ''),
-(12, 'TARAJI', 'PIECES', 'PENCIL', '9', '17', '33', 'OIP.jpg', 3000, 0, 0, 0, 0, ''),
-(13, 'CHANK', 'asd,jbhkj', 'TANK', '667', '667', '76', '/assets/img/item-images/php.png', 0, 0, 0, 0, 0, '');
-
 -- --------------------------------------------------------
 
 --
@@ -146,13 +114,6 @@ CREATE TABLE `tbl_purchaseorder` (
   `tax_amt` varchar(50) NOT NULL,
   `po_total` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_purchaseorder`
---
-
-INSERT INTO `tbl_purchaseorder` (`po_number`, `supplier_name`, `branch`, `date`, `time`, `user`, `status`, `before_tax`, `tax_amt`, `po_total`) VALUES
-(1, 'KANYE', 'MM2', '2021-02-11', '14:47', 'Jael Joel', 'approved', '9090', '1454.4', '10544.4');
 
 -- --------------------------------------------------------
 
@@ -188,15 +149,6 @@ CREATE TABLE `tbl_requisition` (
   `status` varchar(20) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tbl_requisition`
---
-
-INSERT INTO `tbl_requisition` (`requisition_No`, `date`, `time`, `user`, `branch`, `status`) VALUES
-(1, '2021-02-09', '14:07', 'Jael Joel', 'MM2', 'approved'),
-(2, '2021-02-09', '14:07', 'Jael Joel', 'MM2', 'approved'),
-(3, '2021-02-09', '16:33', 'Monica Njeri', 'MM1', 'approved');
-
 -- --------------------------------------------------------
 
 --
@@ -214,15 +166,6 @@ CREATE TABLE `tbl_requisition_items` (
   `branch` varchar(50) NOT NULL,
   `balance` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_requisition_items`
---
-
-INSERT INTO `tbl_requisition_items` (`id`, `requisition_No`, `product_code`, `product_name`, `product_unit`, `product_quantity`, `status`, `branch`, `balance`) VALUES
-(1, '1', '2', 'TARAJI', 'PIECES', '1', 'approved', 'MM2', '33'),
-(2, '2', '3', 'CHANK', 'asd,jbhkj', '1', 'approved', 'MM2', '0'),
-(3, '3', '3', 'CHANK', 'asd,jbhkj', '1', 'approved', 'MM1', '50');
 
 -- --------------------------------------------------------
 
@@ -252,18 +195,6 @@ CREATE TABLE `tbl_sale_items` (
   `branch_location` varchar(50) NOT NULL,
   `id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_sale_items`
---
-
-INSERT INTO `tbl_sale_items` (`product_code`, `product_name`, `qty`, `sales_invoice_no`, `branch_location`, `id`) VALUES
-('1', 'TANK', '50', '12345', 'MM1', 1),
-('2', 'TARAJI', '20', '2344555', 'MM2', 2),
-('3', 'CHANK', '50', '09983', 'MM1', 3),
-('2', 'TARAJI', '10', '768644', 'MM2', 4),
-('2', 'TARAJI', '3', '758655', 'MM2', 5),
-('2', 'TARAJI', '20', '35345', 'MM1', 6);
 
 -- --------------------------------------------------------
 
@@ -299,18 +230,6 @@ CREATE TABLE `tbl_store_item` (
   `product_unit` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tbl_store_item`
---
-
-INSERT INTO `tbl_store_item` (`qty`, `product_name`, `product_code`, `branch`, `receipt_no`, `id`, `lpo_number`, `product_unit`) VALUES
-('100', 'TANK', '1', 'MM1', '', 1, '', ''),
-('30', 'TARAJI', '2', 'MM2', '', 2, '', ''),
-('100', 'CHANK', '3', 'MM1', '', 3, '', ''),
-('33', 'TARAJI', '2', 'MM2', '', 4, '', ''),
-('3', 'TARAJI', '2', 'MM2', '', 5, '', ''),
-('50', 'TARAJI', '2', 'MM1', '', 6, '', '');
-
 -- --------------------------------------------------------
 
 --
@@ -328,15 +247,6 @@ CREATE TABLE `tbl_supplier` (
   `payment_terms` varchar(100) NOT NULL,
   `number_of_days` varchar(50) NOT NULL DEFAULT '30'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_supplier`
---
-
-INSERT INTO `tbl_supplier` (`supplier_id`, `name`, `email`, `tel_no`, `postal_address`, `physical_address`, `tax_id`, `payment_terms`, `number_of_days`) VALUES
-(241, 'KIM JONG', 'jjj', '98839ukjn', ',jo8o8j0j', 'kjjh8809pjjpok', 'klkjpjj0k', 'jkhohpi', '30'),
-(242, 'KIM JONTE', 'jjjhhhh', '98839ukjn', ',jo8o8j0j', 'kjjh8809pjjpok', 'klkjpjj0k', 'jkhohpi', '30'),
-(243, 'KANYE', 'jjjhhhhhh', '98839ukjn', ',jo8o8j0j', 'kjjh8809pjjpok', 'klkjpjj0k', 'jkhohpi', '30');
 
 -- --------------------------------------------------------
 
@@ -402,16 +312,6 @@ CREATE TABLE `tbl_unit` (
   `product_unit` varchar(254) NOT NULL,
   `unit_description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_unit`
---
-
-INSERT INTO `tbl_unit` (`unit_code`, `product_unit`, `unit_description`) VALUES
-(1, 'KGS', 'KILOGRAMS'),
-(2, 'BGS', 'BAGS'),
-(3, 'PCS', 'PIECES'),
-(4, 'LTRS', 'LITRES');
 
 -- --------------------------------------------------------
 
