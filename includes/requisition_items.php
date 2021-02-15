@@ -30,7 +30,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $stats1 = "approved";
 
 
-    $query1 = "SELECT sum(qty) FROM tbl_store_item WHERE product_name = '$product' and branch_location = '$branch'";
+    $query1 = "SELECT sum(qty) FROM tbl_store_item WHERE product_name = '$product' and branch = '$branch'";
     $result1 = mysqli_query($conn, $query1);
     if ($row1 = mysqli_fetch_assoc($result1)) {
         $totalstore = $row1['sum(qty)'];
@@ -40,7 +40,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     if ($row2 = mysqli_fetch_assoc($result2)) {
         $totalsale = $row2['sum(qty)'];
     }
-    $query3 = "SELECT sum(product_quantity) FROM tbl_requisition_items WHERE product_name = '$product' and branch = '$branch' and (status='pending' or status='approved')";
+    $query3 = "SELECT sum(product_quantity) FROM tbl_requisition_items WHERE product_name = '$product' and branch = '$branch' and (status='pending' or status='approved' or status='done')";
     $result3 = mysqli_query($conn, $query3);
     if ($row3 = mysqli_fetch_assoc($result3)) {
         $totalreq = $row3['sum(product_quantity)'];
@@ -52,7 +52,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         $totalpo = $row4['sum(product_quantity)'];
     }
 
-    $query5 = "SELECT sum(product_quantity) FROM tbl_purchaseorder_items WHERE product_name = '$product' and branch = '$branch' and status='partial'";
+    $query5 = "SELECT sum(product_quantity) FROM tbl_purchaseorder_items WHERE product_name = '$product' and branch = '$branch' and (status='partial' or status='done')";
     $result5 = mysqli_query($conn, $query5);
     if ($row5 = mysqli_fetch_assoc($result5)) {
         $totalpa = $row5['sum(product_quantity)'];

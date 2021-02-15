@@ -8,7 +8,7 @@ session_start();
     $branch =$_SESSION['branch'];
     $stat = "approved";
 
-$query = "SELECT * FROM tbl_purchaseorder WHERE status='$stat' and branch='$branch'";
+$query = "SELECT * FROM tbl_purchaseorder WHERE (status='$stat' or status='partial') and branch='$branch'";
     
     	
 	$result = mysqli_query($conn, $query);
@@ -28,5 +28,3 @@ $query = "SELECT * FROM tbl_purchaseorder WHERE status='$stat' and branch='$bran
                 echo json_encode($response);
 
 mysqli_close($conn);
-?>
-    
