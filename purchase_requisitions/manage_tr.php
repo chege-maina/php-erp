@@ -48,9 +48,37 @@ include '../includes/base_page/head.php';
 
                         <div class="card-body position-relative">
 
+                            <div class="row">
+                                <div class="col-lg-8 mb-3">
+                                    <h5>Transfer Number <span id="req_no" class="text-info h2 mr-3"></span></h5>
+                                </div>
 
-                            <div class="col-lg-8 mb-3">
-                                <h5>Transfer Number <span id="req_no" class="text-info h2 mr-3"></span></h5>
+                                <div class="col-lg-4 mb-3">
+
+                                    <div class="col">
+                                        <!-- Make Combo -->
+
+                                        <label class="form-label" for="product_category">Branch*</label>
+                                        <div class="input-group">
+
+                                            <select class="form-select" name="product_category" id="product_category" required>
+                                                <option value disabled selected>
+                                                    -- Select --
+                                                </option>
+                                            </select>
+                                            <div class="invalid-tooltip">This field cannot be left blank.</div>
+
+                                            <!-- Button trigger modal -->
+                                            <div class=".col-6 col-lg-4">
+                                                <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addCategory">
+                                                    Select
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Content is to start here -->
+
+                                </div>
                             </div>
 
                             <div class="row">
@@ -140,9 +168,9 @@ include '../includes/base_page/head.php';
                     const table_body = document.querySelector("#table_body");
 
                     window.addEventListener('DOMContentLoaded', (event) => {
-                        if (sessionStorage.length === 0) {
-                            location.href = "./manage_transfer.php";
-                        }
+                        // if (sessionStorage.length === 0) {
+                        //     location.href = "./manage_transfer.php";
+                        // }
 
                         // Get passed requisition number
                         reqNo = sessionStorage.getItem('req_no');
@@ -361,7 +389,7 @@ include '../includes/base_page/head.php';
                                 divAlert.scrollIntoView();
 
                                 window.setTimeout(() => {
-                                    location.href = "manage_pr.php"
+                                    location.href = "manage_tr.php"
                                 }, 2500);
 
                             })
@@ -402,7 +430,7 @@ include '../includes/base_page/head.php';
                                 divAlert.scrollIntoView();
 
                                 window.setTimeout(() => {
-                                    location.href = "manage_pr.php"
+                                    location.href = "manage_tr.php"
                                 }, 2500);
 
                             })
