@@ -5,7 +5,7 @@ session_start();
 $branch = $_SESSION['branch'];
 $stat = "pending";
 
-$query = "SELECT transfer_no FROM tbl_transfer WHERE status= '$stat' and branch='$branch'";
+$query = "SELECT receipt_no FROM tbl_store WHERE status= '$stat' and branch='$branch'";
 
 $result = mysqli_query($conn, $query);
 $response = array();
@@ -14,7 +14,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     array_push(
         $response,
         array(
-            'transfer_no' => $row['transfer_no']
+            'receipt_no' => $row['receipt_no']
         )
     );
 }
