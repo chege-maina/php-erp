@@ -58,7 +58,7 @@ include '../includes/base_page/head.php';
                                     <div class="col">
                                         <!-- Make Combo -->
 
-                                        <label class="form-label" for="product_branch">Branch*</label>
+                                        <label class="form-label" for="product_branch">Branch To Transfer From</label>
                                         <div class="input-group">
 
                                             <select class="form-select" name="product_branch" id="product_branch" required>
@@ -182,8 +182,8 @@ include '../includes/base_page/head.php';
                             .then(data => {
                                 data.forEach((value) => {
                                     let opt = document.createElement("option");
-                                    opt.appendChild(document.createTextNode(value['branch'].toLowerCase()));
-                                    opt.value = value['branch'].toLowerCase();
+                                    opt.appendChild(document.createTextNode(value['branch'].toUpperCase()));
+                                    opt.value = value['branch'].toUpperCase();
                                     product_branch.appendChild(opt);
                                 });
                             });
