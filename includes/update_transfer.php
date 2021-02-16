@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stats = "pending";
 
     if (strcmp($checker, 'item_rejected') == 0) {
-        $sql = "UPDATE tbl_transfer_items SET status = 'rejected' WHERE transfer_no = '" . $req_no . "', product_name = '" . $name . "'";
+        $sql = "UPDATE tbl_transfer_items SET status = 'rejected' WHERE transfer_no = '" . $req_no . "' and product_name = '" . $name . "'";
         mysqli_query($conn, $sql);
         $response['message'] = "Selected Item Removed From Transfer..";
     } else if (strcmp($checker, 'req_rejected') == 0) {
