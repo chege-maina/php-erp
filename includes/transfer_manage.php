@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'date' => $row['date'],
                 'branch' => $row['branch'],
                 'user' => $row['user'],
+                'branch_from' => $row['branch_from'],
                 'status' => $row['status']
             )
         );
