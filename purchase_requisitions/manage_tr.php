@@ -124,7 +124,7 @@ include '../includes/base_page/head.php';
                       <th>Balance</th>
                       <th class="col-lg-1">Quantity</th>
                       <th>Units</th>
-                      <th class="col-lg-1">Availability in Other Branch</th>
+                      <th class="col-lg-2">Availability</th>
                       <th class="col-lg-3">Actions</th>
                     </tr>
                   </thead>
@@ -227,7 +227,7 @@ include '../includes/base_page/head.php';
                   table_items_data.forEach((t_row) => {
                     if (row["product_name"] == t_row["name"]) {
                       console.log("Match found");
-                      table_items_data[j]["availbility"] =
+                      table_items_data[j]["availability"] =
                         t_row["message"] === "nada" ?
                         "available" : "not available";
                     }
@@ -367,7 +367,7 @@ include '../includes/base_page/head.php';
 
               let status_td = document.createElement("td");
               let status_body = document.createElement("div");
-              let status_text = ("availbility" in data) ? data["availbility"] : "...";
+              let status_text = ("availability" in data) ? data["availability"] : "...";
 
               switch (status_text) {
                 case "available":
@@ -383,7 +383,7 @@ include '../includes/base_page/head.php';
 
               // status_body.innerHTML = "Yees";
               status_td.appendChild(status_body);
-              status_td.classList.add("align-middle", "pr-6");
+              status_td.classList.add("align-middle");
 
 
               let quantity = document.createElement("input");
@@ -413,45 +413,6 @@ include '../includes/base_page/head.php';
               let actionDiv = document.createElement("div");
               actionDiv.classList.add("row");
 
-              // data-toggle="tooltip" data-placement="top" title="Tooltip on top"
-              let edit = document.createElement("button");
-              id_suffix = data["name"].replace(" ", "_s_s_s_") + "-" + data["code"];
-              let full_id = "";
-              edit.setAttribute("id", "e-" + id_suffix);
-              full_id = "e-" + id_suffix;
-              edit.setAttribute("onclick", "actionRespond('" + full_id + "');");
-              edit.setAttribute("data-toggle", "tooltip");
-              edit.setAttribute("title", "Edit");
-              let icon = document.createElement("span");
-              icon.classList.add("fas", "fa-pencil-alt", "mt-1", "fa-sm");
-              edit.appendChild(icon);
-              edit.classList.add("btn", "btn-falcon-primary", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
-
-              let save = document.createElement("button");
-              save.setAttribute("id", "s-" + id_suffix);
-              full_id = "s-" + id_suffix;
-              save.setAttribute("onclick", "actionRespond('" + full_id + "');");
-              save.setAttribute("data-toggle", "tooltip");
-              save.setAttribute("title", "Save");
-              save.disabled = true;
-              let icon_s = document.createElement("span");
-              icon_s.classList.add("fas", "fa-save", "mt-1", "fa-sm");
-              save.appendChild(icon_s);
-              save.classList.add("btn", "btn-falcon-primary", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
-
-              let cancel = document.createElement("button");
-              cancel.setAttribute("id", "c-" + id_suffix);
-              full_id = "c-" + id_suffix;
-              cancel.setAttribute("onclick", "actionRespond('" + full_id + "');");
-              cancel.setAttribute("data-toggle", "tooltip");
-              cancel.setAttribute("title", "Cancel");
-              cancel.disabled = true;
-              let icon_c = document.createElement("span");
-              icon_c.classList.add("fas", "fa-ban", "mt-1", "fa-sm");
-              cancel.appendChild(icon_c);
-              cancel.classList.add("btn", "btn-falcon-primary", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
-
-
               let reject = document.createElement("button");
               full_id = "r-" + id_suffix;
               reject.setAttribute("id", "r-" + id_suffix);
@@ -465,7 +426,7 @@ include '../includes/base_page/head.php';
               reject.disabled = result.length <= 1;
 
 
-              actionDiv.append(edit, save, cancel, reject);
+              actionDiv.append(reject);
               actionWrapper.appendChild(actionDiv);
 
               tr.append(code_td, name_td, balance_td, quantityWrapper, units_td, status_td, actionWrapper);
@@ -614,32 +575,10 @@ include '../includes/base_page/head.php';
 
           function actionRespond(value) {
             value = value.split("-");
-            console.log(value);
-            // Get the quantity input in the same row
-            const qtt = document.querySelector("#q-" + value[1] + "-" + value[2]);
-            const btn_save = document.querySelector("#s-" + value[1] + "-" + value[2]);
-            const btn_edit = document.querySelector("#e-" + value[1] + "-" + value[2]);
-            const btn_cancel = document.querySelector("#c-" + value[1] + "-" + value[2]);
+
             const btn_reject = document.querySelector("#r-" + value[1] + "-" + value[2]);
             value[1] = value[1].replace("_s_s_s_", " ");
-
-            if (value[0] == "e") {
-              // Edit item
-              qtt.removeAttribute("readonly");
-              btn_save.disabled = false;
-              btn_cancel.disabled = false;
-              btn_edit.disabled = true;
-            } else if (value[0] == "c") {
-              // Cancel edit
-
-              // reload table
-              fetchTableItems();
-              qtt.setAttribute("readonly", "");
-
-              btn_save.disabled = true;
-              btn_cancel.disabled = true;
-              btn_edit.disabled = false;
-            } else if (value[0] == "r") {
+            if (value[0] == "r") {
               // Reject item
               if (!confirm("Are you sure you want to reject?")) {
                 return;
@@ -677,52 +616,6 @@ include '../includes/base_page/head.php';
                   console.error('Error:', error);
                 });
 
-            } else if (value[0] == "s") {
-
-
-              console.log("Saving");
-              const formData = new FormData();
-              formData.append("checker", "item_qty");
-              // TODO: Take these and in corresponding if cases to above the if to avoid copypasting
-              formData.append("name", value[1]);
-              formData.append("qty", qtt.value);
-              formData.append("req_no", reqNo);
-
-              fetch('../includes/update_requisition.php', {
-                  method: 'POST',
-                  body: formData
-                })
-                .then(response => response.json())
-                .then(result => {
-                  const alertVar =
-                    `<div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Success!</strong> ${result['message']}
-              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
-              </div>`;
-                  var divAlert = document.querySelector("#alert-div");
-                  divAlert.innerHTML = alertVar;
-                  divAlert.scrollIntoView();
-                  // On submit reload table
-                  fetchTableItems();
-
-                  window.setTimeout(() => {
-                    divAlert.innerHTML = "";
-                  }, 2500);
-                })
-                .catch(error => {
-                  console.error('Error:', error);
-                });
-
-
-
-              // If page is reloading, this is no longer needed. Delete
-
-              // Save item
-              qtt.setAttribute("readonly", "");
-
-              btn_save.disabled = true;
-              btn_cancel.disabled = true;
-              btn_edit.disabled = false;
             }
           }
         </script>
