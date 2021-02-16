@@ -228,7 +228,7 @@ include '../includes/base_page/head.php';
                     if (row["product_name"] == t_row["name"]) {
                       console.log("Match found");
                       table_items_data[j]["availability"] =
-                        t_row["message"] === "right" ?
+                        row["message"] === "right" ?
                         "available" : "not available";
                     }
                     j++;
