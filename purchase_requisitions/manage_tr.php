@@ -70,7 +70,7 @@ include '../includes/base_page/head.php';
 
                       <!-- Button trigger modal -->
                       <div class=".col-6 col-lg-4">
-                        <button type="button" class="btn btn-primary input-group-btn">
+                        <button type="button" class="btn btn-primary input-group-btn" onclick="checkAvailability();">
                           Select
                         </button>
                       </div>
@@ -201,6 +201,48 @@ include '../includes/base_page/head.php';
           const branch = document.querySelector("#req_branch");
           const requisition_status = document.querySelector("#requisition_status");
           const table_body = document.querySelector("#table_body");
+          const product_branch = document.querySelector("#product_branch");
+          let table_items_data = [];
+
+
+          function checkAvailability() {
+            if (!product_branch.value) {
+              product_branch.focus();
+              return;
+            }
+            console.log("Table items", table_items_data);
+            const formData = new FormData();
+            formData.append("trans_number", reqNo);
+            formData.append("branch", user_branch);
+
+            fetch('../includes/transfer_balance.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+
+                result.forEach(row => {
+                  let j = 0;
+                  table_items_data.forEach((t_row) => {
+                    if (row["product_name"] == t_row["name"]) {
+                      console.log("Match found");
+                      table_items_data[j]["status"] =
+                        t_row["message"] === "nada" ?
+                        "available" : "not available";
+                    }
+                    j++;
+                  });
+                })
+
+                updateTable(table_items_data);
+                console.log('Success:', result);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+
+          }
 
           window.addEventListener('DOMContentLoaded', (event) => {
             if (sessionStorage.length === 0) {
@@ -277,6 +319,8 @@ include '../includes/base_page/head.php';
               })
               .then(response => response.json())
               .then(result => {
+
+                [...table_items_data] = result;
                 updateTable(result);
 
                 // Disable buttons if necessary
@@ -322,10 +366,24 @@ include '../includes/base_page/head.php';
               qty_td.classList.add("align-middle");
 
               let status_td = document.createElement("td");
+              let status_body = document.createElement("div");
               let status_text = ("status" in data) ? data["status"] : "...";
-              console.log(status_text);
-              status_td.appendChild(document.createTextNode(status_text));
-              status_td.classList.add("align-middle");
+
+              switch (status_text) {
+                case "available":
+                  status_body.innerHTML = `<span class="badge badge-soft-success">available</span>`;
+                  break;
+                case "...":
+                  status_body.innerHTML = `<span class="badge badge-soft-secondary">...</span>`;
+                  break;
+                default:
+                  status_body.innerHTML = `<span class="badge badge-soft-danger">not available</span>`;
+                  break;
+              }
+
+              // status_body.innerHTML = "Yees";
+              status_td.appendChild(status_body);
+              status_td.classList.add("align-middle", "pr-6");
 
 
               let quantity = document.createElement("input");
@@ -455,7 +513,6 @@ include '../includes/base_page/head.php';
               });
 
 
-            const product_branch = document.querySelector("#product_branch");
             formData.append("product_branch", product_branch.value);
             formData.append("req_no", reqNo);
 
