@@ -52,7 +52,6 @@ include '../includes/base_page/head.php';
                             <div class="col">
                                 <label for="status" class="form-label">Status*</label>
                                 <select name="status" id="status" class="form-select">
-                                    <option value="pending">Pending</option>
                                     <option value="approved">Approved</option>
                                 </select>
                             </div>
@@ -68,10 +67,10 @@ include '../includes/base_page/head.php';
                         <table class="table table-sm table-striped" id="table-main">
                             <thead>
                                 <tr>
-                                    <th>Transfer No. </th>
-                                    <th>Branch Requesting </th>
-                                    <th class="col-lg-1">Date </th>
-                                    <th>Branch Transferring</th>
+                                    <th>Transfer Number</th>
+                                    <th>Branch Requesting</th>
+                                    <th>Date </th>
+                                    <th>Branch Transfering</th>
                                     <th>Created By</th>
                                 </tr>
                             </thead>
@@ -112,25 +111,25 @@ include '../includes/base_page/head.php';
                     data.forEach(value => {
                         const this_row = document.createElement("tr");
 
-                        const transfer_no = document.createElement("td");
-                        transfer_no.appendChild(document.createTextNode(value["transfer_no"]));
-                        transfer_no.classList.add("align-middle");
+                        const req_no = document.createElement("td");
+                        req_no.appendChild(document.createTextNode(value["req_no"]));
+                        req_no.classList.add("align-middle");
 
-                        const tr_date = document.createElement("td");
-                        tr_date.appendChild(document.createTextNode(value["date"]));
-                        tr_date.classList.add("align-middle");
+                        const req_date = document.createElement("td");
+                        req_date.appendChild(document.createTextNode(value["date"]));
+                        req_date.classList.add("align-middle");
 
-                        const branch = document.createElement("td");
-                        branch.appendChild(document.createTextNode(value["branch"]));
-                        branch.classList.add("align-middle");
+                        const req_branch = document.createElement("td");
+                        req_branch.appendChild(document.createTextNode(value["branch"]));
+                        req_branch.classList.add("align-middle");
 
                         const branch_from = document.createElement("td");
                         branch_from.appendChild(document.createTextNode(value["branch_from"]));
                         branch_from.classList.add("align-middle");
 
-                        const po_user = document.createElement("td");
-                        po_user.appendChild(document.createTextNode(value["user"]));
-                        po_user.classList.add("align-middle");
+                        const req_user = document.createElement("td");
+                        req_user.appendChild(document.createTextNode(value["user"]));
+                        req_user.classList.add("align-middle");
 
                         const req_status = document.createElement("td");
                         const tmp_status = value["status"];
@@ -151,27 +150,31 @@ include '../includes/base_page/head.php';
 
                         const req_actions = document.createElement("td");
                         const btn = document.createElement("button");
-                        btn.setAttribute("onclick", "detailedView(" + value["transfer_no"] + ")");
+                        btn.setAttribute("onclick", "detailedView(" + value["req_no"] + ")");
                         btn.appendChild(document.createTextNode("Manage"));
                         btn.classList.add("btn", "btn-falcon-primary", "btn-sm");
                         req_actions.appendChild(btn);
 
-                        this_row.append(transfer_no, branch, tr_date, po_user, branch_from, req_status, req_actions);
+                        this_row.append(req_no, req_branch, req_date, branch_from, req_user, req_status, req_actions);
                         table_body.appendChild(this_row);
                     });
 
                 }
 
-                function detailedView(transfer_no) {
-                    console.log("PO no: ", transfer_no);
-                    sessionStorage.setItem('transfer_no', transfer_no);
-                    window.location.href = "manage_purchase_order_items.php";
+                function detailedView(req_no) {
+                    console.log("Req no: ", req_no);
+                    sessionStorage.setItem('req_no', req_no);
+                    window.location.href = "dir_transfer_approval.php";
                 }
 
                 function d_toString(value) {
                     return value < 10 ? '0' + value : String(value);
                 }
-
+                document.addEventListener('DOMContentLoaded', function() {
+                    const po_vals = sessionStorage.getItem('val');
+                    let req_no = po_vals.split("^")[0];
+                    req_no.value = req_no;
+                });
                 window.addEventListener('DOMContentLoaded', (event) => {
                     const date = new Date();
                     let month = d_toString(date.getMonth() + 1);
@@ -182,7 +185,9 @@ include '../includes/base_page/head.php';
                     req_date_to.value = String(date.getFullYear()) + '-' + month + '-' + day_to;
                     req_date_to.setAttribute("min", req_date_from.value);
 
-                    fetch('../includes/purchase_order_manage.php')
+
+                    fetch('../includes/load_transfer_approve.php')
+
                         .then(response => response.json())
                         .then(data => {
                             console.log(data);
@@ -198,8 +203,8 @@ include '../includes/base_page/head.php';
                     formData.append("date1", req_date_from.value);
                     formData.append("date2", req_date_to.value);
                     formData.append("status", r_status.value);
-                    formData.append("supplier", user_branch);
-                    fetch('../includes/filter_purchaseorder.php', {
+                    formData.append("branch", user_branch);
+                    fetch('../includes/filter_transfers.php', {
                             method: 'POST',
                             body: formData
                         })
