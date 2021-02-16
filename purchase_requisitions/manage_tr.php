@@ -124,6 +124,7 @@ include '../includes/base_page/head.php';
                                             <th>Balance</th>
                                             <th class="col-lg-1">Quantity</th>
                                             <th>Units</th>
+                                            <th class="col-lg-1">Status</th>
                                             <th class="col-lg-3">Actions</th>
                                         </tr>
                                     </thead>
@@ -202,9 +203,9 @@ include '../includes/base_page/head.php';
                     const table_body = document.querySelector("#table_body");
 
                     window.addEventListener('DOMContentLoaded', (event) => {
-                        if (sessionStorage.length === 0) {
-                            location.href = "./manage_transfer.php";
-                        }
+                        //  if (sessionStorage.length === 0) {
+                        //    location.href = "./manage_transfer.php";
+                        // }
 
                         // Get passed requisition number
                         reqNo = sessionStorage.getItem('req_no');
@@ -320,6 +321,10 @@ include '../includes/base_page/head.php';
                             qty_td.appendChild(document.createTextNode(data["qty"]));
                             qty_td.classList.add("align-middle");
 
+                            let status_td = document.createElement("td");
+                            status_td.appendChild(document.createTextNode(data["status"]));
+                            status_td.classList.add("align-middle");
+
 
                             let quantity = document.createElement("input");
                             quantity.setAttribute("type", "number");
@@ -396,7 +401,7 @@ include '../includes/base_page/head.php';
                             actionDiv.append(edit, save, cancel, reject);
                             actionWrapper.appendChild(actionDiv);
 
-                            tr.append(code_td, name_td, balance_td, quantityWrapper, units_td, actionWrapper);
+                            tr.append(code_td, name_td, balance_td, quantityWrapper, units_td, status_td, actionWrapper);
                             table_body.appendChild(tr);
 
                         });
@@ -483,6 +488,39 @@ include '../includes/base_page/head.php';
 
 
                     }
+
+                    const formData = new FormData();
+
+                    const product_branch = document.querySelector("#product_branch");
+                    formData.append("product_branch", product_branch.value);
+                    formData.append("req_no", reqNo);
+
+                    fetch('../includes/transfer_balance.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(result => {
+                            const alertVar =
+                                `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> ${result['message']}
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                            var divAlert = document.querySelector("#alert-div");
+                            divAlert.innerHTML = alertVar;
+                            divAlert.scrollIntoView();
+
+                            window.setTimeout(() => {
+                                location.href = "manage_tr.php"
+                            }, 2500);
+
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+
+
+
 
                     function actionRespond(value) {
                         value = value.split("-");
