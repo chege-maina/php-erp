@@ -49,17 +49,17 @@ include '../includes/base_page/head.php';
 
 
             <div class="row">
-              <div class="col">
-                <select class="form-select form-select-sm" name="product_category" id="product_category" required>
-                  <option value disabled selected>
-                    -- Select Receipt Note Number --
-                  </option>
-                </select>
-              </div>
-              <div class="col">
-                <button class="btn btn-falcon-primary btn-sm" id="selectReceipt" onclick="selectReceipt();">
-                  Select
-                </button>
+              <div class="col col-md-5">
+                <div class="input-group">
+                  <select class="form-select form-select-sm" name="product_category" id="product_category" required>
+                    <option value disabled selected>
+                      -- Select Receipt Note Number --
+                    </option>
+                  </select>
+                  <button class="input-group-btn btn btn-primary btn-sm" id="selectReceipt" onclick="selectReceipt();">
+                    Select
+                  </button>
+                </div>
               </div>
             </div>
             <hr>
@@ -143,6 +143,11 @@ include '../includes/base_page/head.php';
         <script>
           let receipt_time = document.querySelector("#receipt_time");
 
+
+          function selectReceipt() {
+            console.log("Selecting: ")
+          }
+
           function d_toString(value) {
             return value < 10 ? '0' + value : String(value);
           }
@@ -154,6 +159,19 @@ include '../includes/base_page/head.php';
             let minutes = d_toString(date.getMinutes());
 
             receipt_time.value = hours + ":" + minutes;
+
+            fetch('../includes/load_receiptnote.php')
+              .then(response => response.json())
+              .then(data => {
+                console.log(data);
+                data.forEach((value) => {
+                  console.log(value);
+                  let opt = document.createElement("option");
+                  opt.appendChild(document.createTextNode(value['receipt_no'].toLowerCase()));
+                  opt.value = value['receipt_no'].toLowerCase();
+                  product_category.appendChild(opt);
+                });
+              });
           });
         </script>
 
