@@ -55,8 +55,11 @@ include '../includes/base_page/head.php';
                         <!-- Content is to start here -->
                         <div class="row">
                             <div class="col">
-                                <label for="supplier_name" class="form-label">Supplier Name*</label>
-                                <input type="text" name="supplier_name" id="supplier_name" class="form-control" readonly>
+                                <label for="status" class="form-label">LPO Number</label>
+                                <select name="status" id="status" class="form-select">
+                                    <option value="#">#</option>
+                                    <option value="#">#</option>
+                                </select>
                             </div>
                             <div class="col">
                                 <label for="branch" class="form-label">Address</label>
@@ -69,8 +72,8 @@ include '../includes/base_page/head.php';
                                 <input type="text" name="branch" id="po_branch" class="form-control" readonly>
                             </div>
                             <div class="col">
-                                <label for="created_by" class="form-label">Invoice Number</label>
-                                <input type="text" id="created_by" class="form-control" readonly>
+                                <label for="supplier_name" class="form-label">Supplier Name*</label>
+                                <input type="text" name="supplier_name" id="supplier_name" class="form-control" readonly>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -80,12 +83,12 @@ include '../includes/base_page/head.php';
                                 <input type="date" value="<?php echo date("Y-m-d"); ?>" id="date" class="form-control" readonly>
                             </div>
                             <div class="col">
-                                <label for="created_by" class="form-label">LPO Number</label>
-                                <input type="text" id="created_by" class="form-control" readonly>
+                                <label for="created_by" class="form-label">Invoice Number</label>
+                                <input type="text" id="created_by" class="form-control">
                             </div>
                             <div class="col">
                                 <label for="branch" class="form-label">Amount Due</label>
-                                <input type="text" name="branch" id="po_branch" class="form-control" readonly>
+                                <input type="text" name="branch" id="po_branch" class="form-control">
                             </div>
                             <div class="col">
                                 <label for="date" class="form-label">Bill Due</label>
