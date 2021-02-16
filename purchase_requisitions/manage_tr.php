@@ -213,7 +213,7 @@ include '../includes/base_page/head.php';
             console.log("Table items", table_items_data);
             const formData = new FormData();
             formData.append("trans_number", reqNo);
-            formData.append("branch", user_branch);
+            formData.append("branch", product_branch.value);
 
             fetch('../includes/transfer_balance.php', {
                 method: 'POST',
