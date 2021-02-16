@@ -23,6 +23,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     $totalstore = 0;
     $totalsale = 0;
+    $totaltra = 0;
     $totalreq = 0;
     $totalpo = 0;
     $totalpa = 0;
@@ -57,8 +58,13 @@ while ($row = mysqli_fetch_assoc($result)) {
     if ($row5 = mysqli_fetch_assoc($result5)) {
         $totalpa = $row5['sum(product_quantity)'];
     }
+    $query6 = "SELECT sum(qty) FROM tbl_store_item WHERE product_name = '$product' and branch = '$branch' and (status='pending' or status='approved' or status='done')";
+    $result6 = mysqli_query($conn, $query6);
+    if ($row6 = mysqli_fetch_assoc($result6)) {
+        $totaltra = $row6['sum(qty)'];
+    }
 
-    $balance = ($totalstore + $totalreq + $totalpo) - ($totalsale + $totalpa);
+    $balance = ($totalstore + $totalreq + $totalpo + $totaltra) - ($totalsale + $totalpa);
 
     if ($balance == $reorder || $balance < $reorder) {
         $total = 0;
