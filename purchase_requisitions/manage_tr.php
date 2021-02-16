@@ -335,9 +335,13 @@ include '../includes/base_page/head.php';
           }
 
 
+          const approve_req = document.querySelector("#approve_req");
+
           function updateTable(result) {
             console.log('Result:', result);
             table_body.innerHTML = "";
+
+            let enableButtons = true;
 
             result.forEach((data) => {
 
@@ -375,9 +379,11 @@ include '../includes/base_page/head.php';
                   break;
                 case "...":
                   status_body.innerHTML = `<span class="badge badge-soft-secondary">...</span>`;
+                  enableButtons = false;
                   break;
                 default:
                   status_body.innerHTML = `<span class="badge badge-soft-danger">not available</span>`;
+                  enableButtons = false;
                   break;
               }
 
@@ -433,6 +439,14 @@ include '../includes/base_page/head.php';
               table_body.appendChild(tr);
 
             });
+
+            if (enableButtons) {
+              approve_req.removeAttribute("disabled");
+              console.log("enabling btn")
+            } else {
+              approve_req.setAttribute("disabled", "");
+              console.log("disabling btn")
+            }
           }
 
           function rejectRequisition() {
@@ -446,10 +460,10 @@ include '../includes/base_page/head.php';
             const formData = new FormData();
             formData.append("checker", "req_rejected");
             formData.append("name", "");
-            formData.append("qty", -1);
+            // formData.append("qty", -1);
             formData.append("req_no", reqNo);
 
-            fetch('../includes/update_requisition.php', {
+            fetch('../includes/update_transfer.php', {
                 method: 'POST',
                 body: formData
               })
@@ -514,15 +528,16 @@ include '../includes/base_page/head.php';
             const formData = new FormData();
             formData.append("checker", "approve_req");
             formData.append("name", "");
-            formData.append("qty", -1);
+            // formData.append("qty", -1);
             formData.append("req_no", reqNo);
 
-            fetch('../includes/update_requisition.php', {
+            fetch('../includes/update_transfer.php', {
                 method: 'POST',
                 body: formData
               })
               .then(response => response.json())
               .then(result => {
+                // console.log(result);
                 const alertVar =
                   `<div class="alert alert-success alert-dismissible fade show" role="alert">
               <strong>Success!</strong> ${result['message']}
@@ -542,33 +557,33 @@ include '../includes/base_page/head.php';
               });
 
 
-            const product_branch = document.querySelector("#product_branch");
-            formData.append("product_branch", product_branch.value);
-            formData.append("req_no", reqNo);
+            // const product_branch = document.querySelector("#product_branch");
+            // formData.append("product_branch", product_branch.value);
+            // formData.append("req_no", reqNo);
 
-            fetch('../includes/transfer_balance.php', {
-                method: 'POST',
-                body: formData
-              })
-              .then(response => response.json())
-              .then(result => {
-                const alertVar =
-                  `<div class="alert alert-success alert-dismissible fade show" role="alert">
-<strong>Success!</strong> ${result['message']}
-<button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
-</div>`;
-                var divAlert = document.querySelector("#alert-div");
-                divAlert.innerHTML = alertVar;
-                divAlert.scrollIntoView();
+            // fetch('../includes/transfer_balance.php', {
+            // method: 'POST',
+            // body: formData
+            // })
+            // .then(response => response.json())
+            // .then(result => {
+            // const alertVar =
+            // `<div class="alert alert-success alert-dismissible fade show" role="alert">
+            // <strong>Success!</strong> ${result['message']}
+            // <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+            // </div>`;
+            // var divAlert = document.querySelector("#alert-div");
+            // divAlert.innerHTML = alertVar;
+            // divAlert.scrollIntoView();
 
-                window.setTimeout(() => {
-                  location.href = "manage_tr.php"
-                }, 2500);
+            // window.setTimeout(() => {
+            // location.href = "manage_tr.php"
+            // }, 2500);
 
-              })
-              .catch(error => {
-                console.error('Error:', error);
-              });
+            // })
+            // .catch(error => {
+            // console.error('Error:', error);
+            // });
 
 
           }
@@ -587,11 +602,12 @@ include '../includes/base_page/head.php';
               console.log("Rejecting");
               const formData = new FormData();
               formData.append("checker", "item_rejected");
-              formData.append("name", value[1]);
-              formData.append("qty", qtt.value);
+              formData.append("name", value[1].trim());
+              // formData.append("qty", qtt.value);
+              console.log(value[1].trim(), " vs ", reqNo);
               formData.append("req_no", reqNo);
 
-              fetch('../includes/update_requisition.php', {
+              fetch('../includes/update_transfer.php', {
                   method: 'POST',
                   body: formData
                 })
