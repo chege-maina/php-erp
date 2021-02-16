@@ -124,7 +124,7 @@ include '../includes/base_page/head.php';
                       <th>Balance</th>
                       <th class="col-lg-1">Quantity</th>
                       <th>Units</th>
-                      <th class="col-lg-1">Status</th>
+                      <th class="col-lg-1">Availability in Other Branch</th>
                       <th class="col-lg-3">Actions</th>
                     </tr>
                   </thead>
@@ -227,7 +227,7 @@ include '../includes/base_page/head.php';
                   table_items_data.forEach((t_row) => {
                     if (row["product_name"] == t_row["name"]) {
                       console.log("Match found");
-                      table_items_data[j]["status"] =
+                      table_items_data[j]["availbility"] =
                         t_row["message"] === "nada" ?
                         "available" : "not available";
                     }
@@ -367,7 +367,7 @@ include '../includes/base_page/head.php';
 
               let status_td = document.createElement("td");
               let status_body = document.createElement("div");
-              let status_text = ("status" in data) ? data["status"] : "...";
+              let status_text = ("availbility" in data) ? data["availbility"] : "...";
 
               switch (status_text) {
                 case "available":
