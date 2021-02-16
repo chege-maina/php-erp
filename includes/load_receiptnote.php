@@ -5,7 +5,7 @@ session_start();
 $branch = $_SESSION['branch'];
 $stat = "pending";
 
-$query = "SELECT receipt_no FROM tbl_store WHERE status= '$stat' and branch='$branch'";
+$query = "SELECT receipt_no FROM tbl_store WHERE status='$stat' and branch='$branch'";
 
 $result = mysqli_query($conn, $query);
 $response = array();
