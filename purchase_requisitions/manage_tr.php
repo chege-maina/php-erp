@@ -140,7 +140,7 @@ include '../includes/base_page/head.php';
             <div class="card-body">
               <div class="row justify-content-between align-items-center">
                 <div class="col-auto">
-                  <button class="btn btn-falcon-success btn-sm mr-2" id="approve_req" onclick="approveRequisition();">
+                  <button class="btn btn-falcon-success btn-sm mr-2" id="approve_req" onclick="approveRequisition();" disabled>
                     <span class="fas fa-check mr-1" data-fa-transform="shrink-3"></span>
                     Approve
                   </button>
