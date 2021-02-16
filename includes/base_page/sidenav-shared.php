@@ -71,6 +71,8 @@ function genSideBar()
   </li>
     <li class="nav-item"><a class="nav-link" href="../purchase_orders/manage_purchase_order.php">Manage Purchase Order</a>
     </li>
+    <li class="nav-item"><a class="nav-link" href="../purchase_orders/transfer_approval.php">Manage Purchase Order</a>
+    </li>
   </ul>
 </li>
 <!-- Suppliers -->
