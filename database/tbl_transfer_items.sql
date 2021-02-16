@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2021 at 09:36 AM
+-- Generation Time: Feb 16, 2021 at 11:02 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -36,18 +36,19 @@ CREATE TABLE `tbl_transfer_items` (
   `product_quantity` varchar(20) NOT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'pending',
   `branch` varchar(50) NOT NULL,
-  `balance` varchar(100) NOT NULL
+  `balance` varchar(100) NOT NULL,
+  `branch_from` varchar(10) NOT NULL DEFAULT 'noted'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_transfer_items`
 --
 
-INSERT INTO `tbl_transfer_items` (`id`, `transfer_no`, `product_code`, `product_name`, `product_unit`, `product_quantity`, `status`, `branch`, `balance`) VALUES
-(1, '1', '52', 'Hayden Duran', 'kgs', '12', 'pending', 'MM2', '10'),
-(2, '1', '53', 'Wyoming Wilkinson', 'lts', '15', 'pending', 'MM2', '20'),
-(3, '2', '52', 'Hayden Duran', 'kgs', '1', 'pending', 'MM2', '12'),
-(4, '3', '52', 'Hayden Duran', 'kgs', '11', 'pending', 'MM2', '12');
+INSERT INTO `tbl_transfer_items` (`id`, `transfer_no`, `product_code`, `product_name`, `product_unit`, `product_quantity`, `status`, `branch`, `balance`, `branch_from`) VALUES
+(1, '1', '52', 'Hayden Duran', 'kgs', '12', 'pending', 'MM2', '10', 'noted'),
+(2, '1', '53', 'Wyoming Wilkinson', 'lts', '15', 'pending', 'MM2', '20', 'noted'),
+(3, '2', '52', 'Hayden Duran', 'kgs', '1', 'pending', 'MM2', '12', 'noted'),
+(4, '3', '52', 'Hayden Duran', 'kgs', '11', 'pending', 'MM2', '12', 'noted');
 
 --
 -- Indexes for dumped tables

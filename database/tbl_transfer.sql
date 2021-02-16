@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2021 at 09:36 AM
+-- Generation Time: Feb 16, 2021 at 11:02 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -33,17 +33,18 @@ CREATE TABLE `tbl_transfer` (
   `time` varchar(15) NOT NULL,
   `user` varchar(100) NOT NULL,
   `branch` varchar(50) NOT NULL,
-  `status` varchar(50) NOT NULL DEFAULT 'pending'
+  `status` varchar(50) NOT NULL DEFAULT 'pending',
+  `branch_from` varchar(10) NOT NULL DEFAULT 'noted'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_transfer`
 --
 
-INSERT INTO `tbl_transfer` (`transfer_no`, `date`, `time`, `user`, `branch`, `status`) VALUES
-(1, '2021-02-15', '14:11', 'Jael Joel', 'MM2', 'pending'),
-(2, '2021-02-15', '14:51', 'Jael Joel', 'MM2', 'pending'),
-(3, '2021-02-15', '15:54', 'Jael Joel', 'MM2', 'pending');
+INSERT INTO `tbl_transfer` (`transfer_no`, `date`, `time`, `user`, `branch`, `status`, `branch_from`) VALUES
+(1, '2021-02-15', '14:11', 'Jael Joel', 'MM2', 'pending', 'noted'),
+(2, '2021-02-15', '14:51', 'Jael Joel', 'MM2', 'pending', 'noted'),
+(3, '2021-02-15', '15:54', 'Jael Joel', 'MM2', 'pending', 'noted');
 
 --
 -- Indexes for dumped tables
