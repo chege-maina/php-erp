@@ -51,7 +51,7 @@ include '../includes/base_page/head.php';
             <div class="row">
               <div class="col col-md-5">
                 <div class="input-group">
-                  <select class="form-select form-select-sm" name="product_category" id="product_category" required>
+                  <select class="form-select form-select-sm" name="product_category" id="receipt_note_no" required>
                     <option value disabled selected>
                       -- Select Receipt Note Number --
                     </option>
@@ -142,10 +142,30 @@ include '../includes/base_page/head.php';
 
         <script>
           let receipt_time = document.querySelector("#receipt_time");
+          const receipt_note_no = document.querySelector('#receipt_note_no');
 
 
           function selectReceipt() {
-            console.log("Selecting: ")
+            if (!receipt_note_no.value) {
+              receipt_note_no.focus();
+              return;
+            }
+            console.log("Selecting: ", receipt_note_no.value)
+
+            const formData = new FormData();
+            formData.append("receipt_no", receipt_note_no.value);
+            return;
+            fetch('https://example.com/profile/avatar', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+                console.log('Success:', result);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
           }
 
           function d_toString(value) {
@@ -169,7 +189,7 @@ include '../includes/base_page/head.php';
                   let opt = document.createElement("option");
                   opt.appendChild(document.createTextNode(value['receipt_no'].toLowerCase()));
                   opt.value = value['receipt_no'].toLowerCase();
-                  product_category.appendChild(opt);
+                  receipt_note_no.appendChild(opt);
                 });
               });
           });
