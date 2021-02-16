@@ -70,7 +70,7 @@ include '../includes/base_page/head.php';
 
                                             <!-- Button trigger modal -->
                                             <div class=".col-6 col-lg-4">
-                                                <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addCategory">
+                                                <button type="button" class="btn btn-primary input-group-btn">
                                                     Select
                                                 </button>
                                             </div>
