@@ -59,16 +59,16 @@ while ($row = mysqli_fetch_assoc($result)) {
     if ($row5 = mysqli_fetch_assoc($result5)) {
         $totalpa = $row5['sum(product_quantity)'];
     }
-    $query6 = "SELECT sum(qty) FROM tbl_transfer_items WHERE product_name = '$product' and branch = '$branch' and (status='pending' or status='approved' or status='done' or status='accepted')";
+    $query6 = "SELECT sum(product_quantity) FROM tbl_transfer_items WHERE product_name = '$product' and branch = '$branch' and (status='pending' or status='approved' or status='done' or status='accepted')";
     $result6 = mysqli_query($conn, $query6);
     if ($row6 = mysqli_fetch_assoc($result6)) {
-        $totaltra = $row6['sum(qty)'];
+        $totaltra = $row6['sum(product_quantity)'];
     }
 
-    $query7 = "SELECT sum(qty) FROM tbl_transfer_items WHERE product_name = '$product' and branch_from = '$branch' and (status='stored' or status='accepted')";
+    $query7 = "SELECT sum(product_quantity) FROM tbl_transfer_items WHERE product_name = '$product' and branch_from = '$branch' and (status='stored' or status='accepted')";
     $result7 = mysqli_query($conn, $query7);
     if ($row7 = mysqli_fetch_assoc($result7)) {
-        $totalfro = $row7['sum(qty)'];
+        $totalfro = $row7['sum(product_quantity)'];
     }
 
     $balance = ($totalstore + $totalreq + $totalpo + $totaltra) - ($totalsale + $totalpa + $totalfro);
