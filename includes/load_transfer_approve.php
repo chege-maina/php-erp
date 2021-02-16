@@ -17,7 +17,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     array_push(
         $response,
         array(
-            'transfer_no' => $row['transfer_no'],
+            'req_no' => $row['transfer_no'],
             'branch' => $row['branch'],
             'date' => $row['date'],
             'branch_from' => $row['branch_from'],
