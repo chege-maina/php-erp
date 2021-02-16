@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2021 at 10:22 AM
+-- Generation Time: Feb 16, 2021 at 03:26 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -218,7 +218,8 @@ CREATE TABLE `tbl_store` (
   `supplier_name` varchar(100) NOT NULL,
   `invoice_no` varchar(100) NOT NULL,
   `receipt_no` bigint(100) NOT NULL,
-  `lpo_number` varchar(100) NOT NULL
+  `lpo_number` varchar(100) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -284,13 +285,23 @@ INSERT INTO `tbl_tax` (`col_tax`) VALUES
 --
 
 CREATE TABLE `tbl_transfer` (
-  `requisition_no` bigint(11) NOT NULL,
+  `transfer_no` bigint(11) NOT NULL,
   `date` date NOT NULL,
   `time` varchar(15) NOT NULL,
   `user` varchar(100) NOT NULL,
   `branch` varchar(50) NOT NULL,
-  `status` varchar(50) NOT NULL DEFAULT 'pending'
+  `status` varchar(50) NOT NULL DEFAULT 'pending',
+  `branch_from` varchar(15) NOT NULL DEFAULT 'noted'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_transfer`
+--
+
+INSERT INTO `tbl_transfer` (`transfer_no`, `date`, `time`, `user`, `branch`, `status`, `branch_from`) VALUES
+(1, '2021-02-15', '14:11', 'Jael Joel', 'MM2', 'approved', 'noted'),
+(2, '2021-02-15', '14:51', 'Jael Joel', 'MM2', 'pending', 'noted'),
+(3, '2021-02-15', '15:54', 'Jael Joel', 'MM2', 'pending', 'noted');
 
 -- --------------------------------------------------------
 
@@ -300,15 +311,26 @@ CREATE TABLE `tbl_transfer` (
 
 CREATE TABLE `tbl_transfer_items` (
   `id` bigint(20) NOT NULL,
-  `requsition_No` varchar(50) NOT NULL,
+  `transfer_no` varchar(50) NOT NULL,
   `product_code` varchar(50) NOT NULL,
   `product_name` varchar(100) NOT NULL,
   `product_unit` varchar(50) NOT NULL,
   `product_quantity` varchar(20) NOT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'pending',
   `branch` varchar(50) NOT NULL,
-  `balance` varchar(100) NOT NULL
+  `balance` varchar(100) NOT NULL,
+  `branch_from` varchar(15) NOT NULL DEFAULT 'noted'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_transfer_items`
+--
+
+INSERT INTO `tbl_transfer_items` (`id`, `transfer_no`, `product_code`, `product_name`, `product_unit`, `product_quantity`, `status`, `branch`, `balance`, `branch_from`) VALUES
+(1, '1', '52', 'Hayden Duran', 'kgs', '12', 'pending', 'MM2', '10', 'noted'),
+(2, '1', '53', 'Wyoming Wilkinson', 'lts', '15', 'pending', 'MM2', '20', 'noted'),
+(3, '2', '52', 'Hayden Duran', 'kgs', '1', 'pending', 'MM2', '12', 'noted'),
+(4, '3', '52', 'Hayden Duran', 'kgs', '11', 'pending', 'MM2', '12', 'noted');
 
 -- --------------------------------------------------------
 
@@ -454,7 +476,7 @@ ALTER TABLE `tbl_tax`
 -- Indexes for table `tbl_transfer`
 --
 ALTER TABLE `tbl_transfer`
-  ADD PRIMARY KEY (`requisition_no`);
+  ADD PRIMARY KEY (`transfer_no`);
 
 --
 -- Indexes for table `tbl_transfer_items`
@@ -549,13 +571,13 @@ ALTER TABLE `tbl_supplier`
 -- AUTO_INCREMENT for table `tbl_transfer`
 --
 ALTER TABLE `tbl_transfer`
-  MODIFY `requisition_no` bigint(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `transfer_no` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_transfer_items`
 --
 ALTER TABLE `tbl_transfer_items`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_unit`

@@ -231,6 +231,26 @@ include '../includes/base_page/head.php';
             .catch(error => {
                 console.error('Error:', error);
             });
+
+
+        fetch('../includes/transferapproval.php', {
+
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log(result);
+                updateTable(result);
+
+                //   window.setTimeout(() => {
+                //     location.href = "transfer_approval.php"
+                // }, 2500);
+
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+
     });
 
     function disableAllButtons() {
@@ -264,10 +284,8 @@ include '../includes/base_page/head.php';
     }
 
 
-    function updateTable(result) {
-        console.log('Result:', result);
+    let updateTable = (result) => {
         table_body.innerHTML = "";
-
         result.forEach(value => {
 
             let tr = document.createElement("tr");
@@ -374,23 +392,6 @@ include '../includes/base_page/head.php';
             table_body.appendChild(tr);
 
         });
-
-        fetch('../includes/transferapproval.php', {
-
-            })
-            .then(response => response.json())
-            .then(result => {
-                console.log(result);
-                updateTable(result);
-
-                //   window.setTimeout(() => {
-                //     location.href = "transfer_approval.php"
-                // }, 2500);
-
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
 
     }
 
