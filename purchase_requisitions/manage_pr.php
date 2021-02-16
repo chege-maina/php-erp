@@ -254,7 +254,8 @@ include '../includes/base_page/head.php';
               quantity.setAttribute("type", "number");
               quantity.setAttribute("required", "");
               quantity.setAttribute("readonly", "");
-              quantity.setAttribute("id", "q-" + data["name"] + "-" + data["code"]);
+              let id_suffix = data["name"].replace(" ", "_s_s_s_") + "-" + data["code"];
+              quantity.setAttribute("id", "q-" + id_suffix);
               quantity.classList.add("form-control", "form-control-sm", "align-middle");
               // quantity.setAttribute("data-ref", da["name"]);
               quantity.setAttribute("min", 1);
@@ -277,9 +278,12 @@ include '../includes/base_page/head.php';
               actionDiv.classList.add("row");
 
               // data-toggle="tooltip" data-placement="top" title="Tooltip on top"
+              id_suffix = data["name"].replace(" ", "_s_s_s_") + "-" + data["code"];
+              let full_id = "";
               let edit = document.createElement("button");
-              edit.setAttribute("id", "e-" + data["name"] + "-" + data["code"]);
-              edit.setAttribute("onclick", "actionRespond(this.id);");
+              edit.setAttribute("id", "e-" + id_suffix);
+              full_id = "e-" + id_suffix;
+              edit.setAttribute("onclick", "actionRespond('" + full_id + "');");
               edit.setAttribute("data-toggle", "tooltip");
               edit.setAttribute("title", "Edit");
               let icon = document.createElement("span");
@@ -288,8 +292,9 @@ include '../includes/base_page/head.php';
               edit.classList.add("btn", "btn-falcon-primary", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
 
               let save = document.createElement("button");
-              save.setAttribute("id", "s-" + data["name"] + "-" + data["code"]);
-              save.setAttribute("onclick", "actionRespond(this.id);");
+              save.setAttribute("id", "s-" + id_suffix);
+              full_id = "s-" + id_suffix;
+              save.setAttribute("onclick", "actionRespond('" + full_id + "');");
               save.setAttribute("data-toggle", "tooltip");
               save.setAttribute("title", "Save");
               save.disabled = true;
@@ -299,8 +304,9 @@ include '../includes/base_page/head.php';
               save.classList.add("btn", "btn-falcon-primary", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
 
               let cancel = document.createElement("button");
-              cancel.setAttribute("id", "c-" + data["name"] + "-" + data["code"]);
-              cancel.setAttribute("onclick", "actionRespond(this.id);");
+              cancel.setAttribute("id", "c-" + id_suffix);
+              full_id = "c-" + id_suffix;
+              cancel.setAttribute("onclick", "actionRespond('" + full_id + "');");
               cancel.setAttribute("data-toggle", "tooltip");
               cancel.setAttribute("title", "Cancel");
               cancel.disabled = true;
@@ -311,8 +317,9 @@ include '../includes/base_page/head.php';
 
 
               let reject = document.createElement("button");
-              reject.setAttribute("id", "r-" + data["name"] + "-" + data["code"]);
-              reject.setAttribute("onclick", "actionRespond(this.id);");
+              full_id = "r-" + id_suffix;
+              reject.setAttribute("id", "r-" + id_suffix);
+              reject.setAttribute("onclick", "actionRespond('" + full_id + "');");
               reject.setAttribute("data-toggle", "tooltip");
               reject.setAttribute("title", "Reject");
               let icon_r = document.createElement("span");
@@ -415,13 +422,13 @@ include '../includes/base_page/head.php';
 
           function actionRespond(value) {
             value = value.split("-");
-            console.log(value);
             // Get the quantity input in the same row
             const qtt = document.querySelector("#q-" + value[1] + "-" + value[2]);
             const btn_save = document.querySelector("#s-" + value[1] + "-" + value[2]);
             const btn_edit = document.querySelector("#e-" + value[1] + "-" + value[2]);
             const btn_cancel = document.querySelector("#c-" + value[1] + "-" + value[2]);
             const btn_reject = document.querySelector("#r-" + value[1] + "-" + value[2]);
+            value[1] = value[1].replace("_s_s_s_", " ");
 
             if (value[0] == "e") {
               // Edit item
