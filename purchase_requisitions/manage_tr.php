@@ -587,11 +587,12 @@ include '../includes/base_page/head.php';
               console.log("Rejecting");
               const formData = new FormData();
               formData.append("checker", "item_rejected");
-              formData.append("name", value[1]);
-              formData.append("qty", qtt.value);
+              formData.append("name", value[1].trim());
+              // formData.append("qty", qtt.value);
+              console.log(value[1].trim(), " vs ", reqNo);
               formData.append("req_no", reqNo);
 
-              fetch('../includes/update_requisition.php', {
+              fetch('../includes/update_transfer.php', {
                   method: 'POST',
                   body: formData
                 })
