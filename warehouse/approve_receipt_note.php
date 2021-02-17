@@ -129,7 +129,7 @@ include '../includes/base_page/head.php';
         <div class="card mt-1">
           <div class="card-body fs--1 p-1">
             <div class="d-flex flex-row-reverse">
-              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitPO();">
+              <button class="btn btn-falcon-primary btn-sm m-2" id="submit_btn" onclick="approveReceipt();" disabled>
                 Approve
               </button>
             </div>
@@ -148,7 +148,41 @@ include '../includes/base_page/head.php';
           const invoice_number = document.querySelector('#invoice_number');
           const receipt_time = document.querySelector('#receipt_time');
           const receipt_date = document.querySelector('#receipt_date');
+          const submit_btn = document.querySelector('#submit_btn');
 
+          function approveReceipt() {
+            console.log("yay");
+            const formData = new FormData();
+            formData.append("receipt_no", receipt_note_nbr.value);
+
+            // <strong>Success!</strong> ${[>result['message']<]}
+            const alertVar =
+              `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> Approved
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+            var divAlert = document.querySelector("#alert-div");
+            divAlert.innerHTML = alertVar;
+            divAlert.scrollIntoView();
+
+            window.setTimeout(() => {
+              location.href = "manage_tr.php"
+            }, 2500);
+
+            return;
+
+            fetch('https://example.com/profile/avatar', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+                console.log('Success:', result);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+          }
 
           function selectReceipt() {
             if (!receipt_note_no.value) {
@@ -185,8 +219,13 @@ include '../includes/base_page/head.php';
               })
               .then(response => response.json())
               .then(result => {
+                console.log('Success:', result.length);
+                if (result.length > 0) {
+                  submit_btn.removeAttribute("disabled");
+                } else {
+                  submit_btn.setAttribute("disabled", "");
+                }
                 result = result[0];
-                console.log('Success:', result);
 
                 // Update fields
                 receipt_note_nbr.value = result['receipt_no'];
