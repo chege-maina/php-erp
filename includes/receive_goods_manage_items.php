@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $poqty = $row['product_quantity'];
         $name = $row['product_name'];
 
-        $query1 = "SELECT sum(qty) FROM tbl_store_item WHERE lpo_number ='$req_no' and branch='$branch' and product_name='$name'";
+        $query1 = "SELECT sum(qty) FROM tbl_store_item WHERE lpo_number ='$req_no' and branch='$branch' and product_name='$name' and status<>'done'";
         $result1 = mysqli_query($conn, $query1);
         if ($row1 = mysqli_fetch_assoc($result1)) {
             $totalstore = $row1['sum(qty)'];
