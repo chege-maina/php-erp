@@ -152,20 +152,7 @@ include '../includes/base_page/head.php';
             }
             console.log("Selecting: ", receipt_note_no.value)
 
-            const formData = new FormData();
-            formData.append("receipt_no", receipt_note_no.value);
-            return;
-            fetch('https://example.com/profile/avatar', {
-                method: 'POST',
-                body: formData
-              })
-              .then(response => response.json())
-              .then(result => {
-                console.log('Success:', result);
-              })
-              .catch(error => {
-                console.error('Error:', error);
-              });
+            loadReceiptNoteData(receipt_note_no.value);
           }
 
           function d_toString(value) {
@@ -185,7 +172,7 @@ include '../includes/base_page/head.php';
               .then(data => {
                 console.log(data);
                 data.forEach((value) => {
-                  console.log(value);
+                  console.log("Here", value);
                   let opt = document.createElement("option");
                   opt.appendChild(document.createTextNode(value['receipt_no'].toLowerCase()));
                   opt.value = value['receipt_no'].toLowerCase();
@@ -193,6 +180,23 @@ include '../includes/base_page/head.php';
                 });
               });
           });
+
+
+          function loadReceiptNoteData(receipt_no) {
+            const formData = new FormData();
+            formData.append("receipt_no", "po_number");
+            fetch('../includes/approve_receiptnote_items.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+                console.log('Success:', result);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+          }
         </script>
 
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
