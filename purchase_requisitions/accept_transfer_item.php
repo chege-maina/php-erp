@@ -219,7 +219,7 @@ include '../includes/base_page/head.php';
     const formData = new FormData();
     formData.append("po_number", reqNo)
 
-    fetch('../includes/#.php', {
+    fetch('../includes/receieve_approval.php', {
         method: 'POST',
         body: formData
       })
