@@ -182,7 +182,7 @@ include '../includes/base_page/head.php';
           formData.append("date2", req_date_to.value);
           // formData.append("status", r_status.value);
           formData.append("branch", user_branch);
-          fetch('../includes/#.php', {
+          fetch('../includes/filter_load_receive_transfer.php', {
               method: 'POST',
               body: formData
             })
