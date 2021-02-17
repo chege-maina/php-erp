@@ -199,7 +199,6 @@ include '../includes/base_page/head.php';
           const branch = document.querySelector("#req_branch");
           const requisition_status = document.querySelector("#requisition_status");
           const table_body = document.querySelector("#table_body");
-          const product_branch = document.querySelector("#product_branch");
           let table_items_data = [];
 
 
@@ -527,7 +526,7 @@ include '../includes/base_page/head.php';
             const formData = new FormData();
             formData.append("checker", "approve_req");
             formData.append("name", "");
-            formData.append("branch", product_branch.branch);
+            formData.append("branch", product_branch.value);
             // formData.append("qty", -1);
             formData.append("req_no", reqNo);
 
