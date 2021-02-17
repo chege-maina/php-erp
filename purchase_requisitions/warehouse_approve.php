@@ -293,7 +293,7 @@ include '../includes/base_page/head.php';
     formData.append("transfer_no", reqNo);
     formData.append("checker", "..");
 
-    fetch('../includes/update_transfer_approved.php', {
+    fetch('../includes/update_release.php', {
         method: 'POST',
         body: formData
       })
