@@ -8,7 +8,7 @@ session_start();
 $branch = $_SESSION['branch'];
 $stat = "accepted";
 
-$query = "SELECT * FROM tbl_transfer WHERE status='$stat' and branch_from='$branch'";
+$query = "SELECT * FROM tbl_transfer WHERE status='$stat' and branch='$branch'";
 
 
 $result = mysqli_query($conn, $query);
