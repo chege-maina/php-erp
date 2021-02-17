@@ -286,20 +286,6 @@ include '../includes/base_page/head.php';
 
   }
 
-  window.addEventListener('DOMContentLoaded', (event) => {
-    fetch('../includes/transferapproval.php')
-
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        // updateTable(data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-
-
-  });
 
   function rejectRequisition() {
     if (!confirm("Are you sure you want to reject?")) {
