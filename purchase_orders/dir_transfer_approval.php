@@ -164,7 +164,7 @@ include '../includes/base_page/head.php';
     // Load the requisition item for the number
     const formData = new FormData();
     formData.append("req_no", reqNo)
-    fetch('../includes/load_transfer_approve.php', {
+    fetch('../includes/load_transfer_approve2.php', {
         method: 'POST',
         body: formData
       })
