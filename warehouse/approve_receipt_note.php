@@ -151,33 +151,29 @@ include '../includes/base_page/head.php';
           const submit_btn = document.querySelector('#submit_btn');
 
           function approveReceipt() {
-            console.log("yay");
             const formData = new FormData();
             formData.append("receipt_no", receipt_note_nbr.value);
 
-            // <strong>Success!</strong> ${[>result['message']<]}
-            const alertVar =
-              `<div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Success!</strong> Approved
-              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
-              </div>`;
-            var divAlert = document.querySelector("#alert-div");
-            divAlert.innerHTML = alertVar;
-            divAlert.scrollIntoView();
-
-            window.setTimeout(() => {
-              location.href = "manage_tr.php"
-            }, 2500);
-
-            return;
-
-            fetch('https://example.com/profile/avatar', {
+            fetch('../includes/update_receiptnote.php', {
                 method: 'POST',
                 body: formData
               })
               .then(response => response.json())
               .then(result => {
-                console.log('Success:', result);
+                const alertVar =
+                  `<div class="alert alert-success alert-dismissible fade show" role="alert">
+                 <strong>Success!</strong> ${result['message']}
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                var divAlert = document.querySelector("#alert-div");
+                divAlert.innerHTML = alertVar;
+                divAlert.scrollIntoView();
+
+                window.setTimeout(() => {
+                  location.reload();
+                }, 2500);
+
+
               })
               .catch(error => {
                 console.error('Error:', error);
