@@ -62,14 +62,14 @@ include '../includes/base_page/head.php';
                                 </select>
                             </div>
                             <div class="col">
-                                <label for="branch" class="form-label">Address</label>
-                                <input type="text" name="branch" id="po_branch" class="form-control" readonly>
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" name="address" id="address" class="form-control" readonly>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <label for="branch" class="form-label">Terms</label>
-                                <input type="text" name="branch" id="po_branch" class="form-control" readonly>
+                                <label for="terms" class="form-label">Terms</label>
+                                <input type="text" name="terms" id="terms" class="form-control" readonly>
                             </div>
                             <div class="col">
                                 <label for="supplier_name" class="form-label">Supplier Name*</label>
@@ -83,19 +83,18 @@ include '../includes/base_page/head.php';
                                 <input type="date" value="<?php echo date("Y-m-d"); ?>" id="date" class="form-control" readonly>
                             </div>
                             <div class="col">
-                                <label for="created_by" class="form-label">Invoice Number</label>
-                                <input type="text" id="created_by" class="form-control">
-                            </div>
-                            <div class="col">
-                                <label for="branch" class="form-label">Amount Due</label>
-                                <input type="text" name="branch" id="po_branch" class="form-control">
+                                <label for="invoice_n" class="form-label">Invoice Number</label>
+                                <input type="text" id="invoice_no" class="form-control">
                             </div>
                             <div class="col">
                                 <label for="date" class="form-label">Bill Due</label>
                                 <!-- autofill current date  -->
                                 <input type="date" value="<?php echo date("Y-m-d"); ?>" id="date" class="form-control" readonly>
                             </div>
-
+                            <div class="col">
+                                <label for="amount_due" class="form-label">Amount Due</label>
+                                <input type="text" name="amount_due" id="amount_due" class="form-control">
+                            </div>
                         </div>
                     </div>
                 </div>
