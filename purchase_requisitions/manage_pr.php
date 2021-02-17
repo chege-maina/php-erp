@@ -254,7 +254,7 @@ include '../includes/base_page/head.php';
               quantity.setAttribute("type", "number");
               quantity.setAttribute("required", "");
               quantity.setAttribute("readonly", "");
-              let id_suffix = data["name"].replace(" ", "_s_s_s_") + "-" + data["code"];
+              let id_suffix = data["name"].replaceAll(" ", "_s_s_s_") + "-" + data["code"];
               quantity.setAttribute("id", "q-" + id_suffix);
               quantity.classList.add("form-control", "form-control-sm", "align-middle");
               // quantity.setAttribute("data-ref", da["name"]);
@@ -278,7 +278,7 @@ include '../includes/base_page/head.php';
               actionDiv.classList.add("row");
 
               // data-toggle="tooltip" data-placement="top" title="Tooltip on top"
-              id_suffix = data["name"].replace(" ", "_s_s_s_") + "-" + data["code"];
+              id_suffix = data["name"].replaceAll(" ", "_s_s_s_") + "-" + data["code"];
               let full_id = "";
               let edit = document.createElement("button");
               edit.setAttribute("id", "e-" + id_suffix);
@@ -428,7 +428,7 @@ include '../includes/base_page/head.php';
             const btn_edit = document.querySelector("#e-" + value[1] + "-" + value[2]);
             const btn_cancel = document.querySelector("#c-" + value[1] + "-" + value[2]);
             const btn_reject = document.querySelector("#r-" + value[1] + "-" + value[2]);
-            value[1] = value[1].replace("_s_s_s_", " ");
+            value[1] = value[1].replaceAll("_s_s_s_", " ");
 
             if (value[0] == "e") {
               // Edit item
