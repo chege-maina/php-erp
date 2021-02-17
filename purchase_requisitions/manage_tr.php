@@ -163,11 +163,9 @@ include '../includes/base_page/head.php';
             updateComboBoxes();
           });
 
+          const product_branch = document.querySelector("#product_branch");
+
           function updateComboBoxes() {
-
-            const product_branch = document.querySelector("#product_branch");
-
-
             // Clear it
             product_branch.innerHTML = "";
             // Add the no-selectable item first
@@ -460,6 +458,7 @@ include '../includes/base_page/head.php';
             const formData = new FormData();
             formData.append("checker", "req_rejected");
             formData.append("name", "");
+            formData.append("branch", "-1");
             // formData.append("qty", -1);
             formData.append("req_no", reqNo);
 
@@ -528,6 +527,7 @@ include '../includes/base_page/head.php';
             const formData = new FormData();
             formData.append("checker", "approve_req");
             formData.append("name", "");
+            formData.append("branch", product_branch.branch);
             // formData.append("qty", -1);
             formData.append("req_no", reqNo);
 
@@ -603,6 +603,7 @@ include '../includes/base_page/head.php';
               const formData = new FormData();
               formData.append("checker", "item_rejected");
               formData.append("name", value[1].trim());
+              formData.append("branch", "-1");
               // formData.append("qty", qtt.value);
               console.log(value[1].trim(), " vs ", reqNo);
               formData.append("req_no", reqNo);

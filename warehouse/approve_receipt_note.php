@@ -68,19 +68,19 @@ include '../includes/base_page/head.php';
             <div class="row flex">
               <div class="col">
                 <label for="supplier_name" class="form-label">Receipt Note Number*</label>
-                <input type="text" name="supplier_name" id="supplier_name" class="form-control" readonly>
+                <input type="text" name="receipt_note_nbr" id="receipt_note_nbr" class="form-control" readonly>
               </div>
               <div class="col">
                 <label for="po_number" class="form-label">Supplier Name*</label>
-                <input type="text" name="po_number" id="po_number" class="form-control" readonly>
+                <input type="text" name="po_number" id="supplier_name" class="form-control" readonly>
               </div>
               <div class="col">
                 <label for="po_number" class="form-label">LPO Number*</label>
-                <input type="text" name="po_number" id="po_number" class="form-control" readonly>
+                <input type="text" name="po_number" id="lpo_number" class="form-control" readonly>
               </div>
               <div class="col">
                 <label for="po_number" class="form-label">Invoice/Delivery Note No.*</label>
-                <input type="text" name="po_number" id="po_number" class="form-control" readonly>
+                <input type="text" name="po_number" id="invoice_number" class="form-control" readonly>
               </div>
             </div>
             <div class="row mt-2">
@@ -93,7 +93,7 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="date" class="form-label">Date</label>
                 <!-- autofill current date  -->
-                <input type="date" value="<?php echo date("Y-m-d"); ?>" id="date" class="form-control" readonly>
+                <input type="date" id="receipt_date" class="form-control" readonly>
               </div>
             </div>
 
@@ -114,9 +114,8 @@ include '../includes/base_page/head.php';
                   <tr>
                     <th scope="col">Product Code</th>
                     <th scope="col">Product Name</th>
-                    <th scope="col">Units</th>
                     <th scope="col">Quantity Received</th>
-                    <th scope="col">Unit Cost</th>
+                    <th scope="col">Units</th>
                   </tr>
                 </thead>
                 <tbody id="table_body">
@@ -141,8 +140,14 @@ include '../includes/base_page/head.php';
 
 
         <script>
-          let receipt_time = document.querySelector("#receipt_time");
           const receipt_note_no = document.querySelector('#receipt_note_no');
+          const table_body = document.querySelector('#table_body');
+          const receipt_note_nbr = document.querySelector('#receipt_note_nbr');
+          const supplier_name = document.querySelector('#supplier_name');
+          const lpo_number = document.querySelector('#lpo_number');
+          const invoice_number = document.querySelector('#invoice_number');
+          const receipt_time = document.querySelector('#receipt_time');
+          const receipt_date = document.querySelector('#receipt_date');
 
 
           function selectReceipt() {
@@ -155,18 +160,7 @@ include '../includes/base_page/head.php';
             loadReceiptNoteData(receipt_note_no.value);
           }
 
-          function d_toString(value) {
-            return value < 10 ? '0' + value : String(value);
-          }
           document.addEventListener('DOMContentLoaded', function() {
-            const date = new Date();
-            let month = d_toString(date.getMonth() + 1);
-            let day = d_toString(date.getDate());
-            let hours = d_toString(date.getHours());
-            let minutes = d_toString(date.getMinutes());
-
-            receipt_time.value = hours + ":" + minutes;
-
             fetch('../includes/load_receiptnote.php')
               .then(response => response.json())
               .then(data => {
@@ -184,18 +178,63 @@ include '../includes/base_page/head.php';
 
           function loadReceiptNoteData(receipt_no) {
             const formData = new FormData();
-            formData.append("receipt_no", "po_number");
+            formData.append("receipt_no", receipt_no);
             fetch('../includes/approve_receiptnote_items.php', {
                 method: 'POST',
                 body: formData
               })
               .then(response => response.json())
               .then(result => {
+                result = result[0];
                 console.log('Success:', result);
+
+                // Update fields
+                receipt_note_nbr.value = result['receipt_no'];
+                supplier_name.value = result['supplier'];
+                lpo_number.value = result['po_number'];
+                invoice_number.value = result['invoice'];
+                receipt_time.value = result['time'];
+                receipt_date.value = result['date'];
+                updateTable(result["products"]);
               })
               .catch(error => {
                 console.error('Error:', error);
               });
+          }
+
+
+          function updateTable(result) {
+            console.log('Populating:', result);
+            table_body.innerHTML = "";
+
+            let enableButtons = true;
+
+            result.forEach((data) => {
+
+              let tr = document.createElement("tr");
+              // Id will be like 1Tank
+              // tr.setAttribute("id", data["code"] + data["name"]);
+
+              let code_td = document.createElement("td");
+              code_td.appendChild(document.createTextNode(data["code"]));
+              code_td.classList.add("align-middle");
+
+              let name_td = document.createElement("td");
+              name_td.appendChild(document.createTextNode(data["name"]));
+              name_td.classList.add("align-middle", "w-25");
+
+              let units_td = document.createElement("td");
+              units_td.appendChild(document.createTextNode(data["unit"]));
+              units_td.classList.add("align-middle");
+
+              let qty_td = document.createElement("td");
+              qty_td.appendChild(document.createTextNode(data["qty"]));
+              qty_td.classList.add("align-middle");
+
+              tr.append(code_td, name_td, qty_td, units_td);
+              table_body.appendChild(tr);
+            });
+
           }
         </script>
 
