@@ -353,9 +353,9 @@ include '../includes/base_page/head.php';
         divAlert.innerHTML = alertVar;
         divAlert.scrollIntoView();
 
-        //  window.setTimeout(() => {
-        //    location.href = "transfer_approval.php"
-        //  }, 2500);
+        window.setTimeout(() => {
+          location.href = "transfer_approval.php"
+        }, 2500);
 
       })
       .catch(error => {
@@ -420,9 +420,9 @@ include '../includes/base_page/head.php';
         divAlert.innerHTML = alertVar;
         divAlert.scrollIntoView();
 
-        //     window.setTimeout(() => {
-        //       location.href = "transfer_approval.php"
-        //   }, 2500);
+        window.setTimeout(() => {
+          location.href = "transfer_approval.php"
+        }, 2500);
 
       })
       .catch(error => {
