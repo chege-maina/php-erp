@@ -96,6 +96,20 @@ include '../includes/base_page/head.php';
           return value < 10 ? '0' + value : String(value);
         }
 
+
+        function updateDateFilters() {
+          const fromDate = new Date(req_date_from.value);
+          const toDate = new Date(req_date_to.value);
+          if (fromDate > toDate) {
+            let month = d_toString(fromDate.getMonth() + 1);
+            let day = d_toString(fromDate.getDate() + 1);
+            req_date_to.value = String(fromDate.getFullYear()) + '-' + month + '-' + day;
+          }
+          req_date_to.setAttribute("min", fromDate);
+
+          console.log("From: ", fromDate.getDate(), " To: ", req_date_to.value);
+        }
+
         window.addEventListener('DOMContentLoaded', (event) => {
           const date = new Date();
           let month = d_toString(date.getMonth() + 1);
@@ -158,16 +172,16 @@ include '../includes/base_page/head.php';
 
         function detailedView(req_no) {
           sessionStorage.setItem('req_no', req_no);
-          window.location.href = "manage_pr.php";
+          window.location.href = "warehouse_approve.php";
         }
 
         function filterRequisitions() {
           const formData = new FormData();
           formData.append("date1", req_date_from.value);
           formData.append("date2", req_date_to.value);
-          formData.append("status", r_status.value);
+          // formData.append("status", r_status.value);
           formData.append("branch", user_branch);
-          fetch('../includes/filter_requisitions.php', {
+          fetch('../includes/filter_load_accept_transfer.php', {
               method: 'POST',
               body: formData
             })
