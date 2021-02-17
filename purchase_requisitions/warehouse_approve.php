@@ -150,7 +150,7 @@ include '../includes/base_page/head.php';
     // Get passed requisition number
     reqNo = sessionStorage.getItem('req_no');
     // Clear data
-    // sessionStorage.clear();
+    sessionStorage.clear();
 
     // Load the requisition item for the number
     const formData = new FormData();
