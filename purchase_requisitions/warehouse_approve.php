@@ -155,7 +155,7 @@ include '../includes/base_page/head.php';
     // Load the requisition item for the number
     const formData = new FormData();
     formData.append("req_no", reqNo)
-    req_no.innerHTML = reqNo
+    // req_no.innerHTML = reqNo
     fetch('../includes/load_realsese_items.php', {
         method: 'POST',
         body: formData
