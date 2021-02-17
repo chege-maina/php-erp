@@ -103,7 +103,7 @@ include '../includes/base_page/head.php';
             <div class="card-body">
               <div class="row justify-content-between align-items-center">
                 <div class="col-auto">
-                  <button class="btn btn-falcon-success btn-sm mr-2" id="checker" onclick="releaseTransfer();">
+                  <button class="btn btn-falcon-success btn-sm mr-2" id="checker" onclick="acceptItems();">
                     <span class="fas fa-check mr-1" data-fa-transform="shrink-3"></span>
                     Accept
                   </button>
@@ -150,12 +150,11 @@ include '../includes/base_page/head.php';
     // Get passed requisition number
     reqNo = sessionStorage.getItem('req_no');
     // Clear data
-    // sessionStorage.clear();
+    sessionStorage.clear();
 
     // Load the requisition item for the number
     const formData = new FormData();
     formData.append("req_no", reqNo)
-    req_no.appendChild(document.createTextNode(reqNo));
     fetch('../includes/load_accept_items.php', {
         method: 'POST',
         body: formData
@@ -281,7 +280,7 @@ include '../includes/base_page/head.php';
 
   }
 
-  function releaseTransfer() {
+  function acceptItems() {
     if (!confirm("Are you sure you want to approve?")) {
       return;
     }
@@ -293,7 +292,7 @@ include '../includes/base_page/head.php';
     formData.append("transfer_no", reqNo);
     formData.append("checker", "..");
 
-    fetch('../includes/#.php', {
+    fetch('../includes/update_accept.php', {
         method: 'POST',
         body: formData
       })
@@ -309,7 +308,7 @@ include '../includes/base_page/head.php';
         divAlert.scrollIntoView();
 
         window.setTimeout(() => {
-          location.href = "#.php"
+          location.reload();
         }, 2500);
 
       })
