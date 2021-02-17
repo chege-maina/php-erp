@@ -68,8 +68,9 @@ include '../includes/base_page/head.php';
               <thead>
                 <tr>
                   <th>Transfer Number</th>
-                  <th>Branch Requesting</th>
+                  <th>Created By</th>
                   <th>Date </th>
+                  <th>Branch Requesting</th>
                   <th>Action</th>
                 </tr>
               </thead>

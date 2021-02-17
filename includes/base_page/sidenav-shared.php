@@ -45,7 +45,7 @@ function genSideBar()
     <ul class="nav collapse" id="receive" data-parent="#authentication">
       <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_received_goods.php">Receive From Supplier</a>
       </li>
-      <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Receive From Transfer</a>
+      <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/receive_transfer_item.php">Receive From Transfer</a>
       </li>
       </ul>
       </li>

@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stats = 'pending';
     $stats2 = 'approved';
 
-    $query = "SELECT * FROM tbl_purchaseorder_items WHERE po_number ='$req_no'";
+    $query = "SELECT * FROM tbl_purchaseorder_items WHERE po_number ='$req_no' and status<>'done'";
 
 
     $result = mysqli_query($conn, $query);
