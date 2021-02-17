@@ -68,6 +68,7 @@ include '../includes/base_page/head.php';
               <thead>
                 <tr>
                   <th>Transfer Number</th>
+                  <th>Created By</th>
                   <th>Branch Transfering</th>
                   <th>Date </th>
                   <th>Action</th>
@@ -121,7 +122,7 @@ include '../includes/base_page/head.php';
           req_date_to.setAttribute("min", req_date_from.value);
 
           const formData = new FormData();
-          fetch('../includes/#.php', {
+          fetch('../includes/load_receive_transfer.php', {
               method: 'POST',
               body: formData
             })
@@ -164,7 +165,7 @@ include '../includes/base_page/head.php';
             btn.classList.add("btn", "btn-falcon-primary", "btn-sm");
             req_actions.appendChild(btn);
 
-            this_row.append(req_no, req_user, req_date, req_branch, req_actions);
+            this_row.append(req_no, req_user, req_branch, req_date, req_actions);
             table_body.appendChild(this_row);
           });
 
