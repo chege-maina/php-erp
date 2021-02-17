@@ -173,7 +173,7 @@ include '../includes/base_page/head.php';
 
         function detailedView(req_no) {
           sessionStorage.setItem('req_no', req_no);
-          window.location.href = "#.php";
+          window.location.href = "accept_transfer_item.php";
         }
 
         function filterRequisitions() {
