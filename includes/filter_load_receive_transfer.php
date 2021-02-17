@@ -6,7 +6,7 @@ include_once 'dbconnect.php';
 session_start();
 
 $branch = $_SESSION['branch'];
-$stat = "done";
+$stat = "accepted";
 $start_date = $_POST["date1"];
 $end_date = $_POST["date2"];
 
