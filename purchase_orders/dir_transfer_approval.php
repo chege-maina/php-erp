@@ -141,7 +141,6 @@ include '../includes/base_page/head.php';
 <script>
   let reqNo = -1;
   let reqStatus = "";
-  let items_in_table = {};
   const req_no = document.querySelector("#req_no");
   const requisition_date = document.querySelector("#requisition_date");
   const created_by = document.querySelector("#created_by");
@@ -335,28 +334,9 @@ include '../includes/base_page/head.php';
 
     disableAllButtons();
 
-    let table_items = [];
-    for (let item in items_in_table) {
-      table_items.push(items_in_table[item]);
-    }
-    if (table_items.length == 0) {
-      const alertVar =
-        `<div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <strong>Warning!</strong> Cannot submit empty table.
-              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
-              </div>`;
-      var divAlert = document.querySelector("#alert-div");
-      divAlert.innerHTML = alertVar;
-      divAlert.scrollIntoView();
-      return;
-    } else {
-      console.log(table_items);
-    }
-
     const formData = new FormData();
     formData.append("transfer_no", reqNo);
-    formData.append("checker", checker);
-    formData.append("table_items", JSON.stringify(table_items));
+    formData.append("checker", "..");
 
     fetch('../includes/update_transfer_approved.php', {
         method: 'POST',
