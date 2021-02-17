@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2021 at 03:26 PM
+-- Generation Time: Feb 17, 2021 at 01:15 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -299,9 +299,9 @@ CREATE TABLE `tbl_transfer` (
 --
 
 INSERT INTO `tbl_transfer` (`transfer_no`, `date`, `time`, `user`, `branch`, `status`, `branch_from`) VALUES
-(1, '2021-02-15', '14:11', 'Jael Joel', 'MM2', 'approved', 'noted'),
-(2, '2021-02-15', '14:51', 'Jael Joel', 'MM2', 'pending', 'noted'),
-(3, '2021-02-15', '15:54', 'Jael Joel', 'MM2', 'pending', 'noted');
+(1, '2021-02-15', '14:11', 'Jael Joel', 'MM2', 'done', 'MM1'),
+(2, '2021-02-15', '14:51', 'Jael Joel', 'MM2', 'approved', 'noted'),
+(3, '2021-02-15', '15:54', 'Jael Joel', 'MM2', 'approved', 'noted');
 
 -- --------------------------------------------------------
 
@@ -327,8 +327,8 @@ CREATE TABLE `tbl_transfer_items` (
 --
 
 INSERT INTO `tbl_transfer_items` (`id`, `transfer_no`, `product_code`, `product_name`, `product_unit`, `product_quantity`, `status`, `branch`, `balance`, `branch_from`) VALUES
-(1, '1', '52', 'Hayden Duran', 'kgs', '12', 'pending', 'MM2', '10', 'noted'),
-(2, '1', '53', 'Wyoming Wilkinson', 'lts', '15', 'pending', 'MM2', '20', 'noted'),
+(1, '1', '52', 'Hayden Duran', 'kgs', '12', 'done', 'MM2', '10', 'MM1'),
+(2, '1', '53', 'Wyoming Wilkinson', 'lts', '15', 'done', 'MM2', '20', 'MM1'),
 (3, '2', '52', 'Hayden Duran', 'kgs', '1', 'pending', 'MM2', '12', 'noted'),
 (4, '3', '52', 'Hayden Duran', 'kgs', '11', 'pending', 'MM2', '12', 'noted');
 
