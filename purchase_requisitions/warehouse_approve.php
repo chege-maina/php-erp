@@ -103,9 +103,9 @@ include '../includes/base_page/head.php';
             <div class="card-body">
               <div class="row justify-content-between align-items-center">
                 <div class="col-auto">
-                  <button class="btn btn-falcon-success btn-sm mr-2" id="checker" onclick="approveRequisition();">
+                  <button class="btn btn-falcon-success btn-sm mr-2" id="checker" onclick="releaseTransfer();">
                     <span class="fas fa-check mr-1" data-fa-transform="shrink-3"></span>
-                    Approve
+                    Release
                   </button>
                 </div>
               </div>
@@ -219,7 +219,7 @@ include '../includes/base_page/head.php';
     const formData = new FormData();
     formData.append("po_number", reqNo)
 
-    fetch('../includes/transferapproval.php', {
+    fetch('../includes/accept_approval.php', {
         method: 'POST',
         body: formData
       })
@@ -281,7 +281,7 @@ include '../includes/base_page/head.php';
 
   }
 
-  function approveRequisition() {
+  function releaseTransfer() {
     if (!confirm("Are you sure you want to approve?")) {
       return;
     }
