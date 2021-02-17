@@ -199,7 +199,6 @@ include '../includes/base_page/head.php';
           const branch = document.querySelector("#req_branch");
           const requisition_status = document.querySelector("#requisition_status");
           const table_body = document.querySelector("#table_body");
-          const product_branch = document.querySelector("#product_branch");
           let table_items_data = [];
 
 
