@@ -89,9 +89,9 @@ include '../includes/base_page/head.php';
                 <table class="table table-sm table-striped fs--1 mb-0">
                   <thead>
                     <tr>
-                      <th class="col-lg-1">Code</th>
-                      <th class="w-25">Name</th>
-                      <th class="col-lg-1">Quantity</th>
+                      <th>Code</th>
+                      <th>Name</th>
+                      <th>Quantity</th>
                       <th>Units</th>
                     </tr>
                   </thead>
@@ -151,9 +151,9 @@ include '../includes/base_page/head.php';
   const table_body = document.querySelector("#table_body");
 
   window.addEventListener('DOMContentLoaded', (event) => {
-    //   if (sessionStorage.length === 0) {
-    //       location.href = "./transfer_approval.php";
-    //   }
+    if (sessionStorage.length === 0) {
+      location.href = "./transfer_approval.php";
+    }
 
     // Get passed requisition number
     reqNo = sessionStorage.getItem('req_no');
