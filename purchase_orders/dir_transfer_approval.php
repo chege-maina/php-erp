@@ -232,25 +232,6 @@ include '../includes/base_page/head.php';
                 console.error('Error:', error);
             });
 
-
-        fetch('../includes/transferapproval.php', {
-
-            })
-            .then(response => response.json())
-            .then(result => {
-                console.log(result);
-                updateTable(result);
-
-                //   window.setTimeout(() => {
-                //     location.href = "transfer_approval.php"
-                // }, 2500);
-
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-
-
     });
 
     function disableAllButtons() {
@@ -269,8 +250,8 @@ include '../includes/base_page/head.php';
                 body: formData
             })
             .then(response => response.json())
-            .then(result => {
-                updateTable(result);
+            .then(data => {
+                updateTable(data);
 
                 // Disable buttons if necessary
                 if (reqStatus !== "pending") {
@@ -283,117 +264,62 @@ include '../includes/base_page/head.php';
 
     }
 
-
-    let updateTable = (result) => {
+    let updateTable = (data) => {
         table_body.innerHTML = "";
-        result.forEach(value => {
+        data.forEach(value => {
+            const this_row = document.createElement("tr");
 
-            let tr = document.createElement("tr");
-            // Id will be like 1Tank
+            const code = document.createElement("td");
+            code.appendChild(document.createTextNode(value["code"]));
+            code.classList.add("align-middle");
 
-            let code_td = document.createElement("td");
-            code_td.appendChild(document.createTextNode(data["code"]));
-            code_td.classList.add("align-middle");
+            const name = document.createElement("td");
+            name.appendChild(document.createTextNode(value["name"]));
+            name.classList.add("align-middle");
 
+            const unit = document.createElement("td");
+            unit.appendChild(document.createTextNode(value["unit"]));
+            unit.classList.add("align-middle");
 
-            let name_td = document.createElement("td");
-            name_td.appendChild(document.createTextNode(data["name"]));
-            name_td.classList.add("align-middle", "w-25");
+            const qty = document.createElement("td");
+            qty.appendChild(document.createTextNode(value["qty"]));
+            qty.classList.add("align-middle");
 
-            let units_td = document.createElement("td");
-            units_td.appendChild(document.createTextNode(data["unit"]));
-            units_td.classList.add("align-middle");
-
-            let qty_td = document.createElement("td");
-            qty_td.appendChild(document.createTextNode(data["qty"]));
-            qty_td.classList.add("align-middle");
-
-            // let status_td = document.createElement("td");
-            // status_td.appendChild(document.createTextNode(data["status"]));
-            // status_td.classList.add("align-middle");
-
-
-            let quantity = document.createElement("input");
-            quantity.setAttribute("type", "number");
-            quantity.setAttribute("required", "");
-            quantity.setAttribute("readonly", "");
-            quantity.setAttribute("id", "q-" + data["name"] + "-" + data["code"]);
-            quantity.classList.add("form-control", "form-control-sm", "align-middle");
-            // quantity.setAttribute("data-ref", da["name"]);
-            quantity.setAttribute("min", 1);
-            // make sure the quantity is always greater than 0
-            quantity.setAttribute("onfocusout", "this.value = this.value <= 0 ? 1 : this.value;");
-            // quantity.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value);");
-            // quantity.setAttribute("onclick", "this.select();");
-            quantity.value = data["qty"];
-            let quantityWrapper = document.createElement("td");
-            quantityWrapper.classList.add("m-2");
-            quantityWrapper.appendChild(quantity);
+            const req_status = document.createElement("td");
+            const tmp_status = value["status"];
+            const badge = document.createElement("span");
+            badge.appendChild(document.createTextNode(tmp_status));
+            badge.classList.add("badge", "rounded-pill");
+            // <span class="badge rounded-pill badge-soft-primary">Primary</span>
+            if (tmp_status == "pending") {
+                badge.classList.add("badge-soft-secondary");
+            } else if (tmp_status == "approved") {
+                badge.classList.add("badge-soft-success");
+            } else if (tmp_status == "rejected") {
+                badge.classList.add("badge-soft-danger");
+            }
 
 
-
-            //    let actionWrapper = document.createElement("td");
-            // actionWrapper.classList.add("m-2");
-
-
-            //   let actionDiv = document.createElement("div");
-            //   actionDiv.classList.add("row");
-
-            // data-toggle="tooltip" data-placement="top" title="Tooltip on top"
-            //   let edit = document.createElement("button");
-            //  edit.setAttribute("id", "e-" + data["name"] + "-" + data["code"]);
-            //   edit.setAttribute("onclick", "actionRespond(this.id);");
-            // edit.setAttribute("data-toggle", "tooltip");
-            //  edit.setAttribute("title", "Edit");
-            //  let icon = document.createElement("span");
-            //   icon.classList.add("fas", "fa-pencil-alt", "mt-1", "fa-sm");
-            //   edit.appendChild(icon);
-            //  edit.classList.add("btn", "btn-falcon-primary", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
-
-            // let save = document.createElement("button");
-            //  save.setAttribute("id", "s-" + data["name"] + "-" + data["code"]);
-            //  save.setAttribute("onclick", "actionRespond(this.id);");
-            // save.setAttribute("data-toggle", "tooltip");
-            // save.setAttribute("title", "Save");
-            // save.disabled = true;
-            //   let icon_s = document.createElement("span");
-            //  icon_s.classList.add("fas", "fa-save", "mt-1", "fa-sm");
-            //  save.appendChild(icon_s);
-            //   save.classList.add("btn", "btn-falcon-primary", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
-
-            // let cancel = document.createElement("button");
-            //  cancel.setAttribute("id", "c-" + data["name"] + "-" + data["code"]);
-            //  cancel.setAttribute("onclick", "actionRespond(this.id);");
-            //  cancel.setAttribute("data-toggle", "tooltip");
-            //  cancel.setAttribute("title", "Cancel");
-            // cancel.disabled = true;
-            // let icon_c = document.createElement("span");
-            //  icon_c.classList.add("fas", "fa-ban", "mt-1", "fa-sm");
-            //  cancel.appendChild(icon_c);
-            // cancel.classList.add("btn", "btn-falcon-primary", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
-
-
-            //     let reject = document.createElement("button");
-            //   reject.setAttribute("id", "r-" + data["name"] + "-" + data["code"]);
-            //    reject.setAttribute("onclick", "actionRespond(this.id);");
-            //    reject.setAttribute("data-toggle", "tooltip");
-            //    reject.setAttribute("title", "Reject");
-            //   let icon_r = document.createElement("span");
-            //   icon_r.classList.add("fas", "fa-times", "mt-1", "fa-sm");
-            //   reject.appendChild(icon_r);
-            //   reject.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
-            //   reject.disabled = result.length <= 1;
-
-
-            // actionDiv.append(edit, save, cancel, reject);
-            //  actionWrapper.appendChild(actionDiv);
-
-            tr.append(code_td, name_td, balance_td, quantityWrapper, units_td, status_td);
-            table_body.appendChild(tr);
-
+            this_row.append(code, name, unit, qty);
+            table_body.appendChild(this_row);
         });
 
     }
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        fetch('../includes/transferapproval.php')
+
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // updateTable(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+
+    });
 
     function rejectRequisition() {
         if (!confirm("Are you sure you want to reject?")) {

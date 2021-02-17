@@ -109,6 +109,7 @@ include '../includes/base_page/head.php';
 
 
                 let updateTable = (data) => {
+
                     table_body.innerHTML = "";
                     data.forEach(value => {
                         const this_row = document.createElement("tr");
