@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $response,
       array(
         'req_no' => $row['transfer_no'],
-        'branch' => $row['branch'],
+        'branch' => $row['branch_from'],
         'date' => $row['date'],
         'user' => $row['user']
       )
