@@ -5,9 +5,10 @@ header("Content-type:application/json");
 include_once 'dbconnect.php';
 session_start();
 
+$branch = $_SESSION['branch'];
 $stat = "done";
 
-$query = "SELECT * FROM tbl_transfer WHERE status='$stat'";
+$query = "SELECT * FROM tbl_transfer WHERE status='$stat' and branch_from='$branch'";
 
 
 $result = mysqli_query($conn, $query);
