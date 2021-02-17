@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_query($conn, $sql2);
         $response['message'] = "Selected Transfer Rejected..";
     } else {
-        $sql1 = "UPDATE tbl_transfer_items SET status = 'approved', branch_from='$branch' WHERE transfer_no = '" . $req_no . "'";
+        $sql1 = "UPDATE tbl_transfer_items SET status = 'approved', branch_from='$branch' WHERE transfer_no = '" . $req_no . "' and status='pending'";
         $sql = "UPDATE tbl_transfer SET status = 'approved', branch_from='$branch' WHERE transfer_no = '" . $req_no . "'";
         mysqli_query($conn, $sql);
         mysqli_query($conn, $sql1);
