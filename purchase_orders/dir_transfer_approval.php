@@ -296,8 +296,8 @@ include '../includes/base_page/head.php';
     disableAllButtons();
 
     const formData = new FormData();
-    formData.append("req_no", reqNo);
-    formData.append("checker", checker_rej);
+    formData.append("transfer_no", reqNo);
+    formData.append("checker", "rejected");
 
     fetch('../includes/update_transfer_approved.php', {
         method: 'POST',
@@ -305,35 +305,8 @@ include '../includes/base_page/head.php';
       })
       .then(response => response.json())
       .then(result => {
-        const alertVar =
-          `<div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Success!</strong> ${result['message']}
-              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
-              </div>`;
-        var divAlert = document.querySelector("#alert-div");
-        divAlert.innerHTML = alertVar;
-        divAlert.scrollIntoView();
-
-        window.setTimeout(() => {
-          location.href = "transfer_approval.php"
-        }, 2500);
-
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-
-
-    const product_branch = document.querySelector("#product_branch");
-    formData.append("product_branch", product_branch);
-    formData.append("req_no", reqNo);
-
-    fetch('../includes/transfer_balance.php', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(result => {
+        // console.log("akfkdf", result);
+        // return;
         const alertVar =
           `<div class="alert alert-success alert-dismissible fade show" role="alert">
               <strong>Success!</strong> ${result['message']}
