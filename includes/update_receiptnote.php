@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "UPDATE tbl_store SET status = 'approved' WHERE receipt_no = '" . $req_no . "'";
     mysqli_query($conn, $sql);
     mysqli_query($conn, $sql1);
-    $response['message'] = "Selected Purchase Order Approved..";
+    $response['message'] = "Selected Receipt Note Approved..";
 
     echo json_encode($response);
 
