@@ -164,7 +164,7 @@ include '../includes/base_page/head.php';
             btn.classList.add("btn", "btn-falcon-primary", "btn-sm");
             req_actions.appendChild(btn);
 
-            this_row.append(req_no, req_date, req_user, req_branch, req_actions);
+            this_row.append(req_no, req_user, req_date, req_branch, req_actions);
             table_body.appendChild(this_row);
           });
 
