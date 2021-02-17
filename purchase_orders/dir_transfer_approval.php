@@ -107,11 +107,11 @@ include '../includes/base_page/head.php';
             <div class="card-body">
               <div class="row justify-content-between align-items-center">
                 <div class="col-auto">
-                  <button class="btn btn-falcon-success btn-sm mr-2" id="approve_req" onclick="approveRequisition();">
+                  <button class="btn btn-falcon-success btn-sm mr-2" id="checker" onclick="approveRequisition();">
                     <span class="fas fa-check mr-1" data-fa-transform="shrink-3"></span>
                     Approve
                   </button>
-                  <button class="btn btn-falcon-danger btn-sm" id="reject_req" onclick="rejectRequisition();">
+                  <button class="btn btn-falcon-danger btn-sm" id="checker_rej" onclick="rejectRequisition();">
                     <span class="fas fa-times mr-1" data-fa-transform="shrink-3"></span>
                     Reject
                   </button>
@@ -147,6 +147,7 @@ include '../includes/base_page/head.php';
   const branch = document.querySelector("#req_branch");
   const branch_from = document.querySelector("#branch_from");
   const requisition_status = document.querySelector("#requisition_status");
+  const checker = document.querySelector("#checker");
   const table_body = document.querySelector("#table_body");
 
   window.addEventListener('DOMContentLoaded', (event) => {
@@ -259,7 +260,7 @@ include '../includes/base_page/head.php';
 
         // Disable buttons if necessary
         if (reqStatus !== "pending") {
-          disableAllButtons();
+          //  disableAllButtons();
         }
       })
       .catch(error => {
@@ -334,12 +335,10 @@ include '../includes/base_page/head.php';
     disableAllButtons();
 
     const formData = new FormData();
-    formData.append("checker", "req_rejected");
-    formData.append("name", "");
-    formData.append("qty", -1);
     formData.append("req_no", reqNo);
+    formData.append("checker", checker_rej);
 
-    fetch('../includes/update_requisition.php', {
+    fetch('../includes/update_transfer_approved.php', {
         method: 'POST',
         body: formData
       })
@@ -365,7 +364,7 @@ include '../includes/base_page/head.php';
 
 
     const product_branch = document.querySelector("#product_branch");
-    formData.append("product_branch", product_branch.value);
+    formData.append("product_branch", product_branch);
     formData.append("req_no", reqNo);
 
     fetch('../includes/transfer_balance.php', {
@@ -403,12 +402,10 @@ include '../includes/base_page/head.php';
     disableAllButtons();
 
     const formData = new FormData();
-    formData.append("checker", "approve_req");
-    formData.append("name", "");
-    formData.append("qty", -1);
-    formData.append("req_no", reqNo);
+    formData.append("transfer_no", reqNo);
+    formData.append("checker", checker);
 
-    fetch('../includes/update_requisition.php', {
+    fetch('../includes/update_transfer_approved.php', {
         method: 'POST',
         body: formData
       })
@@ -434,7 +431,7 @@ include '../includes/base_page/head.php';
 
 
     const product_branch = document.querySelector("#product_branch");
-    formData.append("product_branch", product_branch.value);
+    formData.append("product_branch", product_branch);
     formData.append("req_no", reqNo);
 
     fetch('../includes/transfer_balance.php', {
