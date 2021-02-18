@@ -51,7 +51,7 @@ include '../includes/base_page/head.php';
               <div class="input-group">
                 <input list="purchase_order_number_items" id="purchase_order_number" class="form-select form-select-sm">
                 <datalist id="purchase_order_number_items" class="bg-light"></datalist>
-                <button class="input-group-btn btn btn-primary btn-sm" id="selectReceipt" onclick="selectReceipt();">
+                <button class="input-group-btn btn btn-primary btn-sm" id="lpoNumber" onclick="selectLPONumber();">
                   Select
                 </button>
               </div>
@@ -92,7 +92,7 @@ include '../includes/base_page/head.php';
               </div>
               <div class="col">
                 <label for="invoice_n" class="form-label">Enter Bill Number*</label>
-                <input type="text" id="invoice_no" class="form-control" required>
+                <input type="text" id="iinvoice_no" class="form-control" required>
               </div>
               <div class="col">
                 <label for="amount_due" class="form-label">Amount Due*</label>
@@ -188,6 +188,26 @@ include '../includes/base_page/head.php';
             console.error('Error:', error);
           });
       });
+
+      const selectLPONumber = () => {
+        if (!purchase_order_number.value) {
+          purchase_order_number.focus();
+          return;
+        }
+        const formData = new FormData();
+        formData.append("po_number", purchase_order_number.value);
+        fetch('../includes/', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(result => {
+            console.log('Success:', result);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      }
     </script>
 
     <?php
