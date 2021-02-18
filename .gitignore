@@ -1,7 +1,6 @@
 mess.*
 mess*.php
 item-images/
-.vscode
 uploads/*.png
 uploads/*.jpg
 uploads/*.jpeg
