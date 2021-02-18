@@ -48,6 +48,7 @@ include '../includes/base_page/head.php';
                     <div class="card-body fs--1 pr-2 position-relative">
 
                         <div class="col col-md-5 my-4">
+                            <label class="form-label"> Select LPO Number</label>
                             <div class="input-group">
                                 <input list="purchase_order_number_items" id="purchase_order_number" class="form-select form-select-sm">
                                 <datalist id="purchase_order_number_items" class="bg-light"></datalist>
