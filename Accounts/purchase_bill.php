@@ -38,7 +38,7 @@ include '../includes/base_page/head.php';
                 <!-- body begins here -->
                 <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
                 <div id="alert-div"></div>
-                <h5 class="p-2">Enter Bill </h5>
+                <h5 class="p-2">Post Purchase Bill </h5>
                 <div class="card">
 
                     <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/illustrations/corner-4.png);">
@@ -47,53 +47,59 @@ include '../includes/base_page/head.php';
 
                     <div class="card-body fs--1 pr-2">
 
-                        <div class="d-flex align-items-center mb-2 flex-row" style="height: 5rem;">
-                            <h5>Purchase Bill </h5>
-                            <span id="po_nbr" class="text-info h2 ml-2"></span>
+                        <div class="col col-md-5 my-4">
+                            <div class="input-group">
+                                <select class="form-select form-select-sm" name="product_category" id="receipt_note_no" required>
+                                    <option value disabled selected>
+                                        -- Select Purchase Order Number --
+                                    </option>
+                                </select>
+                                <button class="input-group-btn btn btn-primary btn-sm" id="selectReceipt" onclick="selectReceipt();">
+                                    Select
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Content is to start here -->
                         <div class="row">
                             <div class="col">
-                                <label for="status" class="form-label">LPO Number</label>
-                                <select name="status" id="status" class="form-select">
-                                    <option value="#">#</option>
-                                    <option value="#">#</option>
-                                </select>
-                            </div>
-                            <div class="col">
-                                <label for="address" class="form-label">Address</label>
+                                <label for="address" class="form-label">LPO Number</label>
                                 <input type="text" name="address" id="address" class="form-control" readonly>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <label for="terms" class="form-label">Terms</label>
-                                <input type="text" name="terms" id="terms" class="form-control" readonly>
                             </div>
                             <div class="col">
                                 <label for="supplier_name" class="form-label">Supplier Name*</label>
                                 <input type="text" name="supplier_name" id="supplier_name" class="form-control" readonly>
                             </div>
+                            <div class="col">
+                                <label for="terms" class="form-label">Terms of Payment(Days)</label>
+                                <input type="text" name="terms" id="terms" class="form-control" readonly>
+                            </div>
+                            <div class="col">
+                                <label for="invoice_n" class="form-label">Invoice / Delivery Note Number</label>
+                                <input type="text" id="invoice_no" class="form-control" readonly>
+                            </div>
+
                         </div>
+                        <hr>
                         <div class="row mt-3">
                             <div class="col">
-                                <label for="date" class="form-label">Date</label>
+                                <label for="date" class="form-label">Date*</label>
                                 <!-- autofill current date  -->
-                                <input type="date" value="<?php echo date("Y-m-d"); ?>" id="date" class="form-control" readonly>
+                                <input type="date" id="date" class="form-control" required>
                             </div>
+
                             <div class="col">
-                                <label for="invoice_n" class="form-label">Invoice Number</label>
-                                <input type="text" id="invoice_no" class="form-control">
-                            </div>
-                            <div class="col">
-                                <label for="date" class="form-label">Bill Due</label>
+                                <label for="date" class="form-label">Bill Due*</label>
                                 <!-- autofill current date  -->
-                                <input type="date" value="<?php echo date("Y-m-d"); ?>" id="date" class="form-control" readonly>
+                                <input type="text" id="date_due" class="form-control" required readonly>
                             </div>
                             <div class="col">
-                                <label for="amount_due" class="form-label">Amount Due</label>
-                                <input type="text" name="amount_due" id="amount_due" class="form-control">
+                                <label for="invoice_n" class="form-label">Enter Bill Number*</label>
+                                <input type="text" id="invoice_no" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label for="amount_due" class="form-label">Amount Due*</label>
+                                <input type="text" name="amount_due" id="amount_due" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -153,7 +159,7 @@ include '../includes/base_page/head.php';
                     <div class="card-body fs--1 p-1">
                         <div class="d-flex flex-row-reverse">
                             <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitPO();">
-                                Approve
+                                Post Bill
                             </button>
                         </div>
                         <!-- Content ends here -->
