@@ -213,12 +213,14 @@ include '../includes/base_page/head.php';
           })
           .then(response => response.json())
           .then(result => {
+            console.log("Before the hack", result);
             result = result[0];
             lpo_number.value = result["po_number"];
             supplier_name.value = result["supplier_name"];
             delivery_no.value = result["delivery_note"];
             terms_of_payment.value = result["terms"];
             console.log('Success:', result);
+            updateTable("After", result["table_data"]);
           })
           .catch(error => {
             console.error('Error:', error);
