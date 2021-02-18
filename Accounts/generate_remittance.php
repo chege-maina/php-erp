@@ -45,7 +45,7 @@ include '../includes/base_page/head.php';
                             </div>
                             <div class="col-lg-4 mb-3">
 
-                                <div class="col">
+                                <div class="col flex-row-reverse">
                                     <div class="col">
                                         <label for="req_date" class="form-label">Date </label>
                                         <input type="date" name="req_date" id="req_date_from" class="form-control" required onchange="updateDateFilters();">
@@ -83,24 +83,61 @@ include '../includes/base_page/head.php';
                     </div>
                     <hr>
                     <div class="m-2 mb-2">
-                        <table class="table table-sm table-striped" id="table-main">
-                            <thead>
-                                <tr>
-                                    <th>Due Date</th>
-                                    <th>Invoice Number</th>
-                                    <th>Supplier</th>
-                                    <th>Amount Due</th>
-                                    <th>WHT</th>
-                                    <th>Amount Payable</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="table_body">
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-striped" id="table-main">
+                                <thead>
+                                    <tr>
+                                        <th>Due Date</th>
+                                        <th>Invoice Number</th>
+                                        <th>Supplier</th>
+                                        <th>Amount Due</th>
+                                        <th>WHT</th>
+                                        <th>Amount Payable</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table_body">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row m-3">
+                            <div class="col text-right fw-bold">
+                                Total Before Tax</div>
+                            <div class="col col-auto">
+                                <input class="form-control form-control-sm text-right" type="number" readonly id="total_before_tax" />
+                            </div>
+                        </div>
+                        <div class="row m-3">
+                            <div class="col text-right fw-bold">
+                                Tax 16 %
+                            </div>
+                            <div class="col col-auto">
+                                <input class="form-control form-control-sm text-right" type="number" readonly id="tax_pc" />
+                            </div>
+                        </div>
+                        <div class="row m-3">
+                            <div class="col text-right fw-bold">
+                                Total
+                            </div>
+                            <div class="col col-auto">
+                                <input class="form-control form-control-sm text-right" type="number" readonly id="po_total" />
+                            </div>
+                        </div>
                     </div>
                     <!-- Content ends here -->
                 </div>
+                <div class="card mt-1">
+                    <div class="card-body fs--1 p-1">
+                        <div class="d-flex flex-row-reverse">
+                            <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitPO();">
+                                Create
+                            </button>
+                        </div>
+                        <!-- Content ends here -->
+                    </div>
+
+                </div>
+
                 <!-- Additional cards can be added here -->
             </div>
             <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
