@@ -21,7 +21,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $del_no = $row['invoice_no'];
         $rec_no = $row['recepit_no'];
 
-        $query2 = "SELECT * FROM tbl_store WHERE status='$stat' and lpo_number='$lpo_no' ORDER BY receipt_no ASC";
+        $query2 = "SELECT payment_terms FROM tbl_supplier WHERE name='$supplier'";
+        $result2 = mysqli_query($conn, $query2);
+
+        if ($row2 = mysqli_fetch_assoc($result2)) {
+            $terms = $row2['payment_terms'];
+        }
+        $query3 = "SELECT * FROM tbl_store_item WHERE receipt_no='$rec_no'";
+        $result3 = mysqli_query($conn, $query3);
+        $response2 = array();
+
+        while ($row3 = mysqli_fetch_assoc($result3)) {
+            $prod_code = $row3['product_code'];
+            $prod_name = $row3['product_name'];
+            $unit = $row3['product_unit'];
+            $qty = $row3['qty'];
+
+            $query4 = "SELECT product_cost FROM supplier_product WHERE product_name='$prod_name' and supplier_name='$supplier'";
+            $result4 = mysqli_query($conn, $query4);
+
+            if ($row4 = mysqli_fetch_assoc($result4)) {
+                $cost = $row4['payment_terms'];
+                $total = $cost * $qty;
+            }
+            array_push(
+                $response2,
+                array(
+                    'product_code' => $prod_code,
+                    'product_name' => $prod_name,
+                    'product_unit' => $unit,
+                    'product_qty' => $qty,
+                    'product_cost' => $cost,
+                    'product_total' => $total
+                )
+            );
+        }
+        array_push(
+            $response,
+            array(
+                'po_number' => $po_number,
+                'supplier_name' => $supplier,
+                'delivery_note' => $del_no,
+                'receipt_no' => $rec_no,
+                'terms' => $terms,
+                'table_data' => $response2
+            )
+        );
     }
 
     echo json_encode($response);
