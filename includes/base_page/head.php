@@ -22,6 +22,7 @@
   <meta name="theme-color" content="#ffffff">
   <script src="../assets/js/config.js"></script>
   <script src="../assets/js/jquery-3.5.1.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/autonumeric@4.5.4"></script>
 
 
   <!-- ===============================================-->
@@ -29,6 +30,11 @@
   <!-- ===============================================-->
   <link href="../assets/css/theme-rtl.min.css" rel="stylesheet" id="style-rtl">
   <link href="../assets/css/theme.min.css" rel="stylesheet" id="style-default">
+  <style>
+    .hide-this {
+      display: none;
+    }
+  </style>
   <script>
     var isRTL = JSON.parse(localStorage.getItem('isRTL'));
     if (isRTL) {
@@ -38,6 +44,18 @@
     } else {
       var linkRTL = document.getElementById('style-rtl');
       linkRTL.setAttribute('disabled', true);
+    }
+
+    const commify = (input_element, helper_element) => {
+      console.log("Commifiring", input_element);
+      const h_e = new AutoNumeric(helper_element, {
+        currencySymbol: ''
+      });
+      const i_e = document.querySelector(input_element);
+      const h_e_v = document.querySelector(helper_element);
+      h_e_v.addEventListener("keyup", () => {
+        i_e.value = h_e.getNumericString();
+      });
     }
   </script>
 </head>
