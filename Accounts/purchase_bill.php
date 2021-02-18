@@ -38,7 +38,7 @@ include '../includes/base_page/head.php';
                 <!-- body begins here -->
                 <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
                 <div id="alert-div"></div>
-                <h5 class="p-2">Purchase Bill </h5>
+                <h5 class="p-2">Post Purchase Bill </h5>
                 <div class="card">
 
                     <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/illustrations/corner-4.png);">
@@ -159,7 +159,7 @@ include '../includes/base_page/head.php';
                     <div class="card-body fs--1 p-1">
                         <div class="d-flex flex-row-reverse">
                             <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitPO();">
-                                Approve
+                                Post Bill
                             </button>
                         </div>
                         <!-- Content ends here -->
