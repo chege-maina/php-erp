@@ -219,8 +219,9 @@ include '../includes/base_page/head.php';
             supplier_name.value = result["supplier_name"];
             delivery_no.value = result["delivery_note"];
             terms_of_payment.value = result["terms"];
-            console.log('Success:', result);
-            updateTable("After", result["table_data"]);
+            console.log('After:', result);
+            return;
+            updateTable(result["table_data"]);
           })
           .catch(error => {
             console.error('Error:', error);
