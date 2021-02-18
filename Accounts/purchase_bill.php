@@ -82,13 +82,13 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="bill_date" class="form-label">Date*</label>
                 <!-- autofill current date  -->
-                <input type="date" id="bill_date" class="form-control" required>
+                <input type="date" id="bill_date" class="form-control" required onchange="updateDueDate();">
               </div>
 
               <div class="col">
-                <label for="date" class="form-label">Bill Due*</label>
+                <label for="date_due" class="form-label">Bill Due*</label>
                 <!-- autofill current date  -->
-                <input type="text" id="date_due" class="form-control" required readonly>
+                <input type="date" id="date_due" class="form-control" required readonly>
               </div>
               <div class="col">
                 <label for="invoice_n" class="form-label">Enter Bill Number*</label>
@@ -296,6 +296,25 @@ include '../includes/base_page/head.php';
         total_before_tax.set(cumulative_total);
         tax_pc.set(cumulative_total * 0.16);
         po_total.set(cumulative_total * 1.16);
+      }
+
+      function d_toString(value) {
+        return value < 10 ? '0' + value : String(value);
+      }
+
+      function addDays(date_v, days) {
+        return new Date(date_v.getTime() + ((Number(days)) * 24 * 60 * 60 * 1000));
+      }
+
+      function updateDueDate() {
+        if (!terms_of_payment.value) {
+          return;
+        }
+        const billDate = new Date(bill_date.value);
+        const dateV = addDays(billDate, terms_of_payment.value);
+        let month = d_toString(dateV.getMonth() + 1);
+        let day = d_toString(dateV.getDate());
+        date_due.value = String(dateV.getFullYear()) + '-' + month + '-' + day;
       }
     </script>
 
