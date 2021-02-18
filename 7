@@ -92,18 +92,11 @@ include '../includes/base_page/head.php';
               </div>
               <div class="col">
                 <label for="invoice_n" class="form-label">Enter Bill Number*</label>
-                <input type="text" id="bill_number" class="form-control" required onfocusout="this.value = this.value.toUpperCase();">
+                <input type="text" id="bill_number" class="form-control" required>
               </div>
               <div class="col">
                 <label for="amount_due" class="amount_due-label">Amount Due*</label>
-                <input type="number" class="form-control hide-this" name="amount_due" id="amount_due">
-                <input type="text" class="form-control" id="amount_due_helper" required>
-                <script>
-                  let amount_due, amount_due_helper;
-                  window.addEventListener('DOMContentLoaded', (event) => {
-                    [amount_due, amount_due_helper] = commify('#amount_due', '#amount_due_helper');
-                  });
-                </script>
+                <input type="text" name="amount_due" id="amount_due" class="form-control" required>
               </div>
             </div>
           </div>
@@ -162,7 +155,7 @@ include '../includes/base_page/head.php';
         <div class="card mt-1">
           <div class="card-body fs--1 p-1">
             <div class="d-flex flex-row-reverse">
-              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="postBill();">
+              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitPO();">
                 Post Bill
               </button>
             </div>
@@ -188,8 +181,8 @@ include '../includes/base_page/head.php';
       const bill_date = document.querySelector("#bill_date");
       const bill_number = document.querySelector("#bill_number");
       const date_due = document.querySelector("#date_due");
+      const amount_due = document.querySelector("#amount_due");
       const table_body = document.querySelector("#table_body");
-      const amount_due_helper_v = document.querySelector("#amount_due_helper");
 
       const total_before_tax_e = document.querySelector("#total_before_tax");
       const total_before_tax = new AutoNumeric('#total_before_tax', {
@@ -208,31 +201,6 @@ include '../includes/base_page/head.php';
         currencySymbol: '',
         minimumValue: 0
       });
-
-      function postBill() {
-        if (!terms_of_payment.value) {
-          purchase_order_number.focus();
-          return;
-        }
-
-        if (!date_due.value) {
-          date_due.focus();
-          return;
-        }
-
-        if (!bill_number.value) {
-          bill_number.focus();
-          return;
-        }
-
-
-        if (!amount_due.value || Number(amount_due.value) !== Number(po_total.getNumericString())) {
-          amount_due_helper_v.focus();
-          return;
-        }
-
-        console.log("posting");
-      }
 
       window.addEventListener('DOMContentLoaded', (event) => {
         fetch('../includes/load_purchase_billNo.php')
@@ -334,16 +302,14 @@ include '../includes/base_page/head.php';
         return value < 10 ? '0' + value : String(value);
       }
 
-      function addDays(date_v, days) {
-        return new Date(date_v.getTime() + ((Number(days)) * 24 * 60 * 60 * 1000));
-      }
-
       function updateDueDate() {
         if (!terms_of_payment.value) {
           return;
         }
         const billDate = new Date(bill_date.value);
-        const dateV = addDays(billDate, terms_of_payment.value);
+        const dateV = new Date(billDate + new Date(Number(terms_of_payment.value) * 24 * 60 * 60 * 1000);)
+        console.log(
+          dateV.toISOString());
         let month = d_toString(dateV.getMonth() + 1);
         let day = d_toString(dateV.getDate());
         date_due.value = String(dateV.getFullYear()) + '-' + month + '-' + day;
