@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_query($conn, $sql);
         mysqli_query($conn, $sql2);
 
-        $message = "Goods Receipt Note " . $po_number . " Created Successfully..";
+        $message = "Purchase Bill " . $po_number . " Posted Successfully..";
         echo json_encode($message);
     } else {
         // echo "Multiquery failed: " . $mysql;
