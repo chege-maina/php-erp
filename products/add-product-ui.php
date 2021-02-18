@@ -111,7 +111,7 @@ include '../includes/base_page/head.php';
               <div class="row">
                 <div class="col">
                   <label class="form-label" for="min_level">Minimum Level*</label>
-                  <input type="number" class="form-control hide-this" name="min_level" id="min_level" required>
+                  <input type="number" class="form-control hide-this" name="min_level" id="min_level">
                   <input type="text" class="form-control" id="min_level_helper" required>
                   <script>
                     window.addEventListener('DOMContentLoaded', (event) => {
@@ -122,7 +122,7 @@ include '../includes/base_page/head.php';
                 </div>
                 <div class="col">
                   <label class="form-label" for="max_level">Maximum Level*</label>
-                  <input type="number" class="form-control hide-this" name="max_level" id="max_level" required>
+                  <input type="number" class="form-control hide-this" name="max_level" id="max_level">
                   <input type="text" class="form-control" id="max_level_helper" required>
                   <script>
                     window.addEventListener('DOMContentLoaded', (event) => {
@@ -133,7 +133,7 @@ include '../includes/base_page/head.php';
                 </div>
                 <div class="col">
                   <label class="form-label" for="reorder">Reorder Level*</label>
-                  <input type="number" class="form-control hide-this" name="reorder" id="reorder" required>
+                  <input type="number" class="form-control hide-this" name="reorder" id="reorder">
                   <input type="text" class="form-control" id="reorder_helper" required>
                   <script>
                     window.addEventListener('DOMContentLoaded', (event) => {
@@ -168,8 +168,8 @@ include '../includes/base_page/head.php';
                 </div>
                 <div class="col">
                   <label class="form-label" for="amount_before_tax">Amount Before Tax*</label>
-                  <input type="number" class="form-control hide-this" name="amount_before_tax" id="amount_before_tax" required>
-                  <input type="text" class="form-control" id="amount_before_tax_helper" required onkeyup="calculatePrices();">
+                  <input type="number" class="form-control hide-this" name="amount_before_tax" id="amount_before_tax">
+                  <input type="text" class="form-control" id="amount_before_tax_helper" required onchange="calculatePrices();">
                   <script>
                     window.addEventListener('DOMContentLoaded', (event) => {
                       commify('#amount_before_tax', '#amount_before_tax_helper');
@@ -205,7 +205,7 @@ include '../includes/base_page/head.php';
                     <td>
                       <label class="form-label" for="profit_margin">*</label>
                       <div class="input-group mb-3 col col-md-2">
-                        <input type="number" class="form-control" name="profit_margin" aria-describedby="margin-percentage-label" value="25" id="profit_margin" required>
+                        <input type="number" class="form-control" name="profit_margin" aria-describedby="margin-percentage-label" value="25" id="profit_margin" required onkeyup=="calculatePrices();">
                         <span class="input-group-text" id="margin-percentage-label">%</span>
                       </div>
                       <div class="invalid-feedback">This field cannot be left blank.</div>

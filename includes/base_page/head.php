@@ -22,8 +22,7 @@
   <meta name="theme-color" content="#ffffff">
   <script src="../assets/js/config.js"></script>
   <script src="../assets/js/jquery-3.5.1.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/autonumeric@4.5.4"></script>
-
+  <script src="../assets/js/autoNumeric.js"></script>
 
   <!-- ===============================================-->
   <!--    Stylesheets-->
@@ -48,7 +47,8 @@
 
     const commify = (input_element, helper_element) => {
       const h_e = new AutoNumeric(helper_element, {
-        currencySymbol: ''
+        currencySymbol: '',
+        minimumValue: 0
       });
       const i_e = document.querySelector(input_element);
       const h_e_v = document.querySelector(helper_element);
