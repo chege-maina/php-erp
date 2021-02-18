@@ -190,6 +190,8 @@ include '../includes/base_page/head.php';
       const date_due = document.querySelector("#date_due");
       const table_body = document.querySelector("#table_body");
       const amount_due_helper_v = document.querySelector("#amount_due_helper");
+      let table_items_data = [];
+      let receipt_no;
 
       const total_before_tax_e = document.querySelector("#total_before_tax");
       const total_before_tax = new AutoNumeric('#total_before_tax', {
@@ -231,7 +233,32 @@ include '../includes/base_page/head.php';
           return;
         }
 
-        console.log("posting");
+        const formData = new FormData();
+        formData.append("po_number", lpo_number.value);
+        formData.append("supplier", supplier_name.value);
+        formData.append("terms", terms_of_payment.value);
+        formData.append("del_no", delivery_no.value);
+        formData.append("date", bill_date.value);
+        formData.append("due", date_due.value);
+        formData.append("invoice", bill_number.value);
+        formData.append("total", po_total.getNumericString());
+        formData.append("totalbft", total_before_tax.getNumericString());
+        formData.append("tax", tax_pc.getNumericString());
+        formData.append("receipt_no", receipt_no);
+        formData.append("user", user_name);
+        formData.append("table_items", JSON.stringify(table_items_data));
+
+        fetch('../includes/add_purchasebill.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.text())
+          .then(result => {
+            console.log('Success:', result);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
       }
 
       window.addEventListener('DOMContentLoaded', (event) => {
@@ -263,13 +290,12 @@ include '../includes/base_page/head.php';
           })
           .then(response => response.json())
           .then(result => {
-            console.log("Before the hack", result);
             result = result[0];
+            receipt_no = result["receipt_no"];
             lpo_number.value = result["po_number"];
             supplier_name.value = result["supplier_name"];
             delivery_no.value = result["delivery_note"];
             terms_of_payment.value = result["terms"];
-            console.log('After:', result);
             updateTable(result["table_data"]);
           })
           .catch(error => {
@@ -285,6 +311,17 @@ include '../includes/base_page/head.php';
         let cumulative_total = 0;
 
         result.forEach((data) => {
+
+
+          let tmp_row = {
+            "p_code": data["product_code"],
+            "p_name": data["product_name"],
+            "p_units": data["product_unit"],
+            "p_quantity": data["product_qty"],
+            "p_cost": data["product_cost"],
+            "p_total": data["product_total"]
+          }
+          table_items_data.push(tmp_row);
 
           let tr = document.createElement("tr");
           // Id will be like 1Tank
