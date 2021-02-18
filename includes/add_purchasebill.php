@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         '" . $value["p_cost"] . "','" . $value["p_total"] . "','" . $user . "', '" . $rec_no . "')";
             mysqli_query($conn, $mysql);
         }
-        $sql = "UPDATE tbl_store_items SET status = 'done' WHERE receipt_no = '" . $rec_no . "'";
+        $sql = "UPDATE tbl_store_item SET status = 'done' WHERE receipt_no = '" . $rec_no . "'";
         $sql2 = "UPDATE tbl_store SET status = 'done' WHERE receipt_no = '" . $rec_no . "'";
         mysqli_query($conn, $sql);
         mysqli_query($conn, $sql2);
