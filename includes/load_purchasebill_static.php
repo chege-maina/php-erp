@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result4 = mysqli_query($conn, $query4);
 
             if ($row4 = mysqli_fetch_assoc($result4)) {
-                $cost = $row4['payment_terms'];
+                $cost = $row4['product_cost'];
                 $total = $cost * $qty;
             }
             array_push(
