@@ -87,6 +87,16 @@ function genSideBar()
     </li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-commerce" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-cart-plus"></span></span><span class="nav-link-text"> Accounts</span>
+  </div>
+</a>
+<ul class="nav collapse" id="e-commerce" data-parent="#navbarVerticalCollapse">
+  <li class="nav-item"><a class="nav-link" href="../Accounts/purchase_bill.php">Post Purchase Bill</a>
+  </li>
+  
+</ul>
+</li>
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#authentication" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authentication">
   <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-unlock-alt"></span></span><span class="nav-link-text"> Suppliers</span>
   </div>
@@ -152,31 +162,7 @@ function genSideBar()
   </li>
 </ul>
 </li>
-<li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-commerce" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-cart-plus"></span></span><span class="nav-link-text"> E commerce</span>
-  </div>
-</a>
-<ul class="nav collapse" id="e-commerce" data-parent="#navbarVerticalCollapse">
-  <li class="nav-item"><a class="nav-link" href="../e-commerce/checkout.html">Checkout</a>
-  </li>
-  <li class="nav-item"><a class="nav-link" href="../e-commerce/customer-details.html">Customer details</a>
-  </li>
-  <li class="nav-item"><a class="nav-link" href="../e-commerce/customers.html">Customers</a>
-  </li>
-  <li class="nav-item"><a class="nav-link" href="../e-commerce/order-details.html">Order details</a>
-  </li>
-  <li class="nav-item"><a class="nav-link" href="../e-commerce/orders.html">Orders</a>
-  </li>
-  <li class="nav-item"><a class="nav-link" href="../e-commerce/product-details.html">Product details</a>
-  </li>
-  <li class="nav-item"><a class="nav-link" href="../e-commerce/product-grid.html">Product grid</a>
-  </li>
-  <li class="nav-item"><a class="nav-link" href="../e-commerce/product-list.html">Product list</a>
-  </li>
-  <li class="nav-item"><a class="nav-link" href="../e-commerce/shopping-cart.html">Shopping cart</a>
-  </li>
-</ul>
-</li>
+
 </ul>
 <div class="navbar-vertical-divider">
   <hr class="navbar-vertical-hr my-2" />
