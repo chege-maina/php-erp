@@ -35,10 +35,27 @@ include '../includes/base_page/head.php';
 
                 <!-- =========================================================== -->
                 <!-- body begins here -->
+                <h5 class="p-2">Generate Remittance Advice</h5>
                 <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-                <h5 class="p-2">Receive Transfer Item</h5>
-                <div class="card">
+
+                <div class="card mt-3">
                     <div class="card-body fs--1 p-4">
+                        <div class="row">
+                            <div class="col-lg-8 mb-3">
+                            </div>
+                            <div class="col-lg-4 mb-3">
+
+                                <div class="col">
+                                    <div class="col">
+                                        <label for="req_date" class="form-label">Date </label>
+                                        <input type="date" name="req_date" id="req_date_from" class="form-control" required onchange="updateDateFilters();">
+
+                                    </div>
+                                </div>
+                                <!-- Content is to start here -->
+
+                            </div>
+                        </div>
                         <!-- Content is to start here -->
                         <div class="row pb-2 ">
                             <div class="col">
@@ -50,9 +67,10 @@ include '../includes/base_page/head.php';
                                 <input type="date" name="req_date" id="req_date_to" class="form-control" required onchange="updateDateFilters();">
                             </div>
                             <div class="col">
-                                <label for="status" class="form-label">Status*</label>
-                                <select name="status" id="status" class="form-select">
-                                    <option value="approved">Approved</option>
+                                <label for="bills" class="form-label">Show Bills Due</label>
+                                <select name="bills" id="status" class="form-select">
+                                    <option value="all">Show All</option>
+                                    <option value="bills_due">Show Bills Due</option>
                                 </select>
                             </div>
                             <div class="col-auto d-flex align-items-end">
@@ -63,14 +81,18 @@ include '../includes/base_page/head.php';
 
                         </div>
                     </div>
+                    <hr>
                     <div class="m-2 mb-2">
                         <table class="table table-sm table-striped" id="table-main">
                             <thead>
                                 <tr>
-                                    <th>Transfer Number</th>
-                                    <th>Branch Transfering</th>
-                                    <th>Date </th>
-                                    <th>Action</th>
+                                    <th>Due Date</th>
+                                    <th>Invoice Number</th>
+                                    <th>Supplier</th>
+                                    <th>Amount Due</th>
+                                    <th>WHT</th>
+                                    <th>Amount Payable</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="table_body">
