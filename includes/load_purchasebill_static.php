@@ -40,33 +40,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $query4 = "SELECT product_cost FROM supplier_product WHERE product_name='$prod_name' and supplier_name='$supplier'";
       $result4 = mysqli_query($conn, $query4);
 
-            if ($row4 = mysqli_fetch_assoc($result4)) {
-                $cost = $row4['product_cost'];
-                $total = $cost * $qty;
-            }
-            array_push(
-                $response2,
-                array(
-                    'product_code' => $prod_code,
-                    'product_name' => $prod_name,
-                    'product_unit' => $unit,
-                    'product_qty' => $qty,
-                    'product_cost' => $cost,
-                    'product_total' => $total
-                )
-            );
-        }
-        array_push(
-            $response,
-            array(
-                'po_number' => $po_number,
-                'supplier_name' => $supplier,
-                'delivery_note' => $del_no,
-                'receipt_no' => $rec_no,
-                'terms' => $terms,
-                'table_data' => $response2
-            )
-        );
+      if ($row4 = mysqli_fetch_assoc($result4)) {
+        $cost = $row4['product_cost'];
+        $total = $cost * $qty;
+      }
+      array_push(
+        $response2,
+        array(
+          'product_code' => $prod_code,
+          'product_name' => $prod_name,
+          'product_unit' => $unit,
+          'product_qty' => $qty,
+          'product_cost' => $cost,
+          'product_total' => $total
+        )
+      );
     }
     array_push(
       $response,
@@ -80,9 +68,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       )
     );
   }
-
+  array_push(
+    $response,
+    array(
+      'po_number' => $po_number,
+      'supplier_name' => $supplier,
+      'delivery_note' => $del_no,
+      'receipt_no' => $rec_no,
+      'terms' => $terms,
+      'table_data' => $response2
+    )
+  );
   echo json_encode($response);
-
   mysqli_close($conn);
 } else {
   $message = "Fields have no data...";
