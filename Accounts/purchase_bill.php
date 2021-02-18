@@ -129,7 +129,7 @@ include '../includes/base_page/head.php';
               <div class="col text-right fw-bold">
                 Total Before Tax</div>
               <div class="col col-auto">
-                <input type="text" class="form-control text-right" id="total_before_tax" required>
+                <input type="text" class="form-control text-right" id="total_before_tax" readonly required>
               </div>
             </div>
             <div class="row m-3">
@@ -137,7 +137,7 @@ include '../includes/base_page/head.php';
                 Tax 16 %
               </div>
               <div class="col col-auto">
-                <input type="text" class="form-control text-right" id="tax_pc" required>
+                <input type="text" class="form-control text-right" id="tax_pc" readonly required>
               </div>
             </div>
             <div class="row m-3">
@@ -145,7 +145,7 @@ include '../includes/base_page/head.php';
                 Purchase Order Total
               </div>
               <div class="col col-auto">
-                <input type="text" class="form-control" id="po_total" required>
+                <input type="text" class="form-control text-right" id="po_total" readonly required>
               </div>
             </div>
           </div>
@@ -294,7 +294,8 @@ include '../includes/base_page/head.php';
         });
 
         total_before_tax.set(cumulative_total);
-
+        tax_pc.set(cumulative_total * 0.16);
+        po_total.set(cumulative_total * 1.16);
       }
     </script>
 
