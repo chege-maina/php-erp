@@ -196,11 +196,11 @@ include '../includes/base_page/head.php';
         }
         const formData = new FormData();
         formData.append("po_number", purchase_order_number.value);
-        fetch('../includes/', {
+        fetch('../includes/load_purchasebill_static.php', {
             method: 'POST',
             body: formData
           })
-          .then(response => response.json())
+          .then(response => response.text())
           .then(result => {
             console.log('Success:', result);
           })
