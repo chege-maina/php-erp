@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2021 at 01:21 PM
+-- Generation Time: Feb 18, 2021 at 01:47 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -39,7 +39,9 @@ CREATE TABLE `tbl_purchase_bill` (
   `total` varchar(30) NOT NULL,
   `status` varchar(15) NOT NULL DEFAULT 'pending',
   `total_bf_tax` varchar(30) NOT NULL,
-  `tax` varchar(15) NOT NULL
+  `tax` varchar(15) NOT NULL,
+  `user` varchar(50) NOT NULL,
+  `receipt_no` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

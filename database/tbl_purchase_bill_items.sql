@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2021 at 01:21 PM
+-- Generation Time: Feb 18, 2021 at 01:47 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -37,7 +37,9 @@ CREATE TABLE `tbl_purchase_bill_items` (
   `qty` varchar(100) NOT NULL,
   `product_cost` varchar(100) NOT NULL,
   `total` varchar(100) NOT NULL,
-  `status` varchar(15) NOT NULL DEFAULT 'pending'
+  `status` varchar(15) NOT NULL DEFAULT 'pending',
+  `user` varchar(50) NOT NULL,
+  `receipt_no` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
