@@ -143,7 +143,7 @@ include '../includes/base_page/head.php';
                         </div>
                         <div class="row m-3">
                             <div class="col text-right fw-bold">
-                                Purchase Order Total
+                                Total
                             </div>
                             <div class="col col-auto">
                                 <input class="form-control form-control-sm text-right" type="number" readonly id="po_total" />
