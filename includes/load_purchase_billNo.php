@@ -4,7 +4,7 @@ session_start();
 
 $stat = "approved";
 
-$query = "SELECT lpo_number FROM tbl_store WHERE status='$stat'";
+$query = "SELECT lpo_number FROM tbl_store WHERE status='$stat' ORDER BY receipt_no ASC";
 
 $result = mysqli_query($conn, $query);
 $response = array();
