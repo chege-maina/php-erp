@@ -47,7 +47,6 @@
     }
 
     const commify = (input_element, helper_element) => {
-      console.log("Commifiring", input_element);
       const h_e = new AutoNumeric(helper_element, {
         currencySymbol: ''
       });
