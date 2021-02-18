@@ -55,6 +55,8 @@
       h_e_v.addEventListener("keyup", () => {
         i_e.value = h_e.getNumericString();
       });
+
+      return [i_e, h_e];
     }
   </script>
 </head>
