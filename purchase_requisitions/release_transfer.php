@@ -36,7 +36,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <h5 class="p-2">Release Transfer</h5>
+        <h5 class="p-2">Release Transfer Item</h5>
         <div class="card">
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
@@ -68,9 +68,8 @@ include '../includes/base_page/head.php';
               <thead>
                 <tr>
                   <th>Transfer Number</th>
-                  <th>Created By</th>
-                  <th>Date </th>
                   <th>Branch Requesting</th>
+                  <th>Date </th>
                   <th>Action</th>
                 </tr>
               </thead>
