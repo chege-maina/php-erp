@@ -38,9 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } while (mysqli_next_result($conn));
         foreach ($table_items as $key => $value) {
 
-            $mysql = "INSERT INTO tbl_store_item (receipt_no, lpo_number, product_code, product_name, product_unit, qty, branch)
-      VALUES('" . $rec_no . "','" . $po_number . "','" . $value["p_code"] . "','" . $value["p_name"] . "','" . $value["p_units"] . "',
-      '" . $value["p_quantity_received"] . "', '" . $branch . "')";
+            $mysql = "INSERT INTO tbl_purchase_bill_items (purchasebill_no, po_number, product_code, product_name, 
+        unit, qty, product_cost, total, user, receipt_no) VALUES('" . $rec_no . "','" . $po_number . "',
+        '" . $value["p_code"] . "','" . $value["p_name"] . "','" . $value["p_units"] . "', '" . $value["p_quantity"] . "',
+        '" . $value["p_cost"] . "','" . $value["p_total"] . "','" . $user . "', '" . $rec_no . "')";
             mysqli_query($conn, $mysql);
 
 
