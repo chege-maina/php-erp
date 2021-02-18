@@ -220,7 +220,6 @@ include '../includes/base_page/head.php';
             delivery_no.value = result["delivery_note"];
             terms_of_payment.value = result["terms"];
             console.log('After:', result);
-            return;
             updateTable(result["table_data"]);
           })
           .catch(error => {
@@ -233,112 +232,47 @@ include '../includes/base_page/head.php';
         console.log('Result:', result);
         table_body.innerHTML = "";
 
-        let enableButtons = true;
+        let cumulative_total = 0;
 
         result.forEach((data) => {
 
           let tr = document.createElement("tr");
           // Id will be like 1Tank
-          tr.setAttribute("id", data["code"] + data["name"]);
+          tr.setAttribute("id", data["product_code"] + data["product_name"]);
 
           let code_td = document.createElement("td");
-          code_td.appendChild(document.createTextNode(data["code"]));
+          code_td.appendChild(document.createTextNode(data["product_code"]));
           code_td.classList.add("align-middle");
 
           let name_td = document.createElement("td");
-          name_td.appendChild(document.createTextNode(data["name"]));
+          name_td.appendChild(document.createTextNode(data["product_name"]));
           name_td.classList.add("align-middle", "w-25");
 
-          let balance_td = document.createElement("td");
-          balance_td.appendChild(document.createTextNode(data["balance"]));
-          balance_td.classList.add("align-middle");
+          let product_cost = document.createElement("td");
+          product_cost.appendChild(document.createTextNode(data["product_cost"]));
+          product_cost.classList.add("align-middle");
 
           let units_td = document.createElement("td");
-          units_td.appendChild(document.createTextNode(data["unit"]));
+          units_td.appendChild(document.createTextNode(data["product_unit"]));
           units_td.classList.add("align-middle");
 
           let qty_td = document.createElement("td");
-          qty_td.appendChild(document.createTextNode(data["qty"]));
+          qty_td.appendChild(document.createTextNode(data["product_qty"]));
           qty_td.classList.add("align-middle");
 
-          let status_td = document.createElement("td");
-          let status_body = document.createElement("div");
-          let status_text = ("availability" in data) ? data["availability"] : "...";
+          let product_total = document.createElement("td");
+          product_total.appendChild(document.createTextNode(data["product_total"]));
+          product_total.classList.add("align-middle");
 
-          switch (status_text) {
-            case "available":
-              status_body.innerHTML = `<span class="badge badge-soft-success">available</span>`;
-              break;
-            case "...":
-              status_body.innerHTML = `<span class="badge badge-soft-secondary">...</span>`;
-              enableButtons = false;
-              break;
-            default:
-              status_body.innerHTML = `<span class="badge badge-soft-danger">not available</span>`;
-              enableButtons = false;
-              break;
-          }
+          let product_qty = document.createElement("td");
+          product_qty.appendChild(document.createTextNode(data["product_qty"]));
+          product_qty.classList.add("align-middle");
 
-          // status_body.innerHTML = "Yees";
-          status_td.appendChild(status_body);
-          status_td.classList.add("align-middle");
-
-
-          let quantity = document.createElement("input");
-          quantity.setAttribute("type", "number");
-          quantity.setAttribute("required", "");
-          quantity.setAttribute("readonly", "");
-          let id_suffix = data["name"].replace(" ", "_s_s_s_") + "-" + data["code"];
-          quantity.setAttribute("id", "q-" + id_suffix);
-          quantity.classList.add("form-control", "form-control-sm", "align-middle");
-          // quantity.setAttribute("data-ref", da["name"]);
-          quantity.setAttribute("min", 1);
-          // make sure the quantity is always greater than 0
-          quantity.setAttribute("onfocusout", "this.value = this.value <= 0 ? 1 : this.value;");
-          // quantity.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value);");
-          // quantity.setAttribute("onclick", "this.select();");
-          quantity.value = data["qty"];
-          let quantityWrapper = document.createElement("td");
-          quantityWrapper.classList.add("m-2");
-          quantityWrapper.appendChild(quantity);
-
-
-
-          let actionWrapper = document.createElement("td");
-          actionWrapper.classList.add("m-2");
-
-
-          let actionDiv = document.createElement("div");
-          actionDiv.classList.add("row");
-
-          let reject = document.createElement("button");
-          full_id = "r-" + id_suffix;
-          reject.setAttribute("id", "r-" + id_suffix);
-          reject.setAttribute("onclick", "actionRespond('" + full_id + "');");
-          reject.setAttribute("data-toggle", "tooltip");
-          reject.setAttribute("title", "Reject");
-          let icon_r = document.createElement("span");
-          icon_r.classList.add("fas", "fa-times", "mt-1", "fa-sm");
-          reject.appendChild(icon_r);
-          reject.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
-          reject.disabled = result.length <= 1;
-
-
-          actionDiv.append(reject);
-          actionWrapper.appendChild(actionDiv);
-
-          tr.append(code_td, name_td, balance_td, quantityWrapper, units_td, status_td, actionWrapper);
+          tr.append(code_td, name_td, product_cost, product_qty, units_td, product_total);
           table_body.appendChild(tr);
 
         });
 
-        if (enableButtons) {
-          approve_req.removeAttribute("disabled");
-          console.log("enabling btn")
-        } else {
-          approve_req.setAttribute("disabled", "");
-          console.log("disabling btn")
-        }
       }
     </script>
 
