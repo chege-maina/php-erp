@@ -129,7 +129,7 @@ include '../includes/base_page/head.php';
               <div class="col text-right fw-bold">
                 Total Before Tax</div>
               <div class="col col-auto">
-                <input class="form-control form-control-sm text-right" type="number" readonly id="total_before_tax" />
+                <input type="text" class="form-control text-right" id="total_before_tax" required>
               </div>
             </div>
             <div class="row m-3">
@@ -137,7 +137,7 @@ include '../includes/base_page/head.php';
                 Tax 16 %
               </div>
               <div class="col col-auto">
-                <input class="form-control form-control-sm text-right" type="number" readonly id="tax_pc" />
+                <input type="text" class="form-control text-right" id="tax_pc" required>
               </div>
             </div>
             <div class="row m-3">
@@ -145,7 +145,7 @@ include '../includes/base_page/head.php';
                 Purchase Order Total
               </div>
               <div class="col col-auto">
-                <input class="form-control form-control-sm text-right" type="number" readonly id="po_total" />
+                <input type="text" class="form-control" id="po_total" required>
               </div>
             </div>
           </div>
@@ -183,6 +183,24 @@ include '../includes/base_page/head.php';
       const date_due = document.querySelector("#date_due");
       const amount_due = document.querySelector("#amount_due");
       const table_body = document.querySelector("#table_body");
+
+      const total_before_tax_e = document.querySelector("#total_before_tax");
+      const total_before_tax = new AutoNumeric('#total_before_tax', {
+        currencySymbol: '',
+        minimumValue: 0
+      });
+
+      const tax_pc_e = document.querySelector("#tax_pc");
+      const tax_pc = new AutoNumeric('#tax_pc', {
+        currencySymbol: '',
+        minimumValue: 0
+      });
+
+      const po_total_e = document.querySelector("#po_total");
+      const po_total = new AutoNumeric('#po_total', {
+        currencySymbol: '',
+        minimumValue: 0
+      });
 
       window.addEventListener('DOMContentLoaded', (event) => {
         fetch('../includes/load_purchase_billNo.php')
@@ -264,14 +282,18 @@ include '../includes/base_page/head.php';
           product_total.appendChild(document.createTextNode(data["product_total"]));
           product_total.classList.add("align-middle");
 
+          cumulative_total += Number(data["product_total"]);
+
           let product_qty = document.createElement("td");
           product_qty.appendChild(document.createTextNode(data["product_qty"]));
           product_qty.classList.add("align-middle");
 
+
           tr.append(code_td, name_td, product_cost, product_qty, units_td, product_total);
           table_body.appendChild(tr);
-
         });
+
+        total_before_tax.set(cumulative_total);
 
       }
     </script>
