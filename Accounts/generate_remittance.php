@@ -215,7 +215,7 @@ include '../includes/base_page/head.php';
 
           console.log(supplier_name.value);
           const formData = new FormData();
-          formData.append("supplier", supplier_name.trim());
+          formData.append("supplier", supplier_name.value.trim());
           fetch('../includes/load_remittance_static.php', {
               method: 'POST',
               body: formData
