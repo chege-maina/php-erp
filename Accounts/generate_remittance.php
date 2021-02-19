@@ -59,7 +59,7 @@ include '../includes/base_page/head.php';
                 <div class="col flex-row-reverse">
                   <div class="col">
                     <label for="req_date" class="form-label">Date </label>
-                    <input type="text" name="req_date" id="req_date_from" class="form-control" readonly>
+                    <input type="date" name="remmitance_date" id="remmitance_date" class="form-control">
 
                   </div>
                 </div>
@@ -160,7 +160,7 @@ include '../includes/base_page/head.php';
         <div class="card mt-1">
           <div class="card-body fs--1 p-1">
             <div class="d-flex flex-row-reverse">
-              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitPO();">
+              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="generateRemittance();">
                 Create
               </button>
             </div>
@@ -178,7 +178,53 @@ include '../includes/base_page/head.php';
       <script>
         const table_body = document.querySelector("#table_body");
         const supplier_name = document.querySelector("#supplier_name");
+        const remmitance_date = document.querySelector("#remmitance_date");
         let table_items;
+
+
+        function generateRemittance() {
+          if (net_total <= 0) {
+            return;
+          }
+
+          if (!remmitance_date.value) {
+            remmitance_date.focus()
+            return;
+          }
+
+
+          let table_items_sendable = [];
+          table_items.forEach((item) => {
+            table_items_sendable.push({
+              p_invoice: item["invoice_no"],
+              p_payable: item["amount_due"],
+              p_amount: item["amount"],
+              p_wht: item["wht"],
+              p_due: item["due_date"],
+            })
+          });
+
+          const formData = new FormData();
+          formData.append("date", remmitance_date.value);
+          formData.append("supplier", supplier_name.value);
+          formData.append("amount", amount_total);
+          formData.append("wht", wht_total);
+          formData.append("payable", net_total);
+          formData.append("user", user_name);
+          formData.append("table_items", JSON.stringify(table_items_sendable));
+
+          fetch('../includes/add_remittance.php', {
+              method: 'POST',
+              body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
+              console.log('Success:', result);
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        }
 
         function d_toString(value) {
           return value < 10 ? '0' + value : String(value);
@@ -305,9 +351,9 @@ include '../includes/base_page/head.php';
           updateTable(table_items);
         }
 
-        let amount_total;
-        let wht_total;
-        let net_total;
+        let amount_total = 0;
+        let wht_total = 0;
+        let net_total = 0;
 
         function updateTotals() {
           amount_total = 0;
