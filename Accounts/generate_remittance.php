@@ -320,16 +320,19 @@ include '../includes/base_page/head.php';
             // =================================================================
 
 
-
             // =================================================================
             // Cell 6
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
             const req_actions = document.createElement("td");
-            const btn = document.createElement("button");
-            btn.setAttribute("onclick", "detailedView(" + value["invoice_no"] + ")");
-            btn.appendChild(document.createTextNode("Manage"));
-            btn.classList.add("btn", "btn-falcon-primary", "btn-sm");
-            req_actions.appendChild(btn);
+            const req_actions_div = document.createElement("div");
+            req_actions_div.classList.add("form-check", "form-switch", "pt-1");
+            const check_wht = document.createElement("input");
+            check_wht.setAttribute("type", "checkbox");
+            // check_wht.setAttribute("onclick", "detailedView(" + value["invoice_no"] + ")");
+            check_wht.appendChild(document.createTextNode("Manage"));
+            check_wht.classList.add("form-check-input");
+            req_actions_div.appendChild(check_wht);
+            req_actions.appendChild(req_actions_div);
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
             // =================================================================
 
