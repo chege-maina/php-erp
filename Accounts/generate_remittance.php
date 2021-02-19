@@ -41,14 +41,21 @@ include '../includes/base_page/head.php';
                 <div class="card mt-3">
                     <div class="card-body fs--1 p-4">
                         <div class="row">
-                            <div class="col-lg-8 mb-3">
+                            <div class="col-lg-5 mb-3">
+
+                                <div class="col">
+                                    <label for="#" class="form-label">Supplier </label>
+                                    <input type="text" id="#" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 mb-3">
                             </div>
                             <div class="col-lg-4 mb-3">
 
                                 <div class="col flex-row-reverse">
                                     <div class="col">
                                         <label for="req_date" class="form-label">Date </label>
-                                        <input type="date" name="req_date" id="req_date_from" class="form-control" required onchange="updateDateFilters();">
+                                        <input type="text" name="req_date" id="req_date_from" class="form-control" readonly>
 
                                     </div>
                                 </div>
@@ -57,28 +64,24 @@ include '../includes/base_page/head.php';
                             </div>
                         </div>
                         <!-- Content is to start here -->
-                        <div class="row pb-2 ">
-                            <div class="col">
+                        <div class="row">
+
+                            <div class="col col-lg-4">
                                 <label for="bills" class="form-label">Show Bills Due</label>
                                 <select name="bills" id="status" class="form-select">
                                     <option value="all">Show All</option>
                                     <option value="bills_due">Show Bills Due</option>
                                 </select>
                             </div>
-                            <div class="col">
-                                <label for="req_date" class="form-label">From </label>
-                                <input type="date" name="req_date" id="req_date_from" class="form-control" required onchange="updateDateFilters();">
-                            </div>
-                            <div class="col">
-                                <label for="req_date" class="form-label">To </label>
-                                <input type="date" name="req_date" id="req_date_to" class="form-control" required onchange="updateDateFilters();">
-                            </div>
                             <div class="col-auto d-flex align-items-end">
                                 <button class="btn btn-falcon-primary" type="button" onclick="filterRequisitions();">
                                     <span class="fas fa-filter mr-1" data-fa-transform="shrink-3"></span>Filter
                                 </button>
                             </div>
-
+                            <div class="col">
+                                <label class="form-label">Check me out</label>
+                                <input type="checkbox">
+                            </div>
                         </div>
                     </div>
                     <hr>
