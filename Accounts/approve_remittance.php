@@ -162,19 +162,6 @@ include '../includes/base_page/head.php';
           req_date_to.value = String(date.getFullYear()) + '-' + month + '-' + day_to;
           req_date_to.setAttribute("min", req_date_from.value);
 
-          const formData = new FormData();
-          fetch('../includes/#.php', {
-              method: 'POST',
-              body: formData
-            })
-            .then(response => response.json())
-            .then(result => {
-              console.log(result);
-              updateTable(result);
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
         });
 
 
@@ -231,28 +218,111 @@ include '../includes/base_page/head.php';
           data.forEach(value => {
             const this_row = document.createElement("tr");
 
+            // =================================================================
+            // Cell 1
+            // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
             const due_date = document.createElement("td");
-            due_date.appendChild(document.createTextNode(value[""]));
+            due_date.appendChild(document.createTextNode(value["due_date"]));
             due_date.classList.add("align-middle");
+            // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+            // =================================================================
 
+
+            // =================================================================
+            // Cell 2
+            // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
             const invoice_no = document.createElement("td");
-            invoice_no.appendChild(document.createTextNode(value[""]));
+            invoice_no.appendChild(document.createTextNode(value["invoice_no"]));
             invoice_no.classList.add("align-middle");
+            // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+            // =================================================================
 
-            const amt_due = document.createElement("td");
-            amt_due.appendChild(document.createTextNode(value[""]));
-            amt_due.classList.add("align-middle");
 
+            // =================================================================
+            // Cell 3
+            // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+            const amount = document.createElement("td");
+            const amount_input = document.createElement("input");
+            // --
+            amount_input.setAttribute("type", "text");
+            amount_input.classList.add("form-control", "form-control-sm");
+            // --
+            const amount_input_an = new AutoNumeric(amount_input, {
+              currencySymbol: '',
+              minimumValue: 0
+            });
+            // --
+            amount_input_an.set(value["amount"]);
+            amount_input.setAttribute("readonly", "");
+            amount.appendChild(amount_input)
+            amount.classList.add("align-middle");
+            // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+            // =================================================================
+
+            // =================================================================
+            // Cell 4
+            // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
             const wht = document.createElement("td");
-            wht.appendChild(document.createTextNode(value[""]));
+            const wht_input = document.createElement("input");
+            // --
+            wht_input.setAttribute("type", "text");
+            wht_input.setAttribute("readonly", "");
+            wht_input.classList.add("form-control", "form-control-sm");
+            // --
+            const wht_input_an = new AutoNumeric(wht_input, {
+              currencySymbol: '',
+              minimumValue: 0
+            });
+            // --
+            wht_input_an.set(Number(value["amount"]) * 0.02 / 1.16);
+            wht.appendChild(wht_input);
             wht.classList.add("align-middle");
+            // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+            // =================================================================
 
-            const amt_payable = document.createElement("td");
-            amt_payable.appendChild(document.createTextNode(value[""]));
-            amt_payable.classList.add("align-middle");
 
-            this_row.append(due_date, invoice_no, amt_due, wht, amt_payable);
+            // =================================================================
+            // Cell 5
+            // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+            const amount_due = document.createElement("td");
+            const amount_due_input = document.createElement("input");
+            // --
+            amount_due_input.setAttribute("type", "text");
+            amount_due_input.setAttribute("readonly", "");
+            amount_due_input.classList.add("form-control", "form-control-sm");
+            // --
+            const amount_due_input_an = new AutoNumeric(amount_due_input, {
+              currencySymbol: '',
+              minimumValue: 0
+            });
+            // --
+            amount_due_input_an.set(Number(value["amount"]) * 1.14 / 1.16);
+            amount_due.appendChild(amount_due_input);
+            amount_due.classList.add("align-middle", "col", "col-auto");
+            // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+            // =================================================================
+
+
+            // =================================================================
+            // Cell 6
+            // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+            //const req_actions = document.createElement("td");
+            // const req_actions_div = document.createElement("div");
+            //req_actions_div.classList.add("form-check", "form-switch", "pt-1");
+            //const check_wht = document.createElement("input");
+            //check_wht.setAttribute("type", "checkbox");
+            // check_wht.setAttribute("onclick", "detailedView(" + value["invoice_no"] + ")");
+            //check_wht.appendChild(document.createTextNode("Manage"));
+            //check_wht.classList.add("form-check-input");
+            // req_actions_div.appendChild(check_wht);
+            //req_actions.appendChild(req_actions_div);
+            // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+            // =================================================================
+
+            this_row.append(due_date, invoice_no, amount, wht, amount_due);
             table_body.appendChild(this_row);
+
+
           });
 
         }
@@ -260,26 +330,6 @@ include '../includes/base_page/head.php';
         function detailedView(req_no) {
           sessionStorage.setItem('req_no', req_no);
           window.location.href = "#.php";
-        }
-
-        function filterRequisitions() {
-          const formData = new FormData();
-          formData.append("date1", req_date_from.value);
-          formData.append("date2", req_date_to.value);
-          // formData.append("status", r_status.value);
-          formData.append("branch", user_branch);
-          fetch('../includes/#  .php', {
-              method: 'POST',
-              body: formData
-            })
-            .then(response => response.json())
-            .then(result => {
-              console.log('Success:', result);
-              updateTable(result);
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
         }
       </script>
 

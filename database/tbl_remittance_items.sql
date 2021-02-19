@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2021 at 01:47 PM
+-- Generation Time: Feb 19, 2021 at 02:01 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -24,22 +24,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_purchase_bill_items`
+-- Table structure for table `tbl_remittance_items`
 --
 
-CREATE TABLE `tbl_purchase_bill_items` (
+CREATE TABLE `tbl_remittance_items` (
   `id` int(11) NOT NULL,
-  `purchasebill_no` varchar(100) NOT NULL,
-  `po_number` varchar(100) NOT NULL,
-  `product_code` varchar(100) NOT NULL,
-  `product_name` varchar(50) NOT NULL,
-  `unit` varchar(15) NOT NULL,
-  `qty` varchar(100) NOT NULL,
-  `product_cost` varchar(100) NOT NULL,
-  `total` varchar(100) NOT NULL,
-  `status` varchar(15) NOT NULL DEFAULT 'pending',
-  `user` varchar(50) NOT NULL,
-  `receipt_no` varchar(100) NOT NULL
+  `rem_no` int(100) NOT NULL,
+  `due_date` date NOT NULL,
+  `invoice_no` varchar(100) NOT NULL,
+  `amount_due` varchar(100) NOT NULL,
+  `wht` varchar(100) NOT NULL,
+  `payable` varchar(100) NOT NULL,
+  `supplier_name` varchar(100) NOT NULL,
+  `date` date NOT NULL,
+  `status` varchar(10) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -47,9 +45,9 @@ CREATE TABLE `tbl_purchase_bill_items` (
 --
 
 --
--- Indexes for table `tbl_purchase_bill_items`
+-- Indexes for table `tbl_remittance_items`
 --
-ALTER TABLE `tbl_purchase_bill_items`
+ALTER TABLE `tbl_remittance_items`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -57,9 +55,9 @@ ALTER TABLE `tbl_purchase_bill_items`
 --
 
 --
--- AUTO_INCREMENT for table `tbl_purchase_bill_items`
+-- AUTO_INCREMENT for table `tbl_remittance_items`
 --
-ALTER TABLE `tbl_purchase_bill_items`
+ALTER TABLE `tbl_remittance_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 

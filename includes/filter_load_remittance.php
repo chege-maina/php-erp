@@ -8,10 +8,17 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $lpo_no = $_POST["supplier"];
     $date = $_POST["date"];
+    $all = $_POST["show"];
 
     $stat = "pending";
 
-    $query = "SELECT * FROM tbl_purchase_bill WHERE status='$stat' and supplier_name='$lpo_no' and due_date<='$date' ORDER BY due_date ASC";
+    if (strcmp($all, 'Show Bills Dues') == 0) {
+        $query = "SELECT * FROM tbl_purchase_bill WHERE status='$stat' and supplier_name='$lpo_no' and due_date<='$date' ORDER BY due_date ASC";
+    } else {
+        $query = "SELECT * FROM tbl_purchase_bill WHERE supplier_name='$supplier' and status='$stat' ORDER BY due_date ASC";
+    }
+
+
 
     $result = mysqli_query($conn, $query);
     $response = array();
