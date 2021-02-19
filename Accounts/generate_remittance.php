@@ -102,7 +102,6 @@ include '../includes/base_page/head.php';
                   <tr>
                     <th>Due Date</th>
                     <th>Invoice Number</th>
-                    <th>Supplier</th>
                     <th>Amount Due</th>
                     <th>WHT</th>
                     <th>Amount Payable</th>
@@ -184,15 +183,10 @@ include '../includes/base_page/head.php';
 
         window.addEventListener('DOMContentLoaded', (event) => {
           const formData = new FormData();
-          fetch('../includes/load_supplier_remittance.php', {
-              method: 'POST',
-              body: formData
-            })
+
+          fetch('../includes/load_supplier_remittance.php')
             .then(response => response.json())
             .then(result => {
-              console.log('Success:', result);
-
-
               let opt = document.createElement("option");
               opt.appendChild(document.createTextNode("-- Select Supplier --"));
               opt.setAttribute("value", "");
@@ -206,11 +200,11 @@ include '../includes/base_page/head.php';
                 opt.appendChild(document.createTextNode(opt.value));
                 supplier_name.appendChild(opt);
               });
-
             })
-            .catch(error => {
+            .catch((error) => {
               console.error('Error:', error);
             });
+
         });
 
         const selectSupplier = () => {
