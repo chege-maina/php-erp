@@ -44,10 +44,9 @@ include '../includes/base_page/head.php';
                             <div class="col-lg-5 mb-3">
 
                                 <div class="col">
-                                    <label for="#" class="form-label">Supplier </label>
+                                    <label for="#" class="form-label">Select Supplier </label>
                                     <select name="supplier" id="status" class="form-select">
                                         <option value="#">#</option>
-
                                     </select>
                                 </div>
                             </div>
