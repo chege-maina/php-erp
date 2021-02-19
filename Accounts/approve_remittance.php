@@ -71,7 +71,7 @@ include '../includes/base_page/head.php';
               <table class="table table-sm table-striped" id="table-main">
                 <thead>
                   <tr>
-                    <th>Due Date</th>
+                    <th class="w-25">Due Date</th>
                     <th>Invoice Number</th>
                     <th>Amount Due</th>
                     <th>WHT</th>
@@ -132,6 +132,8 @@ include '../includes/base_page/head.php';
         const r_status = document.querySelector("#status");
         const supplier_name = document.querySelector("#supplier_name");
         const table_body = document.querySelector("#table_body");
+        let table_items;
+
 
 
         function d_toString(value) {
@@ -207,11 +209,14 @@ include '../includes/base_page/head.php';
             .then(response => response.json())
             .then(result => {
               console.log('Success:', result);
+              [...table_items] = result;
+              updateTable(table_items);
             })
             .catch(error => {
               console.error('Error:', error);
             });
         }
+
 
         let updateTable = (data) => {
           table_body.innerHTML = "";
@@ -306,16 +311,7 @@ include '../includes/base_page/head.php';
             // =================================================================
             // Cell 6
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-            //const req_actions = document.createElement("td");
-            // const req_actions_div = document.createElement("div");
-            //req_actions_div.classList.add("form-check", "form-switch", "pt-1");
-            //const check_wht = document.createElement("input");
-            //check_wht.setAttribute("type", "checkbox");
-            // check_wht.setAttribute("onclick", "detailedView(" + value["invoice_no"] + ")");
-            //check_wht.appendChild(document.createTextNode("Manage"));
-            //check_wht.classList.add("form-check-input");
-            // req_actions_div.appendChild(check_wht);
-            //req_actions.appendChild(req_actions_div);
+
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
             // =================================================================
 
