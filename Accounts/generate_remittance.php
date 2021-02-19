@@ -214,6 +214,19 @@ include '../includes/base_page/head.php';
           }
 
           console.log(supplier_name.value);
+          const formData = new FormData();
+          formData.append("supplier", supplier_name);
+          fetch('../includes/load_remittance_static.php', {
+              method: 'POST',
+              body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
+              console.log('Success:', result);
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
         }
 
         let updateTable = (data) => {
