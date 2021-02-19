@@ -30,9 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         foreach ($table_items as $key => $value) {
 
             $mysql = "INSERT INTO tbl_remittance_items (rem_no, due_date, invoice_no, amount_due, 
-        wht, payable, supplier_name, date) VALUES('" . $req_no . "','" . $value["p_due"] . "',
+        wht, payable, supplier_name, date, user) VALUES('" . $req_no . "','" . $value["p_due"] . "',
         '" . $value["p_invoice"] . "','" . $value["p_amount"] . "', '" . $value["p_wht"] . "',
-        '" . $value["p_payable"] . "','" . $value["p_payable"] . "','" . $date . "', '" . $user . "')";
+        '" . $value["p_payable"] . "','" . $supplier . "','" . $date . "', '" . $user . "')";
             mysqli_query($conn, $mysql);
         }
         $sql = "UPDATE tbl_purchase_bill_items SET status = 'approved' WHERE supplier_name='$supplier' and status='pending'";
