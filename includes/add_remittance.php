@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $table_items = json_decode($_POST["table_items"], true);
 
     $mysql = "INSERT INTO tbl_remittance (supplier_name, date, amount, payable, wht, user) 
-    VALUES ('" . $supplier . "', '" . $date . "', '" . $amount . "', '" . $wht . "', '" . $payable . "', '" . $user . "');";
+    VALUES ('" . $supplier . "', '" . $date . "', '" . $amount . "', '" . $payable . "', '" . $wht . "', '" . $user . "');";
     $mysql .= "SELECT rem_no FROM tbl_remittance ORDER BY rem_no DESC LIMIT 1";
 
     if (mysqli_multi_query($conn, $mysql)) {
