@@ -220,6 +220,11 @@ include '../includes/base_page/head.php';
             .then(response => response.json())
             .then(result => {
               console.log('Success:', result);
+
+              window.setTimeout(() => {
+                //TODO:  Show result
+                location.reload();
+              }, 2500);
             })
             .catch(error => {
               console.error('Error:', error);
