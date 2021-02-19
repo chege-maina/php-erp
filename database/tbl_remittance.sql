@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2021 at 02:01 PM
+-- Generation Time: Feb 19, 2021 at 02:32 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -34,7 +34,8 @@ CREATE TABLE `tbl_remittance` (
   `amount` varchar(100) NOT NULL,
   `payable` varchar(100) NOT NULL,
   `wht` varchar(100) NOT NULL,
-  `status` varchar(20) NOT NULL DEFAULT 'pending'
+  `status` varchar(20) NOT NULL DEFAULT 'pending',
+  `user` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
