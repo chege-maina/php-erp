@@ -278,6 +278,27 @@ include '../includes/base_page/head.php';
             // =================================================================
             // Cell 4
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+            const wht = document.createElement("td");
+            const wht_input = document.createElement("input");
+            // --
+            wht_input.setAttribute("type", "text");
+            wht_input.classList.add("form-control", "form-control-sm");
+            // --
+            const wht_input_an = new AutoNumeric(wht_input, {
+              currencySymbol: '',
+              minimumValue: 0
+            });
+            // --
+            wht_input_an.set(Number(value["amount"]) * 0.02 / 1.16);
+            wht.appendChild(wht_input);
+            wht.classList.add("align-middle");
+            // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+            // =================================================================
+
+
+            // =================================================================
+            // Cell 5
+            // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
             const amount_due = document.createElement("td");
             const amount_due_input = document.createElement("input");
             // --
@@ -289,30 +310,12 @@ include '../includes/base_page/head.php';
               minimumValue: 0
             });
             // --
+            amount_due_input_an.set(Number(value["amount"]) * 1.14 / 1.16);
             amount_due.appendChild(amount_due_input);
             amount_due.classList.add("align-middle", "col", "col-auto");
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
             // =================================================================
 
-            // =================================================================
-            // Cell 5
-            // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-            const wht = document.createElement("td");
-            const wht_input = document.createElement("input");
-            // --
-            wht_input.setAttribute("type", "text");
-            wht_input.classList.add("form-control", "form-control-sm");
-            // --
-            const wht_input_an = new AutoNumeric(amount_input, {
-              currencySymbol: '',
-              minimumValue: 0
-            });
-            // --
-            wht_input_an.set(value["amount"]);
-            wht.appendChild(wht_input);
-            wht.classList.add("align-middle");
-            // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-            // =================================================================
 
 
             // =================================================================
@@ -327,7 +330,7 @@ include '../includes/base_page/head.php';
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
             // =================================================================
 
-            this_row.append(due_date, invoice_no, amount, amount_due, wht, req_actions);
+            this_row.append(due_date, invoice_no, amount, wht, amount_due, req_actions);
             table_body.appendChild(this_row);
 
 
