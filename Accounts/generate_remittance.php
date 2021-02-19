@@ -59,7 +59,7 @@ include '../includes/base_page/head.php';
                 <div class="col flex-row-reverse">
                   <div class="col">
                     <label for="req_date" class="form-label">Date </label>
-                    <input type="text" name="req_date" id="req_date_from" class="form-control" readonly>
+                    <input type="date" name="remmitance_date" id="remmitance_date" class="form-control">
 
                   </div>
                 </div>
@@ -187,6 +187,11 @@ include '../includes/base_page/head.php';
             return;
           }
 
+          if (!remmitance_date.value) {
+            remmitance_date.focus()
+            return;
+          }
+
 
           let table_items_sendable = [];
           table_items.forEach((item) => {
@@ -200,15 +205,14 @@ include '../includes/base_page/head.php';
           });
 
           const formData = new FormData();
-          console.log("date", remmitance_date.value);
-          console.log("supplier", supplier_name.value);
-          console.log("amount", amount_total);
-          console.log("wht", wht_total);
-          console.log("payable", net_total);
-          console.log("user", user_name);
-          console.log("table_items", JSON.stringify(table_items_sendable));
+          formData.append("date", remmitance_date.value);
+          formData.append("supplier", supplier_name.value);
+          formData.append("amount", amount_total);
+          formData.append("wht", wht_total);
+          formData.append("payable", net_total);
+          formData.append("user", user_name);
+          formData.append("table_items", JSON.stringify(table_items_sendable));
 
-          return;
           fetch('../includes/add_remittance.php', {
               method: 'POST',
               body: formData
