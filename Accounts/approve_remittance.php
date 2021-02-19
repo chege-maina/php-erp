@@ -41,24 +41,16 @@ include '../includes/base_page/head.php';
         <div class="card mt-3">
           <div class="card-body fs--1 p-4">
             <div class="row">
-              <!--//////////-->
-              <div class="col col-md-5 ">
+
+              <div class="col">
                 <label for="#" class="form-label">Select Supplier </label>
                 <div class="input-group">
-                  <select name="supplier" id="status" class="form-select">
-                    <option value="#">#</option>
+                  <select name="supplier" id="supplier_name" class="form-select">
                   </select>
-                  <button class="input-group-btn btn btn-primary btn-sm" id="lpoNumber" onclick="selectLPONumber();">
-                    Select
-                  </button>
+                  <button type="button" class="btn btn-primary" onclick="selectSupplier();">Select</button>
                 </div>
               </div>
-
-              <!--//////////-->
-
-              <div class="col-lg-3 mb-3">
-              </div>
-              <div class="col-lg-4 mb-3">
+              <div class="col">
 
                 <div class="col flex-row-reverse">
                   <div class="col">
@@ -81,7 +73,6 @@ include '../includes/base_page/head.php';
                   <tr>
                     <th>Due Date</th>
                     <th>Invoice Number</th>
-                    <th>Supplier</th>
                     <th>Amount Due</th>
                     <th>WHT</th>
                     <th>Amount Payable</th>
@@ -139,6 +130,7 @@ include '../includes/base_page/head.php';
         const req_date_from = document.querySelector("#req_date_from");
         const req_date_to = document.querySelector("#req_date_to");
         const r_status = document.querySelector("#status");
+        const supplier_name = document.querySelector("#supplier_name");
         const table_body = document.querySelector("#table_body");
 
 
@@ -186,35 +178,80 @@ include '../includes/base_page/head.php';
         });
 
 
+        window.addEventListener('DOMContentLoaded', (event) => {
+          const formData = new FormData();
+
+          fetch('../includes/load_supplier_remittance.php')
+            .then(response => response.json())
+            .then(result => {
+              let opt = document.createElement("option");
+              opt.appendChild(document.createTextNode("-- Select Supplier --"));
+              opt.setAttribute("value", "");
+              opt.setAttribute("disabled", "");
+              opt.setAttribute("selected", "");
+              supplier_name.appendChild(opt);
+
+              result.forEach((supplier) => {
+                opt = document.createElement("option");
+                opt.value = supplier["supplier_name"];
+                opt.appendChild(document.createTextNode(opt.value));
+                supplier_name.appendChild(opt);
+              });
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+
+        });
+
+        const selectSupplier = () => {
+          if (!supplier_name.value) {
+            supplier_name.focus();
+            return;
+          }
+
+          console.log(supplier_name.value);
+          const formData = new FormData();
+          formData.append("supplier", supplier_name.value.trim());
+          fetch('../includes/load_remittance_static.php', {
+              method: 'POST',
+              body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
+              console.log('Success:', result);
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        }
+
         let updateTable = (data) => {
           table_body.innerHTML = "";
           data.forEach(value => {
             const this_row = document.createElement("tr");
 
-            const req_no = document.createElement("td");
-            req_no.appendChild(document.createTextNode(value["req_no"]));
-            req_no.classList.add("align-middle");
+            const due_date = document.createElement("td");
+            due_date.appendChild(document.createTextNode(value[""]));
+            due_date.classList.add("align-middle");
 
-            const req_date = document.createElement("td");
-            req_date.appendChild(document.createTextNode(value["date"]));
-            req_date.classList.add("align-middle");
+            const invoice_no = document.createElement("td");
+            invoice_no.appendChild(document.createTextNode(value[""]));
+            invoice_no.classList.add("align-middle");
 
-            const req_branch = document.createElement("td");
-            req_branch.appendChild(document.createTextNode(value["branch"]));
-            req_branch.classList.add("align-middle");
+            const amt_due = document.createElement("td");
+            amt_due.appendChild(document.createTextNode(value[""]));
+            amt_due.classList.add("align-middle");
 
-            const req_user = document.createElement("td");
-            req_user.appendChild(document.createTextNode(value["user"]));
-            req_user.classList.add("align-middle");
+            const wht = document.createElement("td");
+            wht.appendChild(document.createTextNode(value[""]));
+            wht.classList.add("align-middle");
 
-            const req_actions = document.createElement("td");
-            const btn = document.createElement("button");
-            btn.setAttribute("onclick", "detailedView(" + value["req_no"] + ")");
-            btn.appendChild(document.createTextNode("Manage"));
-            btn.classList.add("btn", "btn-falcon-primary", "btn-sm");
-            req_actions.appendChild(btn);
+            const amt_payable = document.createElement("td");
+            amt_payable.appendChild(document.createTextNode(value[""]));
+            amt_payable.classList.add("align-middle");
 
-            this_row.append(req_no, req_user, req_date, req_branch, req_actions);
+            this_row.append(due_date, invoice_no, amt_due, wht, amt_payable);
             table_body.appendChild(this_row);
           });
 
