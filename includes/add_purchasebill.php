@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             /* store first result set */
             if ($result = mysqli_store_result($conn)) {
                 while ($row = mysqli_fetch_row($result)) {
-                    $rec_no = $row[0];
+                    $req_no = $row[0];
                 }
                 mysqli_free_result($result);
             }
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         foreach ($table_items as $key => $value) {
 
             $mysql = "INSERT INTO tbl_purchase_bill_items (purchasebill_no, po_number, product_code, product_name, 
-        unit, qty, product_cost, total, user, receipt_no) VALUES('" . $rec_no . "','" . $po_number . "',
+        unit, qty, product_cost, total, user, receipt_no) VALUES('" . $req_no . "','" . $po_number . "',
         '" . $value["p_code"] . "','" . $value["p_name"] . "','" . $value["p_units"] . "', '" . $value["p_quantity"] . "',
         '" . $value["p_cost"] . "','" . $value["p_total"] . "','" . $user . "', '" . $rec_no . "')";
             mysqli_query($conn, $mysql);
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_query($conn, $sql);
         mysqli_query($conn, $sql2);
 
-        $message = "Purchase Bill " . $po_number . " Posted Successfully..";
+        $message = "Purchase Bill " . $req_no . " Posted Successfully..";
         echo json_encode($message);
     } else {
         // echo "Multiquery failed: " . $mysql;
