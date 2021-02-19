@@ -96,6 +96,8 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/generate_remittance.php">Remittance Advice</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/approve_remittance.php">Approve Remittance Advice</a>
+  </li>
   
 </ul>
 </li>
