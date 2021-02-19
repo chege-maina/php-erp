@@ -59,19 +59,19 @@ include '../includes/base_page/head.php';
                         <!-- Content is to start here -->
                         <div class="row pb-2 ">
                             <div class="col">
+                                <label for="bills" class="form-label">Show Bills Due</label>
+                                <select name="bills" id="status" class="form-select">
+                                    <option value="all">Show All</option>
+                                    <option value="bills_due">Show Bills Due</option>
+                                </select>
+                            </div>
+                            <div class="col">
                                 <label for="req_date" class="form-label">From </label>
                                 <input type="date" name="req_date" id="req_date_from" class="form-control" required onchange="updateDateFilters();">
                             </div>
                             <div class="col">
                                 <label for="req_date" class="form-label">To </label>
                                 <input type="date" name="req_date" id="req_date_to" class="form-control" required onchange="updateDateFilters();">
-                            </div>
-                            <div class="col">
-                                <label for="bills" class="form-label">Show Bills Due</label>
-                                <select name="bills" id="status" class="form-select">
-                                    <option value="all">Show All</option>
-                                    <option value="bills_due">Show Bills Due</option>
-                                </select>
                             </div>
                             <div class="col-auto d-flex align-items-end">
                                 <button class="btn btn-falcon-primary" type="button" onclick="filterRequisitions();">
@@ -102,14 +102,14 @@ include '../includes/base_page/head.php';
                         </div>
                         <div class="row m-3">
                             <div class="col text-right fw-bold">
-                                Total Before Tax</div>
+                                Total Amount</div>
                             <div class="col col-auto">
                                 <input class="form-control form-control-sm text-right" type="number" readonly id="total_before_tax" />
                             </div>
                         </div>
                         <div class="row m-3">
                             <div class="col text-right fw-bold">
-                                Tax 16 %
+                                Less 2% VAT With Held
                             </div>
                             <div class="col col-auto">
                                 <input class="form-control form-control-sm text-right" type="number" readonly id="tax_pc" />
@@ -117,7 +117,7 @@ include '../includes/base_page/head.php';
                         </div>
                         <div class="row m-3">
                             <div class="col text-right fw-bold">
-                                Total
+                                Net Payable
                             </div>
                             <div class="col col-auto">
                                 <input class="form-control form-control-sm text-right" type="number" readonly id="po_total" />
