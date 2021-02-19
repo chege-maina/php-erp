@@ -162,19 +162,6 @@ include '../includes/base_page/head.php';
           req_date_to.value = String(date.getFullYear()) + '-' + month + '-' + day_to;
           req_date_to.setAttribute("min", req_date_from.value);
 
-          const formData = new FormData();
-          fetch('../includes/#.php', {
-              method: 'POST',
-              body: formData
-            })
-            .then(response => response.json())
-            .then(result => {
-              console.log(result);
-              updateTable(result);
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
         });
 
 
@@ -319,20 +306,20 @@ include '../includes/base_page/head.php';
             // =================================================================
             // Cell 6
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-            const req_actions = document.createElement("td");
-            const req_actions_div = document.createElement("div");
-            req_actions_div.classList.add("form-check", "form-switch", "pt-1");
-            const check_wht = document.createElement("input");
-            check_wht.setAttribute("type", "checkbox");
+            //const req_actions = document.createElement("td");
+            // const req_actions_div = document.createElement("div");
+            //req_actions_div.classList.add("form-check", "form-switch", "pt-1");
+            //const check_wht = document.createElement("input");
+            //check_wht.setAttribute("type", "checkbox");
             // check_wht.setAttribute("onclick", "detailedView(" + value["invoice_no"] + ")");
-            check_wht.appendChild(document.createTextNode("Manage"));
-            check_wht.classList.add("form-check-input");
-            req_actions_div.appendChild(check_wht);
-            req_actions.appendChild(req_actions_div);
+            //check_wht.appendChild(document.createTextNode("Manage"));
+            //check_wht.classList.add("form-check-input");
+            // req_actions_div.appendChild(check_wht);
+            //req_actions.appendChild(req_actions_div);
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
             // =================================================================
 
-            this_row.append(due_date, invoice_no, amount, wht, amount_due, req_actions);
+            this_row.append(due_date, invoice_no, amount, wht, amount_due);
             table_body.appendChild(this_row);
 
 
@@ -343,26 +330,6 @@ include '../includes/base_page/head.php';
         function detailedView(req_no) {
           sessionStorage.setItem('req_no', req_no);
           window.location.href = "#.php";
-        }
-
-        function filterRequisitions() {
-          const formData = new FormData();
-          formData.append("date1", req_date_from.value);
-          formData.append("date2", req_date_to.value);
-          // formData.append("status", r_status.value);
-          formData.append("branch", user_branch);
-          fetch('../includes/#  .php', {
-              method: 'POST',
-              body: formData
-            })
-            .then(response => response.json())
-            .then(result => {
-              console.log('Success:', result);
-              updateTable(result);
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
         }
       </script>
 
