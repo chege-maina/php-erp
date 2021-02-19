@@ -84,7 +84,7 @@ include '../includes/base_page/head.php';
             <hr>
             <div class="d-flex flex-row-reverse mt-3">
               <div class="form-check form-switch border rounded-1">
-                <input class="form-check-input" id="wht_checkbox" type="checkbox" onchange="updateWHT(this.checked);" />
+                <input class="form-check-input" id="wht_checkbox" type="checkbox" onchange="updateWHT(this);" />
                 <label class="form-check-label" for="wht_checkbox">
                   Calculate Witholding Tax
                 </label>
@@ -232,8 +232,12 @@ include '../includes/base_page/head.php';
         }
 
 
-        function updateWHT(value) {
-          calculateTableData(table_items, value);
+        function updateWHT(elem) {
+          if (!table_items) {
+            elem.checked = false;
+            return;
+          }
+          calculateTableData(table_items, elem.checked);
         }
 
         let calculateTableData = (data, calc_wht) => {
