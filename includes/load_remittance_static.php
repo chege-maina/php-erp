@@ -6,18 +6,18 @@ include_once 'dbconnect.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $lpo_no = $_POST["supplier"];
+    $supplier = $_POST["supplier"];
 
     $stat = "pending";
 
-    $query = "SELECT * FROM tbl_purchase_bill WHERE status='$stat' and supplier_name='$lpo_no' ORDER BY due_date ASC";
+    $query = "SELECT * FROM tbl_purchase_bill WHERE supplier_name='$supplier' and status='$stat' ORDER BY due_date ASC";
 
     $result = mysqli_query($conn, $query);
     $response = array();
 
     while ($row = mysqli_fetch_assoc($result)) {
         $due = $row['due_date'];
-        $invoice = $row['invoice_no)'];
+        $invoice = $row['invoice_no'];
         $total = $row['total'];
 
         array_push(
