@@ -116,7 +116,14 @@ include '../includes/base_page/head.php';
               <div class="col text-right fw-bold">
                 Total Amount</div>
               <div class="col col-auto">
-                <input class="form-control form-control-sm text-right" type="number" readonly id="total_before_tax" />
+                <input type="number" class="form-control hide-this" name="total_before_tax" id="total_before_tax" required>
+                <input type="text" class="form-control form-control-sm text-right" id="total_before_tax_helper" required readonly>
+                <script>
+                  let total_before_tax_helper;
+                  window.addEventListener('DOMContentLoaded', (event) => {
+                    [, total_before_tax_helper] = commify('#total_before_tax', '#total_before_tax_helper');
+                  });
+                </script>
               </div>
             </div>
             <div class="row m-3">
@@ -124,7 +131,13 @@ include '../includes/base_page/head.php';
                 Less 2% VAT With Held
               </div>
               <div class="col col-auto">
-                <input class="form-control form-control-sm text-right" type="number" readonly id="tax_pc" />
+                <input type="number" class="form-control hide-this" name="total_wht" id="total_wht" required>
+                <input type="text" class="form-control form-control-sm text-right" id="total_wht_helper" required readonly>
+                <script>
+                  window.addEventListener('DOMContentLoaded', (event) => {
+                    [, total_wht_helper] = commify('#total_wht', '#total_wht_helper');
+                  });
+                </script>
               </div>
             </div>
             <div class="row m-3">
@@ -132,7 +145,13 @@ include '../includes/base_page/head.php';
                 Net Payable
               </div>
               <div class="col col-auto">
-                <input class="form-control form-control-sm text-right" type="number" readonly id="po_total" />
+                <input type="number" class="form-control hide-this" name="amount_due" id="amount_due" required>
+                <input type="text" class="form-control form-control-sm text-right" id="amount_due_helper" required readonly>
+                <script>
+                  window.addEventListener('DOMContentLoaded', (event) => {
+                    [, amount_due_helper] = commify('#amount_due', '#amount_due_helper');
+                  });
+                </script>
               </div>
             </div>
           </div>
@@ -286,6 +305,27 @@ include '../includes/base_page/head.php';
           updateTable(table_items);
         }
 
+        let amount_total;
+        let wht_total;
+        let net_total;
+
+        function updateTotals() {
+          amount_total = 0;
+          wht_total = 0;
+          net_total = 0;
+
+          table_items.forEach((item) => {
+            if (item["included"]) {
+              amount_total += Number(item["amount"])
+              wht_total += Number(item["wht"])
+              net_total += Number(item["amount_due"])
+            }
+          });
+          total_before_tax_helper.set(amount_total);
+          total_wht_helper.set(wht_total);
+          amount_due_helper.set(net_total);
+        }
+
         let updateTable = (data) => {
 
           table_body.innerHTML = "";
@@ -403,6 +443,7 @@ include '../includes/base_page/head.php';
 
           });
 
+          updateTotals();
         }
 
         function toggleRow(uid, checked) {
