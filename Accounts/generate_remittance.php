@@ -84,7 +84,7 @@ include '../includes/base_page/head.php';
             <hr>
             <div class="d-flex flex-row-reverse mt-3">
               <div class="form-check form-switch border rounded-1">
-                <input class="form-check-input" id="wht_checkbox" type="checkbox" />
+                <input class="form-check-input" id="wht_checkbox" type="checkbox" onchange="updateWHT(this.checked);" />
                 <label class="form-check-label" for="wht_checkbox">
                   Calculate Witholding Tax
                 </label>
@@ -206,6 +206,7 @@ include '../includes/base_page/head.php';
 
         });
 
+
         const selectSupplier = () => {
           if (!supplier_name.value) {
             supplier_name.focus();
@@ -223,14 +224,40 @@ include '../includes/base_page/head.php';
             .then(result => {
               console.log('Success:', result);
               [...table_items] = result;
-              updateTable(table_items);
+              calculateTableData(table_items, false)
             })
             .catch(error => {
               console.error('Error:', error);
             });
         }
 
+
+        function updateWHT(value) {
+          calculateTableData(table_items, value);
+        }
+
+        let calculateTableData = (data, calc_wht) => {
+          let table_items_tmp = [];
+          let i = 0;
+
+          data.forEach(value => {
+            table_items_tmp[i] = {
+              due_date: value["due_date"],
+              invoice_no: value["invoice_no"],
+              amount: value["amount"],
+              wht: calc_wht ? (Number(value["amount"]) * 0.02 / 1.16) : 0,
+              amount_due: calc_wht ? (Number(value["amount"]) * 1.14 / 1.16) : value["amount"],
+              included: false,
+            }
+          });
+
+          table_items = [];
+          [...table_items] = table_items_tmp;
+          updateTable(table_items);
+        }
+
         let updateTable = (data) => {
+
           table_body.innerHTML = "";
           data.forEach(value => {
             const this_row = document.createElement("tr");
@@ -291,7 +318,7 @@ include '../includes/base_page/head.php';
               minimumValue: 0
             });
             // --
-            wht_input_an.set(Number(value["amount"]) * 0.02 / 1.16);
+            wht_input_an.set(value["wht"]);
             wht.appendChild(wht_input);
             wht.classList.add("align-middle");
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -313,7 +340,7 @@ include '../includes/base_page/head.php';
               minimumValue: 0
             });
             // --
-            amount_due_input_an.set(Number(value["amount"]) * 1.14 / 1.16);
+            amount_due_input_an.set(value["amount_due"]);
             amount_due.appendChild(amount_due_input);
             amount_due.classList.add("align-middle", "col", "col-auto");
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -328,9 +355,12 @@ include '../includes/base_page/head.php';
             req_actions_div.classList.add("form-check", "form-switch", "pt-1");
             const check_wht = document.createElement("input");
             check_wht.setAttribute("type", "checkbox");
-            // check_wht.setAttribute("onclick", "detailedView(" + value["invoice_no"] + ")");
+            check_wht.setAttribute("onchange", "toggleRow(" + value["invoice_no"] + ")");
             check_wht.appendChild(document.createTextNode("Manage"));
             check_wht.classList.add("form-check-input");
+            if (value["included"]) {
+              check_wht.setAttribute("checked", "");
+            }
             req_actions_div.appendChild(check_wht);
             req_actions.appendChild(req_actions_div);
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
