@@ -232,11 +232,15 @@ include '../includes/base_page/head.php';
         }
 
 
+        let calculateWHT = false;
+
         function updateWHT(elem) {
           if (!table_items) {
             elem.checked = false;
             return;
           }
+
+          calculateWHT = elem.checked;
           calculateTableData(table_items, elem.checked);
         }
 
@@ -252,6 +256,28 @@ include '../includes/base_page/head.php';
               wht: calc_wht ? (Number(value["amount"]) * 0.02 / 1.16) : 0,
               amount_due: calc_wht ? (Number(value["amount"]) * 1.14 / 1.16) : value["amount"],
               included: false,
+              uid: String(Math.floor(Math.random() * 10000000))
+            }
+          });
+
+          table_items = [];
+          [...table_items] = table_items_tmp;
+          updateTable(table_items);
+        }
+
+        function updateTableData(data) {
+          let table_items_tmp = [];
+          let i = 0;
+
+          data.forEach(value => {
+            table_items_tmp[i] = {
+              due_date: value["due_date"],
+              invoice_no: value["invoice_no"],
+              amount: value["amount"],
+              wht: calculateWHT ? (Number(value["amount"]) * 0.02 / 1.16) : 0,
+              amount_due: calculateWHT ? (Number(value["amount"]) * 1.14 / 1.16) : value["amount"],
+              included: value["included"],
+              uid: value["uid"]
             }
           });
 
@@ -359,7 +385,8 @@ include '../includes/base_page/head.php';
             req_actions_div.classList.add("form-check", "form-switch", "pt-1");
             const check_wht = document.createElement("input");
             check_wht.setAttribute("type", "checkbox");
-            check_wht.setAttribute("onchange", "toggleRow(" + value["invoice_no"] + ")");
+            check_wht.setAttribute("id", value["uid"]);
+            check_wht.setAttribute("onchange", "toggleRow('" + value["uid"] + "', this.checked)");
             check_wht.appendChild(document.createTextNode("Manage"));
             check_wht.classList.add("form-check-input");
             if (value["included"]) {
@@ -378,9 +405,17 @@ include '../includes/base_page/head.php';
 
         }
 
-        function detailedView(req_no) {
-          sessionStorage.setItem('req_no', req_no);
-          window.location.href = "#.php";
+        function toggleRow(uid, checked) {
+          let i = 0;
+          table_items.forEach(item => {
+            if (uid === item["uid"]) {
+              console.log(uid, checked);
+              table_items[i]["included"] = checked;
+            }
+            i++;
+          });
+
+          updateTableData(table_items, calculateWHT);
         }
 
         function filterRequisitions() {
