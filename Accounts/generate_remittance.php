@@ -270,6 +270,7 @@ include '../includes/base_page/head.php';
             });
             // --
             amount_input_an.set(value["amount"]);
+            amount_input.setAttribute("readonly", "");
             amount.appendChild(amount_input)
             amount.classList.add("align-middle");
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -282,6 +283,7 @@ include '../includes/base_page/head.php';
             const wht_input = document.createElement("input");
             // --
             wht_input.setAttribute("type", "text");
+            wht_input.setAttribute("readonly", "");
             wht_input.classList.add("form-control", "form-control-sm");
             // --
             const wht_input_an = new AutoNumeric(wht_input, {
@@ -303,6 +305,7 @@ include '../includes/base_page/head.php';
             const amount_due_input = document.createElement("input");
             // --
             amount_due_input.setAttribute("type", "text");
+            amount_due_input.setAttribute("readonly", "");
             amount_due_input.classList.add("form-control", "form-control-sm");
             // --
             const amount_due_input_an = new AutoNumeric(amount_due_input, {
