@@ -94,7 +94,7 @@ function genSideBar()
 <ul class="nav collapse" id="e-commerce" data-parent="#navbarVerticalCollapse">
   <li class="nav-item"><a class="nav-link" href="../Accounts/purchase_bill.php">Post Purchase Bill</a>
   </li>
-  <li class="nav-item"><a class="nav-link" href="../Accounts/generate_remittance.php">Post Purchase Bill</a>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/generate_remittance.php">Remittance Advice</a>
   </li>
   
 </ul>
