@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
 
-        $message = "Goods Receipt Note " . $po_number . " Created Successfully..";
+        $message = "Goods Receipt Note " . $rec_no . " Created Successfully..";
         echo json_encode($message);
     } else {
         // echo "Multiquery failed: " . $mysql;

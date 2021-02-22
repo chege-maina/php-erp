@@ -35,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $prod_code = $row3['product_code'];
             $prod_name = $row3['product_name'];
             $unit = $row3['product_unit'];
+            $dat_rec = $row3['date'];
             $qty = $row3['qty'];
 
             $query4 = "SELECT product_cost FROM supplier_product WHERE product_name='$prod_name' and supplier_name='$supplier'";
@@ -62,6 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'po_number' => $po_number,
                 'supplier_name' => $supplier,
                 'delivery_note' => $del_no,
+                'date' => $dat_rec,
                 'receipt_no' => $rec_no,
                 'terms' => $terms,
                 'table_data' => $response2
