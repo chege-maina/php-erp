@@ -45,8 +45,8 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="#" class="form-label">Select Supplier </label>
                 <div class="input-group">
-                  <select name="supplier" id="supplier_name" class="form-select">
-                  </select>
+                  <input list="suppliers" name="supplier" id="supplier_name" class="form-select">
+                  <datalist id="suppliers"></datalist>
                   <button type="button" class="btn btn-primary" onclick="selectSupplier();">Select</button>
                 </div>
               </div>
@@ -128,6 +128,7 @@ include '../includes/base_page/head.php';
       <script>
         const req_date_from = document.querySelector("#req_date_from");
         const supplier_name = document.querySelector("#supplier_name");
+        const suppliers = document.querySelector("#suppliers");
         const table_body = document.querySelector("#table_body");
         let table_items;
 
@@ -145,18 +146,19 @@ include '../includes/base_page/head.php';
           fetch('../includes/load_rem_num.php')
             .then(response => response.json())
             .then(result => {
+              console.log(result)
               let opt = document.createElement("option");
               opt.appendChild(document.createTextNode("-- Select Supplier --"));
               opt.setAttribute("value", "");
               opt.setAttribute("disabled", "");
               opt.setAttribute("selected", "");
-              supplier_name.appendChild(opt);
+              suppliers.appendChild(opt);
 
               result.forEach((supplier) => {
                 opt = document.createElement("option");
-                opt.value = supplier["supplier"];
-                opt.appendChild(document.createTextNode(opt.value));
-                supplier_name.appendChild(opt);
+                opt.value = "Remittance # " + supplier["rem_num"];
+                opt.appendChild(document.createTextNode(supplier["date"] + " : " + supplier["supplier"]));
+                suppliers.appendChild(opt);
               });
             })
             .catch((error) => {
@@ -171,9 +173,10 @@ include '../includes/base_page/head.php';
             return;
           }
 
-          console.log(supplier_name.value);
+          const sn = supplier_name.value.split("#")[1].trim();
+
           const formData = new FormData();
-          formData.append("supplier", supplier_name.value.trim());
+          formData.append("supplier", sn);
           fetch('../includes/load_rem_num.php', {
               method: 'POST',
               body: formData
