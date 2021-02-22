@@ -145,6 +145,7 @@ include '../includes/base_page/head.php';
           fetch('../includes/load_rem_num.php')
             .then(response => response.json())
             .then(result => {
+              console.log(result)
               let opt = document.createElement("option");
               opt.appendChild(document.createTextNode("-- Select Supplier --"));
               opt.setAttribute("value", "");
@@ -155,7 +156,7 @@ include '../includes/base_page/head.php';
               result.forEach((supplier) => {
                 opt = document.createElement("option");
                 opt.value = supplier["supplier"];
-                opt.appendChild(document.createTextNode(opt.value));
+                opt.appendChild(document.createTextNode(supplier["rem_num"] + " | " + supplier["date"] + " | " + opt.value));
                 supplier_name.appendChild(opt);
               });
             })
