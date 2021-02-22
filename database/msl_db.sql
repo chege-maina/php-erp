@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2021 at 01:15 PM
+-- Generation Time: Feb 22, 2021 at 08:21 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -96,11 +96,11 @@ CREATE TABLE `tbl_product` (
   `max_level` varchar(50) NOT NULL,
   `reorder` varchar(50) NOT NULL,
   `product_image` varchar(254) NOT NULL,
-  `dsp_price` int(254) NOT NULL,
-  `amount_before_tax` int(50) NOT NULL,
-  `dpp_inc_tax` int(50) NOT NULL,
-  `applicable_tax` int(50) NOT NULL,
-  `profit_margin` int(50) NOT NULL,
+  `dsp_price` varchar(254) NOT NULL,
+  `amount_before_tax` varchar(50) NOT NULL,
+  `dpp_inc_tax` varchar(50) NOT NULL,
+  `applicable_tax` varchar(50) NOT NULL,
+  `profit_margin` varchar(50) NOT NULL,
   `user` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -140,6 +140,87 @@ CREATE TABLE `tbl_purchaseorder_items` (
   `total` varchar(20) NOT NULL,
   `status` varchar(10) NOT NULL DEFAULT 'pending',
   `branch` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_purchase_bill`
+--
+
+CREATE TABLE `tbl_purchase_bill` (
+  `purchasebill_no` int(100) NOT NULL,
+  `po_number` varchar(100) NOT NULL,
+  `supplier_name` varchar(20) NOT NULL,
+  `payment_terms` varchar(20) NOT NULL,
+  `delivery_note_no` varchar(100) NOT NULL,
+  `date` date NOT NULL,
+  `due_date` date NOT NULL,
+  `invoice_no` varchar(100) NOT NULL,
+  `total` varchar(30) NOT NULL,
+  `status` varchar(15) NOT NULL DEFAULT 'pending',
+  `total_bf_tax` varchar(30) NOT NULL,
+  `tax` varchar(15) NOT NULL,
+  `user` varchar(50) NOT NULL,
+  `receipt_no` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_purchase_bill_items`
+--
+
+CREATE TABLE `tbl_purchase_bill_items` (
+  `id` int(11) NOT NULL,
+  `purchasebill_no` varchar(100) NOT NULL,
+  `po_number` varchar(100) NOT NULL,
+  `product_code` varchar(100) NOT NULL,
+  `product_name` varchar(50) NOT NULL,
+  `unit` varchar(15) NOT NULL,
+  `qty` varchar(100) NOT NULL,
+  `product_cost` varchar(100) NOT NULL,
+  `total` varchar(100) NOT NULL,
+  `status` varchar(15) NOT NULL DEFAULT 'pending',
+  `user` varchar(50) NOT NULL,
+  `receipt_no` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_remittance`
+--
+
+CREATE TABLE `tbl_remittance` (
+  `rem_no` int(11) NOT NULL,
+  `supplier_name` varchar(100) NOT NULL,
+  `date` date NOT NULL,
+  `amount` varchar(100) NOT NULL,
+  `payable` varchar(100) NOT NULL,
+  `wht` varchar(100) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'pending',
+  `user` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_remittance_items`
+--
+
+CREATE TABLE `tbl_remittance_items` (
+  `id` int(11) NOT NULL,
+  `rem_no` int(100) NOT NULL,
+  `due_date` date NOT NULL,
+  `invoice_no` varchar(100) NOT NULL,
+  `amount_due` varchar(100) NOT NULL,
+  `wht` varchar(100) NOT NULL,
+  `payable` varchar(100) NOT NULL,
+  `supplier_name` varchar(100) NOT NULL,
+  `date` date NOT NULL,
+  `status` varchar(10) NOT NULL DEFAULT 'pending',
+  `user` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -294,15 +375,6 @@ CREATE TABLE `tbl_transfer` (
   `branch_from` varchar(15) NOT NULL DEFAULT 'noted'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tbl_transfer`
---
-
-INSERT INTO `tbl_transfer` (`transfer_no`, `date`, `time`, `user`, `branch`, `status`, `branch_from`) VALUES
-(1, '2021-02-15', '14:11', 'Jael Joel', 'MM2', 'done', 'MM1'),
-(2, '2021-02-15', '14:51', 'Jael Joel', 'MM2', 'approved', 'noted'),
-(3, '2021-02-15', '15:54', 'Jael Joel', 'MM2', 'approved', 'noted');
-
 -- --------------------------------------------------------
 
 --
@@ -321,16 +393,6 @@ CREATE TABLE `tbl_transfer_items` (
   `balance` varchar(100) NOT NULL,
   `branch_from` varchar(15) NOT NULL DEFAULT 'noted'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_transfer_items`
---
-
-INSERT INTO `tbl_transfer_items` (`id`, `transfer_no`, `product_code`, `product_name`, `product_unit`, `product_quantity`, `status`, `branch`, `balance`, `branch_from`) VALUES
-(1, '1', '52', 'Hayden Duran', 'kgs', '12', 'done', 'MM2', '10', 'MM1'),
-(2, '1', '53', 'Wyoming Wilkinson', 'lts', '15', 'done', 'MM2', '20', 'MM1'),
-(3, '2', '52', 'Hayden Duran', 'kgs', '1', 'pending', 'MM2', '12', 'noted'),
-(4, '3', '52', 'Hayden Duran', 'kgs', '11', 'pending', 'MM2', '12', 'noted');
 
 -- --------------------------------------------------------
 
@@ -418,6 +480,30 @@ ALTER TABLE `tbl_purchaseorder`
 -- Indexes for table `tbl_purchaseorder_items`
 --
 ALTER TABLE `tbl_purchaseorder_items`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_purchase_bill`
+--
+ALTER TABLE `tbl_purchase_bill`
+  ADD PRIMARY KEY (`purchasebill_no`);
+
+--
+-- Indexes for table `tbl_purchase_bill_items`
+--
+ALTER TABLE `tbl_purchase_bill_items`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_remittance`
+--
+ALTER TABLE `tbl_remittance`
+  ADD PRIMARY KEY (`rem_no`);
+
+--
+-- Indexes for table `tbl_remittance_items`
+--
+ALTER TABLE `tbl_remittance_items`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -530,6 +616,30 @@ ALTER TABLE `tbl_purchaseorder`
 --
 ALTER TABLE `tbl_purchaseorder_items`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_purchase_bill`
+--
+ALTER TABLE `tbl_purchase_bill`
+  MODIFY `purchasebill_no` int(100) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_purchase_bill_items`
+--
+ALTER TABLE `tbl_purchase_bill_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_remittance`
+--
+ALTER TABLE `tbl_remittance`
+  MODIFY `rem_no` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_remittance_items`
+--
+ALTER TABLE `tbl_remittance_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_requisition`

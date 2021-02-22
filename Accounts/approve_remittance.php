@@ -55,8 +55,7 @@ include '../includes/base_page/head.php';
                 <div class="col flex-row-reverse">
                   <div class="col">
                     <label for="req_date" class="form-label">Date </label>
-                    <input type="date" name="req_date" id="req_date_from" class="form-control" readonly>
-
+                    <input type="date" name="req_date" id="rem_date" class="form-control" readonly>
                   </div>
                 </div>
                 <!-- Content is to start here -->
@@ -128,8 +127,6 @@ include '../includes/base_page/head.php';
 
       <script>
         const req_date_from = document.querySelector("#req_date_from");
-        const req_date_to = document.querySelector("#req_date_to");
-        const r_status = document.querySelector("#status");
         const supplier_name = document.querySelector("#supplier_name");
         const table_body = document.querySelector("#table_body");
         let table_items;
@@ -141,36 +138,11 @@ include '../includes/base_page/head.php';
         }
 
 
-        function updateDateFilters() {
-          const fromDate = new Date(req_date_from.value);
-          const toDate = new Date(req_date_to.value);
-          if (fromDate > toDate) {
-            let month = d_toString(fromDate.getMonth() + 1);
-            let day = d_toString(fromDate.getDate() + 1);
-            req_date_to.value = String(fromDate.getFullYear()) + '-' + month + '-' + day;
-          }
-          req_date_to.setAttribute("min", fromDate);
-
-          console.log("From: ", fromDate.getDate(), " To: ", req_date_to.value);
-        }
-
-        window.addEventListener('DOMContentLoaded', (event) => {
-          const date = new Date();
-          let month = d_toString(date.getMonth() + 1);
-          let day = d_toString(date.getDate());
-          let day_to = d_toString(date.getDate() + 1);
-
-          req_date_from.value = String(date.getFullYear()) + '-' + month + '-' + day;
-          req_date_to.value = String(date.getFullYear()) + '-' + month + '-' + day_to;
-          req_date_to.setAttribute("min", req_date_from.value);
-
-        });
-
 
         window.addEventListener('DOMContentLoaded', (event) => {
           const formData = new FormData();
 
-          fetch('../includes/load_supplier_remittance.php')
+          fetch('../includes/load_supplier_rem_app.php')
             .then(response => response.json())
             .then(result => {
               let opt = document.createElement("option");
@@ -202,7 +174,7 @@ include '../includes/base_page/head.php';
           console.log(supplier_name.value);
           const formData = new FormData();
           formData.append("supplier", supplier_name.value.trim());
-          fetch('../includes/load_remittance_static.php', {
+          fetch('../includes/#.php', {
               method: 'POST',
               body: formData
             })
