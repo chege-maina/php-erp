@@ -45,8 +45,8 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="#" class="form-label">Select Supplier </label>
                 <div class="input-group">
-                  <select name="supplier" id="supplier_name" class="form-select">
-                  </select>
+                  <input list="suppliers" name="supplier" id="supplier_name" class="form-select">
+                  <datalist id="suppliers"></datalist>
                   <button type="button" class="btn btn-primary" onclick="selectSupplier();">Select</button>
                 </div>
               </div>
@@ -106,8 +106,31 @@ include '../includes/base_page/head.php';
       <!-- =========================================================== -->
 
       <script>
+        const supplier_name = document.querySelector("#supplier_name");
 
 
+        window.addEventListener('DOMContentLoaded', (event) => {
+          const formData = new FormData();
+
+          fetch('../includes/load_rem_num_pay.php')
+            .then(response => response.json())
+            .then(result => {
+              console.log(result)
+              let opt = document.createElement("option");
+
+              result.forEach((supplier) => {
+                opt = document.createElement("option");
+                opt.value = "Remittance # " + supplier["rem_num"];
+                opt.appendChild(document.createTextNode(supplier["date"] + " : " + supplier["supplier"]));
+                suppliers.appendChild(opt);
+              });
+
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+
+        });
       </script>
 
 
