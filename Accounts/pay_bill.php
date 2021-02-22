@@ -37,67 +37,68 @@ include '../includes/base_page/head.php';
         <!-- body begins here -->
         <h5 class="p-2">Pay Bill</h5>
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+        <form onsubmit="return submitForm()">
+          <div class="card mt-3">
+            <div class="card-body fs--1 p-4">
+              <div class="row">
 
-        <div class="card mt-3">
-          <div class="card-body fs--1 p-4">
-            <div class="row">
-
-              <div class="col">
-                <label for="#" class="form-label">Select Supplier </label>
-                <div class="input-group">
-                  <input list="suppliers" name="supplier" id="supplier_name" class="form-select">
-                  <datalist id="suppliers"></datalist>
-                  <button type="button" class="btn btn-primary" onclick="selectSupplier();">Select</button>
-                </div>
-              </div>
-              <div class="col">
-                <div class="col flex-row-reverse">
-                  <div class="col">
-                    <label for="amt" class="form-label">Amount Payable*</label>
-                    <input type="number" name="amt" id="amt" class="form-control" required readonly>
+                <div class="col">
+                  <label for="#" class="form-label">Select Supplier </label>
+                  <div class="input-group">
+                    <input list="suppliers" name="supplier" id="supplier_name" class="form-select" required>
+                    <datalist id="suppliers"></datalist>
+                    <button type="button" class="btn btn-primary" onclick="selectSupplier();">Select</button>
                   </div>
                 </div>
-                <!-- Content is to start here -->
-              </div>
-            </div>
-
-            <!-- Content is to start here -->
-            <hr>
-            <div class="row">
-              <div class="col">
                 <div class="col">
-                  <label for="supplier" class="form-label">Supplier*</label>
-                  <input type="supplier" name="supplier" id="supplier" class="form-control" required readonly>
+                  <div class="col flex-row-reverse">
+                    <div class="col">
+                      <label for="amt" class="form-label">Amount Payable*</label>
+                      <input type="number" name="amt" id="amt" class="form-control" required readonly>
+                    </div>
+                  </div>
+                  <!-- Content is to start here -->
                 </div>
               </div>
 
-              <div class="col">
-                <label for="cheque_number" class="form-label">Cheque Number*</label>
-                <input type="number" name="cheque_number" id="cheque_number" class="form-control" required>
-              </div>
+              <!-- Content is to start here -->
+              <hr>
+              <div class="row">
+                <div class="col">
+                  <div class="col">
+                    <label for="supplier" class="form-label">Supplier*</label>
+                    <input type="supplier" name="supplier" id="supplier" class="form-control" required readonly>
+                  </div>
+                </div>
 
-              <div class="col">
-                <label for="#" class="form-label">Bank Name </label>
-                <div class="input-group">
-                  <select name="bank_name" id="bank_name" class="form-select">
-                  </select>
+                <div class="col">
+                  <label for="cheque_number" class="form-label">Cheque Number*</label>
+                  <input type="number" name="cheque_number" id="cheque_number" class="form-control" required>
+                </div>
+
+                <div class="col">
+                  <label for="#" class="form-label">Bank Name </label>
+                  <div class="input-group">
+                    <select name="bank_name" id="bank_name" class="form-select" required>
+                    </select>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <!-- Content ends here -->
-        </div>
-        <div class="card mt-1">
-          <div class="card-body fs--1 p-1">
-            <div class="d-flex flex-row-reverse">
-              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitPO();">
-                Pay Bill
-              </button>
             </div>
             <!-- Content ends here -->
           </div>
+          <div class="card mt-1">
+            <div class="card-body fs--1 p-1">
+              <div class="d-flex flex-row-reverse">
+                <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitForm();">
+                  Pay Bill
+                </button>
+              </div>
+              <!-- Content ends here -->
+            </div>
 
-        </div>
+          </div>
+        </form>
 
         <!-- Additional cards can be added here -->
       </div>
@@ -107,10 +108,38 @@ include '../includes/base_page/head.php';
 
       <script>
         const supplier_name = document.querySelector("#supplier_name");
+        const supplier = document.querySelector("#supplier");
         const bank_name = document.querySelector('#bank_name');
+        const amt = document.querySelector('#amt');
 
-        function selectSupplier() {
+        function submitForm() {
+          console.log("Submitting");
+          return false;
+        }
 
+        const selectSupplier = () => {
+          if (!supplier_name.value) {
+            supplier_name.focus();
+            return;
+          }
+
+          const sn = supplier_name.value.split("#")[1].trim();
+
+          const formData = new FormData();
+          formData.append("rem_no", sn);
+          fetch('../includes/payment_load.php', {
+              method: 'POST',
+              body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
+              console.log('Success:', result);
+              supplier.value = result[0]["name"];
+              amt.value = result[0]["amount"];
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
         }
 
         window.addEventListener('DOMContentLoaded', (event) => {
