@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $po_number = $row['lpo_number'];
         $supplier = $row['supplier_name'];
         $del_no = $row['invoice_no'];
-        $dat_rec = $row3['date'];
+        $dat_rec = $row['date'];
         $rec_no = $row['receipt_no'];
 
         $query2 = "SELECT payment_terms FROM tbl_supplier WHERE name='$supplier'";
