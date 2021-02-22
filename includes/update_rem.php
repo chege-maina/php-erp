@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "UPDATE tbl_remittance SET status = 'approved' WHERE rem_no = '" . $req_no . "'";
         mysqli_query($conn, $sql);
         mysqli_query($conn, $sql1);
-        $response['message'] = "Selected Transfer Items Received...";
+        $response['message'] = "Selected Remittance Approved...";
     }
 
     echo json_encode($response);
