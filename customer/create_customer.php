@@ -81,7 +81,7 @@ include '../includes/base_page/head.php';
                   <label for="browser" class="form-label ">Credit Limit </label>
                   <div class="input-group">
                     <input type="number" class="form-control" id="requisitionable_item">
-                    <input type="button" value="%" class="btn btn-link disabled">
+                    <input type="button" value="KES" class="btn btn-link disabled">
                   </div>
                 </div>
               </div>
