@@ -1,11 +1,11 @@
-<?php
-session_start();
-// If the user is not logged in redirect to the login page...
-if (!isset($_SESSION['loggedin'])) {
-  header('Location: ../index.php');
-  exit();
-}
-?>
+l<?php
+  session_start();
+  // If the user is not logged in redirect to the login page...
+  if (!isset($_SESSION['loggedin'])) {
+    header('Location: ../index.php');
+    exit();
+  }
+  ?>
 
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
@@ -85,7 +85,7 @@ include '../includes/base_page/head.php';
               <div class="col text-right fw-bold">
                 Total Amount</div>
               <div class="col col-auto">
-                <input class="form-control form-control-sm text-right" type="number" readonly id="total_before_tax" />
+                <input class="form-control form-control-sm text-right" type="text" readonly id="total_before_tax" />
               </div>
             </div>
             <div class="row m-3">
@@ -93,7 +93,7 @@ include '../includes/base_page/head.php';
                 Less 2% VAT With Held
               </div>
               <div class="col col-auto">
-                <input class="form-control form-control-sm text-right" type="number" readonly id="tax_pc" />
+                <input class="form-control form-control-sm text-right" type="text" readonly id="tax_pc" />
               </div>
             </div>
             <div class="row m-3">
@@ -101,7 +101,7 @@ include '../includes/base_page/head.php';
                 Net Payable
               </div>
               <div class="col col-auto">
-                <input class="form-control form-control-sm text-right" type="number" readonly id="po_total" />
+                <input class="form-control form-control-sm text-right" type="text" readonly id="po_total" />
               </div>
             </div>
           </div>
@@ -126,12 +126,51 @@ include '../includes/base_page/head.php';
       <!-- =========================================================== -->
 
       <script>
-        const req_date_from = document.querySelector("#req_date_from");
+        const rem_date = document.querySelector("#rem_date");
         const supplier_name = document.querySelector("#supplier_name");
         const suppliers = document.querySelector("#suppliers");
         const table_body = document.querySelector("#table_body");
+
+        const total_before_tax = new AutoNumeric("#total_before_tax", {
+          currencySymbol: '',
+          minimumValue: 0
+        });
+        const tax_pc = new AutoNumeric("#tax_pc", {
+          currencySymbol: '',
+          minimumValue: 0
+        });
+        const po_total = new AutoNumeric("#po_total", {
+          currencySymbol: '',
+          minimumValue: 0
+        });
+
         let table_items;
 
+        function submitPO() {
+          if (!supplier_name.value) {
+            supplier_name.focus();
+            return;
+          }
+
+          const sn = supplier_name.value.split("#")[1].trim();
+          console.log(sn);
+
+          const formData = new FormData();
+          formData.append("rem_no", sn);
+          formData.append("checker", "approve");
+          fetch('../includes/approve.php', {
+              method: 'POST',
+              body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
+              console.log('Success:', result);
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+
+        }
 
 
         function d_toString(value) {
@@ -176,15 +215,19 @@ include '../includes/base_page/head.php';
           const sn = supplier_name.value.split("#")[1].trim();
 
           const formData = new FormData();
-          formData.append("supplier", sn);
-          fetch('../includes/load_rem_num.php', {
+          formData.append("rem_no", sn);
+          fetch('../includes/load_rem_approval.php', {
               method: 'POST',
               body: formData
             })
             .then(response => response.json())
             .then(result => {
               console.log('Success:', result);
-              [...table_items] = result;
+              total_before_tax.set(result[0]["amount"]);
+              tax_pc.set(result[0]["wht"]);
+              po_total.set(result[0]["payable"]);
+              rem_date.value = result[0]["date"];
+              [...table_items] = result[0].table_items;
               updateTable(table_items);
             })
             .catch(error => {
@@ -195,7 +238,9 @@ include '../includes/base_page/head.php';
 
         let updateTable = (data) => {
           table_body.innerHTML = "";
+          console.log("Ladadida", "Commodore ", data);
           data.forEach(value => {
+
             const this_row = document.createElement("tr");
 
             // =================================================================
@@ -232,7 +277,7 @@ include '../includes/base_page/head.php';
               minimumValue: 0
             });
             // --
-            amount_input_an.set(value["amount"]);
+            amount_input_an.set(value["amount_due"]);
             amount_input.setAttribute("readonly", "");
             amount.appendChild(amount_input)
             amount.classList.add("align-middle");
@@ -254,7 +299,7 @@ include '../includes/base_page/head.php';
               minimumValue: 0
             });
             // --
-            wht_input_an.set(Number(value["amount"]) * 0.02 / 1.16);
+            wht_input_an.set(value["wht"]);
             wht.appendChild(wht_input);
             wht.classList.add("align-middle");
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -268,6 +313,7 @@ include '../includes/base_page/head.php';
             const amount_due_input = document.createElement("input");
             // --
             amount_due_input.setAttribute("type", "text");
+
             amount_due_input.setAttribute("readonly", "");
             amount_due_input.classList.add("form-control", "form-control-sm");
             // --
@@ -276,7 +322,8 @@ include '../includes/base_page/head.php';
               minimumValue: 0
             });
             // --
-            amount_due_input_an.set(Number(value["amount"]) * 1.14 / 1.16);
+
+            amount_due_input_an.set(value["payable"]);
             amount_due.appendChild(amount_due_input);
             amount_due.classList.add("align-middle", "col", "col-auto");
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
