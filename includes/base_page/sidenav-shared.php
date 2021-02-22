@@ -103,6 +103,18 @@ function genSideBar()
   
 </ul>
 </li>
+<li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-custo" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-cart-plus"></span></span><span class="nav-link-text"> Customers</span>
+  </div>
+</a>
+<ul class="nav collapse" id="e-custo" data-parent="#navbarVerticalCollapse">
+  <li class="nav-item"><a class="nav-link" href="../customer/create_customer.php">Add New Customer</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/generate_remittance.php">Manage Customers</a>
+  </li>
+  
+</ul>
+</li>
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#authentication" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authentication">
   <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-unlock-alt"></span></span><span class="nav-link-text"> Suppliers</span>
   </div>
