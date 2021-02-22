@@ -35,6 +35,7 @@ include '../includes/base_page/head.php';
 
         <!-- =========================================================== -->
         <!-- body begins here -->
+        <div id="alert-div"></div>
         <h5 class="p-2">Pay Bill</h5>
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <form onsubmit="return submitForm()">
@@ -111,9 +112,48 @@ include '../includes/base_page/head.php';
         const supplier = document.querySelector("#supplier");
         const bank_name = document.querySelector('#bank_name');
         const amt = document.querySelector('#amt');
+        const cheque_no = document.querySelector('#cheque_number');
 
         function submitForm() {
+          if (!supplier_name.value) {
+            supplier_name.focus();
+            return false;
+          }
+
+          const sn = supplier_name.value.split("#")[1].trim();
           console.log("Submitting");
+
+
+          const formData = new FormData();
+          formData.append("rem_no", sn);
+          formData.append("supplier", supplier.value);
+          formData.append("amount", amt.value);
+          formData.append("cheque_no", cheque_no.value);
+          formData.append("bank", bank_name.value);
+          fetch('../includes/add_payment.php', {
+              method: 'POST',
+              body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+              console.log('Success:', result);
+
+              const alertVar =
+                `<div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>Success!</strong> ${result}
+          <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+          </div>`;
+              var divAlert = document.querySelector("#alert-div");
+              divAlert.innerHTML = alertVar;
+              divAlert.scrollIntoView();
+              setTimeout(function() {
+                location.reload();
+              }, 2500);
+
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
           return false;
         }
 
