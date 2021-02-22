@@ -146,6 +146,31 @@ include '../includes/base_page/head.php';
 
         let table_items;
 
+        function submitPO() {
+          if (!supplier_name.value) {
+            supplier_name.focus();
+            return;
+          }
+
+          const sn = supplier_name.value.split("#")[1].trim();
+          console.log(sn);
+
+          const formData = new FormData();
+          formData.append("rem_no", sn);
+          formData.append("checker", "approve");
+          fetch('../includes/approve.php', {
+              method: 'POST',
+              body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
+              console.log('Success:', result);
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+
+        }
 
 
         function d_toString(value) {
