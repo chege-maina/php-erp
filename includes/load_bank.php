@@ -9,7 +9,7 @@ $query = "SELECT * FROM tbl_bank";
 $result = mysqli_query($conn, $query);
 $response = array();
 
-if ($row = mysqli_fetch_assoc($result)) {
+while ($row = mysqli_fetch_assoc($result)) {
 	array_push(
 		$response,
 		array(
