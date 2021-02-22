@@ -35,6 +35,7 @@ include '../includes/base_page/head.php';
 
         <!-- =========================================================== -->
         <!-- body begins here -->
+        <div id="alert-div"></div>
         <h5 class="p-2">Pay Bill</h5>
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <form onsubmit="return submitForm()">
