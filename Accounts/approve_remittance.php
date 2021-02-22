@@ -160,11 +160,11 @@ include '../includes/base_page/head.php';
           const formData = new FormData();
           formData.append("rem_no", sn);
           formData.append("checker", "approve");
-          fetch('../includes/approve.php', {
+          fetch('../includes/update_rem.php', {
               method: 'POST',
               body: formData
             })
-            .then(response => response.json())
+            .then(response => response.text())
             .then(result => {
               console.log('Success:', result);
               const alertVar =
@@ -175,9 +175,9 @@ include '../includes/base_page/head.php';
               var divAlert = document.querySelector("#alert-div");
               divAlert.innerHTML = alertVar;
               divAlert.scrollIntoView();
-              // setTimeout(function() {
-              //   location.href = "select_po.php"
-              // }, 2500);
+              setTimeout(function() {
+                location.href = "select_po.php"
+              }, 2500);
             })
             .catch(error => {
               console.error('Error:', error);
