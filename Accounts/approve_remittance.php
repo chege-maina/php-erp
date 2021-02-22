@@ -176,7 +176,7 @@ include '../includes/base_page/head.php';
               divAlert.innerHTML = alertVar;
               divAlert.scrollIntoView();
               setTimeout(function() {
-                location.href = "select_po.php"
+                location.reload();
               }, 2500);
             })
             .catch(error => {
