@@ -1,11 +1,11 @@
-<?php
-session_start();
-// If the user is not logged in redirect to the login page...
-if (!isset($_SESSION['loggedin'])) {
-  header('Location: ../index.php');
-  exit();
-}
-?>
+l<?php
+  session_start();
+  // If the user is not logged in redirect to the login page...
+  if (!isset($_SESSION['loggedin'])) {
+    header('Location: ../index.php');
+    exit();
+  }
+  ?>
 
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
@@ -176,15 +176,15 @@ include '../includes/base_page/head.php';
           const sn = supplier_name.value.split("#")[1].trim();
 
           const formData = new FormData();
-          formData.append("supplier", sn);
-          fetch('../includes/load_rem_num.php', {
+          formData.append("rem_no", sn);
+          fetch('../includes/load_rem_approval.php', {
               method: 'POST',
               body: formData
             })
             .then(response => response.json())
             .then(result => {
               console.log('Success:', result);
-              [...table_items] = result;
+              [...table_items] = result[0].table_items;
               updateTable(table_items);
             })
             .catch(error => {
@@ -195,7 +195,9 @@ include '../includes/base_page/head.php';
 
         let updateTable = (data) => {
           table_body.innerHTML = "";
+          console.log("Ladadida", "Commodore ", data);
           data.forEach(value => {
+
             const this_row = document.createElement("tr");
 
             // =================================================================
@@ -232,7 +234,7 @@ include '../includes/base_page/head.php';
               minimumValue: 0
             });
             // --
-            amount_input_an.set(value["amount"]);
+            amount_input_an.set(value["amount_due"]);
             amount_input.setAttribute("readonly", "");
             amount.appendChild(amount_input)
             amount.classList.add("align-middle");
@@ -254,7 +256,7 @@ include '../includes/base_page/head.php';
               minimumValue: 0
             });
             // --
-            wht_input_an.set(Number(value["amount"]) * 0.02 / 1.16);
+            wht_input_an.set(value["wht"]);
             wht.appendChild(wht_input);
             wht.classList.add("align-middle");
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -268,6 +270,7 @@ include '../includes/base_page/head.php';
             const amount_due_input = document.createElement("input");
             // --
             amount_due_input.setAttribute("type", "text");
+
             amount_due_input.setAttribute("readonly", "");
             amount_due_input.classList.add("form-control", "form-control-sm");
             // --
@@ -276,7 +279,8 @@ include '../includes/base_page/head.php';
               minimumValue: 0
             });
             // --
-            amount_due_input_an.set(Number(value["amount"]) * 1.14 / 1.16);
+
+            amount_due_input_an.set(value["payable"]);
             amount_due.appendChild(amount_due_input);
             amount_due.classList.add("align-middle", "col", "col-auto");
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
