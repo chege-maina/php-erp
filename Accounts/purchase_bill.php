@@ -305,12 +305,14 @@ include '../includes/base_page/head.php';
           })
           .then(response => response.json())
           .then(result => {
+            console.log("Selected", result);
             result = result[0];
             receipt_no = result["receipt_no"];
             lpo_number.value = result["po_number"];
             supplier_name.value = result["supplier_name"];
             delivery_no.value = result["delivery_note"];
             terms_of_payment.value = result["terms"];
+            bill_date.setAttribute("min", result["date"])
             updateTable(result["table_data"]);
           })
           .catch(error => {
