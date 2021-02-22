@@ -60,6 +60,11 @@ include '../includes/base_page/head.php';
                   </div>
                   <!-- Content is to start here -->
                 </div>
+
+                <div class="col">
+                  <label for="#" class="form-label">Cheque Date</label>
+                  <input type="date" value="<?php echo date("Y-m-d"); ?>" id="date" class="form-control">
+                </div>
               </div>
 
               <!-- Content is to start here -->

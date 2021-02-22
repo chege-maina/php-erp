@@ -61,11 +61,7 @@ include '../includes/base_page/head.php';
               </div>
               <div class="col">
                 <label for="#" class="form-label">Valid Until </label>
-                <div class="input-group">
-                  <select name="date" id="date" type="date" class="form-select">
-                  </select>
-                  <button type="button" class="btn btn-primary">Date</button>
-                </div>
+                <input type="date" value="<?php echo date("Y-m-d"); ?>" id="date" class="form-control">
               </div>
             </div>
             <hr>
