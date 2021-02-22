@@ -303,11 +303,12 @@ include '../includes/base_page/head.php';
         }
 
         let calculateTableData = (data, calc_wht) => {
+          console.log(data, "Uuuuuuwwiiiiii");
           let table_items_tmp = [];
           let i = 0;
 
           data.forEach(value => {
-            table_items_tmp[i] = {
+            table_items_tmp.push({
               due_date: value["due_date"],
               invoice_no: value["invoice_no"],
               amount: value["amount"],
@@ -315,7 +316,7 @@ include '../includes/base_page/head.php';
               amount_due: calc_wht ? (Number(value["amount"]) * 1.14 / 1.16) : value["amount"],
               included: false,
               uid: String(Math.floor(Math.random() * 10000000))
-            }
+            });
           });
 
           table_items = [];
@@ -328,7 +329,7 @@ include '../includes/base_page/head.php';
           let i = 0;
 
           data.forEach(value => {
-            table_items_tmp[i] = {
+            table_items_tmp.push({
               due_date: value["due_date"],
               invoice_no: value["invoice_no"],
               amount: value["amount"],
@@ -336,11 +337,12 @@ include '../includes/base_page/head.php';
               amount_due: calculateWHT ? (Number(value["amount"]) * 1.14 / 1.16) : value["amount"],
               included: value["included"],
               uid: value["uid"]
-            }
+            });
           });
 
           table_items = [];
           [...table_items] = table_items_tmp;
+          console.log("Table items",table_items);
           updateTable(table_items);
         }
 
