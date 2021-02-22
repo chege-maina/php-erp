@@ -149,7 +149,6 @@ include '../includes/base_page/head.php';
                 location.reload();
               }, 2500);
 
-
             })
             .catch(error => {
               console.error('Error:', error);
