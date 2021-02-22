@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $po_number = $row['lpo_number'];
         $supplier = $row['supplier_name'];
         $del_no = $row['invoice_no'];
+        $dat_rec = $row3['date'];
         $rec_no = $row['receipt_no'];
 
         $query2 = "SELECT payment_terms FROM tbl_supplier WHERE name='$supplier'";
@@ -35,7 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $prod_code = $row3['product_code'];
             $prod_name = $row3['product_name'];
             $unit = $row3['product_unit'];
-            $dat_rec = $row3['date'];
             $qty = $row3['qty'];
 
             $query4 = "SELECT product_cost FROM supplier_product WHERE product_name='$prod_name' and supplier_name='$supplier'";
