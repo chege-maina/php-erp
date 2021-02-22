@@ -48,7 +48,7 @@ include '../includes/base_page/head.php';
 
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
-            <div class="row">
+            <div class="row b-3">
               <div class="col">
                 <label for="date" class="form-label">Date</label>
                 <!-- autofill current date  -->
@@ -58,6 +58,14 @@ include '../includes/base_page/head.php';
                 <label for="time" class="form-label">Time</label>
                 <!-- autofill current date  -->
                 <input type="time" id="time" class="form-control" readonly>
+              </div>
+              <div class="col">
+                <label for="#" class="form-label">Valid Until </label>
+                <div class="input-group">
+                  <select name="date" id="date" type="date" class="form-select">
+                  </select>
+                  <button type="button" class="btn btn-primary">Date</button>
+                </div>
               </div>
             </div>
             <hr>
