@@ -27,11 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             array_push(
                 $response2,
                 array(
-                    'due_date' => $row['due_date'],
-                    'invoice_no' => $row['invoice_no'],
-                    'amount_due' => $row['amount_due'],
-                    'wht' => $row['wht'],
-                    'payable' => $row['payable']
+                    'due_date' => $row2['due_date'],
+                    'invoice_no' => $row2['invoice_no'],
+                    'amount_due' => $row2['amount_due'],
+                    'wht' => $row2['wht'],
+                    'payable' => $row2['payable']
                 )
             );
         }
