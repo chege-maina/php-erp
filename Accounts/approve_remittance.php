@@ -35,6 +35,8 @@ include '../includes/base_page/head.php';
 
         <!-- =========================================================== -->
         <!-- body begins here -->
+        <div id="alert-div">
+        </div>
         <h5 class="p-2">Approve Remittance Advice</h5>
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
 
@@ -165,6 +167,17 @@ include '../includes/base_page/head.php';
             .then(response => response.json())
             .then(result => {
               console.log('Success:', result);
+              const alertVar =
+                `<div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>Success!</strong> ${result}
+          <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+          </div>`;
+              var divAlert = document.querySelector("#alert-div");
+              divAlert.innerHTML = alertVar;
+              divAlert.scrollIntoView();
+              // setTimeout(function() {
+              //   location.href = "select_po.php"
+              // }, 2500);
             })
             .catch(error => {
               console.error('Error:', error);
