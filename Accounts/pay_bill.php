@@ -107,7 +107,11 @@ include '../includes/base_page/head.php';
 
       <script>
         const supplier_name = document.querySelector("#supplier_name");
+        const bank_name = document.querySelector('#bank_name');
 
+        function selectSupplier() {
+
+        }
 
         window.addEventListener('DOMContentLoaded', (event) => {
           const formData = new FormData();
@@ -129,6 +133,31 @@ include '../includes/base_page/head.php';
             .catch((error) => {
               console.error('Error:', error);
             });
+
+
+          fetch('../includes/load_bank.php')
+            .then(response => response.json())
+            .then(result => {
+              console.log('Success:', result);
+
+              let opt = document.createElement("option");
+              opt.appendChild(document.createTextNode("-- Select Bank --"));
+              opt.setAttribute("value", "");
+              opt.setAttribute("disabled", "");
+              opt.setAttribute("selected", "");
+              bank_name.appendChild(opt);
+
+              result.forEach((bank) => {
+                opt = document.createElement("option");
+                opt.value = bank["name"];
+                opt.appendChild(document.createTextNode(bank["name"]));
+                bank_name.appendChild(opt);
+              });
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+
 
         });
       </script>
