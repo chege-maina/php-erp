@@ -142,7 +142,7 @@ include '../includes/base_page/head.php';
         window.addEventListener('DOMContentLoaded', (event) => {
           const formData = new FormData();
 
-          fetch('../includes/load_supplier_rem_app.php')
+          fetch('../includes/load_rem_num.php')
             .then(response => response.json())
             .then(result => {
               let opt = document.createElement("option");
@@ -154,7 +154,7 @@ include '../includes/base_page/head.php';
 
               result.forEach((supplier) => {
                 opt = document.createElement("option");
-                opt.value = supplier["supplier_name"];
+                opt.value = supplier["supplier"];
                 opt.appendChild(document.createTextNode(opt.value));
                 supplier_name.appendChild(opt);
               });
@@ -174,7 +174,7 @@ include '../includes/base_page/head.php';
           console.log(supplier_name.value);
           const formData = new FormData();
           formData.append("supplier", supplier_name.value.trim());
-          fetch('../includes/#.php', {
+          fetch('../includes/load_rem_num.php', {
               method: 'POST',
               body: formData
             })

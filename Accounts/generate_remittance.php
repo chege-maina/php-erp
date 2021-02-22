@@ -58,26 +58,14 @@ include '../includes/base_page/head.php';
 
                 <div class="col flex-row-reverse">
                   <div class="col">
-                    <label for="req_date" class="form-label">Date </label>
-                    <input type="date" name="remmitance_date" id="remmitance_date" class="form-control">
+                    <label for="date" class="form-label">Date</label>
+                    <!-- autofill current date  -->
+                    <input type="date" value="<?php echo date("Y-m-d"); ?>" id="date" class="form-control" readonly>
 
                   </div>
                 </div>
                 <!-- Content is to start here -->
 
-              </div>
-
-              <div class="col">
-                <label for="bills" class="form-label">Show Bills Due</label>
-                <select name="bills" id="status" class="form-select">
-                  <option value="all">Show All</option>
-                  <option value="bills_due">Show Bills Due</option>
-                </select>
-              </div>
-              <div class="col-auto d-flex align-items-end">
-                <button class="btn btn-falcon-primary" type="button" onclick="filterRequisitions();">
-                  <span class="fas fa-filter mr-1" data-fa-transform="shrink-3"></span>Filter
-                </button>
               </div>
             </div>
 
