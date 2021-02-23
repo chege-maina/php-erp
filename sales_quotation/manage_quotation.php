@@ -167,7 +167,7 @@ include '../includes/base_page/head.php';
         function detailedView(req_no) {
           console.log("Req no: ", req_no);
           sessionStorage.setItem('req_no', req_no);
-          window.location.href = "manage_pr.php";
+          window.location.href = "manage_qr.php";
         }
 
         window.addEventListener('DOMContentLoaded', (event) => {

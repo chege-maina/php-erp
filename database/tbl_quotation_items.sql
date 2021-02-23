@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2021 at 09:11 AM
+-- Generation Time: Feb 23, 2021 at 11:38 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -37,6 +37,14 @@ CREATE TABLE `tbl_quotation_items` (
   `amount` varchar(254) NOT NULL,
   `status` varchar(15) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_quotation_items`
+--
+
+INSERT INTO `tbl_quotation_items` (`quote_no`, `product_code`, `product_name`, `unit`, `price`, `qty`, `amount`, `status`) VALUES
+(1, '45', 'Pencil', 'p', '10', '2', '122', 'pending'),
+(1, '46', 'Net', 'n', '455', '4', '34', 'pending');
 
 --
 -- Indexes for dumped tables
