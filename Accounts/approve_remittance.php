@@ -186,11 +186,6 @@ include '../includes/base_page/head.php';
         }
 
 
-        function d_toString(value) {
-          return value < 10 ? '0' + value : String(value);
-        }
-
-
 
         window.addEventListener('DOMContentLoaded', (event) => {
           const formData = new FormData();
