@@ -170,10 +170,6 @@ include '../includes/base_page/head.php';
           window.location.href = "manage_purchase_order_items.php";
         }
 
-        function d_toString(value) {
-          return value < 10 ? '0' + value : String(value);
-        }
-
         window.addEventListener('DOMContentLoaded', (event) => {
           const date = new Date();
           let month = d_toString(date.getMonth() + 1);

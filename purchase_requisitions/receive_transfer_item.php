@@ -92,10 +92,6 @@ include '../includes/base_page/head.php';
                 const table_body = document.querySelector("#table_body");
 
 
-                function d_toString(value) {
-                    return value < 10 ? '0' + value : String(value);
-                }
-
 
                 function updateDateFilters() {
                     const fromDate = new Date(req_date_from.value);

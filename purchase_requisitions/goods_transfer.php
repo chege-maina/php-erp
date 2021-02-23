@@ -323,10 +323,6 @@ include '../includes/base_page/head.php';
                         }
                     }
 
-
-                    function d_toString(value) {
-                        return value < 10 ? '0' + value : String(value);
-                    }
                     document.addEventListener('DOMContentLoaded', function() {
                         const date = new Date();
                         let month = d_toString(date.getMonth() + 1);

@@ -219,11 +219,6 @@ include '../includes/base_page/head.php';
             });
         }
 
-        function d_toString(value) {
-          return value < 10 ? '0' + value : String(value);
-        }
-
-
         function updateDateFilters() {
           const fromDate = new Date(req_date_from.value);
           const toDate = new Date(req_date_to.value);

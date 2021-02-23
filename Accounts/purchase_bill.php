@@ -384,10 +384,6 @@ include '../includes/base_page/head.php';
         po_total.set(cumulative_total * 1.16);
       }
 
-      function d_toString(value) {
-        return value < 10 ? '0' + value : String(value);
-      }
-
       function updateDueDate() {
         if (!terms_of_payment.value) {
           return;

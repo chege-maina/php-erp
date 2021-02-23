@@ -151,9 +151,6 @@ include '../includes/base_page/head.php';
           window.location.href = "dir_transfer_approval.php";
         }
 
-        function d_toString(value) {
-          return value < 10 ? '0' + value : String(value);
-        }
 
         window.addEventListener('DOMContentLoaded', (event) => {
           const date = new Date();
