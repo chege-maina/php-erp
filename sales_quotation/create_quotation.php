@@ -227,13 +227,6 @@ include '../includes/base_page/head.php';
           units_td.appendChild(document.createTextNode(table_items[item]["unit"]));
           units_td.classList.add("align-middle");
 
-          let tax_td = document.createElement("td");
-          table_items[item]["tax_amt"] =
-            (Number(table_items[item]["tax"]) / 100) *
-            Number(table_items[item]["price"]);
-          tax_td.appendChild(document.createTextNode(table_items[item]["tax_amt"]));
-          tax_td.classList.add("align-middle");
-
           let quantity = document.createElement("input");
           quantity.setAttribute("type", "number");
           quantity.setAttribute("required", "");
@@ -253,11 +246,21 @@ include '../includes/base_page/head.php';
           quantityWrapper.classList.add("m-2");
           quantityWrapper.appendChild(quantity);
 
+          let tax_td = document.createElement("td");
+          table_items[item]["tax_amt"] =
+            ((Number(table_items[item]["tax"]) / 100) *
+              Number(table_items[item]["quantity"]) *
+              Number(table_items[item]["price"])).toFixed(2);
+          tax_td.appendChild(document.createTextNode(table_items[item]["tax_amt"]));
+          tax_td.setAttribute("id", "t-" + table_items[item]["code"]);
+          tax_td.classList.add("align-middle");
+
           let total_td = document.createElement("td");
+          total_td.setAttribute("id", "td-" + table_items[item]["code"]);
           table_items[item]["total"] =
-            ((Number(table_items[item]["tax"]) / 100) + 1) *
-            Number(table_items[item]["quantity"]) *
-            Number(table_items[item]["price"])
+            (((Number(table_items[item]["tax"]) / 100) + 1) *
+              Number(table_items[item]["quantity"]) *
+              Number(table_items[item]["price"])).toFixed(2);
           total_td.appendChild(document.createTextNode(table_items[item]["total"]));
           total_td.classList.add("align-middle");
 
@@ -287,9 +290,25 @@ include '../includes/base_page/head.php';
         for (key in table_items) {
           if (table_items[key]['name'] === item) {
             table_items[key]['quantity'] = value;
+
+            table_items[key]["tax_amt"] =
+              ((Number(table_items[key]["tax"]) / 100) *
+                Number(table_items[key]["quantity"]) *
+                Number(table_items[key]["price"])).toFixed(2);
+
+            // Update tax calculations
+            table_items[key]["total"] =
+              (((Number(table_items[key]["tax"]) / 100) + 1) *
+                Number(table_items[key]["quantity"]) *
+                Number(table_items[key]["price"])).toFixed(2);
+            const tax_td = document.querySelector("#t-" + table_items[key]["code"]);
+            const total_td = document.querySelector("#td-" + table_items[key]["code"]);
+            total_td.innerHTML = "";
+            tax_td.innerHTML = "";
+            tax_td.appendChild(document.createTextNode(table_items[key]["tax_amt"]));
+            total_td.appendChild(document.createTextNode(table_items[key]["total"]));
           }
         }
-
         console.log(value);
       }
 
