@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2021 at 08:21 AM
+-- Generation Time: Feb 22, 2021 at 03:12 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -31,6 +31,26 @@ CREATE TABLE `supplier_product` (
   `product_name` varchar(50) NOT NULL,
   `supplier_name` varchar(50) NOT NULL,
   `product_cost` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_bank`
+--
+
+CREATE TABLE `tbl_bank` (
+  `bank_name` varchar(50) NOT NULL,
+  `branch_name` varchar(15) NOT NULL,
+  `acc_no` varchar(254) NOT NULL,
+  `acc_name` varchar(50) NOT NULL,
+  `currency` varchar(100) NOT NULL,
+  `opening_bal` varchar(254) NOT NULL,
+  `clear_days` varchar(50) NOT NULL,
+  `od_limit` varchar(100) NOT NULL,
+  `id_interest` varchar(100) NOT NULL,
+  `over_limit` varchar(100) NOT NULL,
+  `late_charges` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -74,11 +94,35 @@ CREATE TABLE `tbl_category` (
 --
 
 CREATE TABLE `tbl_customer` (
-  `name` varchar(100) NOT NULL,
+  `name` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `telephone_no` varchar(100) NOT NULL,
-  `address` varchar(100) NOT NULL,
-  `customer_id` varchar(50) NOT NULL
+  `physical_address` varchar(100) NOT NULL,
+  `postal_address` varchar(100) NOT NULL,
+  `tel_no` varchar(100) NOT NULL,
+  `tax_id` varchar(20) NOT NULL,
+  `payment_terms` varchar(100) NOT NULL,
+  `credit_limit` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_customer`
+--
+
+INSERT INTO `tbl_customer` (`name`, `email`, `physical_address`, `postal_address`, `tel_no`, `tax_id`, `payment_terms`, `credit_limit`) VALUES
+('Byron Mcmillan', 'pahu@mailinator.com', 'Quae non cillum a et', 'Cum dolorem facilis', '+1 (436) 351-2876', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_paybill`
+--
+
+CREATE TABLE `tbl_paybill` (
+  `supplier_name` varchar(50) NOT NULL,
+  `rem_no` varchar(100) NOT NULL,
+  `cheque_no` varchar(100) NOT NULL,
+  `bank_name` varchar(100) NOT NULL,
+  `amount` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -444,6 +488,12 @@ ALTER TABLE `supplier_product`
   ADD PRIMARY KEY (`product_name`,`supplier_name`);
 
 --
+-- Indexes for table `tbl_bank`
+--
+ALTER TABLE `tbl_bank`
+  ADD PRIMARY KEY (`bank_name`,`acc_no`);
+
+--
 -- Indexes for table `tbl_branch`
 --
 ALTER TABLE `tbl_branch`
@@ -460,8 +510,13 @@ ALTER TABLE `tbl_category`
 -- Indexes for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  ADD PRIMARY KEY (`customer_id`),
-  ADD UNIQUE KEY `name` (`name`);
+  ADD PRIMARY KEY (`name`,`email`);
+
+--
+-- Indexes for table `tbl_paybill`
+--
+ALTER TABLE `tbl_paybill`
+  ADD PRIMARY KEY (`rem_no`);
 
 --
 -- Indexes for table `tbl_product`
