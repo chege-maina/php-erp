@@ -67,11 +67,11 @@ include '../includes/base_page/head.php';
             <hr>
             <div class="row">
               <div class="col">
-                <label for="#" class="form-label">Select Customer </label>
+                <label for="browser" class="form-label">Select Customer</label>
                 <div class="input-group">
-                  <select name="customer" id="customer_name" class="form-select">
-                  </select>
-                  <button type="button" class="btn btn-primary">Select</button>
+                  <input list="customer" id="customer" class="form-select">
+                  <datalist id="customer" class="bg-light"></datalist>
+                  <input type="button" value="Select" class="btn btn-primary">
                 </div>
               </div>
               <div class="col">
@@ -92,8 +92,6 @@ include '../includes/base_page/head.php';
             </div>
           </div>
         </div>
-
-        <hr>
         <div class="card mt-1">
           <div class="card-header bg-light p-2 pt-3 pl-3">
             <h6>Products</h6>
@@ -107,9 +105,10 @@ include '../includes/base_page/head.php';
                     <th scope="col">Product Code</th>
                     <th scope="col">Product Name</th>
                     <th scope="col">Units</th>
+                    <th scope="col">Unit Price</th>
                     <th scope="col">Quantity</th>
-                    <th scope="col">Unit Cost</th>
                     <th scope="col">Total</th>
+                    <th scope="col">Actions</th>
                   </tr>
                 </thead>
                 <tbody id="table_body">
