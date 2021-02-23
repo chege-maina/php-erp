@@ -193,7 +193,7 @@ include '../includes/base_page/head.php';
         for (key in table_items) {
           if (table_items[key].name === item) {
             table_items[key]['quantity'] = 0;
-            table_items.pop(item);
+            table_items.splice(key, 1);
           }
         }
         const item_to_add = all_quotable_items[item];
@@ -257,8 +257,7 @@ include '../includes/base_page/head.php';
           let actionWrapper = document.createElement("td");
           actionWrapper.classList.add("m-2");
           let action = document.createElement("button");
-          action.setAttribute("id", table_items[item]["name"]);
-          action.setAttribute("onclick", "removeItem(this.id);");
+          action.setAttribute("onclick", "removeItem('" + table_items[item]["name"] + "');");
           let icon = document.createElement("span");
           icon.classList.add("fas", "fa-minus", "mt-1");
           action.appendChild(icon);
