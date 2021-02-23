@@ -228,12 +228,11 @@ include '../includes/base_page/head.php';
           units_td.classList.add("align-middle");
 
           let tax_td = document.createElement("td");
-          tax_td.appendChild(document.createTextNode(table_items[item]["tax"]));
+          table_items[item]["tax_amt"] =
+            (Number(table_items[item]["tax"]) / 100) *
+            Number(table_items[item]["price"]);
+          tax_td.appendChild(document.createTextNode(table_items[item]["tax_amt"]));
           tax_td.classList.add("align-middle");
-
-          let total_td = document.createElement("td");
-          total_td.appendChild(document.createTextNode("0.00"));
-          total_td.classList.add("align-middle");
 
           let quantity = document.createElement("input");
           quantity.setAttribute("type", "number");
@@ -253,6 +252,14 @@ include '../includes/base_page/head.php';
           let quantityWrapper = document.createElement("td");
           quantityWrapper.classList.add("m-2");
           quantityWrapper.appendChild(quantity);
+
+          let total_td = document.createElement("td");
+          table_items[item]["total"] =
+            ((Number(table_items[item]["tax"]) / 100) + 1) *
+            Number(table_items[item]["quantity"]) *
+            Number(table_items[item]["price"])
+          total_td.appendChild(document.createTextNode(table_items[item]["total"]));
+          total_td.classList.add("align-middle");
 
           let actionWrapper = document.createElement("td");
           actionWrapper.classList.add("m-2");
