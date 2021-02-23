@@ -69,8 +69,8 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="browser" class="form-label">Select Customer</label>
                 <div class="input-group">
-                  <input list="customer" id="customer" class="form-select">
-                  <datalist id="customer" class="bg-light"></datalist>
+                  <input list="customerlist" id="customer" class="form-select">
+                  <datalist id="customerlist" class="bg-light"></datalist>
                   <input type="button" value="Select" class="btn btn-primary">
                 </div>
               </div>
@@ -165,11 +165,6 @@ include '../includes/base_page/head.php';
       const po_time = document.querySelector("#time");
       const valid_until = document.querySelector('#valid_until');
 
-
-      function d_toString(value) {
-        return value < 10 ? '0' + value : String(value);
-      }
-
       document.addEventListener('DOMContentLoaded', function() {
         const today = addDays(new Date(), 1);
         console.log(today);
@@ -179,6 +174,7 @@ include '../includes/base_page/head.php';
         let day = d_toString(dateMax.getDate());
         valid_until.setAttribute("min", String(dateMax.getFullYear()) + '-' + month + '-' + day);
         valid_until.setAttribute("value", String(dateMax.getFullYear()) + '-' + month + '-' + day);
+        populateDatalist('../includes/load_customer.php', "customerlist", "name", "terms");
       });
     </script>
     <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->

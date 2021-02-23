@@ -62,5 +62,30 @@
     function addDays(date_v, days) {
       return new Date(date_v.getTime() + ((Number(days)) * 24 * 60 * 60 * 1000));
     }
+
+    const populateDatalist = (path, elem, key_main = "name", key_sub_1 = null) => {
+      elem = document.querySelector("#" + elem);
+      fetch(path)
+        .then(response => response.json())
+        .then(result => {
+          console.log('Success:', result);
+          result.forEach((value) => {
+            console.log("Yaah", value);
+            let opt = document.createElement("option");
+            opt.value = value[key_main];
+            if (key_sub_1 !== null) {
+              opt.appendChild(document.createTextNode(key_sub_1 + " :" + value[key_sub_1]));
+            }
+            elem.appendChild(opt);
+          })
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+    function d_toString(value) {
+      return value < 10 ? '0' + value : String(value);
+    }
   </script>
 </head>
