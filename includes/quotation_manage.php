@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'user' => $row['user'],
         'customer' => $row['customer_name'],
         'tax' => $row['tax'],
-        'total' => $row['sub_total'],
+        'sub_total' => $row['sub_total'],
         'amount' => $row['amount'],
         'status' => $row['status']
       )
