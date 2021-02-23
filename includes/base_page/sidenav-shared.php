@@ -128,6 +128,9 @@ function genSideBar()
   </li>
 </ul>
 </li>
+
+
+<!-- End of Qubes Working  -->
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#authentication" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authentication">
   <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-unlock-alt"></span></span><span class="nav-link-text"> Suppliers</span>
   </div>
