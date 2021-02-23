@@ -58,5 +58,9 @@
 
       return [i_e, h_e];
     }
+
+    function addDays(date_v, days) {
+      return new Date(date_v.getTime() + ((Number(days)) * 24 * 60 * 60 * 1000));
+    }
   </script>
 </head>

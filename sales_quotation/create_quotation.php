@@ -46,7 +46,7 @@ include '../includes/base_page/head.php';
           </div>
           <!--/.bg-holder-->
 
-          <div class="card-body fs--1 p-4">
+          <div class="card-body fs--1 p-4 position-relative">
             <!-- Content is to start here -->
             <div class="row b-3">
               <div class="col">
@@ -61,7 +61,7 @@ include '../includes/base_page/head.php';
               </div>
               <div class="col">
                 <label for="#" class="form-label">Valid Until </label>
-                <input type="date" value="<?php echo date("Y-m-d"); ?>" id="date" class="form-control">
+                <input type="date" value="<?php echo date("Y-m-d"); ?>" min="<?php echo date("Y-m-d"); ?>" id="date" class="form-control">
               </div>
             </div>
             <hr>
