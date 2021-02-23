@@ -106,6 +106,7 @@ include '../includes/base_page/head.php';
                     <th scope="col">Price</th>
                     <th scope="col">Units</th>
                     <th scope="col">Quantity</th>
+                    <th scope="col">Tax %</th>
                     <th scope="col">Total</th>
                     <th scope="col">Actions</th>
                   </tr>
@@ -226,6 +227,10 @@ include '../includes/base_page/head.php';
           units_td.appendChild(document.createTextNode(table_items[item]["unit"]));
           units_td.classList.add("align-middle");
 
+          let tax_td = document.createElement("td");
+          tax_td.appendChild(document.createTextNode(table_items[item]["tax"]));
+          tax_td.classList.add("align-middle");
+
           let total_td = document.createElement("td");
           total_td.appendChild(document.createTextNode("0.00"));
           total_td.classList.add("align-middle");
@@ -260,7 +265,7 @@ include '../includes/base_page/head.php';
           action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
           actionWrapper.appendChild(action);
 
-          tr.append(code_td, name_td, price_td, units_td, quantityWrapper, total_td, actionWrapper);
+          tr.append(code_td, name_td, price_td, units_td, quantityWrapper, tax_td, total_td, actionWrapper);
           table_body.appendChild(tr);
 
         }
