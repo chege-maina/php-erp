@@ -87,6 +87,7 @@ function genSideBar()
     </li>
   </ul>
 </li>
+<!-- Accounts -->
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-commerce" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
   <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-cart-plus"></span></span><span class="nav-link-text"> Accounts</span>
   </div>
@@ -103,6 +104,7 @@ function genSideBar()
   
 </ul>
 </li>
+<!-- Customers -->
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-custo" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
   <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-cart-plus"></span></span><span class="nav-link-text"> Customers</span>
   </div>
@@ -112,7 +114,18 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/generate_remittance.php">Manage Customers</a>
   </li>
-  
+</ul>
+</li>
+<!-- Quotation -->
+<li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-quote" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-cart-plus"></span></span><span class="nav-link-text"> Quotations</span>
+  </div>
+</a>
+<ul class="nav collapse" id="e-quote" data-parent="#navbarVerticalCollapse">
+  <li class="nav-item"><a class="nav-link" href="../sales_quotation/create_quotation.php">Create New Quotation</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/generate_remittance.php">Manage Quotations</a>
+  </li>
 </ul>
 </li>
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#authentication" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authentication">
