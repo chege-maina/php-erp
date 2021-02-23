@@ -61,7 +61,7 @@ include '../includes/base_page/head.php';
               </div>
               <div class="col">
                 <label for="#" class="form-label">Valid Until </label>
-                <input type="date" value="<?php echo date("Y-m-d"); ?>" min="<?php echo date("Y-m-d"); ?>" id="date" class="form-control">
+                <input type="date" id="valid_until" class="form-control">
               </div>
             </div>
             <hr>
@@ -163,20 +163,22 @@ include '../includes/base_page/head.php';
 
     <script>
       const po_time = document.querySelector("#time");
+      const valid_until = document.querySelector('#valid_until');
+
 
       function d_toString(value) {
         return value < 10 ? '0' + value : String(value);
       }
 
       document.addEventListener('DOMContentLoaded', function() {
-        const date = new Date();
-        let month = d_toString(date.getMonth() + 1);
-        let day = d_toString(date.getDate());
-        let hours = d_toString(date.getHours());
-        let minutes = d_toString(date.getMinutes());
+        const today = addDays(new Date(), 1);
+        console.log(today);
 
-
-        time.value = hours + ":" + minutes;
+        const dateMax = addDays(today, 7);
+        let month = d_toString(dateMax.getMonth() + 1);
+        let day = d_toString(dateMax.getDate());
+        valid_until.setAttribute("min", String(dateMax.getFullYear()) + '-' + month + '-' + day);
+        valid_until.setAttribute("value", String(dateMax.getFullYear()) + '-' + month + '-' + day);
       });
     </script>
     <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->

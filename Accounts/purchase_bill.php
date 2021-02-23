@@ -388,10 +388,6 @@ include '../includes/base_page/head.php';
         return value < 10 ? '0' + value : String(value);
       }
 
-      function addDays(date_v, days) {
-        return new Date(date_v.getTime() + ((Number(days)) * 24 * 60 * 60 * 1000));
-      }
-
       function updateDueDate() {
         if (!terms_of_payment.value) {
           return;
