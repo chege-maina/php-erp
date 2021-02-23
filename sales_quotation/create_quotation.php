@@ -188,9 +188,10 @@ include '../includes/base_page/head.php';
       }
 
       function removeItem(item) {
-        // table_items[item]['quantity'] = 0;
+
         for (key in table_items) {
           if (table_items[key].name === item) {
+            table_items[key]['quantity'] = 0;
             table_items.pop(item);
           }
         }
@@ -271,7 +272,13 @@ include '../includes/base_page/head.php';
         max = Number(max);
         value = value <= 0 ? 1 : value;
         value = value > max ? max : value;
-        table_items[item]['quantity'] = value;
+        console.log(item, table_items);
+        for (key in table_items) {
+          if (table_items[key]['name'] === item) {
+            table_items[key]['quantity'] = value;
+          }
+        }
+
         console.log(value);
       }
 
