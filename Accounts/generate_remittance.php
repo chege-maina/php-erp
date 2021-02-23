@@ -303,7 +303,6 @@ include '../includes/base_page/head.php';
         }
 
         let calculateTableData = (data, calc_wht) => {
-          console.log(data, "Uuuuuuwwiiiiii");
           let table_items_tmp = [];
           let i = 0;
 
