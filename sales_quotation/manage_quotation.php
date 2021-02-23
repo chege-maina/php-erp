@@ -69,6 +69,7 @@ include '../includes/base_page/head.php';
               <thead>
                 <tr>
                   <th>Quotation Number</th>
+                  <th>Customer </th>
                   <th>Date </th>
                   <th>Created By</th>
                   <th>Expiry Date</th>
@@ -117,6 +118,10 @@ include '../includes/base_page/head.php';
             req_no.appendChild(document.createTextNode(value["req_no"]));
             req_no.classList.add("align-middle");
 
+            const req_customer = document.createElement("td");
+            req_customer.appendChild(document.createTextNode(value["customer"]));
+            req_customer.classList.add("align-middle");
+
             const req_date = document.createElement("td");
             req_date.appendChild(document.createTextNode(value["date"]));
             req_date.classList.add("align-middle");
@@ -153,7 +158,7 @@ include '../includes/base_page/head.php';
             btn.classList.add("btn", "btn-falcon-primary", "btn-sm");
             req_actions.appendChild(btn);
 
-            this_row.append(req_no, req_date, req_user, req_branch, req_status, req_actions);
+            this_row.append(req_no, req_customer, req_date, req_user, req_branch, req_status, req_actions);
             table_body.appendChild(this_row);
           });
 
@@ -175,7 +180,7 @@ include '../includes/base_page/head.php';
           req_date_to.value = String(date.getFullYear()) + '-' + month + '-' + day_to;
           req_date_to.setAttribute("min", req_date_from.value);
 
-          fetch('../includes/load_requisitions.php')
+          fetch('../includes/load_quotation_approve.php')
             .then(response => response.json())
             .then(data => {
               console.log(data);
@@ -192,7 +197,7 @@ include '../includes/base_page/head.php';
           formData.append("date2", req_date_to.value);
           formData.append("status", r_status.value);
           formData.append("branch", user_branch);
-          fetch('../includes/filter_requisitions.php', {
+          fetch('../includes/filter_quotation_approve.php', {
               method: 'POST',
               body: formData
             })

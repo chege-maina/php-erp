@@ -5,10 +5,10 @@ header("Content-type:application/json");
 include_once 'dbconnect.php';
 session_start();
 
-$branch = $_SESSION['branch'];
 $stat = "pending";
+$date_chk = date("Y-m-d");
 
-$query = "SELECT * FROM tbl_requisition WHERE status='$stat' and branch='$branch'";
+$query = "SELECT * FROM tbl_quotation WHERE status='$stat' and due_date>='$date_chk'";
 
 
 $result = mysqli_query($conn, $query);
@@ -18,9 +18,10 @@ while ($row = mysqli_fetch_assoc($result)) {
     array_push(
         $response,
         array(
-            'req_no' => $row['requisition_No'],
+            'req_no' => $row['quote_no'],
+            'customer' => $row['customer_name'],
             'date' => $row['date'],
-            'branch' => $row['branch'],
+            'branch' => $row['due_date'],
             'user' => $row['user'],
             'status' => $row['status']
         )
