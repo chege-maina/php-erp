@@ -39,7 +39,7 @@ include '../includes/base_page/head.php';
           <!-- body begins here -->
           <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
           <div id="alert-div"></div>
-          <h3 class="mb-0 p-2">Manage Quatotation</h3>
+          <h3 class="mb-0 p-2">Manage Quotation</h3>
           <div class="card mb-1">
 
             <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/illustrations/corner-4.png);">
@@ -73,7 +73,7 @@ include '../includes/base_page/head.php';
                   <input type="text" name="customer" id="customer" class="form-control" required readonly>
                 </div>
                 <div class="col">
-                  <span class="fw-bold mr-2">Status: </span>
+                  <span class="b-4">Status: </span>
                   <span id="requisition_status"></span>
                 </div>
               </div>
@@ -94,18 +94,44 @@ include '../includes/base_page/head.php';
                 <table class="table table-sm table-striped fs--1 mb-0">
                   <thead>
                     <tr>
-                      <th class="col-lg-1">Code</th>
-                      <th class="w-25">Name</th>
-                      <th>Balance</th>
-                      <th class="col-lg-1">Quantity</th>
+                      <th>Product Code</th>
+                      <th>Product Name</th>
                       <th>Units</th>
-                      <th class="col-lg-3">Actions</th>
+                      <th>Unit Price</th>
+                      <th>Quantity</th>
+                      <th>Total</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody id="table_body"></tbody>
                 </table>
               </div>
               <!-- Content ends here -->
+
+              <div class="row m-3">
+                <div class="col text-right fw-bold">
+                  Sub Total</div>
+                <div class="col col-auto">
+                  <input class="form-control form-control-sm text-right" type="text" readonly id="sub_total" />
+                </div>
+              </div>
+              <div class="row m-3">
+                <div class="col text-right fw-bold">
+                  16% VAT
+                </div>
+                <div class="col col-auto">
+                  <input class="form-control form-control-sm text-right" type="text" readonly id="tax" />
+                </div>
+              </div>
+              <div class="row m-3">
+                <div class="col text-right fw-bold">
+                  Total Amount
+                </div>
+                <div class="col col-auto">
+                  <input class="form-control form-control-sm text-right" type="text" readonly id="amount" />
+                </div>
+              </div>
+
             </div>
             <!-- Additional cards can be added here -->
           </div>
@@ -127,6 +153,7 @@ include '../includes/base_page/head.php';
             </div>
           </div>
 
+
           <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
           <!-- body ends here -->
           <!-- =========================================================== -->
@@ -140,6 +167,9 @@ include '../includes/base_page/head.php';
           const created_by = document.querySelector("#created_by");
           const customer = document.querySelector("#customer");
           const branch = document.querySelector("#req_branch");
+          const sub_total = document.querySelector("#sub_total");
+          const tax = document.querySelector("#tax");
+          const amount = document.querySelector("#amount");
           const requisition_status = document.querySelector("#requisition_status");
           const table_body = document.querySelector("#table_body");
 
@@ -156,7 +186,7 @@ include '../includes/base_page/head.php';
             // Load the requisition item for the number
             const formData = new FormData();
             formData.append("req_no", reqNo)
-            fetch('../includes/requisition_manage.php', {
+            fetch('../includes/quotation_manage.php', {
                 method: 'POST',
                 body: formData
               })
@@ -169,6 +199,9 @@ include '../includes/base_page/head.php';
                 created_by.value = data["user"];
                 customer.value = data["customer"];
                 reqStatus = data['status'];
+                sub_total.value = data["sub_total"];
+                tax.value = data["tax"];
+                amount.value = data["amount"];
                 switch (data["status"]) {
                   case "pending":
                     requisition_status.innerHTML = `<span class="badge badge-soft-secondary">Pending</span>`;
@@ -204,7 +237,7 @@ include '../includes/base_page/head.php';
           function fetchTableItems() {
             const formData = new FormData();
             formData.append("req_no", reqNo)
-            fetch('../includes/requisition_manage_items.php', {
+            fetch('../includes/quotation_manage_items.php', {
                 method: 'POST',
                 body: formData
               })
@@ -254,6 +287,9 @@ include '../includes/base_page/head.php';
               qty_td.appendChild(document.createTextNode(data["qty"]));
               qty_td.classList.add("align-middle");
 
+              let total = document.createElement("td");
+              total.appendChild(document.createTextNode(data["total"]));
+              total.classList.add("align-middle");
 
               let quantity = document.createElement("input");
               quantity.setAttribute("type", "number");
@@ -337,7 +373,7 @@ include '../includes/base_page/head.php';
               actionDiv.append(edit, save, cancel, reject);
               actionWrapper.appendChild(actionDiv);
 
-              tr.append(code_td, name_td, balance_td, quantityWrapper, units_td, actionWrapper);
+              tr.append(code_td, name_td, balance_td, quantityWrapper, total, units_td, actionWrapper);
               table_body.appendChild(tr);
 
             });
