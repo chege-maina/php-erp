@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2021 at 03:12 PM
+-- Generation Time: Feb 23, 2021 at 03:52 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -229,6 +229,58 @@ CREATE TABLE `tbl_purchase_bill_items` (
   `user` varchar(50) NOT NULL,
   `receipt_no` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_quotation`
+--
+
+CREATE TABLE `tbl_quotation` (
+  `quote_no` bigint(20) NOT NULL,
+  `date` date NOT NULL,
+  `customer_name` varchar(100) NOT NULL,
+  `terms` varchar(50) NOT NULL,
+  `due_date` date NOT NULL,
+  `time` varchar(50) NOT NULL,
+  `status` varchar(15) NOT NULL DEFAULT 'pending',
+  `user` varchar(50) NOT NULL,
+  `sub_total` varchar(100) NOT NULL,
+  `tax` varchar(100) NOT NULL,
+  `amount` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_quotation`
+--
+
+INSERT INTO `tbl_quotation` (`quote_no`, `date`, `customer_name`, `terms`, `due_date`, `time`, `status`, `user`, `sub_total`, `tax`, `amount`) VALUES
+(1, '2021-02-16', 'Janet', '40', '2021-02-26', '22:00', 'pending', 'levi', '10000', '4000', '14000');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_quotation_items`
+--
+
+CREATE TABLE `tbl_quotation_items` (
+  `quote_no` bigint(254) NOT NULL,
+  `product_code` varchar(50) NOT NULL,
+  `product_name` varchar(100) NOT NULL,
+  `unit` varchar(100) NOT NULL,
+  `price` varchar(100) NOT NULL,
+  `qty` varchar(100) NOT NULL,
+  `amount` varchar(254) NOT NULL,
+  `status` varchar(15) NOT NULL DEFAULT 'pending'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_quotation_items`
+--
+
+INSERT INTO `tbl_quotation_items` (`quote_no`, `product_code`, `product_name`, `unit`, `price`, `qty`, `amount`, `status`) VALUES
+(1, '45', 'Pencil', 'p', '10', '3', '122', 'pending'),
+(1, '46', 'Net', 'n', '455', '4', '34', 'pending');
 
 -- --------------------------------------------------------
 
@@ -550,6 +602,18 @@ ALTER TABLE `tbl_purchase_bill_items`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_quotation`
+--
+ALTER TABLE `tbl_quotation`
+  ADD PRIMARY KEY (`quote_no`);
+
+--
+-- Indexes for table `tbl_quotation_items`
+--
+ALTER TABLE `tbl_quotation_items`
+  ADD PRIMARY KEY (`quote_no`,`product_code`);
+
+--
 -- Indexes for table `tbl_remittance`
 --
 ALTER TABLE `tbl_remittance`
@@ -683,6 +747,12 @@ ALTER TABLE `tbl_purchase_bill`
 --
 ALTER TABLE `tbl_purchase_bill_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_quotation`
+--
+ALTER TABLE `tbl_quotation`
+  MODIFY `quote_no` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99888;
 
 --
 -- AUTO_INCREMENT for table `tbl_remittance`
