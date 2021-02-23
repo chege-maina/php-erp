@@ -373,7 +373,7 @@ include '../includes/base_page/head.php';
               actionDiv.append(edit, save, cancel, reject);
               actionWrapper.appendChild(actionDiv);
 
-              tr.append(code_td, name_td, balance_td, quantityWrapper, total, units_td, actionWrapper);
+              tr.append(code_td, name_td, units_td, balance_td, quantityWrapper, total, actionWrapper);
               table_body.appendChild(tr);
 
             });
