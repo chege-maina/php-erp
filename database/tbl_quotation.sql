@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2021 at 09:11 AM
+-- Generation Time: Feb 23, 2021 at 09:26 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -34,7 +34,8 @@ CREATE TABLE `tbl_quotation` (
   `terms` varchar(50) NOT NULL,
   `due_date` date NOT NULL,
   `time` varchar(50) NOT NULL,
-  `status` varchar(15) NOT NULL DEFAULT 'pending'
+  `status` varchar(15) NOT NULL DEFAULT 'pending',
+  `user` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
