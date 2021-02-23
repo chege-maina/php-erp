@@ -75,6 +75,13 @@ include '../includes/base_page/head.php';
                 </div>
               </div>
               <div class="col">
+                <label for="payment_terms" class="form-label">Payment Terms*</label>
+                <div class="input-group">
+                  <input name="payment_terms" id="payment_terms" class="form-control" placeholder="Payment Terms" type="number" required>
+                  <input type="button" value="Days" class="btn btn-link disabled">
+                </div>
+              </div>
+              <div class="col">
                 <label for="browser" class="form-label">Add Items to Quotation</label>
                 <div class="input-group">
                   <input list="requisitionable_items" id="requisitionable_item" class="form-select">

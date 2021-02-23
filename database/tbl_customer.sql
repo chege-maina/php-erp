@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2021 at 12:19 PM
+-- Generation Time: Feb 23, 2021 at 07:55 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `loans`
+-- Database: `msl_db`
 --
 
 -- --------------------------------------------------------
@@ -32,15 +32,18 @@ CREATE TABLE `tbl_customer` (
   `email` varchar(100) NOT NULL,
   `physical_address` varchar(100) NOT NULL,
   `postal_address` varchar(100) NOT NULL,
-  `tel_no` varchar(100) NOT NULL
+  `tel_no` varchar(100) NOT NULL,
+  `tax_id` varchar(20) NOT NULL,
+  `payment_terms` varchar(100) NOT NULL,
+  `credit_limit` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_customer`
 --
 
-INSERT INTO `tbl_customer` (`name`, `email`, `physical_address`, `postal_address`, `tel_no`) VALUES
-('Byron Mcmillan', 'pahu@mailinator.com', 'Quae non cillum a et', 'Cum dolorem facilis', '+1 (436) 351-2876');
+INSERT INTO `tbl_customer` (`name`, `email`, `physical_address`, `postal_address`, `tel_no`, `tax_id`, `payment_terms`, `credit_limit`) VALUES
+('Byron Mcmillan', 'pahu@mailinator.com', 'Quae non cillum a et', 'Cum dolorem facilis', '+1 (436) 351-2876', '', '', '');
 
 --
 -- Indexes for dumped tables
