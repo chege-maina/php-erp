@@ -84,8 +84,8 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="browser" class="form-label">Add Items to Quotation</label>
                 <div class="input-group">
-                  <input list="requisitionable_items" id="requisitionable_item" class="form-select">
-                  <datalist id="requisitionable_items" class="bg-light"></datalist>
+                  <input list="items_quote" id="requisitionable_item" class="form-select">
+                  <datalist id="items_quote" class="bg-light"></datalist>
                   <input type="button" value="+" class="btn btn-primary">
                 </div>
               </div>
@@ -175,6 +175,7 @@ include '../includes/base_page/head.php';
         valid_until.setAttribute("min", String(dateMax.getFullYear()) + '-' + month + '-' + day);
         valid_until.setAttribute("value", String(dateMax.getFullYear()) + '-' + month + '-' + day);
         populateDatalist('../includes/load_customer.php', "customerlist", "name", "terms");
+        populateDatalist('../includes/load_items_quote.php', "items_quote", "name");
       });
     </script>
     <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->

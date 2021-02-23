@@ -63,18 +63,21 @@
       return new Date(date_v.getTime() + ((Number(days)) * 24 * 60 * 60 * 1000));
     }
 
-    const populateDatalist = (path, elem, key_main = "name", key_sub_1 = null) => {
+    const populateDatalist = (path, elem, key_main = "name", key_sub_1 = null, testing = false) => {
       elem = document.querySelector("#" + elem);
       fetch(path)
         .then(response => response.json())
         .then(result => {
           console.log('Success:', result);
+          if (testing) {
+            return;
+          }
           result.forEach((value) => {
-            console.log("Yaah", value);
+            console.log(path, value);
             let opt = document.createElement("option");
             opt.value = value[key_main];
             if (key_sub_1 !== null) {
-              opt.appendChild(document.createTextNode(key_sub_1 + " :" + value[key_sub_1]));
+              opt.appendChild(document.createTextNode(key_sub_1 + ": " + value[key_sub_1]));
             }
             elem.appendChild(opt);
           })
