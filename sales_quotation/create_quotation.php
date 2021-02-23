@@ -83,9 +83,9 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="browser" class="form-label">Add Items to Quotation</label>
                 <div class="input-group">
-                  <input list="items_quote" id="requisitionable_item" class="form-select">
+                  <input list="items_quote" id="quotable_items" class="form-select" required>
                   <datalist id="items_quote" class="bg-light"></datalist>
-                  <input type="button" value="+" class="btn btn-primary">
+                  <input type="button" value="+" class="btn btn-primary" onclick="addItem('#quotable_items');">
                 </div>
               </div>
             </div>
@@ -103,8 +103,8 @@ include '../includes/base_page/head.php';
                   <tr>
                     <th scope="col">Product Code</th>
                     <th scope="col">Product Name</th>
+                    <th scope="col">Price</th>
                     <th scope="col">Units</th>
-                    <th scope="col">Unit Price</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Total</th>
                     <th scope="col">Actions</th>
@@ -163,6 +163,128 @@ include '../includes/base_page/head.php';
     <script>
       const po_time = document.querySelector("#time");
       const valid_until = document.querySelector('#valid_until');
+      const table_body = document.querySelector('#table_body');
+
+      let all_items = {};
+      let all_quotable_items = {};
+      let table_items = [];
+
+      function addItem(elem) {
+        elem = document.querySelector(elem);
+        if (!elem.validity.valid) {
+          elem.focus();
+          return;
+        }
+
+        const item_to_add = all_items[elem.value];
+        if (!item_to_add) {
+          return;
+        }
+
+        table_items.push(item_to_add);
+        delete all_items[elem.value];
+        updateTable();
+        updateQuotableItems();
+      }
+
+      function removeItem(item) {
+        // table_items[item]['quantity'] = 0;
+        for (key in table_items) {
+          if (table_items[key].name === item) {
+            table_items.pop(item);
+          }
+        }
+        const item_to_add = all_quotable_items[item];
+        all_items[item] = item_to_add;
+        updateTable();
+        updateQuotableItems();
+      }
+
+      function updateTable() {
+        table_body.innerHTML = "";
+        console.log("table", table_items);
+        for (let item in table_items) {
+
+          let tr = document.createElement("tr");
+          // Id will be like 1Tank
+          tr.setAttribute("id", table_items[item]["code"] + table_items[item]["name"]);
+
+          let code_td = document.createElement("td");
+          code_td.appendChild(document.createTextNode(table_items[item]["code"]));
+          code_td.classList.add("align-middle");
+
+          let name_td = document.createElement("td");
+          name_td.appendChild(document.createTextNode(table_items[item]["name"]));
+          name_td.classList.add("align-middle");
+
+          let price_td = document.createElement("td");
+          price_td.appendChild(document.createTextNode(table_items[item]["price"]));
+          price_td.classList.add("align-middle");
+
+          let units_td = document.createElement("td");
+          units_td.appendChild(document.createTextNode(table_items[item]["unit"]));
+          units_td.classList.add("align-middle");
+
+          let total_td = document.createElement("td");
+          total_td.appendChild(document.createTextNode("0.00"));
+          total_td.classList.add("align-middle");
+
+          let quantity = document.createElement("input");
+          quantity.setAttribute("type", "number");
+          quantity.setAttribute("required", "");
+          quantity.classList.add("form-control", "form-control-sm", "align-middle");
+          quantity.setAttribute("data-ref", table_items[item]["name"]);
+          quantity.setAttribute("min", 1);
+          quantity.setAttribute("max", table_items[item]['max']);
+
+          // make sure the quantity is always greater than 0
+          quantity.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+          quantity.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
+          quantity.setAttribute("onclick", "this.select();");
+          table_items[item]['quantity'] = ('quantity' in table_items[item] && table_items[item]['quantity'] > 0) ?
+            table_items[item]['quantity'] : 1;
+          quantity.value = table_items[item]['quantity'];
+          let quantityWrapper = document.createElement("td");
+          quantityWrapper.classList.add("m-2");
+          quantityWrapper.appendChild(quantity);
+
+          let actionWrapper = document.createElement("td");
+          actionWrapper.classList.add("m-2");
+          let action = document.createElement("button");
+          action.setAttribute("id", table_items[item]["name"]);
+          action.setAttribute("onclick", "removeItem(this.id);");
+          let icon = document.createElement("span");
+          icon.classList.add("fas", "fa-minus", "mt-1");
+          action.appendChild(icon);
+          action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
+          actionWrapper.appendChild(action);
+
+          tr.append(code_td, name_td, price_td, units_td, quantityWrapper, total_td, actionWrapper);
+          table_body.appendChild(tr);
+
+        }
+        return;
+      }
+
+
+      const items_quote = document.querySelector('#items_quote');
+      const quotable_items = document.querySelector('#quotable_items');
+
+      let updateQuotableItems = () => {
+        console.log(all_items)
+        items_quote.innerHTML = "";
+        quotable_items.value = "";
+        for (const key in all_items) {
+          let value = all_items[key];
+          console.log(value);
+          let opt = document.createElement("option");
+          opt.value = value["name"];
+          opt.appendChild(document.createTextNode(value["name"]));
+          items_quote.appendChild(opt);
+        }
+      }
+
+
 
       document.addEventListener('DOMContentLoaded', function() {
         const today = addDays(new Date(), 1);
@@ -176,6 +298,21 @@ include '../includes/base_page/head.php';
         populateDatalist('../includes/load_customer.php', "customerlist", "name", "terms");
         populateDatalist('../includes/load_items_quote.php', "items_quote", "name");
         populateDatalist('../includes/load_tax.php', "tax_pc", "tax");
+
+        fetch('../includes/load_items_quote.php')
+          .then(response => response.json())
+          .then(result => {
+            result.forEach((item) => {
+              all_items[item.name] = item;
+              all_quotable_items[item.name] = item;
+            })
+            console.log("All items", all_items);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+
+
       });
     </script>
     <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->

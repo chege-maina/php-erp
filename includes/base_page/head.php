@@ -68,12 +68,11 @@
       fetch(path)
         .then(response => response.json())
         .then(result => {
-          console.log('Success:', result);
           if (testing) {
+            console.log('Success:', result);
             return;
           }
           result.forEach((value) => {
-            console.log(path, value);
             let opt = document.createElement("option");
             opt.value = value[key_main];
             if (key_sub_1 !== null) {
@@ -82,7 +81,8 @@
               opt.appendChild(document.createTextNode(value[key_main]));
             }
             elem.appendChild(opt);
-          })
+          });
+          return result;
         })
         .catch(error => {
           console.error('Error:', error);
