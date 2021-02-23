@@ -78,6 +78,8 @@
             opt.value = value[key_main];
             if (key_sub_1 !== null) {
               opt.appendChild(document.createTextNode(key_sub_1 + ": " + value[key_sub_1]));
+            } else {
+              opt.appendChild(document.createTextNode(value[key_main]));
             }
             elem.appendChild(opt);
           })

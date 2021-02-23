@@ -68,17 +68,16 @@ include '../includes/base_page/head.php';
             <div class="row">
               <div class="col">
                 <label for="browser" class="form-label">Select Customer</label>
-                <div class="input-group">
-                  <input list="customerlist" id="customer" class="form-select">
-                  <datalist id="customerlist" class="bg-light"></datalist>
-                  <input type="button" value="Select" class="btn btn-primary">
-                </div>
+                <input list="customerlist" id="customer" class="form-select">
+                <datalist id="customerlist" class="bg-light"></datalist>
               </div>
               <div class="col">
-                <label for="payment_terms" class="form-label">Payment Terms*</label>
+                <label for="tax_pc" class="form-label">Tax*</label>
                 <div class="input-group">
-                  <input name="payment_terms" id="payment_terms" class="form-control" placeholder="Payment Terms" type="number" required>
-                  <input type="button" value="Days" class="btn btn-link disabled">
+                  <select id="tax_pc" class="form-select" required>
+                    <option value=null disabled selected>-- Select Tax -- </option>
+                  </select>
+                  <span class="input-group-text">%</span>
                 </div>
               </div>
               <div class="col">
@@ -176,6 +175,7 @@ include '../includes/base_page/head.php';
         valid_until.setAttribute("value", String(dateMax.getFullYear()) + '-' + month + '-' + day);
         populateDatalist('../includes/load_customer.php', "customerlist", "name", "terms");
         populateDatalist('../includes/load_items_quote.php', "items_quote", "name");
+        populateDatalist('../includes/load_tax.php', "tax_pc", "tax");
       });
     </script>
     <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
