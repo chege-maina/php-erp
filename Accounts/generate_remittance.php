@@ -60,7 +60,7 @@ include '../includes/base_page/head.php';
                   <div class="col">
                     <label for="date" class="form-label">Date</label>
                     <!-- autofill current date  -->
-                    <input type="date" value="<?php echo date("Y-m-d"); ?>" id="date" class="form-control" readonly>
+                    <input type="date" value="<?php echo date("Y-m-d"); ?>" id="remittance_date" class="form-control" readonly>
 
                   </div>
                 </div>
@@ -342,7 +342,7 @@ include '../includes/base_page/head.php';
 
           table_items = [];
           [...table_items] = table_items_tmp;
-          console.log("Table items",table_items);
+          console.log("Table items", table_items);
           updateTable(table_items);
         }
 
