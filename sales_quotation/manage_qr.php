@@ -393,7 +393,7 @@ include '../includes/base_page/head.php';
             formData.append("qty", -1);
             formData.append("req_no", reqNo);
 
-            fetch('../includes/update_requisition.php', {
+            fetch('../includes/update_quotation.php', {
                 method: 'POST',
                 body: formData
               })
@@ -434,7 +434,7 @@ include '../includes/base_page/head.php';
             formData.append("qty", -1);
             formData.append("req_no", reqNo);
 
-            fetch('../includes/update_requisition.php', {
+            fetch('../includes/update_quotation.php', {
                 method: 'POST',
                 body: formData
               })
@@ -500,7 +500,7 @@ include '../includes/base_page/head.php';
               formData.append("qty", qtt.value);
               formData.append("req_no", reqNo);
 
-              fetch('../includes/update_requisition.php', {
+              fetch('../includes/update_quotation.php', {
                   method: 'POST',
                   body: formData
                 })
@@ -536,7 +536,7 @@ include '../includes/base_page/head.php';
               formData.append("qty", qtt.value);
               formData.append("req_no", reqNo);
 
-              fetch('../includes/update_requisition.php', {
+              fetch('../includes/update_quotation.php', {
                   method: 'POST',
                   body: formData
                 })
