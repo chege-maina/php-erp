@@ -409,7 +409,7 @@ include '../includes/base_page/head.php';
                 divAlert.scrollIntoView();
 
                 window.setTimeout(() => {
-                  location.href = "manage_pr.php"
+                  location.href = "manage_qr.php"
                 }, 2500);
 
               })
@@ -450,7 +450,7 @@ include '../includes/base_page/head.php';
                 divAlert.scrollIntoView();
 
                 window.setTimeout(() => {
-                  location.href = "manage_pr.php"
+                  location.href = "manage_qr.php"
                 }, 2500);
 
               })
