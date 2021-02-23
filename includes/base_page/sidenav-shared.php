@@ -124,7 +124,7 @@ function genSideBar()
 <ul class="nav collapse" id="e-quote" data-parent="#navbarVerticalCollapse">
   <li class="nav-item"><a class="nav-link" href="../sales_quotation/create_quotation.php">Create New Quotation</a>
   </li>
-  <li class="nav-item"><a class="nav-link" href="../Accounts/generate_remittance.php">Manage Quotations</a>
+  <li class="nav-item"><a class="nav-link" href="../sales_quotation/manage_quotation.php">Manage Quotations</a>
   </li>
 </ul>
 </li>
