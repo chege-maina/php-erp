@@ -57,7 +57,7 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="time" class="form-label">Time</label>
                 <!-- autofill current date  -->
-                <input type="time" value="<?php echo date("H:i:s"); ?>" id="time" class="form-control" readonly>
+                <input type="time" id="time" class="form-control" readonly>
               </div>
               <div class="col">
                 <label for="#" class="form-label">Valid Until </label>
@@ -486,6 +486,17 @@ include '../includes/base_page/head.php';
           });
 
 
+      });
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const date = new Date();
+        let month = d_toString(date.getMonth() + 1);
+        let day = d_toString(date.getDate());
+        let hours = d_toString(date.getHours());
+        let minutes = d_toString(date.getMinutes());
+
+
+        po_time.value = hours + ":" + minutes;
       });
     </script>
     <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
