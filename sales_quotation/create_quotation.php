@@ -61,21 +61,21 @@ include '../includes/base_page/head.php';
               </div>
               <div class="col">
                 <label for="#" class="form-label">Valid Until </label>
-                <input type="date" id="valid_until" class="form-control">
+                <input type="date" id="valid_until" class="form-control" required>
               </div>
             </div>
             <hr>
             <div class="row">
               <div class="col">
                 <label for="browser" class="form-label">Select Customer</label>
-                <input list="customerlist" id="customer" class="form-select">
+                <input list="customerlist" id="customer" class="form-select" required>
                 <datalist id="customerlist" class="bg-light"></datalist>
               </div>
               <div class="col">
                 <label for="tax_pc" class="form-label">Tax*</label>
                 <div class="input-group">
                   <select id="tax_pc" class="form-select" required>
-                    <option value=null disabled selected>-- Select Tax -- </option>
+                    <option value disabled selected>-- Select Tax -- </option>
                   </select>
                   <span class="input-group-text">%</span>
                 </div>
@@ -144,7 +144,7 @@ include '../includes/base_page/head.php';
         <div class="card mt-1">
           <div class="card-body fs--1 p-1">
             <div class="d-flex flex-row-reverse">
-              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitPO();">
+              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitForm();">
                 Submit
               </button>
             </div>
@@ -165,6 +165,14 @@ include '../includes/base_page/head.php';
       const po_time = document.querySelector("#time");
       const valid_until = document.querySelector('#valid_until');
       const table_body = document.querySelector('#table_body');
+      const items_quote = document.querySelector('#items_quote');
+      const quotable_items = document.querySelector('#quotable_items');
+      const customer = document.querySelector("#customer");
+      const tax_pc = document.querySelector("#tax_pc");
+      const valid_until_elem = document.querySelector("#valid_until");
+      const date_e = document.querySelector("#date");
+      const time_t = document.querySelector("#time");
+
 
       let all_items = {};
       let all_quotable_items = {};
@@ -200,6 +208,20 @@ include '../includes/base_page/head.php';
         all_items[item] = item_to_add;
         updateTable();
         updateQuotableItems();
+      }
+
+      function submitForm() {
+        if (table_items.length <= 0) {
+          quotable_items.focus();
+          return;
+        } else if (!valid_until_elem.validity.valid) {
+          valid_until_elem.focus();
+        } else if (!customer.validity.valid) {
+          customer.focus();
+        } else if (!tax_pc.validity.valid) {
+          tax_pc.focus();
+        }
+        console.log("Haha data go brr");
       }
 
       function updateTable() {
@@ -352,8 +374,6 @@ include '../includes/base_page/head.php';
         po_total_a.set(quotation_total);
       }
 
-      const items_quote = document.querySelector('#items_quote');
-      const quotable_items = document.querySelector('#quotable_items');
 
       let updateQuotableItems = () => {
         console.log(all_items)
