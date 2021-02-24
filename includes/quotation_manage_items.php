@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'unit' => $row['unit'],
                 'qty' => $row['qty'],
                 'total' => $row['amount'],
+                'tax_pc' => $row['tax_pc'],
                 'balance' => $row['price']
             )
         );
