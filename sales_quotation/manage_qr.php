@@ -182,7 +182,9 @@ include '../includes/base_page/head.php';
             // Get passed requisition number
             reqNo = sessionStorage.getItem('req_no');
             // Clear data
-            sessionStorage.clear();
+            // HACK: Major Security flaw, this is being done to
+            // accomodate reloading of page just so that calculations are saved
+            // sessionStorage.clear();
 
             // Load the requisition item for the number
             const formData = new FormData();
@@ -586,7 +588,7 @@ include '../includes/base_page/head.php';
                   fetchTableItems();
 
                   window.setTimeout(() => {
-                    divAlert.innerHTML = "";
+                    location.reload();
                   }, 2500);
                 })
                 .catch(error => {
