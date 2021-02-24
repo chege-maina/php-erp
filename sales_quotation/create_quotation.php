@@ -57,7 +57,7 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="time" class="form-label">Time</label>
                 <!-- autofill current date  -->
-                <input type="time" id="time" class="form-control" readonly>
+                <input type="time" value="<?php echo date("H:i:s"); ?>" id="time" class="form-control" readonly>
               </div>
               <div class="col">
                 <label for="#" class="form-label">Valid Until </label>
