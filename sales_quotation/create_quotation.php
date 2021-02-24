@@ -247,6 +247,7 @@ include '../includes/base_page/head.php';
           sendable_table.push({
             p_code: item.code,
             p_name: item.name,
+            p_tax_pc: item.tax_pc,
             p_units: item.unit,
             p_quantity: item.quantity,
             p_price: item.price,
