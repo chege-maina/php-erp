@@ -18,7 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $response['message'] = "Selected Item Removed From Requisition..";
   } else if (strcmp($checker, 'item_qty') == 0) {
     $tax = $price * $qty * ($tax1 / 100);
-    $sql = "UPDATE tbl_quotation_items SET qty = '" . $qty . "', price='" . $price . "' , tax='" . $tax . "' WHERE product_name = '" . $name . "' and quote_no = '" . $req_no . "'";
+    $total_amt = $tax + ($price * $qty);
+    $sql = "UPDATE tbl_quotation_items SET amount='$total_amt',qty = '" . $qty . "', price='" . $price . "' , tax='" . $tax . "' WHERE product_name = '" . $name . "' and quote_no = '" . $req_no . "'";
     mysqli_query($conn, $sql);
     $response['message'] = "Selected Item Details Changed..";
   } else if (strcmp($checker, 'req_rejected') == 0) {
