@@ -177,6 +177,7 @@ include '../includes/base_page/head.php';
       let all_items = {};
       let all_quotable_items = {};
       let table_items = [];
+      let all_customers;
 
       function addItem(elem) {
         elem = document.querySelector(elem);
@@ -221,7 +222,64 @@ include '../includes/base_page/head.php';
         } else if (!tax_pc.validity.valid) {
           tax_pc.focus();
         }
-        console.log("Haha data go brr");
+
+        const formData = new FormData();
+        formData.append("date", date_e.value);
+        formData.append("time", time_t.value);
+        formData.append("customer", customer.value);
+        formData.append("sub_total", po_total_a.getNumericString());
+        formData.append("due_date", valid_until_elem.value);
+        formData.append("tax", tax_total_a.getNumericString());
+
+        let terms;
+        all_customers.forEach(one => {
+          if (one["name"] == customer.value) {
+            terms = one["terms"];
+          }
+        })
+
+        formData.append("terms", terms);
+        formData.append("user", user_name);
+        formData.append("amount", po_total_a.getNumericString());
+
+        let sendable_table = [];
+        table_items.forEach(item => {
+          sendable_table.push({
+            p_code: item.code,
+            p_name: item.name,
+            p_units: item.unit,
+            p_quantity: item.quantity,
+            p_price: item.price,
+            p_amount: item.total,
+            p_tax: item.tax_amt
+          })
+        })
+        formData.append("table_items", JSON.stringify(sendable_table));
+
+        fetch('../includes/add_quotation.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.text())
+          .then(result => {
+            const alertVar =
+              `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> ${result}
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+            var divAlert = document.querySelector("#alert-div");
+            divAlert.innerHTML = alertVar;
+            divAlert.scrollIntoView();
+
+            window.setTimeout(() => {
+              divAlert.innerHTML = "";
+              location.reload();
+            }, 2500);
+
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
       }
 
       function updateTable() {
@@ -403,6 +461,15 @@ include '../includes/base_page/head.php';
         populateDatalist('../includes/load_customer.php', "customerlist", "name", "terms");
         populateDatalist('../includes/load_items_quote.php', "items_quote", "name");
         populateDatalist('../includes/load_tax.php', "tax_pc", "tax");
+
+        fetch('../includes/load_customer.php')
+          .then(response => response.json())
+          .then(data => {
+            all_customers = data;
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
 
         fetch('../includes/load_items_quote.php')
           .then(response => response.json())
