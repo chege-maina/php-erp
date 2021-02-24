@@ -172,6 +172,7 @@ include '../includes/base_page/head.php';
           const amount = document.querySelector("#amount");
           const requisition_status = document.querySelector("#requisition_status");
           const table_body = document.querySelector("#table_body");
+          let table_items = [];
 
           window.addEventListener('DOMContentLoaded', (event) => {
             if (sessionStorage.length === 0) {
@@ -260,6 +261,7 @@ include '../includes/base_page/head.php';
           function updateTable(result) {
             console.log('Result:', result);
             table_body.innerHTML = "";
+            [...table_items] = result;
 
             result.forEach((data) => {
 
@@ -548,12 +550,20 @@ include '../includes/base_page/head.php';
 
 
               console.log("Saving");
-              console.log(ptt);
+              let tax_percentage;
+              table_items.forEach(item => {
+                if (item.name == value[1]) {
+                  tax_percentage = item.tax_pc ? item.tax_pc : 0;
+                }
+              })
+
               const formData = new FormData();
               formData.append("checker", "item_qty");
               // TODO: Take these and in corresponding if cases to above the if to avoid copypasting
               formData.append("name", value[1]);
               formData.append("qty", qtt.value);
+              formData.append("ptt", ptt.value);
+              formData.append("tax_pc", tax_percentage);
               formData.append("price", ptt.value);
               formData.append("req_no", reqNo);
 
