@@ -39,9 +39,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         foreach ($table_items as $key => $value) {
 
             $mysql = "INSERT INTO tbl_purchase_bill_items (purchasebill_no, po_number, product_code, product_name, 
-        unit, qty, product_cost, total, user, receipt_no) VALUES('" . $req_no . "','" . $po_number . "',
+        unit, qty, product_cost, total, user, receipt_no, invoice_no) VALUES('" . $req_no . "','" . $po_number . "',
         '" . $value["p_code"] . "','" . $value["p_name"] . "','" . $value["p_units"] . "', '" . $value["p_quantity"] . "',
-        '" . $value["p_cost"] . "','" . $value["p_total"] . "','" . $user . "', '" . $rec_no . "')";
+        '" . $value["p_cost"] . "','" . $value["p_total"] . "','" . $user . "', '" . $rec_no . "', '" . $invoice . "')";
             mysqli_query($conn, $mysql);
         }
         $sql = "UPDATE tbl_store_item SET status = 'done' WHERE receipt_no = '" . $rec_no . "'";
