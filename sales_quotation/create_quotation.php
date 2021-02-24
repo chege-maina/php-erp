@@ -278,6 +278,7 @@ include '../includes/base_page/head.php';
           table_body.appendChild(tr);
 
         }
+        cumulative_total();
         return;
       }
 
@@ -309,7 +310,7 @@ include '../includes/base_page/head.php';
             total_td.appendChild(document.createTextNode(table_items[key]["total"]));
           }
         }
-        console.log(value);
+        cumulative_total();
       }
 
       function validateQuantity(elmt, value, max) {
@@ -319,6 +320,20 @@ include '../includes/base_page/head.php';
         elmt.value = elmt.value > max ? max : elmt.value;
       }
 
+
+      let cumulative_total = () => {
+        let before_tax = 0;
+        let total_tax = 0;
+        let quotation_total = 0;
+        table_items.forEach(item => {
+          before_tax += Number(item["price"]) * item["quantity"];
+          total_tax += Number(item.tax_amt);
+          quotation_total += Number(item.total);
+        });
+        console.log("before_tax", before_tax);
+        console.log("total_tax", total_tax);
+        console.log("quotation_total", quotation_total);
+      }
 
       const items_quote = document.querySelector('#items_quote');
       const quotable_items = document.querySelector('#quotable_items');
