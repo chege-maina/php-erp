@@ -120,7 +120,7 @@ include '../includes/base_page/head.php';
               <div class="col text-right fw-bold">
                 Total Before Tax</div>
               <div class="col col-auto">
-                <input class="form-control form-control-sm" type="number" readonly id="total_before_tax" />
+                <input class="form-control form-control-sm" type="text" readonly id="total_before_tax" />
               </div>
             </div>
             <div class="row m-3">
@@ -128,7 +128,7 @@ include '../includes/base_page/head.php';
                 Tax 16 %
               </div>
               <div class="col col-auto">
-                <input class="form-control form-control-sm" type="number" readonly id="tax_pc" />
+                <input class="form-control form-control-sm" type="text" readonly id="tax_total" />
               </div>
             </div>
             <div class="row m-3">
@@ -136,7 +136,7 @@ include '../includes/base_page/head.php';
                 Quotation
               </div>
               <div class="col col-auto">
-                <input class="form-control form-control-sm" type="number" readonly id="po_total" />
+                <input class="form-control form-control-sm" type="text" readonly id="po_total" />
               </div>
             </div>
           </div>
@@ -321,6 +321,23 @@ include '../includes/base_page/head.php';
       }
 
 
+      const total_before_tax = document.querySelector("#total_before_tax");
+      const tax_total = document.querySelector("#tax_total");
+      const po_total = document.querySelector("#po_total");
+
+      const total_before_tax_a = new AutoNumeric(total_before_tax, {
+        currencySymbol: '',
+        minimumValue: 0
+      });
+      const tax_total_a = new AutoNumeric(tax_total, {
+        currencySymbol: '',
+        minimumValue: 0
+      });
+      const po_total_a = new AutoNumeric(po_total, {
+        currencySymbol: '',
+        minimumValue: 0
+      });
+
       let cumulative_total = () => {
         let before_tax = 0;
         let total_tax = 0;
@@ -330,9 +347,9 @@ include '../includes/base_page/head.php';
           total_tax += Number(item.tax_amt);
           quotation_total += Number(item.total);
         });
-        console.log("before_tax", before_tax);
-        console.log("total_tax", total_tax);
-        console.log("quotation_total", quotation_total);
+        total_before_tax_a.set(before_tax);
+        tax_total_a.set(total_tax);
+        po_total_a.set(quotation_total);
       }
 
       const items_quote = document.querySelector('#items_quote');
