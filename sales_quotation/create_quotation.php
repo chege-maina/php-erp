@@ -255,6 +255,7 @@ include '../includes/base_page/head.php';
             p_tax: item.tax_amt
           })
         })
+        console.log("Sending", sendable_table);
         formData.append("table_items", JSON.stringify(sendable_table));
 
         fetch('../includes/add_quotation.php', {
@@ -272,6 +273,7 @@ include '../includes/base_page/head.php';
             divAlert.innerHTML = alertVar;
             divAlert.scrollIntoView();
 
+            return;
             window.setTimeout(() => {
               divAlert.innerHTML = "";
               location.reload();

@@ -548,6 +548,7 @@ include '../includes/base_page/head.php';
 
 
               console.log("Saving");
+              console.log(ptt);
               const formData = new FormData();
               formData.append("checker", "item_qty");
               // TODO: Take these and in corresponding if cases to above the if to avoid copypasting
