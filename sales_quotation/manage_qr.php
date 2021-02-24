@@ -291,11 +291,27 @@ include '../includes/base_page/head.php';
               total.appendChild(document.createTextNode(data["total"]));
               total.classList.add("align-middle");
 
+
+              let unit = document.createElement("input");
+              unit.setAttribute("type", "number");
+              unit.setAttribute("required", "");
+              unit.setAttribute("readonly", "");
+              let id_suffix = data["name"].replaceAll(" ", "_s_s_s_") + "-" + data["code"];
+              unit.setAttribute("id", "h-" + id_suffix);
+              unit.classList.add("form-control", "form-control-sm", "align-middle");
+              unit.setAttribute("min", 1);
+              unit.setAttribute("onfocusout", "this.value = this.value <= 0 ? 1 : this.value;");
+              unit.value = data["balance"];
+              let unitsWrapper = document.createElement("td");
+              unitsWrapper.classList.add("m-2", "col-md-2");
+              unitsWrapper.appendChild(unit);
+
+
               let quantity = document.createElement("input");
               quantity.setAttribute("type", "number");
               quantity.setAttribute("required", "");
               quantity.setAttribute("readonly", "");
-              let id_suffix = data["name"].replaceAll(" ", "_s_s_s_") + "-" + data["code"];
+              id_suffix = data["name"].replaceAll(" ", "_s_s_s_") + "-" + data["code"];
               quantity.setAttribute("id", "q-" + id_suffix);
               quantity.classList.add("form-control", "form-control-sm", "align-middle");
               // quantity.setAttribute("data-ref", da["name"]);
@@ -306,7 +322,7 @@ include '../includes/base_page/head.php';
               // quantity.setAttribute("onclick", "this.select();");
               quantity.value = data["qty"];
               let quantityWrapper = document.createElement("td");
-              quantityWrapper.classList.add("m-2");
+              quantityWrapper.classList.add("m-2", "col-md-2");
               quantityWrapper.appendChild(quantity);
 
 
@@ -373,7 +389,7 @@ include '../includes/base_page/head.php';
               actionDiv.append(edit, save, cancel, reject);
               actionWrapper.appendChild(actionDiv);
 
-              tr.append(code_td, name_td, units_td, balance_td, quantityWrapper, total, actionWrapper);
+              tr.append(code_td, name_td, units_td, unitsWrapper, quantityWrapper, total, actionWrapper);
               table_body.appendChild(tr);
 
             });
@@ -465,6 +481,7 @@ include '../includes/base_page/head.php';
             value = value.split("-");
             // Get the quantity input in the same row
             const qtt = document.querySelector("#q-" + value[1] + "-" + value[2]);
+            const ptt = document.querySelector("#h-" + value[1] + "-" + value[2]);
             const btn_save = document.querySelector("#s-" + value[1] + "-" + value[2]);
             const btn_edit = document.querySelector("#e-" + value[1] + "-" + value[2]);
             const btn_cancel = document.querySelector("#c-" + value[1] + "-" + value[2]);
@@ -474,6 +491,7 @@ include '../includes/base_page/head.php';
             if (value[0] == "e") {
               // Edit item
               qtt.removeAttribute("readonly");
+              ptt.removeAttribute("readonly");
               btn_save.disabled = false;
               btn_cancel.disabled = false;
               btn_edit.disabled = true;
@@ -483,6 +501,7 @@ include '../includes/base_page/head.php';
               // reload table
               fetchTableItems();
               qtt.setAttribute("readonly", "");
+              ptt.setAttribute("readonly", "");
 
               btn_save.disabled = true;
               btn_cancel.disabled = true;
@@ -567,6 +586,7 @@ include '../includes/base_page/head.php';
 
               // Save item
               qtt.setAttribute("readonly", "");
+              ptt.setAttribute("readonly", "");
 
               btn_save.disabled = true;
               btn_cancel.disabled = true;
