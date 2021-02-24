@@ -6,6 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $checker = $_POST["checker"];
   $name = $_POST["name"];
   $qty = $_POST["qty"];
+  $price = $_POST["price"];
   $req_no = $_POST["req_no"];
 
   $stats = "pending";
