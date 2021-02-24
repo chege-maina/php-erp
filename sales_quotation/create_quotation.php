@@ -120,7 +120,7 @@ include '../includes/base_page/head.php';
               <div class="col text-right fw-bold">
                 Total Before Tax</div>
               <div class="col col-auto">
-                <input class="form-control form-control-sm" type="text" readonly id="total_before_tax" />
+                <input class="form-control form-control-sm text-right" type="text" readonly id="total_before_tax" />
               </div>
             </div>
             <div class="row m-3">
@@ -128,7 +128,7 @@ include '../includes/base_page/head.php';
                 Tax 16 %
               </div>
               <div class="col col-auto">
-                <input class="form-control form-control-sm" type="text" readonly id="tax_total" />
+                <input class="form-control form-control-sm text-right" type="text" readonly id="tax_total" />
               </div>
             </div>
             <div class="row m-3">
@@ -136,7 +136,7 @@ include '../includes/base_page/head.php';
                 Quotation
               </div>
               <div class="col col-auto">
-                <input class="form-control form-control-sm" type="text" readonly id="po_total" />
+                <input class="form-control form-control-sm text-right" type="text" readonly id="po_total" />
               </div>
             </div>
           </div>
