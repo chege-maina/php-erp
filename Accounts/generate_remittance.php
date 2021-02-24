@@ -183,13 +183,15 @@ include '../includes/base_page/head.php';
 
           let table_items_sendable = [];
           table_items.forEach((item) => {
-            table_items_sendable.push({
-              p_invoice: item["invoice_no"],
-              p_payable: item["amount_due"],
-              p_amount: item["amount"],
-              p_wht: item["wht"],
-              p_due: item["due_date"],
-            })
+            if (item["included"]) {
+              table_items_sendable.push({
+                p_invoice: item["invoice_no"],
+                p_payable: item["amount_due"],
+                p_amount: item["amount"],
+                p_wht: item["wht"],
+                p_due: item["due_date"],
+              })
+            }
           });
 
           const formData = new FormData();
