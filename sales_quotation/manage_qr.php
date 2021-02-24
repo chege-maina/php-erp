@@ -563,7 +563,7 @@ include '../includes/base_page/head.php';
               formData.append("name", value[1]);
               formData.append("qty", qtt.value);
               formData.append("ptt", ptt.value);
-              formData.append("tax_pc", tax_percentage);
+              formData.append("tax", tax_percentage);
               formData.append("price", ptt.value);
               formData.append("req_no", reqNo);
 
@@ -571,8 +571,9 @@ include '../includes/base_page/head.php';
                   method: 'POST',
                   body: formData
                 })
-                .then(response => response.json())
+                .then(response => response.text())
                 .then(result => {
+                  console.log(result);
                   const alertVar =
                     `<div class="alert alert-success alert-dismissible fade show" role="alert">
               <strong>Success!</strong> ${result['message']}
