@@ -553,6 +553,7 @@ include '../includes/base_page/head.php';
               // TODO: Take these and in corresponding if cases to above the if to avoid copypasting
               formData.append("name", value[1]);
               formData.append("qty", qtt.value);
+              formData.append("price", ptt.value);
               formData.append("req_no", reqNo);
 
               fetch('../includes/update_quotation.php', {
