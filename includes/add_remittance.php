@@ -34,11 +34,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         '" . $value["p_invoice"] . "','" . $value["p_amount"] . "', '" . $value["p_wht"] . "',
         '" . $value["p_payable"] . "','" . $supplier . "','" . $date . "', '" . $user . "')";
             mysqli_query($conn, $mysql);
+            $sql = "UPDATE tbl_purchase_bill_items SET status = 'approved' WHERE supplier_name='$supplier' and status='pending' and invoice_no='" . $value["p_invoice"] . "'";
+            $sql2 = "UPDATE tbl_purchase_bill SET status = 'approved' WHERE supplier_name='$supplier' and status='pending' and invoice_no='" . $value["p_invoice"] . "'";
+            mysqli_query($conn, $sql);
+            mysqli_query($conn, $sql2);
         }
-        $sql = "UPDATE tbl_purchase_bill_items SET status = 'approved' WHERE supplier_name='$supplier' and status='pending'";
-        $sql2 = "UPDATE tbl_purchase_bill SET status = 'approved' WHERE supplier_name='$supplier' and status='pending'";
-        mysqli_query($conn, $sql);
-        mysqli_query($conn, $sql2);
 
         $message = "Remittance No." . $req_no . " Posted Successfully..";
         echo json_encode($message);
