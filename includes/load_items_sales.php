@@ -74,11 +74,13 @@ while ($row = mysqli_fetch_assoc($result)) {
         array_push(
             $response,
             array(
-                'product_code' => $productcode,
-                'product_name' => $product,
-                'unit' => $unit,
                 'balance' => $balance,
-                'max' => $max
+                'max' => $max,
+                'code' => $row['product_code'],
+                'name' => $row['product_name'],
+                'unit' => $row['product_unit'],
+                'tax' => $row['applicable_tax'],
+                'price' => $row['dsp_price']
             )
         );
     }
