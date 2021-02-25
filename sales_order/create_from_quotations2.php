@@ -39,7 +39,7 @@ include '../includes/base_page/head.php';
           <!-- body begins here -->
           <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
           <div id="alert-div"></div>
-          <h3 class="mb-0 p-2">Manage Quotation</h3>
+          <h3 class="mb-0 p-2">Manage Sales Order</h3>
           <div class="card mb-1">
 
             <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/illustrations/corner-4.png);">
