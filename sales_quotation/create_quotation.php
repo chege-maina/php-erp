@@ -72,15 +72,6 @@ include '../includes/base_page/head.php';
                 <datalist id="customerlist" class="bg-light"></datalist>
               </div>
               <div class="col">
-                <label for="tax_pc" class="form-label">Tax*</label>
-                <div class="input-group">
-                  <select id="tax_pc" class="form-select" required>
-                    <option value disabled selected>-- Select Tax -- </option>
-                  </select>
-                  <span class="input-group-text">%</span>
-                </div>
-              </div>
-              <div class="col">
                 <label for="browser" class="form-label">Add Items to Quotation</label>
                 <div class="input-group">
                   <input list="items_quote" id="quotable_items" class="form-select" required>
@@ -168,7 +159,6 @@ include '../includes/base_page/head.php';
       const items_quote = document.querySelector('#items_quote');
       const quotable_items = document.querySelector('#quotable_items');
       const customer = document.querySelector("#customer");
-      const tax_pc = document.querySelector("#tax_pc");
       const valid_until_elem = document.querySelector("#valid_until");
       const date_e = document.querySelector("#date");
       const time_t = document.querySelector("#time");
@@ -219,10 +209,7 @@ include '../includes/base_page/head.php';
           valid_until_elem.focus();
         } else if (!customer.validity.valid) {
           customer.focus();
-        } else if (!tax_pc.validity.valid) {
-          tax_pc.focus();
         }
-
         const formData = new FormData();
         formData.append("date", date_e.value);
         formData.append("time", time_t.value);
@@ -461,7 +448,6 @@ include '../includes/base_page/head.php';
         valid_until.setAttribute("value", String(dateMax.getFullYear()) + '-' + month + '-' + day);
         populateDatalist('../includes/load_customer.php', "customerlist", "name", "terms");
         populateDatalist('../includes/load_items_quote.php', "items_quote", "name");
-        populateDatalist('../includes/load_tax.php', "tax_pc", "tax");
 
         fetch('../includes/load_customer.php')
           .then(response => response.json())
