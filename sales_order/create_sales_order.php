@@ -437,6 +437,7 @@ include '../includes/base_page/head.php';
 
         if (c_status === "credit okay") {
           status_elem.innerHTML = `<span class="badge rounded-pill badge-soft-success">${c_status}</span>`
+          submit.removeAttribute("disabled");
         } else {
           submit.setAttribute("disabled", "");
           status_elem.innerHTML = `<span class="badge rounded-pill badge-soft-danger">${c_status}</span>`
