@@ -275,6 +275,11 @@ include '../includes/base_page/head.php';
               code_td.appendChild(document.createTextNode(data["code"]));
               code_td.classList.add("align-middle");
 
+
+              let code_td = document.createElement("td");
+              code_td.appendChild(document.createTextNode(data["code"]));
+              code_td.classList.add("align-middle");
+
               let name_td = document.createElement("td");
               name_td.appendChild(document.createTextNode(data["name"]));
               name_td.classList.add("align-middle", "w-25");
