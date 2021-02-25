@@ -129,14 +129,16 @@ function genSideBar()
 </ul>
 </li>
 <!-- Sales Order -->
-<li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-quote" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-cart-plus"></span></span><span class="nav-link-text"> Sales</span>
+<li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-sale" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-cart-plus"></span></span><span class="nav-link-text"> Sales Order</span>
   </div>
 </a>
-<ul class="nav collapse" id="e-quote" data-parent="#navbarVerticalCollapse">
-  <li class="nav-item"><a class="nav-link" href="../sales_order/create_sales_order.php">Create New Sales</a>
+<ul class="nav collapse" id="e-sale" data-parent="#navbarVerticalCollapse">
+  <li class="nav-item"><a class="nav-link" href="../sales_order/create_sales_order.php">From Quotation</a>
   </li>
-  <li class="nav-item"><a class="nav-link" href="../sales_order/manage_sales_order.php">Manage Sales</a>
+  <li class="nav-item"><a class="nav-link" href="../sales_order/create_sales_order.php">From Scratch</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../sales_order/director_sale.php">Director Sales</a>
   </li>
 </ul>
 </li>
