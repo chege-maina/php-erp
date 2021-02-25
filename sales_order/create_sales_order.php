@@ -68,7 +68,7 @@ include '../includes/base_page/head.php';
             <div class="row">
               <div class="col">
                 <label for="browser" class="form-label">Select Customer</label>
-                <input list="customerlist" id="customer" class="form-select" required>
+                <input list="customerlist" id="customer" class="form-select" required onchange="checkCustomerStatus(this.value)">
                 <datalist id="customerlist" class="bg-light"></datalist>
               </div>
               <div class="col">
@@ -78,6 +78,14 @@ include '../includes/base_page/head.php';
                   <datalist id="items_quote" class="bg-light"></datalist>
                   <input type="button" value="+" class="btn btn-primary" onclick="addItem('#quotable_items');">
                 </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col mt-3 mb-0">
+                <span>Status:</span>
+                <span id="status">
+                  <span class="badge rounded-pill badge-soft-secondary">No item selected</span>
+                </span>
               </div>
             </div>
           </div>
@@ -135,7 +143,7 @@ include '../includes/base_page/head.php';
         <div class="card mt-1">
           <div class="card-body fs--1 p-1">
             <div class="d-flex flex-row-reverse">
-              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitForm();">
+              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitForm();" disabled>
                 Submit
               </button>
             </div>
@@ -162,6 +170,9 @@ include '../includes/base_page/head.php';
       const valid_until_elem = document.querySelector("#valid_until");
       const date_e = document.querySelector("#date");
       const time_t = document.querySelector("#time");
+      const submit = document.querySelector("#submit");
+
+      const customer_details = {};
 
 
       let all_items = {};
@@ -420,6 +431,19 @@ include '../includes/base_page/head.php';
         po_total_a.set(quotation_total);
       }
 
+      function checkCustomerStatus(value) {
+        const status_elem = document.querySelector("#status");
+        const c_status = customer_details[value].status.toLowerCase();
+
+        if (c_status === "credit okay") {
+          status_elem.innerHTML = `<span class="badge rounded-pill badge-soft-success">${c_status}</span>`
+          submit.removeAttribute("disabled");
+        } else {
+          submit.setAttribute("disabled", "");
+          status_elem.innerHTML = `<span class="badge rounded-pill badge-soft-danger">${c_status}</span>`
+        }
+      }
+
 
       let updateQuotableItems = () => {
         console.log(all_items)
@@ -435,6 +459,34 @@ include '../includes/base_page/head.php';
         }
       }
 
+      const populateCustomerDatalist = (path, elem, key_main = "name", key_sub_1 = null, testing = false) => {
+        elem = document.querySelector("#" + elem);
+        fetch(path)
+          .then(response => response.json())
+          .then(result => {
+            if (testing) {
+              console.log('Success:', result);
+              return;
+            }
+            result.forEach((value) => {
+              customer_details[value["name"]] = {
+                status: value["status"],
+              }
+              let opt = document.createElement("option");
+              opt.value = value[key_main];
+              if (key_sub_1 !== null) {
+                opt.appendChild(document.createTextNode(key_sub_1 + ": " + value[key_sub_1]));
+              } else {
+                opt.appendChild(document.createTextNode(value[key_main]));
+              }
+              elem.appendChild(opt);
+            });
+            return result;
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      }
 
 
       document.addEventListener('DOMContentLoaded', function() {
@@ -446,12 +498,13 @@ include '../includes/base_page/head.php';
         let day = d_toString(dateMax.getDate());
         valid_until.setAttribute("min", String(dateMax.getFullYear()) + '-' + month + '-' + day);
         valid_until.setAttribute("value", String(dateMax.getFullYear()) + '-' + month + '-' + day);
-        populateDatalist('../includes/load_customer.php', "customerlist", "name", "terms");
+        populateCustomerDatalist('../includes/load_customer_sales.php', "customerlist", "name", "status");
         populateDatalist('../includes/load_items_quote.php', "items_quote", "name");
 
-        fetch('../includes/load_customer.php')
-          .then(response => response.json())
+        fetch('../includes/load_customer_sales.php')
+          .then(response => response.text())
           .then(data => {
+            console.log(data);
             all_customers = data;
           })
           .catch((error) => {
