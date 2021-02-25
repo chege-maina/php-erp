@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 25, 2021 at 09:40 AM
+-- Generation Time: Feb 25, 2021 at 02:09 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -39,20 +39,21 @@ CREATE TABLE `tbl_invoice_items` (
   `total` varchar(100) NOT NULL,
   `status` varchar(15) NOT NULL DEFAULT 'pending',
   `user` varchar(50) NOT NULL,
-  `receipt_no` varchar(100) NOT NULL
+  `receipt_no` varchar(100) NOT NULL,
+  `branch_location` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_invoice_items`
 --
 
-INSERT INTO `tbl_invoice_items` (`id`, `salesbill_no`, `so_number`, `product_code`, `product_name`, `unit`, `qty`, `product_cost`, `total`, `status`, `user`, `receipt_no`) VALUES
-(7, '4', '2', '52', 'Hayden Duran', 'kgs', '3', '1100', '3300', 'pending', 'Jael Joel', '1'),
-(8, '4', '2', '53', 'Wyoming Wilkinson', 'lts', '5', '1300', '6500', 'pending', 'Jael Joel', '1'),
-(9, '5', '2', '52', 'Hayden Duran', 'kgs', '2', '1100', '2200', 'pending', 'Jael Joel', '2'),
-(10, '5', '2', '53', 'Wyoming Wilkinson', 'lts', '3', '1300', '3900', 'pending', 'Jael Joel', '2'),
-(11, '6', '2', '53', 'Wyoming Wilkinson', 'lts', '1', '1300', '1300', 'pending', 'Jael Joel', '3'),
-(12, '7', '2', '53', 'Wyoming Wilkinson', 'lts', '1', '1300', '1300', 'pending', 'Jael Joel', '4');
+INSERT INTO `tbl_invoice_items` (`id`, `salesbill_no`, `so_number`, `product_code`, `product_name`, `unit`, `qty`, `product_cost`, `total`, `status`, `user`, `receipt_no`, `branch_location`) VALUES
+(7, '4', '2', '52', 'Hayden Duran', 'kgs', '3', '1100', '3300', 'pending', 'Jael Joel', '1', ''),
+(8, '4', '2', '53', 'Wyoming Wilkinson', 'lts', '5', '1300', '6500', 'pending', 'Jael Joel', '1', ''),
+(9, '5', '2', '52', 'Hayden Duran', 'kgs', '2', '1100', '2200', 'pending', 'Jael Joel', '2', ''),
+(10, '5', '2', '53', 'Wyoming Wilkinson', 'lts', '3', '1300', '3900', 'pending', 'Jael Joel', '2', ''),
+(11, '6', '2', '53', 'Wyoming Wilkinson', 'lts', '1', '1300', '1300', 'pending', 'Jael Joel', '3', ''),
+(12, '7', '2', '53', 'Wyoming Wilkinson', 'lts', '1', '1300', '1300', 'pending', 'Jael Joel', '4', '');
 
 --
 -- Indexes for dumped tables

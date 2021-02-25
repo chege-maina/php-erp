@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 25, 2021 at 12:28 PM
+-- Generation Time: Feb 25, 2021 at 02:09 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -37,16 +37,17 @@ CREATE TABLE `tbl_sale_items` (
   `amount` varchar(254) NOT NULL,
   `tax` varchar(100) NOT NULL,
   `status` varchar(15) NOT NULL DEFAULT 'pending',
-  `tax_pc` varchar(10) NOT NULL
+  `tax_pc` varchar(10) NOT NULL,
+  `branch_location` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_sale_items`
 --
 
-INSERT INTO `tbl_sale_items` (`quote_no`, `product_code`, `product_name`, `unit`, `price`, `qty`, `amount`, `tax`, `status`, `tax_pc`) VALUES
-(99889, '52', 'Hayden Duran', 'kgs', '148330', '67', '9938110.00', '0.00', 'pending', '0'),
-(99889, '53', 'Wyoming Wilkinson', 'lts', '10686', '100', '1068600.00', '0.00', 'pending', '0');
+INSERT INTO `tbl_sale_items` (`quote_no`, `product_code`, `product_name`, `unit`, `price`, `qty`, `amount`, `tax`, `status`, `tax_pc`, `branch_location`) VALUES
+(99889, '52', 'Hayden Duran', 'kgs', '148330', '67', '9938110.00', '0.00', 'pending', '0', ''),
+(99889, '53', 'Wyoming Wilkinson', 'lts', '10686', '100', '1068600.00', '0.00', 'pending', '0', '');
 
 --
 -- Indexes for dumped tables

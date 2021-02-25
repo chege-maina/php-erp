@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 25, 2021 at 12:28 PM
+-- Generation Time: Feb 25, 2021 at 02:09 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -38,15 +38,16 @@ CREATE TABLE `tbl_sale` (
   `user` varchar(50) NOT NULL,
   `sub_total` varchar(100) NOT NULL,
   `tax` varchar(100) NOT NULL,
-  `amount` varchar(100) NOT NULL
+  `amount` varchar(100) NOT NULL,
+  `branch_location` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_sale`
 --
 
-INSERT INTO `tbl_sale` (`quote_no`, `date`, `customer_name`, `terms`, `due_date`, `time`, `status`, `user`, `sub_total`, `tax`, `amount`) VALUES
-(99889, '2021-02-24', 'Kasper Alvarez', '37', '2021-03-04', '11:03:51', 'pending', 'Jael Joel', '11006710', '0', '11006710');
+INSERT INTO `tbl_sale` (`quote_no`, `date`, `customer_name`, `terms`, `due_date`, `time`, `status`, `user`, `sub_total`, `tax`, `amount`, `branch_location`) VALUES
+(99889, '2021-02-24', 'Kasper Alvarez', '37', '2021-03-04', '11:03:51', 'pending', 'Jael Joel', '11006710', '0', '11006710', '');
 
 --
 -- Indexes for dumped tables
