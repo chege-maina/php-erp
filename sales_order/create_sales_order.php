@@ -80,6 +80,14 @@ include '../includes/base_page/head.php';
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col mt-3 mb-0">
+                <span>Status:</span>
+                <span id="status">
+                  <span class="badge rounded-pill badge-soft-secondary">No item selected</span>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card mt-1">
@@ -424,13 +432,14 @@ include '../includes/base_page/head.php';
       }
 
       function checkCustomerStatus(value) {
-        const c_status = customer_details[value];
-        if (c_status) {
-          console.log("Kopesha huyo");
-          submit.removeAttribute("disabled");
+        const status_elem = document.querySelector("#status");
+        const c_status = customer_details[value].status.toLowerCase();
+
+        if (c_status === "credit okay") {
+          status_elem.innerHTML = `<span class="badge rounded-pill badge-soft-success">${c_status}</span>`
         } else {
           submit.setAttribute("disabled", "");
-          cosnole.log("Kaa ngumu bro");
+          status_elem.innerHTML = `<span class="badge rounded-pill badge-soft-danger">${c_status}</span>`
         }
       }
 
