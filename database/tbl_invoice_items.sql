@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 25, 2021 at 02:09 PM
+-- Generation Time: Feb 25, 2021 at 02:41 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -40,14 +40,14 @@ CREATE TABLE `tbl_invoice_items` (
   `status` varchar(15) NOT NULL DEFAULT 'pending',
   `user` varchar(50) NOT NULL,
   `receipt_no` varchar(100) NOT NULL,
-  `branch_location` varchar(100) NOT NULL
+  `branch` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_invoice_items`
 --
 
-INSERT INTO `tbl_invoice_items` (`id`, `salesbill_no`, `so_number`, `product_code`, `product_name`, `unit`, `qty`, `product_cost`, `total`, `status`, `user`, `receipt_no`, `branch_location`) VALUES
+INSERT INTO `tbl_invoice_items` (`id`, `salesbill_no`, `so_number`, `product_code`, `product_name`, `unit`, `qty`, `product_cost`, `total`, `status`, `user`, `receipt_no`, `branch`) VALUES
 (7, '4', '2', '52', 'Hayden Duran', 'kgs', '3', '1100', '3300', 'pending', 'Jael Joel', '1', ''),
 (8, '4', '2', '53', 'Wyoming Wilkinson', 'lts', '5', '1300', '6500', 'pending', 'Jael Joel', '1', ''),
 (9, '5', '2', '52', 'Hayden Duran', 'kgs', '2', '1100', '2200', 'pending', 'Jael Joel', '2', ''),
