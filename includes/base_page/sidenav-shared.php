@@ -128,6 +128,19 @@ function genSideBar()
   </li>
 </ul>
 </li>
+<!-- Sales Order -->
+<li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-quote" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-cart-plus"></span></span><span class="nav-link-text"> Sales</span>
+  </div>
+</a>
+<ul class="nav collapse" id="e-quote" data-parent="#navbarVerticalCollapse">
+  <li class="nav-item"><a class="nav-link" href="../sales_order/create_sales_order.php">Create New Sales</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../sales_order/manage_sales_order.php">Manage Sales</a>
+  </li>
+</ul>
+</li>
+
 
 
 <!-- End of Qubes Working  -->
