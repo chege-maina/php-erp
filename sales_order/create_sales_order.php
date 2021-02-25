@@ -511,7 +511,7 @@ include '../includes/base_page/head.php';
             console.error('Error:', error);
           });
 
-        fetch('../includes/load_items_quote.php')
+        fetch('../includes/load_items_sales.php')
           .then(response => response.json())
           .then(result => {
             result.forEach((item) => {

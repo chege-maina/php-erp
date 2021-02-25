@@ -134,7 +134,7 @@ function genSideBar()
   </div>
 </a>
 <ul class="nav collapse" id="e-sale" data-parent="#navbarVerticalCollapse">
-  <li class="nav-item"><a class="nav-link" href="../sales_order/create_sales_order.php">From Quotation</a>
+  <li class="nav-item"><a class="nav-link" href="../sales_order/create_from_quotations.php">From Quotation</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../sales_order/create_sales_order.php">From Scratch</a>
   </li>
