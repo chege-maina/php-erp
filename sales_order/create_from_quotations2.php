@@ -376,21 +376,7 @@ include '../includes/base_page/head.php';
               cancel.appendChild(icon_c);
               cancel.classList.add("btn", "btn-falcon-primary", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
 
-
-              let reject = document.createElement("button");
-              full_id = "r-" + id_suffix;
-              reject.setAttribute("id", "r-" + id_suffix);
-              reject.setAttribute("onclick", "actionRespond('" + full_id + "');");
-              reject.setAttribute("data-toggle", "tooltip");
-              reject.setAttribute("title", "Reject");
-              let icon_r = document.createElement("span");
-              icon_r.classList.add("fas", "fa-times", "mt-1", "fa-sm");
-              reject.appendChild(icon_r);
-              reject.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
-              reject.disabled = result.length <= 1;
-
-
-              actionDiv.append(edit, save, cancel, reject);
+              actionDiv.append(edit, save, cancel);
               actionWrapper.appendChild(actionDiv);
 
               tr.append(code_td, name_td, units_td, unitsWrapper, quantityWrapper, total, actionWrapper);
@@ -494,7 +480,6 @@ include '../includes/base_page/head.php';
             const btn_save = document.querySelector("#s-" + value[1] + "-" + value[2]);
             const btn_edit = document.querySelector("#e-" + value[1] + "-" + value[2]);
             const btn_cancel = document.querySelector("#c-" + value[1] + "-" + value[2]);
-            const btn_reject = document.querySelector("#r-" + value[1] + "-" + value[2]);
             value[1] = value[1].replaceAll("_s_s_s_", " ");
 
             if (value[0] == "e") {
@@ -515,45 +500,6 @@ include '../includes/base_page/head.php';
               btn_save.disabled = true;
               btn_cancel.disabled = true;
               btn_edit.disabled = false;
-            } else if (value[0] == "r") {
-              // Reject item
-              if (!confirm("Are you sure you want to reject?")) {
-                return;
-              }
-
-              console.log("Rejecting");
-              const formData = new FormData();
-              formData.append("checker", "item_rejected");
-              formData.append("name", value[1]);
-              formData.append("qty", qtt.value);
-              formData.append("req_no", reqNo);
-              formData.append("tax", tax_percentage);
-              formData.append("price", ptt.value);
-              fetch('../includes/update_quotation.php', {
-                  method: 'POST',
-                  body: formData
-                })
-                .then(response => response.json())
-                .then(result => {
-                  const alertVar =
-                    `<div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Success!</strong> Brr ${result['message']}
-              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
-              </div>`;
-                  var divAlert = document.querySelector("#alert-div");
-                  divAlert.innerHTML = alertVar;
-                  divAlert.scrollIntoView();
-                  // On submit reload table
-                  fetchTableItems();
-
-                  window.setTimeout(() => {
-                    divAlert.innerHTML = "";
-                  }, 2500);
-                })
-                .catch(error => {
-                  console.error('Error:', error);
-                });
-
             } else if (value[0] == "s") {
 
 
