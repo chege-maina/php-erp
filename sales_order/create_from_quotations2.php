@@ -39,7 +39,7 @@ include '../includes/base_page/head.php';
           <!-- body begins here -->
           <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
           <div id="alert-div"></div>
-          <h3 class="mb-0 p-2">Manage Sales Order</h3>
+          <h3 class="mb-0 p-2">Create Sales Order</h3>
           <div class="card mb-1">
 
             <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/illustrations/corner-4.png);">
@@ -275,11 +275,6 @@ include '../includes/base_page/head.php';
               code_td.appendChild(document.createTextNode(data["code"]));
               code_td.classList.add("align-middle");
 
-
-              let code_td = document.createElement("td");
-              code_td.appendChild(document.createTextNode(data["code"]));
-              code_td.classList.add("align-middle");
-
               let name_td = document.createElement("td");
               name_td.appendChild(document.createTextNode(data["name"]));
               name_td.classList.add("align-middle", "w-25");
@@ -417,13 +412,16 @@ include '../includes/base_page/head.php';
             formData.append("name", "");
             formData.append("qty", -1);
             formData.append("req_no", reqNo);
+            formData.append("tax", "");
+            formData.append("price", "");
 
             fetch('../includes/update_quotation.php', {
                 method: 'POST',
                 body: formData
               })
-              .then(response => response.json())
+              .then(response => response.text())
               .then(result => {
+                console.log(result);
                 const alertVar =
                   `<div class="alert alert-success alert-dismissible fade show" role="alert">
               <strong>Success!</strong> ${result['message']}
@@ -434,7 +432,7 @@ include '../includes/base_page/head.php';
                 divAlert.scrollIntoView();
 
                 window.setTimeout(() => {
-                  location.href = "create_from_quotations2.php"
+                  location.href = "./manage_quotation.php";
                 }, 2500);
 
               })
@@ -458,6 +456,8 @@ include '../includes/base_page/head.php';
             formData.append("name", "");
             formData.append("qty", -1);
             formData.append("req_no", reqNo);
+            formData.append("tax", "");
+            formData.append("price", "");
 
             fetch('../includes/update_quotation.php', {
                 method: 'POST',
@@ -475,7 +475,7 @@ include '../includes/base_page/head.php';
                 divAlert.scrollIntoView();
 
                 window.setTimeout(() => {
-                  location.href = "manage_qr.php"
+                  location.href = "manage_quotation.php"
                 }, 2500);
 
               })
@@ -527,7 +527,8 @@ include '../includes/base_page/head.php';
               formData.append("name", value[1]);
               formData.append("qty", qtt.value);
               formData.append("req_no", reqNo);
-
+              formData.append("tax", tax_percentage);
+              formData.append("price", ptt.value);
               fetch('../includes/update_quotation.php', {
                   method: 'POST',
                   body: formData
