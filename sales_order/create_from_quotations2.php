@@ -72,7 +72,7 @@ include '../includes/base_page/head.php';
                   <label for="customer" class="form-label">Customer</label>
                   <input type="text" name="customer" id="customer" class="form-control" required readonly>
                 </div>
-                <div class="col">
+                <div class="col d-flex align-items-end">
                   <span class="b-4">Status: </span>
                   <span id="requisition_status"></span>
                 </div>
