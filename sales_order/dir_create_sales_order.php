@@ -486,7 +486,7 @@ include '../includes/base_page/head.php';
 
 
       document.addEventListener('DOMContentLoaded', function() {
-        populateCustomerDatalist('../includes/load_customer_sales.php', "customerlist", "name", "status");
+        populateCustomerDatalist('../includes/load_customer.php', "customerlist", "name", "status");
         populateDatalist('../includes/load_items_quote.php', "items_quote", "name");
 
         fetch('../includes/load_customer_sales.php')
