@@ -25,6 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $terms = sanitize_input($_POST["terms"]);
   $user = sanitize_input($_POST["user"]);
   $amount = sanitize_input($_POST["amount"]);
+  $checker = sanitize_input($_POST["checker"]);
+  $quotation_no = sanitize_input($_POST["quotation_no"]);
   $table_items = json_decode($_POST["table_items"], true);
 
   $mysql = "INSERT INTO tbl_sale (date, customer_name, terms, branch_location, 
@@ -55,10 +57,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   '" . $value["p_name"] . "','" . $value["p_units"] . "', '" . $value["p_quantity"] . "',
   '" . $value["p_price"] . "','" . $value["p_amount"] . "','" . $value["p_tax"] . "','" . $value["p_tax_pc"] . "','" . $branch . "')";
       mysqli_query($conn, $mysql);
-
-      $message = "Sales Order " . $quote_no . " Created Successfully..";
-      echo json_encode($message);
     }
+    if (strcmp($checker, 'from quote') == 0) {
+      $sql1 = "UPDATE tbl_quotation_items SET status = 'done' WHERE quote_no = '" . $quotation_no . "'";
+      $sql = "UPDATE tbl_quotation SET status = 'done' WHERE quote_no = '" . $quotation_no . "'";
+      mysqli_query($conn, $sql);
+      mysqli_query($conn, $sql1);
+    }
+    $message = "Sales Order " . $quote_no . " Created Successfully..";
+    echo json_encode($message);
   } else {
     // echo "Multiquery failed: " . $mysql;
     echo "Multi query failed: (" . $conn->errno . ") " . $conn->error . "sql: " . $mysql;
