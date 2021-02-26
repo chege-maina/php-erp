@@ -432,7 +432,7 @@ include '../includes/base_page/head.php';
                 divAlert.scrollIntoView();
 
                 window.setTimeout(() => {
-                  location.href = "manage_qr.php"
+                  location.href = "./manage_quotation.php";
                 }, 2500);
 
               })
