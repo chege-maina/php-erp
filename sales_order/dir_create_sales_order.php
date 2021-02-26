@@ -64,7 +64,7 @@ include '../includes/base_page/head.php';
             <div class="row">
               <div class="col">
                 <label for="browser" class="form-label">Select Customer</label>
-                <input list="customerlist" id="customer" class="form-select" required onchange="checkCustomerStatus(this.value)">
+                <input list="customerlist" id="customer" class="form-select" required>
                 <datalist id="customerlist" class="bg-light"></datalist>
               </div>
               <div class="col">
@@ -76,6 +76,8 @@ include '../includes/base_page/head.php';
                 </div>
               </div>
             </div>
+
+            <!--
             <div class="row">
               <div class="col mt-3 mb-0">
                 <span>Status:</span>
@@ -84,6 +86,8 @@ include '../includes/base_page/head.php';
                 </span>
               </div>
             </div>
+            -->
+
           </div>
         </div>
         <div class="card mt-1">
@@ -429,16 +433,16 @@ include '../includes/base_page/head.php';
         po_total_a.set(quotation_total);
       }
 
-      function checkCustomerStatus(value) {
-        const status_elem = document.querySelector("#status");
-        const c_status = customer_details[value].status.toLowerCase();
+      //function checkCustomerStatus(value) {
+      //  const status_elem = document.querySelector("#status");
+      //const c_status = customer_details[value].name.toLowerCase();
 
-        if (c_status === "credit okay") {
-          status_elem.innerHTML = `<span class="badge rounded-pill badge-soft-success">${c_status}</span>`
-        } else {
-          status_elem.innerHTML = `<span class="badge rounded-pill badge-soft-danger">${c_status}</span>`
-        }
-      }
+      //   if (c_status === "credit okay") {
+      //   status_elem.innerHTML = `<span class="badge rounded-pill badge-soft-success">${c_status}</span>`
+      //  } else {
+      //  status_elem.innerHTML = `<span class="badge rounded-pill badge-soft-danger">${c_status}</span>`
+      // }
+      // }
 
 
       let updateQuotableItems = () => {
@@ -466,7 +470,7 @@ include '../includes/base_page/head.php';
             }
             result.forEach((value) => {
               customer_details[value["name"]] = {
-                status: value["status"],
+                terms: value["terms"],
               }
               let opt = document.createElement("option");
               opt.value = value[key_main];
@@ -486,7 +490,7 @@ include '../includes/base_page/head.php';
 
 
       document.addEventListener('DOMContentLoaded', function() {
-        populateCustomerDatalist('../includes/load_customer.php', "customerlist", "name", "status");
+        populateCustomerDatalist('../includes/load_customer.php', "customerlist", "name", "terms");
         populateDatalist('../includes/load_items_quote.php', "items_quote", "name");
 
         fetch('../includes/load_customer_sales.php')
