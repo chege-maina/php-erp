@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'branch' => $row['due_date'],
         'user' => $row['user'],
         'customer' => $row['customer_name'],
+        'terms' => $row['terms'],
         'tax' => $tax,
         'sub_total' => $sub_total,
         'amount' => $total,

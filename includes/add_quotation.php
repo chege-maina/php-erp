@@ -5,6 +5,8 @@ if (mysqli_connect_errno()) {
   // If there is an error with the connection, stop the script and display the error.
   die('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
+session_start();
+$branch = $_SESSION['branch'];
 
 function sanitize_input($data)
 {
@@ -27,9 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $table_items = json_decode($_POST["table_items"], true);
 
   $mysql = "INSERT INTO tbl_quotation (date, customer_name, terms, due_date, time, 
-  user, sub_total, tax, amount) VALUES ('" . $date . "', 
+  user, sub_total, tax, amount, branch_location) VALUES ('" . $date . "', 
   '" . $customer . "', '" . $terms . "', '" . $due_date . "', '" . $time . "', '" . $user . "',
-  '" . $sub_total . "', '" . $tax . "', '" . $amount . "');";
+  '" . $sub_total . "', '" . $tax . "', '" . $amount . "', , '" . $branch . "');";
   $mysql .= "SELECT quote_no FROM tbl_quotation ORDER BY quote_no DESC LIMIT 1";
 
   if (mysqli_multi_query($conn, $mysql)) {
@@ -50,9 +52,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     foreach ($table_items as $key => $value) {
 
       $mysql = "INSERT INTO tbl_quotation_items (quote_no, product_code, product_name, 
-  unit, qty, price, amount, tax, tax_pc) VALUES('" . $quote_no . "','" . $value["p_code"] . "',
+  unit, qty, price, amount, tax, tax_pc, branch_location) VALUES('" . $quote_no . "','" . $value["p_code"] . "',
   '" . $value["p_name"] . "','" . $value["p_units"] . "', '" . $value["p_quantity"] . "',
-  '" . $value["p_price"] . "','" . $value["p_amount"] . "','" . $value["p_tax"] . "','" . $value["p_tax_pc"] . "')";
+  '" . $value["p_price"] . "','" . $value["p_amount"] . "','" . $value["p_tax"] . "','" . $value["p_tax_pc"] . "','" . $branch . "')";
       mysqli_query($conn, $mysql);
 
       $message = "Quotation " . $quote_no . " Created Successfully..";
