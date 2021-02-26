@@ -207,7 +207,9 @@ include '../includes/base_page/head.php';
           return;
         } else if (!valid_until_elem.validity.valid) {
           valid_until_elem.focus();
+          return;
         } else if (!customer.validity.valid) {
+          return;
           customer.focus();
         }
         const formData = new FormData();
