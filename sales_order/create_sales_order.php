@@ -214,8 +214,10 @@ include '../includes/base_page/head.php';
           return;
         } else if (!valid_until_elem.validity.valid) {
           valid_until_elem.focus();
+          return
         } else if (!customer.validity.valid) {
           customer.focus();
+          return
         }
         const formData = new FormData();
         formData.append("date", date_e.value);

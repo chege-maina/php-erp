@@ -209,8 +209,8 @@ include '../includes/base_page/head.php';
           valid_until_elem.focus();
           return;
         } else if (!customer.validity.valid) {
-          return;
           customer.focus();
+          return;
         }
         const formData = new FormData();
         formData.append("date", date_e.value);
