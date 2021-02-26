@@ -138,15 +138,10 @@ include '../includes/base_page/head.php';
 
           <div class="card mt-1 mb-3 h-xxl-100">
             <div class="card-body">
-              <div class="row justify-content-between align-items-center">
+              <div class="row d-flex justify-content-end align-items-center">
                 <div class="col-auto">
-                  <button class="btn btn-falcon-success btn-sm mr-2" id="approve_req" onclick="approveRequisition();">
-                    <span class="fas fa-check mr-1" data-fa-transform="shrink-3"></span>
-                    Approve
-                  </button>
-                  <button class="btn btn-falcon-danger btn-sm" id="reject_req" onclick="rejectRequisition();">
-                    <span class="fas fa-times mr-1" data-fa-transform="shrink-3"></span>
-                    Reject
+                  <button class="btn btn-falcon-info btn-sm mr-2" id="approve_req" onclick="createFromQuotation();">
+                    Submit
                   </button>
                 </div>
               </div>
@@ -160,7 +155,7 @@ include '../includes/base_page/head.php';
         </div>
 
         <script>
-          let reqNo = -1;
+          let quotation_number = -1;
           let reqStatus = "";
           const req_no = document.querySelector("#req_no");
           const requisition_date = document.querySelector("#requisition_date");
@@ -173,6 +168,7 @@ include '../includes/base_page/head.php';
           const requisition_status = document.querySelector("#requisition_status");
           const table_body = document.querySelector("#table_body");
           let table_items = [];
+          let customer_terms = 0;
 
           window.addEventListener('DOMContentLoaded', (event) => {
             if (sessionStorage.length === 0) {
@@ -180,7 +176,7 @@ include '../includes/base_page/head.php';
             }
 
             // Get passed requisition number
-            reqNo = sessionStorage.getItem('req_no');
+            quotation_number = sessionStorage.getItem('req_no');
             // Clear data
             // HACK: Major Security flaw, this is being done to
             // accomodate reloading of page just so that calculations are saved
@@ -188,7 +184,7 @@ include '../includes/base_page/head.php';
 
             // Load the requisition item for the number
             const formData = new FormData();
-            formData.append("req_no", reqNo)
+            formData.append("req_no", quotation_number)
             fetch('../includes/quotation_manage.php', {
                 method: 'POST',
                 body: formData
@@ -196,10 +192,12 @@ include '../includes/base_page/head.php';
               .then(response => response.json())
               .then(result => {
                 data = result[0];
+                console.log(data);
                 req_no.appendChild(document.createTextNode(data["req_no"]));
                 requisition_date.value = data["date"];
                 branch.value = data["branch"];
                 created_by.value = data["user"];
+                customer_terms = data["terms"];
                 customer.value = data["customer"];
                 reqStatus = data['status'];
                 sub_total.value = data["sub_total"];
@@ -239,7 +237,7 @@ include '../includes/base_page/head.php';
 
           function fetchTableItems() {
             const formData = new FormData();
-            formData.append("req_no", reqNo)
+            formData.append("req_no", quotation_number)
             fetch('../includes/quotation_manage_items.php', {
                 method: 'POST',
                 body: formData
@@ -385,8 +383,9 @@ include '../includes/base_page/head.php';
             });
           }
 
-          function rejectRequisition() {
-            if (!confirm("Are you sure you want to reject?")) {
+
+          function createFromQuotation() {
+            if (!confirm("Are you sure you want to submit?")) {
               return;
             }
             console.log("Rejecting");
@@ -394,58 +393,18 @@ include '../includes/base_page/head.php';
             disableAllButtons();
 
             const formData = new FormData();
-            formData.append("checker", "req_rejected");
-            formData.append("name", "");
-            formData.append("qty", -1);
-            formData.append("req_no", reqNo);
-            formData.append("tax", "");
-            formData.append("price", "");
+            formData.append("date", requisition_date.value);
+            formData.append("customer", customer.value);
+            formData.append("sub_total", sub_total.value);
+            formData.append("tax", tax.value);
+            formData.append("terms", customer_terms);
+            formData.append("user", user_name);
+            formData.append("amount", amount.value);
+            formData.append("checker", "from quote");
+            formData.append("quotation_no", quotation_number);
+            formData.append("table_items", JSON.stringify(table_items));
 
-            fetch('../includes/update_quotation.php', {
-                method: 'POST',
-                body: formData
-              })
-              .then(response => response.json())
-              .then(result => {
-                console.log(result);
-                const alertVar =
-                  `<div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Success!</strong> ${result['message']}
-              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
-              </div>`;
-                var divAlert = document.querySelector("#alert-div");
-                divAlert.innerHTML = alertVar;
-                divAlert.scrollIntoView();
-
-                window.setTimeout(() => {
-                  location.href = "./manage_quotation.php";
-                }, 2500);
-
-              })
-              .catch(error => {
-                console.error('Error:', error);
-              });
-
-          }
-
-
-          function approveRequisition() {
-            if (!confirm("Are you sure you want to approve?")) {
-              return;
-            }
-            console.log("Rejecting");
-
-            disableAllButtons();
-
-            const formData = new FormData();
-            formData.append("checker", "approve_req");
-            formData.append("name", "");
-            formData.append("qty", -1);
-            formData.append("req_no", reqNo);
-            formData.append("tax", "");
-            formData.append("price", "");
-
-            fetch('../includes/update_quotation.php', {
+            fetch('../includes/add_sales_order.php', {
                 method: 'POST',
                 body: formData
               })
@@ -519,7 +478,7 @@ include '../includes/base_page/head.php';
               formData.append("ptt", ptt.value);
               formData.append("tax", tax_percentage);
               formData.append("price", ptt.value);
-              formData.append("req_no", reqNo);
+              formData.append("req_no", quotation_number);
 
               fetch('../includes/update_quotation.php', {
                   method: 'POST',
