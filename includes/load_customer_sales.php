@@ -40,6 +40,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     array(
       'name' => $cust_name,
       'limit' => $limit,
+      'terms' => $terms,
       'balance' => $balance,
       'status' => $status
     )
