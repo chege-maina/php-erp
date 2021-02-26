@@ -426,7 +426,7 @@ include '../includes/base_page/head.php';
               .then(result => {
                 const alertVar =
                   `<div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Success!</strong> ${result['message']}
+              <strong>Success!</strong> ${result}
               <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
               </div>`;
                 var divAlert = document.querySelector("#alert-div");
