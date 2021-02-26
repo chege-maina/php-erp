@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $mysql = "INSERT INTO tbl_quotation (date, customer_name, terms, due_date, time, 
   user, sub_total, tax, amount, branch_location) VALUES ('" . $date . "', 
   '" . $customer . "', '" . $terms . "', '" . $due_date . "', '" . $time . "', '" . $user . "',
-  '" . $sub_total . "', '" . $tax . "', '" . $amount . "', , '" . $branch . "');";
+  '" . $sub_total . "', '" . $tax . "', '" . $amount . "', '" . $branch . "');";
   $mysql .= "SELECT quote_no FROM tbl_quotation ORDER BY quote_no DESC LIMIT 1";
 
   if (mysqli_multi_query($conn, $mysql)) {
