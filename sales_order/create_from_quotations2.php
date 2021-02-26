@@ -172,7 +172,7 @@ include '../includes/base_page/head.php';
 
           window.addEventListener('DOMContentLoaded', (event) => {
             if (sessionStorage.length === 0) {
-              location.href = "./manage_quotation.php";
+              location.href = "create_from_quotations.php";
             }
 
             // Get passed requisition number
@@ -434,7 +434,7 @@ include '../includes/base_page/head.php';
                 divAlert.scrollIntoView();
 
                 window.setTimeout(() => {
-                  location.href = "manage_quotation.php"
+                  location.href = "create_from_quotations.php";
                 }, 2500);
 
               })
