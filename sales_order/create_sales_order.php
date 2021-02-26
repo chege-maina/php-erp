@@ -312,7 +312,7 @@ include '../includes/base_page/head.php';
           quantity.classList.add("form-control", "form-control-sm", "align-middle");
           quantity.setAttribute("data-ref", table_items[item]["name"]);
           quantity.setAttribute("min", 1);
-          quantity.setAttribute("max", table_items[item]['max']);
+          quantity.setAttribute("max", table_items[item]['balance']);
 
           // make sure the quantity is always greater than 0
           quantity.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
