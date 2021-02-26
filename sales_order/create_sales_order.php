@@ -158,12 +158,10 @@ include '../includes/base_page/head.php';
 
     <script>
       const po_time = document.querySelector("#time");
-      const valid_until = document.querySelector('#valid_until');
       const table_body = document.querySelector('#table_body');
       const items_quote = document.querySelector('#items_quote');
       const quotable_items = document.querySelector('#quotable_items');
       const customer = document.querySelector("#customer");
-      const valid_until_elem = document.querySelector("#valid_until");
       const date_e = document.querySelector("#date");
       const time_t = document.querySelector("#time");
       const submit = document.querySelector("#submit");
@@ -212,9 +210,6 @@ include '../includes/base_page/head.php';
         if (table_items.length <= 0) {
           quotable_items.focus();
           return;
-        } else if (!valid_until_elem.validity.valid) {
-          valid_until_elem.focus();
-          return
         } else if (!customer.validity.valid) {
           customer.focus();
           return
@@ -224,7 +219,6 @@ include '../includes/base_page/head.php';
         formData.append("time", time_t.value);
         formData.append("customer", customer.value);
         formData.append("sub_total", po_total_a.getNumericString());
-        formData.append("due_date", valid_until_elem.value);
         formData.append("tax", tax_total_a.getNumericString());
 
         let terms;
@@ -488,14 +482,6 @@ include '../includes/base_page/head.php';
 
 
       document.addEventListener('DOMContentLoaded', function() {
-        const today = addDays(new Date(), 1);
-        console.log(today);
-
-        const dateMax = addDays(today, 7);
-        let month = d_toString(dateMax.getMonth() + 1);
-        let day = d_toString(dateMax.getDate());
-        valid_until.setAttribute("min", String(dateMax.getFullYear()) + '-' + month + '-' + day);
-        valid_until.setAttribute("value", String(dateMax.getFullYear()) + '-' + month + '-' + day);
         populateCustomerDatalist('../includes/load_customer_sales.php', "customerlist", "name", "status");
         populateDatalist('../includes/load_items_quote.php', "items_quote", "name");
 
