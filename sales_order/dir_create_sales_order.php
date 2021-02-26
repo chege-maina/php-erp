@@ -68,7 +68,7 @@ include '../includes/base_page/head.php';
                 <datalist id="customerlist" class="bg-light"></datalist>
               </div>
               <div class="col">
-                <label for="browser" class="form-label">Add Items to Quotation</label>
+                <label for="browser" class="form-label">Add Items to Sales Order</label>
                 <div class="input-group">
                   <input list="items_quote" id="quotable_items" class="form-select" required>
                   <datalist id="items_quote" class="bg-light"></datalist>
