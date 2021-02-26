@@ -249,9 +249,9 @@ include '../includes/base_page/head.php';
                 updateTable(result);
 
                 // Disable buttons if necessary
-                if (reqStatus !== "pending") {
-                  disableAllButtons();
-                }
+                // if (reqStatus !== "pending") {
+                // disableAllButtons();
+                // }
               })
               .catch(error => {
                 console.error('Error:', error);
@@ -419,7 +419,7 @@ include '../includes/base_page/head.php';
                 method: 'POST',
                 body: formData
               })
-              .then(response => response.text())
+              .then(response => response.json())
               .then(result => {
                 console.log(result);
                 const alertVar =
@@ -537,7 +537,7 @@ include '../includes/base_page/head.php';
                 .then(result => {
                   const alertVar =
                     `<div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Success!</strong> ${result['message']}
+              <strong>Success!</strong> Brr ${result['message']}
               <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
               </div>`;
                   var divAlert = document.querySelector("#alert-div");
@@ -579,7 +579,7 @@ include '../includes/base_page/head.php';
                   method: 'POST',
                   body: formData
                 })
-                .then(response => response.text())
+                .then(response => response.json())
                 .then(result => {
                   console.log(result);
                   const alertVar =
