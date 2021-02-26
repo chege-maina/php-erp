@@ -139,7 +139,7 @@ include '../includes/base_page/head.php';
         <div class="card mt-1">
           <div class="card-body fs--1 p-1">
             <div class="d-flex flex-row-reverse">
-              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitForm();" disabled>
+              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitForm();">
                 Submit
               </button>
             </div>
@@ -433,9 +433,7 @@ include '../includes/base_page/head.php';
 
         if (c_status === "credit okay") {
           status_elem.innerHTML = `<span class="badge rounded-pill badge-soft-success">${c_status}</span>`
-          submit.removeAttribute("disabled");
         } else {
-          submit.setAttribute("disabled", "");
           status_elem.innerHTML = `<span class="badge rounded-pill badge-soft-danger">${c_status}</span>`
         }
       }
@@ -486,14 +484,6 @@ include '../includes/base_page/head.php';
 
 
       document.addEventListener('DOMContentLoaded', function() {
-        const today = addDays(new Date(), 1);
-        console.log(today);
-
-        const dateMax = addDays(today, 7);
-        let month = d_toString(dateMax.getMonth() + 1);
-        let day = d_toString(dateMax.getDate());
-        valid_until.setAttribute("min", String(dateMax.getFullYear()) + '-' + month + '-' + day);
-        valid_until.setAttribute("value", String(dateMax.getFullYear()) + '-' + month + '-' + day);
         populateCustomerDatalist('../includes/load_customer_sales.php', "customerlist", "name", "status");
         populateDatalist('../includes/load_items_quote.php', "items_quote", "name");
 
