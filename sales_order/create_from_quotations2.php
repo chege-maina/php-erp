@@ -402,7 +402,21 @@ include '../includes/base_page/head.php';
             formData.append("amount", amount.value);
             formData.append("checker", "from quote");
             formData.append("quotation_no", quotation_number);
-            formData.append("table_items", JSON.stringify(table_items));
+            let sendable_table = [];
+            table_items.forEach(item => {
+              sendable_table.push({
+                p_code: item.code,
+                p_name: item.name,
+                p_units: item.unit,
+                p_amount: item.total,
+                p_quantity: item.qty,
+                p_price: item.balance,
+                p_tax: item.tax,
+                p_tax_pc: item.tax_pc,
+              })
+            });
+
+            formData.append("table_items", JSON.stringify(sendable_table));
 
             fetch('../includes/add_sales_order.php', {
                 method: 'POST',
