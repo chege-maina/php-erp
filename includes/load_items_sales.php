@@ -75,7 +75,6 @@ while ($row = mysqli_fetch_assoc($result)) {
             $response,
             array(
                 'balance' => $balance,
-                'max' => $max,
                 'code' => $row['product_code'],
                 'name' => $row['product_name'],
                 'unit' => $row['product_unit'],
