@@ -412,13 +412,16 @@ include '../includes/base_page/head.php';
             formData.append("name", "");
             formData.append("qty", -1);
             formData.append("req_no", reqNo);
+            formData.append("tax", "");
+            formData.append("price", "");
 
             fetch('../includes/update_quotation.php', {
                 method: 'POST',
                 body: formData
               })
-              .then(response => response.json())
+              .then(response => response.text())
               .then(result => {
+                console.log(result);
                 const alertVar =
                   `<div class="alert alert-success alert-dismissible fade show" role="alert">
               <strong>Success!</strong> ${result['message']}
@@ -453,6 +456,8 @@ include '../includes/base_page/head.php';
             formData.append("name", "");
             formData.append("qty", -1);
             formData.append("req_no", reqNo);
+            formData.append("tax", "");
+            formData.append("price", "");
 
             fetch('../includes/update_quotation.php', {
                 method: 'POST',
@@ -522,7 +527,8 @@ include '../includes/base_page/head.php';
               formData.append("name", value[1]);
               formData.append("qty", qtt.value);
               formData.append("req_no", reqNo);
-
+              formData.append("tax", tax_percentage);
+              formData.append("price", ptt.value);
               fetch('../includes/update_quotation.php', {
                   method: 'POST',
                   body: formData
