@@ -50,7 +50,7 @@ include '../includes/base_page/head.php';
 
 
               <div class="col-lg-8 mb-3">
-                <h5>Quotation Number <span id="req_no" class="text-info h2 mr-3"></span></h5>
+                <h5>Sales Order Number <span id="req_no" class="text-info h2 mr-3"></span></h5>
               </div>
 
               <div class="row">
