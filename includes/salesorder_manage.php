@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       array(
         'req_no' => $row['quote_no'],
         'date' => $row['date'],
-        'branch' => $row['due_date'],
+        'branch' => $row['branch_location'],
         'user' => $row['user'],
         'customer' => $row['customer_name'],
         'terms' => $row['terms'],
