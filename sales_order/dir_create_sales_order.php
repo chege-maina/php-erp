@@ -230,7 +230,7 @@ include '../includes/base_page/head.php';
         formData.append("terms", terms);
         formData.append("user", user_name);
         formData.append("amount", total_before_tax.value);
-        formData.append("checker", "from quote");
+        formData.append("checker", "from director");
         formData.append("quotation_no", -1);
         let sendable_table = [];
         table_items.forEach(item => {
@@ -495,9 +495,10 @@ include '../includes/base_page/head.php';
         populateDatalist('../includes/load_items_quote.php', "items_quote", "name");
 
         fetch('../includes/load_customer_sales.php')
-          .then(response => response.text())
+          .then(response => response.json())
           .then(data => {
             console.log(data);
+            terms = data[0].terms;
             all_customers = data;
           })
           .catch((error) => {

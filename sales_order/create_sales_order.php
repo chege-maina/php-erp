@@ -486,10 +486,9 @@ include '../includes/base_page/head.php';
         populateDatalist('../includes/load_items_quote.php', "items_quote", "name");
 
         fetch('../includes/load_customer_sales.php')
-          .then(response => response.text())
+          .then(response => response.json())
           .then(data => {
-            console.log(data);
-            terms = data.terms;
+            terms = data[0].terms;
             all_customers = data;
           })
           .catch((error) => {
