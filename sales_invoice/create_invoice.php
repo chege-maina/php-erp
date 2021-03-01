@@ -67,7 +67,7 @@ include '../includes/base_page/head.php';
             <table class="table table-sm table-striped" id="table-main">
               <thead>
                 <tr>
-                  <th>Sales Invoice Number</th>
+                  <th>Sales Order Number</th>
                   <th>Customer </th>
                   <th>Date </th>
                   <th>Created By</th>
@@ -179,7 +179,7 @@ include '../includes/base_page/head.php';
           req_date_to.value = String(date.getFullYear()) + '-' + month + '-' + day_to;
           req_date_to.setAttribute("min", req_date_from.value);
 
-          fetch('../includes/load_quotation_forsale.php')
+          fetch('../includes/load_saleorder_invoice.php')
             .then(response => response.json())
             .then(data => {
               console.log(data);
