@@ -195,6 +195,7 @@ include '../includes/base_page/head.php';
               })
               .then(response => response.json())
               .then(result => {
+                console.log(result);
                 data = result[0];
                 req_no.appendChild(document.createTextNode(data["req_no"]));
                 requisition_date.value = data["date"];
