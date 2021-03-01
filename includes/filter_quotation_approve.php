@@ -22,8 +22,9 @@ while ($row = mysqli_fetch_assoc($result)) {
       'req_no' => $row['quote_no'],
       'customer' => $row['customer_name'],
       'date' => $row['date'],
-      'branch' => $row['due_date'],
+      'due_date' => $row['due_date'],
       'user' => $row['user'],
+      'branch' => $row['branch_location'],
       'status' => $row['status']
     )
   );
