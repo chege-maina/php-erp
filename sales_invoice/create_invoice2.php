@@ -39,7 +39,7 @@ include '../includes/base_page/head.php';
           <!-- body begins here -->
           <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
           <div id="alert-div"></div>
-          <h3 class="mb-0 p-2">Manage Sales Order</h3>
+          <h3 class="mb-0 p-2">Create Sales Invoice</h3>
           <div class="card mb-1">
 
             <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/illustrations/corner-4.png);">
@@ -50,7 +50,7 @@ include '../includes/base_page/head.php';
 
 
               <div class="col-lg-8 mb-3">
-                <h5>Sales Order Number <span id="req_no" class="text-info h2 mr-3"></span></h5>
+                <h5>Sales Invoice Number <span id="req_no" class="text-info h2 mr-3"></span></h5>
               </div>
 
               <div class="row">
@@ -72,7 +72,7 @@ include '../includes/base_page/head.php';
                   <label for="customer" class="form-label">Customer</label>
                   <input type="text" name="customer" id="customer" class="form-control" required readonly>
                 </div>
-                <div class="col">
+                <div class="col d-flex align-items-end">
                   <span class="b-4">Status: </span>
                   <span id="requisition_status"></span>
                 </div>
@@ -138,15 +138,10 @@ include '../includes/base_page/head.php';
 
           <div class="card mt-1 mb-3 h-xxl-100">
             <div class="card-body">
-              <div class="row justify-content-between align-items-center">
+              <div class="row d-flex justify-content-end align-items-center">
                 <div class="col-auto">
-                  <button class="btn btn-falcon-success btn-sm mr-2" id="approve_req" onclick="approveRequisition();">
-                    <span class="fas fa-check mr-1" data-fa-transform="shrink-3"></span>
-                    Approve
-                  </button>
-                  <button class="btn btn-falcon-danger btn-sm" id="reject_req" onclick="rejectRequisition();">
-                    <span class="fas fa-times mr-1" data-fa-transform="shrink-3"></span>
-                    Reject
+                  <button class="btn btn-falcon-info btn-sm mr-2" id="approve_req" onclick="createFromQuotation();">
+                    Submit
                   </button>
                 </div>
               </div>
@@ -173,10 +168,11 @@ include '../includes/base_page/head.php';
           const requisition_status = document.querySelector("#requisition_status");
           const table_body = document.querySelector("#table_body");
           let table_items = [];
+          let customer_terms = 0;
 
           window.addEventListener('DOMContentLoaded', (event) => {
             if (sessionStorage.length === 0) {
-              location.href = "./manage_sales.php";
+              location.href = "create_invoice.php";
             }
 
             // Get passed requisition number
@@ -184,22 +180,24 @@ include '../includes/base_page/head.php';
             // Clear data
             // HACK: Major Security flaw, this is being done to
             // accomodate reloading of page just so that calculations are saved
-            //sessionStorage.clear();
+            // sessionStorage.clear();
 
             // Load the requisition item for the number
             const formData = new FormData();
             formData.append("req_no", quotation_number)
-            fetch('../includes/salesorder_manage.php', {
+            fetch('../includes/quotation_manage.php', {
                 method: 'POST',
                 body: formData
               })
               .then(response => response.json())
               .then(result => {
                 data = result[0];
+                console.log(data);
                 req_no.appendChild(document.createTextNode(data["req_no"]));
                 requisition_date.value = data["date"];
                 branch.value = data["branch"];
                 created_by.value = data["user"];
+                customer_terms = data["terms"];
                 customer.value = data["customer"];
                 reqStatus = data['status'];
                 sub_total.value = data["sub_total"];
@@ -240,7 +238,7 @@ include '../includes/base_page/head.php';
           function fetchTableItems() {
             const formData = new FormData();
             formData.append("req_no", quotation_number)
-            fetch('../includes/salesorder_manage_items.php', {
+            fetch('../includes/quotation_manage_items.php', {
                 method: 'POST',
                 body: formData
               })
@@ -249,9 +247,9 @@ include '../includes/base_page/head.php';
                 updateTable(result);
 
                 // Disable buttons if necessary
-                if (reqStatus !== "pending") {
-                  disableAllButtons();
-                }
+                // if (reqStatus !== "pending") {
+                // disableAllButtons();
+                // }
               })
               .catch(error => {
                 console.error('Error:', error);
@@ -376,21 +374,7 @@ include '../includes/base_page/head.php';
               cancel.appendChild(icon_c);
               cancel.classList.add("btn", "btn-falcon-primary", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
 
-
-              let reject = document.createElement("button");
-              full_id = "r-" + id_suffix;
-              reject.setAttribute("id", "r-" + id_suffix);
-              reject.setAttribute("onclick", "actionRespond('" + full_id + "');");
-              reject.setAttribute("data-toggle", "tooltip");
-              reject.setAttribute("title", "Reject");
-              let icon_r = document.createElement("span");
-              icon_r.classList.add("fas", "fa-times", "mt-1", "fa-sm");
-              reject.appendChild(icon_r);
-              reject.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill", "mr-2", "col", "col-auto");
-              reject.disabled = result.length <= 1;
-
-
-              actionDiv.append(edit, save, cancel, reject);
+              actionDiv.append(edit, save, cancel);
               actionWrapper.appendChild(actionDiv);
 
               tr.append(code_td, name_td, units_td, unitsWrapper, quantityWrapper, total, actionWrapper);
@@ -399,8 +383,9 @@ include '../includes/base_page/head.php';
             });
           }
 
-          function rejectRequisition() {
-            if (!confirm("Are you sure you want to reject?")) {
+
+          function createFromQuotation() {
+            if (!confirm("Are you sure you want to submit?")) {
               return;
             }
             console.log("Rejecting");
@@ -408,58 +393,32 @@ include '../includes/base_page/head.php';
             disableAllButtons();
 
             const formData = new FormData();
-            formData.append("checker", "req_rejected");
-            formData.append("name", "");
-            formData.append("qty", -1);
-            formData.append("req_no", quotation_number);
-            formData.append("tax", "");
-            formData.append("price", "");
-
-            fetch('../includes/update_quotation.php', {
-                method: 'POST',
-                body: formData
+            formData.append("date", requisition_date.value);
+            formData.append("customer", customer.value);
+            formData.append("sub_total", sub_total.value);
+            formData.append("tax", tax.value);
+            formData.append("terms", customer_terms);
+            formData.append("user", user_name);
+            formData.append("amount", amount.value);
+            formData.append("checker", "from quote");
+            formData.append("quotation_no", quotation_number);
+            let sendable_table = [];
+            table_items.forEach(item => {
+              sendable_table.push({
+                p_code: item.code,
+                p_name: item.name,
+                p_units: item.unit,
+                p_amount: item.total,
+                p_quantity: item.qty,
+                p_price: item.balance,
+                p_tax: item.tax,
+                p_tax_pc: item.tax_pc,
               })
-              .then(response => response.text())
-              .then(result => {
-                console.log(result);
-                const alertVar =
-                  `<div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Success!</strong> ${result['message']}
-              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
-              </div>`;
-                var divAlert = document.querySelector("#alert-div");
-                divAlert.innerHTML = alertVar;
-                divAlert.scrollIntoView();
+            });
 
-                window.setTimeout(() => {
-                  location.href = "./manage_sales.php";
-                }, 2500);
+            formData.append("table_items", JSON.stringify(sendable_table));
 
-              })
-              .catch(error => {
-                console.error('Error:', error);
-              });
-
-          }
-
-
-          function approveRequisition() {
-            if (!confirm("Are you sure you want to approve?")) {
-              return;
-            }
-            console.log("Rejecting");
-
-            disableAllButtons();
-
-            const formData = new FormData();
-            formData.append("checker", "approve_req");
-            formData.append("name", "");
-            formData.append("qty", -1);
-            formData.append("req_no", quotation_number);
-            formData.append("tax", "");
-            formData.append("price", "");
-
-            fetch('../includes/update_quotation.php', {
+            fetch('../includes/add_sales_order.php', {
                 method: 'POST',
                 body: formData
               })
@@ -467,7 +426,7 @@ include '../includes/base_page/head.php';
               .then(result => {
                 const alertVar =
                   `<div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Success!</strong> ${result['message']}
+              <strong>Success!</strong> ${result}
               <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
               </div>`;
                 var divAlert = document.querySelector("#alert-div");
@@ -475,7 +434,7 @@ include '../includes/base_page/head.php';
                 divAlert.scrollIntoView();
 
                 window.setTimeout(() => {
-                  location.href = "manage_sales.php"
+                  location.href = "create_invoice.php";
                 }, 2500);
 
               })
@@ -494,7 +453,6 @@ include '../includes/base_page/head.php';
             const btn_save = document.querySelector("#s-" + value[1] + "-" + value[2]);
             const btn_edit = document.querySelector("#e-" + value[1] + "-" + value[2]);
             const btn_cancel = document.querySelector("#c-" + value[1] + "-" + value[2]);
-            const btn_reject = document.querySelector("#r-" + value[1] + "-" + value[2]);
             value[1] = value[1].replaceAll("_s_s_s_", " ");
 
             if (value[0] == "e") {
@@ -515,45 +473,6 @@ include '../includes/base_page/head.php';
               btn_save.disabled = true;
               btn_cancel.disabled = true;
               btn_edit.disabled = false;
-            } else if (value[0] == "r") {
-              // Reject item
-              if (!confirm("Are you sure you want to reject?")) {
-                return;
-              }
-
-              console.log("Rejecting");
-              const formData = new FormData();
-              formData.append("checker", "item_rejected");
-              formData.append("name", value[1]);
-              formData.append("qty", qtt.value);
-              formData.append("req_no", quotation_number);
-              formData.append("tax", tax_percentage);
-              formData.append("price", ptt.value);
-              fetch('../includes/update_quotation.php', {
-                  method: 'POST',
-                  body: formData
-                })
-                .then(response => response.json())
-                .then(result => {
-                  const alertVar =
-                    `<div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Success!</strong> ${result['message']}
-              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
-              </div>`;
-                  var divAlert = document.querySelector("#alert-div");
-                  divAlert.innerHTML = alertVar;
-                  divAlert.scrollIntoView();
-                  // On submit reload table
-                  fetchTableItems();
-
-                  window.setTimeout(() => {
-                    divAlert.innerHTML = "";
-                  }, 2500);
-                })
-                .catch(error => {
-                  console.error('Error:', error);
-                });
-
             } else if (value[0] == "s") {
 
 
@@ -575,11 +494,11 @@ include '../includes/base_page/head.php';
               formData.append("price", ptt.value);
               formData.append("req_no", quotation_number);
 
-              fetch('../includes/update_salesorder.php', {
+              fetch('../includes/update_quotation.php', {
                   method: 'POST',
                   body: formData
                 })
-                .then(response => response.text())
+                .then(response => response.json())
                 .then(result => {
                   console.log(result);
                   const alertVar =

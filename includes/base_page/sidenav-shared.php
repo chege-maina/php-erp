@@ -144,6 +144,18 @@ function genSideBar()
   </li>
 </ul>
 </li>
+<!-- Sales Invoice -->
+<li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-invoice" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-cart-plus"></span></span><span class="nav-link-text"> Sales Invoice</span>
+  </div>
+</a>
+<ul class="nav collapse" id="e-invoice" data-parent="#navbarVerticalCollapse">
+  <li class="nav-item"><a class="nav-link" href="../sales_invoice/create_invoice.php">Create Invoice</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../sales_invoice/#.php">Manage Invoice</a>
+  </li>
+</ul>
+</li>
 
 
 
