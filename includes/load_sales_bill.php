@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         while ($row3 = mysqli_fetch_assoc($result3)) {
             $prod_code = $row3['product_code'];
             $prod_name = $row3['product_name'];
-            $unit = $row3['product_unit'];
+            $unit = $row3['unit'];
             $qty = $row3['qty'];
             $cost = $row3['price'];
             $total = $row3['amount'];
