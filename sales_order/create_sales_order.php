@@ -243,7 +243,7 @@ include '../includes/base_page/head.php';
             method: 'POST',
             body: formData
           })
-          .then(response => response.text())
+          .then(response => response.json())
           .then(result => {
             const alertVar =
               `<div class="alert alert-success alert-dismissible fade show" role="alert">
