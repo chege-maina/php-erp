@@ -8,7 +8,7 @@ session_start();
 $stat = "pending";
 $date_chk = date("Y-m-d");
 
-$query = "SELECT * FROM tbl_sale WHERE status='$stat' and due_date>='$date_chk'";
+$query = "SELECT * FROM tbl_sale WHERE status='$stat'";
 
 
 $result = mysqli_query($conn, $query);
