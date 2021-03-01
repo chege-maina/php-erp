@@ -1,28 +1,46 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title">Pos Component</div>
+        <PosComponent v-bind:header="jsonHeader" v-bind:items="jsonBody" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PosComponent from "./components/PosComponent.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    PosComponent,
+  },
+  data: () => ({
+    headers: ["#", "first", "last", "twitter handle"],
+    items: [
+      {
+        index: 1,
+        first: "John",
+        last: "Doe",
+        handle: "doey",
+      },
+      {
+        index: 2,
+        first: "Jane",
+        last: "Doe",
+        handle: "janey",
+      },
+    ],
+  }),
+  computed: {
+    jsonHeader: function () {
+      return JSON.stringify(this.headers);
+    },
+    jsonBody: function () {
+      return JSON.stringify(this.items);
+    },
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

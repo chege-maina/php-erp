@@ -1,8 +1,8 @@
 import Vue from 'vue';
-import PosComponent from './components/PosComponent.vue';
+import App from './App.vue';
 
 Vue.config.productionTip = false;
 
 new Vue({
-  render: (h) => h(PosComponent),
+  render: (h) => h(App),
 }).$mount('#app');

@@ -1,12 +1,52 @@
 <template>
   <div>
-    <h1>Vue 2 Pos Component</h1>
-    <div>{{ msg }}</div>
+    <table class="table table-sm table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col" v-for="(item, index) in jsonHeader" :key="index">
+            {{ item }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in jsonBody" :key="item.index">
+          <td>
+            {{ item.index }}
+          </td>
+          <td>
+            {{ item.first }}
+          </td>
+          <td>
+            {{ item.last }}
+          </td>
+          <td>
+            {{ item.handle }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["msg"],
+  props: {
+    header: {
+      type: String,
+      default: () => "[]",
+    },
+    items: {
+      type: String,
+      default: () => "[]",
+    },
+  },
+  computed: {
+    jsonHeader: function () {
+      return JSON.parse(this.header);
+    },
+    jsonBody: function () {
+      return JSON.parse(this.items);
+    },
+  },
 };
 </script>
