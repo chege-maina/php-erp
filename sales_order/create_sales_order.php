@@ -489,6 +489,7 @@ include '../includes/base_page/head.php';
           .then(response => response.text())
           .then(data => {
             console.log(data);
+            terms = data.terms;
             all_customers = data;
           })
           .catch((error) => {

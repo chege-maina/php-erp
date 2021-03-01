@@ -52,7 +52,7 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="date" class="form-label">Date</label>
                 <!-- autofill current date  -->
-                <input type="date" value="<?php echo date("Y-m-d"); ?>" id="date" class="form-control" readonly>
+                <input type="date" value="<?php echo date("Y-m-d"); ?>" id="requisition_date" class="form-control" readonly>
               </div>
               <div class="col">
                 <label for="time" class="form-label">Time</label>
@@ -173,6 +173,7 @@ include '../includes/base_page/head.php';
       const submit = document.querySelector("#submit");
 
       const customer_details = {};
+      let terms;
 
 
       let all_items = {};
@@ -212,60 +213,52 @@ include '../includes/base_page/head.php';
         updateQuotableItems();
       }
 
+
+
       function submitForm() {
-        if (table_items.length <= 0) {
-          quotable_items.focus();
-          return;
-        } else if (!valid_until_elem.validity.valid) {
-          valid_until_elem.focus();
-          return;
-        } else if (!customer.validity.valid) {
-          customer.focus();
+        if (!confirm("Are you sure you want to submit?")) {
           return;
         }
+
+        disableAllButtons();
+
         const formData = new FormData();
-        formData.append("date", date_e.value);
-        formData.append("time", time_t.value);
+        formData.append("date", requisition_date.value);
         formData.append("customer", customer.value);
-        formData.append("sub_total", po_total_a.getNumericString());
-        formData.append("due_date", valid_until_elem.value);
-        formData.append("tax", tax_total_a.getNumericString());
-
-        let terms;
-        all_customers.forEach(one => {
-          if (one["name"] == customer.value) {
-            terms = one["terms"];
-          }
-        })
-
+        formData.append("sub_total", po_total.value);
+        formData.append("tax", tax_total.value);
         formData.append("terms", terms);
         formData.append("user", user_name);
-        formData.append("amount", po_total_a.getNumericString());
-
+        formData.append("amount", total_before_tax.value);
+        formData.append("checker", "from quote");
+        formData.append("quotation_no", -1);
         let sendable_table = [];
         table_items.forEach(item => {
           sendable_table.push({
             p_code: item.code,
             p_name: item.name,
-            p_tax_pc: item.tax,
             p_units: item.unit,
-            p_quantity: item.quantity,
-            p_price: item.price,
             p_amount: item.total,
-            p_tax: item.tax_amt
+            p_quantity: item.quantity,
+            p_price: item.balance,
+            p_tax: item.tax_amt,
+            p_tax_pc: item.tax,
           })
-        })
+        });
+
         formData.append("table_items", JSON.stringify(sendable_table));
 
-        fetch('../includes/add_quotation.php', {
+        fetch('../includes/add_sales_order.php', {
             method: 'POST',
             body: formData
           })
           .then(response => response.text())
           .then(result => {
+            console.log(result);
+            return;
             const alertVar =
               `<div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Success!</strong> ${result}
+              <strong>Success!</strong> ${result['message']}
               <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
               </div>`;
             var divAlert = document.querySelector("#alert-div");
@@ -273,15 +266,25 @@ include '../includes/base_page/head.php';
             divAlert.scrollIntoView();
 
             window.setTimeout(() => {
-              divAlert.innerHTML = "";
-              location.reload();
+              location.href = "create_from_quotations.php";
             }, 2500);
 
           })
           .catch(error => {
             console.error('Error:', error);
           });
+
+
       }
+
+      function disableAllButtons() {
+        const buttons = document.querySelectorAll("div#main-body button");
+        console.log("Buttons", buttons);
+        buttons.forEach(button => {
+          button.disabled = true;
+        })
+      }
+
 
       function updateTable() {
         table_body.innerHTML = "";
