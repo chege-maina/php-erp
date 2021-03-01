@@ -39,7 +39,7 @@ include '../includes/base_page/head.php';
           <!-- body begins here -->
           <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
           <div id="alert-div"></div>
-          <h3 class="mb-0 p-2">Manage Quotation</h3>
+          <h3 class="mb-0 p-2">Manage Sales Order</h3>
           <div class="card mb-1">
 
             <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/illustrations/corner-4.png);">
@@ -160,7 +160,7 @@ include '../includes/base_page/head.php';
         </div>
 
         <script>
-          let reqNo = -1;
+          let quotation_number = -1;
           let reqStatus = "";
           const req_no = document.querySelector("#req_no");
           const requisition_date = document.querySelector("#requisition_date");
@@ -176,20 +176,20 @@ include '../includes/base_page/head.php';
 
           window.addEventListener('DOMContentLoaded', (event) => {
             if (sessionStorage.length === 0) {
-              location.href = "./manage_quotation.php";
+              location.href = "./manage_sales.php";
             }
 
             // Get passed requisition number
-            reqNo = sessionStorage.getItem('req_no');
+            quotation_number = sessionStorage.getItem('req_no');
             // Clear data
             // HACK: Major Security flaw, this is being done to
             // accomodate reloading of page just so that calculations are saved
-            // sessionStorage.clear();
+            //sessionStorage.clear();
 
             // Load the requisition item for the number
             const formData = new FormData();
-            formData.append("req_no", reqNo)
-            fetch('../includes/quotation_manage.php', {
+            formData.append("req_no", quotation_number)
+            fetch('../includes/salesorder_manage.php', {
                 method: 'POST',
                 body: formData
               })
@@ -239,8 +239,8 @@ include '../includes/base_page/head.php';
 
           function fetchTableItems() {
             const formData = new FormData();
-            formData.append("req_no", reqNo)
-            fetch('../includes/quotation_manage_items.php', {
+            formData.append("req_no", quotation_number)
+            fetch('../includes/salesorder_manage_items.php', {
                 method: 'POST',
                 body: formData
               })
@@ -411,7 +411,7 @@ include '../includes/base_page/head.php';
             formData.append("checker", "req_rejected");
             formData.append("name", "");
             formData.append("qty", -1);
-            formData.append("req_no", reqNo);
+            formData.append("req_no", quotation_number);
             formData.append("tax", "");
             formData.append("price", "");
 
@@ -432,7 +432,7 @@ include '../includes/base_page/head.php';
                 divAlert.scrollIntoView();
 
                 window.setTimeout(() => {
-                  location.href = "./manage_quotation.php";
+                  location.href = "./manage_sales.php";
                 }, 2500);
 
               })
@@ -455,7 +455,7 @@ include '../includes/base_page/head.php';
             formData.append("checker", "approve_req");
             formData.append("name", "");
             formData.append("qty", -1);
-            formData.append("req_no", reqNo);
+            formData.append("req_no", quotation_number);
             formData.append("tax", "");
             formData.append("price", "");
 
@@ -475,7 +475,7 @@ include '../includes/base_page/head.php';
                 divAlert.scrollIntoView();
 
                 window.setTimeout(() => {
-                  location.href = "manage_quotation.php"
+                  location.href = "manage_sales.php"
                 }, 2500);
 
               })
@@ -526,7 +526,7 @@ include '../includes/base_page/head.php';
               formData.append("checker", "item_rejected");
               formData.append("name", value[1]);
               formData.append("qty", qtt.value);
-              formData.append("req_no", reqNo);
+              formData.append("req_no", quotation_number);
               formData.append("tax", tax_percentage);
               formData.append("price", ptt.value);
               fetch('../includes/update_quotation.php', {
@@ -573,9 +573,9 @@ include '../includes/base_page/head.php';
               formData.append("ptt", ptt.value);
               formData.append("tax", tax_percentage);
               formData.append("price", ptt.value);
-              formData.append("req_no", reqNo);
+              formData.append("req_no", quotation_number);
 
-              fetch('../includes/update_quotation.php', {
+              fetch('../includes/update_salesorder.php', {
                   method: 'POST',
                   body: formData
                 })

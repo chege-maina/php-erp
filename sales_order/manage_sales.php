@@ -36,7 +36,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <h5 class="p-2">Manage Quotation</h5>
+        <h5 class="p-2">Manage Sales Order</h5>
         <div class="card">
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
@@ -73,7 +73,6 @@ include '../includes/base_page/head.php';
                   <th>Branch</th>
                   <th>Date </th>
                   <th>Created By</th>
-                  <th>Expiry Date</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
@@ -131,10 +130,6 @@ include '../includes/base_page/head.php';
             req_date.appendChild(document.createTextNode(value["date"]));
             req_date.classList.add("align-middle");
 
-            const req_due = document.createElement("td");
-            req_due.appendChild(document.createTextNode(value["due_date"]));
-            req_due.classList.add("align-middle");
-
             const req_user = document.createElement("td");
             req_user.appendChild(document.createTextNode(value["user"]));
             req_user.classList.add("align-middle");
@@ -163,7 +158,7 @@ include '../includes/base_page/head.php';
             btn.classList.add("btn", "btn-falcon-primary", "btn-sm");
             req_actions.appendChild(btn);
 
-            this_row.append(req_no, req_customer, req_branch, req_date, req_user, req_due, req_status, req_actions);
+            this_row.append(req_no, req_customer, req_branch, req_date, req_user, req_status, req_actions);
             table_body.appendChild(this_row);
           });
 
@@ -172,7 +167,7 @@ include '../includes/base_page/head.php';
         function detailedView(req_no) {
           console.log("Req no: ", req_no);
           sessionStorage.setItem('req_no', req_no);
-          window.location.href = "manage_qr.php";
+          window.location.href = "manage_sr.php";
         }
 
         window.addEventListener('DOMContentLoaded', (event) => {
@@ -185,7 +180,7 @@ include '../includes/base_page/head.php';
           req_date_to.value = String(date.getFullYear()) + '-' + month + '-' + day_to;
           req_date_to.setAttribute("min", req_date_from.value);
 
-          fetch('../includes/load_quotation_approve.php')
+          fetch('../includes/load_salesorder_approve.php')
             .then(response => response.json())
             .then(data => {
               console.log(data);
@@ -202,7 +197,7 @@ include '../includes/base_page/head.php';
           formData.append("date2", req_date_to.value);
           formData.append("status", r_status.value);
           formData.append("branch", user_branch);
-          fetch('../includes/filter_quotation_approve.php', {
+          fetch('../includes/filter_salesorder_approve.php', {
               method: 'POST',
               body: formData
             })

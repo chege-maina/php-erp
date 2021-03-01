@@ -138,7 +138,7 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../sales_order/create_sales_order.php">From Scratch</a>
   </li>
-  <li class="nav-item"><a class="nav-link" href="../sales_order/create_from_quotations2.php">Manage Sales Order</a>
+  <li class="nav-item"><a class="nav-link" href="../sales_order/manage_sales.php">Manage Sales Order</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../sales_order/dir_create_sales_order.php">Director Sales</a>
   </li>
