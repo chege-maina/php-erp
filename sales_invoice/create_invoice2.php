@@ -167,7 +167,7 @@ include '../includes/base_page/head.php';
       const supplier_name = document.querySelector("#supplier_name");
 
       const terms_of_payment = document.querySelector("#terms_of_payment");
-      const delivery_no = document.querySelector("#delivery_no");
+      // const delivery_no = document.querySelector("#delivery_no");
       const bill_date = document.querySelector("#bill_date");
       const bill_number = document.querySelector("#bill_number");
       const date_due = document.querySelector("#date_due");
@@ -220,7 +220,7 @@ include '../includes/base_page/head.php';
         formData.append("po_number", lpo_number.value);
         formData.append("supplier", supplier_name.value);
         formData.append("terms", terms_of_payment.value);
-        formData.append("del_no", delivery_no.value);
+        //  formData.append("del_no", delivery_no.value);
         formData.append("date", bill_date.value);
         formData.append("due", date_due.value);
         formData.append("invoice", bill_number.value);
@@ -298,15 +298,15 @@ include '../includes/base_page/head.php';
         .then(response => response.json())
         .then(result => {
           console.log("Selected", result);
+
           if (result.length === 0) {
             console.log("Empty array received");
             return;
           }
           result = result[0];
-          receipt_no = result["receipt_no"];
+          po_total = result["receipt_no"];
           lpo_number.value = result["po_number"];
           supplier_name.value = result["supplier_name"];
-          delivery_no.value = result["delivery_note"];
           terms_of_payment.value = result["terms"];
           bill_date.setAttribute("min", result["date"])
           updateTable(result["table_data"]);
