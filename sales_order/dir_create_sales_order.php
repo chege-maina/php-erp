@@ -254,8 +254,6 @@ include '../includes/base_page/head.php';
           })
           .then(response => response.text())
           .then(result => {
-            console.log(result);
-            return;
             const alertVar =
               `<div class="alert alert-success alert-dismissible fade show" role="alert">
               <strong>Success!</strong> ${result['message']}
