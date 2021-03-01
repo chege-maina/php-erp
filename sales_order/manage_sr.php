@@ -195,6 +195,7 @@ include '../includes/base_page/head.php';
               })
               .then(response => response.json())
               .then(result => {
+                console.log(result);
                 data = result[0];
                 req_no.appendChild(document.createTextNode(data["req_no"]));
                 requisition_date.value = data["date"];
@@ -415,11 +416,11 @@ include '../includes/base_page/head.php';
             formData.append("tax", "");
             formData.append("price", "");
 
-            fetch('../includes/update_quotation.php', {
+            fetch('../includes/update_salesorder.php', {
                 method: 'POST',
                 body: formData
               })
-              .then(response => response.text())
+              .then(response => response.json())
               .then(result => {
                 console.log(result);
                 const alertVar =
@@ -459,7 +460,7 @@ include '../includes/base_page/head.php';
             formData.append("tax", "");
             formData.append("price", "");
 
-            fetch('../includes/update_quotation.php', {
+            fetch('../includes/update_salesorder.php', {
                 method: 'POST',
                 body: formData
               })
@@ -529,7 +530,7 @@ include '../includes/base_page/head.php';
               formData.append("req_no", quotation_number);
               formData.append("tax", tax_percentage);
               formData.append("price", ptt.value);
-              fetch('../includes/update_quotation.php', {
+              fetch('../includes/update_salesorder.php', {
                   method: 'POST',
                   body: formData
                 })
@@ -579,7 +580,7 @@ include '../includes/base_page/head.php';
                   method: 'POST',
                   body: formData
                 })
-                .then(response => response.text())
+                .then(response => response.json())
                 .then(result => {
                   console.log(result);
                   const alertVar =
