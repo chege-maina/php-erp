@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Vue 3 Pos Component</h1>
+    <h1>Vue 2 Pos Component</h1>
     <div>{{ msg }}</div>
   </div>
 </template>
