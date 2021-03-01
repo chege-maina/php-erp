@@ -27,13 +27,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql2 = "UPDATE tbl_sale SET status = 'rejected' WHERE quote_no = '" . $req_no . "'";
     mysqli_query($conn, $sql);
     mysqli_query($conn, $sql2);
-    $response['message'] = "Selected Requisition Rejected..";
+    $response['message'] = "Selected Sales Order Rejected..";
   } else {
     $sql1 = "UPDATE tbl_sale_items SET status = 'approved' WHERE quote_no = '" . $req_no . "' and status= '$stats'";
     $sql = "UPDATE tbl_sale SET status = 'approved' WHERE quote_no = '" . $req_no . "'";
     mysqli_query($conn, $sql);
     mysqli_query($conn, $sql1);
-    $response['message'] = "Selected Requisition Approved..";
+    $response['message'] = "Selected Sales Order Approved..";
   }
 
   echo json_encode($response);
