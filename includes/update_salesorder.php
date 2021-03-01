@@ -13,24 +13,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $stats = "pending";
 
   if (strcmp($checker, 'item_rejected') == 0) {
-    $sql = "UPDATE tbl_quotation_items SET status = 'rejected' WHERE product_name = '" . $name . "' and quote_no = '" . $req_no . "'";
+    $sql = "UPDATE tbl_sale_items SET status = 'rejected' WHERE product_name = '" . $name . "' and quote_no = '" . $req_no . "'";
     mysqli_query($conn, $sql);
-    $response['message'] = "Selected Item Removed From Quotation..";
+    $response['message'] = "Selected Item Removed From Sales Order..";
   } else if (strcmp($checker, 'item_qty') == 0) {
     $tax = $price * $qty * ($tax1 / 100);
     $total_amt = $tax + ($price * $qty);
-    $sql = "UPDATE tbl_quotation_items SET amount='$total_amt',qty = '" . $qty . "', price='" . $price . "' , tax='" . $tax . "' WHERE product_name = '" . $name . "' and quote_no = '" . $req_no . "'";
+    $sql = "UPDATE tbl_sale_items SET amount='$total_amt',qty = '" . $qty . "', price='" . $price . "' , tax='" . $tax . "' WHERE product_name = '" . $name . "' and quote_no = '" . $req_no . "'";
     mysqli_query($conn, $sql);
     $response['message'] = "Selected Item Details Changed..";
   } else if (strcmp($checker, 'req_rejected') == 0) {
-    $sql = "UPDATE tbl_quotation_items SET status = 'rejected' WHERE quote_no = '" . $req_no . "'";
-    $sql2 = "UPDATE tbl_quotation SET status = 'rejected' WHERE quote_no = '" . $req_no . "'";
+    $sql = "UPDATE tbl_sale_items SET status = 'rejected' WHERE quote_no = '" . $req_no . "'";
+    $sql2 = "UPDATE tbl_sale SET status = 'rejected' WHERE quote_no = '" . $req_no . "'";
     mysqli_query($conn, $sql);
     mysqli_query($conn, $sql2);
     $response['message'] = "Selected Requisition Rejected..";
   } else {
-    $sql1 = "UPDATE tbl_quotation_items SET status = 'approved' WHERE quote_no = '" . $req_no . "' and status= '$stats'";
-    $sql = "UPDATE tbl_quotation SET status = 'approved' WHERE quote_no = '" . $req_no . "'";
+    $sql1 = "UPDATE tbl_sale_items SET status = 'approved' WHERE quote_no = '" . $req_no . "' and status= '$stats'";
+    $sql = "UPDATE tbl_sale SET status = 'approved' WHERE quote_no = '" . $req_no . "'";
     mysqli_query($conn, $sql);
     mysqli_query($conn, $sql1);
     $response['message'] = "Selected Requisition Approved..";
