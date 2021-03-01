@@ -16,6 +16,11 @@ include '../includes/base_page/head.php';
 
 
 <body>
+
+  <script src="../assets/js/vue"></script>
+  <script src="../components/vue-components/pos-datatable/dist/pos-component.min.js"></script>
+
+
   <!-- ===============================================-->
   <!--    Main Content-->
   <!-- ===============================================-->
@@ -35,19 +40,9 @@ include '../includes/base_page/head.php';
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <div class="card">
-          <div class="card-header bg-light">
-            <h5 class="mb-0">Change My Title</h5>
-          </div>
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
-            <div class="mb-3">
-              <label class="form-label" for="exampleFormControlInput1">Email address</label>
-              <input class="form-control" id="exampleFormControlInput1" type="search" placeholder="name@example.com" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="exampleFormControlTextarea1">Example textarea</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
+            <pos-component msg="Hello Component"></pos-component>
             <!-- Content ends here -->
           </div>
           <!-- Additional cards can be added here -->
