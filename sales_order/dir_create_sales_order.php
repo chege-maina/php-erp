@@ -252,11 +252,11 @@ include '../includes/base_page/head.php';
             method: 'POST',
             body: formData
           })
-          .then(response => response.text())
+          .then(response => response.json())
           .then(result => {
             const alertVar =
               `<div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Success!</strong> ${result['message']}
+              <strong>Success!</strong> ${result}
               <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
               </div>`;
             var divAlert = document.querySelector("#alert-div");
@@ -264,7 +264,7 @@ include '../includes/base_page/head.php';
             divAlert.scrollIntoView();
 
             window.setTimeout(() => {
-              location.href = "create_from_quotations.php";
+              location.reload();
             }, 2500);
 
           })
