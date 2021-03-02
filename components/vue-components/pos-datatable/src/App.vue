@@ -22,7 +22,7 @@ export default {
   },
   data: () => ({
     headers: [
-      { name: "#", editable: false, key: "index", computed: false },
+      { name: "key", editable: false, key: "index", computed: false },
       { name: "Name", editable: false, key: "name", computed: false },
       { name: "Code", editable: false, key: "code", computed: false },
       { name: "Stock", editable: false, key: "stock", computed: false },

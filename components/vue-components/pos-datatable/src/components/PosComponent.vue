@@ -17,7 +17,7 @@
       </thead>
       <tbody>
         <tr v-for="item in table_data" :key="item.index">
-          <th scope="row">#</th>
+          <th scope="row">{{ table_data_relative_index[item.index].index }}</th>
           <td v-for="(value, key) in item" :key="key">
             <span v-if="header_object[key].editable">
               <input
