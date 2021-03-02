@@ -41,11 +41,11 @@
 
           <td class="align-middle py-1">
             <button
-              class="btn btn-falcon-default btn-sm rounded-pill px-2"
+              class="btn btn-falcon-default btn-sm rounded-pill px-1 py-0"
               type="button"
               v-on:click="removeRow(item.key)"
             >
-              <strong>x</strong>
+              <i class="bi bi-x" style="font-size: 1.3em"></i>
             </button>
           </td>
         </tr>
@@ -189,4 +189,5 @@ export default {
 <style>
 @import url("http://localhost:5000/assets/css/theme-rtl.min.css");
 @import url("http://localhost:5000/assets/css/theme.min.css");
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css");
 </style>
