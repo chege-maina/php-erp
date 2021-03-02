@@ -24,7 +24,7 @@
               />
             </span>
             <span v-else-if="header_object[key].computed">{{
-              computeField(header_object[key].operation, item.index, key)
+              computeField(header_object[key].operation, item.index)
             }}</span>
             <span v-else>{{ value }}</span>
           </td>
@@ -84,22 +84,35 @@ export default {
     },
   },
   methods: {
-    computeField(expression, index, key) {
-      const [field1, op, field2] = expression.split(" ");
-      console.log(field1, op, field2, index, key);
-      const value1 = isNaN(field1)
-        ? Number(this.table_data[index][field1])
-        : Number(field1);
-      const value2 = isNaN(field2)
-        ? Number(this.table_data[index][field2])
-        : Number(field2);
-      let result;
-      switch (op) {
-        case "*":
-          result = value1 * value2;
-          break;
+    computeField(expression, index) {
+      const [...expanded] = expression.split(" ");
+      let cumulative_total = 0;
+      for (let i = 0; i < expanded.length; i += 2) {
+        // Check if the value is numeric
+        const value = isNaN(expanded[i])
+          ? Number(this.table_data[index][expanded[i]])
+          : Number(expanded[i]);
+
+        if (i == 0) {
+          cumulative_total = value;
+          continue;
+        }
+        switch (expanded[i - 1]) {
+          case "*":
+            cumulative_total *= value;
+            break;
+          case "+":
+            cumulative_total += value;
+            break;
+          case "/":
+            cumulative_total /= value;
+            break;
+          case "-":
+            cumulative_total -= value;
+            break;
+        }
       }
-      return result;
+      return cumulative_total;
     },
   },
 };
