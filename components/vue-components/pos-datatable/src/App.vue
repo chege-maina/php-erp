@@ -3,7 +3,10 @@
     <div class="card">
       <div class="card-body">
         <div class="card-title">Pos Component</div>
-        <PosComponent v-bind:header="jsonHeader" v-bind:items="jsonBody" />
+        <PosComponent
+          v-bind:json_header="jsonHeader"
+          v-bind:json_items="jsonBody"
+        />
       </div>
     </div>
   </div>
@@ -19,16 +22,16 @@ export default {
   },
   data: () => ({
     headers: [
-      { name: "#" },
-      { name: "Name" },
-      { name: "Code" },
-      { name: "Stock" },
-      { name: "Quantity" },
-      { name: "Price" },
-      { name: "Discount" },
-      { name: "Tax" },
-      { name: "Subtotal" },
-      { name: "Action" },
+      { name: "#", editable: false },
+      { name: "Name", editable: false },
+      { name: "Code", editable: false },
+      { name: "Stock", editable: false },
+      { name: "Quantity", editable: true },
+      { name: "Price", editable: false },
+      { name: "Discount", editable: true },
+      { name: "Tax", editable: false },
+      { name: "Subtotal", editable: false },
+      { name: "Action", editable: false },
     ],
     items: [
       {
