@@ -4,12 +4,10 @@ header("Content-type:application/json");
 
 include_once 'dbconnect.php';
 session_start();
-session_start();
-$branch = $_SESSION['branch'];
 
 $stat = "approved";
 
-$query = "SELECT * FROM tbl_sale WHERE status='$stat''";
+$query = "SELECT * FROM tbl_sale WHERE status='$stat'";
 
 
 $result = mysqli_query($conn, $query);

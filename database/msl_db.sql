@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2021 at 01:22 PM
+-- Generation Time: Mar 02, 2021 at 07:30 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -381,8 +381,8 @@ CREATE TABLE `tbl_quotation` (
 --
 
 INSERT INTO `tbl_quotation` (`quote_no`, `date`, `customer_name`, `terms`, `due_date`, `time`, `status`, `user`, `sub_total`, `tax`, `amount`, `branch_location`) VALUES
-(1, '2021-02-24', 'Kasper Alvarez', '37', '2021-03-04', '14:15:52', 'approved', 'Jael Joel', '17569604', '2373280', '17569604', 'MM2'),
-(2, '2021-02-24', 'Kasper Alvarez', '37', '2021-03-04', '16:58', 'approved', 'Jael Joel', '3160', '160', '3160', 'MM2'),
+(1, '2021-02-24', 'Kasper Alvarez', '37', '2021-03-04', '14:15:52', 'done', 'Jael Joel', '17569604', '2373280', '17569604', 'MM2'),
+(2, '2021-02-24', 'Kasper Alvarez', '37', '2021-03-04', '16:58', 'done', 'Jael Joel', '3160', '160', '3160', 'MM2'),
 (3, '2021-02-26', 'Kasper Alvarez', '37', '2021-03-06', '15:16', 'pending', 'Jael Joel', '2000', '0', '2000', 'MM2');
 
 -- --------------------------------------------------------
@@ -410,10 +410,10 @@ CREATE TABLE `tbl_quotation_items` (
 --
 
 INSERT INTO `tbl_quotation_items` (`quote_no`, `product_code`, `product_name`, `unit`, `price`, `qty`, `amount`, `tax`, `status`, `tax_pc`, `branch_location`) VALUES
-(1, '52', 'Hayden Duran', 'kgs', '148330', '100', '17206280.00', '2373280.00', 'approved', '16', 'MM2'),
-(1, '53', 'Wyoming Wilkinson', 'lts', '10686', '34', '363324.00', '0.00', 'approved', '0', 'MM2'),
-(2, '52', 'Hayden Duran', 'kgs', '10', '100', '1160', '160', 'approved', '16', 'MM2'),
-(2, '53', 'Wyoming Wilkinson', 'lts', '2000', '1', '2000.00', '0.00', 'approved', '0', 'MM2'),
+(1, '52', 'Hayden Duran', 'kgs', '148330', '100', '17206280.00', '2373280.00', 'done', '16', 'MM2'),
+(1, '53', 'Wyoming Wilkinson', 'lts', '10686', '34', '363324.00', '0.00', 'done', '0', 'MM2'),
+(2, '52', 'Hayden Duran', 'kgs', '10', '100', '1160', '160', 'done', '16', 'MM2'),
+(2, '53', 'Wyoming Wilkinson', 'lts', '2000', '1', '2000.00', '0.00', 'done', '0', 'MM2'),
 (3, '53', 'Wyoming Wilkinson', 'lts', '2000', '1', '2000.00', '0.00', 'pending', '0', 'MM2');
 
 -- --------------------------------------------------------
@@ -596,6 +596,14 @@ CREATE TABLE `tbl_sale` (
   `branch_location` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tbl_sale`
+--
+
+INSERT INTO `tbl_sale` (`quote_no`, `date`, `customer_name`, `terms`, `status`, `user`, `sub_total`, `tax`, `amount`, `branch_location`) VALUES
+(99890, '2021-02-24', 'Kasper Alvarez', '37', 'approved', 'Jael Joel', '15196324', '2373280', '17569604', 'MM2'),
+(99891, '2021-02-24', 'Kasper Alvarez', '37', 'pending', 'Jael Joel', '3000', '160', '3160', 'MM2');
+
 -- --------------------------------------------------------
 
 --
@@ -615,6 +623,16 @@ CREATE TABLE `tbl_sale_items` (
   `tax_pc` varchar(10) NOT NULL,
   `branch_location` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_sale_items`
+--
+
+INSERT INTO `tbl_sale_items` (`quote_no`, `product_code`, `product_name`, `unit`, `price`, `qty`, `amount`, `tax`, `status`, `tax_pc`, `branch_location`) VALUES
+(99890, '52', 'Hayden Duran', 'kgs', '148330', '100', '17206280.00', '2373280.00', 'approved', '16', 'MM2'),
+(99890, '53', 'Wyoming Wilkinson', 'lts', '10686', '34', '363324.00', '0.00', 'approved', '0', 'MM2'),
+(99891, '52', 'Hayden Duran', 'kgs', '10', '100', '1160', '160', 'pending', '16', 'MM2'),
+(99891, '53', 'Wyoming Wilkinson', 'lts', '2000', '1', '2000.00', '0.00', 'pending', '0', 'MM2');
 
 -- --------------------------------------------------------
 
@@ -1121,7 +1139,7 @@ ALTER TABLE `tbl_requisition_items`
 -- AUTO_INCREMENT for table `tbl_sale`
 --
 ALTER TABLE `tbl_sale`
-  MODIFY `quote_no` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99890;
+  MODIFY `quote_no` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99892;
 
 --
 -- AUTO_INCREMENT for table `tbl_store`

@@ -102,6 +102,7 @@ include '../includes/base_page/head.php';
                     <th scope="col">Product Name</th>
                     <th scope="col">Units</th>
                     <th scope="col">Quantity</th>
+                    <th scope="col">Tax</th>
                     <th scope="col">Price</th>
                     <th scope="col">Total</th>
                   </tr>
@@ -127,6 +128,24 @@ include '../includes/base_page/head.php';
               </div>
             </div>
             <div class="row m-3">
+              <div class="col text-left fw-bold">
+                <label for="customer" class="form-label">Driver Name</label>
+                <select id="driver_name" name="driver_name" class="form-select" onclick="checkTransValid();" required>
+                </select>
+              </div>
+              <div class="col text-right fw-bold">
+                Transport Cost
+              </div>
+              <div class="col col-auto">
+                <input type="number" class="form-control text-right" id="transport" onkeyup="addTransport();" disabled required>
+              </div>
+            </div>
+            <div class="row m-3">
+              <div class="col text-left fw-bold">
+                <label for="truck_no" class="form-label">Truck Number</label>
+                <select id="truck_no" name="truck_no" class="form-select" onclick="checkTransValid();" required>
+                </select>
+              </div>
               <div class="col text-right fw-bold">
                 Total
               </div>
@@ -167,7 +186,7 @@ include '../includes/base_page/head.php';
       const supplier_name = document.querySelector("#supplier_name");
 
       const terms_of_payment = document.querySelector("#terms_of_payment");
-      const delivery_no = document.querySelector("#delivery_no");
+      // const delivery_no = document.querySelector("#delivery_no");
       const bill_date = document.querySelector("#bill_date");
       const bill_number = document.querySelector("#bill_number");
       const date_due = document.querySelector("#date_due");
@@ -193,6 +212,9 @@ include '../includes/base_page/head.php';
         currencySymbol: '',
         minimumValue: 0
       });
+
+      const transport = document.querySelector("#transport");
+
 
       function postBill() {
         if (!terms_of_payment.value) {
@@ -220,7 +242,7 @@ include '../includes/base_page/head.php';
         formData.append("po_number", lpo_number.value);
         formData.append("supplier", supplier_name.value);
         formData.append("terms", terms_of_payment.value);
-        formData.append("del_no", delivery_no.value);
+        //  formData.append("del_no", delivery_no.value);
         formData.append("date", bill_date.value);
         formData.append("due", date_due.value);
         formData.append("invoice", bill_number.value);
@@ -265,15 +287,12 @@ include '../includes/base_page/head.php';
 
         // Get passed requisition number
         invoice_number = sessionStorage.getItem('req_no');
-        // Clear data
-        // HACK: Major Security flaw, this is being done to
-        // accomodate reloading of page just so that calculations are saved
+
         sessionStorage.clear();
 
         lpo_number.value = invoice_number;
+
         const formData = new FormData();
-
-
 
         fetch('../includes/load_purchase_billNo.php')
           .then(response => response.json())
@@ -288,16 +307,8 @@ include '../includes/base_page/head.php';
           .catch((error) => {
             console.error('Error:', error);
           });
-      });
 
-      const selectLPONumber = () => {
-        if (!purchase_order_number.value) {
-          purchase_order_number.focus();
-          return;
-        }
-
-        const formData = new FormData();
-        formData.append("po_number", lpo_number.value);
+        formData.append("po_number", invoice_number);
 
         fetch('../includes/load_sales_bill.php', {
             method: 'POST',
@@ -306,18 +317,39 @@ include '../includes/base_page/head.php';
           .then(response => response.json())
           .then(result => {
             console.log("Selected", result);
+            if (result.length === 0) {
+              console.log("Empty array received");
+              return;
+            }
             result = result[0];
-            receipt_no = result["receipt_no"];
-            lpo_number.value = result["po_number"];
+            //  po_total = result["receipt_no"];
+            invoice_number.value = result["po_number"];
             supplier_name.value = result["supplier_name"];
-            delivery_no.value = result["delivery_note"];
             terms_of_payment.value = result["terms"];
             bill_date.setAttribute("min", result["date"])
+            updateDueDate();
             updateTable(result["table_data"]);
           })
           .catch(error => {
             console.error('Error:', error);
           });
+
+        initSelectElement("#driver_name", "-- Select Driver --");
+        populateSelectElement("#driver_name", '../includes/load_drivers.php', "name");
+
+
+        initSelectElement("#truck_no", "-- Select Vehicle --");
+        populateSelectElement("#truck_no", '../includes/load_vehicle.php', "reg_no");
+
+      });
+
+      function addTransport() {
+        let trans = parseInt(transport.value);
+        if (trans >= 0) {
+          let tmp = (Number(total_before_tax.getNumericString()) + Number(tax_pc.getNumericString())) + Number(trans);
+          console.log(tmp)
+          po_total.set(tmp);
+        }
       }
 
 
@@ -364,6 +396,10 @@ include '../includes/base_page/head.php';
           qty_td.appendChild(document.createTextNode(data["product_qty"]));
           qty_td.classList.add("align-middle");
 
+          let tax_td = document.createElement("td");
+          tax_td.appendChild(document.createTextNode(data["product_tax"]));
+          tax_td.classList.add("align-middle");
+
           let product_total = document.createElement("td");
           product_total.appendChild(document.createTextNode(data["product_total"]));
           product_total.classList.add("align-middle");
@@ -375,14 +411,17 @@ include '../includes/base_page/head.php';
           product_qty.classList.add("align-middle");
 
 
-          tr.append(code_td, name_td, product_cost, product_qty, units_td, product_total);
+          tr.append(code_td, name_td, units_td, product_qty, tax_td, product_cost, product_total);
           table_body.appendChild(tr);
         });
 
         total_before_tax.set(cumulative_total);
         tax_pc.set(cumulative_total * 0.16);
         po_total.set(cumulative_total * 1.16);
+
       }
+
+
 
       function updateDueDate() {
         if (!terms_of_payment.value) {
@@ -393,6 +432,47 @@ include '../includes/base_page/head.php';
         let month = d_toString(dateV.getMonth() + 1);
         let day = d_toString(dateV.getDate());
         date_due.value = String(dateV.getFullYear()) + '-' + month + '-' + day;
+      }
+
+      function initSelectElement(elem, init_text = "-- Select --") {
+        elem = document.querySelector(elem);
+        let opt = document.createElement("option");
+        opt.appendChild(document.createTextNode(init_text));
+        opt.setAttribute("value", "");
+        opt.setAttribute("disabled", "");
+        opt.setAttribute("selected", "");
+        elem.appendChild(opt);
+      }
+
+      function populateSelectElement(elem, url_path, key_name, testing = false) {
+        elem = document.querySelector(elem);
+
+        fetch(url_path)
+          .then(response => response.json())
+          .then(data => {
+            if (testing) {
+              console.log(url_path, data);
+              return;
+            }
+            data.forEach((value) => {
+              let opt = document.createElement("option");
+              opt.appendChild(document.createTextNode(value[key_name]));
+              opt.value = value[key_name];
+              elem.appendChild(opt);
+            });
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+
+      }
+
+      function checkTransValid() {
+        if (driver_name.validity.valid && truck_no.validity.valid) {
+          transport.removeAttribute("disabled");
+        } else {
+          transport.setAttribute("disabled", "");
+        }
       }
     </script>
 

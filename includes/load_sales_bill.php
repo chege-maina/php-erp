@@ -30,9 +30,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         while ($row3 = mysqli_fetch_assoc($result3)) {
             $prod_code = $row3['product_code'];
             $prod_name = $row3['product_name'];
-            $unit = $row3['product_unit'];
+            $unit = $row3['unit'];
             $qty = $row3['qty'];
             $cost = $row3['price'];
+            $itm_tax = $row3['tax'];
             $total = $row3['amount'];
 
             array_push(
@@ -42,7 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     'product_name' => $prod_name,
                     'product_unit' => $unit,
                     'product_qty' => $qty,
+                    'product_tax' => $itm_tax,
                     'product_cost' => $cost,
+                    'tax_pc' => $row3['tax_pc'],
                     'product_total' => $total
                 )
             );
