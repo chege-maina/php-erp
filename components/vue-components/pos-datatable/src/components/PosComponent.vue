@@ -51,7 +51,6 @@
         </tr>
       </tbody>
     </table>
-    {{ table_data }}
   </div>
 </template>
 
