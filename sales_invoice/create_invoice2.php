@@ -238,12 +238,22 @@ include '../includes/base_page/head.php';
           return;
         }
 
+        let tax_percentage;
+        table_items.forEach(item => {
+          if (item.name == value[1]) {
+            tax_percentage = item.tax_pc ? item.tax_pc : 0;
+          }
+        })
+
+
         const formData = new FormData();
         formData.append("po_number", lpo_number.value);
         formData.append("supplier", supplier_name.value);
         formData.append("terms", terms_of_payment.value);
-        //  formData.append("del_no", delivery_no.value);
         formData.append("date", bill_date.value);
+        formData.append("transport", transport.value);
+        formData.append("driver_name", driver_name.value);
+        formData.append("truck_no", truck_no.value);
         formData.append("due", date_due.value);
         formData.append("invoice", bill_number.value);
         formData.append("total", po_total.getNumericString());
@@ -251,16 +261,29 @@ include '../includes/base_page/head.php';
         formData.append("tax", tax_pc.getNumericString());
         formData.append("receipt_no", receipt_no);
         formData.append("user", user_name);
+
+        table_items.forEach(item => {
+          table_items_data.push({
+            p_code: item.code,
+            p_name: item.name,
+            p_units: item.unit,
+            p_amount: item.total,
+            p_quantity: item.qty,
+            p_price: item.balance,
+            p_tax: item.tax,
+            p_tax_pc: item.tax_pc,
+
+          })
+        });
+
         formData.append("table_items", JSON.stringify(table_items_data));
 
-        fetch('../includes/add_purchasebill.php', {
+        fetch('../includes/#.php', {
             method: 'POST',
             body: formData
           })
-          .then(response => response.text())
+          .then(response => response.json())
           .then(result => {
-            console.log('Success:', result);
-
             const alertVar =
               `<div class="alert alert-success alert-dismissible fade show" role="alert">
               <strong>Success!</strong> ${result}
@@ -271,13 +294,16 @@ include '../includes/base_page/head.php';
             divAlert.scrollIntoView();
 
             window.setTimeout(() => {
-              divAlert.innerHTML = "";
-              location.reload();
+              location.href = "create_from_quotations.php";
             }, 2500);
+
           })
           .catch(error => {
             console.error('Error:', error);
           });
+
+
+
       }
 
       window.addEventListener('DOMContentLoaded', (event) => {
@@ -348,7 +374,11 @@ include '../includes/base_page/head.php';
         if (trans >= 0) {
           let tmp = (Number(total_before_tax.getNumericString()) + Number(tax_pc.getNumericString())) + Number(trans);
           console.log(tmp)
+
           po_total.set(tmp);
+
+        } else {
+          po_total.set(initial_total_price);
         }
       }
 
@@ -362,15 +392,16 @@ include '../includes/base_page/head.php';
         result.forEach((data) => {
 
 
-          let tmp_row = {
-            "p_code": data["product_code"],
-            "p_name": data["product_name"],
-            "p_units": data["product_unit"],
-            "p_quantity": data["product_qty"],
-            "p_cost": data["product_cost"],
-            "p_total": data["product_total"]
-          }
-          table_items_data.push(tmp_row);
+          //  let tmp_row = {
+          //   "p_code": data["product_code"],
+          //    "p_name": data["product_name"],
+          //   "p_units": data["product_unit"],
+          //   "p_quantity": data["product_qty"],
+          //   "p_cost": data["product_cost"],
+          //    "p_total": data["product_total"],
+          //    "p_tax": data["product_tax"]
+          //  }
+          //   table_items_data.push(tmp_row);
 
           let tr = document.createElement("tr");
           // Id will be like 1Tank
@@ -418,10 +449,10 @@ include '../includes/base_page/head.php';
         total_before_tax.set(cumulative_total);
         tax_pc.set(cumulative_total * 0.16);
         po_total.set(cumulative_total * 1.16);
-
+        initial_total_price = cumulative_total * 1.16;
       }
 
-
+      let initial_total_price = 0;
 
       function updateDueDate() {
         if (!terms_of_payment.value) {

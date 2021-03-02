@@ -37,7 +37,7 @@ include '../includes/base_page/head.php';
         <!-- body begins here -->
         <div id="alert-div">
         </div>
-        <h5 class="p-2">Approve Remittance Advice</h5>
+        <h5 class="p-2">Approve Receipt Advice</h5>
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
 
         <div class="card mt-3">
@@ -45,7 +45,7 @@ include '../includes/base_page/head.php';
             <div class="row">
 
               <div class="col">
-                <label for="#" class="form-label">Select Supplier </label>
+                <label for="#" class="form-label">Select Customer </label>
                 <div class="input-group">
                   <input list="suppliers" name="supplier" id="supplier_name" class="form-select">
                   <datalist id="suppliers"></datalist>
@@ -114,6 +114,9 @@ include '../includes/base_page/head.php';
             <div class="d-flex flex-row-reverse">
               <button class="btn btn-falcon-success btn-sm m-2" id="submit" onclick="submitPO();">
                 Approve
+              </button>
+              <button class="btn btn-falcon-danger btn-sm m-2" id="submit" onclick="submitPO();">
+                Reject
               </button>
             </div>
             <!-- Content ends here -->
@@ -195,7 +198,7 @@ include '../includes/base_page/head.php';
             .then(result => {
               console.log(result)
               let opt = document.createElement("option");
-              opt.appendChild(document.createTextNode("-- Select Supplier --"));
+              opt.appendChild(document.createTextNode("-- Select Customer --"));
               opt.setAttribute("value", "");
               opt.setAttribute("disabled", "");
               opt.setAttribute("selected", "");

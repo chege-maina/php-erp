@@ -36,7 +36,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <div id="alert-div"></div>
-        <h5 class="p-2">Generate Remittance Advice</h5>
+        <h5 class="p-2">Generate Receipt Advice</h5>
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
 
         <div class="card mt-3">
@@ -47,7 +47,7 @@ include '../includes/base_page/head.php';
             <div class="row">
 
               <div class="col">
-                <label for="#" class="form-label">Select Supplier </label>
+                <label for="#" class="form-label">Select Customer </label>
                 <div class="input-group">
                   <select name="supplier" id="supplier_name" class="form-select">
                   </select>
@@ -242,7 +242,7 @@ include '../includes/base_page/head.php';
             .then(response => response.json())
             .then(result => {
               let opt = document.createElement("option");
-              opt.appendChild(document.createTextNode("-- Select Supplier --"));
+              opt.appendChild(document.createTextNode("-- Select Customer --"));
               opt.setAttribute("value", "");
               opt.setAttribute("disabled", "");
               opt.setAttribute("selected", "");
