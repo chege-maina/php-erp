@@ -44,7 +44,6 @@ export default {
         computed: true,
         operation: "tax_pc / 100 + 1 * quantity * price",
       },
-      { name: "Action", editable: false, key: "action", computed: false },
     ],
     items: [
       {
@@ -58,7 +57,6 @@ export default {
         tax_pc: 17,
         tax: -1,
         subtotal: 60054,
-        action: "BR",
       },
       {
         index: 2,
@@ -71,7 +69,6 @@ export default {
         tax_pc: 3,
         tax: -1,
         subtotal: 784,
-        action: "CN",
       },
       {
         index: 3,
@@ -84,7 +81,6 @@ export default {
         tax_pc: 3,
         tax: -1,
         subtotal: 57305,
-        action: "CZ",
       },
       {
         index: 4,
@@ -97,7 +93,6 @@ export default {
         tax_pc: 15,
         tax: -1,
         subtotal: 15940,
-        action: "RU",
       },
       {
         index: 5,
@@ -110,7 +105,6 @@ export default {
         tax_pc: 15,
         tax: -1,
         subtotal: 15544,
-        action: "BR",
       },
       {
         index: 6,
@@ -123,7 +117,6 @@ export default {
         tax_pc: 7,
         tax: -1,
         subtotal: 77459,
-        action: "CN",
       },
       {
         index: 7,
@@ -136,7 +129,6 @@ export default {
         tax_pc: 11,
         tax: -1,
         subtotal: 91874,
-        action: "HR",
       },
       {
         index: 8,
@@ -149,7 +141,6 @@ export default {
         tax_pc: 1,
         tax: -1,
         subtotal: 78031,
-        action: "CU",
       },
       {
         index: 9,
@@ -162,7 +153,6 @@ export default {
         tax_pc: 1,
         tax: -1,
         subtotal: 14014,
-        action: "BR",
       },
       {
         index: 10,
@@ -175,7 +165,6 @@ export default {
         tax_pc: 10,
         tax: -1,
         subtotal: 10191,
-        action: "JP",
       },
     ],
   }),

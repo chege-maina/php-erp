@@ -11,10 +11,11 @@
           >
             {{ item.name }}
           </th>
+          <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in body" :key="item.index">
+        <tr v-for="item in table_data" :key="item.index">
           <td v-for="(value, key) in item" :key="key">
             <span v-if="header_object[key].editable">
               <input
@@ -27,6 +28,15 @@
               computeField(header_object[key].operation, item.index)
             }}</span>
             <span v-else>{{ value }}</span>
+          </td>
+          <td>
+            <button
+              class="btn btn-falcon-default btn-sm rounded-pill mr-1 mb-1"
+              type="button"
+              v-on:click="removeRow(item.index)"
+            >
+              <span class="fas fa-times" data-fa-transform="shrink-3"> </span>
+            </button>
           </td>
         </tr>
       </tbody>
@@ -85,7 +95,12 @@ export default {
   },
   methods: {
     computeField(expression, index) {
-      // It computes
+      // It computes from left to right =======>
+      //so organize them in the order the calculation should be done
+      //so as to respect bodmas rules
+      // Rule of thumb: Don't set a computed field to be dependent on
+      //another computed field.
+      // TODO:The behaviour hasn't been tested yet
       const [...expanded] = expression.split(" ");
       let cumulative_total = 0;
       for (let i = 0; i < expanded.length; i += 2) {
@@ -114,6 +129,16 @@ export default {
         }
       }
       return cumulative_total.toFixed(2);
+    },
+    removeRow(row) {
+      const replacement_table = {};
+      for (let key in this.table_data) {
+        if (key == row) {
+          continue;
+        }
+        replacement_table[key] = this.table_data[key];
+      }
+      this.table_data = replacement_table;
     },
   },
 };
