@@ -1,6 +1,5 @@
 <template>
   <div class="table-responsive">
-    {{ init_table() }}
     <table class="table table-sm table-striped table-hover">
       <thead>
         <tr>
@@ -35,6 +34,10 @@
 
 <script>
 export default {
+  created() {
+    // Init the object that will hold the table values
+    this.table_data = this.body_object;
+  },
   props: {
     json_header: {
       type: String,
@@ -73,12 +76,6 @@ export default {
         body_object[row.index] = row;
       });
       return body_object;
-    },
-  },
-  methods: {
-    init_table: function () {
-      this.table_data = this.body_object;
-      console.log("Yaaay");
     },
   },
 };
