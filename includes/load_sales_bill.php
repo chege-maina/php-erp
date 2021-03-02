@@ -45,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     'product_qty' => $qty,
                     'product_tax' => $itm_tax,
                     'product_cost' => $cost,
+                    'tax_pc' => $row3['tax_pc'],
                     'product_total' => $total
                 )
             );
