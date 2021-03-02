@@ -215,6 +215,7 @@ include '../includes/base_page/head.php';
 
       const transport = document.querySelector("#transport");
 
+
       function postBill() {
         if (!terms_of_payment.value) {
           purchase_order_number.focus();
@@ -343,9 +344,9 @@ include '../includes/base_page/head.php';
       });
 
       function addTransport() {
-
-        if (transport.value >= 0) {
-          let tmp = total_before_tax.getNumericString() + transport.value;
+        let trans = parseInt(transport.value);
+        if (trans >= 0) {
+          let tmp = (Number(total_before_tax.getNumericString()) + Number(tax_pc.getNumericString())) + Number(trans);
           console.log(tmp)
           po_total.set(tmp);
         }
