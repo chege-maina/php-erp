@@ -18,13 +18,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in table_data" :key="item.key">
-          <th scope="row" class="align-middle">
+        <tr v-for="item in table_data" :key="item.key" class="py-0">
+          <th scope="row" class="align-middle py-1">
             {{ table_data_relative_index[item.key].index }}
           </th>
 
           <template v-for="(value, key) in item">
-            <td v-bind:key="key" v-if="key !== 'key'" class="align-middle">
+            <td v-bind:key="key" v-if="key !== 'key'" class="align-middle py-1">
               <span v-if="header_object[key].editable">
                 <input
                   class="form-control form-control-sm"
@@ -39,9 +39,9 @@
             </td>
           </template>
 
-          <td class="align-middle">
+          <td class="align-middle py-1">
             <button
-              class="btn btn-falcon-default btn-sm rounded-pill mr-1 mb-1"
+              class="btn btn-falcon-default btn-sm rounded-pill"
               type="button"
               v-on:click="removeRow(item.key)"
             >
