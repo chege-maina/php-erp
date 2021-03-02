@@ -23,6 +23,9 @@
                 v-model="table_data[item.index][key]"
               />
             </span>
+            <span v-else-if="header_object[key].computed">{{
+              computeField(header_object[key].operation, item.index, key)
+            }}</span>
             <span v-else>{{ value }}</span>
           </td>
         </tr>
@@ -63,6 +66,8 @@ export default {
       this.header.forEach((row) => {
         header_object[row.key] = {
           editable: row.editable,
+          computed: row.computed,
+          operation: row.operation,
         };
       });
       return header_object;
@@ -76,6 +81,21 @@ export default {
         body_object[row.index] = row;
       });
       return body_object;
+    },
+  },
+  methods: {
+    computeField(expression, index, key) {
+      const [field1, op, field2] = expression.split(" ");
+      console.log(field1, op, field2, index, key);
+      let result;
+      switch (op) {
+        case "*":
+          result =
+            Number(this.table_data[index][field1]) *
+            Number(this.table_data[index][field2]);
+          break;
+      }
+      return result;
     },
   },
 };

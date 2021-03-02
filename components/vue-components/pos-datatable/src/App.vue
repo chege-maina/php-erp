@@ -22,16 +22,22 @@ export default {
   },
   data: () => ({
     headers: [
-      { name: "#", editable: false, key: "index" },
-      { name: "Name", editable: false, key: "name" },
-      { name: "Code", editable: false, key: "code" },
-      { name: "Stock", editable: false, key: "stock" },
-      { name: "Quantity", editable: true, key: "quantity" },
-      { name: "Price", editable: false, key: "price" },
-      { name: "Discount", editable: true, key: "discount" },
-      { name: "Tax", editable: false, key: "tax" },
-      { name: "Subtotal", editable: false, key: "subtotal" },
-      { name: "Action", editable: false, key: "action" },
+      { name: "#", editable: false, key: "index", computed: false },
+      { name: "Name", editable: false, key: "name", computed: false },
+      { name: "Code", editable: false, key: "code", computed: false },
+      { name: "Stock", editable: false, key: "stock", computed: false },
+      { name: "Quantity", editable: true, key: "quantity", computed: false },
+      { name: "Price", editable: false, key: "price", computed: false },
+      { name: "Discount", editable: true, key: "discount", computed: false },
+      { name: "Tax", editable: false, key: "tax", computed: false },
+      {
+        name: "Subtotal",
+        editable: false,
+        key: "subtotal",
+        computed: true,
+        operation: "quantity * price",
+      },
+      { name: "Action", editable: false, key: "action", computed: false },
     ],
     items: [
       {
