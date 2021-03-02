@@ -102,6 +102,7 @@ include '../includes/base_page/head.php';
                     <th scope="col">Product Name</th>
                     <th scope="col">Units</th>
                     <th scope="col">Quantity</th>
+                    <th scope="col">Tax</th>
                     <th scope="col">Price</th>
                     <th scope="col">Total</th>
                   </tr>
@@ -124,6 +125,14 @@ include '../includes/base_page/head.php';
               </div>
               <div class="col col-auto">
                 <input type="text" class="form-control text-right" id="tax_pc" readonly required>
+              </div>
+            </div>
+            <div class="row m-3">
+              <div class="col text-right fw-bold">
+                Transport Cost
+              </div>
+              <div class="col col-auto">
+                <input type="number" class="form-control text-right" id="transport" required>
               </div>
             </div>
             <div class="row m-3">
@@ -358,6 +367,10 @@ include '../includes/base_page/head.php';
           qty_td.appendChild(document.createTextNode(data["product_qty"]));
           qty_td.classList.add("align-middle");
 
+          let tax_td = document.createElement("td");
+          tax_td.appendChild(document.createTextNode(data["product_tax"]));
+          tax_td.classList.add("align-middle");
+
           let product_total = document.createElement("td");
           product_total.appendChild(document.createTextNode(data["product_total"]));
           product_total.classList.add("align-middle");
@@ -369,7 +382,7 @@ include '../includes/base_page/head.php';
           product_qty.classList.add("align-middle");
 
 
-          tr.append(code_td, name_td, product_cost, product_qty, units_td, product_total);
+          tr.append(code_td, name_td, units_td, product_qty, tax_td, product_cost, product_total);
           table_body.appendChild(tr);
         });
 
