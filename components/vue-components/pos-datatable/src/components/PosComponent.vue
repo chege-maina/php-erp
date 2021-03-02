@@ -19,9 +19,12 @@
       </thead>
       <tbody>
         <tr v-for="item in table_data" :key="item.key">
-          <th scope="row">{{ table_data_relative_index[item.key].index }}</th>
+          <th scope="row" class="align-middle">
+            {{ table_data_relative_index[item.key].index }}
+          </th>
+
           <template v-for="(value, key) in item">
-            <td v-bind:key="key" v-if="key !== 'key'">
+            <td v-bind:key="key" v-if="key !== 'key'" class="align-middle">
               <span v-if="header_object[key].editable">
                 <input
                   class="form-control form-control-sm"
@@ -35,7 +38,8 @@
               <span v-else>{{ value }}</span>
             </td>
           </template>
-          <td>
+
+          <td class="align-middle">
             <button
               class="btn btn-falcon-default btn-sm rounded-pill mr-1 mb-1"
               type="button"
