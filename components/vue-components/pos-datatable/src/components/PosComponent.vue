@@ -85,6 +85,7 @@ export default {
   },
   methods: {
     computeField(expression, index) {
+      // It computes
       const [...expanded] = expression.split(" ");
       let cumulative_total = 0;
       for (let i = 0; i < expanded.length; i += 2) {
@@ -112,7 +113,7 @@ export default {
             break;
         }
       }
-      return cumulative_total;
+      return cumulative_total.toFixed(2);
     },
   },
 };
