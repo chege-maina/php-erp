@@ -41,11 +41,11 @@
 
           <td class="align-middle py-1">
             <button
-              class="btn btn-falcon-default btn-sm rounded-pill"
+              class="btn btn-falcon-default btn-sm rounded-pill px-2"
               type="button"
               v-on:click="removeRow(item.key)"
             >
-              <span class="fas fa-times" data-fa-transform="shrink-3"> </span>
+              <strong>x</strong>
             </button>
           </td>
         </tr>
@@ -186,3 +186,7 @@ export default {
   },
 };
 </script>
+<style>
+@import url("http://localhost:5000/assets/css/theme-rtl.min.css");
+@import url("http://localhost:5000/assets/css/theme.min.css");
+</style>
