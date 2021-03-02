@@ -87,12 +87,16 @@ export default {
     computeField(expression, index, key) {
       const [field1, op, field2] = expression.split(" ");
       console.log(field1, op, field2, index, key);
+      const value1 = isNaN(field1)
+        ? Number(this.table_data[index][field1])
+        : Number(field1);
+      const value2 = isNaN(field2)
+        ? Number(this.table_data[index][field2])
+        : Number(field2);
       let result;
       switch (op) {
         case "*":
-          result =
-            Number(this.table_data[index][field1]) *
-            Number(this.table_data[index][field2]);
+          result = value1 * value2;
           break;
       }
       return result;
