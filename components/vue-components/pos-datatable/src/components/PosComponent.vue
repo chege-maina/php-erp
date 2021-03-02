@@ -3,6 +3,7 @@
     <table class="table table-sm table-striped table-hover">
       <thead>
         <tr>
+          <th scope="col">#</th>
           <th
             scope="col"
             v-bind:class="{ 'col-sm-1': item.editable }"
@@ -16,6 +17,7 @@
       </thead>
       <tbody>
         <tr v-for="item in table_data" :key="item.index">
+          <th scope="row">#</th>
           <td v-for="(value, key) in item" :key="key">
             <span v-if="header_object[key].editable">
               <input
@@ -91,6 +93,17 @@ export default {
         body_object[row.index] = row;
       });
       return body_object;
+    },
+    table_data_relative_index: function () {
+      let tmp = {};
+      let i = 1;
+      for (let key in this.table_data) {
+        tmp[key] = {
+          index: i,
+        };
+        i++;
+      }
+      return tmp;
     },
   },
   methods: {
