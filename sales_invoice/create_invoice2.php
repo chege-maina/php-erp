@@ -314,6 +314,7 @@ include '../includes/base_page/head.php';
             supplier_name.value = result["supplier_name"];
             terms_of_payment.value = result["terms"];
             bill_date.setAttribute("min", result["date"])
+            updateDueDate();
             updateTable(result["table_data"]);
           })
           .catch(error => {
