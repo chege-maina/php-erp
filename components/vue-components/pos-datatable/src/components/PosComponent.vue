@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="table-responsive">
     <table class="table table-sm table-striped table-hover">
       <thead>
         <tr>
@@ -10,17 +10,8 @@
       </thead>
       <tbody>
         <tr v-for="item in jsonBody" :key="item.index">
-          <td>
-            {{ item.index }}
-          </td>
-          <td>
-            {{ item.first }}
-          </td>
-          <td>
-            {{ item.last }}
-          </td>
-          <td>
-            {{ item.handle }}
+          <td v-for="(value, key) in item" :key="key">
+            {{ value }}
           </td>
         </tr>
       </tbody>
