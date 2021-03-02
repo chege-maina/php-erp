@@ -1,5 +1,6 @@
 <template>
   <div class="table-responsive">
+    {{ init_table() }}
     <table class="table table-sm table-striped table-hover">
       <thead>
         <tr>
@@ -20,7 +21,7 @@
               <input
                 class="form-control form-control-sm"
                 type="number"
-                v-bind:value="value"
+                v-model="table_data[item.index][key]"
               />
             </span>
             <span v-else>{{ value }}</span>
@@ -28,6 +29,7 @@
         </tr>
       </tbody>
     </table>
+    {{ table_data }}
   </div>
 </template>
 
@@ -47,6 +49,7 @@ export default {
     person: {
       name: "Jean",
     },
+    table_data: {},
   }),
   computed: {
     header: function () {
@@ -63,6 +66,19 @@ export default {
     },
     body: function () {
       return JSON.parse(this.json_items);
+    },
+    body_object: function () {
+      let body_object = {};
+      this.body.forEach((row) => {
+        body_object[row.index] = row;
+      });
+      return body_object;
+    },
+  },
+  methods: {
+    init_table: function () {
+      this.table_data = this.body_object;
+      console.log("Yaaay");
     },
   },
 };
