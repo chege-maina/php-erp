@@ -11,7 +11,8 @@
       <tbody>
         <tr v-for="item in body" :key="item.index">
           <td v-for="(value, key) in item" :key="key">
-            {{ value }}
+            <span v-if="header_object[key].editable"> I feel it </span>
+            <span v-else>{{ value }}</span>
           </td>
         </tr>
       </tbody>
@@ -31,9 +32,23 @@ export default {
       default: () => "[]",
     },
   },
+  data: () => ({
+    person: {
+      name: "Jean",
+    },
+  }),
   computed: {
     header: function () {
       return JSON.parse(this.json_header);
+    },
+    header_object: function () {
+      let header_object = {};
+      this.header.forEach((row) => {
+        header_object[row.name.toLowerCase()] = {
+          editable: row.editable,
+        };
+      });
+      return header_object;
     },
     body: function () {
       return JSON.parse(this.json_items);
