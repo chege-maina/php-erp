@@ -130,20 +130,20 @@ include '../includes/base_page/head.php';
             <div class="row m-3">
               <div class="col text-left fw-bold">
                 <label for="customer" class="form-label">Driver Name</label>
-                <select id="driver_name" name="driver_name" class="form-select">
+                <select id="driver_name" name="driver_name" class="form-select" onclick="checkTransValid();" required>
                 </select>
               </div>
               <div class="col text-right fw-bold">
                 Transport Cost
               </div>
               <div class="col col-auto">
-                <input type="number" class="form-control text-right" id="transport" required>
+                <input type="number" class="form-control text-right" id="transport" onkeyup="addTransport();" disabled required>
               </div>
             </div>
             <div class="row m-3">
               <div class="col text-left fw-bold">
                 <label for="truck_no" class="form-label">Truck Number</label>
-                <select id="truck_no" name="truck_no" class="form-select">
+                <select id="truck_no" name="truck_no" class="form-select" onclick="checkTransValid();" required>
                 </select>
               </div>
               <div class="col text-right fw-bold">
@@ -212,6 +212,8 @@ include '../includes/base_page/head.php';
         currencySymbol: '',
         minimumValue: 0
       });
+
+      const transport = document.querySelector("#transport");
 
       function postBill() {
         if (!terms_of_payment.value) {
@@ -331,8 +333,23 @@ include '../includes/base_page/head.php';
             console.error('Error:', error);
           });
 
+        initSelectElement("#driver_name", "-- Select Driver --");
+        populateSelectElement("#driver_name", '../includes/load_drivers.php', "name");
+
+
+        initSelectElement("#truck_no", "-- Select Vehicle --");
+        populateSelectElement("#truck_no", '../includes/load_vehicle.php', "reg_no");
+
       });
 
+      function addTransport() {
+
+        if (transport.value >= 0) {
+          let tmp = total_before_tax.getNumericString() + transport.value;
+          console.log(tmp)
+          po_total.set(tmp);
+        }
+      }
 
 
       function updateTable(result) {
@@ -400,7 +417,10 @@ include '../includes/base_page/head.php';
         total_before_tax.set(cumulative_total);
         tax_pc.set(cumulative_total * 0.16);
         po_total.set(cumulative_total * 1.16);
+
       }
+
+
 
       function updateDueDate() {
         if (!terms_of_payment.value) {
@@ -411,6 +431,47 @@ include '../includes/base_page/head.php';
         let month = d_toString(dateV.getMonth() + 1);
         let day = d_toString(dateV.getDate());
         date_due.value = String(dateV.getFullYear()) + '-' + month + '-' + day;
+      }
+
+      function initSelectElement(elem, init_text = "-- Select --") {
+        elem = document.querySelector(elem);
+        let opt = document.createElement("option");
+        opt.appendChild(document.createTextNode(init_text));
+        opt.setAttribute("value", "");
+        opt.setAttribute("disabled", "");
+        opt.setAttribute("selected", "");
+        elem.appendChild(opt);
+      }
+
+      function populateSelectElement(elem, url_path, key_name, testing = false) {
+        elem = document.querySelector(elem);
+
+        fetch(url_path)
+          .then(response => response.json())
+          .then(data => {
+            if (testing) {
+              console.log(url_path, data);
+              return;
+            }
+            data.forEach((value) => {
+              let opt = document.createElement("option");
+              opt.appendChild(document.createTextNode(value[key_name]));
+              opt.value = value[key_name];
+              elem.appendChild(opt);
+            });
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+
+      }
+
+      function checkTransValid() {
+        if (driver_name.validity.valid && truck_no.validity.valid) {
+          transport.removeAttribute("disabled");
+        } else {
+          transport.setAttribute("disabled", "");
+        }
       }
     </script>
 
