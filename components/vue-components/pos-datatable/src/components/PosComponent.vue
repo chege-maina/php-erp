@@ -4,14 +4,16 @@
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th
-            scope="col"
-            v-bind:class="{ 'col-sm-1': item.editable }"
-            v-for="(item, key) in visible_headers"
-            :key="key"
-          >
-            {{ item.name }}
-          </th>
+          <template v-for="(item, key) in header">
+            <th
+              scope="col"
+              v-bind:class="{ 'col-sm-1': item.editable }"
+              :key="key"
+              v-if="item.key !== 'key'"
+            >
+              {{ item.name }}
+            </th>
+          </template>
           <th scope="col">Action</th>
         </tr>
       </thead>
@@ -74,16 +76,6 @@ export default {
   computed: {
     header: function () {
       return JSON.parse(this.json_header);
-    },
-    visible_headers: function () {
-      let tmp = {};
-      for (let key in this.header_object) {
-        if (key == "key") {
-          continue;
-        }
-        tmp[key] = this.header_object[key];
-      }
-      return tmp;
     },
     header_object: function () {
       let header_object = {};
