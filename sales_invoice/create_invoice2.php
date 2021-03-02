@@ -128,13 +128,10 @@ include '../includes/base_page/head.php';
               </div>
             </div>
             <div class="row m-3">
-              <div class="col-auto text-left fw-bold">
-                Select Driver Name
-                <div class="input-group">
-                  <input list="suppliers" name="supplier" id="supplier_name" class="form-select form-control ">
-                  <datalist id="suppliers"></datalist>
-                  <button type="button" class="btn btn-primary" onclick="selectSupplier();">Select</button>
-                </div>
+              <div class="col text-left fw-bold">
+                <label for="customer" class="form-label">Driver Name</label>
+                <select id="driver_name" name="driver_name" class="form-select">
+                </select>
               </div>
               <div class="col text-right fw-bold">
                 Transport Cost
@@ -144,13 +141,10 @@ include '../includes/base_page/head.php';
               </div>
             </div>
             <div class="row m-3">
-              <div class="col-auto  text-left fw-bold">
-                Select Truck Number
-                <div class="input-group">
-                  <input list="suppliers" name="supplier" id="supplier_name" class="form-select fotm-control">
-                  <datalist id="suppliers"></datalist>
-                  <button type="button" class="btn btn-primary" onclick="selectSupplier();">Select</button>
-                </div>
+              <div class="col text-left fw-bold">
+                <label for="truck_no" class="form-label">Truck Number</label>
+                <select id="truck_no" name="truck_no" class="form-select">
+                </select>
               </div>
               <div class="col text-right fw-bold">
                 Total
