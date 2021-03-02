@@ -24,22 +24,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_staff`
+-- Table structure for table `tbl_vehicle`
 --
 
-CREATE TABLE `tbl_staff` (
-  `employee_no` varchar(50) NOT NULL,
-  `employee_name` varchar(50) NOT NULL,
-  `designation` varchar(50) NOT NULL
+CREATE TABLE `tbl_vehicle` (
+  `vehicle_no` varchar(100) NOT NULL,
+  `type` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbl_staff`
+-- Dumping data for table `tbl_vehicle`
 --
 
-INSERT INTO `tbl_staff` (`employee_no`, `employee_name`, `designation`) VALUES
-('23', 'HUMPHREY MWANGI', 'DRIVER'),
-('24', 'CHEGE MAINA', 'DRIVER');
+INSERT INTO `tbl_vehicle` (`vehicle_no`, `type`) VALUES
+('KCY-409J', 'Truck');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tbl_vehicle`
+--
+ALTER TABLE `tbl_vehicle`
+  ADD PRIMARY KEY (`vehicle_no`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
