@@ -6,8 +6,8 @@
           <th
             scope="col"
             v-bind:class="{ 'col-sm-1': item.editable }"
-            v-for="(item, index) in header"
-            :key="index"
+            v-for="item in header"
+            :key="item.key"
           >
             {{ item.name }}
           </th>
@@ -55,7 +55,7 @@ export default {
     header_object: function () {
       let header_object = {};
       this.header.forEach((row) => {
-        header_object[row.name.toLowerCase()] = {
+        header_object[row.key] = {
           editable: row.editable,
         };
       });
