@@ -4,7 +4,7 @@
       <thead>
         <tr>
           <th scope="col" v-for="(item, index) in jsonHeader" :key="index">
-            {{ item }}
+            {{ item.name }}
           </th>
         </tr>
       </thead>

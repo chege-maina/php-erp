@@ -19,16 +19,16 @@ export default {
   },
   data: () => ({
     headers: [
-      "#",
-      "Name",
-      "Code",
-      "Stock",
-      "Quantity",
-      "Price",
-      "Discount",
-      "Tax",
-      "Subtotal",
-      "Action",
+      { name: "#" },
+      { name: "Name" },
+      { name: "Code" },
+      { name: "Stock" },
+      { name: "Quantity" },
+      { name: "Price" },
+      { name: "Discount" },
+      { name: "Tax" },
+      { name: "Subtotal" },
+      { name: "Action" },
     ],
     items: [
       {
