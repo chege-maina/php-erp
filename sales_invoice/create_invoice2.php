@@ -269,9 +269,8 @@ include '../includes/base_page/head.php';
         sessionStorage.clear();
 
         lpo_number.value = invoice_number;
+
         const formData = new FormData();
-
-
 
         fetch('../includes/load_purchase_billNo.php')
           .then(response => response.json())
@@ -286,34 +285,35 @@ include '../includes/base_page/head.php';
           .catch((error) => {
             console.error('Error:', error);
           });
+
+        formData.append("po_number", invoice_number);
+
+        fetch('../includes/load_sales_bill.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(result => {
+            console.log("Selected", result);
+            if (result.length === 0) {
+              console.log("Empty array received");
+              return;
+            }
+            result = result[0];
+            //  po_total = result["receipt_no"];
+            invoice_number.value = result["po_number"];
+            supplier_name.value = result["supplier_name"];
+            terms_of_payment.value = result["terms"];
+            bill_date.setAttribute("min", result["date"])
+            updateTable(result["table_data"]);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+
       });
 
-      const formData = new FormData();
-      formData.append("po_number", invoice_number);
 
-      fetch('../includes/load_sales_bill.php', {
-          method: 'POST',
-          body: formData
-        })
-        .then(response => response.json())
-        .then(result => {
-          console.log("Selected", result);
-
-          if (result.length === 0) {
-            console.log("Empty array received");
-            return;
-          }
-          result = result[0];
-          po_total = result["receipt_no"];
-          lpo_number.value = result["po_number"];
-          supplier_name.value = result["supplier_name"];
-          terms_of_payment.value = result["terms"];
-          bill_date.setAttribute("min", result["date"])
-          updateTable(result["table_data"]);
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
 
       function updateTable(result) {
         console.log('Result:', result);
