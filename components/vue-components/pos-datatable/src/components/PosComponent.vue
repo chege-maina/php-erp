@@ -60,6 +60,14 @@ export default {
   created() {
     // Init the object that will hold the table values
     this.table_data = this.body_object;
+    window.addEventListener("storage", (event) => {
+      // If our table data in the session storage has been changed
+      if (event.key == this.session_key) {
+        this.table_data = JSON.parse(
+          window.sessionStorage.getItem(this.session_key)
+        );
+      }
+    });
   },
   props: {
     json_header: {
@@ -76,7 +84,20 @@ export default {
       name: "Jean",
     },
     table_data: {},
+    session_key: "table_data",
   }),
+  watch: {
+    table_data: {
+      handler() {
+        window.sessionStorage.setItem(
+          this.session_key,
+          JSON.stringify(this.table_data)
+        );
+      },
+      // TODO: receive this as a prop
+      deep: true,
+    },
+  },
   computed: {
     header: function () {
       return JSON.parse(this.json_header);
