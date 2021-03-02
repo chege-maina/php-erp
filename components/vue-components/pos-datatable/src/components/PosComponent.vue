@@ -7,8 +7,8 @@
           <th
             scope="col"
             v-bind:class="{ 'col-sm-1': item.editable }"
-            v-for="item in header"
-            :key="item.key"
+            v-for="(item, key) in visible_headers"
+            :key="key"
           >
             {{ item.name }}
           </th>
@@ -16,26 +16,28 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in table_data" :key="item.index">
-          <th scope="row">{{ table_data_relative_index[item.index].index }}</th>
-          <td v-for="(value, key) in item" :key="key">
-            <span v-if="header_object[key].editable">
-              <input
-                class="form-control form-control-sm"
-                type="number"
-                v-model="table_data[item.index][key]"
-              />
-            </span>
-            <span v-else-if="header_object[key].computed">{{
-              computeField(header_object[key].operation, item.index)
-            }}</span>
-            <span v-else>{{ value }}</span>
-          </td>
+        <tr v-for="item in table_data" :key="item.key">
+          <th scope="row">{{ table_data_relative_index[item.key].index }}</th>
+          <template v-for="(value, key) in item">
+            <td v-bind:key="key" v-if="key !== 'key'">
+              <span v-if="header_object[key].editable">
+                <input
+                  class="form-control form-control-sm"
+                  type="number"
+                  v-model="table_data[item.key][key]"
+                />
+              </span>
+              <span v-else-if="header_object[key].computed">{{
+                computeField(header_object[key].operation, item.key)
+              }}</span>
+              <span v-else>{{ value }}</span>
+            </td>
+          </template>
           <td>
             <button
               class="btn btn-falcon-default btn-sm rounded-pill mr-1 mb-1"
               type="button"
-              v-on:click="removeRow(item.index)"
+              v-on:click="removeRow(item.key)"
             >
               <span class="fas fa-times" data-fa-transform="shrink-3"> </span>
             </button>
@@ -73,6 +75,16 @@ export default {
     header: function () {
       return JSON.parse(this.json_header);
     },
+    visible_headers: function () {
+      let tmp = {};
+      for (let key in this.header_object) {
+        if (key == "key") {
+          continue;
+        }
+        tmp[key] = this.header_object[key];
+      }
+      return tmp;
+    },
     header_object: function () {
       let header_object = {};
       this.header.forEach((row) => {
@@ -80,6 +92,7 @@ export default {
           editable: row.editable,
           computed: row.computed,
           operation: row.operation,
+          name: row.name,
         };
       });
       return header_object;
@@ -90,7 +103,7 @@ export default {
     body_object: function () {
       let body_object = {};
       this.body.forEach((row) => {
-        body_object[row.index] = row;
+        body_object[row.key] = row;
       });
       return body_object;
     },

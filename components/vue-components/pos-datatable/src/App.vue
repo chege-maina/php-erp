@@ -22,7 +22,7 @@ export default {
   },
   data: () => ({
     headers: [
-      { name: "key", editable: false, key: "index", computed: false },
+      { name: "key", editable: false, key: "key", computed: false },
       { name: "Name", editable: false, key: "name", computed: false },
       { name: "Code", editable: false, key: "code", computed: false },
       { name: "Stock", editable: false, key: "stock", computed: false },
@@ -47,7 +47,7 @@ export default {
     ],
     items: [
       {
-        index: 1,
+        key: 1,
         name: "Wiberg Super Cure",
         code: "LT38 2725 3405 4331 5052",
         stock: 59,
@@ -59,7 +59,7 @@ export default {
         subtotal: 60054,
       },
       {
-        index: 2,
+        key: 2,
         name: "Bacardi Breezer - Strawberry",
         code: "PS97 QVMV EN6O KQNI FXSD SPHX ICTY H",
         stock: 23,
@@ -71,7 +71,7 @@ export default {
         subtotal: 784,
       },
       {
-        index: 3,
+        key: 3,
         name: "Avocado",
         code: "LT21 2680 9565 6475 1512",
         stock: 26,
@@ -83,7 +83,7 @@ export default {
         subtotal: 57305,
       },
       {
-        index: 4,
+        key: 4,
         name: "Soup - Knorr, Country Bean",
         code: "MR92 5543 6765 4828 5308 1513 081",
         stock: 72,
@@ -95,7 +95,7 @@ export default {
         subtotal: 15940,
       },
       {
-        index: 5,
+        key: 5,
         name: "Kiwi",
         code: "CY32 4469 2631 OPJT FDCH I1HF 9WEQ",
         stock: 33,
@@ -107,7 +107,7 @@ export default {
         subtotal: 15544,
       },
       {
-        index: 6,
+        key: 6,
         name: "Banana - Green",
         code: "PT08 0202 1850 4474 9222 7254 5",
         stock: 99,
@@ -119,7 +119,7 @@ export default {
         subtotal: 77459,
       },
       {
-        index: 7,
+        key: 7,
         name: "Bread - Burger",
         code: "CR19 0596 3701 4238 7857 0",
         stock: 85,
@@ -131,7 +131,7 @@ export default {
         subtotal: 91874,
       },
       {
-        index: 8,
+        key: 8,
         name: "Bouq All Italian - Primerba",
         code: "FI31 5087 0293 5633 84",
         stock: 53,
@@ -143,7 +143,7 @@ export default {
         subtotal: 78031,
       },
       {
-        index: 9,
+        key: 9,
         name: "Beef - Tender Tips",
         code: "GT18 SXNS QA5F D7D9 B8P7 TYNO 83BV",
         stock: 72,
@@ -155,7 +155,7 @@ export default {
         subtotal: 14014,
       },
       {
-        index: 10,
+        key: 10,
         name: "Sachet",
         code: "MD71 SAAH ZICA HQPH 1JQP 3DEB",
         stock: 76,
