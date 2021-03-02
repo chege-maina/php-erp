@@ -33,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $unit = $row3['unit'];
             $qty = $row3['qty'];
             $cost = $row3['price'];
+            $itm_tax = $row3['tax'];
             $total = $row3['amount'];
 
             array_push(
@@ -42,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     'product_name' => $prod_name,
                     'product_unit' => $unit,
                     'product_qty' => $qty,
+                    'product_tax' => $itm_tax,
                     'product_cost' => $cost,
                     'product_total' => $total
                 )
