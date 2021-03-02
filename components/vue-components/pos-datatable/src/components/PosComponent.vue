@@ -30,7 +30,7 @@
                 />
               </span>
               <span v-else-if="header_object[key].computed">{{
-                computeField(header_object[key].operation, item.key)
+                computeField(header_object[key].operation, item.key, key)
               }}</span>
               <span v-else>{{ value }}</span>
             </td>
@@ -112,7 +112,7 @@ export default {
     },
   },
   methods: {
-    computeField(expression, index) {
+    computeField(expression, index, col) {
       // It computes from left to right =======>
       //so organize them in the order the calculation should be done
       //so as to respect bodmas rules
@@ -146,6 +146,7 @@ export default {
             break;
         }
       }
+      this.table_data[index][col] = cumulative_total.toFixed(2);
       return cumulative_total.toFixed(2);
     },
     removeRow(row) {
