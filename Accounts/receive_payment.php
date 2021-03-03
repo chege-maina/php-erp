@@ -63,7 +63,7 @@ include '../includes/base_page/head.php';
 
                 <div class="col">
                   <label for="#" class="form-label">Cheque Date</label>
-                  <input type="date" value="<?php echo date("Y-m-d"); ?>" id="date" class="form-control">
+                  <input type="date" id="date" class="form-control" required>
                 </div>
               </div>
 
@@ -96,6 +96,7 @@ include '../includes/base_page/head.php';
                   <label for="#" class="form-label">Cheque Type </label>
                   <div class="input-group">
                     <select name="type" id="type" class="form-select" required>
+                      <option value="" disabled selected hidden>-- Select Cheque Type --</option>
                       <option value="inhouse">Inhouse</option>
                       <option value="interbank">Interbank</option>
                     </select>
@@ -139,6 +140,20 @@ include '../includes/base_page/head.php';
             return false;
           }
 
+          if (!date.value) {
+            date.focus();
+            return;
+          }
+
+          if (!cheque_no.value) {
+            cheque_no.focus();
+            return;
+          }
+
+          if (!bank_name.value) {
+            bank_name.focus();
+            return;
+          }
           const sn = supplier_name.value.split("#")[1].trim();
           console.log("Submitting");
 
