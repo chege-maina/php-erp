@@ -74,7 +74,7 @@ include '../includes/base_page/head.php';
                 <input type="date" id="date_due" class="form-control" required readonly>
               </div>
               <div class="col">
-                <label for="amount_due" class="amount_due-label">Amount Due*</label>
+                <label for="amount_due" class="amount_due-label">Branch</label>
                 <input type="number" class="form-control hide-this" name="amount_due" id="amount_due">
                 <input type="text" class="form-control" id="amount_due_helper" readonly required>
               </div>
@@ -114,6 +114,7 @@ include '../includes/base_page/head.php';
               </div>
             </div>
             <div class="row m-3">
+              <h5 class="p-2">Optional</h5>
               <div class="col text-right fw-bold">
                 Tax 16 %
               </div>
@@ -121,22 +122,28 @@ include '../includes/base_page/head.php';
                 <input type="text" class="form-control text-right" id="tax_pc" readonly required>
               </div>
             </div>
-            <div class="row m-3">
-              <div class="col text-left fw-bold">
-                <label for="customer" class="form-label">Driver Name</label>
-                <select id="driver_name" name="driver_name" class="form-select" onclick="checkTransValid();" required>
-                </select>
-              </div>
-              <div class="col text-right fw-bold">
-                Transport Cost
-              </div>
-              <div class="col col-auto">
-                <input type="number" class="form-control text-right" id="transport" onkeyup="addTransport();" disabled required>
+            <div class="col">
+              <div class="row m-3">
+                <div class="col text-left fw-bold">
+                  Driver Name
+                </div>
+                <div class="col col-auto">
+                  <select id="driver_name" name="driver_name" class="form-select" onclick="checkTransValid();" required>
+                  </select>
+                </div>
+                <div class="col text-right fw-bold">
+                  Transport Cost
+                </div>
+                <div class="col col-auto">
+                  <input type="number" class="form-control text-right" id="transport" onkeyup="addTransport();" disabled required>
+                </div>
               </div>
             </div>
             <div class="row m-3">
               <div class="col text-left fw-bold">
-                <label for="truck_no" class="form-label">Truck Number</label>
+                Truck Number
+              </div>
+              <div class="col col-auto">
                 <select id="truck_no" name="truck_no" class="form-select" onclick="checkTransValid();" required>
                 </select>
               </div>

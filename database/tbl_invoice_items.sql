@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2021 at 02:48 PM
+-- Generation Time: Mar 03, 2021 at 09:03 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -35,11 +35,11 @@ CREATE TABLE `tbl_invoice_items` (
   `product_name` varchar(50) NOT NULL,
   `unit` varchar(15) NOT NULL,
   `qty` varchar(100) NOT NULL,
-  `product_cost` varchar(100) NOT NULL,
+  `price` varchar(100) NOT NULL,
   `total` varchar(100) NOT NULL,
   `status` varchar(15) NOT NULL DEFAULT 'pending',
   `user` varchar(50) NOT NULL,
-  `receipt_no` varchar(100) NOT NULL,
+  `tax_pc` varchar(100) NOT NULL,
   `branch` varchar(30) NOT NULL,
   `tax` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
