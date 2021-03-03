@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     array_push(
       $response,
       array(
-        'name' => $row['customer-name'],
+        'name' => $row['customer_name'],
         'amount' => $row['payable']
       )
     );
