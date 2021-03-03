@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_query($conn, $sql2);
         }
 
-        $message = "Remittance No." . $req_no . " Posted Successfully..";
+        $message = "Receipt Advice No." . $req_no . " Posted Successfully..";
         echo json_encode($message);
     } else {
         // echo "Multiquery failed: " . $mysql;
