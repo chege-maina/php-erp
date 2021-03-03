@@ -76,13 +76,7 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="amount_due" class="amount_due-label">Amount Due*</label>
                 <input type="number" class="form-control hide-this" name="amount_due" id="amount_due">
-                <input type="text" class="form-control" id="amount_due_helper" required>
-                <script>
-                  let amount_due, amount_due_helper;
-                  window.addEventListener('DOMContentLoaded', (event) => {
-                    [amount_due, amount_due_helper] = commify('#amount_due', '#amount_due_helper');
-                  });
-                </script>
+                <input type="text" class="form-control" id="amount_due_helper" readonly required>
               </div>
             </div>
           </div>
@@ -227,14 +221,9 @@ include '../includes/base_page/head.php';
           return;
         }
 
-        if (!bill_number.value) {
-          bill_number.focus();
-          return;
-        }
 
-
-        if (!amount_due.value || Number(amount_due.value) !== Number(po_total.getNumericString())) {
-          amount_due_helper_v.focus();
+        if (!transport.value) {
+          transport.focus();
           return;
         }
 
