@@ -261,13 +261,13 @@ include '../includes/base_page/head.php';
         let sendable_table = [];
         table_items.forEach(item => {
           sendable_table.push({
-            p_code: item.code,
-            p_name: item.name,
-            p_units: item.unit,
-            p_amount: item.total,
-            p_quantity: item.qty,
-            p_price: item.balance,
-            p_tax: item.tax,
+            p_code: item.product_code,
+            p_name: item.product_name,
+            p_units: item.product_unit,
+            p_amount: item.product_total,
+            p_quantity: item.product_qty,
+            p_price: item.product_cost,
+            p_tax: item.product_tax,
             p_tax_pc: item.tax_pc,
 
           })
@@ -385,7 +385,7 @@ include '../includes/base_page/head.php';
         console.log('Result:', result);
         table_body.innerHTML = "";
 
-        //  [...table_items] = result;
+        [...table_items] = result;
 
         let cumulative_total = 0;
 
