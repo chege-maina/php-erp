@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $terms = $row['terms'];
         $sub_total = $row['sub_total'];
         $tax = $row['tax'];
+        $branch = $row['branch_location'];
         $amount = $row['amount'];
 
         $query3 = "SELECT * FROM tbl_sale_items WHERE quote_no='$lpo_no'";
@@ -59,6 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'date' => $tax,
                 'receipt_no' => $amount,
                 'terms' => $terms,
+                'branch' => $branch,
                 'table_data' => $response2
             )
         );
