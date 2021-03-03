@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'date' => $tax,
                 'receipt_no' => $amount,
                 'terms' => $terms,
-                'amount_due' => $branch,
+                'branch' => $branch,
                 'table_data' => $response2
             )
         );
