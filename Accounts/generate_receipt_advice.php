@@ -130,7 +130,7 @@ include '../includes/base_page/head.php';
             </div>
             <div class="row m-3">
               <div class="col text-right fw-bold">
-                Net Payable
+                Net Receivable
               </div>
               <div class="col col-auto">
                 <input type="number" class="form-control hide-this" name="amount_due" id="amount_due" required>
@@ -203,7 +203,7 @@ include '../includes/base_page/head.php';
           formData.append("user", user_name);
           formData.append("table_items", JSON.stringify(table_items_sendable));
 
-          fetch('../includes/add_remittance.php', {
+          fetch('../includes/add_receipt_adv.php', {
               method: 'POST',
               body: formData
             })
@@ -238,7 +238,7 @@ include '../includes/base_page/head.php';
         window.addEventListener('DOMContentLoaded', (event) => {
           const formData = new FormData();
 
-          fetch('../includes/load_supplier_remittance.php')
+          fetch('../includes/load_customer_receiptadv.php')
             .then(response => response.json())
             .then(result => {
               let opt = document.createElement("option");
@@ -271,7 +271,7 @@ include '../includes/base_page/head.php';
           console.log(supplier_name.value);
           const formData = new FormData();
           formData.append("supplier", supplier_name.value.trim());
-          fetch('../includes/load_remittance_static.php', {
+          fetch('../includes/load_receipt_static.php', {
               method: 'POST',
               body: formData
             })

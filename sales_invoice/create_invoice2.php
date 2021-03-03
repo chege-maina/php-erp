@@ -249,7 +249,7 @@ include '../includes/base_page/head.php';
         formData.append("branch", branch_name.value);
         formData.append("terms", terms_of_payment.value);
         formData.append("date", bill_date.value);
-        formData.append("tax", tax_pc.value);
+        formData.append("tax", tax_pc.getNumericString());
         formData.append("transport", transport.value);
         formData.append("driver", driver_name.value);
         formData.append("vehicle", truck_no.value);

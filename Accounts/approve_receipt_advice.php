@@ -115,7 +115,7 @@ include '../includes/base_page/head.php';
               <button class="btn btn-falcon-success btn-sm m-2" id="submit" onclick="submitPO();">
                 Approve
               </button>
-              <button class="btn btn-falcon-danger btn-sm m-2" id="submit" onclick="submitPO();">
+              <button class="btn btn-falcon-danger btn-sm m-2" id="submit" onclick="reject();">
                 Reject
               </button>
             </div>
@@ -163,7 +163,7 @@ include '../includes/base_page/head.php';
           const formData = new FormData();
           formData.append("rem_no", sn);
           formData.append("checker", "approve");
-          fetch('../includes/update_rem.php', {
+          fetch('../includes/update_recadv.php', {
               method: 'POST',
               body: formData
             })
@@ -188,12 +188,55 @@ include '../includes/base_page/head.php';
 
         }
 
+        function reject() {
+          if (!supplier_name.value) {
+            supplier_name.focus();
+            return;
+          }
+
+          if (!confirm("Are you sure you want to reject?")) {
+            return;
+          }
+          ///new code
+          const sn = supplier_name.value.split("#")[1].trim();
+          console.log(sn);
+
+          const formData = new FormData();
+          formData.append("rem_no", sn);
+          formData.append("checker", "rejected");
+          fetch('../includes/update_recadv.php', {
+              method: 'POST',
+              body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+              console.log('Success:', result);
+              const alertVar =
+                `<div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>Success!</strong> ${result}
+          <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+          </div>`;
+              var divAlert = document.querySelector("#alert-div");
+              divAlert.innerHTML = alertVar;
+              divAlert.scrollIntoView();
+              setTimeout(function() {
+                location.reload();
+              }, 2500);
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+
+          //newcode
+
+        }
+
 
 
         window.addEventListener('DOMContentLoaded', (event) => {
           const formData = new FormData();
 
-          fetch('../includes/load_rem_num.php')
+          fetch('../includes/load_recadv_num.php')
             .then(response => response.json())
             .then(result => {
               console.log(result)
@@ -227,7 +270,7 @@ include '../includes/base_page/head.php';
 
           const formData = new FormData();
           formData.append("rem_no", sn);
-          fetch('../includes/load_rem_approval.php', {
+          fetch('../includes/load_recadv_approval.php', {
               method: 'POST',
               body: formData
             })
