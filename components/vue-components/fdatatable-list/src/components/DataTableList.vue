@@ -1,5 +1,5 @@
 <template>
-  <table class="table table-sm is-striped is-hoverable is-fullwidth">
+  <table class="table table-sm table-striped table-hover is-fullwidth">
     <thead>
       <tr>
         <th scope="col">#</th>
