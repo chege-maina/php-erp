@@ -69,36 +69,42 @@ export default {
     const falcon_js = document.createElement("script");
     falcon_js.setAttribute(
       "src",
-      "http://localhost:6060/assets/js/theme.min.js"
+      "https://qonsolidated-solutions.github.io/falcon-assets/assets/js/theme.min.js"
     );
     const anchor_js = document.createElement("script");
     anchor_js.setAttribute(
       "src",
-      "http://localhost:6060/vendors/anchorjs/anchor.min.js"
+      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/anchorjs/anchor.min.js"
     );
     const popper = document.createElement("script");
     popper.setAttribute(
       "src",
-      "http://localhost:6060/vendors/popper/popper.min.js"
+      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/popper/popper.min.js"
     );
     const bootstrap = document.createElement("script");
     bootstrap.setAttribute(
       "src",
-      "http://localhost:6060/vendors/bootstrap/bootstrap.min.js"
+      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/bootstrap/bootstrap.min.js"
     );
     const is_js = document.createElement("script");
-    is_js.setAttribute("src", "http://localhost:6060/vendors/is/is.min.js");
+    is_js.setAttribute(
+      "src",
+      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/is/is.min.js"
+    );
     const prism = document.createElement("script");
-    prism.setAttribute("src", "http://localhost:6060/vendors/prism/prism.js");
+    prism.setAttribute(
+      "src",
+      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/prism/prism.js"
+    );
     const fontawesome = document.createElement("script");
     fontawesome.setAttribute(
       "src",
-      "http://localhost:6060/vendors/fontawesome/all.min.js"
+      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/fontawesome/all.min.js"
     );
     const lodash = document.createElement("script");
     lodash.setAttribute(
       "src",
-      "http://localhost:6060/vendors/lodash/lodash.min.js"
+      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/lodash/lodash.min.js"
     );
     const polyfill = document.createElement("script");
     polyfill.setAttribute(
@@ -108,10 +114,13 @@ export default {
     const list_js = document.createElement("script");
     list_js.setAttribute(
       "src",
-      "http://localhost:6060/vendors/list.js/list.min.js"
+      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/list.js/list.min.js"
     );
     const config_js = document.createElement("script");
-    config_js.setAttribute("src", "http://localhost:6060/assets/js/config.js");
+    config_js.setAttribute(
+      "src",
+      "https://qonsolidated-solutions.github.io/falcon-assets/assets/js/config.js"
+    );
 
     this.$el.prepend(config_js);
     this.$el.append(
@@ -276,5 +285,5 @@ export default {
 </script>
 
 <style>
-@import "http://localhost:6060/assets/css/theme.min.css";
+@import "https://qonsolidated-solutions.github.io/falcon-assets/assets/css/theme.min.css";
 </style>
