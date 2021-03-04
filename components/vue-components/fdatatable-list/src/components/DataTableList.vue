@@ -215,8 +215,8 @@ export default {
     session_key: "table_data",
     i_current: 1,
     i_total: 9,
-    list_by: [17, 25, 50, 100],
-    per_page: 17,
+    list_by: [10, 25, 50, 100],
+    per_page: 10,
   }),
   watch: {
     table_data: {
