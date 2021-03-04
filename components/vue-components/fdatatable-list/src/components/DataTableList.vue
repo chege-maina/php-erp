@@ -3,7 +3,12 @@
     <div class="d-flex flex-row-reverse mb-0">
       <ul class="pagination pagination-sm ml-2">
         <li class="page-item active">
-          <button class="page-link" href="#" aria-label="Previous">
+          <button
+            class="page-link"
+            href="#"
+            aria-label="Previous"
+            v-on:click="prevPage()"
+          >
             <span aria-hidden="true">&laquo;</span>
           </button>
         </li>
@@ -13,7 +18,12 @@
           >
         </li>
         <li class="page-item active">
-          <button class="page-link" href="#" aria-label="Next">
+          <button
+            class="page-link"
+            href="#"
+            aria-label="Next"
+            v-on:click="nextPage()"
+          >
             <span aria-hidden="true">&raquo;</span>
           </button>
         </li>
@@ -173,6 +183,8 @@ export default {
       list_js,
       falcon_js
     );
+
+    this.i_total = this.body.length / this.per_page;
   },
   props: {
     json_header: {
@@ -222,7 +234,7 @@ export default {
     },
     per_page: {
       handler(val) {
-        console.log("Current", val);
+        this.i_total = this.body.length / val;
       },
     },
   },
@@ -259,6 +271,24 @@ export default {
         tmp[key] = {
           index: i,
         };
+        i++;
+      }
+      return tmp;
+    },
+    table_data_relative_index_current_page: function () {
+      let tmp = {};
+      let i = 0;
+      let start_at = this.i_current * this.per_page - this.per_page;
+      let end_at = start_at + this.per_page;
+      for (let key in this.table_data_relative_index) {
+        if (start_at > i) {
+          i++;
+          continue;
+        }
+        if (end_at <= i) {
+          break;
+        }
+        tmp[key] = this.table_data_relative_index[key];
         i++;
       }
       return tmp;
@@ -326,6 +356,20 @@ export default {
       }
 
       window.location.href = this.redirect;
+    },
+    nextPage() {
+      this.i_current++;
+      console.log(
+        "Forward marching",
+        this.table_data_relative_index_current_page
+      );
+    },
+    prevPage() {
+      this.i_current--;
+      console.log(
+        "Backwards ever",
+        this.table_data_relative_index_current_page
+      );
     },
   },
 };
