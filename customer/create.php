@@ -73,8 +73,12 @@ include '../includes/base_page/head.php';
                   <input name="tax_id" id="sup_tax_id" class="form-control" placeholder="Tax ID" type="text" required>
                 </div>
                 <div class="col">
-                  <label for="payment_terms" class="form-label">Payment Terms*</label>
+                  <label for="payment_terms" class="form-label">Payment Terms(Days)*</label>
                   <input name="payment_terms" id="payment_terms" class="form-control" placeholder="Payment Terms" type="number" required>
+                </div>
+                <div class="col">
+                  <label for="credit" class="form-label">Credit Limit*</label>
+                  <input name="credit_limit" id="credit_limit" class="form-control" placeholder="Credit Limit" type="number" required>
                 </div>
               </div>
             </div>
