@@ -122,10 +122,10 @@ include '../includes/base_page/head.php';
             </div>
 
             <div class="row m-3">
-              <div class="col text-left fw-bold">
+              <div class="col text-right fw-bold">
                 Driver Name
               </div>
-              <div class="col col-auto">
+              <div class="col">
                 <select id="driver_name" name="driver_name" class="form-select" onclick="checkTransValid();" required>
                 </select>
               </div>
@@ -137,10 +137,10 @@ include '../includes/base_page/head.php';
               </div>
             </div>
             <div class="row m-3">
-              <div class="col text-left fw-bold">
+              <div class="col text-right fw-bold">
                 Truck Number
               </div>
-              <div class="col col-auto">
+              <div class="col">
                 <select id="truck_no" name="truck_no" class="form-select" onclick="checkTransValid();" required>
                 </select>
               </div>
