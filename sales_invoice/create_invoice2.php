@@ -94,8 +94,8 @@ include '../includes/base_page/head.php';
                     <th scope="col">Product Name</th>
                     <th scope="col">Units</th>
                     <th scope="col">Quantity</th>
-                    <th scope="col">Tax</th>
                     <th scope="col">Price</th>
+                    <th scope="col">Tax</th>
                     <th scope="col">Total</th>
                   </tr>
                 </thead>
@@ -113,7 +113,6 @@ include '../includes/base_page/head.php';
               </div>
             </div>
             <div class="row m-3">
-              <h5 class="p-2">Optional</h5>
               <div class="col text-right fw-bold">
                 Tax 16 %
               </div>
@@ -431,7 +430,7 @@ include '../includes/base_page/head.php';
           product_qty.classList.add("align-middle");
 
 
-          tr.append(code_td, name_td, units_td, product_qty, tax_td, product_cost, product_total);
+          tr.append(code_td, name_td, units_td, product_qty, product_cost, tax_td, product_total);
           table_body.appendChild(tr);
         });
 
