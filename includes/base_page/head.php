@@ -93,5 +93,53 @@
     function d_toString(value) {
       return value < 10 ? '0' + value : String(value);
     }
+
+    function getHeaders(data) {
+      let table_headers = [];
+      if (data.length <= 0) {
+        return;
+      }
+
+      for (key in data[0]) {
+        let name = "";
+        key.split("_").forEach(value => {
+          name += " " + value;
+        });
+
+        table_headers.push({
+          name: name.trim(),
+          editable: false,
+          key: key,
+          computed: false
+        });
+      }
+      return table_headers;
+    }
+
+
+    function getItems(data) {
+      let table_items_c = [];
+      let i = 0;
+      data.forEach(row => {
+        let tmp_row = {};
+        tmp_row["key"] = i++;
+        for (key in row) {
+          tmp_row[key] = row[key];
+        }
+        table_items_c.push(tmp_row);
+      });
+      return table_items_c;
+    }
+
+    function getBaseUrl() {
+      // HACK: This is to accomadate xampp devs
+      const path = window.location.pathname.split('/');
+      let xampp_offset = "";
+      if (path.length > 3) {
+        xampp_offset = "/" + path[1];
+      }
+      const url = window.location.href.split(window.location.host)[0] + window.location.host + xampp_offset;
+      return url;
+    }
   </script>
 </head>

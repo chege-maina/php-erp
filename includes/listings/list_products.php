@@ -10,18 +10,18 @@ $result = mysqli_query($conn, $query);
 $response = array();
 
 while ($row = mysqli_fetch_assoc($result)) {
-	array_push(
-		$response,
-		array(
-			'code' => $row['product_code'],
-			'name' => $row['product-name'],
-			'category' => $row['product_category'],
-			'unit' => $row['product_unit'],
-			'tax_pc' => $row['applicable_tax'],
-			'cost' => $row['amount_before_tax'],
-			'price' => $row['dsp_price']
-		)
-	);
+  array_push(
+    $response,
+    array(
+      'code' => $row['product_code'],
+      'name' => $row['product_name'],
+      'category' => $row['product_category'],
+      'unit' => $row['product_unit'],
+      'tax_pc' => $row['applicable_tax'],
+      'cost' => $row['amount_before_tax'],
+      'price' => $row['dsp_price']
+    )
+  );
 }
 echo json_encode($response);
 
