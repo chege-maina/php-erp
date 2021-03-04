@@ -48,12 +48,9 @@ include '../includes/base_page/head.php';
           <div class="card-body fs--1 pr-2 position-relative">
 
             <div class="col col-md-5 my-4">
-              <div class="input-group">
-                <input list="purchase_order_number_items" id="purchase_order_number" class="form-select form-select-sm">
-                <datalist id="purchase_order_number_items" class="bg-light"></datalist>
-                <button class="input-group-btn btn btn-primary btn-sm" id="lpoNumber" onclick="selectLPONumber();">
-                  Select
-                </button>
+              <div class="col">
+                <label for="pb_number" class="form-label">Purchase Bill Number</label>
+                <input type="text" name="pb_number" id="pb_number" class="form-control" readonly>
               </div>
             </div>
 
@@ -95,15 +92,8 @@ include '../includes/base_page/head.php';
                 <input type="text" id="bill_number" class="form-control" required onfocusout="this.value = this.value.toUpperCase();">
               </div>
               <div class="col">
-                <label for="amount_due" class="amount_due-label">Amount Due*</label>
-                <input type="number" class="form-control hide-this" name="amount_due" id="amount_due">
-                <input type="text" class="form-control" id="amount_due_helper" required>
-                <script>
-                  let amount_due, amount_due_helper;
-                  window.addEventListener('DOMContentLoaded', (event) => {
-                    [amount_due, amount_due_helper] = commify('#amount_due', '#amount_due_helper');
-                  });
-                </script>
+                <label for="receipt_no" class="form-label">Receipt Number*</label>
+                <input type="text" id="rec_no" class="form-control" required>
               </div>
             </div>
           </div>
@@ -163,7 +153,7 @@ include '../includes/base_page/head.php';
           <div class="card-body fs--1 p-1">
             <div class="d-flex flex-row-reverse">
               <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="postBill();">
-                Post Bill
+                Print
               </button>
             </div>
             <!-- Content ends here -->

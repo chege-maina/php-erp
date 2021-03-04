@@ -70,8 +70,8 @@ include '../includes/base_page/head.php';
             elem.setAttribute("json_header", JSON.stringify(getHeaders(data)));
             elem.setAttribute("json_items", JSON.stringify(getItems(data)));
 
-            elem.setAttribute("manage_key", "name");
-            elem.setAttribute("manage_key_2", "code");
+            elem.setAttribute("manage_key", "Purchase_Bill");
+            //elem.setAttribute("manage_key_2", "code");
             elem.setAttribute("redirect", getBaseUrl() + "/products/view_purchase_bill.php");
             // elem.classList.add("is-fullwidth");
             datatable.appendChild(elem);
@@ -79,7 +79,7 @@ include '../includes/base_page/head.php';
 
           window.addEventListener('DOMContentLoaded', (event) => {
 
-            fetch('../includes/listings/list_products.php')
+            fetch('../includes/listings/list_purchasebill.php')
               .then(response => response.json())
               .then(data => {
                 updateTable(data);
