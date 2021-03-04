@@ -45,7 +45,18 @@
               type="button"
               v-on:click="removeRow(item.key)"
             >
-              <i class="bi bi-x" style="font-size: 1.3em"></i>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-x"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+                />
+              </svg>
             </button>
           </td>
         </tr>
@@ -189,5 +200,4 @@ export default {
 <style>
 @import url("http://localhost:5000/assets/css/theme-rtl.min.css");
 @import url("http://localhost:5000/assets/css/theme.min.css");
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css");
 </style>
