@@ -236,6 +236,15 @@ export default {
       handler(val) {
         this.i_total = this.body.length / val;
         this.i_total = this.i_total < 1 ? 1 : this.i_total;
+        this.i_current =
+          this.i_current > this.i_total ? this.i_total : this.i_current;
+      },
+    },
+    i_current: {
+      handler() {
+        this.i_current = this.i_current < 1 ? 1 : this.i_current;
+        this.i_current =
+          this.i_current > this.i_total ? this.i_total : this.i_current;
       },
     },
   },
