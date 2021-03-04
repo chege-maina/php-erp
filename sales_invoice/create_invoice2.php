@@ -134,7 +134,7 @@ include '../includes/base_page/head.php';
                 Transport Cost
               </div>
               <div class="col col-auto">
-                <input type="number" class="form-control text-right" id="transport" onkeyup="addTransport();" disabled required>
+                <input type="number" class="form-control text-right" id="transport" onkeyup="addTransport();" min="0" disabled required>
               </div>
             </div>
             <div class="row m-3">
