@@ -26,8 +26,6 @@ function genSideBar()
   <ul class="nav collapse" id="pages" data-parent="#navbarVerticalCollapse">
     <li class="nav-item"><a class="nav-link" href="../products/add-product-ui.php">Add New Product</a>
     </li>
-    <li class="nav-item"><a class="nav-link" href="../products/manage-products-ui.php">Manage Products</a>
-    </li>
     <li class="nav-item"><a class="nav-link" href="../products/product-listing-ui.php">Products Listing</a>
     </li>
   </ul>
