@@ -13,11 +13,11 @@ while ($row = mysqli_fetch_assoc($result)) {
 	array_push(
 		$response,
 		array(
-			'Req_no' => $row[0],
-			'date' => $row[1],
-			'Created_By' => $row[3],
-			'Branch' => $row[4],
-			'Status' => $row[5]
+			'Req_no' => $row['requisition_No'],
+			'date' => $row['date'],
+			'Created_By' => $row['user'],
+			'Branch' => $row['branch'],
+			'Status' => $row['status']
 		)
 	);
 }
