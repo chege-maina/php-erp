@@ -64,7 +64,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in table_data" :key="item.key" class="py-0">
+        <tr v-for="item in visible_table_data" :key="item.key" class="py-0">
           <th scope="row" class="align-middle py-1">
             {{ table_data_relative_index[item.key].index }}
           </th>
@@ -75,7 +75,7 @@
                 <input
                   class="form-control form-control-sm"
                   type="number"
-                  v-model="table_data[item.key][key]"
+                  v-model="visible_table_data[item.key][key]"
                 />
               </span>
               <span v-else-if="header_object[key].computed">{{
@@ -293,6 +293,24 @@ export default {
       }
       return tmp;
     },
+    visible_table_data: function () {
+      let tmp = {};
+      let i = 0;
+      let start_at = this.i_current * this.per_page - this.per_page;
+      let end_at = start_at + this.per_page;
+      for (let key in this.table_data) {
+        if (start_at > i) {
+          i++;
+          continue;
+        }
+        if (end_at <= i) {
+          break;
+        }
+        tmp[key] = this.table_data[key];
+        i++;
+      }
+      return tmp;
+    },
   },
   methods: {
     computeField(expression, index, col) {
@@ -359,17 +377,11 @@ export default {
     },
     nextPage() {
       this.i_current++;
-      console.log(
-        "Forward marching",
-        this.table_data_relative_index_current_page
-      );
+      console.log("Forward marching", this.visible_table_data);
     },
     prevPage() {
       this.i_current--;
-      console.log(
-        "Backwards ever",
-        this.table_data_relative_index_current_page
-      );
+      console.log("Backwards ever", this.visible_table_data);
     },
   },
 };
