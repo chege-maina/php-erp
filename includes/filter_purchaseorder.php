@@ -7,9 +7,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $end_date = $_POST["date2"];
   $status = $_POST["status"];
 
-
-  $query = "SELECT * FROM tbl_purchaseorder WHERE status='$status' and date>='$start_date' and date<= '$end_date'";
-
+  if (strcmp($status, 'all') == 0) {
+    $query = "SELECT * FROM tbl_purchaseorder WHERE date>='$start_date' and date<= '$end_date'";
+  } else {
+    $query = "SELECT * FROM tbl_purchaseorder WHERE status='$status' and date>='$start_date' and date<= '$end_date'";
+  }
   $result = mysqli_query($conn, $query);
   $response = array();
 
