@@ -44,7 +44,7 @@ include '../includes/base_page/head.php';
               <div class="row">
 
                 <div class="col">
-                  <label for="#" class="form-label">Select Supplier </label>
+                  <label for="#" class="form-label">Select Customer </label>
                   <div class="input-group">
                     <input list="suppliers" name="supplier" id="supplier_name" class="form-select" required>
                     <datalist id="suppliers"></datalist>

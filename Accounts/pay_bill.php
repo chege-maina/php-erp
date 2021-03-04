@@ -63,7 +63,7 @@ include '../includes/base_page/head.php';
 
                 <div class="col">
                   <label for="#" class="form-label">Cheque Date</label>
-                  <input type="date" value="<?php echo date("Y-m-d"); ?>" id="date" class="form-control">
+                  <input type="date" id="date" class="form-control" required>
                 </div>
               </div>
 
@@ -81,11 +81,22 @@ include '../includes/base_page/head.php';
                   <label for="cheque_number" class="form-label">Cheque Number*</label>
                   <input type="number" name="cheque_number" id="cheque_number" class="form-control" required>
                 </div>
-
+              </div>
+              <div class="row">
                 <div class="col">
                   <label for="#" class="form-label">Bank Name </label>
                   <div class="input-group">
                     <select name="bank_name" id="bank_name" class="form-select" required>
+                    </select>
+                  </div>
+                </div>
+                <div class="col">
+                  <label for="#" class="form-label">Cheque Type </label>
+                  <div class="input-group">
+                    <select name="type" id="type" class="form-select" required>
+                      <option value="" disabled selected hidden>-- Select Cheque Type --</option>
+                      <option value="inhouse">Inhouse</option>
+                      <option value="interbank">Interbank</option>
                     </select>
                   </div>
                 </div>
@@ -116,6 +127,8 @@ include '../includes/base_page/head.php';
         const supplier_name = document.querySelector("#supplier_name");
         const supplier = document.querySelector("#supplier");
         const bank_name = document.querySelector('#bank_name');
+
+        const type = document.querySelector('#type');
         const amt = document.querySelector('#amt');
         const cheque_no = document.querySelector('#cheque_number');
 
@@ -125,6 +138,20 @@ include '../includes/base_page/head.php';
             return false;
           }
 
+          if (!date.value) {
+            date.focus();
+            return;
+          }
+
+          if (!cheque_no.value) {
+            cheque_no.focus();
+            return;
+          }
+
+          if (!bank_name.value) {
+            bank_name.focus();
+            return;
+          }
           const sn = supplier_name.value.split("#")[1].trim();
           console.log("Submitting");
 
@@ -135,6 +162,8 @@ include '../includes/base_page/head.php';
           formData.append("amount", amt.value);
           formData.append("cheque_no", cheque_no.value);
           formData.append("bank", bank_name.value);
+          formData.append("cheque_type", type.value);
+          formData.append("date", date.value);
           fetch('../includes/add_payment.php', {
               method: 'POST',
               body: formData
