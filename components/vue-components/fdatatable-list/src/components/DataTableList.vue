@@ -135,15 +135,9 @@ export default {
       "http://localhost:6060/vendors/bootstrap/bootstrap.min.js"
     );
     const is_js = document.createElement("script");
-    is_js.setAttribute(
-      "src",
-      "http://localhost:6060/vendors/is/is.min.js"
-    );
+    is_js.setAttribute("src", "http://localhost:6060/vendors/is/is.min.js");
     const prism = document.createElement("script");
-    prism.setAttribute(
-      "src",
-      "http://localhost:6060/vendors/prism/prism.js"
-    );
+    prism.setAttribute("src", "http://localhost:6060/vendors/prism/prism.js");
     const fontawesome = document.createElement("script");
     fontawesome.setAttribute(
       "src",
@@ -165,10 +159,7 @@ export default {
       "http://localhost:6060/vendors/list.js/list.min.js"
     );
     const config_js = document.createElement("script");
-    config_js.setAttribute(
-      "src",
-      "http://localhost:6060/assets/js/config.js"
-    );
+    config_js.setAttribute("src", "http://localhost:6060/assets/js/config.js");
 
     this.$el.prepend(config_js);
     this.$el.append(
@@ -185,6 +176,7 @@ export default {
     );
 
     this.i_total = this.body.length / this.per_page;
+    this.i_total = this.i_total < 1 ? 1 : this.i_total;
   },
   props: {
     json_header: {
@@ -219,7 +211,7 @@ export default {
     i_current: 1,
     i_total: 9,
     list_by: [10, 25, 50, 100, 1000],
-    per_page: 10,
+    per_page: 1000,
   }),
   watch: {
     table_data: {
