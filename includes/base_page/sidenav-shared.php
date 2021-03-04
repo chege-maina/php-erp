@@ -109,6 +109,8 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/purchase_bill_listing.php">Purchase Listing</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/remittance_listing.php">Remittance Listing</a>
+  </li>
 </ul>
 </li>
 <!-- Customers -->
