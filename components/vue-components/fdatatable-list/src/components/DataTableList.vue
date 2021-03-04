@@ -218,7 +218,7 @@ export default {
     session_key: "table_data",
     i_current: 1,
     i_total: 9,
-    list_by: [10, 25, 50, 100],
+    list_by: [10, 25, 50, 100, 1000],
     per_page: 10,
   }),
   watch: {
@@ -235,6 +235,7 @@ export default {
     per_page: {
       handler(val) {
         this.i_total = this.body.length / val;
+        this.i_total = this.i_total < 1 ? 1 : this.i_total;
       },
     },
   },
