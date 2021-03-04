@@ -75,7 +75,7 @@ include '../includes/base_page/head.php';
 
             elem.setAttribute("manage_key", "name");
             elem.setAttribute("manage_key_2", "code");
-            elem.setAttribute("redirect", getBaseUrl() + "/banks/edit_bank.php");
+            elem.setAttribute("redirect", getBaseUrl() + "/products/edit-product-ui.php");
             // elem.classList.add("is-fullwidth");
             datatable.appendChild(elem);
           };
