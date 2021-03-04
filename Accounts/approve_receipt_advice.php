@@ -249,7 +249,7 @@ include '../includes/base_page/head.php';
 
               result.forEach((supplier) => {
                 opt = document.createElement("option");
-                opt.value = "Remittance # " + supplier["rem_num"];
+                opt.value = "Receipt # " + supplier["rem_num"];
                 opt.appendChild(document.createTextNode(supplier["date"] + " : " + supplier["supplier"]));
                 suppliers.appendChild(opt);
               });
