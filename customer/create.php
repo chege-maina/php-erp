@@ -33,7 +33,7 @@ include '../includes/base_page/head.php';
         <div id="alert-div"></div>
         <h5 class="p-2">Add Customer</h5>
 
-        <form name="add_product" id="add_product" onsubmit="return sendEverything();">
+        <form name="add_customer" id="add_customer" onsubmit="return sendEverything();">
           <div class="card">
             <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/illustrations/corner-4.png);">
             </div>
@@ -91,9 +91,9 @@ include '../includes/base_page/head.php';
 
             </div>
           </div>
-      </div>
-      </form>
 
+        </form>
+      </div>
       <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
       <?php
       include '../includes/base_page/footer.php';
@@ -107,15 +107,8 @@ include '../includes/base_page/head.php';
 
 
     <script>
-      let all_requisitionable_items = {};
-      let items_in_combobox = {};
-      let items_in_table = {};
-
-
       // const items_in_requisitionable_item
-      const requisitionable_item = document.querySelector("#requisitionable_item");
-      const requisitionable_items_datalist = document.querySelector("#requisitionable_items");
-      const table_body = document.querySelector("#table_body");
+      const add_customer = document.querySelector("#add_customer");
 
       const sup_nm = document.querySelector("#sup_nm");
       const sup_email = document.querySelector("#sup_email");
@@ -126,111 +119,45 @@ include '../includes/base_page/head.php';
       const payment_terms = document.querySelector("#payment_terms");
       const credit_limit = document.querySelector("#credit_limit");
 
-      function updateReqItems() {
-        // Clear datalist
-        requisitionable_items_datalist.innerHTML = "";
-        requisitionable_item.value = "";
-        for (let item in items_in_combobox) {
-          // console.log(items_in_combobox[item]);
-          let opt = document.createElement("option");
-          opt.appendChild(
-            document.createTextNode(
-              "Remaining " + items_in_combobox[item]["name"]
-            )
-          );
-          opt.setAttribute("value", items_in_combobox[item]["name"]);
-          requisitionable_items_datalist.appendChild(opt);
-        }
-      }
-
-
-      function addCostToReqItem(item, value) {
-        items_in_table[item]['cost'] = value;
-        console.log(value);
-      }
-
-      function addItem() {
-        const item_to_add = all_requisitionable_items[requisitionable_item.value];
-        if (!item_to_add) {
-          return;
-        }
-
-        items_in_table[requisitionable_item.value] = item_to_add;
-        // console.log("Now in table: ", items_in_table);
-
-        // console.log(item_to_add);
-
-        delete items_in_combobox[item_to_add["name"]];
-
-        updateReqItems();
-      }
-
-      function removeItem(item) {
-        items_in_table[item]['cost'] = 0;
-        delete items_in_table[String(item)];
-        const item_to_add = all_requisitionable_items[item];
-        items_in_combobox[item] = item_to_add;
-
-        updateReqItems();
-      }
-
 
       function sendEverything() {
-        let table_items = [];
-        for (let item in items_in_table) {
-          table_items.push(items_in_table[item]);
-        }
-        if (table_items.length == 0) {
-          const alertVar =
-            `<div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <strong>Warning!</strong> Cannot submit empty table.
-              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
-              </div>`;
-          var divAlert = document.querySelector("#alert-div");
-          divAlert.innerHTML = alertVar;
-          divAlert.scrollIntoView();
-          return false;
-        } else {
-          console.log(table_items);
-          const formData = new FormData();
 
-          formData.append("name", sup_nm.value);
-          formData.append("email", sup_email.value);
-          formData.append("tel_no", sup_tel.value);
-          formData.append("postal_address", sup_postal.value);
-          formData.append("physical_address", sup_physical_address.value);
-          formData.append("tax_id", sup_tax_id.value);
-          formData.append("payment_terms", payment_terms.value);
-          formData.append("limit", credit_limit.value);
+        const formData = new FormData();
 
-          formData.append("table_items", JSON.stringify(table_items));
+        formData.append("name", sup_nm.value);
+        formData.append("email", sup_email.value);
+        formData.append("tel_no", sup_tel.value);
+        formData.append("postal_address", sup_postal.value);
+        formData.append("physical_address", sup_physical_address.value);
+        formData.append("tax_id", sup_tax_id.value);
+        formData.append("terms", payment_terms.value);
+        formData.append("limit", credit_limit.value);
 
-          // Send the data
-          fetch('../includes/add_customer.php', {
-              method: 'POST',
-              body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-              console.log("from server", data);
-              // return false;
-              const alertVar =
-                `<div class="alert alert-success alert-dismissible fade show" role="alert">
+        // Send the data
+        fetch('../includes/add_customer.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.text())
+          .then(data => {
+            console.log("from server", data);
+            // return false;
+            const alertVar =
+              `<div class="alert alert-success alert-dismissible fade show" role="alert">
           <strong>Success!</strong> ${data}
           <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
           </div>`;
-              var divAlert = document.querySelector("#alert-div");
-              divAlert.innerHTML = alertVar;
-              divAlert.scrollIntoView();
-              setTimeout(function() {
-                location.reload();
-              }, 2500);
-            })
-            .catch(error => {
-              console.error(error);
-            });
-          return false;
-        }
+            var divAlert = document.querySelector("#alert-div");
+            divAlert.innerHTML = alertVar;
+            divAlert.scrollIntoView();
+            setTimeout(function() {
+              location.reload();
+            }, 2500);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+        return false;
       }
     </script>
 </body>
