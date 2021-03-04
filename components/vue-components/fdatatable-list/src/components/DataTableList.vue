@@ -1,54 +1,75 @@
 <template>
-  <table class="table table-sm table-striped table-hover is-fullwidth">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <template v-for="(item, key) in header">
-          <th
-            scope="col"
-            v-bind:class="{ 'col-sm-1': item.editable }"
-            :key="key"
-            v-if="item.key !== 'key'"
-          >
-            {{ item.name }}
+  <div>
+    <table class="table table-sm table-striped table-hover is-fullwidth pb-0">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <template v-for="(item, key) in header">
+            <th
+              scope="col"
+              v-bind:class="{ 'col-sm-1': item.editable }"
+              :key="key"
+              v-if="item.key !== 'key'"
+            >
+              {{ item.name }}
+            </th>
+          </template>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in table_data" :key="item.key" class="py-0">
+          <th scope="row" class="align-middle py-1">
+            {{ table_data_relative_index[item.key].index }}
           </th>
-        </template>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="item in table_data" :key="item.key" class="py-0">
-        <th scope="row" class="align-middle py-1">
-          {{ table_data_relative_index[item.key].index }}
-        </th>
 
-        <template v-for="(value, key) in item">
-          <td v-bind:key="key" v-if="key !== 'key'" class="align-middle py-1">
-            <span v-if="header_object[key].editable" class="control">
-              <input
-                class="form-control form-control-sm"
-                type="number"
-                v-model="table_data[item.key][key]"
-              />
-            </span>
-            <span v-else-if="header_object[key].computed">{{
-              computeField(header_object[key].operation, item.key, key)
-            }}</span>
-            <span v-else>{{ value }}</span>
+          <template v-for="(value, key) in item">
+            <td v-bind:key="key" v-if="key !== 'key'" class="align-middle py-1">
+              <span v-if="header_object[key].editable" class="control">
+                <input
+                  class="form-control form-control-sm"
+                  type="number"
+                  v-model="table_data[item.key][key]"
+                />
+              </span>
+              <span v-else-if="header_object[key].computed">{{
+                computeField(header_object[key].operation, item.key, key)
+              }}</span>
+              <span v-else>{{ value }}</span>
+            </td>
+          </template>
+
+          <td class="align-middle py-1">
+            <button
+              class="btn btn-falcon-primary btn-sm px-1 py-0"
+              v-on:click="manageItem(item.key)"
+            >
+              Manage
+            </button>
           </td>
-        </template>
-
-        <td class="align-middle py-1">
-          <button
-            class="btn btn-falcon-primary btn-sm px-1 py-0"
-            v-on:click="manageItem(item.key)"
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex flex-row-reverse mb-0">
+      <ul class="pagination">
+        <li class="page-item active">
+          <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <span class="page-link" href="#"
+            >{{ i_current }} <span class="fs--2">of</span> {{ i_total }}</span
           >
-            Manage
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        </li>
+        <li class="page-item active">
+          <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -166,6 +187,8 @@ export default {
     },
     table_data: {},
     session_key: "table_data",
+    i_current: 1,
+    i_total: 9,
   }),
   watch: {
     table_data: {
