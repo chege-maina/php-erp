@@ -36,7 +36,7 @@ include '../includes/base_page/head.php';
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <div id="alert-div"></div>
-        <h5 class="mb-2">Approve Receipt Note</h5>
+        <h5 class="mb-2">Receipt Note</h5>
 
 
         <div class="card">
