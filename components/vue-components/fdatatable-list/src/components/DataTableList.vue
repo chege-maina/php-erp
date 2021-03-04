@@ -51,11 +51,11 @@
       </tbody>
     </table>
     <div class="d-flex flex-row-reverse mb-0">
-      <ul class="pagination">
+      <ul class="pagination pagination-sm ml-2">
         <li class="page-item active">
-          <a class="page-link" href="#" aria-label="Previous">
+          <button class="page-link" href="#" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
-          </a>
+          </button>
         </li>
         <li class="page-item">
           <span class="page-link" href="#"
@@ -63,11 +63,28 @@
           >
         </li>
         <li class="page-item active">
-          <a class="page-link" href="#" aria-label="Next">
+          <button class="page-link" href="#" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
-          </a>
+          </button>
         </li>
       </ul>
+      <div class="col col-auto align-items-center">
+        <select class="form-select form-select-sm" v-model="per_page">
+          <template v-for="(value, index) in list_by">
+            <option
+              v-if="index == 0"
+              v-bind:value="value"
+              v-bind:key="index"
+              selected
+            >
+              {{ value }}
+            </option>
+            <option v-else v-bind:value="value" v-bind:key="index">
+              {{ value }}
+            </option>
+          </template>
+        </select>
+      </div>
     </div>
   </div>
 </template>
@@ -189,6 +206,8 @@ export default {
     session_key: "table_data",
     i_current: 1,
     i_total: 9,
+    list_by: [10, 25, 50, 100],
+    per_page: 10,
   }),
   watch: {
     table_data: {
@@ -200,6 +219,11 @@ export default {
       },
       // TODO: receive this as a prop
       deep: true,
+    },
+    per_page: {
+      handler(val) {
+        console.log("Current", val);
+      },
     },
   },
   computed: {
