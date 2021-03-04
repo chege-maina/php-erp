@@ -19,7 +19,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 			'unit' => $row['product_unit'],
 			'tax_pc' => $row['applicable_tax'],
 			'cost' => $row['amount_before_tax'],
-			'price' => $row['dsp_price'],
+			'Selling_price' => $row['dsp_price'],
 			'status' => $row['status']
 		)
 	);
