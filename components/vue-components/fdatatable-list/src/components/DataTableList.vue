@@ -387,11 +387,9 @@ export default {
     },
     nextPage() {
       this.i_current++;
-      console.log("Forward marching", this.visible_table_data);
     },
     prevPage() {
       this.i_current--;
-      console.log("Backwards ever", this.visible_table_data);
     },
   },
 };
