@@ -18,10 +18,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in table_data" :key="item.key">
-          <th scope="row">{{ table_data_relative_index[item.key].index }}</th>
+        <tr v-for="item in table_data" :key="item.key" class="py-0">
+          <th scope="row" class="align-middle py-1">
+            {{ table_data_relative_index[item.key].index }}
+          </th>
+
           <template v-for="(value, key) in item">
-            <td v-bind:key="key" v-if="key !== 'key'">
+            <td v-bind:key="key" v-if="key !== 'key'" class="align-middle py-1">
               <span v-if="header_object[key].editable">
                 <input
                   class="form-control form-control-sm"
@@ -35,19 +38,30 @@
               <span v-else>{{ value }}</span>
             </td>
           </template>
-          <td>
+
+          <td class="align-middle py-1">
             <button
-              class="btn btn-falcon-default btn-sm rounded-pill mr-1 mb-1"
+              class="btn btn-falcon-default btn-sm rounded-pill px-1 py-0"
               type="button"
               v-on:click="removeRow(item.key)"
             >
-              <span class="fas fa-times" data-fa-transform="shrink-3"> </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-x"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+                />
+              </svg>
             </button>
           </td>
         </tr>
       </tbody>
     </table>
-    {{ table_data }}
   </div>
 </template>
 
@@ -56,6 +70,14 @@ export default {
   created() {
     // Init the object that will hold the table values
     this.table_data = this.body_object;
+    window.addEventListener("storage", (event) => {
+      // If our table data in the session storage has been changed
+      if (event.key == this.session_key) {
+        this.table_data = JSON.parse(
+          window.sessionStorage.getItem(this.session_key)
+        );
+      }
+    });
   },
   props: {
     json_header: {
@@ -72,7 +94,20 @@ export default {
       name: "Jean",
     },
     table_data: {},
+    session_key: "table_data",
   }),
+  watch: {
+    table_data: {
+      handler() {
+        window.sessionStorage.setItem(
+          this.session_key,
+          JSON.stringify(this.table_data)
+        );
+      },
+      // TODO: receive this as a prop
+      deep: true,
+    },
+  },
   computed: {
     header: function () {
       return JSON.parse(this.json_header);
@@ -162,3 +197,7 @@ export default {
   },
 };
 </script>
+<style>
+@import url("http://localhost:5000/assets/css/theme-rtl.min.css");
+@import url("http://localhost:5000/assets/css/theme.min.css");
+</style>
