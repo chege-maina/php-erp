@@ -177,6 +177,11 @@ export default {
 
     this.i_total = this.body.length / this.per_page;
     this.i_total = this.i_total < 1 ? 1 : this.i_total;
+
+    this.i_total =
+      this.i_total.toString().split(".").length > 1
+        ? Number(this.i_total.toString().split(".")[0]) + 1
+        : this.i_total;
   },
   props: {
     json_header: {
@@ -210,8 +215,8 @@ export default {
     session_key: "table_data",
     i_current: 1,
     i_total: 9,
-    list_by: [10, 25, 50, 100, 1000],
-    per_page: 1000,
+    list_by: [17, 25, 50, 100],
+    per_page: 17,
   }),
   watch: {
     table_data: {
@@ -227,9 +232,15 @@ export default {
     per_page: {
       handler(val) {
         this.i_total = this.body.length / val;
+
         this.i_total = this.i_total < 1 ? 1 : this.i_total;
         this.i_current =
           this.i_current > this.i_total ? this.i_total : this.i_current;
+
+        this.i_total =
+          this.i_total.toString().split(".").length > 1
+            ? Number(this.i_total.toString().split(".")[0]) + 1
+            : this.i_total;
       },
     },
     i_current: {
