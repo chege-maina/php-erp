@@ -255,16 +255,41 @@ include '../includes/base_page/head.php';
             <!-- Content is to start here -->
             <div id="datatable">
             </div>
-            <script>
-              window.addEventListener('DOMContentLoaded', (event) => {
-                const fdatatable = document.createElement("fdatatable-list");
-                fdatatable.setAttribute("json_header", JSON.stringify(headers));
-                fdatatable.setAttribute("json_items", JSON.stringify(items));
-                document.querySelector("#datatable").appendChild(fdatatable);
-              });
-            </script>
           </div>
         </div>
+
+        <script>
+          let updateTable = (data) => {
+            const datatable = document.querySelector("#datatable");
+
+            if (data.length <= 0) {
+              return;
+            }
+
+            datatable.innerHTML = "";
+
+            const elem = document.createElement("fdatatable-list");
+            elem.setAttribute("json_header", JSON.stringify(getHeaders(data)));
+            elem.setAttribute("json_items", JSON.stringify(getItems(data)));
+            elem.setAttribute("manage_key", "name");
+            elem.setAttribute("manage_key_2", "email");
+            elem.setAttribute("redirect", getBaseUrl() + "/banks/edit_bank.php");
+            // elem.classList.add("is-fullwidth");
+            datatable.appendChild(elem);
+          };
+
+          window.addEventListener('DOMContentLoaded', (event) => {
+            fetch('../includes/listings/list_products.php')
+              .then(response => response.json())
+              .then(data => {
+                console.log(data);
+                updateTable(data);
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+              });
+          });
+        </script>
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ -->
         <!-- =========================================================== -->
 
