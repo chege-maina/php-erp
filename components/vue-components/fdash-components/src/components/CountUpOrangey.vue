@@ -101,7 +101,7 @@
           <div class="col-lg-4 col-xl-12 pr-lg-2 pr-xl-0 mb-3">
             <div class="card h-100">
               <div class="card-header d-flex flex-between-center pb-0">
-                <h6 class="mb-0">Weather</h6>
+                <h6 class="mb-0 text-warning">Weather</h6>
                 <div class="dropdown font-sans-serif btn-reveal-trigger">
                   <button
                     class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal dropdown-caret-none"
@@ -112,7 +112,7 @@
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
-                    &raquo;
+                    <b>...</b>
                   </button>
                   <div
                     class="dropdown-menu dropdown-menu-right border py-2"
@@ -129,12 +129,18 @@
                 <div class="row g-0 h-100 align-items-center">
                   <div class="col">
                     <div class="d-flex align-items-center">
-                      <img
-                        class="mr-3"
-                        src="http//localhost:6060/assets/img/icons/weather-icon.png"
-                        alt=""
-                        height="60"
-                      />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="56"
+                        height="56"
+                        fill="currentColor"
+                        class="mr-4"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"
+                        />
+                      </svg>
                       <div>
                         <h6 class="mb-2">New York City</h6>
                         <div class="fs--2 fw-semi-bold">
@@ -198,15 +204,52 @@
                   <strong class="mr-2">Status: </strong>
                   <div class="badge rounded-pill badge-soft-success fs--2">
                     Completed
-                    <span
-                      class="fas fa-check ml-1"
-                      data-fa-transform="shrink-2"
-                    ></span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-check2-all"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7l-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z"
+                      />
+                      <path
+                        d="M5.354 7.146l.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"
+                      />
+                    </svg>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="card bg-light mb-3 h-xxl-100">
+        <div class="card-body p-3">
+          <p class="fs--1 mb-0">
+            <a href="#!">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="mr-2"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"
+                />
+              </svg>
+              A payout for <strong>$921.42 </strong>was deposited 13 days ago</a
+            >. Your next deposit is expected on
+            <strong>Tuesday, March 13.</strong>
+          </p>
         </div>
       </div>
     </div>
