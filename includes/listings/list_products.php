@@ -13,14 +13,14 @@ while ($row = mysqli_fetch_assoc($result)) {
 	array_push(
 		$response,
 		array(
-			'code' => $row['product_code'],
-			'name' => $row['product_name'],
-			'category' => $row['product_category'],
-			'unit' => $row['product_unit'],
-			'tax_pc' => $row['applicable_tax'],
-			'cost' => $row['amount_before_tax'],
-			'Selling_price' => $row['dsp_price'],
-			'status' => $row['status']
+			'Product_Code' => $row['product_code'],
+			'Name' => $row['product_name'],
+			'Category' => $row['product_category'],
+			'Unit' => $row['product_unit'],
+			'Tax_Pc' => $row['applicable_tax'],
+			'Cost' => $row['amount_before_tax'],
+			'Selling_Price' => $row['dsp_price'],
+			'Status' => $row['status']
 		)
 	);
 }

@@ -4,7 +4,7 @@ header("Content-type:application/json");
 
 include_once '../dbconnect.php';
 
-$query = "SELECT * FROM tbl_store";
+$query = "SELECT * FROM tbl_purchase_bill";
 
 $result = mysqli_query($conn, $query);
 $response = array();
@@ -13,13 +13,17 @@ while ($row = mysqli_fetch_assoc($result)) {
 	array_push(
 		$response,
 		array(
-			'Receipt no' => $row['receipt_no'],
-			'Date' => $row['date'],
-			'LPO_No' => $row['lpo_number'],
+			'Purchase_Bill' => $row['purchasebill_no'],
+			'LPO_No' => $row['po_number'],
+			'Receipt_No' => $row['receipt_no'],
+			'Delivery_Note' => $row['delivery_note_no'],
+			'Invoice_No' => $row['invoice_no'],
 			'Supplier' => $row['supplier_name'],
-			'Delivery_Note' => $row['invoice_no'],
+			'Date' => $row['date'],
+			'Due_Date' => $row['due_date'],
 			'Created_By' => $row['user'],
-			'Branch' => $row['branch'],
+			'Payment_Terms' => $row['payment_terms'],
+			'Total' => $row['total'],
 			'Status' => $row['status']
 		)
 	);
