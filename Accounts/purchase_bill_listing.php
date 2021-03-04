@@ -72,7 +72,7 @@ include '../includes/base_page/head.php';
 
             elem.setAttribute("manage_key", "Purchase_Bill");
             //elem.setAttribute("manage_key_2", "code");
-            elem.setAttribute("redirect", getBaseUrl() + "/products/view_purchase_bill.php");
+            elem.setAttribute("redirect", getBaseUrl() + "/Accounts/view_purchase_bill.php");
             // elem.classList.add("is-fullwidth");
             datatable.appendChild(elem);
           };
