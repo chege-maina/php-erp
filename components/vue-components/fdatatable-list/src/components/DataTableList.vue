@@ -1,5 +1,41 @@
 <template>
   <div>
+    <div class="d-flex flex-row-reverse mb-0">
+      <ul class="pagination pagination-sm ml-2">
+        <li class="page-item active">
+          <button class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </button>
+        </li>
+        <li class="page-item">
+          <span class="page-link" href="#"
+            >{{ i_current }} <span class="fs--2">of</span> {{ i_total }}</span
+          >
+        </li>
+        <li class="page-item active">
+          <button class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </button>
+        </li>
+      </ul>
+      <div class="col col-auto align-items-center">
+        <select class="form-select form-select-sm" v-model="per_page">
+          <template v-for="(value, index) in list_by">
+            <option
+              v-if="index == 0"
+              v-bind:value="value"
+              v-bind:key="index"
+              selected
+            >
+              {{ value }}
+            </option>
+            <option v-else v-bind:value="value" v-bind:key="index">
+              {{ value }}
+            </option>
+          </template>
+        </select>
+      </div>
+    </div>
     <table class="table table-sm table-striped table-hover is-fullwidth pb-0">
       <thead>
         <tr>
@@ -50,42 +86,6 @@
         </tr>
       </tbody>
     </table>
-    <div class="d-flex flex-row-reverse mb-0">
-      <ul class="pagination pagination-sm ml-2">
-        <li class="page-item active">
-          <button class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </button>
-        </li>
-        <li class="page-item">
-          <span class="page-link" href="#"
-            >{{ i_current }} <span class="fs--2">of</span> {{ i_total }}</span
-          >
-        </li>
-        <li class="page-item active">
-          <button class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </button>
-        </li>
-      </ul>
-      <div class="col col-auto align-items-center">
-        <select class="form-select form-select-sm" v-model="per_page">
-          <template v-for="(value, index) in list_by">
-            <option
-              v-if="index == 0"
-              v-bind:value="value"
-              v-bind:key="index"
-              selected
-            >
-              {{ value }}
-            </option>
-            <option v-else v-bind:value="value" v-bind:key="index">
-              {{ value }}
-            </option>
-          </template>
-        </select>
-      </div>
-    </div>
   </div>
 </template>
 
