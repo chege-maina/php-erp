@@ -115,6 +115,9 @@ include '../includes/base_page/head.php';
               <button class="btn btn-falcon-success btn-sm m-2" id="submit" onclick="submitPO();">
                 Approve
               </button>
+              <button class="btn btn-falcon-danger btn-sm m-2" id="submit" onclick="reject();">
+                Reject
+              </button>
             </div>
             <!-- Content ends here -->
           </div>
@@ -182,6 +185,49 @@ include '../includes/base_page/head.php';
             .catch(error => {
               console.error('Error:', error);
             });
+
+        }
+
+        function reject() {
+          if (!supplier_name.value) {
+            supplier_name.focus();
+            return;
+          }
+
+          if (!confirm("Are you sure you want to reject?")) {
+            return;
+          }
+          ///new code
+          const sn = supplier_name.value.split("#")[1].trim();
+          console.log(sn);
+
+          const formData = new FormData();
+          formData.append("rem_no", sn);
+          formData.append("checker", "rejected");
+          fetch('../includes/update_rem.php', {
+              method: 'POST',
+              body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+              console.log('Success:', result);
+              const alertVar =
+                `<div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>Success!</strong> ${result}
+          <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+          </div>`;
+              var divAlert = document.querySelector("#alert-div");
+              divAlert.innerHTML = alertVar;
+              divAlert.scrollIntoView();
+              setTimeout(function() {
+                location.reload();
+              }, 2500);
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+
+          //newcode
 
         }
 
