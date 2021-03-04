@@ -101,6 +101,12 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/pay_bill.php">Make Payment</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/receive_payment.php">Receive Payment</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/generate_receipt_advice.php">Receipt Advice</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/approve_receipt_advice.php">Approve Receipt Advice</a>
+  </li>
   
 </ul>
 </li>
@@ -151,8 +157,6 @@ function genSideBar()
 </a>
 <ul class="nav collapse" id="e-invoice" data-parent="#navbarVerticalCollapse">
   <li class="nav-item"><a class="nav-link" href="../sales_invoice/create_invoice.php">Create Invoice</a>
-  </li>
-  <li class="nav-item"><a class="nav-link" href="../sales_invoice/#.php">Manage Invoice</a>
   </li>
 </ul>
 </li>

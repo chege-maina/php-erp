@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 25, 2021 at 02:42 PM
+-- Generation Time: Mar 03, 2021 at 08:58 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -39,19 +39,11 @@ CREATE TABLE `tbl_invoice` (
   `total_bf_tax` varchar(30) NOT NULL,
   `tax` varchar(15) NOT NULL,
   `user` varchar(50) NOT NULL,
-  `receipt_no` varchar(100) NOT NULL,
-  `branch` varchar(100) NOT NULL
+  `driver_name` varchar(100) NOT NULL,
+  `truck_no` varchar(100) NOT NULL,
+  `transport_cost` varchar(100) NOT NULL,
+  `branch` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_invoice`
---
-
-INSERT INTO `tbl_invoice` (`salesbill_no`, `so_number`, `customer_name`, `payment_terms`, `date`, `due_date`, `total`, `status`, `total_bf_tax`, `tax`, `user`, `receipt_no`, `branch`) VALUES
-(4, '2', 'Lenore Freeman', '37', '2021-02-18', '2021-03-27', '11368', 'approved', '9800', '1568', 'Jael Joel', '1', ''),
-(5, '2', 'Lenore Freeman', '37', '2021-02-22', '2021-03-31', '7076', 'approved', '6100', '976', 'Jael Joel', '2', ''),
-(6, '2', 'Lenore Freeman', '37', '2021-02-24', '2021-04-02', '1508', 'pending', '1300', '208', 'Jael Joel', '3', ''),
-(7, '2', 'Lenore Freeman', '37', '2021-02-24', '2021-04-02', '1508', 'pending', '1300', '208', 'Jael Joel', '4', '');
 
 --
 -- Indexes for dumped tables

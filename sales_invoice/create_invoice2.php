@@ -74,26 +74,18 @@ include '../includes/base_page/head.php';
                 <input type="date" id="date_due" class="form-control" required readonly>
               </div>
               <div class="col">
-                <label for="amount_due" class="amount_due-label">Amount Due*</label>
-                <input type="number" class="form-control hide-this" name="amount_due" id="amount_due">
-                <input type="text" class="form-control" id="amount_due_helper" required>
-                <script>
-                  let amount_due, amount_due_helper;
-                  window.addEventListener('DOMContentLoaded', (event) => {
-                    [amount_due, amount_due_helper] = commify('#amount_due', '#amount_due_helper');
-                  });
-                </script>
+                <label for="branch_name" class="form-label">Branch*</label>
+                <input type="text" name="branch_name" id="branch_name" class="form-control" readonly>
               </div>
             </div>
           </div>
         </div>
 
-
         <div class="card mt-1">
           <div class="card-header bg-light p-2 pt-3 pl-3">
             <h6>Products</h6>
           </div>
-          <div class="card-body fs--1 p-2">
+          <div class="card-body fs--1 pr-2 position-relative">
             <div class="table-responsive">
               <table class="table table-sm table-striped mt-0">
                 <thead>
@@ -114,12 +106,14 @@ include '../includes/base_page/head.php';
 
             <div class="row m-3">
               <div class="col text-right fw-bold">
-                Total Before Tax</div>
+                Total Before Tax
+              </div>
               <div class="col col-auto">
                 <input type="text" class="form-control text-right" id="total_before_tax" readonly required>
               </div>
             </div>
             <div class="row m-3">
+              <h5 class="p-2">Optional</h5>
               <div class="col text-right fw-bold">
                 Tax 16 %
               </div>
@@ -127,9 +121,12 @@ include '../includes/base_page/head.php';
                 <input type="text" class="form-control text-right" id="tax_pc" readonly required>
               </div>
             </div>
+
             <div class="row m-3">
               <div class="col text-left fw-bold">
-                <label for="customer" class="form-label">Driver Name</label>
+                Driver Name
+              </div>
+              <div class="col col-auto">
                 <select id="driver_name" name="driver_name" class="form-select" onclick="checkTransValid();" required>
                 </select>
               </div>
@@ -142,7 +139,9 @@ include '../includes/base_page/head.php';
             </div>
             <div class="row m-3">
               <div class="col text-left fw-bold">
-                <label for="truck_no" class="form-label">Truck Number</label>
+                Truck Number
+              </div>
+              <div class="col col-auto">
                 <select id="truck_no" name="truck_no" class="form-select" onclick="checkTransValid();" required>
                 </select>
               </div>
@@ -184,6 +183,7 @@ include '../includes/base_page/head.php';
       const purchase_order_number_items = document.querySelector("#purchase_order_number_items");
 
       const supplier_name = document.querySelector("#supplier_name");
+      const branch_name = document.querySelector("#branch_name");
 
       const terms_of_payment = document.querySelector("#terms_of_payment");
       // const delivery_no = document.querySelector("#delivery_no");
@@ -193,6 +193,7 @@ include '../includes/base_page/head.php';
       const table_body = document.querySelector("#table_body");
       const amount_due_helper_v = document.querySelector("#amount_due_helper");
       let table_items_data = [];
+      let table_items = [];
       let receipt_no;
 
       const total_before_tax_e = document.querySelector("#total_before_tax");
@@ -227,40 +228,59 @@ include '../includes/base_page/head.php';
           return;
         }
 
-        if (!bill_number.value) {
-          bill_number.focus();
+
+        if (!transport.value) {
+          transport.focus();
           return;
         }
 
+        //  let tax_percentage;
+        //  table_items.forEach(item => {
+        //    if (item.name == value[1]) {
+        //      tax_percentage = item.tax_pc ? item.tax_pc : 0;
+        //    }
+        //   })
 
-        if (!amount_due.value || Number(amount_due.value) !== Number(po_total.getNumericString())) {
-          amount_due_helper_v.focus();
-          return;
-        }
 
         const formData = new FormData();
-        formData.append("po_number", lpo_number.value);
-        formData.append("supplier", supplier_name.value);
+        formData.append("sale_order", lpo_number.value);
+        formData.append("customer", supplier_name.value);
+        //added branch 
+        formData.append("branch", branch_name.value);
         formData.append("terms", terms_of_payment.value);
-        //  formData.append("del_no", delivery_no.value);
         formData.append("date", bill_date.value);
-        formData.append("due", date_due.value);
-        formData.append("invoice", bill_number.value);
-        formData.append("total", po_total.getNumericString());
-        formData.append("totalbft", total_before_tax.getNumericString());
         formData.append("tax", tax_pc.getNumericString());
-        formData.append("receipt_no", receipt_no);
+        formData.append("transport", transport.value);
+        formData.append("driver", driver_name.value);
+        formData.append("vehicle", truck_no.value);
+        formData.append("due_date", date_due.value);
+        formData.append("amount", po_total.getNumericString());
+        formData.append("sub_total", total_before_tax.getNumericString());
         formData.append("user", user_name);
-        formData.append("table_items", JSON.stringify(table_items_data));
 
-        fetch('../includes/add_purchasebill.php', {
+        let sendable_table = [];
+        table_items.forEach(item => {
+          sendable_table.push({
+            p_code: item.product_code,
+            p_name: item.product_name,
+            p_units: item.product_unit,
+            p_amount: item.product_total,
+            p_quantity: item.product_qty,
+            p_price: item.product_cost,
+            p_tax: item.product_tax,
+            p_tax_pc: item.tax_pc,
+
+          })
+        });
+
+        formData.append("table_items", JSON.stringify(sendable_table));
+
+        fetch('../includes/add_sale_invoice.php', {
             method: 'POST',
             body: formData
           })
           .then(response => response.text())
           .then(result => {
-            console.log('Success:', result);
-
             const alertVar =
               `<div class="alert alert-success alert-dismissible fade show" role="alert">
               <strong>Success!</strong> ${result}
@@ -271,13 +291,16 @@ include '../includes/base_page/head.php';
             divAlert.scrollIntoView();
 
             window.setTimeout(() => {
-              divAlert.innerHTML = "";
-              location.reload();
+              location.href = "create_invoice.php";
             }, 2500);
+
           })
           .catch(error => {
             console.error('Error:', error);
           });
+
+
+
       }
 
       window.addEventListener('DOMContentLoaded', (event) => {
@@ -326,6 +349,7 @@ include '../includes/base_page/head.php';
             invoice_number.value = result["po_number"];
             supplier_name.value = result["supplier_name"];
             terms_of_payment.value = result["terms"];
+            branch_name.value = result["branch"];
             bill_date.setAttribute("min", result["date"])
             updateDueDate();
             updateTable(result["table_data"]);
@@ -348,7 +372,11 @@ include '../includes/base_page/head.php';
         if (trans >= 0) {
           let tmp = (Number(total_before_tax.getNumericString()) + Number(tax_pc.getNumericString())) + Number(trans);
           console.log(tmp)
+
           po_total.set(tmp);
+
+        } else {
+          po_total.set(initial_total_price);
         }
       }
 
@@ -357,20 +385,12 @@ include '../includes/base_page/head.php';
         console.log('Result:', result);
         table_body.innerHTML = "";
 
+        [...table_items] = result;
+
         let cumulative_total = 0;
 
         result.forEach((data) => {
 
-
-          let tmp_row = {
-            "p_code": data["product_code"],
-            "p_name": data["product_name"],
-            "p_units": data["product_unit"],
-            "p_quantity": data["product_qty"],
-            "p_cost": data["product_cost"],
-            "p_total": data["product_total"]
-          }
-          table_items_data.push(tmp_row);
 
           let tr = document.createElement("tr");
           // Id will be like 1Tank
@@ -418,10 +438,10 @@ include '../includes/base_page/head.php';
         total_before_tax.set(cumulative_total);
         tax_pc.set(cumulative_total * 0.16);
         po_total.set(cumulative_total * 1.16);
-
+        initial_total_price = cumulative_total * 1.16;
       }
 
-
+      let initial_total_price = 0;
 
       function updateDueDate() {
         if (!terms_of_payment.value) {
