@@ -73,8 +73,8 @@ include '../includes/base_page/head.php';
             elem.setAttribute("json_header", JSON.stringify(getHeaders(data)));
             elem.setAttribute("json_items", JSON.stringify(getItems(data)));
 
-            elem.setAttribute("manage_key", "name");
-            elem.setAttribute("manage_key_2", "code");
+            elem.setAttribute("manage_key", "Name");
+            elem.setAttribute("manage_key_2", "Product_Code");
             elem.setAttribute("redirect", getBaseUrl() + "/products/edit-product-ui.php");
             // elem.classList.add("is-fullwidth");
             datatable.appendChild(elem);
