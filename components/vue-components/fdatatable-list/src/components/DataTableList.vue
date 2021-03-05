@@ -49,44 +49,7 @@
     <table class="table table-sm table-striped table-hover is-fullwidth pb-0">
       <thead>
         <tr>
-          <th scope="col">
-            #
-            <button
-              type="button"
-              class="btn btn-outline-secondary btn-sm p-0"
-              style="border: none"
-              v-on:click="toggleSortDir()"
-            >
-              <svg
-                v-if="largest_first"
-                xmlns="http://www.w3.org/2000/svg"
-                width="10"
-                height="10"
-                fill="currentColor"
-                class="bi bi-arrow-down"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"
-                />
-              </svg>
-              <svg
-                v-else
-                xmlns="http://www.w3.org/2000/svg"
-                width="10"
-                height="10"
-                fill="currentColor"
-                class="bi bi-arrow-up-short"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"
-                />
-              </svg>
-            </button>
-          </th>
+          <th scope="col">#</th>
           <template v-for="(item, key) in header">
             <th
               scope="col"
@@ -112,7 +75,7 @@
                 <input
                   class="form-control form-control-sm"
                   type="number"
-                  v-model="table_data[item.key][key]"
+                  v-model="visible_table_data[item.key][key]"
                 />
               </span>
               <span v-else-if="header_object[key].computed">{{
@@ -125,7 +88,7 @@
           <td class="align-middle py-1">
             <button
               class="btn btn-falcon-primary btn-sm px-1 py-0"
-              v-on:click="removeRow(item.key)"
+              v-on:click="manageItem(item.key)"
             >
               Manage
             </button>
@@ -154,36 +117,36 @@ export default {
     const falcon_js = document.createElement("script");
     falcon_js.setAttribute(
       "src",
-      "http://localhost:6060/assets/js/theme.min.js"
+      "https://qonsolidated-solutions.github.io/falcon-assets/assets/js/theme.min.js"
     );
     const anchor_js = document.createElement("script");
     anchor_js.setAttribute(
       "src",
-      "http://localhost:6060/vendors/anchorjs/anchor.min.js"
+      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/anchorjs/anchor.min.js"
     );
     const popper = document.createElement("script");
     popper.setAttribute(
       "src",
-      "http://localhost:6060/vendors/popper/popper.min.js"
+      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/popper/popper.min.js"
     );
     const bootstrap = document.createElement("script");
     bootstrap.setAttribute(
       "src",
-      "http://localhost:6060/vendors/bootstrap/bootstrap.min.js"
+      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/bootstrap/bootstrap.min.js"
     );
     const is_js = document.createElement("script");
-    is_js.setAttribute("src", "http://localhost:6060/vendors/is/is.min.js");
+    is_js.setAttribute("src", "https://qonsolidated-solutions.github.io/falcon-assets/vendors/is/is.min.js");
     const prism = document.createElement("script");
-    prism.setAttribute("src", "http://localhost:6060/vendors/prism/prism.js");
+    prism.setAttribute("src", "https://qonsolidated-solutions.github.io/falcon-assets/vendors/prism/prism.js");
     const fontawesome = document.createElement("script");
     fontawesome.setAttribute(
       "src",
-      "http://localhost:6060/vendors/fontawesome/all.min.js"
+      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/fontawesome/all.min.js"
     );
     const lodash = document.createElement("script");
     lodash.setAttribute(
       "src",
-      "http://localhost:6060/vendors/lodash/lodash.min.js"
+      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/lodash/lodash.min.js"
     );
     const polyfill = document.createElement("script");
     polyfill.setAttribute(
@@ -193,10 +156,10 @@ export default {
     const list_js = document.createElement("script");
     list_js.setAttribute(
       "src",
-      "http://localhost:6060/vendors/list.js/list.min.js"
+      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/list.js/list.min.js"
     );
     const config_js = document.createElement("script");
-    config_js.setAttribute("src", "http://localhost:6060/assets/js/config.js");
+    config_js.setAttribute("src", "https://qonsolidated-solutions.github.io/falcon-assets/assets/js/config.js");
 
     this.$el.prepend(config_js);
     this.$el.append(
@@ -249,7 +212,6 @@ export default {
       name: "Jean",
     },
     table_data: {},
-    largest_first: true,
     session_key: "table_data",
     i_current: 1,
     i_total: 9,
@@ -288,11 +250,6 @@ export default {
           this.i_current > this.i_total ? this.i_total : this.i_current;
       },
     },
-    largest_first: {
-      handler() {
-        console.log("Largest First? ", this.largest_first);
-      },
-    },
   },
   computed: {
     header: function () {
@@ -313,16 +270,9 @@ export default {
     body: function () {
       return JSON.parse(this.json_items);
     },
-    sorted_body: function () {
-      let [...tmp] = this.body;
-      tmp.sort((a, b) => {
-        return this.largest_first ? (a.key - b.key) * -1 : a.key - b.key;
-      });
-      return tmp;
-    },
     body_object: function () {
       let body_object = {};
-      this.sorted_body.forEach((row) => {
+      this.body.forEach((row) => {
         body_object[row.key] = row;
       });
       return body_object;
@@ -444,39 +394,10 @@ export default {
     prevPage() {
       this.i_current--;
     },
-    toggleSortDir() {
-      this.largest_first = !this.largest_first;
-      let tmp_arr = [];
-      for (let key in this.table_data) {
-        tmp_arr.push(this.table_data[key]);
-      }
-      tmp_arr.sort((a, b) => {
-        return this.largest_first ? (a.key - b.key) * -1 : a.key - b.key;
-      });
-
-      console.log(tmp_arr);
-
-      let tmp_obj = {};
-      let i = 1;
-      tmp_arr.forEach((row) => {
-        tmp_obj[i] = row;
-        i++;
-      });
-
-      i = 0;
-      for (let key in tmp_obj) {
-        console.log(tmp_obj[key]);
-        if (i > 10) {
-          break;
-        }
-        i++;
-      }
-      this.table_data = tmp_obj;
-    },
   },
 };
 </script>
 
 <style>
-@import "http://localhost:6060/assets/css/theme.min.css";
+@import "https://qonsolidated-solutions.github.io/falcon-assets/assets/css/theme.min.css";
 </style>
