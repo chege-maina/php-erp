@@ -132,6 +132,9 @@ include '../includes/base_page/head.php';
               <button class="btn btn-falcon-primary btn-sm m-2" id="submit_btn" onclick="approveReceipt();" disabled>
                 Approve
               </button>
+              <button class="btn btn-falcon-danger btn-sm m-2" id="submit_btn" onclick="rejectReceipt();" disabled>
+                Reject
+              </button>
             </div>
             <!-- Content ends here -->
           </div>
@@ -162,6 +165,36 @@ include '../includes/base_page/head.php';
               .then(result => {
                 const alertVar =
                   `<div class="alert alert-success alert-dismissible fade show" role="alert">
+                 <strong>Success!</strong> ${result['message']}
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                var divAlert = document.querySelector("#alert-div");
+                divAlert.innerHTML = alertVar;
+                divAlert.scrollIntoView();
+
+                window.setTimeout(() => {
+                  location.reload();
+                }, 2500);
+
+
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+          }
+
+          function rejectReceipt() {
+            const formData = new FormData();
+            formData.append("receipt_no", receipt_note_nbr.value);
+
+            fetch('../includes/reject_receiptnote.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+                const alertVar =
+                  `<div class="alert alert-danger alert-dismissible fade show" role="alert">
                  <strong>Success!</strong> ${result['message']}
               <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
               </div>`;
