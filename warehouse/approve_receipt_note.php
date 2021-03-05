@@ -251,10 +251,17 @@ include '../includes/base_page/head.php';
               .then(result => {
                 console.log('Success:', result.length);
                 if (result.length > 0) {
-                  submit_btn.removeAttribute("disabled") && submit_btnr.removeAttribute("disabled");
+                  submit_btn.removeAttribute("disabled");
                 } else {
-                  submit_btn.setAttribute("disabled", "") && submit_btn.setAttribute("disabled", "");
+                  submit_btn.setAttribute("disabled", "");
                 }
+
+                if (result.length > 0) {
+                  submit_btnr.removeAttribute("disabled");
+                } else {
+                  submit_btnr.setAttribute("disabled", "");
+                }
+
                 result = result[0];
 
 
