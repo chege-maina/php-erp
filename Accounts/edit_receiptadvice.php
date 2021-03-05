@@ -36,7 +36,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <div id="alert-div"></div>
-        <h5 class="p-2">Generate Receipt Advice</h5>
+        <h5 class="p-2">Edit Receipt Advice</h5>
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
 
         <div class="card mt-3">
