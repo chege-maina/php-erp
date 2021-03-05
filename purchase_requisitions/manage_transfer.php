@@ -54,7 +54,7 @@ include '../includes/base_page/head.php';
                                 <select name="status" id="status" class="form-select">
                                     <option value="pending">Pending</option>
                                     <option value="approved">Approved</option>
-                                </select>
+                                    <option value="all">All</option>
                             </div>
                             <div class="col-auto d-flex align-items-end">
                                 <button class="btn btn-falcon-primary" type="button" onclick="filterRequisitions();">

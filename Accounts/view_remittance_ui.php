@@ -35,65 +35,44 @@ include '../includes/base_page/head.php';
 
         <!-- =========================================================== -->
         <!-- body begins here -->
-        <div id="alert-div"></div>
-        <h5 class="p-2">Generate Remittance Advice</h5>
+        <div id="alert-div">
+        </div>
+        <h5 class="p-2">Remittance Advice</h5>
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
 
         <div class="card mt-3">
-          <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/illustrations/corner-4.png);">
-          </div>
-
-          <div class="card-body fs--1 p-4 pb-2 position-relative">
+          <div class="card-body fs--1 p-4">
             <div class="row">
 
               <div class="col">
-                <label for="#" class="form-label">Select Supplier </label>
-                <div class="input-group">
-                  <select name="supplier" id="supplier_name" class="form-select">
-                  </select>
-                  <button type="button" class="btn btn-primary" onclick="selectSupplier();">Select</button>
-                </div>
+                <label for="supplier_name" class="form-label">Select Supplier </label>
+                <input type="text" name="supplier" id="supplier_name" class="form-control">
               </div>
               <div class="col">
 
                 <div class="col flex-row-reverse">
                   <div class="col">
-                    <label for="date" class="form-label">Date</label>
-                    <!-- autofill current date  -->
-                    <input type="date" value="<?php echo date("Y-m-d"); ?>" id="remmitance_date" class="form-control" readonly>
-
+                    <label for="req_date" class="form-label">Date </label>
+                    <input type="date" name="req_date" id="rem_date" class="form-control" readonly>
                   </div>
                 </div>
                 <!-- Content is to start here -->
 
               </div>
             </div>
-
-            <hr>
-            <div class="d-flex flex-row-reverse mt-3">
-              <div class="form-check form-switch border rounded-1">
-                <input class="form-check-input" id="wht_checkbox" type="checkbox" onchange="updateWHT(this);" />
-                <label class="form-check-label" for="wht_checkbox">
-                  Calculate Witholding Tax
-                </label>
-              </div>
-            </div>
-
+            <!-- Content is to start here -->
           </div>
-        </div>
-
-        <div class="card mt-1">
-          <div class="card-body fs--1 p-4 position-relative">
+          <hr>
+          <div class="m-2 mb-2">
             <div class="table-responsive">
               <table class="table table-sm table-striped" id="table-main">
                 <thead>
                   <tr>
-                    <th>Due Date</th>
+                    <th class="w-25">Due Date</th>
                     <th>Invoice Number</th>
-                    <th class="col col-auto">Amount Due</th>
-                    <th class="col-lg-2">WHT</th>
+                    <th>Amount Due</th>
+                    <th>WHT</th>
                     <th>Amount Payable</th>
-                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody id="table_body">
@@ -104,14 +83,7 @@ include '../includes/base_page/head.php';
               <div class="col text-right fw-bold">
                 Total Amount</div>
               <div class="col col-auto">
-                <input type="number" class="form-control hide-this" name="total_before_tax" id="total_before_tax" required>
-                <input type="text" class="form-control form-control-sm text-right" id="total_before_tax_helper" required readonly>
-                <script>
-                  let total_before_tax_helper;
-                  window.addEventListener('DOMContentLoaded', (event) => {
-                    [, total_before_tax_helper] = commify('#total_before_tax', '#total_before_tax_helper');
-                  });
-                </script>
+                <input class="form-control form-control-sm text-right" type="text" readonly id="total_before_tax" />
               </div>
             </div>
             <div class="row m-3">
@@ -119,13 +91,7 @@ include '../includes/base_page/head.php';
                 Less 2% VAT With Held
               </div>
               <div class="col col-auto">
-                <input type="number" class="form-control hide-this" name="total_wht" id="total_wht" required>
-                <input type="text" class="form-control form-control-sm text-right" id="total_wht_helper" required readonly>
-                <script>
-                  window.addEventListener('DOMContentLoaded', (event) => {
-                    [, total_wht_helper] = commify('#total_wht', '#total_wht_helper');
-                  });
-                </script>
+                <input class="form-control form-control-sm text-right" type="text" readonly id="tax_pc" />
               </div>
             </div>
             <div class="row m-3">
@@ -133,13 +99,7 @@ include '../includes/base_page/head.php';
                 Net Payable
               </div>
               <div class="col col-auto">
-                <input type="number" class="form-control hide-this" name="amount_due" id="amount_due" required>
-                <input type="text" class="form-control form-control-sm text-right" id="amount_due_helper" required readonly>
-                <script>
-                  window.addEventListener('DOMContentLoaded', (event) => {
-                    [, amount_due_helper] = commify('#amount_due', '#amount_due_helper');
-                  });
-                </script>
+                <input class="form-control form-control-sm text-right" type="text" readonly id="po_total" />
               </div>
             </div>
           </div>
@@ -148,8 +108,8 @@ include '../includes/base_page/head.php';
         <div class="card mt-1">
           <div class="card-body fs--1 p-1">
             <div class="d-flex flex-row-reverse">
-              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="generateRemittance();">
-                Create
+              <button class="btn btn-falcon-primaryr btn-sm m-2" id="submit">
+                Print
               </button>
             </div>
             <!-- Content ends here -->
@@ -164,95 +124,90 @@ include '../includes/base_page/head.php';
       <!-- =========================================================== -->
 
       <script>
-        const table_body = document.querySelector("#table_body");
+        const rem_date = document.querySelector("#rem_date");
         const supplier_name = document.querySelector("#supplier_name");
-        const remmitance_date = document.querySelector("#remmitance_date");
+        const suppliers = document.querySelector("#suppliers");
+        const table_body = document.querySelector("#table_body");
+
+        const total_before_tax = new AutoNumeric("#total_before_tax", {
+          currencySymbol: '',
+          minimumValue: 0
+        });
+        const tax_pc = new AutoNumeric("#tax_pc", {
+          currencySymbol: '',
+          minimumValue: 0
+        });
+        const po_total = new AutoNumeric("#po_total", {
+          currencySymbol: '',
+          minimumValue: 0
+        });
+
         let table_items;
 
-
-        function generateRemittance() {
-          if (net_total <= 0) {
+        function reject() {
+          if (!supplier_name.value) {
+            supplier_name.focus();
             return;
           }
 
-          if (!remmitance_date.value) {
-            remmitance_date.focus()
+          if (!confirm("Are you sure you want to reject?")) {
             return;
           }
-
-
-          let table_items_sendable = [];
-          table_items.forEach((item) => {
-            if (item["included"]) {
-              table_items_sendable.push({
-                p_invoice: item["invoice_no"],
-                p_payable: item["amount_due"],
-                p_amount: item["amount"],
-                p_wht: item["wht"],
-                p_due: item["due_date"],
-              })
-            }
-          });
+          ///new code
+          const sn = supplier_name.value.split("#")[1].trim();
+          console.log(sn);
 
           const formData = new FormData();
-          formData.append("date", remmitance_date.value);
-          formData.append("supplier", supplier_name.value);
-          formData.append("amount", amount_total);
-          formData.append("wht", wht_total);
-          formData.append("payable", net_total);
-          formData.append("user", user_name);
-          formData.append("table_items", JSON.stringify(table_items_sendable));
-
-          fetch('../includes/add_remittance.php', {
+          formData.append("rem_no", sn);
+          formData.append("checker", "rejected");
+          fetch('../includes/update_rem.php', {
               method: 'POST',
               body: formData
             })
-            .then(response => response.json())
+            .then(response => response.text())
             .then(result => {
               console.log('Success:', result);
-
-              window.setTimeout(() => {
-                //TODO:  Show result
+              const alertVar =
+                `<div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>Success!</strong> ${result}
+          <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+          </div>`;
+              var divAlert = document.querySelector("#alert-div");
+              divAlert.innerHTML = alertVar;
+              divAlert.scrollIntoView();
+              setTimeout(function() {
                 location.reload();
               }, 2500);
             })
             .catch(error => {
               console.error('Error:', error);
             });
+
+          //newcode
+
         }
 
-        function updateDateFilters() {
-          const fromDate = new Date(req_date_from.value);
-          const toDate = new Date(req_date_to.value);
-          if (fromDate > toDate) {
-            let month = d_toString(fromDate.getMonth() + 1);
-            let day = d_toString(fromDate.getDate() + 1);
-            req_date_to.value = String(fromDate.getFullYear()) + '-' + month + '-' + day;
-          }
-          req_date_to.setAttribute("min", fromDate);
-
-          console.log("From: ", fromDate.getDate(), " To: ", req_date_to.value);
-        }
 
 
         window.addEventListener('DOMContentLoaded', (event) => {
           const formData = new FormData();
 
-          fetch('../includes/load_supplier_remittance.php')
+          fetch('../includes/load_rem_num.php')
             .then(response => response.json())
             .then(result => {
+              console.log(result)
               let opt = document.createElement("option");
               opt.appendChild(document.createTextNode("-- Select Supplier --"));
               opt.setAttribute("value", "");
               opt.setAttribute("disabled", "");
               opt.setAttribute("selected", "");
-              supplier_name.appendChild(opt);
+              suppliers.appendChild(opt);
 
               result.forEach((supplier) => {
                 opt = document.createElement("option");
-                opt.value = supplier["supplier_name"];
-                opt.appendChild(document.createTextNode(opt.value));
-                supplier_name.appendChild(opt);
+                opt.value = "Remittance # " + supplier["rem_num"];
+                opt.appendChild(document.createTextNode(supplier["date"] + " : " + supplier["supplier"]));
+                suppliers.appendChild(opt);
               });
             })
             .catch((error) => {
@@ -261,25 +216,29 @@ include '../includes/base_page/head.php';
 
         });
 
-
         const selectSupplier = () => {
           if (!supplier_name.value) {
             supplier_name.focus();
             return;
           }
 
-          console.log(supplier_name.value);
+          const sn = supplier_name.value.split("#")[1].trim();
+
           const formData = new FormData();
-          formData.append("supplier", supplier_name.value.trim());
-          fetch('../includes/load_remittance_static.php', {
+          formData.append("rem_no", sn);
+          fetch('../includes/load_rem_approval.php', {
               method: 'POST',
               body: formData
             })
             .then(response => response.json())
             .then(result => {
               console.log('Success:', result);
-              [...table_items] = result;
-              calculateTableData(table_items, false)
+              total_before_tax.set(result[0]["amount"]);
+              tax_pc.set(result[0]["wht"]);
+              po_total.set(result[0]["payable"]);
+              rem_date.value = result[0]["date"];
+              [...table_items] = result[0].table_items;
+              updateTable(table_items);
             })
             .catch(error => {
               console.error('Error:', error);
@@ -287,86 +246,11 @@ include '../includes/base_page/head.php';
         }
 
 
-        let calculateWHT = false;
-
-        function updateWHT(elem) {
-          if (!table_items) {
-            elem.checked = false;
-            return;
-          }
-
-          calculateWHT = elem.checked;
-          calculateTableData(table_items, elem.checked);
-        }
-
-        let calculateTableData = (data, calc_wht) => {
-          let table_items_tmp = [];
-          let i = 0;
-
-          data.forEach(value => {
-            table_items_tmp.push({
-              due_date: value["due_date"],
-              invoice_no: value["invoice_no"],
-              amount: value["amount"],
-              wht: calc_wht ? (Number(value["amount"]) * 0.02 / 1.16) : 0,
-              amount_due: calc_wht ? (Number(value["amount"]) * 1.14 / 1.16) : value["amount"],
-              included: false,
-              uid: String(Math.floor(Math.random() * 10000000))
-            });
-          });
-
-          table_items = [];
-          [...table_items] = table_items_tmp;
-          updateTable(table_items);
-        }
-
-        function updateTableData(data) {
-          let table_items_tmp = [];
-          let i = 0;
-
-          data.forEach(value => {
-            table_items_tmp.push({
-              due_date: value["due_date"],
-              invoice_no: value["invoice_no"],
-              amount: value["amount"],
-              wht: calculateWHT ? (Number(value["amount"]) * 0.02 / 1.16) : 0,
-              amount_due: calculateWHT ? (Number(value["amount"]) * 1.14 / 1.16) : value["amount"],
-              included: value["included"],
-              uid: value["uid"]
-            });
-          });
-
-          table_items = [];
-          [...table_items] = table_items_tmp;
-          console.log("Table items", table_items);
-          updateTable(table_items);
-        }
-
-        let amount_total = 0;
-        let wht_total = 0;
-        let net_total = 0;
-
-        function updateTotals() {
-          amount_total = 0;
-          wht_total = 0;
-          net_total = 0;
-
-          table_items.forEach((item) => {
-            if (item["included"]) {
-              amount_total += Number(item["amount"])
-              wht_total += Number(item["wht"])
-              net_total += Number(item["amount_due"])
-            }
-          });
-          total_before_tax_helper.set(amount_total);
-          total_wht_helper.set(wht_total);
-          amount_due_helper.set(net_total);
-        }
-
         let updateTable = (data) => {
-
           table_body.innerHTML = "";
+          console.log("Ladadida", "Commodore ", data);
           data.forEach(value => {
+
             const this_row = document.createElement("tr");
 
             // =================================================================
@@ -403,7 +287,7 @@ include '../includes/base_page/head.php';
               minimumValue: 0
             });
             // --
-            amount_input_an.set(value["amount"]);
+            amount_input_an.set(value["amount_due"]);
             amount_input.setAttribute("readonly", "");
             amount.appendChild(amount_input)
             amount.classList.add("align-middle");
@@ -439,6 +323,7 @@ include '../includes/base_page/head.php';
             const amount_due_input = document.createElement("input");
             // --
             amount_due_input.setAttribute("type", "text");
+
             amount_due_input.setAttribute("readonly", "");
             amount_due_input.classList.add("form-control", "form-control-sm");
             // --
@@ -447,7 +332,8 @@ include '../includes/base_page/head.php';
               minimumValue: 0
             });
             // --
-            amount_due_input_an.set(value["amount_due"]);
+
+            amount_due_input_an.set(value["payable"]);
             amount_due.appendChild(amount_due_input);
             amount_due.classList.add("align-middle", "col", "col-auto");
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -457,63 +343,21 @@ include '../includes/base_page/head.php';
             // =================================================================
             // Cell 6
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-            const req_actions = document.createElement("td");
-            const req_actions_div = document.createElement("div");
-            req_actions_div.classList.add("form-check", "form-switch", "pt-1");
-            const check_wht = document.createElement("input");
-            check_wht.setAttribute("type", "checkbox");
-            check_wht.setAttribute("id", value["uid"]);
-            check_wht.setAttribute("onchange", "toggleRow('" + value["uid"] + "', this.checked)");
-            check_wht.appendChild(document.createTextNode("Manage"));
-            check_wht.classList.add("form-check-input");
-            if (value["included"]) {
-              check_wht.setAttribute("checked", "");
-            }
-            req_actions_div.appendChild(check_wht);
-            req_actions.appendChild(req_actions_div);
+
             // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
             // =================================================================
 
-            this_row.append(due_date, invoice_no, amount, wht, amount_due, req_actions);
+            this_row.append(due_date, invoice_no, amount, wht, amount_due);
             table_body.appendChild(this_row);
 
 
           });
 
-          updateTotals();
         }
 
-        function toggleRow(uid, checked) {
-          let i = 0;
-          table_items.forEach(item => {
-            if (uid === item["uid"]) {
-              console.log(uid, checked);
-              table_items[i]["included"] = checked;
-            }
-            i++;
-          });
-
-          updateTableData(table_items, calculateWHT);
-        }
-
-        function filterRequisitions() {
-          const formData = new FormData();
-          formData.append("date1", req_date_from.value);
-          formData.append("date2", req_date_to.value);
-          // formData.append("status", r_status.value);
-          formData.append("branch", user_branch);
-          fetch('../includes/#  .php', {
-              method: 'POST',
-              body: formData
-            })
-            .then(response => response.json())
-            .then(result => {
-              console.log('Success:', result);
-              updateTable(result);
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
+        function detailedView(req_no) {
+          sessionStorage.setItem('req_no', req_no);
+          window.location.href = "#.php";
         }
       </script>
 
