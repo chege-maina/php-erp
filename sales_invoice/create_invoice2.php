@@ -323,7 +323,7 @@ include '../includes/base_page/head.php';
             data.forEach((value) => {
               const opt = document.createElement("option");
               opt.value = value["lpo_number"];
-              purchase_order_number_items.appendChild(opt);
+              //  purchase_order_number_items.appendChild(opt);
             })
           })
           .catch((error) => {
