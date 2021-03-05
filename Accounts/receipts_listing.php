@@ -72,7 +72,7 @@ include '../includes/base_page/head.php';
 
             elem.setAttribute("manage_key", "Date");
             elem.setAttribute("manage_key_2", "Supplier_Name");
-            elem.setAttribute("redirect", getBaseUrl() + "/supplier/edit_receipts.php");
+            elem.setAttribute("redirect", getBaseUrl() + "/Accounts/edit_receipts.php");
             // elem.classList.add("is-fullwidth");
             datatable.appendChild(elem);
           };

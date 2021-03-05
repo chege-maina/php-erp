@@ -105,6 +105,8 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/receive_payment.php">Receive Payment</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/receipts_listing.php">Receipts Listing</a>
+  </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/generate_receipt_advice.php">Receipt Advice</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/approve_receipt_advice.php">Approve Receipt Advice</a>
