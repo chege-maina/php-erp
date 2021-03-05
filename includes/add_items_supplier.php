@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo json_encode($message);
     } else {
         // echo "Multiquery failed: " . $mysql;
-        echo "Multi query failed: (" . $conn->errno . ") " . $conn->error . "sql: " . $mysql;
+        echo "Duplicate Delivery Note Number";
     }
 }
 
