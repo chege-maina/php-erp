@@ -132,7 +132,7 @@ include '../includes/base_page/head.php';
               <button class="btn btn-falcon-primary btn-sm m-2" id="submit_btn" onclick="approveReceipt();" disabled>
                 Approve
               </button>
-              <button class="btn btn-falcon-danger btn-sm m-2" id="submit_btn" onclick="rejectReceipt();" disabled>
+              <button class="btn btn-falcon-danger btn-sm m-2" id="submit_btnr" onclick="rejectReceipt();" disabled>
                 Reject
               </button>
             </div>
@@ -152,6 +152,7 @@ include '../includes/base_page/head.php';
           const receipt_time = document.querySelector('#receipt_time');
           const receipt_date = document.querySelector('#receipt_date');
           const submit_btn = document.querySelector('#submit_btn');
+          const submit_btnr = document.querySelector('#submit_btnr');
 
           function approveReceipt() {
             const formData = new FormData();
@@ -250,11 +251,13 @@ include '../includes/base_page/head.php';
               .then(result => {
                 console.log('Success:', result.length);
                 if (result.length > 0) {
-                  submit_btn.removeAttribute("disabled");
+                  submit_btn.removeAttribute("disabled") && submit_btnr.removeAttribute("disabled");
                 } else {
-                  submit_btn.setAttribute("disabled", "");
+                  submit_btn.setAttribute("disabled", "") && submit_btn.setAttribute("disabled", "");
                 }
                 result = result[0];
+
+
 
                 // Update fields
                 receipt_note_nbr.value = result['receipt_no'];
