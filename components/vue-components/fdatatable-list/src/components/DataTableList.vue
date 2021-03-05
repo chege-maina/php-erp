@@ -1,5 +1,51 @@
 <template>
   <div>
+    <div class="d-flex flex-row-reverse mb-0">
+      <ul class="pagination pagination-sm ml-2">
+        <li class="page-item active">
+          <button
+            class="page-link"
+            href="#"
+            aria-label="Previous"
+            v-on:click="prevPage()"
+          >
+            <span aria-hidden="true">&laquo;</span>
+          </button>
+        </li>
+        <li class="page-item">
+          <span class="page-link" href="#"
+            >{{ i_current }} <span class="fs--2">of</span> {{ i_total }}</span
+          >
+        </li>
+        <li class="page-item active">
+          <button
+            class="page-link"
+            href="#"
+            aria-label="Next"
+            v-on:click="nextPage()"
+          >
+            <span aria-hidden="true">&raquo;</span>
+          </button>
+        </li>
+      </ul>
+      <div class="col col-auto align-items-center">
+        <select class="form-select form-select-sm" v-model="per_page">
+          <template v-for="(value, index) in list_by">
+            <option
+              v-if="index == 0"
+              v-bind:value="value"
+              v-bind:key="index"
+              selected
+            >
+              {{ value }}
+            </option>
+            <option v-else v-bind:value="value" v-bind:key="index">
+              {{ value }}
+            </option>
+          </template>
+        </select>
+      </div>
+    </div>
     <table class="table table-sm table-striped table-hover is-fullwidth pb-0">
       <thead>
         <tr>
@@ -18,7 +64,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in table_data" :key="item.key" class="py-0">
+        <tr v-for="item in visible_table_data" :key="item.key" class="py-0">
           <th scope="row" class="align-middle py-1">
             {{ table_data_relative_index[item.key].index }}
           </th>
@@ -29,7 +75,7 @@
                 <input
                   class="form-control form-control-sm"
                   type="number"
-                  v-model="table_data[item.key][key]"
+                  v-model="visible_table_data[item.key][key]"
                 />
               </span>
               <span v-else-if="header_object[key].computed">{{
@@ -50,25 +96,6 @@
         </tr>
       </tbody>
     </table>
-    <div class="d-flex flex-row-reverse mb-0">
-      <ul class="pagination">
-        <li class="page-item active">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li class="page-item">
-          <span class="page-link" href="#"
-            >{{ i_current }} <span class="fs--2">of</span> {{ i_total }}</span
-          >
-        </li>
-        <li class="page-item active">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </div>
   </div>
 </template>
 
@@ -108,15 +135,9 @@ export default {
       "https://qonsolidated-solutions.github.io/falcon-assets/vendors/bootstrap/bootstrap.min.js"
     );
     const is_js = document.createElement("script");
-    is_js.setAttribute(
-      "src",
-      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/is/is.min.js"
-    );
+    is_js.setAttribute("src", "https://qonsolidated-solutions.github.io/falcon-assets/vendors/is/is.min.js");
     const prism = document.createElement("script");
-    prism.setAttribute(
-      "src",
-      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/prism/prism.js"
-    );
+    prism.setAttribute("src", "https://qonsolidated-solutions.github.io/falcon-assets/vendors/prism/prism.js");
     const fontawesome = document.createElement("script");
     fontawesome.setAttribute(
       "src",
@@ -138,10 +159,7 @@ export default {
       "https://qonsolidated-solutions.github.io/falcon-assets/vendors/list.js/list.min.js"
     );
     const config_js = document.createElement("script");
-    config_js.setAttribute(
-      "src",
-      "https://qonsolidated-solutions.github.io/falcon-assets/assets/js/config.js"
-    );
+    config_js.setAttribute("src", "https://qonsolidated-solutions.github.io/falcon-assets/assets/js/config.js");
 
     this.$el.prepend(config_js);
     this.$el.append(
@@ -156,6 +174,14 @@ export default {
       list_js,
       falcon_js
     );
+
+    this.i_total = this.body.length / this.per_page;
+    this.i_total = this.i_total < 1 ? 1 : this.i_total;
+
+    this.i_total =
+      this.i_total.toString().split(".").length > 1
+        ? Number(this.i_total.toString().split(".")[0]) + 1
+        : this.i_total;
   },
   props: {
     json_header: {
@@ -189,6 +215,8 @@ export default {
     session_key: "table_data",
     i_current: 1,
     i_total: 9,
+    list_by: [10, 25, 50, 100],
+    per_page: 10,
   }),
   watch: {
     table_data: {
@@ -200,6 +228,27 @@ export default {
       },
       // TODO: receive this as a prop
       deep: true,
+    },
+    per_page: {
+      handler(val) {
+        this.i_total = this.body.length / val;
+
+        this.i_total = this.i_total < 1 ? 1 : this.i_total;
+        this.i_current =
+          this.i_current > this.i_total ? this.i_total : this.i_current;
+
+        this.i_total =
+          this.i_total.toString().split(".").length > 1
+            ? Number(this.i_total.toString().split(".")[0]) + 1
+            : this.i_total;
+      },
+    },
+    i_current: {
+      handler() {
+        this.i_current = this.i_current < 1 ? 1 : this.i_current;
+        this.i_current =
+          this.i_current > this.i_total ? this.i_total : this.i_current;
+      },
     },
   },
   computed: {
@@ -235,6 +284,42 @@ export default {
         tmp[key] = {
           index: i,
         };
+        i++;
+      }
+      return tmp;
+    },
+    table_data_relative_index_current_page: function () {
+      let tmp = {};
+      let i = 0;
+      let start_at = this.i_current * this.per_page - this.per_page;
+      let end_at = start_at + this.per_page;
+      for (let key in this.table_data_relative_index) {
+        if (start_at > i) {
+          i++;
+          continue;
+        }
+        if (end_at <= i) {
+          break;
+        }
+        tmp[key] = this.table_data_relative_index[key];
+        i++;
+      }
+      return tmp;
+    },
+    visible_table_data: function () {
+      let tmp = {};
+      let i = 0;
+      let start_at = this.i_current * this.per_page - this.per_page;
+      let end_at = start_at + this.per_page;
+      for (let key in this.table_data) {
+        if (start_at > i) {
+          i++;
+          continue;
+        }
+        if (end_at <= i) {
+          break;
+        }
+        tmp[key] = this.table_data[key];
         i++;
       }
       return tmp;
@@ -302,6 +387,12 @@ export default {
       }
 
       window.location.href = this.redirect;
+    },
+    nextPage() {
+      this.i_current++;
+    },
+    prevPage() {
+      this.i_current--;
     },
   },
 };
