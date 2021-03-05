@@ -4,7 +4,7 @@ header("Content-type:application/json");
 
 include_once '../dbconnect.php';
 
-$query = "SELECT * FROM tbl_paybill WHERE pay_type='pay'";
+$query = "SELECT * FROM tbl_paybill WHERE pay_type='receipt'";
 
 $result = mysqli_query($conn, $query);
 $response = array();
@@ -14,7 +14,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 		$response,
 		array(
 			'Date' => $row['date'],
-			'Supplier_Name' => $row['supplier_name'],
+			'Customer_Name' => $row['supplier_name'],
 			'Bank' => $row['bank_name'],
 			'Cheque_No' => $row['cheque_no'],
 			'Amount' => $row['amount'],
