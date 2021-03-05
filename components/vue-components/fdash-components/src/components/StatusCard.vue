@@ -1,28 +1,21 @@
 <template>
-  <div class="card overflow-hidden" style="min-width: 12rem">
+  <div class="card h-100">
     <div
-      class="bg-holder bg-card"
+      class="bg-holder d-none d-xl-block bg-card"
       style="
-        background-image: url(http://localhost:6060/assets/img/illustrations/corner-1.png);
+        background-image: url(http://localhost:6060/assets/img/illustrations/corner-4.png);
+        opacity: 0.7;
       "
     ></div>
     <!--/.bg-holder-->
 
-    <div class="card-body position-relative">
-      <h6>
-        Customers<span class="badge badge-soft-warning rounded-pill ml-2"
-          >-0.23%</span
-        >
-      </h6>
-      <div
-        class="display-4 fs-4 mb-2 fw-normal font-sans-serif text-warning"
-        data-countup='{"endValue":58.386,"decimalPlaces":2,"suffix":"k"}'
-      >
-        58.39k
+    <div class="card-body">
+      <h5>Order Details: #2737</h5>
+      <p class="fs--1">April 21, 2019, 5:33 PM</p>
+      <div>
+        <strong class="mr-2">Status: </strong>
+        <div class="badge rounded-pill badge-soft-success fs--2">Completed</div>
       </div>
-      <a class="fw-semi-bold fs--1 text-nowrap" href="e-commerce/customers.html"
-        >See all &raquo;</a
-      >
     </div>
   </div>
 </template>
@@ -110,3 +103,5 @@ export default {
 <style>
 @import "http://localhost:6060/assets/css/theme.min.css";
 </style>
+
+

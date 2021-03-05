@@ -1,5 +1,5 @@
 <template>
-  <div class="card overflow-hidden" style="min-width: 12rem">
+  <div class="card">
     <div
       class="bg-holder bg-card"
       style="
@@ -9,19 +9,13 @@
     <!--/.bg-holder-->
 
     <div class="card-body position-relative">
-      <h6>
-        Customers<span class="badge badge-soft-warning rounded-pill ml-2"
-          >-0.23%</span
-        >
-      </h6>
-      <div
-        class="display-4 fs-4 mb-2 fw-normal font-sans-serif text-warning"
-        data-countup='{"endValue":58.386,"decimalPlaces":2,"suffix":"k"}'
-      >
-        58.39k
-      </div>
-      <a class="fw-semi-bold fs--1 text-nowrap" href="e-commerce/customers.html"
-        >See all &raquo;</a
+      <h5 class="text-warning">Running out of your space?</h5>
+      <p class="fs--1 mb-0">
+        Your storage will be running out soon. Get more<br />
+        space and powerful productivity features.
+      </p>
+      <a class="btn btn-link fs--1 text-warning mt-4 mt-lg-3 pl-0" href="#!"
+        >Upgrade storage &raquo;</a
       >
     </div>
   </div>
@@ -110,3 +104,5 @@ export default {
 <style>
 @import "http://localhost:6060/assets/css/theme.min.css";
 </style>
+
+

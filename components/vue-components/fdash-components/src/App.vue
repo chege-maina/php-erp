@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mb-8">
     <div class="row">
       <div class="col-sm-6 col-md-4">
         <CountUpOrangey />
@@ -11,6 +11,22 @@
         <CountUpCyan />
       </div>
     </div>
+    <div class="row">
+      <div class="col-sm-6 col-md-4">
+        <IconXByX />
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <TipCard />
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <StatusCard />
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-md-6 h-25">
+        <InfoWideCard />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -18,6 +34,10 @@
 import CountUpOrangey from "./components/CountUpOrangey.vue";
 import CountUpGreen from "./components/CountUpGreen.vue";
 import CountUpCyan from "./components/CountUpCyan.vue";
+import IconXByX from "./components/IconXByX.vue";
+import TipCard from "./components/TipCard.vue";
+import StatusCard from "./components/StatusCard.vue";
+import InfoWideCard from "./components/InfoWideCard.vue";
 
 export default {
   name: "App",
@@ -25,6 +45,10 @@ export default {
     CountUpOrangey,
     CountUpGreen,
     CountUpCyan,
+    IconXByX,
+    TipCard,
+    StatusCard,
+    InfoWideCard,
   },
 };
 </script>

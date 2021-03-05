@@ -1,28 +1,25 @@
 <template>
-  <div class="card overflow-hidden" style="min-width: 12rem">
-    <div
-      class="bg-holder bg-card"
-      style="
-        background-image: url(http://localhost:6060/assets/img/illustrations/corner-1.png);
-      "
-    ></div>
-    <!--/.bg-holder-->
-
-    <div class="card-body position-relative">
-      <h6>
-        Customers<span class="badge badge-soft-warning rounded-pill ml-2"
-          >-0.23%</span
-        >
-      </h6>
-      <div
-        class="display-4 fs-4 mb-2 fw-normal font-sans-serif text-warning"
-        data-countup='{"endValue":58.386,"decimalPlaces":2,"suffix":"k"}'
-      >
-        58.39k
-      </div>
-      <a class="fw-semi-bold fs--1 text-nowrap" href="e-commerce/customers.html"
-        >See all &raquo;</a
-      >
+  <div class="card bg-light mb-3 h-xxl-100">
+    <div class="card-body p-3">
+      <p class="fs--1 mb-0">
+        <a href="#!">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="mr-2"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"
+            />
+          </svg>
+          A payout for <strong>$921.42 </strong>was deposited 13 days ago</a
+        >. Your next deposit is expected on
+        <strong>Tuesday, March 13.</strong>
+      </p>
     </div>
   </div>
 </template>
@@ -110,3 +107,6 @@ export default {
 <style>
 @import "http://localhost:6060/assets/css/theme.min.css";
 </style>
+
+
+

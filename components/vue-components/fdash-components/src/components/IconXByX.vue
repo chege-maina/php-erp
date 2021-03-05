@@ -1,28 +1,62 @@
 <template>
-  <div class="card overflow-hidden" style="min-width: 12rem">
-    <div
-      class="bg-holder bg-card"
-      style="
-        background-image: url(http://localhost:6060/assets/img/illustrations/corner-1.png);
-      "
-    ></div>
-    <!--/.bg-holder-->
-
-    <div class="card-body position-relative">
-      <h6>
-        Customers<span class="badge badge-soft-warning rounded-pill ml-2"
-          >-0.23%</span
+  <div class="card h-100">
+    <div class="card-header d-flex flex-between-center pb-0">
+      <h6 class="mb-0 text-warning">Weather</h6>
+      <div class="dropdown font-sans-serif btn-reveal-trigger">
+        <button
+          class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal dropdown-caret-none"
+          type="button"
+          id="dropdown-weather-update"
+          data-toggle="dropdown"
+          data-boundary="viewport"
+          aria-haspopup="true"
+          aria-expanded="false"
         >
-      </h6>
-      <div
-        class="display-4 fs-4 mb-2 fw-normal font-sans-serif text-warning"
-        data-countup='{"endValue":58.386,"decimalPlaces":2,"suffix":"k"}'
-      >
-        58.39k
+          <b>...</b>
+        </button>
+        <div
+          class="dropdown-menu dropdown-menu-right border py-2"
+          aria-labelledby="dropdown-weather-update"
+        >
+          <a class="dropdown-item" href="#!">View</a
+          ><a class="dropdown-item" href="#!">Export</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item text-danger" href="#!">Remove</a>
+        </div>
       </div>
-      <a class="fw-semi-bold fs--1 text-nowrap" href="e-commerce/customers.html"
-        >See all &raquo;</a
-      >
+    </div>
+    <div class="card-body pt-2">
+      <div class="row g-0 h-100 align-items-center">
+        <div class="col">
+          <div class="d-flex align-items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="56"
+              height="56"
+              fill="currentColor"
+              class="mr-4"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"
+              />
+            </svg>
+            <div>
+              <h6 class="mb-2">New York City</h6>
+              <div class="fs--2 fw-semi-bold">
+                <div class="text-warning">Sunny</div>
+                Precipitation: 50%
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto text-center pl-2">
+          <div class="fs-4 fw-normal font-sans-serif text-primary mb-1 lh-1">
+            31°
+          </div>
+          <div class="fs--1 text-800">32° / 25°</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -110,3 +144,5 @@ export default {
 <style>
 @import "http://localhost:6060/assets/css/theme.min.css";
 </style>
+
+
