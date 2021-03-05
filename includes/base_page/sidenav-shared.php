@@ -101,6 +101,8 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/pay_bill.php">Make Payment</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/paybill_listing.php">Paybill Listing</a>
+  </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/receive_payment.php">Receive Payment</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/generate_receipt_advice.php">Receipt Advice</a>
@@ -119,9 +121,9 @@ function genSideBar()
   </div>
 </a>
 <ul class="nav collapse" id="e-custo" data-parent="#navbarVerticalCollapse">
-  <li class="nav-item"><a class="nav-link" href="../customer/create_customer.php">Add New Customer</a>
+  <li class="nav-item"><a class="nav-link" href="../customer/create.php">Add New Customer</a>
   </li>
-  <li class="nav-item"><a class="nav-link" href="../Accounts/generate_remittance.php">Manage Customers</a>
+  <li class="nav-item"><a class="nav-link" href="../customer/customer_listing_uiphp">Manage</a>
   </li>
 </ul>
 </li>
