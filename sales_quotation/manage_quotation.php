@@ -54,6 +54,7 @@ include '../includes/base_page/head.php';
                 <select name="status" id="status" class="form-select">
                   <option value="pending">Pending</option>
                   <option value="approved">Approved</option>
+                  <option value="all">All</option>
                 </select>
               </div>
               <div class="col-auto d-flex align-items-end">

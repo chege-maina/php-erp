@@ -44,7 +44,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <h5 class="mb-0">Supplier Listing</h5>
+        <h5 class="mb-0">Suppliers Listing</h5>
         <!-- ===============================================-->
         <!--    COMPONENT:: Add it -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ -->
@@ -70,16 +70,16 @@ include '../includes/base_page/head.php';
             elem.setAttribute("json_header", JSON.stringify(getHeaders(data)));
             elem.setAttribute("json_items", JSON.stringify(getItems(data)));
 
-            // elem.setAttribute("manage_key", "name");
-            // elem.setAttribute("manage_key_2", "code");
-            // elem.setAttribute("redirect", getBaseUrl() + "/supplier/edit_supplier_ui.php");
+            elem.setAttribute("manage_key", "Supplier_Code");
+            elem.setAttribute("manage_key_2", "Name");
+            elem.setAttribute("redirect", getBaseUrl() + "/supplier/edit_supplier_ui.php");
             // elem.classList.add("is-fullwidth");
             datatable.appendChild(elem);
           };
 
           window.addEventListener('DOMContentLoaded', (event) => {
 
-            fetch('../includes/listings/list_products.php')
+            fetch('../includes/listings/list_suppliers.php')
               .then(response => response.json())
               .then(data => {
                 updateTable(data);
