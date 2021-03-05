@@ -1,96 +1,32 @@
 <template>
   <div>
-    <h5>This is a WebComponent Gentleman</h5>
-    <div>My Name is {{ name }}</div>
     <div class="row">
-      <div class="col-sm-6 col-md-4">
-        <div class="card overflow-hidden" style="min-width: 12rem">
+      <div class="card overflow-hidden" style="min-width: 12rem">
+        <div
+          class="bg-holder bg-card"
+          style="
+            background-image: url(http://localhost:6060/assets/img/illustrations/corner-1.png);
+          "
+        ></div>
+        <!--/.bg-holder-->
+
+        <div class="card-body position-relative">
+          <h6>
+            Customers<span class="badge badge-soft-warning rounded-pill ml-2"
+              >-0.23%</span
+            >
+          </h6>
           <div
-            class="bg-holder bg-card"
-            style="
-              background-image: url(http://localhost:6060/assets/img/illustrations/corner-1.png);
-            "
-          ></div>
-          <!--/.bg-holder-->
-
-          <div class="card-body position-relative">
-            <h6>
-              Customers<span class="badge badge-soft-warning rounded-pill ml-2"
-                >-0.23%</span
-              >
-            </h6>
-            <div
-              class="display-4 fs-4 mb-2 fw-normal font-sans-serif text-warning"
-              data-countup='{"endValue":58.386,"decimalPlaces":2,"suffix":"k"}'
-            >
-              58.39k
-            </div>
-            <a
-              class="fw-semi-bold fs--1 text-nowrap"
-              href="e-commerce/customers.html"
-              >See all</a
-            >
+            class="display-4 fs-4 mb-2 fw-normal font-sans-serif text-warning"
+            data-countup='{"endValue":58.386,"decimalPlaces":2,"suffix":"k"}'
+          >
+            58.39k
           </div>
-        </div>
-      </div>
-
-      <div class="col-sm-6 col-md-4">
-        <div class="card overflow-hidden" style="min-width: 12rem">
-          <div
-            class="bg-holder bg-card"
-            style="
-              background-image: url(http://localhost:6060/assets/img/illustrations/corner-2.png);
-            "
-          ></div>
-          <!--/.bg-holder-->
-
-          <div class="card-body position-relative">
-            <h6>
-              Orders<span class="badge badge-soft-info rounded-pill ml-2"
-                >0.0%</span
-              >
-            </h6>
-            <div
-              class="display-4 fs-4 mb-2 fw-normal font-sans-serif text-info"
-              data-countup='{"endValue":23.434,"decimalPlaces":2,"suffix":"k"}'
-            >
-              23.43k
-            </div>
-            <a
-              class="fw-semi-bold fs--1 text-nowrap"
-              href="e-commerce/orders.html"
-            >
-              All orders
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card mb-3 overflow-hidden" style="min-width: 12rem">
-          <div
-            class="bg-holder bg-card"
-            style="
-              background-image: url(http://localhost:6060/assets/img/illustrations/corner-3.png);
-            "
-          ></div>
-          <!--/.bg-holder-->
-
-          <div class="card-body position-relative">
-            <h6>
-              Revenue<span class="badge badge-soft-success rounded-pill ml-2"
-                >9.54%</span
-              >
-            </h6>
-            <div
-              class="display-4 fs-4 mb-2 fw-normal font-sans-serif"
-              data-countup='{"endValue":43594,"prefix":"$"}'
-            >
-              $43,594
-            </div>
-            <a class="fw-semi-bold fs--1 text-nowrap" href="index.html">
-              Statistics
-            </a>
-          </div>
+          <a
+            class="fw-semi-bold fs--1 text-nowrap"
+            href="e-commerce/customers.html"
+            >See all &raquo;</a
+          >
         </div>
       </div>
     </div>
@@ -204,21 +140,6 @@
                   <strong class="mr-2">Status: </strong>
                   <div class="badge rounded-pill badge-soft-success fs--2">
                     Completed
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-check2-all"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7l-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z"
-                      />
-                      <path
-                        d="M5.354 7.146l.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"
-                      />
-                    </svg>
                   </div>
                 </div>
               </div>
