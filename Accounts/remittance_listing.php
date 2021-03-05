@@ -44,14 +44,11 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <h5 class="mb-0">Product Listing</h5>
+        <h5 class="mb-0">Remittance Listing</h5>
         <!-- ===============================================-->
         <!--    COMPONENT:: Add it -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ -->
         <div class="card mt-1">
-          <div class="card-header bg-light">
-            <h6 class="mb-0">Products</h6>
-          </div>
           <div class="card-body fs--1 p-2">
             <!-- Content is to start here -->
             <div id="datatable">
@@ -75,14 +72,14 @@ include '../includes/base_page/head.php';
 
             elem.setAttribute("manage_key", "name");
             elem.setAttribute("manage_key_2", "code");
-            elem.setAttribute("redirect", getBaseUrl() + "/products/edit-product-ui.php");
+            elem.setAttribute("redirect", getBaseUrl() + "/Accounts/view_remittance_ui.php");
             // elem.classList.add("is-fullwidth");
             datatable.appendChild(elem);
           };
 
           window.addEventListener('DOMContentLoaded', (event) => {
 
-            fetch('../includes/listings/list_products.php')
+            fetch('../includes/listings/list_remittance.php')
               .then(response => response.json())
               .then(data => {
                 updateTable(data);

@@ -26,8 +26,6 @@ function genSideBar()
   <ul class="nav collapse" id="pages" data-parent="#navbarVerticalCollapse">
     <li class="nav-item"><a class="nav-link" href="../products/add-product-ui.php">Add New Product</a>
     </li>
-    <li class="nav-item"><a class="nav-link" href="../products/manage-products-ui.php">Manage Products</a>
-    </li>
     <li class="nav-item"><a class="nav-link" href="../products/product-listing-ui.php">Products Listing</a>
     </li>
   </ul>
@@ -58,6 +56,8 @@ function genSideBar()
   <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/release_transfer.php">Release Transfer Items</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/manage_requisitions_ui.php">Return Goods</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../warehouse/receipt_listing_ui.php">Receipt List</a>
   </li>
   </ul>
 </li>
@@ -107,7 +107,10 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/approve_receipt_advice.php">Approve Receipt Advice</a>
   </li>
-  
+  <li class="nav-item"><a class="nav-link" href="../Accounts/purchase_bill_listing.php">Purchase Listing</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/remittance_listing.php">Remittance Listing</a>
+  </li>
 </ul>
 </li>
 <!-- Customers -->

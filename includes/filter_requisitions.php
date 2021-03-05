@@ -8,9 +8,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $status = $_POST["status"];
   $branch = $_SESSION['branch'];
 
+  if (strcmp($status, 'all') == 0) {
+    $query = "SELECT * FROM tbl_requisition WHERE branch='$branch' and date>='$start_date' and date<= '$end_date'";
+  } else {
 
-  $query = "SELECT * FROM tbl_requisition WHERE status='$status' and branch='$branch' and date>='$start_date' and date<= '$end_date'";
-
+    $query = "SELECT * FROM tbl_requisition WHERE status='$status' and branch='$branch' and date>='$start_date' and date<= '$end_date'";
+  }
   $result = mysqli_query($conn, $query);
   $response = array();
 
@@ -34,4 +37,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $message = "Fields have no data...";
   echo json_encode($message);
 }
-

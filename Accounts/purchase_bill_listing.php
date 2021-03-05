@@ -44,14 +44,11 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <h5 class="mb-0">Product Listing</h5>
+        <h5 class="mb-0">Purchase Bill Listing</h5>
         <!-- ===============================================-->
         <!--    COMPONENT:: Add it -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ -->
         <div class="card mt-1">
-          <div class="card-header bg-light">
-            <h6 class="mb-0">Products</h6>
-          </div>
           <div class="card-body fs--1 p-2">
             <!-- Content is to start here -->
             <div id="datatable">
@@ -73,16 +70,16 @@ include '../includes/base_page/head.php';
             elem.setAttribute("json_header", JSON.stringify(getHeaders(data)));
             elem.setAttribute("json_items", JSON.stringify(getItems(data)));
 
-            elem.setAttribute("manage_key", "name");
-            elem.setAttribute("manage_key_2", "code");
-            elem.setAttribute("redirect", getBaseUrl() + "/products/edit-product-ui.php");
+            elem.setAttribute("manage_key", "Purchase_Bill");
+            //elem.setAttribute("manage_key_2", "code");
+            elem.setAttribute("redirect", getBaseUrl() + "/Accounts/view_purchase_bill.php");
             // elem.classList.add("is-fullwidth");
             datatable.appendChild(elem);
           };
 
           window.addEventListener('DOMContentLoaded', (event) => {
 
-            fetch('../includes/listings/list_products.php')
+            fetch('../includes/listings/list_purchasebill.php')
               .then(response => response.json())
               .then(data => {
                 updateTable(data);

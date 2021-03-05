@@ -66,7 +66,7 @@ include '../includes/base_page/head.php';
             <div class="row pb-2 ">
               <div class="col-sm-3 mt-2 ">
                 <label for="invoice" class="form-label">Enter Invoice No./Delivery Note No.*</label>
-                <input type="text" name="invoice" id="invoice" class="form-control">
+                <input type="text" name="invoice" id="invoice" class="form-control" onchange="this.value=this.value.toUpperCase();">
               </div>
             </div>
           </div>
