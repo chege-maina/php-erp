@@ -31,7 +31,7 @@ include '../includes/base_page/head.php';
         include '../navbar-shared.php';
         ?>
         <div id="alert-div"></div>
-        <h5 class="p-2">View Supplier</h5>
+        <h5 class="p-2">Edit Supplier</h5>
 
         <form name="add_product" id="add_product" onsubmit="return sendEverything();">
           <div class="card">
