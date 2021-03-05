@@ -2,8 +2,19 @@
   <div class="container">
     <div class="card">
       <div class="card-body">
-        <div class="card-title">Falcon DataTable List</div>
+        <div class="card-title">New Stuff</div>
         <PosComponent
+          v-bind:json_header="jsonHeader"
+          v-bind:json_items="jsonBody"
+          manage_key="code"
+          redirect="http://localhost:5000/customer/add_customer_ui.php"
+        />
+      </div>
+    </div>
+    <div class="card mt-3">
+      <div class="card-body">
+        <div class="card-title">Falcon DataTable List</div>
+        <DataTableListBak
           v-bind:json_header="jsonHeader"
           v-bind:json_items="jsonBody"
           manage_key="code"
@@ -16,11 +27,13 @@
 
 <script>
 import PosComponent from "./components/DataTableList.vue";
+import DataTableListBak from "./components/DataTableListBak.vue";
 
 export default {
   name: "App",
   components: {
     PosComponent,
+    DataTableListBak,
   },
   data: () => ({
     headers: [
