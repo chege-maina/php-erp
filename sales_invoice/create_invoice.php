@@ -71,7 +71,7 @@ include '../includes/base_page/head.php';
                   <th>Customer </th>
                   <th>Date </th>
                   <th>Created By</th>
-                  <th>Expiry Date</th>
+                  <th>Branch</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
@@ -128,6 +128,8 @@ include '../includes/base_page/head.php';
             const req_branch = document.createElement("td");
             req_branch.appendChild(document.createTextNode(value["branch"]));
             req_branch.classList.add("align-middle");
+
+
 
             const req_user = document.createElement("td");
             req_user.appendChild(document.createTextNode(value["user"]));
@@ -196,7 +198,7 @@ include '../includes/base_page/head.php';
           formData.append("date2", req_date_to.value);
           formData.append("status", r_status.value);
           formData.append("branch", user_branch);
-          fetch('../includes/filter_quotation_forsale.php', {
+          fetch('../includes/filter_saleorder_forinvoice.php', {
               method: 'POST',
               body: formData
             })

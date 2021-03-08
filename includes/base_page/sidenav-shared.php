@@ -5,7 +5,7 @@ function genSideBar()
   <div class="navbar-vertical-content scrollbar">
   <ul class="navbar-nav flex-column">
     <li class="nav-item"><a class="nav-link dropdown-indicator" href="#home" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="home">
-      <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-home" style = "color:brown;"></span></span><span class="nav-link-text"> Home</span>
+      <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-home" style = "color:#b5651d;"></span></span><span class="nav-link-text"> Home</span>
       </div>
     </a>
     <ul class="nav collapse" id="home" data-parent="#navbarVerticalCollapse">
@@ -94,11 +94,10 @@ function genSideBar()
 </a>
 <ul class="nav collapse" id="e-commerce" data-parent="#navbarVerticalCollapse">
 
-  <li class="nav-item"><a class="nav-link" href="../sales_invoice/create_invoice.php">Create Invoice</a>
-  </li>
-  <li class="nav-item"><a class="nav-link" href="../sales_invoice/sales_invoice_listing.php">Sale Invoice Listing</a>
-  </li>
+ 
   <li class="nav-item"><a class="nav-link" href="../Accounts/purchase_bill.php">Post Purchase Bill</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/remittance_listing.php">Remittance Listing</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/generate_remittance.php">Remittance Advice</a>
   </li>
@@ -108,18 +107,21 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/paybill_listing.php">Paybill Listing</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../sales_invoice/create_invoice.php">Create Invoice</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../sales_invoice/sales_invoice_listing.php">Sale Invoice Listing</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/generate_receipt_advice.php">Receipt Advice</a>
+  </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/receive_payment.php">Receive Payment</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/receipts_listing.php">Receipts Listing</a>
-  </li>
-  <li class="nav-item"><a class="nav-link" href="../Accounts/generate_receipt_advice.php">Receipt Advice</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/approve_receipt_advice.php">Approve Receipt Advice</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/purchase_bill_listing.php">Purchase Listing</a>
   </li>
-  <li class="nav-item"><a class="nav-link" href="../Accounts/remittance_listing.php">Remittance Listing</a>
-  </li>
+
 </ul>
 </li>
 <!-- Customers -->
