@@ -20,6 +20,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     $unit = $row['product_unit'];
     $reorder = $row['min_level'];
     $max = $row['max_level'];
+    $tax = $row['applicable_tax'];
+    $price = $row['dsp_price'];
 
     $totalstore = 0;
     $totalsale = 0;
@@ -75,15 +77,16 @@ while ($row = mysqli_fetch_assoc($result)) {
             $response,
             array(
                 'balance' => $balance,
-                'code' => $row['product_code'],
-                'name' => $row['product_name'],
-                'unit' => $row['product_unit'],
-                'tax' => $row['applicable_tax'],
-                'price' => $row['dsp_price']
+                'code' => $productcode,
+                'name' => $product,
+                'unit' => $unit,
+                'tax' => $tax,
+                'price' => $price
             )
         );
     }
 }
+
 echo json_encode($response);
 
 mysqli_close($conn);
