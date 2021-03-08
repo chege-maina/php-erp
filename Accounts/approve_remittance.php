@@ -220,7 +220,7 @@ include '../includes/base_page/head.php';
               divAlert.innerHTML = alertVar;
               divAlert.scrollIntoView();
               setTimeout(function() {
-                location.href = "generate_remittance.php"
+                location.reload();
               }, 2500);
             })
             .catch(error => {
