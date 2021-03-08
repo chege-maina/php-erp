@@ -102,6 +102,7 @@ include '../includes/base_page/head.php';
                       <th scope="col">Product Name</th>
                       <th scope="col">Units</th>
                       <th scope="col">Unit Price</th>
+                      <th scope="col">Balance</th>
                       <th scope="col">Quantity</th>
                       <th scope="col">Total</th>
                       <th scope="col">Actions</th>
@@ -300,6 +301,10 @@ include '../includes/base_page/head.php';
               balance_td.appendChild(document.createTextNode(data["balance"]));
               balance_td.classList.add("align-middle");
 
+              let bal_td = document.createElement("td");
+              bal_td.appendChild(document.createTextNode(data["bal"]));
+              bal_td.classList.add("align-middle");
+
               let units_td = document.createElement("td");
               units_td.appendChild(document.createTextNode(data["unit"]));
               units_td.classList.add("align-middle");
@@ -336,9 +341,12 @@ include '../includes/base_page/head.php';
               quantity.setAttribute("id", "q-" + id_suffix);
               quantity.classList.add("form-control", "form-control-sm", "align-middle");
               // quantity.setAttribute("data-ref", da["name"]);
-              quantity.setAttribute("min", 1);
+
               // make sure the quantity is always greater than 0
-              quantity.setAttribute("onfocusout", "this.value = this.value <= 0 ? 1 : this.value;");
+              unit.setAttribute("min", data.bal <= 0 ? 0 : 1);
+              unit.setAttribute("max", data.bal);
+              quantity.setAttribute("onfocusout", `this.value = this.value <= 0 ? 0 : this.value;`);
+              quantity.setAttribute("onchange", `this.value = this.value >= ${data.bal} ? data.bal : this.value`)
               // quantity.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value);");
               // quantity.setAttribute("onclick", "this.select();");
               quantity.value = data["qty"];
@@ -396,7 +404,7 @@ include '../includes/base_page/head.php';
               actionDiv.append(edit, save, cancel);
               actionWrapper.appendChild(actionDiv);
 
-              tr.append(code_td, name_td, units_td, unitsWrapper, quantityWrapper, total, actionWrapper);
+              tr.append(code_td, name_td, units_td, unitsWrapper, bal_td, quantityWrapper, total, actionWrapper);
               table_body.appendChild(tr);
 
             });
