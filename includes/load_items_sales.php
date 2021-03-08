@@ -5,7 +5,7 @@ header("Content-type:application/json");
 include_once 'dbconnect.php';
 session_start();
 
-$branch = 'MM2'; //$_SESSION['branch'];
+$branch = $_SESSION['branch'];
 
 $query = "SELECT * FROM tbl_product";
 
