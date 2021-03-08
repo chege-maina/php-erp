@@ -5,7 +5,6 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $req_no = $_POST["req_no"];
 
-
   $query = "SELECT * FROM tbl_quotation WHERE quote_no ='$req_no'";
   $query2 = "SELECT sum(tax), sum(amount) FROM tbl_quotation_items WHERE quote_no ='$req_no'";
   $result = mysqli_query($conn, $query);
