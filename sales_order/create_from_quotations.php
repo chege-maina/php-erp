@@ -180,9 +180,10 @@ include '../includes/base_page/head.php';
           req_date_to.setAttribute("min", req_date_from.value);
 
           fetch('../includes/load_quotation_forsale.php')
-            .then(response => response.json())
-            .then(data => {
+            .then(response => response.text())
+            .then(text => {
               console.log(data);
+              return;
               updateTable(data);
             })
             .catch((error) => {
