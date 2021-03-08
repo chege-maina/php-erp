@@ -19,6 +19,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "UPDATE tbl_remittance SET status = 'approved' WHERE rem_no = '" . $req_no . "'";
         mysqli_query($conn, $sql);
         mysqli_query($conn, $sql1);
+        $query = "SELECT invoice_no FROM tbl_remittance_items WHERE status='rejected'";
+
+        $result = mysqli_query($conn, $query);
+        $response = array();
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $num = $row['invoice_no'];
+            $sql2 = "UPDATE tbl_purchase_bill SET status = 'pending' WHERE purchasebill_no = '" . $num . "'";
+            mysqli_query($conn, $sql2);
+        }
         $response['message'] = "Selected Remittance Approved...";
     }
 
