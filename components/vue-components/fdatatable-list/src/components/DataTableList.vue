@@ -55,7 +55,81 @@
     <table class="table table-sm table-striped table-hover is-fullwidth pb-0">
       <thead>
         <tr>
-          <th scope="col">#</th>
+          <th scope="col">
+            #
+            <span v-if="largest_first">
+              <button
+                class="btn btn-sm btn-outline-secondary px-0 py-0"
+                style="border: none"
+                v-on:click="sortUp('index')"
+              >
+                <svg
+                  v-if="currently_sorted == 'index'"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="10"
+                  height="10"
+                  fill="currentColor"
+                  class="bi bi-arrow-up"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"
+                  />
+                </svg>
+                <svg
+                  v-else
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="10"
+                  height="10"
+                  fill="currentColor"
+                  class="bi bi-arrow-down-up"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"
+                  />
+                </svg>
+              </button>
+            </span>
+            <span v-else>
+              <button
+                class="btn btn-sm btn-outline-secondary px-0 py-0"
+                style="border: none"
+                v-on:click="sortDown('index')"
+              >
+                <svg
+                  v-if="currently_sorted == 'index'"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="10"
+                  height="10"
+                  fill="currentColor"
+                  class="bi bi-arrow-down"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"
+                  />
+                </svg>
+                <svg
+                  v-else
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="10"
+                  height="10"
+                  fill="currentColor"
+                  class="bi bi-arrow-down-up"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"
+                  />
+                </svg>
+              </button>
+            </span>
+          </th>
           <template v-for="(item, key) in header">
             <th
               scope="col"
@@ -64,6 +138,78 @@
               v-if="item.key !== 'key'"
             >
               {{ item.name }}
+              <span v-if="largest_first">
+                <button
+                  class="btn btn-sm btn-outline-secondary px-0 py-0"
+                  style="border: none"
+                  v-on:click="sortUp(item.key)"
+                >
+                  <svg
+                    v-if="currently_sorted == item.key"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="10"
+                    height="10"
+                    fill="currentColor"
+                    class="bi bi-arrow-up"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"
+                    />
+                  </svg>
+                  <svg
+                    v-else
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="10"
+                    height="10"
+                    fill="currentColor"
+                    class="bi bi-arrow-down-up"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"
+                    />
+                  </svg>
+                </button>
+              </span>
+              <span v-else>
+                <button
+                  class="btn btn-sm btn-outline-secondary px-0 py-0"
+                  style="border: none"
+                  v-on:click="sortDown(item.key)"
+                >
+                  <svg
+                    v-if="currently_sorted == item.key"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="10"
+                    height="10"
+                    fill="currentColor"
+                    class="bi bi-arrow-down"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"
+                    />
+                  </svg>
+                  <svg
+                    v-else
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="10"
+                    height="10"
+                    fill="currentColor"
+                    class="bi bi-arrow-down-up"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"
+                    />
+                  </svg>
+                </button>
+              </span>
             </th>
           </template>
           <th scope="col">Action</th>
@@ -234,6 +380,8 @@ export default {
     i_total: 9,
     list_by: [10, 25, 50, 100],
     per_page: 10,
+    largest_first: false,
+    currently_sorted: "index",
   }),
   watch: {
     table_data: {
@@ -411,9 +559,11 @@ export default {
     prevPage() {
       this.i_current--;
     },
-    sortUp() {
+    sortUp(key) {
       console.clear();
-      console.log("Going up");
+      console.log("Going up", key);
+      this.largest_first = !this.largest_first;
+      this.currently_sorted = key;
 
       let unsorted_array = [];
       for (let key in this.table_data) {
@@ -434,9 +584,11 @@ export default {
       console.log("jj", tmp_obj);
       this.table_data = tmp_obj;
     },
-    sortDown() {
+    sortDown(key) {
       console.clear();
-      console.log("Going Down");
+      console.log("Going Down", key);
+      this.currently_sorted = key;
+      this.largest_first = !this.largest_first;
 
       let unsorted_array = [];
       for (let key in this.table_data) {
@@ -444,7 +596,7 @@ export default {
       }
 
       unsorted_array.sort(function (a, b) {
-        return (a.key - b.key);
+        return a.key - b.key;
       });
 
       let tmp_obj = {};
