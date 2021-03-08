@@ -14,6 +14,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $result2 = mysqli_query($conn, $query2);
   $row2 = mysqli_fetch_assoc($result2);
 
+  $customer = $row['customer_name'];
+
+  $deni = 0;
+  $date_chk = date("Y-m-d");
+  $query3 = "SELECT * FROM tbl_customer WHERE name='$customer'";
+
+  $result3 = mysqli_query($conn, $query3);
+
+  while ($row3 = mysqli_fetch_assoc($result3)) {
+    $cust_name = $row3['name'];
+    $terms = $row3['payment_terms'];
+    $limit = $row3['credit_limit'];
+
+    $query4 = "SELECT sum(amount_due) FROM tbl_receiptadv_items WHERE customer_name='$cust_name' and (status='pending' or status='approved')";
+    $result4 = mysqli_query($conn, $query4);
+    if ($row4 = mysqli_fetch_assoc($result4)) {
+      $deni = $row4['sum(amount_due)'];
+    }
+    $balance = $limit - $deni;
+    if ($balance == 0 || $balance < 0) {
+      $statusqq = "Limit Reached";
+    } else {
+
+      $query5 = "SELECT due_date FROM tbl_receiptadv_items WHERE customer_name='$cust_name' and due_date<'$date_chk' and (status='pending' or status='approved')";
+      $result5 = mysqli_query($conn, $query5);
+      if ($row5 = mysqli_fetch_assoc($result5)) {
+        $statusqq = "Invoice Due";
+      } else {
+        $statusqq = "Credit Okay";
+      }
+    }
+  }
+
   $total = $row2['sum(amount)'];
   $tax = $row2['sum(tax)'];
   $sub_total = $total - $tax;
@@ -27,12 +60,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'date' => $row['date'],
         'branch' => $row['due_date'],
         'user' => $row['user'],
-        'customer' => $row['customer_name'],
+        'customer' => $customer,
         'terms' => $row['terms'],
         'tax' => $tax,
         'sub_total' => $sub_total,
         'amount' => $total,
-        'status' => $row['status']
+        'status' => $row['status'],
+        'credit_status' => $statusqq
       )
     );
   }
