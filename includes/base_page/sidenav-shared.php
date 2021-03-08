@@ -89,7 +89,7 @@ function genSideBar()
 </li>
 <!-- Accounts -->
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-commerce" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-cart-plus"></span></span><span class="nav-link-text"> Accounts</span>
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-money-check-alt"></span></span><span class="nav-link-text"> Accounts</span>
   </div>
 </a>
 <ul class="nav collapse" id="e-commerce" data-parent="#navbarVerticalCollapse">
@@ -119,7 +119,7 @@ function genSideBar()
 </li>
 <!-- Customers -->
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-custo" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-cart-plus"></span></span><span class="nav-link-text"> Customers</span>
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-user-friends"></span></span><span class="nav-link-text"> Customers</span>
   </div>
 </a>
 <ul class="nav collapse" id="e-custo" data-parent="#navbarVerticalCollapse">
@@ -174,7 +174,7 @@ function genSideBar()
 
 <!-- End of Qubes Working  -->
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#authentication" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authentication">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-unlock-alt"></span></span><span class="nav-link-text"> Suppliers</span>
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-users"></span></span><span class="nav-link-text"> Suppliers</span>
   </div>
 </a>
 <ul class="nav collapse" id="authentication" data-parent="#navbarVerticalCollapse">
