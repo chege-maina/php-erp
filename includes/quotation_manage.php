@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $result2 = mysqli_query($conn, $query2);
   $row2 = mysqli_fetch_assoc($result2);
-
+  $row = mysqli_fetch_assoc($result);
   $customer = $row['customer_name'];
 
   $deni = 0;
