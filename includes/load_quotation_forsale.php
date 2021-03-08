@@ -4,7 +4,6 @@ header("Content-type:application/json");
 
 include_once 'dbconnect.php';
 session_start();
-session_start();
 $branch = $_SESSION['branch'];
 
 $stat = "approved";
