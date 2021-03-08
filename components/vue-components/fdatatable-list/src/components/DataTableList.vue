@@ -1,6 +1,12 @@
 <template>
   <div>
     <div class="d-flex flex-row-reverse mb-0">
+      <button class="btn btn-falcon-default" v-on:click="sortUp()">up</button>
+      <button class="btn btn-falcon-default ml-2" v-on:click="sortDown()">
+        down
+      </button>
+    </div>
+    <div class="d-flex flex-row-reverse mb-0">
       <ul class="pagination pagination-sm ml-2">
         <li class="page-item active">
           <button
@@ -75,7 +81,9 @@
                 <input
                   class="form-control form-control-sm"
                   type="number"
-                  v-model="visible_table_data[item.key][key]"
+                  v-model="
+                    table_data[table_data_relative_index[item.key].index][key]
+                  "
                 />
               </span>
               <span v-else-if="header_object[key].computed">{{
@@ -135,9 +143,15 @@ export default {
       "https://qonsolidated-solutions.github.io/falcon-assets/vendors/bootstrap/bootstrap.min.js"
     );
     const is_js = document.createElement("script");
-    is_js.setAttribute("src", "https://qonsolidated-solutions.github.io/falcon-assets/vendors/is/is.min.js");
+    is_js.setAttribute(
+      "src",
+      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/is/is.min.js"
+    );
     const prism = document.createElement("script");
-    prism.setAttribute("src", "https://qonsolidated-solutions.github.io/falcon-assets/vendors/prism/prism.js");
+    prism.setAttribute(
+      "src",
+      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/prism/prism.js"
+    );
     const fontawesome = document.createElement("script");
     fontawesome.setAttribute(
       "src",
@@ -159,7 +173,10 @@ export default {
       "https://qonsolidated-solutions.github.io/falcon-assets/vendors/list.js/list.min.js"
     );
     const config_js = document.createElement("script");
-    config_js.setAttribute("src", "https://qonsolidated-solutions.github.io/falcon-assets/assets/js/config.js");
+    config_js.setAttribute(
+      "src",
+      "https://qonsolidated-solutions.github.io/falcon-assets/assets/js/config.js"
+    );
 
     this.$el.prepend(config_js);
     this.$el.append(
@@ -393,6 +410,52 @@ export default {
     },
     prevPage() {
       this.i_current--;
+    },
+    sortUp() {
+      console.clear();
+      console.log("Going up");
+
+      let unsorted_array = [];
+      for (let key in this.table_data) {
+        unsorted_array.push(this.table_data[key]);
+      }
+
+      unsorted_array.sort(function (a, b) {
+        return (a.key - b.key) * -1;
+      });
+
+      let tmp_obj = {};
+      let i = 1;
+      unsorted_array.forEach((value) => {
+        tmp_obj[i] = value;
+        i++;
+      });
+
+      console.log("jj", tmp_obj);
+      this.table_data = tmp_obj;
+    },
+    sortDown() {
+      console.clear();
+      console.log("Going Down");
+
+      let unsorted_array = [];
+      for (let key in this.table_data) {
+        unsorted_array.push(this.table_data[key]);
+      }
+
+      unsorted_array.sort(function (a, b) {
+        return (a.key - b.key);
+      });
+
+      let tmp_obj = {};
+      let i = 1;
+      unsorted_array.forEach((value) => {
+        tmp_obj[i] = value;
+        i++;
+      });
+
+      console.log("jj", tmp_obj);
+      this.table_data = tmp_obj;
     },
   },
 };
