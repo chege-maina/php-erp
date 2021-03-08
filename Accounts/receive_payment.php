@@ -78,7 +78,7 @@ include '../includes/base_page/head.php';
                 </div>
 
                 <div class="col">
-                  <label for="cheque_number" class="form-label">Cheque Number*</label>
+                  <label for="cheque_number" class="form-label">Cheque Number?Transaction No.*</label>
                   <input type="number" name="cheque_number" id="cheque_number" class="form-control" required>
                 </div>
               </div>
@@ -99,6 +99,7 @@ include '../includes/base_page/head.php';
                       <option value="" disabled selected hidden>-- Select Cheque Type --</option>
                       <option value="inhouse">Inhouse</option>
                       <option value="interbank">Interbank</option>
+                      <option value="interbank">RTGS Transfer</option>
                     </select>
                   </div>
                 </div>
