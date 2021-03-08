@@ -491,8 +491,8 @@ include '../includes/base_page/head.php';
 
 
       document.addEventListener('DOMContentLoaded', function() {
-        populateCustomerDatalist('../includes/load_customer.php', "customerlist", "name", "terms");
-        populateDatalist('../includes/load_items_quote.php', "items_quote", "name");
+        populateCustomerDatalist('../includes/load_customer_sales.php', "customerlist", "name", "terms");
+        populateDatalist('../includes/load_items_sales.php', "items_quote", "name");
 
         fetch('../includes/load_customer_sales.php')
           .then(response => response.json())

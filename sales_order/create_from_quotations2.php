@@ -94,13 +94,13 @@ include '../includes/base_page/head.php';
                 <table class="table table-sm table-striped fs--1 mb-0">
                   <thead>
                     <tr>
-                      <th>Product Code</th>
-                      <th>Product Name</th>
-                      <th>Units</th>
-                      <th>Unit Price</th>
-                      <th>Quantity</th>
-                      <th>Total</th>
-                      <th>Actions</th>
+                      <th scope="col">Product Code</th>
+                      <th scope="col">Product Name</th>
+                      <th scope="col">Units</th>
+                      <th scope="col">Unit Price</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Total</th>
+                      <th scope="col">Actions</th>
                     </tr>
                   </thead>
                   <tbody id="table_body"></tbody>
