@@ -165,6 +165,8 @@ function genSideBar()
 <ul class="nav collapse" id="e-invoice" data-parent="#navbarVerticalCollapse">
   <li class="nav-item"><a class="nav-link" href="../sales_invoice/create_invoice.php">Create Invoice</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../sales_invoice/sales_invoice_listing.php">Sale Invoice Listing</a>
+  </li>
 </ul>
 </li>
 
