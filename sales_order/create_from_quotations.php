@@ -181,7 +181,7 @@ include '../includes/base_page/head.php';
 
           fetch('../includes/load_quotation_forsale.php')
             .then(response => response.text())
-            .then(text => {
+            .then(data => {
               console.log(data);
               return;
               updateTable(data);
