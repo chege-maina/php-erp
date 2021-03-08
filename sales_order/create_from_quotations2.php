@@ -76,6 +76,10 @@ include '../includes/base_page/head.php';
                   <span class="b-4">Status: </span>
                   <span id="requisition_status"></span>
                 </div>
+                <div class="col d-flex align-items-end">
+                  <span class="b-4">Credit Status: </span>
+                  <span id="credit_status"></span>
+                </div>
               </div>
 
             </div>
@@ -140,7 +144,7 @@ include '../includes/base_page/head.php';
             <div class="card-body">
               <div class="row d-flex justify-content-end align-items-center">
                 <div class="col-auto">
-                  <button class="btn btn-falcon-info btn-sm mr-2" id="approve_req" onclick="createFromQuotation();">
+                  <button class="btn btn-falcon-info btn-sm mr-2" id="submit_btn" onclick="createFromQuotation();" disabled>
                     Submit
                   </button>
                 </div>
@@ -157,6 +161,7 @@ include '../includes/base_page/head.php';
         <script>
           let quotation_number = -1;
           let reqStatus = "";
+          const submit_btn = document.querySelector("#submit_btn");
           const req_no = document.querySelector("#req_no");
           const requisition_date = document.querySelector("#requisition_date");
           const created_by = document.querySelector("#created_by");
@@ -166,6 +171,7 @@ include '../includes/base_page/head.php';
           const tax = document.querySelector("#tax");
           const amount = document.querySelector("#amount");
           const requisition_status = document.querySelector("#requisition_status");
+          const credit_status = document.querySelector("#credit_status");
           const table_body = document.querySelector("#table_body");
           let table_items = [];
           let customer_terms = 0;
@@ -214,6 +220,19 @@ include '../includes/base_page/head.php';
                     requisition_status.innerHTML = `<span class="badge badge-soft-warning">Rejected</span>`;
                     break;
                 }
+                switch (data["credit_status"]) {
+                  case "pending":
+                    credit_status.innerHTML = `<span class="badge badge-soft-secondary">Pending</span>`;
+                    break;
+                  case "Credit Okay":
+                    credit_status.innerHTML = `<span class="badge badge-soft-success">Okay</span>`;
+                    submit_btn.disabled = false;
+                    break;
+                  default:
+                    credit_status.innerHTML = `<span class="badge badge-soft-warning">${data["credit_status"]}</span>`;
+                    break;
+                }
+
 
                 // Nested fetch start
                 fetchTableItems();
