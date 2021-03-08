@@ -93,6 +93,11 @@ function genSideBar()
   </div>
 </a>
 <ul class="nav collapse" id="e-commerce" data-parent="#navbarVerticalCollapse">
+
+  <li class="nav-item"><a class="nav-link" href="../sales_invoice/create_invoice.php">Create Invoice</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../sales_invoice/sales_invoice_listing.php">Sale Invoice Listing</a>
+  </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/purchase_bill.php">Post Purchase Bill</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/generate_remittance.php">Remittance Advice</a>
@@ -129,9 +134,10 @@ function genSideBar()
   </li>
 </ul>
 </li>
-<!-- Quotation -->
+
+<!-- Customer Relations Management -->
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-quote" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-cart-plus"></span></span><span class="nav-link-text"> Quotations</span>
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-cart-plus"></span></span><span class="nav-link-text"> Customer Relations Management</span>
   </div>
 </a>
 <ul class="nav collapse" id="e-quote" data-parent="#navbarVerticalCollapse">
@@ -139,17 +145,9 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../sales_quotation/manage_quotation.php">Manage Quotations</a>
   </li>
-</ul>
-</li>
-<!-- Sales Order -->
-<li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-sale" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-cart-plus"></span></span><span class="nav-link-text"> Sales Order</span>
-  </div>
-</a>
-<ul class="nav collapse" id="e-sale" data-parent="#navbarVerticalCollapse">
-  <li class="nav-item"><a class="nav-link" href="../sales_order/create_from_quotations.php">From Quotation</a>
+  <li class="nav-item"><a class="nav-link" href="../sales_order/create_from_quotations.php">Sales Oder From Quotation</a>
   </li>
-  <li class="nav-item"><a class="nav-link" href="../sales_order/create_sales_order.php">From Scratch</a>
+  <li class="nav-item"><a class="nav-link" href="../sales_order/create_sales_order.php">Sales Order From Scratch</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../sales_order/manage_sales.php">Manage Sales Order</a>
   </li>
@@ -157,6 +155,11 @@ function genSideBar()
   </li>
 </ul>
 </li>
+
+
+<!-- Sales Order -->
+
+
 <!-- Sales Invoice -->
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-invoice" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
   <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-cart-plus"></span></span><span class="nav-link-text"> Sales Invoice</span>
