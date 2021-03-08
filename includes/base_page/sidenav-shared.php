@@ -5,7 +5,7 @@ function genSideBar()
   <div class="navbar-vertical-content scrollbar">
   <ul class="navbar-nav flex-column">
     <li class="nav-item"><a class="nav-link dropdown-indicator" href="#home" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="home">
-      <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-home"></span></span><span class="nav-link-text"> Home</span>
+      <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-home" style = "color:brown;"></span></span><span class="nav-link-text"> Home</span>
       </div>
     </a>
     <ul class="nav collapse" id="home" data-parent="#navbarVerticalCollapse">
@@ -20,7 +20,7 @@ function genSideBar()
     </ul>
   </li>
   <li class="nav-item"><a class="nav-link dropdown-indicator" href="#pages" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="pages">
-    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-coins"></span></span><span class="nav-link-text"> Products</span>
+    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-coins" style="color:blue;"></span></span><span class="nav-link-text"> Products</span>
     </div>
   </a>
   <ul class="nav collapse" id="pages" data-parent="#navbarVerticalCollapse">
@@ -31,7 +31,7 @@ function genSideBar()
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#purchase_rqn" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="purchase_rqn">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-warehouse"></span></span><span class="nav-link-text"> Warehouse</span>
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-warehouse" style="color:orange;"></span></span><span class="nav-link-text"> Warehouse</span>
   </div>
 </a>
 <ul class="nav collapse" id="purchase_rqn" data-parent="#navbarVerticalCollapse">
@@ -63,7 +63,7 @@ function genSideBar()
 </li>
 <!-- Purchase order -->
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#email" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="email">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-dolly-flatbed"></span></span><span class="nav-link-text"> Procurement</span>
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-dolly-flatbed" style="color:red;"></span></span><span class="nav-link-text"> Procurement</span>
   </div>
 </a>
 <ul class="nav collapse" id="email" data-parent="#navbarVerticalCollapse">
@@ -77,7 +77,7 @@ function genSideBar()
 </li>
 <!-- Suppliers -->
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#supply" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="email">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-users"></span></span><span class="nav-link-text"> Suppliers</span>
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-users" style="color:#90B494;"></span></span><span class="nav-link-text"> Suppliers</span>
   </div>
 </a>
 <ul class="nav collapse" id="supply" data-parent="#navbarVerticalCollapse">
@@ -89,7 +89,7 @@ function genSideBar()
 </li>
 <!-- Accounts -->
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-commerce" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-money-check-alt"></span></span><span class="nav-link-text"> Accounts</span>
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-money-check-alt" style="color:green;"></span></span><span class="nav-link-text"> Accounts</span>
   </div>
 </a>
 <ul class="nav collapse" id="e-commerce" data-parent="#navbarVerticalCollapse">
@@ -124,7 +124,7 @@ function genSideBar()
 </li>
 <!-- Customers -->
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-custo" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-user-friends"></span></span><span class="nav-link-text"> Customers</span>
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-user-friends" style="color:purple;"></span></span><span class="nav-link-text"> Customers</span>
   </div>
 </a>
 <ul class="nav collapse" id="e-custo" data-parent="#navbarVerticalCollapse">
@@ -137,7 +137,7 @@ function genSideBar()
 
 <!-- Customer Relations Management -->
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-quote" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-tasks"></span></span><span class="nav-link-text"> Customer Relations</span>
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-tasks" style="color:#9b870c;"></span></span><span class="nav-link-text"> Customer Relations</span>
   </div>
 </a>
 <ul class="nav collapse" id="e-quote" data-parent="#navbarVerticalCollapse">
