@@ -1,6 +1,12 @@
 <template>
   <div>
     <div class="d-flex flex-row-reverse mb-0">
+      <button class="btn btn-falcon-default" v-on:click="sortUp()">up</button>
+      <button class="btn btn-falcon-default ml-2" v-on:click="sortDown()">
+        down
+      </button>
+    </div>
+    <div class="d-flex flex-row-reverse mb-0">
       <ul class="pagination pagination-sm ml-2">
         <li class="page-item active">
           <button
@@ -49,7 +55,81 @@
     <table class="table table-sm table-striped table-hover is-fullwidth pb-0">
       <thead>
         <tr>
-          <th scope="col">#</th>
+          <th scope="col">
+            #
+            <span v-if="largest_first">
+              <button
+                class="btn btn-sm btn-outline-secondary px-0 py-0"
+                style="border: none"
+                v-on:click="sortUp('index')"
+              >
+                <svg
+                  v-if="currently_sorted == 'index'"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="10"
+                  height="10"
+                  fill="currentColor"
+                  class="bi bi-arrow-up"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"
+                  />
+                </svg>
+                <svg
+                  v-else
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="10"
+                  height="10"
+                  fill="currentColor"
+                  class="bi bi-arrow-down-up"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"
+                  />
+                </svg>
+              </button>
+            </span>
+            <span v-else>
+              <button
+                class="btn btn-sm btn-outline-secondary px-0 py-0"
+                style="border: none"
+                v-on:click="sortDown('index')"
+              >
+                <svg
+                  v-if="currently_sorted == 'index'"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="10"
+                  height="10"
+                  fill="currentColor"
+                  class="bi bi-arrow-down"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"
+                  />
+                </svg>
+                <svg
+                  v-else
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="10"
+                  height="10"
+                  fill="currentColor"
+                  class="bi bi-arrow-down-up"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"
+                  />
+                </svg>
+              </button>
+            </span>
+          </th>
           <template v-for="(item, key) in header">
             <th
               scope="col"
@@ -58,6 +138,78 @@
               v-if="item.key !== 'key'"
             >
               {{ item.name }}
+              <span v-if="largest_first">
+                <button
+                  class="btn btn-sm btn-outline-secondary px-0 py-0"
+                  style="border: none"
+                  v-on:click="sortUp(item.key)"
+                >
+                  <svg
+                    v-if="currently_sorted == item.key"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="10"
+                    height="10"
+                    fill="currentColor"
+                    class="bi bi-arrow-up"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"
+                    />
+                  </svg>
+                  <svg
+                    v-else
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="10"
+                    height="10"
+                    fill="currentColor"
+                    class="bi bi-arrow-down-up"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"
+                    />
+                  </svg>
+                </button>
+              </span>
+              <span v-else>
+                <button
+                  class="btn btn-sm btn-outline-secondary px-0 py-0"
+                  style="border: none"
+                  v-on:click="sortDown(item.key)"
+                >
+                  <svg
+                    v-if="currently_sorted == item.key"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="10"
+                    height="10"
+                    fill="currentColor"
+                    class="bi bi-arrow-down"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"
+                    />
+                  </svg>
+                  <svg
+                    v-else
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="10"
+                    height="10"
+                    fill="currentColor"
+                    class="bi bi-arrow-down-up"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"
+                    />
+                  </svg>
+                </button>
+              </span>
             </th>
           </template>
           <th scope="col">Action</th>
@@ -75,7 +227,9 @@
                 <input
                   class="form-control form-control-sm"
                   type="number"
-                  v-model="visible_table_data[item.key][key]"
+                  v-model="
+                    table_data[table_data_relative_index[item.key].index][key]
+                  "
                 />
               </span>
               <span v-else-if="header_object[key].computed">{{
@@ -135,9 +289,15 @@ export default {
       "https://qonsolidated-solutions.github.io/falcon-assets/vendors/bootstrap/bootstrap.min.js"
     );
     const is_js = document.createElement("script");
-    is_js.setAttribute("src", "https://qonsolidated-solutions.github.io/falcon-assets/vendors/is/is.min.js");
+    is_js.setAttribute(
+      "src",
+      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/is/is.min.js"
+    );
     const prism = document.createElement("script");
-    prism.setAttribute("src", "https://qonsolidated-solutions.github.io/falcon-assets/vendors/prism/prism.js");
+    prism.setAttribute(
+      "src",
+      "https://qonsolidated-solutions.github.io/falcon-assets/vendors/prism/prism.js"
+    );
     const fontawesome = document.createElement("script");
     fontawesome.setAttribute(
       "src",
@@ -159,7 +319,10 @@ export default {
       "https://qonsolidated-solutions.github.io/falcon-assets/vendors/list.js/list.min.js"
     );
     const config_js = document.createElement("script");
-    config_js.setAttribute("src", "https://qonsolidated-solutions.github.io/falcon-assets/assets/js/config.js");
+    config_js.setAttribute(
+      "src",
+      "https://qonsolidated-solutions.github.io/falcon-assets/assets/js/config.js"
+    );
 
     this.$el.prepend(config_js);
     this.$el.append(
@@ -217,6 +380,8 @@ export default {
     i_total: 9,
     list_by: [10, 25, 50, 100],
     per_page: 10,
+    largest_first: false,
+    currently_sorted: "index",
   }),
   watch: {
     table_data: {
@@ -393,6 +558,56 @@ export default {
     },
     prevPage() {
       this.i_current--;
+    },
+    sortUp(key) {
+      console.clear();
+      console.log("Going up", key);
+      this.largest_first = !this.largest_first;
+      this.currently_sorted = key;
+
+      let unsorted_array = [];
+      for (let key in this.table_data) {
+        unsorted_array.push(this.table_data[key]);
+      }
+
+      unsorted_array.sort(function (a, b) {
+        return (a.key - b.key) * -1;
+      });
+
+      let tmp_obj = {};
+      let i = 1;
+      unsorted_array.forEach((value) => {
+        tmp_obj[i] = value;
+        i++;
+      });
+
+      console.log("jj", tmp_obj);
+      this.table_data = tmp_obj;
+    },
+    sortDown(key) {
+      console.clear();
+      console.log("Going Down", key);
+      this.currently_sorted = key;
+      this.largest_first = !this.largest_first;
+
+      let unsorted_array = [];
+      for (let key in this.table_data) {
+        unsorted_array.push(this.table_data[key]);
+      }
+
+      unsorted_array.sort(function (a, b) {
+        return a.key - b.key;
+      });
+
+      let tmp_obj = {};
+      let i = 1;
+      unsorted_array.forEach((value) => {
+        tmp_obj[i] = value;
+        i++;
+      });
+
+      console.log("jj", tmp_obj);
+      this.table_data = tmp_obj;
     },
   },
 };
