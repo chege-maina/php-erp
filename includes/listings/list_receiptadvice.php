@@ -17,8 +17,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 			'Supplier' => $row['customer_name'],
 			'Date' => $row['date'],
 			'Amount' => $row['amount'],
-			'Paid' => $row['payable'],
-			'WHT' => $row['wht'],
+			'Paid' => round($row['payable'], 2),
+			'WHT' => round($row['wht'], 2),
 			'Created_By' => $row['user'],
 			'Status' => $row['status']
 		)
