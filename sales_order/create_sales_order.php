@@ -483,7 +483,7 @@ include '../includes/base_page/head.php';
 
       document.addEventListener('DOMContentLoaded', function() {
         populateCustomerDatalist('../includes/load_customer_sales.php', "customerlist", "name", "status");
-        populateDatalist('../includes/load_items_quote.php', "items_quote", "name");
+        populateDatalist('../includes/load_items_sales.php', "items_quote", "name");
 
         fetch('../includes/load_customer_sales.php')
           .then(response => response.json())

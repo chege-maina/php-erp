@@ -83,7 +83,7 @@ function genSideBar()
 <ul class="nav collapse" id="supply" data-parent="#navbarVerticalCollapse">
   <li class="nav-item"><a class="nav-link" href="../supplier/create.php">Add New Supplier</a>
   </li>
-    <li class="nav-item"><a class="nav-link" href="../email/compose.html">Manage Supplier Details</a>
+    <li class="nav-item"><a class="nav-link" href="../supplier/supplier_listing_ui.php">Manage Supplier</a>
     </li>
   </ul>
 </li>
@@ -125,7 +125,7 @@ function genSideBar()
 <ul class="nav collapse" id="e-custo" data-parent="#navbarVerticalCollapse">
   <li class="nav-item"><a class="nav-link" href="../customer/create.php">Add New Customer</a>
   </li>
-  <li class="nav-item"><a class="nav-link" href="../customer/customer_listing_uiphp">Manage</a>
+  <li class="nav-item"><a class="nav-link" href="../customer/customer_listing_ui.php">Manage</a>
   </li>
 </ul>
 </li>
