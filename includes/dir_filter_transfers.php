@@ -8,9 +8,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $status = $_POST["status"];
     $branch = $_SESSION['branch'];
 
-
-    $query = "SELECT * FROM tbl_transfer WHERE status='$status' and date>='$start_date' and date<= '$end_date'";
-
+    if (strcmp($status, 'all') == 0) {
+        $query = "SELECT * FROM tbl_transfer date>='$start_date' and date<= '$end_date'";
+    } else {
+        $query = "SELECT * FROM tbl_transfer WHERE status='$status' and date>='$start_date' and date<= '$end_date'";
+    }
     $result = mysqli_query($conn, $query);
     $response = array();
 

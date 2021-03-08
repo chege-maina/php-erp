@@ -36,7 +36,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <div id="alert-div"></div>
-        <h5 class="p-2">Purchase Bill</h5>
+        <h5 class="p-2">Receive Payment</h5>
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <form onsubmit="return submitForm()">
           <div class="card mt-3">
@@ -44,7 +44,7 @@ include '../includes/base_page/head.php';
               <div class="row">
 
                 <div class="col">
-                  <label for="#" class="form-label">Select Supplier </label>
+                  <label for="#" class="form-label">Select Customer </label>
                   <div class="input-group">
                     <input list="suppliers" name="supplier" id="supplier_name" class="form-select" required>
                     <datalist id="suppliers"></datalist>
@@ -72,7 +72,7 @@ include '../includes/base_page/head.php';
               <div class="row">
                 <div class="col">
                   <div class="col">
-                    <label for="supplier" class="form-label">Supplier*</label>
+                    <label for="supplier" class="form-label">Customer*</label>
                     <input type="supplier" name="supplier" id="supplier" class="form-control" required readonly>
                   </div>
                 </div>
@@ -82,6 +82,7 @@ include '../includes/base_page/head.php';
                   <input type="number" name="cheque_number" id="cheque_number" class="form-control" required>
                 </div>
               </div>
+              <hr>
               <div class="row">
                 <div class="col">
                   <label for="#" class="form-label">Bank Name </label>
@@ -90,6 +91,7 @@ include '../includes/base_page/head.php';
                     </select>
                   </div>
                 </div>
+
                 <div class="col">
                   <label for="#" class="form-label">Cheque Type </label>
                   <div class="input-group">
@@ -108,7 +110,7 @@ include '../includes/base_page/head.php';
             <div class="card-body fs--1 p-1">
               <div class="d-flex flex-row-reverse">
                 <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitForm();">
-                  Pay Bill
+                  Post Bill
                 </button>
               </div>
               <!-- Content ends here -->
@@ -164,7 +166,7 @@ include '../includes/base_page/head.php';
           formData.append("bank", bank_name.value);
           formData.append("cheque_type", type.value);
           formData.append("date", date.value);
-          fetch('../includes/add_payment.php', {
+          fetch('../includes/add_payment_rec.php', {
               method: 'POST',
               body: formData
             })
@@ -201,7 +203,7 @@ include '../includes/base_page/head.php';
 
           const formData = new FormData();
           formData.append("rem_no", sn);
-          fetch('../includes/payment_load.php', {
+          fetch('../includes/receiptpay_load.php', {
               method: 'POST',
               body: formData
             })
@@ -219,7 +221,7 @@ include '../includes/base_page/head.php';
         window.addEventListener('DOMContentLoaded', (event) => {
           const formData = new FormData();
 
-          fetch('../includes/load_rem_num_pay.php')
+          fetch('../includes/load_rec_pay.php')
             .then(response => response.json())
             .then(result => {
               console.log(result)
@@ -227,7 +229,7 @@ include '../includes/base_page/head.php';
 
               result.forEach((supplier) => {
                 opt = document.createElement("option");
-                opt.value = "Remittance # " + supplier["rem_num"];
+                opt.value = "Receipt # " + supplier["rem_num"];
                 opt.appendChild(document.createTextNode(supplier["date"] + " : " + supplier["supplier"]));
                 suppliers.appendChild(opt);
               });

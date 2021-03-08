@@ -53,6 +53,7 @@ include '../includes/base_page/head.php';
                 <label for="status" class="form-label">Status*</label>
                 <select name="status" id="status" class="form-select">
                   <option value="approved">Approved</option>
+                  <option value="all">All</option>
                 </select>
               </div>
               <div class="col-auto d-flex align-items-end">

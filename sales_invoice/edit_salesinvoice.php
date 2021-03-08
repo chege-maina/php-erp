@@ -38,7 +38,7 @@ include '../includes/base_page/head.php';
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <div id="alert-div"></div>
-        <h5 class="p-2">Create Invoice</h5>
+        <h5 class="p-2">Edit Invoice</h5>
         <div class="card">
 
           <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/illustrations/corner-4.png);">
@@ -133,7 +133,7 @@ include '../includes/base_page/head.php';
                 Transport Cost
               </div>
               <div class="col col-auto">
-                <input type="number" class="form-control text-right" id="transport" onkeyup="addTransport();" min="0" value="0" disabled required>
+                <input type="number" class="form-control text-right" id="transport" onkeyup="addTransport();" min="0" disabled required>
               </div>
             </div>
             <div class="row m-3">
@@ -323,7 +323,7 @@ include '../includes/base_page/head.php';
             data.forEach((value) => {
               const opt = document.createElement("option");
               opt.value = value["lpo_number"];
-              //  purchase_order_number_items.appendChild(opt);
+              purchase_order_number_items.appendChild(opt);
             })
           })
           .catch((error) => {

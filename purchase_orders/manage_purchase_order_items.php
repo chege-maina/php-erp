@@ -138,6 +138,9 @@ include '../includes/base_page/head.php';
               <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitPO();">
                 Approve
               </button>
+              <button class="btn btn-falcon-danger btn-sm m-2" id="submit" onclick="rejectPO();">
+                Reject
+              </button>
             </div>
             <!-- Content ends here -->
           </div>
@@ -169,6 +172,7 @@ include '../includes/base_page/head.php';
 
       function submitPO() {
         const formData = new FormData();
+        formData.append("checker", "approved");
         formData.append("po_number", po_number);
         console.log("PO", po_number);
 
@@ -195,6 +199,46 @@ include '../includes/base_page/head.php';
           .catch(error => {
             console.error('Error:', error);
           });
+      }
+
+
+      function rejectPO() {
+        if (!confirm("Are you sure you want to reject?")) {
+          return;
+        }
+        console.log("Rejecting");
+
+        disableAllButtons();
+
+        const formData = new FormData();
+        formData.append("checker", "rejected");
+        formData.append("po_number", po_number);
+        console.log("PO", po_number);
+
+        fetch('../includes/update_po.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(result => {
+            const alertVar =
+              `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> ${result['message']}
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+            var divAlert = document.querySelector("#alert-div");
+            divAlert.innerHTML = alertVar;
+            divAlert.scrollIntoView();
+
+            window.setTimeout(() => {
+              location.href = "manage_purchase_order.php"
+            }, 2500);
+
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+
       }
 
       document.addEventListener('DOMContentLoaded', function() {

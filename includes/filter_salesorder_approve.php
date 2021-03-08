@@ -9,8 +9,11 @@ $end_date = $_POST["date2"];
 $status = $_POST["status"];
 $date_chk = date("Y-m-d");
 
-$query = "SELECT * FROM tbl_sale WHERE status='$status' and date>='$start_date' and date<= '$end_date'";
-
+if (strcmp($status, 'all') == 0) {
+  $query = "SELECT * FROM tbl_sale date>='$start_date' and date<= '$end_date'";
+} else {
+  $query = "SELECT * FROM tbl_sale WHERE status='$status' and date>='$start_date' and date<= '$end_date'";
+}
 
 $result = mysqli_query($conn, $query);
 $response = array();

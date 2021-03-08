@@ -36,7 +36,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <div id="alert-div"></div>
-        <h5 class="p-2">Purchase Bill</h5>
+        <h5 class="p-2">View Pay Bill</h5>
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <form onsubmit="return submitForm()">
           <div class="card mt-3">
@@ -44,12 +44,10 @@ include '../includes/base_page/head.php';
               <div class="row">
 
                 <div class="col">
-                  <label for="#" class="form-label">Select Supplier </label>
-                  <div class="input-group">
-                    <input list="suppliers" name="supplier" id="supplier_name" class="form-select" required>
-                    <datalist id="suppliers"></datalist>
-                    <button type="button" class="btn btn-primary" onclick="selectSupplier();">Select</button>
-                  </div>
+                  <label for="suppler_name" class="form-label">Supplier </label>
+
+                  <input type="text" name="supplier" id="supplier_name" class="form-control" required>
+                  >
                 </div>
                 <div class="col">
                   <div class="col flex-row-reverse">
