@@ -193,10 +193,8 @@ include '../includes/base_page/head.php';
                 method: 'POST',
                 body: formData
               })
-              .then(response => response.text())
+              .then(response => response.json())
               .then(result => {
-                console.log(result);
-                return;
                 data = result[0];
                 req_no.appendChild(document.createTextNode(data["req_no"]));
                 requisition_date.value = data["date"];
