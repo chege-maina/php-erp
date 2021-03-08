@@ -205,14 +205,14 @@ include '../includes/base_page/head.php';
                     <td>
                       <label class="form-label" for="profit_margin">*</label>
                       <div class="input-group mb-3 col col-md-2">
-                        <input type="number" class="form-control" name="profit_margin" aria-describedby="margin-percentage-label" value="25" id="profit_margin" required onkeyup=="calculatePrices();">
+                        <input type="number" class="form-control" name="profit_margin" aria-describedby="margin-percentage-label" value="25" id="profit_margin" required onkeyup=="calculatePrices();" readonly>
                         <span class="input-group-text" id="margin-percentage-label">%</span>
                       </div>
                       <div class="invalid-feedback">This field cannot be left blank.</div>
                     </td>
                     <td>
                       <label class="form-label" for="dsp_price">Exc. Tax*</label>
-                      <input type="number" class="form-control" name="dsp_price" id="dsp_price" required readonly>
+                      <input type="number" class="form-control" name="dsp_price" id="dsp_price" required onkeyup="calculatePrices();" onfocusout="this.value = this.value > 0 ? this.value : 1">
                       <div class="invalid-feedback">This field cannot be left blank.</div>
                     </td>
                   </tr>
@@ -584,7 +584,9 @@ include '../includes/base_page/head.php';
               dpp_inc_tax.value = amount_before_tax.value;
             }
 
-            dsp_price.value = (profit_margin.value / 100 * amount_before_tax.value) + Number(amount_before_tax.value)
+            // dsp_price.value = (profit_margin.value / 100 * amount_before_tax.value) + Number(amount_before_tax.value)
+            profit_margin.value = ((dsp_price.value - Number(amount_before_tax.value)) / amount_before_tax.value) * 100;
+
             //console.log(tax_type.value, applicable_tax.value, amount_before_tax.value);
           }
 
