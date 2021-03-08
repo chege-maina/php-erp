@@ -5,7 +5,7 @@ function genSideBar()
   <div class="navbar-vertical-content scrollbar">
   <ul class="navbar-nav flex-column">
     <li class="nav-item"><a class="nav-link dropdown-indicator" href="#home" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="home">
-      <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span><span class="nav-link-text"> Home</span>
+      <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-home"></span></span><span class="nav-link-text"> Home</span>
       </div>
     </a>
     <ul class="nav collapse" id="home" data-parent="#navbarVerticalCollapse">
@@ -20,7 +20,7 @@ function genSideBar()
     </ul>
   </li>
   <li class="nav-item"><a class="nav-link dropdown-indicator" href="#pages" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="pages">
-    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-copy"></span></span><span class="nav-link-text"> Products</span>
+    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-coins"></span></span><span class="nav-link-text"> Products</span>
     </div>
   </a>
   <ul class="nav collapse" id="pages" data-parent="#navbarVerticalCollapse">
@@ -31,7 +31,7 @@ function genSideBar()
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#purchase_rqn" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="purchase_rqn">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span><span class="nav-link-text"> Warehouse</span>
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-warehouse"></span></span><span class="nav-link-text"> Warehouse</span>
   </div>
 </a>
 <ul class="nav collapse" id="purchase_rqn" data-parent="#navbarVerticalCollapse">
@@ -63,7 +63,7 @@ function genSideBar()
 </li>
 <!-- Purchase order -->
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#email" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="email">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span><span class="nav-link-text"> Procurement</span>
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-dolly-flatbed"></span></span><span class="nav-link-text"> Procurement</span>
   </div>
 </a>
 <ul class="nav collapse" id="email" data-parent="#navbarVerticalCollapse">
@@ -77,7 +77,7 @@ function genSideBar()
 </li>
 <!-- Suppliers -->
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#supply" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="email">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span><span class="nav-link-text"> Suppliers</span>
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-users"></span></span><span class="nav-link-text"> Suppliers</span>
   </div>
 </a>
 <ul class="nav collapse" id="supply" data-parent="#navbarVerticalCollapse">
@@ -137,7 +137,7 @@ function genSideBar()
 
 <!-- Customer Relations Management -->
 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-quote" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-cart-plus"></span></span><span class="nav-link-text"> Customer Relations Management</span>
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-tasks"></span></span><span class="nav-link-text"> Customer Relations</span>
   </div>
 </a>
 <ul class="nav collapse" id="e-quote" data-parent="#navbarVerticalCollapse">
@@ -145,7 +145,7 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../sales_quotation/manage_quotation.php">Manage Quotations</a>
   </li>
-  <li class="nav-item"><a class="nav-link" href="../sales_order/create_from_quotations.php">Sales Oder From Quotation</a>
+  <li class="nav-item"><a class="nav-link" href="../sales_order/create_from_quotations.php">Sales Order From Quotation</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../sales_order/create_sales_order.php">Sales Order From Scratch</a>
   </li>
@@ -159,10 +159,7 @@ function genSideBar()
 
 
 <!-- End of Qubes Working  -->
-<li class="nav-item"><a class="nav-link dropdown-indicator" href="#authentication" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authentication">
-  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-users"></span></span><span class="nav-link-text"> Suppliers</span>
-  </div>
-</a>
+
 <ul class="nav collapse" id="authentication" data-parent="#navbarVerticalCollapse">
   <li class="nav-item"><a class="nav-link dropdown-indicator" href="#authentication-basic" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authentication-basic">Basic</a>
     <ul class="nav collapse" id="authentication-basic" data-parent="#authentication">
