@@ -70,6 +70,7 @@ include '../includes/base_page/head.php';
                   <th>Sales Order Number</th>
                   <th>Customer </th>
                   <th>Date </th>
+                  <th>Branch </th>
                   <th>Created By</th>
                   <th>Expiry Date</th>
                   <th>Status</th>
@@ -129,6 +130,10 @@ include '../includes/base_page/head.php';
             req_branch.appendChild(document.createTextNode(value["branch"]));
             req_branch.classList.add("align-middle");
 
+            const branch = document.createElement("td");
+            branch.appendChild(document.createTextNode(value["branch_location"]));
+            branch.classList.add("align-middle");
+
             const req_user = document.createElement("td");
             req_user.appendChild(document.createTextNode(value["user"]));
             req_user.classList.add("align-middle");
@@ -157,7 +162,7 @@ include '../includes/base_page/head.php';
             btn.classList.add("btn", "btn-falcon-primary", "btn-sm");
             req_actions.appendChild(btn);
 
-            this_row.append(req_no, req_customer, req_date, req_user, req_branch, req_status, req_actions);
+            this_row.append(req_no, req_customer, req_date, branch, req_user, req_branch, req_status, req_actions);
             table_body.appendChild(this_row);
           });
 
@@ -196,7 +201,7 @@ include '../includes/base_page/head.php';
           formData.append("date2", req_date_to.value);
           formData.append("status", r_status.value);
           formData.append("branch", user_branch);
-          fetch('../includes/filter_quotation_forsale.php', {
+          fetch('../includes/filter_saleorder_forinvoice.php', {
               method: 'POST',
               body: formData
             })
