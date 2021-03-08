@@ -208,13 +208,21 @@ include '../includes/base_page/head.php';
               body: formData
             })
             .then(response => response.json())
-            .then(result => {
-              console.log('Success:', result);
+            .then(data => {
+              console.log('Success:', data);
 
-              window.setTimeout(() => {
-                //TODO:  Show result
+              const alertVar =
+                `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> ${data}
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+              var divAlert = document.querySelector("#alert-div");
+              divAlert.innerHTML = alertVar;
+              divAlert.scrollIntoView();
+              setTimeout(function() {
                 location.reload();
               }, 2500);
+
             })
             .catch(error => {
               console.error('Error:', error);
