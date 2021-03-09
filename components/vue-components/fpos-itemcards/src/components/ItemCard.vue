@@ -1,12 +1,38 @@
 <template>
-  <div>
-    <h1>My Vue Web Component</h1>
-    <div>{{ msg }}</div>
+  <div class="card overflow-hidden" style="width: 10rem">
+    <div class="card-img-top">
+      <img
+        class="img-fluid"
+        src="https://homepages.cae.wisc.edu/~ece533/images/girl.png"
+        alt="Card image cap"
+      />
+    </div>
+    <div class="card-body m-0 p-2 pl-3 pb-3">
+      <h6 class="card-title">{{ title }}</h6>
+      <h6 class="card-subtitle mb-1 text-muted">Remaining {{ balance }}</h6>
+      <hr class="my-2" />
+      <div class="text-muted mt-1">
+        <strong>{{ price }}</strong> kes
+      </div>
+    </div>
   </div>
 </template>
 <script>
 export default {
-  props: ["msg"],
+  props: {
+    title: {
+      type: String,
+      default: () => "Title",
+    },
+    balance: {
+      type: String,
+      default: () => "20",
+    },
+    price: {
+      type: String,
+      default: () => "35,000",
+    },
+  },
   mounted() {
     const falcon_js = document.createElement("script");
     falcon_js.setAttribute(
@@ -77,14 +103,6 @@ export default {
       list_js,
       falcon_js
     );
-
-    this.i_total = this.body.length / this.per_page;
-    this.i_total = this.i_total < 1 ? 1 : this.i_total;
-
-    this.i_total =
-      this.i_total.toString().split(".").length > 1
-        ? Number(this.i_total.toString().split(".")[0]) + 1
-        : this.i_total;
   },
 };
 </script>
