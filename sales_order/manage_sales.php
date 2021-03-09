@@ -69,7 +69,7 @@ include '../includes/base_page/head.php';
             <table class="table table-sm table-striped" id="table-main">
               <thead>
                 <tr>
-                  <th>Quotation Number</th>
+                  <th>Sales Order Number</th>
                   <th>Customer </th>
                   <th>Branch</th>
                   <th>Date </th>
