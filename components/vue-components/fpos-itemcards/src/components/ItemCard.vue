@@ -1,5 +1,5 @@
 <template>
-  <div class="card overflow-hidden" style="width: 10rem">
+  <div class="card overflow-hidden" style="width: 9rem">
     <div class="card-img-top">
       <img
         class="img-fluid"
@@ -12,11 +12,12 @@
       <h6 class="card-subtitle mb-1 text-muted">Remaining {{ balance }}</h6>
       <hr class="my-2" />
       <div class="text-muted mt-1">
-        <strong>{{ price }}</strong> kes
+        <strong style="font-size: 0.9em">{{ price }}</strong> <small>kes</small>
       </div>
     </div>
   </div>
 </template>
+
 <script>
 export default {
   props: {
