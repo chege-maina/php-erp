@@ -1,5 +1,9 @@
 <template>
-  <div class="card overflow-hidden" style="width: 9rem">
+  <div
+    class="card overflow-hidden"
+    style="width: 9rem"
+    v-on:click="itemClicked()"
+  >
     <div class="card-img-top">
       <img
         class="img-fluid"
@@ -26,11 +30,11 @@ export default {
       default: () => "Title",
     },
     balance: {
-      type: String,
+      type: Number,
       default: () => "20",
     },
     price: {
-      type: String,
+      type: Number,
       default: () => "35,000",
     },
   },
@@ -104,6 +108,11 @@ export default {
       list_js,
       falcon_js
     );
+  },
+  methods: {
+    itemClicked: function () {
+      console.log(this.title);
+    },
   },
 };
 </script>
