@@ -18,8 +18,9 @@
                       type="number"
                       class="form-control"
                       aria-label="subtotal"
-                      value="0"
+                      v-model="subtotal"
                       aria-describedby="basic-addon1"
+                      readonly
                     />
                   </div>
                 </div>
@@ -36,6 +37,7 @@
                       placeholder="shipping"
                       aria-label="shipping"
                       value="0"
+                      min="0"
                       aria-describedby="basic-addon1"
                     />
                   </div>
@@ -53,7 +55,7 @@
                       class="form-control"
                       placeholder="total"
                       aria-label="total"
-                      value="0"
+                      v-model="title"
                       readonly
                       aria-describedby="basic-addon1"
                     />
@@ -137,15 +139,11 @@ export default {
   props: {
     title: {
       type: String,
-      default: () => "0",
+      default: () => "1000",
     },
-    subtototal: {
+    subtotal: {
       type: String,
-      default: () => "0",
-    },
-    shipping: {
-      type: String,
-      default: () => "0",
+      default: () => "1000",
     },
     balance: {
       type: String,
