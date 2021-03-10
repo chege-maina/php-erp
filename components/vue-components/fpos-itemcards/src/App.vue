@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <AllItems v-bind:items_json="JSON.stringify(json_items)" />
+    <AllItems
+      v-bind:items_json="JSON.stringify(json_items)"
+      style="width: 50rem"
+    />
     <!-- {{ json_items }} -->
   </div>
 </template>

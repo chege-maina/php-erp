@@ -261,7 +261,7 @@ if (!isset($_SESSION['loggedin'])) {
         <script src="../components/vue-components/fpos-itemcards/dist/fpos.js"></script>
         <div class="row">
 
-          <div class="col">
+          <div class="col-lg-5 col-sm-4">
             <div class="card mt-1">
               <div class="card-body fs--1 p-4">
                 <div id="items_component">

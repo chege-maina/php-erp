@@ -1,5 +1,5 @@
 <template>
-  <div class="p-2 ml-3" style="width: 50rem">
+  <div class="p-2 ml-3">
     <div class="row">
       <div
         class="col mx-0 mb-3 px-0"
