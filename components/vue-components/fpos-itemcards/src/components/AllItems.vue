@@ -1,20 +1,12 @@
 <template>
   <div class="p-2 ml-3" style="width: 50rem">
     <div class="row">
-      <div class="col mx-0 px-0">
-        <ItemCard msg="Welcome to Your Vue.js App" />
-      </div>
-      <div class="col mx-0 px-0">
-        <ItemCard msg="Welcome to Your Vue.js App" />
-      </div>
-      <div class="col mx-0 px-0">
-        <ItemCard msg="Welcome to Your Vue.js App" />
-      </div>
-      <div class="col mx-0 px-0">
-        <ItemCard msg="Welcome to Your Vue.js App" />
-      </div>
-      <div class="col mx-0 px-0">
-        <ItemCard msg="Welcome to Your Vue.js App" />
+      <div class="col mx-0 px-0" v-for="(item, key) in items_object" :key="key">
+        <ItemCard
+          v-bind:title="item.title"
+          v-vind:balance="item.balance"
+          v-bind:price="item.price"
+        />
       </div>
     </div>
     <div>{{ items_object }}</div>
