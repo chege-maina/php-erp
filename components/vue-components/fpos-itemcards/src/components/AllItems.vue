@@ -27,9 +27,63 @@ export default {
   props: {
     items_json: {
       type: String,
-      default: () => "",
+      default: () => "[]",
     },
   },
+  data: () => ({
+    json_items: [
+      {
+        title: "Evertec, Inc.",
+        balance: 306,
+        price: 4420.85,
+      },
+      {
+        title: "Anthem, Inc.",
+        balance: 348,
+        price: 2803.86,
+      },
+      {
+        title: "Guggenheim ",
+        balance: 344,
+        price: 6047.61,
+      },
+      {
+        title: "Travelzoo",
+        balance: 300,
+        price: 5652.12,
+      },
+      {
+        title: "Mercury Systems Inc",
+        balance: 928,
+        price: 3799.74,
+      },
+      {
+        title: "Central",
+        balance: 916,
+        price: 7928.88,
+      },
+      {
+        title: "Nuveen",
+        balance: 784,
+        price: 1119.75,
+      },
+      {
+        title: "McCormick & Company",
+        balance: 395,
+        price: 8748.93,
+      },
+      {
+        title: "BioAmber Inc.",
+        balance: 416,
+        price: 1088.95,
+      },
+      {
+        title: "West Marine, Inc.",
+        balance: 905,
+        price: 1341.35,
+      },
+    ],
+  }),
   mounted() {
     const falcon_js = document.createElement("script");
     falcon_js.setAttribute(
@@ -103,7 +157,8 @@ export default {
   },
   computed: {
     items_array: function () {
-      return JSON.parse(this.items_json);
+      //   return JSON.parse(this.items_json);
+      return this.json_items;
     },
     items_object: function () {
       let tmp = {};

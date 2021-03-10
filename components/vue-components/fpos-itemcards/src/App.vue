@@ -16,7 +16,7 @@ export default {
   data: () => ({
     json_items: [
       {
-        title: "Evertec, Inc.",
+        title: "Evertech, Inc.",
         balance: 306,
         price: 4420.85,
       },
