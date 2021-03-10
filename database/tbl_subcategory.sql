@@ -24,25 +24,14 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_product`
+-- Table structure for table `tbl_subcategory`
 --
 
-CREATE TABLE `tbl_product` (
+CREATE TABLE `tbl_subcategory` (
   `id` int(11) NOT NULL,
-  `product_name` varchar(100) NOT NULL,
-  `product_code` varchar(100) NOT NULL,
-  `product_unit` varchar(254) NOT NULL,
-  `product_category` varchar(254) NOT NULL,
-  `weight` varchar(50) NOT NULL,
-  `sub_category` varchar(50) NOT NULL,
-  `product_image` varchar(254) NOT NULL,
-  `dsp_price` int(254) NOT NULL,
-  `amount_before_tax` int(50) NOT NULL,
-  `dpp_inc_tax` int(50) NOT NULL,
-  `applicable_tax` int(50) NOT NULL,
-  `profit_margin` int(50) NOT NULL,
-  `user` varchar(50) NOT NULL,
-  `status` varchar(15) NOT NULL DEFAULT 'active'
+  `name` varchar(100) NOT NULL,
+  `category` varchar(20) NOT NULL,
+  `sub_cat_code` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -50,21 +39,20 @@ CREATE TABLE `tbl_product` (
 --
 
 --
--- Indexes for table `tbl_product`
+-- Indexes for table `tbl_subcategory`
 --
-ALTER TABLE `tbl_product`
+ALTER TABLE `tbl_subcategory`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `product_name` (`product_name`),
-  ADD UNIQUE KEY `product_code` (`product_code`);
+  ADD UNIQUE KEY `sub_cat_code` (`sub_cat_code`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `tbl_product`
+-- AUTO_INCREMENT for table `tbl_subcategory`
 --
-ALTER TABLE `tbl_product`
+ALTER TABLE `tbl_subcategory`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
