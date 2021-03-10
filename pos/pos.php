@@ -206,6 +206,7 @@ include '../includes/base_page/head.php';
 
   <script src="../assets/js/vue"></script>
   <script src="../components/vue-components/pos-datatable/dist/pos-component.min.js"></script>
+  <script src="../components/vue-components/fpos-itemcards/dist/fpos.js"></script>
 
 
   <!-- ===============================================-->
@@ -237,6 +238,21 @@ include '../includes/base_page/head.php';
                 pos_component.setAttribute("json_header", JSON.stringify(headers));
                 pos_component.setAttribute("json_items", JSON.stringify(items));
                 document.querySelector("#pos_component").appendChild(pos_component);
+              });
+            </script>
+            <!-- Content ends here -->
+          </div>
+          <!-- Additional cards can be added here -->
+        </div>
+        <div class="card mt-1">
+          <div class="card-body fs--1 p-4">
+            <!-- Content is to start here -->
+            <div id="items_component">
+            </div>
+            <script>
+              window.addEventListener('DOMContentLoaded', (event) => {
+                const fpos_component = document.createElement("fpos-all-items");
+                document.querySelector("#items_component").appendChild(fpos_component);
               });
             </script>
             <!-- Content ends here -->
