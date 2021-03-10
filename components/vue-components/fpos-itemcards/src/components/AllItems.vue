@@ -17,6 +17,7 @@
         <ItemCard msg="Welcome to Your Vue.js App" />
       </div>
     </div>
+    <div>{{ items_object }}</div>
   </div>
 </template>
 
@@ -27,6 +28,12 @@ export default {
   name: "AllItems",
   components: {
     ItemCard,
+  },
+  props: {
+    items_json: {
+      type: String,
+      default: () => "",
+    },
   },
   mounted() {
     const falcon_js = document.createElement("script");
@@ -98,6 +105,20 @@ export default {
       list_js,
       falcon_js
     );
+  },
+  computed: {
+    items_array: function () {
+      return JSON.parse(this.items_json);
+    },
+    items_object: function () {
+      let tmp = {};
+      let i = 1;
+      this.items_array.forEach((row) => {
+        tmp[i] = row;
+        i++;
+      });
+      return tmp;
+    },
   },
 };
 </script>

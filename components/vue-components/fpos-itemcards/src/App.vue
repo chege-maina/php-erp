@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <AllItems msg="Welcome to Your Vue.js App" />
+    <AllItems v-bind:items_json="JSON.stringify(json_items)" />
+    <!-- {{ json_items }} -->
   </div>
 </template>
 
@@ -12,5 +13,59 @@ export default {
   components: {
     AllItems,
   },
+  data: () => ({
+    json_items: [
+      {
+        title: "Evertec, Inc.",
+        balance: 306,
+        price: 4420.85,
+      },
+      {
+        title: "Anthem, Inc.",
+        balance: 348,
+        price: 2803.86,
+      },
+      {
+        title: "Guggenheim ",
+        balance: 344,
+        price: 6047.61,
+      },
+      {
+        title: "Travelzoo",
+        balance: 300,
+        price: 5652.12,
+      },
+      {
+        title: "Mercury Systems Inc",
+        balance: 928,
+        price: 3799.74,
+      },
+      {
+        title: "Central",
+        balance: 916,
+        price: 7928.88,
+      },
+      {
+        title: "Nuveen",
+        balance: 784,
+        price: 1119.75,
+      },
+      {
+        title: "McCormick & Company",
+        balance: 395,
+        price: 8748.93,
+      },
+      {
+        title: "BioAmber Inc.",
+        balance: 416,
+        price: 1088.95,
+      },
+      {
+        title: "West Marine, Inc.",
+        balance: 905,
+        price: 1341.35,
+      },
+    ],
+  }),
 };
 </script>
