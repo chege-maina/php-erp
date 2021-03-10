@@ -139,6 +139,14 @@ export default {
       type: String,
       default: () => "0",
     },
+    subtototal: {
+      type: String,
+      default: () => "0",
+    },
+    shipping: {
+      type: String,
+      default: () => "0",
+    },
     balance: {
       type: String,
       default: () => "0",
