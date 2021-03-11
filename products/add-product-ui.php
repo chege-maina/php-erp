@@ -207,7 +207,7 @@ include '../includes/base_page/head.php';
                   <!-- Make Combo -->
                   <label class="form-label" for="branch">Branch*</label>
                   <div class="input-group">
-                    <select class="form-select" name="branch" id="product_category" required>
+                    <select class="form-select" name="branch" id="branch_select" required>
                       <option value disabled selected>
                         -- Select Branch --
                       </option>
@@ -482,17 +482,11 @@ include '../includes/base_page/head.php';
 
 
           function updateComboBoxes() {
-            const product_code = document.querySelector("#product_code")
-            fetch('get-item-code.php')
-              .then(response => response.json())
-              .then(data => {
-                // console.log(data);
-                product_code.value = data;
-              });
-
             const product_unit = document.querySelector("#product_unit");
             const product_category = document.querySelector("#product_category");
             const applicable_tax = document.querySelector("#applicable_tax");
+            const branch_select = document.querySelector("#branch_select");
+
             // const product_supplier = document.querySelector("#product_supplier");
 
 
@@ -552,6 +546,30 @@ include '../includes/base_page/head.php';
                   removeSpinner();
                 });
               });
+
+
+            // Clear it
+            branch_select.innerHTML = "";
+            // Add the no-selectable item first
+            opt = document.createElement("option");
+            opt.appendChild(document.createTextNode("-- Select Branch --"));
+            opt.setAttribute("value", "");
+            opt.setAttribute("disabled", "");
+            opt.setAttribute("selected", "");
+            branch_select.appendChild(opt);
+            // Populate combobox
+            fetch('../includes/load_branch_items.php')
+              .then(response => response.json())
+              .then(data => {
+                data.forEach((value) => {
+                  let opt = document.createElement("option");
+                  opt.appendChild(document.createTextNode(value['branch']));
+                  opt.value = value['tax'];
+                  branch_select.appendChild(opt);
+                  removeSpinner();
+                });
+              });
+
 
             // Clear it
             // product_supplier.innerHTML = "";
