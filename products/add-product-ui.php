@@ -51,7 +51,7 @@ include '../includes/base_page/head.php';
                   <!-- Make Combo -->
                   <label class="form-label" for="product_category">Group*</label>
                   <div class="input-group">
-                    <select class="form-select" name="product_category" id="product_category" required>
+                    <select class="form-select" name="product_category" id="product_category" required onchange="groupChanged(this.value)">
                       <option value disabled selected>
                         -- Select Group --
                       </option>
@@ -69,7 +69,7 @@ include '../includes/base_page/head.php';
                   <!-- Make Combo -->
                   <label class="form-label" for="product_category">Subgroup*</label>
                   <div class="input-group">
-                    <select class="form-select" name="sub_group" id="sub_group" required>
+                    <select class="form-select" name="sub_group" id="sub_group" required disabled>
                       <option value disabled selected>
                         -- Select Subgroup --
                       </option>
@@ -77,7 +77,7 @@ include '../includes/base_page/head.php';
                     <div class="invalid-tooltip">This field cannot be left blank.</div>
 
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#">
+                    <button type="button" id="sub_group_btn" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#" disabled>
                       +
                     </button>
 
@@ -533,7 +533,18 @@ include '../includes/base_page/head.php';
           let branch_dict = {};
           let items_in_table = {};
           const table_body = document.querySelector("#table_body");
+          const sub_group = document.querySelector("#sub_group");
+          const sub_group_btn = document.querySelector("#sub_group_btn");
 
+
+
+          function groupChanged(val) {
+            if (!val) {
+              return;
+            }
+            sub_group.disabled = false;
+            sub_group_btn.disabled = false;
+          }
 
           function updateComboBoxes() {
             const product_unit = document.querySelector("#product_unit");
