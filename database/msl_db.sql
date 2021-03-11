@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 11, 2021 at 07:38 AM
+-- Generation Time: Mar 11, 2021 at 02:53 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -661,20 +661,20 @@ CREATE TABLE `tbl_store` (
   `branch` varchar(100) NOT NULL,
   `user` varchar(100) NOT NULL,
   `supplier_name` varchar(100) NOT NULL,
-  `invoice_no` varchar(100) NOT NULL,
   `receipt_no` bigint(100) NOT NULL,
   `lpo_number` varchar(100) NOT NULL,
-  `status` varchar(10) NOT NULL DEFAULT 'pending'
+  `status` varchar(10) NOT NULL DEFAULT 'pending',
+  `invoice_no` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_store`
 --
 
-INSERT INTO `tbl_store` (`date`, `time`, `branch`, `user`, `supplier_name`, `invoice_no`, `receipt_no`, `lpo_number`, `status`) VALUES
-('2021-03-04', '15:23', 'MM2', 'Jael Joel', 'Maite Calderon', 'HHF6', 1, '1', 'done'),
-('2021-03-05', '13:39', 'MM2', 'Jael Joel', 'Maite Calderon', 'DN1', 2, '1', 'pending'),
-('2021-03-05', '13:44', 'MM2', 'Jael Joel', 'Maite Calderon', '5', 5, '1', 'rejected');
+INSERT INTO `tbl_store` (`date`, `time`, `branch`, `user`, `supplier_name`, `receipt_no`, `lpo_number`, `status`, `invoice_no`) VALUES
+('2021-03-04', '15:23', 'MM2', 'Jael Joel', 'Maite Calderon', 1, '1', 'done', ''),
+('2021-03-05', '13:39', 'MM2', 'Jael Joel', 'Maite Calderon', 2, '1', 'pending', ''),
+('2021-03-05', '13:44', 'MM2', 'Jael Joel', 'Maite Calderon', 5, '1', 'rejected', '');
 
 -- --------------------------------------------------------
 
@@ -716,6 +716,14 @@ CREATE TABLE `tbl_subcategory` (
   `category` varchar(20) NOT NULL,
   `sub_cat_code` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_subcategory`
+--
+
+INSERT INTO `tbl_subcategory` (`id`, `name`, `category`, `sub_cat_code`) VALUES
+(2, 'SIMBA', 'CEMENT', '001-001'),
+(4, 'KALAMU', 'CEMENT', '001-002');
 
 -- --------------------------------------------------------
 
@@ -1022,8 +1030,7 @@ ALTER TABLE `tbl_staff`
 -- Indexes for table `tbl_store`
 --
 ALTER TABLE `tbl_store`
-  ADD PRIMARY KEY (`receipt_no`),
-  ADD UNIQUE KEY `invoice_no` (`invoice_no`);
+  ADD PRIMARY KEY (`receipt_no`);
 
 --
 -- Indexes for table `tbl_store_item`
@@ -1211,7 +1218,7 @@ ALTER TABLE `tbl_store_item`
 -- AUTO_INCREMENT for table `tbl_subcategory`
 --
 ALTER TABLE `tbl_subcategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_supplier`
