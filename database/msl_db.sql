@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 08, 2021 at 01:59 PM
+-- Generation Time: Mar 11, 2021 at 07:38 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -92,6 +92,21 @@ CREATE TABLE `tbl_branch` (
 INSERT INTO `tbl_branch` (`branch_id`, `branch_name`, `email`, `tel_no`, `postal_address`, `physical_address`) VALUES
 (1, 'MM1', 'war2@maisha.com', '+254756473898', '567-00100', 'Ruiru,Nairobi'),
 (2, 'MM2', 'war@maisha.com', '+254743120978', '8976-00100', 'Bungoma, Kenya');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_branch_levels`
+--
+
+CREATE TABLE `tbl_branch_levels` (
+  `product_name` varchar(50) NOT NULL,
+  `branch` varchar(50) NOT NULL,
+  `min_level` varchar(50) NOT NULL,
+  `max_level` varchar(50) NOT NULL,
+  `reorder` varchar(50) NOT NULL,
+  `opening_bal` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -225,13 +240,13 @@ CREATE TABLE `tbl_paybill` (
 --
 
 CREATE TABLE `tbl_product` (
-  `product_code` bigint(254) NOT NULL,
+  `id` int(11) NOT NULL,
   `product_name` varchar(100) NOT NULL,
+  `product_code` varchar(100) NOT NULL,
   `product_unit` varchar(254) NOT NULL,
   `product_category` varchar(254) NOT NULL,
-  `min_level` varchar(50) NOT NULL,
-  `max_level` varchar(50) NOT NULL,
-  `reorder` varchar(50) NOT NULL,
+  `weight` varchar(50) NOT NULL,
+  `sub_category` varchar(50) NOT NULL,
   `product_image` varchar(254) NOT NULL,
   `dsp_price` int(254) NOT NULL,
   `amount_before_tax` int(50) NOT NULL,
@@ -241,14 +256,6 @@ CREATE TABLE `tbl_product` (
   `user` varchar(50) NOT NULL,
   `status` varchar(15) NOT NULL DEFAULT 'active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_product`
---
-
-INSERT INTO `tbl_product` (`product_code`, `product_name`, `product_unit`, `product_category`, `min_level`, `max_level`, `reorder`, `product_image`, `dsp_price`, `amount_before_tax`, `dpp_inc_tax`, `applicable_tax`, `profit_margin`, `user`, `status`) VALUES
-(1, 'Xaviera Kramer', 'kgs', 'cement', '333', '33333', '3333', '/uploads/WhatsApp Image 2021-02-19 at 15.42.37.jpeg', 7163, 5777, 5777, 0, 24, 'Jael Joel', 'active'),
-(2, 'Florence Vincent', 'kgs', 'cement', '40', '500', '80', '/uploads/WhatsApp Image 2021-02-19 at 15.42.37.jpeg', 10103, 5773, 5773, 16, 75, 'Jael Joel', 'active');
 
 -- --------------------------------------------------------
 
@@ -389,7 +396,8 @@ CREATE TABLE `tbl_quotation` (
 INSERT INTO `tbl_quotation` (`quote_no`, `date`, `customer_name`, `terms`, `due_date`, `time`, `status`, `user`, `sub_total`, `tax`, `amount`, `branch_location`) VALUES
 (1, '2021-03-05', 'Hilary Curry', '25', '2021-03-13', '15:11', 'done', 'Jael Joel', '18882.48', '1616.48', '18882.48', 'MM2'),
 (2, '2021-03-08', 'Hilary Curry', '25', '2021-03-16', '09:24', 'approved', 'Jael Joel', '71630', '0', '71630', 'MM2'),
-(3, '2021-03-08', 'Hilary Curry', '25', '2021-03-16', '09:26', 'pending', 'Jael Joel', '7163', '0', '7163', 'MM2');
+(3, '2021-03-08', 'Hilary Curry', '25', '2021-03-16', '09:26', 'done', 'Jael Joel', '7163', '0', '7163', 'MM2'),
+(4, '2021-03-09', 'Amir Holder', '18', '2021-03-17', '10:23', 'pending', 'Jael Joel', '11719.48', '1616.48', '11719.48', 'MM2');
 
 -- --------------------------------------------------------
 
@@ -419,7 +427,8 @@ INSERT INTO `tbl_quotation_items` (`quote_no`, `product_code`, `product_name`, `
 (1, '1', 'Xaviera Kramer', 'kgs', '7163', '1', '7163.00', '0.00', 'done', '0', 'MM2'),
 (1, '2', 'Florence Vincent', 'kgs', '10103', '1', '11719.48', '1616.48', 'done', '16', 'MM2'),
 (2, '1', 'Xaviera Kramer', 'kgs', '200', '10', '2000', '0', 'approved', '0', 'MM2'),
-(3, '1', 'Xaviera Kramer', 'kgs', '7163', '1', '7163.00', '0.00', 'pending', '0', 'MM2');
+(3, '1', 'Xaviera Kramer', 'kgs', '7163', '1', '7163.00', '0.00', 'done', '0', 'MM2'),
+(4, '2', 'Florence Vincent', 'kgs', '10103', '1', '11719.48', '1616.48', 'pending', '16', 'MM2');
 
 -- --------------------------------------------------------
 
@@ -585,7 +594,9 @@ CREATE TABLE `tbl_sale` (
 
 INSERT INTO `tbl_sale` (`quote_no`, `date`, `customer_name`, `terms`, `status`, `user`, `sub_total`, `tax`, `amount`, `branch_location`) VALUES
 (1, '2021-03-05', 'Hilary Curry', '25', 'approved', 'Jael Joel', '17266', '1616.48', '18882.48', 'MM2'),
-(2, '2021-03-08', 'Hilary Curry', '18', 'done', 'Jael Joel', '7,163.00', '0.00', '7,163.00', 'MM2');
+(2, '2021-03-08', 'Hilary Curry', '18', 'done', 'Jael Joel', '7,163.00', '0.00', '7,163.00', 'MM2'),
+(3, '2021-03-08', 'Hilary Curry', '25', 'approved', 'Jael Joel', '7163', '0', '7163', 'MM2'),
+(4, '2021-03-10', 'Hilary Curry', '18', 'pending', 'Jael Joel', '71,630.00', '0.00', '71,630.00', 'MM2');
 
 -- --------------------------------------------------------
 
@@ -614,7 +625,9 @@ CREATE TABLE `tbl_sale_items` (
 INSERT INTO `tbl_sale_items` (`quote_no`, `product_code`, `product_name`, `unit`, `price`, `qty`, `amount`, `tax`, `status`, `tax_pc`, `branch_location`) VALUES
 (1, '1', 'Xaviera Kramer', 'kgs', '7163', '1', '7163.00', '0.00', 'done', '0', 'MM2'),
 (1, '2', 'Florence Vincent', 'kgs', '10103', '1', '11719.48', '1616.48', 'done', '16', 'MM2'),
-(2, '1', 'Xaviera Kramer', 'kgs', '369', '1', '7163.00', '0.00', 'done', '0', 'MM2');
+(2, '1', 'Xaviera Kramer', 'kgs', '369', '1', '7163.00', '0.00', 'done', '0', 'MM2'),
+(3, '1', 'Xaviera Kramer', 'kgs', '7163', '1', '7163.00', '0.00', 'approved', '0', 'MM2'),
+(4, '1', 'Xaviera Kramer', 'kgs', '366', '10', '71630.00', '0.00', 'pending', '0', 'MM2');
 
 -- --------------------------------------------------------
 
@@ -690,6 +703,19 @@ INSERT INTO `tbl_store_item` (`qty`, `product_name`, `product_code`, `branch`, `
 ('10', 'Xaviera Kramer', '1', 'MM2', '2', 2, '1', 'kgs', 'pending'),
 ('5', 'Xaviera Kramer', '1', 'MM2', '3', 3, '1', 'kgs', 'pending'),
 ('4', 'Xaviera Kramer', '1', 'MM2', '5', 4, '1', 'kgs', 'rejected');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_subcategory`
+--
+
+CREATE TABLE `tbl_subcategory` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `category` varchar(20) NOT NULL,
+  `sub_cat_code` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -858,6 +884,12 @@ ALTER TABLE `tbl_branch`
   ADD PRIMARY KEY (`branch_id`);
 
 --
+-- Indexes for table `tbl_branch_levels`
+--
+ALTER TABLE `tbl_branch_levels`
+  ADD PRIMARY KEY (`product_name`,`branch`);
+
+--
 -- Indexes for table `tbl_category`
 --
 ALTER TABLE `tbl_category`
@@ -892,8 +924,9 @@ ALTER TABLE `tbl_paybill`
 -- Indexes for table `tbl_product`
 --
 ALTER TABLE `tbl_product`
-  ADD PRIMARY KEY (`product_code`),
-  ADD UNIQUE KEY `product_name` (`product_name`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `product_name` (`product_name`),
+  ADD UNIQUE KEY `product_code` (`product_code`);
 
 --
 -- Indexes for table `tbl_purchaseorder`
@@ -999,6 +1032,13 @@ ALTER TABLE `tbl_store_item`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_subcategory`
+--
+ALTER TABLE `tbl_subcategory`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `sub_cat_code` (`sub_cat_code`);
+
+--
 -- Indexes for table `tbl_supplier`
 --
 ALTER TABLE `tbl_supplier`
@@ -1075,7 +1115,7 @@ ALTER TABLE `tbl_invoice_items`
 -- AUTO_INCREMENT for table `tbl_product`
 --
 ALTER TABLE `tbl_product`
-  MODIFY `product_code` bigint(254) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_purchaseorder`
@@ -1105,7 +1145,7 @@ ALTER TABLE `tbl_purchase_bill_items`
 -- AUTO_INCREMENT for table `tbl_quotation`
 --
 ALTER TABLE `tbl_quotation`
-  MODIFY `quote_no` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `quote_no` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_receiptadv`
@@ -1147,7 +1187,7 @@ ALTER TABLE `tbl_requisition_items`
 -- AUTO_INCREMENT for table `tbl_sale`
 --
 ALTER TABLE `tbl_sale`
-  MODIFY `quote_no` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `quote_no` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_staff`
@@ -1166,6 +1206,12 @@ ALTER TABLE `tbl_store`
 --
 ALTER TABLE `tbl_store_item`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tbl_subcategory`
+--
+ALTER TABLE `tbl_subcategory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_supplier`

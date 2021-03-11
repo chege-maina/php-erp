@@ -43,22 +43,17 @@ include '../includes/base_page/head.php';
             <div class="card-body fs--1 p-4">
               <div class="row">
                 <div class="col">
-                  <label class="form-label" for="product_code">Product Code*</label>
-                  <input type="text" class="form-control" name="product_code" id="product_code" readonly>
-                  <div class="invalid-feedback">This field cannot be left blank.</div>
-                </div>
-                <div class="col">
                   <label class="form-label" for="product_name">Product Name*</label>
                   <input type="text" class="form-control" name="product_name" id="product_name" required>
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
                 <div class="col">
                   <!-- Make Combo -->
-                  <label class="form-label" for="product_category">Category*</label>
+                  <label class="form-label" for="product_category">Group*</label>
                   <div class="input-group">
                     <select class="form-select" name="product_category" id="product_category" required>
                       <option value disabled selected>
-                        -- Select Category --
+                        -- Select Group --
                       </option>
                     </select>
                     <div class="invalid-tooltip">This field cannot be left blank.</div>
@@ -70,8 +65,31 @@ include '../includes/base_page/head.php';
 
                   </div>
                 </div>
+                <div class="col">
+                  <!-- Make Combo -->
+                  <label class="form-label" for="product_category">Subgroup*</label>
+                  <div class="input-group">
+                    <select class="form-select" name="sub_group" id="sub_group" required>
+                      <option value disabled selected>
+                        -- Select Subgroup --
+                      </option>
+                    </select>
+                    <div class="invalid-tooltip">This field cannot be left blank.</div>
+
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#">
+                      +
+                    </button>
+
+                  </div>
+                </div>
               </div>
               <div class="row pt-3">
+                <div class="col">
+                  <label class="form-label" for="weight">Weight(KGS)*</label>
+                  <input type="number" class="form-control" name="weight" id="weight" required>
+                  <div class="invalid-feedback">This field cannot be left blank.</div>
+                </div>
                 <div class="col">
                   <div class="row">
                     <div class="col">
@@ -103,51 +121,8 @@ include '../includes/base_page/head.php';
               </div>
             </div>
           </div>
+          <!--Tax -->
 
-          <!-- Product Levels -->
-          <h5 class="p-2 mt-4">Product Levels</h5>
-          <div class="card">
-            <div class="card-body fs--1 p-4">
-              <div class="row">
-                <div class="col">
-                  <label class="form-label" for="min_level">Minimum Level*</label>
-                  <input type="number" class="form-control hide-this" name="min_level" id="min_level">
-                  <input type="text" class="form-control" id="min_level_helper" required>
-                  <script>
-                    window.addEventListener('DOMContentLoaded', (event) => {
-                      commify('#min_level', '#min_level_helper');
-                    });
-                  </script>
-                  <div class="invalid-feedback">This field cannot be left blank.</div>
-                </div>
-                <div class="col">
-                  <label class="form-label" for="max_level">Maximum Level*</label>
-                  <input type="number" class="form-control hide-this" name="max_level" id="max_level">
-                  <input type="text" class="form-control" id="max_level_helper" required>
-                  <script>
-                    window.addEventListener('DOMContentLoaded', (event) => {
-                      commify('#max_level', '#max_level_helper');
-                    });
-                  </script>
-                  <div class="invalid-feedback">This field cannot be left blank.</div>
-                </div>
-                <div class="col">
-                  <label class="form-label" for="reorder">Reorder Level*</label>
-                  <input type="number" class="form-control hide-this" name="reorder" id="reorder">
-                  <input type="text" class="form-control" id="reorder_helper" required>
-                  <script>
-                    window.addEventListener('DOMContentLoaded', (event) => {
-                      commify('#reorder', '#reorder_helper');
-                    });
-                  </script>
-                  <div class="invalid-feedback">This field cannot be left blank.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-          <!-- Tax -->
           <h5 class="p-2 mt-4">Tax</h5>
           <div class="card">
             <div class="card-body fs--1 p-4">
@@ -218,6 +193,54 @@ include '../includes/base_page/head.php';
                   </tr>
                 </tbody>
               </table>
+            </div>
+          </div>
+
+          <!--end of tax -->
+
+          <!-- Product Levels -->
+          <h5 class="p-2 mt-4">Product Levels</h5>
+          <div class="card">
+            <div class="card-body fs--1 p-4">
+              <div class="row">
+                <div class="col-sm-4 ">
+                  <!-- Make Combo -->
+                  <label class="form-label" for="branch">Branch*</label>
+                  <div class="input-group">
+                    <select class="form-select" name="branch" id="product_category" required>
+                      <option value disabled selected>
+                        -- Select Branch --
+                      </option>
+                    </select>
+                    <div class="invalid-tooltip">This field cannot be left blank.</div>
+
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#">
+                      +
+                    </button>
+
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col">
+                  <table class="table table-striped" id="table_id">
+                    <thead>
+                      <tr>
+                        <th scope="col">Branch</th>
+                        <th scope="col">Minimum Level</th>
+                        <th scope="col">Maximum Level </th>
+                        <th scope="col">Reorder Level</th>
+                        <th scope="col">Opening Balance</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="table_body">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
           <input type="submit" class="btn btn-falcon-primary m-2" name="submit" id="submit" value="Submit">
@@ -370,7 +393,7 @@ include '../includes/base_page/head.php';
 
           function submitForm() {
             console.log("Submitting");
-            const product_code = document.querySelector("#product_code").value;
+            // const product_code = document.querySelector("#product_code").value;
             const product_name = document.querySelector("#product_name").value;
             const product_category = document.querySelector("#product_category").value;
             const product_unit = document.querySelector("#product_unit").value;
@@ -393,7 +416,7 @@ include '../includes/base_page/head.php';
             const formData = new FormData();
             formData.append("user_name", user_name);
 
-            formData.append("product_code", product_code);
+            //formData.append("product_code", product_code);
             formData.append("product_name", product_name);
             formData.append("product_category", product_category);
             formData.append("product_unit", product_unit);
@@ -477,7 +500,7 @@ include '../includes/base_page/head.php';
             product_category.innerHTML = "";
             // Add the no-selectable item first
             let opt = document.createElement("option");
-            opt.appendChild(document.createTextNode("-- Select Category --"));
+            opt.appendChild(document.createTextNode("-- Select Group --"));
             opt.setAttribute("value", "");
             opt.setAttribute("disabled", "");
             opt.setAttribute("selected", "");
