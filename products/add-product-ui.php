@@ -774,10 +774,10 @@ include '../includes/base_page/head.php';
 
           function removeItem(item) {
             delete items_in_table[String(item)];
-            // const item_to_add = all_requisitionable_items[item];
-            // items_in_combobox[item] = item_to_add;
+            branch_dict[item] = item;
+
             updateTable();
-            // updateReqItems();
+            updateBranchSelect();
           }
 
 
