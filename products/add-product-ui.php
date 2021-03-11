@@ -207,7 +207,7 @@ include '../includes/base_page/head.php';
                   <!-- Make Combo -->
                   <label class="form-label" for="branch">Branch*</label>
                   <div class="input-group">
-                    <select class="form-select" name="branch" id="branch_select" required>
+                    <select class="form-select" name="branch" id="branch_select" required onchange="addItem();">
                       <option value disabled selected>
                         -- Select Branch --
                       </option>
@@ -480,6 +480,10 @@ include '../includes/base_page/head.php';
             updateComboBoxes();
           });
 
+          let branch_dict = {};
+          let items_in_table = {};
+          const table_body = document.querySelector("#table_body");
+
 
           function updateComboBoxes() {
             const product_unit = document.querySelector("#product_unit");
@@ -543,7 +547,6 @@ include '../includes/base_page/head.php';
                   opt.appendChild(document.createTextNode(value['tax'] + "%"));
                   opt.value = value['tax'];
                   applicable_tax.appendChild(opt);
-                  removeSpinner();
                 });
               });
 
@@ -564,8 +567,13 @@ include '../includes/base_page/head.php';
                 data.forEach((value) => {
                   let opt = document.createElement("option");
                   opt.appendChild(document.createTextNode(value['branch']));
-                  opt.value = value['tax'];
+                  opt.value = value['branch'];
                   branch_select.appendChild(opt);
+                  // Update dicts
+                  branch_dict[value.branch] = value.branch;
+                  items_in_table = {};
+                  updateTable();
+
                   removeSpinner();
                 });
               });
@@ -598,6 +606,166 @@ include '../includes/base_page/head.php';
             //     });
             //   });
           }
+
+
+          function validateQuantity(elmt, value, max) {
+            value = Number(value);
+            max = Number(max);
+            elmt.value = elmt.value <= 0 ? 1 : elmt.value;
+            elmt.value = elmt.value > max ? max : elmt.value;
+          }
+
+
+          function updateTable() {
+            table_body.innerHTML = "";
+            for (let item in items_in_table) {
+
+              let tr = document.createElement("tr");
+              // Id will be like 1Tank
+              // tr.setAttribute("id", items_in_table[item]["code"] + items_in_table[item]["name"]);
+
+              let branch_name = document.createElement("td");
+              branch_name.appendChild(document.createTextNode(items_in_table[item].branch));
+              branch_name.classList.add("align-middle");
+
+              let min_level = document.createElement("input");
+              min_level.setAttribute("type", "number");
+              min_level.setAttribute("required", "");
+              min_level.classList.add("form-control", "form-control-sm", "align-middle");
+              // min_level.setAttribute("data-ref", items_in_table[item]["name"]);
+              min_level.setAttribute("min", 1);
+
+              // make sure the min_level is always greater than 0
+              // min_level.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+              // min_level.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
+              // min_level.setAttribute("onclick", "this.select();");
+              items_in_table[item]['min_level'] = ('min_level' in items_in_table[item] && items_in_table[item]['min_level'] > 0) ?
+                items_in_table[item]['min_level'] : 1;
+              min_level.value = items_in_table[item]['min_level'];
+              let min_levelWrapper = document.createElement("td");
+              min_levelWrapper.classList.add("m-2");
+              min_levelWrapper.appendChild(min_level);
+
+
+
+
+              let max_level = document.createElement("input");
+              max_level.setAttribute("type", "number");
+              max_level.setAttribute("required", "");
+              max_level.classList.add("form-control", "form-control-sm", "align-middle");
+              // max_level.setAttribute("data-ref", items_in_table[item]["name"]);
+              max_level.setAttribute("min", 1);
+
+              // make sure the max_level is always greater than 0
+              // max_level.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+              // max_level.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
+              max_level.setAttribute("onclick", "this.select();");
+              items_in_table[item]['max_level'] = ('max_level' in items_in_table[item] && items_in_table[item]['max_level'] > 0) ?
+                items_in_table[item]['max_level'] : 1;
+              max_level.value = items_in_table[item]['max_level'];
+              let max_levelWrapper = document.createElement("td");
+              max_levelWrapper.classList.add("m-2");
+              max_levelWrapper.appendChild(max_level);
+
+
+
+              let reorder_level = document.createElement("input");
+              reorder_level.setAttribute("type", "number");
+              reorder_level.setAttribute("required", "");
+              reorder_level.classList.add("form-control", "form-control-sm", "align-middle");
+              // reorder_level.setAttribute("data-ref", items_in_table[item]["name"]);
+              reorder_level.setAttribute("min", 1);
+              // reorder_level.setAttribute("max", items_in_table[item]['max']);
+
+              // make sure the reorder_level is always greater than 0
+              // reorder_level.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+              // reorder_level.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
+              reorder_level.setAttribute("onclick", "this.select();");
+              items_in_table[item]['reorder_level'] = ('reorder_level' in items_in_table[item] && items_in_table[item]['reorder_level'] > 0) ?
+                items_in_table[item]['reorder_level'] : 1;
+              reorder_level.value = items_in_table[item]['reorder_level'];
+              let reorder_levelWrapper = document.createElement("td");
+              reorder_levelWrapper.classList.add("m-2");
+              reorder_levelWrapper.appendChild(reorder_level);
+
+
+
+
+              let opening_balance = document.createElement("input");
+              opening_balance.setAttribute("type", "number");
+              opening_balance.setAttribute("required", "");
+              opening_balance.classList.add("form-control", "form-control-sm", "align-middle");
+              // opening_balance.setAttribute("data-ref", items_in_table[item]["name"]);
+              opening_balance.setAttribute("min", 1);
+              // opening_balance.setAttribute("max", items_in_table[item]['max']);
+
+              // make sure the opening_balance is always greater than 0
+              // opening_balance.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+              // opening_balance.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
+              opening_balance.setAttribute("onclick", "this.select();");
+              items_in_table[item]['opening_balance'] = ('opening_balance' in items_in_table[item] && items_in_table[item]['opening_balance'] > 0) ?
+                items_in_table[item]['opening_balance'] : 1;
+              opening_balance.value = items_in_table[item]['opening_balance'];
+              let opening_balanceWrapper = document.createElement("td");
+              opening_balanceWrapper.classList.add("m-2");
+              opening_balanceWrapper.appendChild(opening_balance);
+
+
+              let actionWrapper = document.createElement("td");
+              actionWrapper.classList.add("m-2");
+              let action = document.createElement("button");
+              action.setAttribute("id", items_in_table[item]["branch"]);
+              action.setAttribute("onclick", "removeItem(this.id);");
+              let icon = document.createElement("span");
+              icon.classList.add("fas", "fa-minus", "mt-1");
+              action.appendChild(icon);
+              action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
+              actionWrapper.appendChild(action);
+
+              tr.append(branch_name,
+                min_levelWrapper,
+                max_levelWrapper,
+                reorder_levelWrapper,
+                opening_balanceWrapper,
+                actionWrapper
+              );
+              table_body.appendChild(tr);
+
+
+              // tr.append(branch_name, balance_td, units_td, quantityWrapper, actionWrapper);
+              // table_body.appendChild(tr);
+
+            }
+            return;
+          }
+
+
+
+          function addItem() {
+            if (!branch_select.value) {
+              return;
+            }
+
+            const branch_pricing = {
+              branch: branch_dict[branch_select.value],
+              max_level: 0,
+              reorder_level: 0,
+              opening_balance: 0,
+            }
+            console.log(branch_pricing);
+            items_in_table[branch_select.value] = branch_pricing;
+            updateTable();
+            return;
+
+            // console.log("Now in table: ", items_in_table);
+
+            // console.log(branch_pricing);
+
+            delete items_in_combobox[branch_pricing["name"]];
+            updateReqItems();
+          }
+
+
 
           function calculatePrices() {
             const tax_type = document.querySelector("#tax_type");
