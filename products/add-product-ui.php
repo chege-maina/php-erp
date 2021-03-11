@@ -575,6 +575,22 @@ include '../includes/base_page/head.php';
               sub_group_btn.disabled = false;
             }
 
+            let subcategories_dict = {};
+
+            function updateSubCategories() {
+              console.log("Subs", subcategories_dict);
+              return;
+              // Clear it
+              product_category.innerHTML = "";
+              // Add the no-selectable item first
+              let opt = document.createElement("option");
+              opt.appendChild(document.createTextNode("-- Select Group --"));
+              opt.setAttribute("value", "");
+              opt.setAttribute("disabled", "");
+              opt.setAttribute("selected", "");
+              product_category.appendChild(opt);
+            }
+
             function updateComboBoxes() {
               const product_unit = document.querySelector("#product_unit");
               const product_category = document.querySelector("#product_category");
@@ -604,6 +620,19 @@ include '../includes/base_page/head.php';
                     product_category.appendChild(opt);
                   });
                 });
+
+              // Populate subcategories array
+              fetch('../includes/load_subcategory.php')
+                .then(response => response.json())
+                .then(data => {
+                  subcategories_dict = [];
+                  data.forEach(row => {
+                    subcategories_dict[row.category] = row.subcategories;
+                  });
+                  updateSubCategories();
+                });
+
+
 
               // Clear it
               product_unit.innerHTML = "";
