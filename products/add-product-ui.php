@@ -765,8 +765,11 @@ include '../includes/base_page/head.php';
             }
             console.log(branch_pricing);
             items_in_table[branch_select.value] = branch_pricing;
+
+            delete branch_dict[branch_select.value];
+
             updateTable();
-            delete items_in_combobox[branch_pricing["name"]];
+            updateBranchSelect();
             return;
 
             // console.log("Now in table: ", items_in_table);
