@@ -656,7 +656,7 @@ include '../includes/base_page/head.php';
                 items_in_table[item]['min_level'] : 1;
               min_level.value = items_in_table[item]['min_level'];
               let min_levelWrapper = document.createElement("td");
-              min_levelWrapper.classList.add("m-2");
+              min_levelWrapper.classList.add("m-2", "col-2");
               min_levelWrapper.appendChild(min_level);
 
 
@@ -681,7 +681,7 @@ include '../includes/base_page/head.php';
                 items_in_table[item]['max_level'] : 1;
               max_level.value = items_in_table[item]['max_level'];
               let max_levelWrapper = document.createElement("td");
-              max_levelWrapper.classList.add("m-2");
+              max_levelWrapper.classList.add("m-2", "col-2");
               max_levelWrapper.appendChild(max_level);
 
 
@@ -707,7 +707,7 @@ include '../includes/base_page/head.php';
                 items_in_table[item]['reorder_level'] : 1;
               reorder_level.value = items_in_table[item]['reorder_level'];
               let reorder_levelWrapper = document.createElement("td");
-              reorder_levelWrapper.classList.add("m-2");
+              reorder_levelWrapper.classList.add("m-2", "col-2");
               reorder_levelWrapper.appendChild(reorder_level);
 
 
@@ -729,7 +729,7 @@ include '../includes/base_page/head.php';
                 items_in_table[item]['opening_balance'] : 1;
               opening_balance.value = items_in_table[item]['opening_balance'];
               let opening_balanceWrapper = document.createElement("td");
-              opening_balanceWrapper.classList.add("m-2");
+              opening_balanceWrapper.classList.add("m-2", "col-2");
               opening_balanceWrapper.appendChild(opening_balance);
 
 
