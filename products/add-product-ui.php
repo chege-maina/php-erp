@@ -244,7 +244,6 @@ include '../includes/base_page/head.php';
             </div>
           </div>
           <input type="submit" class="btn btn-falcon-primary m-2" name="submit" id="submit" value="Submit">
-          <input type="button" class="btn btn-falcon-primary m-2" name="submit" id="test" value="Test" onclick="getTableData();">
         </form>
         <!-- Content ends here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
