@@ -207,7 +207,7 @@ include '../includes/base_page/head.php';
                   <!-- Make Combo -->
                   <label class="form-label" for="branch">Branch*</label>
                   <div class="input-group">
-                    <select class="form-select" name="branch" id="branch_select" required onchange="addItem();">
+                    <select class="form-select" name="branch" id="branch_select" required>
                       <option value disabled selected>
                         -- Select Branch --
                       </option>
@@ -215,7 +215,7 @@ include '../includes/base_page/head.php';
                     <div class="invalid-tooltip">This field cannot be left blank.</div>
 
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#">
+                    <button type="button" class="btn btn-primary input-group-btn" onclick="addItem()">
                       +
                     </button>
 
