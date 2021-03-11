@@ -702,6 +702,9 @@ include '../includes/base_page/head.php';
               // min_level.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
               // min_level.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
               // min_level.setAttribute("onclick", "this.select();");
+              min_level.addEventListener("input", (event) => {
+                items_in_table[item].min_level = Number(event.target.value);
+              })
               items_in_table[item]['min_level'] = ('min_level' in items_in_table[item] && items_in_table[item]['min_level'] > 0) ?
                 items_in_table[item]['min_level'] : 1;
               min_level.value = items_in_table[item]['min_level'];
@@ -730,6 +733,10 @@ include '../includes/base_page/head.php';
               items_in_table[item]['max_level'] = ('max_level' in items_in_table[item] && items_in_table[item]['max_level'] > 0) ?
                 items_in_table[item]['max_level'] : 1;
               max_level.value = items_in_table[item]['max_level'];
+
+              max_level.addEventListener("input", (event) => {
+                items_in_table[item].max_level = Number(event.target.value);
+              })
               let max_levelWrapper = document.createElement("td");
               max_levelWrapper.classList.add("m-2", "col-2");
               max_levelWrapper.appendChild(max_level);
@@ -756,6 +763,10 @@ include '../includes/base_page/head.php';
               items_in_table[item]['reorder_level'] = ('reorder_level' in items_in_table[item] && items_in_table[item]['reorder_level'] > 0) ?
                 items_in_table[item]['reorder_level'] : 1;
               reorder_level.value = items_in_table[item]['reorder_level'];
+
+              reorder_level.addEventListener("input", (event) => {
+                items_in_table[item].reorder_level = Number(event.target.value);
+              })
               let reorder_levelWrapper = document.createElement("td");
               reorder_levelWrapper.classList.add("m-2", "col-2");
               reorder_levelWrapper.appendChild(reorder_level);
@@ -778,6 +789,10 @@ include '../includes/base_page/head.php';
               items_in_table[item]['opening_balance'] = ('opening_balance' in items_in_table[item] && items_in_table[item]['opening_balance'] > 0) ?
                 items_in_table[item]['opening_balance'] : 1;
               opening_balance.value = items_in_table[item]['opening_balance'];
+
+              opening_balance.addEventListener("input", (event) => {
+                items_in_table[item].opening_balance = Number(event.target.value);
+              })
               let opening_balanceWrapper = document.createElement("td");
               opening_balanceWrapper.classList.add("m-2", "col-2");
               opening_balanceWrapper.appendChild(opening_balance);
