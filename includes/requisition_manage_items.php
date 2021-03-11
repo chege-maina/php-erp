@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $stats = 'pending';
   $stats2 = 'approved';
 
-  $query = "SELECT * FROM tbl_requisition_items WHERE requisition_No ='$req_no' and (status='$stats' or status = '$stats2')";
+  $query = "SELECT * FROM tbl_requisition_items WHERE requisition_No ='$req_no'";
         	
 	$result = mysqli_query($conn, $query);
     $response = array();
@@ -32,6 +32,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo json_encode($message);
             }
             mysqli_close($conn);
-
-?>
-    

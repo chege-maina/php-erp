@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 08, 2021 at 10:54 AM
+-- Generation Time: Mar 08, 2021 at 01:59 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -418,7 +418,7 @@ CREATE TABLE `tbl_quotation_items` (
 INSERT INTO `tbl_quotation_items` (`quote_no`, `product_code`, `product_name`, `unit`, `price`, `qty`, `amount`, `tax`, `status`, `tax_pc`, `branch_location`) VALUES
 (1, '1', 'Xaviera Kramer', 'kgs', '7163', '1', '7163.00', '0.00', 'done', '0', 'MM2'),
 (1, '2', 'Florence Vincent', 'kgs', '10103', '1', '11719.48', '1616.48', 'done', '16', 'MM2'),
-(2, '1', 'Xaviera Kramer', 'kgs', '2', '10', '20', '0', 'approved', '0', 'MM2'),
+(2, '1', 'Xaviera Kramer', 'kgs', '200', '10', '2000', '0', 'approved', '0', 'MM2'),
 (3, '1', 'Xaviera Kramer', 'kgs', '7163', '1', '7163.00', '0.00', 'pending', '0', 'MM2');
 
 -- --------------------------------------------------------
@@ -584,7 +584,7 @@ CREATE TABLE `tbl_sale` (
 --
 
 INSERT INTO `tbl_sale` (`quote_no`, `date`, `customer_name`, `terms`, `status`, `user`, `sub_total`, `tax`, `amount`, `branch_location`) VALUES
-(1, '2021-03-05', 'Hilary Curry', '25', 'done', 'Jael Joel', '17266', '1616.48', '18882.48', 'MM2'),
+(1, '2021-03-05', 'Hilary Curry', '25', 'approved', 'Jael Joel', '17266', '1616.48', '18882.48', 'MM2'),
 (2, '2021-03-08', 'Hilary Curry', '18', 'done', 'Jael Joel', '7,163.00', '0.00', '7,163.00', 'MM2');
 
 -- --------------------------------------------------------
