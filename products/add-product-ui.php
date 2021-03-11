@@ -263,13 +263,13 @@ include '../includes/base_page/head.php';
               </div>
               <div class="modal-body p-0">
                 <div class="bg-light rounded-top-lg py-3 pl-4 pr-6">
-                  <h4 class="mb-1" id="addUnitLabel">Add Category</h4>
+                  <h4 class="mb-1" id="addUnitLabel">Add Group</h4>
                 </div>
                 <div class="p-4">
                   <!-- Category Form -->
                   <form id="add_ct_frm" name="add_ct_frm">
                     <div class="p2">
-                      <label for="modal_category_name" class="form-label">Category Name*</label>
+                      <label for="modal_category_name" class="form-label">Group Name*</label>
                       <input type="text" name="modal_category_name" id="modal_category_name" class="form-control" required>
                       <div class="invalid-feedback">This field cannot be left blank.</div>
                     </div>
