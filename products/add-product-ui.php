@@ -564,6 +564,7 @@ include '../includes/base_page/head.php';
             const table_body = document.querySelector("#table_body");
             const sub_group = document.querySelector("#sub_group");
             const sub_group_btn = document.querySelector("#sub_group_btn");
+            const product_category = document.querySelector("#product_category");
 
 
 
@@ -573,27 +574,41 @@ include '../includes/base_page/head.php';
               }
               sub_group.disabled = false;
               sub_group_btn.disabled = false;
+              updateSubCategories();
             }
 
             let subcategories_dict = {};
 
             function updateSubCategories() {
               console.log("Subs", subcategories_dict);
-              return;
+              if (!product_category.value) {
+                return;
+              }
+
               // Clear it
-              product_category.innerHTML = "";
+              sub_group.innerHTML = "";
+              console.log("here")
               // Add the no-selectable item first
               let opt = document.createElement("option");
               opt.appendChild(document.createTextNode("-- Select Group --"));
               opt.setAttribute("value", "");
               opt.setAttribute("disabled", "");
               opt.setAttribute("selected", "");
-              product_category.appendChild(opt);
+              sub_group.appendChild(opt);
+
+
+              let sub_cats = subcategories_dict[product_category.value.toUpperCase()];
+              console.log(sub_cats);
+              sub_cats.forEach((sub_cat) => {
+                let opt = document.createElement("option");
+                opt.appendChild(document.createTextNode(sub_cat['subcategory'].toLowerCase()));
+                opt.value = sub_cat['subcategory'];
+                sub_group.appendChild(opt);
+              });
             }
 
             function updateComboBoxes() {
               const product_unit = document.querySelector("#product_unit");
-              const product_category = document.querySelector("#product_category");
               const applicable_tax = document.querySelector("#applicable_tax");
               const branch_select = document.querySelector("#branch_select");
 
