@@ -640,7 +640,9 @@ include '../includes/base_page/head.php';
               branch_name.classList.add("align-middle");
 
               let min_level = document.createElement("input");
+              const min_level_id = uuidv4();
               min_level.setAttribute("type", "number");
+              min_level.setAttribute("id", min_level_id);
               min_level.setAttribute("required", "");
               min_level.classList.add("form-control", "form-control-sm", "align-middle");
               // min_level.setAttribute("data-ref", items_in_table[item]["name"]);
@@ -659,16 +661,20 @@ include '../includes/base_page/head.php';
 
 
 
+              const max_level_id = uuidv4();
+              const reorder_level_id = uuidv4();
 
               let max_level = document.createElement("input");
               max_level.setAttribute("type", "number");
+              max_level.setAttribute("id", max_level_id);
               max_level.setAttribute("required", "");
               max_level.classList.add("form-control", "form-control-sm", "align-middle");
-              // max_level.setAttribute("data-ref", items_in_table[item]["name"]);
+              max_level.setAttribute("data-min", min_level_id);
               max_level.setAttribute("min", 1);
 
               // make sure the max_level is always greater than 0
-              // max_level.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+              max_level.setAttribute("onfocusout",
+                "document.querySelector('#" + reorder_level_id + "').setAttribute('max', this.value)");
               // max_level.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
               max_level.setAttribute("onclick", "this.select();");
               items_in_table[item]['max_level'] = ('max_level' in items_in_table[item] && items_in_table[item]['max_level'] > 0) ?
@@ -681,6 +687,7 @@ include '../includes/base_page/head.php';
 
 
               let reorder_level = document.createElement("input");
+              reorder_level.setAttribute("id", reorder_level_id);
               reorder_level.setAttribute("type", "number");
               reorder_level.setAttribute("required", "");
               reorder_level.classList.add("form-control", "form-control-sm", "align-middle");
@@ -689,6 +696,10 @@ include '../includes/base_page/head.php';
               // reorder_level.setAttribute("max", items_in_table[item]['max']);
 
               // make sure the reorder_level is always greater than 0
+              reorder_level.setAttribute("onfocusout",
+                "document.querySelector('#" + max_level_id + "').setAttribute('min', this.value)");
+              reorder_level.setAttribute("onchange",
+                "document.querySelector('#" + min_level_id + "').setAttribute('max', this.value)");
               // reorder_level.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
               // reorder_level.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
               reorder_level.setAttribute("onclick", "this.select();");
