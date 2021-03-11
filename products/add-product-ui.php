@@ -770,13 +770,6 @@ include '../includes/base_page/head.php';
 
             updateTable();
             updateBranchSelect();
-            return;
-
-            // console.log("Now in table: ", items_in_table);
-
-            // console.log(branch_pricing);
-
-            updateReqItems();
           }
 
           function removeItem(item) {
