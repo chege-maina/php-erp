@@ -551,16 +551,6 @@ include '../includes/base_page/head.php';
               });
 
 
-            // Clear it
-            branch_select.innerHTML = "";
-            // Add the no-selectable item first
-            opt = document.createElement("option");
-            opt.appendChild(document.createTextNode("-- Select Branch --"));
-            opt.setAttribute("value", "");
-            opt.setAttribute("disabled", "");
-            opt.setAttribute("selected", "");
-            branch_select.appendChild(opt);
-            // Populate combobox
             fetch('../includes/load_branch_items.php')
               .then(response => response.json())
               .then(data => {
@@ -572,6 +562,8 @@ include '../includes/base_page/head.php';
                   // Update dicts
                   branch_dict[value.branch] = value.branch;
                   items_in_table = {};
+
+                  updateBranchSelect();
                   updateTable();
 
                   removeSpinner();
@@ -605,6 +597,25 @@ include '../includes/base_page/head.php';
 
             //     });
             //   });
+          }
+
+          function updateBranchSelect() {
+            // Clear it
+            branch_select.innerHTML = "";
+            // Add the no-selectable item first
+            opt = document.createElement("option");
+            opt.appendChild(document.createTextNode("-- Select Branch --"));
+            opt.setAttribute("value", "");
+            opt.setAttribute("disabled", "");
+            opt.setAttribute("selected", "");
+            branch_select.appendChild(opt);
+            // Populate combobox
+            for (key in branch_dict) {
+              let opt = document.createElement("option");
+              opt.appendChild(document.createTextNode(key));
+              opt.value = key;
+              branch_select.appendChild(opt);
+            }
           }
 
 
@@ -755,16 +766,23 @@ include '../includes/base_page/head.php';
             console.log(branch_pricing);
             items_in_table[branch_select.value] = branch_pricing;
             updateTable();
+            delete items_in_combobox[branch_pricing["name"]];
             return;
 
             // console.log("Now in table: ", items_in_table);
 
             // console.log(branch_pricing);
 
-            delete items_in_combobox[branch_pricing["name"]];
             updateReqItems();
           }
 
+          function removeItem(item) {
+            delete items_in_table[String(item)];
+            // const item_to_add = all_requisitionable_items[item];
+            // items_in_combobox[item] = item_to_add;
+            updateTable();
+            // updateReqItems();
+          }
 
 
           function calculatePrices() {
