@@ -77,7 +77,7 @@ include '../includes/base_page/head.php';
                     <div class="invalid-tooltip">This field cannot be left blank.</div>
 
                     <!-- Button trigger modal -->
-                    <button type="button" id="sub_group_btn" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#" disabled>
+                    <button type="button" id="sub_group_btn" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addSubCategory" disabled>
                       +
                     </button>
 
@@ -282,641 +282,670 @@ include '../includes/base_page/head.php';
           </div>
         </div>
 
-        <!-- Units Modal -->
-        <div class="modal fade" id="addUnit" tabindex="-1" role="dialog" aria-labelledby="addUnitLabel" aria-hidden="true" data-backdrop="static">
-          <div class="modal-dialog" role="document">
+        <! --SubCategory Modal -->
+          <div class="modal fade" id="addSubCategory" tabindex="-1" role="dialog" aria-labelledby="addSubCategoryLabel" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog" role="document">
 
-            <div class="modal-content border-0">
-              <div class="position-absolute top-0 right-0 mt-3 mr-3 z-index-1">
-                <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body p-0">
-                <div class="bg-light rounded-top-lg py-3 pl-4 pr-6">
-                  <h4 class="mb-1" id="addUnitLabel">Add Unit</h4>
+              <div class="modal-content border-0">
+                <div class="position-absolute top-0 right-0 mt-3 mr-3 z-index-1">
+                  <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="p-4">
-                  <!-- Units form  -->
-                  <form id="add_ut_frm" name="add_ut_frm">
-                    <div class="row">
-                      <div class="col">
-                        <label for="modal_unit_name" class="form-label">Unit*</label>
-                        <input type="text" name="modal_unit_name" id="modal_unit_name" class="form-control" required>
+                <div class="modal-body p-0">
+                  <div class="bg-light rounded-top-lg py-3 pl-4 pr-6">
+                    <h4 class="mb-1" id="addUnitLabel">Add Sub Group</h4>
+                  </div>
+                  <div class="p-4">
+                    <!-- Category Form -->
+                    <form id="add_ct_frm" name="add_ct_frm">
+                      <div class="p2">
+                        <label for="modal_category_name" class="form-label">Sub group Name*</label>
+                        <input type="text" name="modal_subcategory_name" id="modal_subcategory_name" class="form-control" required>
                         <div class="invalid-feedback">This field cannot be left blank.</div>
                       </div>
-                    </div>
-
-                    <div class="row mt-2">
-                      <div class="col">
-                        <label for="modal_unit_description" class="form-label">Unit Description*</label>
-                        <input type="text" name="modal_unit_description" id="modal_unit_description" class="form-control" required>
-                        <div class="invalid-feedback">This field cannot be left blank.</div>
-                      </div>
-                    </div>
-                    <input type="button" value="Add" class="btn btn-falcon-primary mt-2" id="add_ut_submit" name="add_ut_submit" data-dismiss="modal">
-                  </form>
+                      <input type="button" value="Add" class="btn btn-falcon-primary mt-2" id="add_sct_submit" name="add_sct_submit" data-dismiss="modal">
+                    </form>
+                  </div>
                 </div>
               </div>
+
             </div>
-
           </div>
-        </div>
 
-        <!--product - supplier -->
+          <!-- Units Modal -->
+          <div class="modal fade" id="addUnit" tabindex="-1" role="dialog" aria-labelledby="addUnitLabel" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog" role="document">
 
-        <script>
-          $(document).ready(function() {
-            $('#add_ut_submit').click(function(e) {
-              e.preventDefault();
-              var unt_name = $('#modal_unit_name').val();
-              var unt_desc = $('#modal_unit_description').val();
-              var data1 = {
-                modal_unit_name: unt_name,
-                modal_unit_description: unt_desc
-              }
+              <div class="modal-content border-0">
+                <div class="position-absolute top-0 right-0 mt-3 mr-3 z-index-1">
+                  <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                  <div class="bg-light rounded-top-lg py-3 pl-4 pr-6">
+                    <h4 class="mb-1" id="addUnitLabel">Add Unit</h4>
+                  </div>
+                  <div class="p-4">
+                    <!-- Units form  -->
+                    <form id="add_ut_frm" name="add_ut_frm">
+                      <div class="row">
+                        <div class="col">
+                          <label for="modal_unit_name" class="form-label">Unit*</label>
+                          <input type="text" name="modal_unit_name" id="modal_unit_name" class="form-control" required>
+                          <div class="invalid-feedback">This field cannot be left blank.</div>
+                        </div>
+                      </div>
 
-              if (unt_name == '' || unt_desc == '') {
-                alert("Please complete form!")
-              } else {
-                var conf = confirm("Do You Want to Add a New Unit?")
-                if (conf) {
-                  $.ajax({
-                    url: "../includes/add_unit.php",
-                    method: "POST",
-                    data: data1,
-                    success: function(data) {
-                      $('#add_ut_frm')[0].reset();
-                      //$('form').trigger("reset");
-                      if (data == 'New Unit Added Successfully') {
-                        updateComboBoxes();
-                      }
-                      alert(data)
-                    }
-                  })
+                      <div class="row mt-2">
+                        <div class="col">
+                          <label for="modal_unit_description" class="form-label">Unit Description*</label>
+                          <input type="text" name="modal_unit_description" id="modal_unit_description" class="form-control" required>
+                          <div class="invalid-feedback">This field cannot be left blank.</div>
+                        </div>
+                      </div>
+                      <input type="button" value="Add" class="btn btn-falcon-primary mt-2" id="add_ut_submit" name="add_ut_submit" data-dismiss="modal">
+                    </form>
+                  </div>
+                </div>
+              </div>
 
+            </div>
+          </div>
+
+          <!--product - supplier -->
+
+          <script>
+            $(document).ready(function() {
+              $('#add_ut_submit').click(function(e) {
+                e.preventDefault();
+                var unt_name = $('#modal_unit_name').val();
+                var unt_desc = $('#modal_unit_description').val();
+                var data1 = {
+                  modal_unit_name: unt_name,
+                  modal_unit_description: unt_desc
                 }
-              }
-            })
-          })
-        </script>
-        <script>
-          $(document).ready(function() {
-            $('#add_ct_submit').click(function(e) {
-              e.preventDefault();
-              var cat_name = $('#modal_category_name').val();
-              var data1 = {
-                modal_category_name: cat_name
-              }
 
-              if (cat_name == '') {
-                alert("Please complete form!")
-              } else {
-                var conf = confirm("Do You Want to Add a New Category?")
-                if (conf) {
-                  $.ajax({
-                    url: "../includes/add_category.php",
-                    method: "POST",
-                    data: data1,
-                    success: function(data) {
-                      $('#add_ct_frm')[0].reset();
-                      //$('form').trigger("reset");
-                      if (data == 'New Category Added Successfully') {
-                        updateComboBoxes();
+                if (unt_name == '' || unt_desc == '') {
+                  alert("Please complete form!")
+                } else {
+                  var conf = confirm("Do You Want to Add a New Unit?")
+                  if (conf) {
+                    $.ajax({
+                      url: "../includes/add_unit.php",
+                      method: "POST",
+                      data: data1,
+                      success: function(data) {
+                        $('#add_ut_frm')[0].reset();
+                        //$('form').trigger("reset");
+                        if (data == 'New Unit Added Successfully') {
+                          updateComboBoxes();
+                        }
+                        alert(data)
                       }
-                      alert(data)
-                    }
-                  })
+                    })
 
+                  }
                 }
-              }
-            })
-          })
-
-          function getTableData() {
-            let tmp_obj = [];
-            let errors = false;
-            table_body.childNodes.forEach(row => {
-              const t_branch = row.childNodes[0].innerHTML;
-
-              let t_min_val = row.childNodes[1].childNodes[0];
-              if (!t_min_val.validity.valid) {
-                t_min_val.focus();
-                errors = true;
-                return;
-              }
-              t_min_val = t_min_val.value;
-
-              let t_max_val = row.childNodes[2].childNodes[0];
-              if (!t_max_val.validity.valid) {
-                t_max_val.focus();
-                errors = true;
-                return;
-              }
-              t_max_val = t_max_val.value;
-
-              let t_reorder_level = row.childNodes[2].childNodes[0];
-              if (!t_reorder_level.validity.valid) {
-                t_reorder_level.focus();
-                errors = true;
-                return;
-              }
-              t_reorder_level = t_reorder_level.value;
-
-              let t_opening_bal = row.childNodes[2].childNodes[0];
-              if (!t_opening_bal.validity.valid) {
-                t_opening_bal.focus();
-                errors = true;
-                return;
-              }
-              t_opening_bal = t_opening_bal.value;
-
-              tmp_obj.push({
-                branch: t_branch,
-                min_level: t_min_val,
-                max_level: t_max_val,
-                reorder_level: t_reorder_level,
-                opening_balance: t_opening_bal,
-              });
-            });
-            let to_return = errors ? false : tmp_obj;
-            console.log("Table items", to_return);
-          };
-
-          function submitForm() {
-            console.log("Submitting");
-            // const product_code = document.querySelector("#product_code").value;
-            const product_name = document.querySelector("#product_name").value;
-            const product_category = document.querySelector("#product_category").value;
-            const product_unit = document.querySelector("#product_unit").value;
-            // const product_supplier = document.querySelector("#product_supplier").value;
-            const product_image = document.querySelector("#product_image").files[0];
-
-            const min_level = document.querySelector("#min_level").value;
-            const max_level = document.querySelector("#max_level").value;
-            const reorder = document.querySelector("#reorder").value;
-
-            const tax_type = document.querySelector("#tax_type").value;
-            const applicable_tax = document.querySelector("#applicable_tax").value;
-            const amount_before_tax = document.querySelector("#amount_before_tax").value;
-
-            const dpp_exc_tax = document.querySelector("#dpp_exc_tax").value;
-            const dpp_inc_tax = document.querySelector("#dpp_inc_tax").value;
-            const profit_margin = document.querySelector("#profit_margin").value;
-            const dsp_price = document.querySelector("#dsp_price").value;
-
-            const formData = new FormData();
-            formData.append("user_name", user_name);
-
-            //formData.append("product_code", product_code);
-            formData.append("product_name", product_name);
-            formData.append("product_category", product_category);
-            formData.append("product_unit", product_unit);
-            //  formData.append("product_supplier", product_supplier);
-            formData.append("product_image", product_image);
-
-            formData.append("min_level", min_level);
-            formData.append("max_level", max_level);
-            formData.append("reorder", reorder);
-
-            formData.append("tax_type", tax_type);
-            formData.append("applicable_tax", applicable_tax);
-            formData.append("amount_before_tax", amount_before_tax);
-
-            formData.append("dpp_exc_tax", dpp_exc_tax);
-            formData.append("dpp_inc_tax", dpp_inc_tax);
-            formData.append("profit_margin", profit_margin);
-            formData.append("dsp_price", dsp_price);
-
-            fetch('add_product.php', {
-                method: 'POST',
-                body: formData
               })
-              .then(response => response.json())
-              .then(data => {
-                console.log(data);
-                if (data["message"] == "success") {
-                  const alertVar =
-                    `<div class="alert alert-success alert-dismissible fade show" role="alert">
+            })
+          </script>
+          <script>
+            $(document).ready(function() {
+              $('#add_ct_submit').click(function(e) {
+                e.preventDefault();
+                var cat_name = $('#modal_category_name').val();
+                var data1 = {
+                  modal_category_name: cat_name
+                }
+
+                if (cat_name == '') {
+                  alert("Please complete form!")
+                } else {
+                  var conf = confirm("Do You Want to Add a New Category?")
+                  if (conf) {
+                    $.ajax({
+                      url: "../includes/add_category.php",
+                      method: "POST",
+                      data: data1,
+                      success: function(data) {
+                        $('#add_ct_frm')[0].reset();
+                        //$('form').trigger("reset");
+                        if (data == 'New Category Added Successfully') {
+                          updateComboBoxes();
+                        }
+                        alert(data)
+                      }
+                    })
+
+                  }
+                }
+              })
+            })
+
+            function getTableData() {
+              let tmp_obj = [];
+              let errors = false;
+              table_body.childNodes.forEach(row => {
+                const t_branch = row.childNodes[0].innerHTML;
+
+                let t_min_val = row.childNodes[1].childNodes[0];
+                if (!t_min_val.validity.valid) {
+                  t_min_val.focus();
+                  errors = true;
+                  return;
+                }
+                t_min_val = t_min_val.value;
+
+                let t_max_val = row.childNodes[2].childNodes[0];
+                if (!t_max_val.validity.valid) {
+                  t_max_val.focus();
+                  errors = true;
+                  return;
+                }
+                t_max_val = t_max_val.value;
+
+                let t_reorder_level = row.childNodes[2].childNodes[0];
+                if (!t_reorder_level.validity.valid) {
+                  t_reorder_level.focus();
+                  errors = true;
+                  return;
+                }
+                t_reorder_level = t_reorder_level.value;
+
+                let t_opening_bal = row.childNodes[2].childNodes[0];
+                if (!t_opening_bal.validity.valid) {
+                  t_opening_bal.focus();
+                  errors = true;
+                  return;
+                }
+                t_opening_bal = t_opening_bal.value;
+
+                tmp_obj.push({
+                  branch: t_branch,
+                  min_level: t_min_val,
+                  max_level: t_max_val,
+                  reorder_level: t_reorder_level,
+                  opening_balance: t_opening_bal,
+                });
+              });
+              let to_return = errors ? false : tmp_obj;
+              console.log("Table items", to_return);
+            };
+
+            function submitForm() {
+              console.log("Submitting");
+              // const product_code = document.querySelector("#product_code").value;
+              const product_name = document.querySelector("#product_name").value;
+              const product_category = document.querySelector("#product_category").value;
+              const product_unit = document.querySelector("#product_unit").value;
+              // const product_supplier = document.querySelector("#product_supplier").value;
+              const product_image = document.querySelector("#product_image").files[0];
+
+              const min_level = document.querySelector("#min_level").value;
+              const max_level = document.querySelector("#max_level").value;
+              const reorder = document.querySelector("#reorder").value;
+
+              const tax_type = document.querySelector("#tax_type").value;
+              const applicable_tax = document.querySelector("#applicable_tax").value;
+              const amount_before_tax = document.querySelector("#amount_before_tax").value;
+
+              const dpp_exc_tax = document.querySelector("#dpp_exc_tax").value;
+              const dpp_inc_tax = document.querySelector("#dpp_inc_tax").value;
+              const profit_margin = document.querySelector("#profit_margin").value;
+              const dsp_price = document.querySelector("#dsp_price").value;
+
+              const formData = new FormData();
+              formData.append("user_name", user_name);
+
+              //formData.append("product_code", product_code);
+              formData.append("product_name", product_name);
+              formData.append("product_category", product_category);
+              formData.append("product_unit", product_unit);
+              //  formData.append("product_supplier", product_supplier);
+              formData.append("product_image", product_image);
+
+              formData.append("min_level", min_level);
+              formData.append("max_level", max_level);
+              formData.append("reorder", reorder);
+
+              formData.append("tax_type", tax_type);
+              formData.append("applicable_tax", applicable_tax);
+              formData.append("amount_before_tax", amount_before_tax);
+
+              formData.append("dpp_exc_tax", dpp_exc_tax);
+              formData.append("dpp_inc_tax", dpp_inc_tax);
+              formData.append("profit_margin", profit_margin);
+              formData.append("dsp_price", dsp_price);
+
+              fetch('add_product.php', {
+                  method: 'POST',
+                  body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                  console.log(data);
+                  if (data["message"] == "success") {
+                    const alertVar =
+                      `<div class="alert alert-success alert-dismissible fade show" role="alert">
               <strong>Success!</strong> Product added to the database.
               <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
               </div>`;
-                  var divAlert = document.querySelector("#alert-div");
-                  divAlert.innerHTML = alertVar;
-                  divAlert.scrollIntoView();
-                  setTimeout(function() {
-                    location.href = "../supplier/create.php"
-                  }, 2500);
-                } else {
-                  const alertVar =
-                    `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    var divAlert = document.querySelector("#alert-div");
+                    divAlert.innerHTML = alertVar;
+                    divAlert.scrollIntoView();
+                    setTimeout(function() {
+                      location.href = "../supplier/create.php"
+                    }, 2500);
+                  } else {
+                    const alertVar =
+                      `<div class="alert alert-warning alert-dismissible fade show" role="alert">
               <strong>Error!</strong> ${data["desc"]}.
               <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
               </div>`;
-                  var divAlert = document.querySelector("#alert-div");
-                  divAlert.innerHTML = alertVar;
-                  divAlert.scrollIntoView();
-                }
-              })
-              .catch(error => {
-                console.error(error);
-              });
+                    var divAlert = document.querySelector("#alert-div");
+                    divAlert.innerHTML = alertVar;
+                    divAlert.scrollIntoView();
+                  }
+                })
+                .catch(error => {
+                  console.error(error);
+                });
 
-            return false;
-          }
-        </script>
-
-        <script>
-          // listen for the DOMContentLoaded event, then bind our function
-          document.addEventListener('DOMContentLoaded', function() {
-            updateComboBoxes();
-          });
-
-          let branch_dict = {};
-          let items_in_table = {};
-          const table_body = document.querySelector("#table_body");
-          const sub_group = document.querySelector("#sub_group");
-          const sub_group_btn = document.querySelector("#sub_group_btn");
-
-
-
-          function groupChanged(val) {
-            if (!val) {
-              return;
+              return false;
             }
-            sub_group.disabled = false;
-            sub_group_btn.disabled = false;
-          }
+          </script>
 
-          function updateComboBoxes() {
-            const product_unit = document.querySelector("#product_unit");
-            const product_category = document.querySelector("#product_category");
-            const applicable_tax = document.querySelector("#applicable_tax");
-            const branch_select = document.querySelector("#branch_select");
+          <script>
+            // listen for the DOMContentLoaded event, then bind our function
+            document.addEventListener('DOMContentLoaded', function() {
+              updateComboBoxes();
+            });
 
-            // const product_supplier = document.querySelector("#product_supplier");
-
-
-            // Clear it
-            product_category.innerHTML = "";
-            // Add the no-selectable item first
-            let opt = document.createElement("option");
-            opt.appendChild(document.createTextNode("-- Select Group --"));
-            opt.setAttribute("value", "");
-            opt.setAttribute("disabled", "");
-            opt.setAttribute("selected", "");
-            product_category.appendChild(opt);
-            // Populate categories combobox
-            fetch('../includes/load_category.php')
-              .then(response => response.json())
-              .then(data => {
-                data.forEach((value) => {
-                  let opt = document.createElement("option");
-                  opt.appendChild(document.createTextNode(value['category'].toLowerCase()));
-                  opt.value = value['category'].toLowerCase();
-                  product_category.appendChild(opt);
-                });
-              });
-
-            // Clear it
-            product_unit.innerHTML = "";
-            // Add the no-selectable item first
-            opt = document.createElement("option");
-            opt.appendChild(document.createTextNode("-- Select Unit --"));
-            opt.setAttribute("value", "");
-            opt.setAttribute("disabled", "");
-            opt.setAttribute("selected", "");
-            product_unit.appendChild(opt);
-            // Populate units combobox
-            fetch('../includes/load_unit.php')
-              .then(response => response.json())
-              .then(data => {
-                data.forEach((value) => {
-                  let opt = document.createElement("option");
-                  opt.appendChild(document.createTextNode(value['unit'] + " (" + value['desc'].toLowerCase() + ")"));
-                  opt.value = value['unit'].toLowerCase();
-                  product_unit.appendChild(opt);
-                });
-              });
-
-            // Clear it
-            applicable_tax.innerHTML = "";
-            // Populate taxes combobox
-            fetch('../includes/load_tax.php')
-              .then(response => response.json())
-              .then(data => {
-                data.forEach((value) => {
-                  let opt = document.createElement("option");
-                  opt.appendChild(document.createTextNode(value['tax'] + "%"));
-                  opt.value = value['tax'];
-                  applicable_tax.appendChild(opt);
-                });
-              });
+            let branch_dict = {};
+            let items_in_table = {};
+            const table_body = document.querySelector("#table_body");
+            const sub_group = document.querySelector("#sub_group");
+            const sub_group_btn = document.querySelector("#sub_group_btn");
 
 
-            fetch('../includes/load_branch_items.php')
-              .then(response => response.json())
-              .then(data => {
-                data.forEach((value) => {
-                  let opt = document.createElement("option");
-                  opt.appendChild(document.createTextNode(value['branch']));
-                  opt.value = value['branch'];
-                  branch_select.appendChild(opt);
-                  // Update dicts
-                  branch_dict[value.branch] = value.branch;
-                  items_in_table = {};
 
-                  updateBranchSelect();
-                  updateTable();
+            function groupChanged(val) {
+              if (!val) {
+                return;
+              }
+              sub_group.disabled = false;
+              sub_group_btn.disabled = false;
+            }
 
-                  removeSpinner();
-                });
-              });
+            function updateComboBoxes() {
+              const product_unit = document.querySelector("#product_unit");
+              const product_category = document.querySelector("#product_category");
+              const applicable_tax = document.querySelector("#applicable_tax");
+              const branch_select = document.querySelector("#branch_select");
+
+              // const product_supplier = document.querySelector("#product_supplier");
 
 
-            // Clear it
-            // product_supplier.innerHTML = "";
-            // // Add the no-selectable item first
-            // opt = document.createElement("option");
-            // opt.appendChild(document.createTextNode("-- Select Supplier --"));
-            // opt.setAttribute("value", "");
-            // opt.setAttribute("disabled", "");
-            // opt.setAttribute("selected", "");
-            // product_supplier.appendChild(opt);
-            // // Populate suppliers combobox
-            // fetch('../includes/load_supplier.php')
-            //   .then(response => response.json())
-            //   .then(data => {
-            //     console.log(data);
-            //     data.forEach((value) => {
-            //       console.log(value);
-            //       let opt = document.createElement("option");
-            //       // Convert the supplier name to lowercase first so that it can be capitalized
-            //       opt.appendChild(document.createTextNode(value['supplier'].toLowerCase()));
-            //       opt.style.textTransform = "capitalize";
-            //       opt.value = value['supplier'];
-            //       product_supplier.appendChild(opt);
-            //       // Update spinner we are done
-
-            //     });
-            //   });
-          }
-
-          function updateBranchSelect() {
-            // Clear it
-            branch_select.innerHTML = "";
-            // Add the no-selectable item first
-            opt = document.createElement("option");
-            opt.appendChild(document.createTextNode("-- Select Branch --"));
-            opt.setAttribute("value", "");
-            opt.setAttribute("disabled", "");
-            opt.setAttribute("selected", "");
-            branch_select.appendChild(opt);
-            // Populate combobox
-            for (key in branch_dict) {
+              // Clear it
+              product_category.innerHTML = "";
+              // Add the no-selectable item first
               let opt = document.createElement("option");
-              opt.appendChild(document.createTextNode(key));
-              opt.value = key;
+              opt.appendChild(document.createTextNode("-- Select Group --"));
+              opt.setAttribute("value", "");
+              opt.setAttribute("disabled", "");
+              opt.setAttribute("selected", "");
+              product_category.appendChild(opt);
+              // Populate categories combobox
+              fetch('../includes/load_category.php')
+                .then(response => response.json())
+                .then(data => {
+                  data.forEach((value) => {
+                    let opt = document.createElement("option");
+                    opt.appendChild(document.createTextNode(value['category'].toLowerCase()));
+                    opt.value = value['category'].toLowerCase();
+                    product_category.appendChild(opt);
+                  });
+                });
+
+              // Clear it
+              product_unit.innerHTML = "";
+              // Add the no-selectable item first
+              opt = document.createElement("option");
+              opt.appendChild(document.createTextNode("-- Select Unit --"));
+              opt.setAttribute("value", "");
+              opt.setAttribute("disabled", "");
+              opt.setAttribute("selected", "");
+              product_unit.appendChild(opt);
+              // Populate units combobox
+              fetch('../includes/load_unit.php')
+                .then(response => response.json())
+                .then(data => {
+                  data.forEach((value) => {
+                    let opt = document.createElement("option");
+                    opt.appendChild(document.createTextNode(value['unit'] + " (" + value['desc'].toLowerCase() + ")"));
+                    opt.value = value['unit'].toLowerCase();
+                    product_unit.appendChild(opt);
+                  });
+                });
+
+              // Clear it
+              applicable_tax.innerHTML = "";
+              // Populate taxes combobox
+              fetch('../includes/load_tax.php')
+                .then(response => response.json())
+                .then(data => {
+                  data.forEach((value) => {
+                    let opt = document.createElement("option");
+                    opt.appendChild(document.createTextNode(value['tax'] + "%"));
+                    opt.value = value['tax'];
+                    applicable_tax.appendChild(opt);
+                  });
+                });
+
+
+              fetch('../includes/load_branch_items.php')
+                .then(response => response.json())
+                .then(data => {
+                  data.forEach((value) => {
+                    let opt = document.createElement("option");
+                    opt.appendChild(document.createTextNode(value['branch']));
+                    opt.value = value['branch'];
+                    branch_select.appendChild(opt);
+                    // Update dicts
+                    branch_dict[value.branch] = value.branch;
+                    items_in_table = {};
+
+                    updateBranchSelect();
+                    updateTable();
+
+                    removeSpinner();
+                  });
+                });
+
+
+              // Clear it
+              // product_supplier.innerHTML = "";
+              // // Add the no-selectable item first
+              // opt = document.createElement("option");
+              // opt.appendChild(document.createTextNode("-- Select Supplier --"));
+              // opt.setAttribute("value", "");
+              // opt.setAttribute("disabled", "");
+              // opt.setAttribute("selected", "");
+              // product_supplier.appendChild(opt);
+              // // Populate suppliers combobox
+              // fetch('../includes/load_supplier.php')
+              //   .then(response => response.json())
+              //   .then(data => {
+              //     console.log(data);
+              //     data.forEach((value) => {
+              //       console.log(value);
+              //       let opt = document.createElement("option");
+              //       // Convert the supplier name to lowercase first so that it can be capitalized
+              //       opt.appendChild(document.createTextNode(value['supplier'].toLowerCase()));
+              //       opt.style.textTransform = "capitalize";
+              //       opt.value = value['supplier'];
+              //       product_supplier.appendChild(opt);
+              //       // Update spinner we are done
+
+              //     });
+              //   });
+            }
+
+            function updateBranchSelect() {
+              // Clear it
+              branch_select.innerHTML = "";
+              // Add the no-selectable item first
+              opt = document.createElement("option");
+              opt.appendChild(document.createTextNode("-- Select Branch --"));
+              opt.setAttribute("value", "");
+              opt.setAttribute("disabled", "");
+              opt.setAttribute("selected", "");
               branch_select.appendChild(opt);
+              // Populate combobox
+              for (key in branch_dict) {
+                let opt = document.createElement("option");
+                opt.appendChild(document.createTextNode(key));
+                opt.value = key;
+                branch_select.appendChild(opt);
+              }
             }
-          }
 
 
-          function validateQuantity(elmt, value, max) {
-            value = Number(value);
-            max = Number(max);
-            elmt.value = elmt.value <= 0 ? 1 : elmt.value;
-            elmt.value = elmt.value > max ? max : elmt.value;
-          }
-
-
-          function updateTable() {
-            table_body.innerHTML = "";
-            for (let item in items_in_table) {
-
-              let tr = document.createElement("tr");
-              // Id will be like 1Tank
-              // tr.setAttribute("id", items_in_table[item]["code"] + items_in_table[item]["name"]);
-
-              let branch_name = document.createElement("td");
-              branch_name.appendChild(document.createTextNode(items_in_table[item].branch));
-              branch_name.classList.add("align-middle");
-
-              let min_level = document.createElement("input");
-              const min_level_id = uuidv4();
-              min_level.setAttribute("type", "number");
-              min_level.setAttribute("id", min_level_id);
-              min_level.setAttribute("required", "");
-              min_level.classList.add("form-control", "form-control-sm", "align-middle");
-              // min_level.setAttribute("data-ref", items_in_table[item]["name"]);
-              min_level.setAttribute("min", 1);
-
-              // make sure the min_level is always greater than 0
-              // min_level.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
-              // min_level.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
-              // min_level.setAttribute("onclick", "this.select();");
-              min_level.addEventListener("input", (event) => {
-                items_in_table[item].min_level = Number(event.target.value);
-              })
-              items_in_table[item]['min_level'] = ('min_level' in items_in_table[item] && items_in_table[item]['min_level'] > 0) ?
-                items_in_table[item]['min_level'] : 1;
-              min_level.value = items_in_table[item]['min_level'];
-              let min_levelWrapper = document.createElement("td");
-              min_levelWrapper.classList.add("m-2", "col-2");
-              min_levelWrapper.appendChild(min_level);
-
-
-
-              const max_level_id = uuidv4();
-              const reorder_level_id = uuidv4();
-
-              let max_level = document.createElement("input");
-              max_level.setAttribute("type", "number");
-              max_level.setAttribute("id", max_level_id);
-              max_level.setAttribute("required", "");
-              max_level.classList.add("form-control", "form-control-sm", "align-middle");
-              max_level.setAttribute("data-min", min_level_id);
-              max_level.setAttribute("min", 1);
-
-              // make sure the max_level is always greater than 0
-              max_level.setAttribute("onfocusout",
-                "document.querySelector('#" + reorder_level_id + "').setAttribute('max', this.value)");
-              // max_level.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
-              max_level.setAttribute("onclick", "this.select();");
-              items_in_table[item]['max_level'] = ('max_level' in items_in_table[item] && items_in_table[item]['max_level'] > 0) ?
-                items_in_table[item]['max_level'] : 1;
-              max_level.value = items_in_table[item]['max_level'];
-
-              max_level.addEventListener("input", (event) => {
-                items_in_table[item].max_level = Number(event.target.value);
-              })
-              let max_levelWrapper = document.createElement("td");
-              max_levelWrapper.classList.add("m-2", "col-2");
-              max_levelWrapper.appendChild(max_level);
-
-
-
-              let reorder_level = document.createElement("input");
-              reorder_level.setAttribute("id", reorder_level_id);
-              reorder_level.setAttribute("type", "number");
-              reorder_level.setAttribute("required", "");
-              reorder_level.classList.add("form-control", "form-control-sm", "align-middle");
-              // reorder_level.setAttribute("data-ref", items_in_table[item]["name"]);
-              reorder_level.setAttribute("min", 1);
-              // reorder_level.setAttribute("max", items_in_table[item]['max']);
-
-              // make sure the reorder_level is always greater than 0
-              reorder_level.setAttribute("onfocusout",
-                "document.querySelector('#" + max_level_id + "').setAttribute('min', this.value)");
-              reorder_level.setAttribute("onchange",
-                "document.querySelector('#" + min_level_id + "').setAttribute('max', this.value)");
-              // reorder_level.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
-              // reorder_level.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
-              reorder_level.setAttribute("onclick", "this.select();");
-              items_in_table[item]['reorder_level'] = ('reorder_level' in items_in_table[item] && items_in_table[item]['reorder_level'] > 0) ?
-                items_in_table[item]['reorder_level'] : 1;
-              reorder_level.value = items_in_table[item]['reorder_level'];
-
-              reorder_level.addEventListener("input", (event) => {
-                items_in_table[item].reorder_level = Number(event.target.value);
-              })
-              let reorder_levelWrapper = document.createElement("td");
-              reorder_levelWrapper.classList.add("m-2", "col-2");
-              reorder_levelWrapper.appendChild(reorder_level);
-
-
-
-
-              let opening_balance = document.createElement("input");
-              opening_balance.setAttribute("type", "number");
-              opening_balance.setAttribute("required", "");
-              opening_balance.classList.add("form-control", "form-control-sm", "align-middle");
-              // opening_balance.setAttribute("data-ref", items_in_table[item]["name"]);
-              opening_balance.setAttribute("min", 1);
-              // opening_balance.setAttribute("max", items_in_table[item]['max']);
-
-              // make sure the opening_balance is always greater than 0
-              // opening_balance.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
-              // opening_balance.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
-              opening_balance.setAttribute("onclick", "this.select();");
-              items_in_table[item]['opening_balance'] = ('opening_balance' in items_in_table[item] && items_in_table[item]['opening_balance'] > 0) ?
-                items_in_table[item]['opening_balance'] : 1;
-              opening_balance.value = items_in_table[item]['opening_balance'];
-
-              opening_balance.addEventListener("input", (event) => {
-                items_in_table[item].opening_balance = Number(event.target.value);
-              })
-              let opening_balanceWrapper = document.createElement("td");
-              opening_balanceWrapper.classList.add("m-2", "col-2");
-              opening_balanceWrapper.appendChild(opening_balance);
-
-
-              let actionWrapper = document.createElement("td");
-              actionWrapper.classList.add("m-2");
-              let action = document.createElement("button");
-              action.setAttribute("id", items_in_table[item]["branch"]);
-              action.setAttribute("onclick", "removeItem(this.id);");
-              let icon = document.createElement("span");
-              icon.classList.add("fas", "fa-minus", "mt-1");
-              action.appendChild(icon);
-              action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
-              actionWrapper.appendChild(action);
-
-              tr.append(branch_name,
-                min_levelWrapper,
-                max_levelWrapper,
-                reorder_levelWrapper,
-                opening_balanceWrapper,
-                actionWrapper
-              );
-              table_body.appendChild(tr);
-
-
-              // tr.append(branch_name, balance_td, units_td, quantityWrapper, actionWrapper);
-              // table_body.appendChild(tr);
-
+            function validateQuantity(elmt, value, max) {
+              value = Number(value);
+              max = Number(max);
+              elmt.value = elmt.value <= 0 ? 1 : elmt.value;
+              elmt.value = elmt.value > max ? max : elmt.value;
             }
-            return;
-          }
+
+
+            function updateTable() {
+              table_body.innerHTML = "";
+              for (let item in items_in_table) {
+
+                let tr = document.createElement("tr");
+                // Id will be like 1Tank
+                // tr.setAttribute("id", items_in_table[item]["code"] + items_in_table[item]["name"]);
+
+                let branch_name = document.createElement("td");
+                branch_name.appendChild(document.createTextNode(items_in_table[item].branch));
+                branch_name.classList.add("align-middle");
+
+                let min_level = document.createElement("input");
+                const min_level_id = uuidv4();
+                min_level.setAttribute("type", "number");
+                min_level.setAttribute("id", min_level_id);
+                min_level.setAttribute("required", "");
+                min_level.classList.add("form-control", "form-control-sm", "align-middle");
+                // min_level.setAttribute("data-ref", items_in_table[item]["name"]);
+                min_level.setAttribute("min", 1);
+
+                // make sure the min_level is always greater than 0
+                // min_level.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+                // min_level.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
+                // min_level.setAttribute("onclick", "this.select();");
+                min_level.addEventListener("input", (event) => {
+                  items_in_table[item].min_level = Number(event.target.value);
+                })
+                items_in_table[item]['min_level'] = ('min_level' in items_in_table[item] && items_in_table[item]['min_level'] > 0) ?
+                  items_in_table[item]['min_level'] : 1;
+                min_level.value = items_in_table[item]['min_level'];
+                let min_levelWrapper = document.createElement("td");
+                min_levelWrapper.classList.add("m-2", "col-2");
+                min_levelWrapper.appendChild(min_level);
 
 
 
-          function addItem() {
-            if (!branch_select.value) {
+                const max_level_id = uuidv4();
+                const reorder_level_id = uuidv4();
+
+                let max_level = document.createElement("input");
+                max_level.setAttribute("type", "number");
+                max_level.setAttribute("id", max_level_id);
+                max_level.setAttribute("required", "");
+                max_level.classList.add("form-control", "form-control-sm", "align-middle");
+                max_level.setAttribute("data-min", min_level_id);
+                max_level.setAttribute("min", 1);
+
+                // make sure the max_level is always greater than 0
+                max_level.setAttribute("onfocusout",
+                  "document.querySelector('#" + reorder_level_id + "').setAttribute('max', this.value)");
+                // max_level.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
+                max_level.setAttribute("onclick", "this.select();");
+                items_in_table[item]['max_level'] = ('max_level' in items_in_table[item] && items_in_table[item]['max_level'] > 0) ?
+                  items_in_table[item]['max_level'] : 1;
+                max_level.value = items_in_table[item]['max_level'];
+
+                max_level.addEventListener("input", (event) => {
+                  items_in_table[item].max_level = Number(event.target.value);
+                })
+                let max_levelWrapper = document.createElement("td");
+                max_levelWrapper.classList.add("m-2", "col-2");
+                max_levelWrapper.appendChild(max_level);
+
+
+
+                let reorder_level = document.createElement("input");
+                reorder_level.setAttribute("id", reorder_level_id);
+                reorder_level.setAttribute("type", "number");
+                reorder_level.setAttribute("required", "");
+                reorder_level.classList.add("form-control", "form-control-sm", "align-middle");
+                // reorder_level.setAttribute("data-ref", items_in_table[item]["name"]);
+                reorder_level.setAttribute("min", 1);
+                // reorder_level.setAttribute("max", items_in_table[item]['max']);
+
+                // make sure the reorder_level is always greater than 0
+                reorder_level.setAttribute("onfocusout",
+                  "document.querySelector('#" + max_level_id + "').setAttribute('min', this.value)");
+                reorder_level.setAttribute("onchange",
+                  "document.querySelector('#" + min_level_id + "').setAttribute('max', this.value)");
+                // reorder_level.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+                // reorder_level.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
+                reorder_level.setAttribute("onclick", "this.select();");
+                items_in_table[item]['reorder_level'] = ('reorder_level' in items_in_table[item] && items_in_table[item]['reorder_level'] > 0) ?
+                  items_in_table[item]['reorder_level'] : 1;
+                reorder_level.value = items_in_table[item]['reorder_level'];
+
+                reorder_level.addEventListener("input", (event) => {
+                  items_in_table[item].reorder_level = Number(event.target.value);
+                })
+                let reorder_levelWrapper = document.createElement("td");
+                reorder_levelWrapper.classList.add("m-2", "col-2");
+                reorder_levelWrapper.appendChild(reorder_level);
+
+
+
+
+                let opening_balance = document.createElement("input");
+                opening_balance.setAttribute("type", "number");
+                opening_balance.setAttribute("required", "");
+                opening_balance.classList.add("form-control", "form-control-sm", "align-middle");
+                // opening_balance.setAttribute("data-ref", items_in_table[item]["name"]);
+                opening_balance.setAttribute("min", 1);
+                // opening_balance.setAttribute("max", items_in_table[item]['max']);
+
+                // make sure the opening_balance is always greater than 0
+                // opening_balance.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+                // opening_balance.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
+                opening_balance.setAttribute("onclick", "this.select();");
+                items_in_table[item]['opening_balance'] = ('opening_balance' in items_in_table[item] && items_in_table[item]['opening_balance'] > 0) ?
+                  items_in_table[item]['opening_balance'] : 1;
+                opening_balance.value = items_in_table[item]['opening_balance'];
+
+                opening_balance.addEventListener("input", (event) => {
+                  items_in_table[item].opening_balance = Number(event.target.value);
+                })
+                let opening_balanceWrapper = document.createElement("td");
+                opening_balanceWrapper.classList.add("m-2", "col-2");
+                opening_balanceWrapper.appendChild(opening_balance);
+
+
+                let actionWrapper = document.createElement("td");
+                actionWrapper.classList.add("m-2");
+                let action = document.createElement("button");
+                action.setAttribute("id", items_in_table[item]["branch"]);
+                action.setAttribute("onclick", "removeItem(this.id);");
+                let icon = document.createElement("span");
+                icon.classList.add("fas", "fa-minus", "mt-1");
+                action.appendChild(icon);
+                action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
+                actionWrapper.appendChild(action);
+
+                tr.append(branch_name,
+                  min_levelWrapper,
+                  max_levelWrapper,
+                  reorder_levelWrapper,
+                  opening_balanceWrapper,
+                  actionWrapper
+                );
+                table_body.appendChild(tr);
+
+
+                // tr.append(branch_name, balance_td, units_td, quantityWrapper, actionWrapper);
+                // table_body.appendChild(tr);
+
+              }
               return;
             }
 
-            const branch_pricing = {
-              branch: branch_dict[branch_select.value],
-              max_level: 0,
-              reorder_level: 0,
-              opening_balance: 0,
-            }
-            console.log(branch_pricing);
-            items_in_table[branch_select.value] = branch_pricing;
-
-            delete branch_dict[branch_select.value];
-
-            updateTable();
-            updateBranchSelect();
-          }
-
-          function removeItem(item) {
-            delete items_in_table[String(item)];
-            branch_dict[item] = item;
-
-            updateTable();
-            updateBranchSelect();
-          }
 
 
-          function calculatePrices() {
-            const tax_type = document.querySelector("#tax_type");
-            const applicable_tax = document.querySelector("#applicable_tax");
-            const amount_before_tax = document.querySelector("#amount_before_tax");
+            function addItem() {
+              if (!branch_select.value) {
+                return;
+              }
 
-            const dpp_exc_tax = document.querySelector("#dpp_exc_tax");
-            const dpp_inc_tax = document.querySelector("#dpp_inc_tax");
-            const profit_margin = document.querySelector("#profit_margin");
-            const dsp_price = document.querySelector("#dsp_price");
+              const branch_pricing = {
+                branch: branch_dict[branch_select.value],
+                max_level: 0,
+                reorder_level: 0,
+                opening_balance: 0,
+              }
+              console.log(branch_pricing);
+              items_in_table[branch_select.value] = branch_pricing;
 
+              delete branch_dict[branch_select.value];
 
-            dpp_exc_tax.value = amount_before_tax.value
-
-            if (tax_type.value == "inclusive" && applicable_tax.value > 0) {
-              // dpp_inc_tax.value = (applicable_tax.value / 100 * amount_before_tax.value) + Number(amount_before_tax.value);
-              dpp_inc_tax.value = amount_before_tax.value
-              dpp_inc_tax.value = Number(dpp_inc_tax.value).toFixed(2)
-              dpp_exc_tax.value = Number(amount_before_tax.value) / ((Number(applicable_tax.value) + 100) / 100)
-              dpp_exc_tax.value = Number(dpp_exc_tax.value).toFixed(2)
-            } else if (tax_type.value == "exclusive" && applicable_tax.value > 0) {
-              dpp_inc_tax.value = (applicable_tax.value / 100 * amount_before_tax.value) + Number(amount_before_tax.value);
-              dpp_inc_tax.value = Number(dpp_inc_tax.value).toFixed(2)
-            } else {
-              dpp_inc_tax.value = amount_before_tax.value;
+              updateTable();
+              updateBranchSelect();
             }
 
-            // dsp_price.value = (profit_margin.value / 100 * amount_before_tax.value) + Number(amount_before_tax.value)
-            profit_margin.value = ((dsp_price.value - Number(amount_before_tax.value)) / amount_before_tax.value) * 100;
+            function removeItem(item) {
+              delete items_in_table[String(item)];
+              branch_dict[item] = item;
 
-            //console.log(tax_type.value, applicable_tax.value, amount_before_tax.value);
-          }
-
-          function removeSpinner() {
-            const spinner = document.querySelector("#spinner");
-            spinner.setAttribute("class", "invisible");
-          }
-        </script>
+              updateTable();
+              updateBranchSelect();
+            }
 
 
+            function calculatePrices() {
+              const tax_type = document.querySelector("#tax_type");
+              const applicable_tax = document.querySelector("#applicable_tax");
+              const amount_before_tax = document.querySelector("#amount_before_tax");
 
-        <!-- =========================================================== -->
-        <!-- Footer Begin -->
-        <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <?php
-        include '../includes/base_page/footer.php';
-        ?>
-        <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <!-- Footer End -->
-        <!-- =========================================================== -->
+              const dpp_exc_tax = document.querySelector("#dpp_exc_tax");
+              const dpp_inc_tax = document.querySelector("#dpp_inc_tax");
+              const profit_margin = document.querySelector("#profit_margin");
+              const dsp_price = document.querySelector("#dsp_price");
+
+
+              dpp_exc_tax.value = amount_before_tax.value
+
+              if (tax_type.value == "inclusive" && applicable_tax.value > 0) {
+                // dpp_inc_tax.value = (applicable_tax.value / 100 * amount_before_tax.value) + Number(amount_before_tax.value);
+                dpp_inc_tax.value = amount_before_tax.value
+                dpp_inc_tax.value = Number(dpp_inc_tax.value).toFixed(2)
+                dpp_exc_tax.value = Number(amount_before_tax.value) / ((Number(applicable_tax.value) + 100) / 100)
+                dpp_exc_tax.value = Number(dpp_exc_tax.value).toFixed(2)
+              } else if (tax_type.value == "exclusive" && applicable_tax.value > 0) {
+                dpp_inc_tax.value = (applicable_tax.value / 100 * amount_before_tax.value) + Number(amount_before_tax.value);
+                dpp_inc_tax.value = Number(dpp_inc_tax.value).toFixed(2)
+              } else {
+                dpp_inc_tax.value = amount_before_tax.value;
+              }
+
+              // dsp_price.value = (profit_margin.value / 100 * amount_before_tax.value) + Number(amount_before_tax.value)
+              profit_margin.value = ((dsp_price.value - Number(amount_before_tax.value)) / amount_before_tax.value) * 100;
+
+              //console.log(tax_type.value, applicable_tax.value, amount_before_tax.value);
+            }
+
+            function removeSpinner() {
+              const spinner = document.querySelector("#spinner");
+              spinner.setAttribute("class", "invisible");
+            }
+          </script>
+
+
+
+          <!-- =========================================================== -->
+          <!-- Footer Begin -->
+          <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+          <?php
+          include '../includes/base_page/footer.php';
+          ?>
+          <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+          <!-- Footer End -->
+          <!-- =========================================================== -->
 </body>
 
 </html>
