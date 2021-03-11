@@ -571,7 +571,17 @@ export default {
       }
 
       unsorted_array.sort(function (a, b) {
-        return (a.key - b.key) * -1;
+        let nameA = IsNan(a["key"]) String(a.key).toUpperCase(); // ignore upper and lowercase
+        let nameB = String(b.key).toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
       });
 
       let tmp_obj = {};
