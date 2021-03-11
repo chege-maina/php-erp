@@ -273,7 +273,7 @@ include '../includes/base_page/head.php';
                       <input type="text" name="modal_category_name" id="modal_category_name" class="form-control" required>
                       <div class="invalid-feedback">This field cannot be left blank.</div>
                     </div>
-                    <input type="button" value="Add" class="btn btn-falcon-primary mt-2" id="add_ct_submit" name="add_ct_submit">
+                    <input type="button" value="Add" class="btn btn-falcon-primary mt-2" id="add_ct_submit" name="add_ct_submit" data-dismiss="modal">
                   </form>
                 </div>
               </div>
@@ -312,7 +312,7 @@ include '../includes/base_page/head.php';
                         <div class="invalid-feedback">This field cannot be left blank.</div>
                       </div>
                     </div>
-                    <input type="button" value="Add" class="btn btn-falcon-primary mt-2" id="add_ut_submit" name="add_ut_submit">
+                    <input type="button" value="Add" class="btn btn-falcon-primary mt-2" id="add_ut_submit" name="add_ut_submit" data-dismiss="modal">
                   </form>
                 </div>
               </div>
