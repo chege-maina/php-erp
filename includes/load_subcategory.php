@@ -8,13 +8,14 @@ $query = "SELECT * FROM tbl_category";
 
 $result = mysqli_query($conn, $query);
 $response = array();
-$response2 = array();
+
 
 while ($row = mysqli_fetch_assoc($result)) {
 
 	$category = $row['category_name'];
 	$query2 = "SELECT * FROM tbl_subcategory WHERE category='$category'";
 	$result2 = mysqli_query($conn, $query2);
+	$response2 = array();
 	while ($row2 = mysqli_fetch_assoc($result2)) {
 		$subcategory = $row2['name'];
 		array_push(

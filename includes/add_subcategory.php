@@ -7,7 +7,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $query = "SELECT count(name) FROM tbl_subcategory WHERE name='$sub_category'";
 
   $result = mysqli_query($conn, $query);
-  if ($row = mysqli_fetch_assoc($result)) {
+  $row = mysqli_fetch_assoc($result);
+  if ($row['count(name)'] > 0) {
     $message = "Sub-Group Already Exists..";
     echo json_encode($message);
   } else {
