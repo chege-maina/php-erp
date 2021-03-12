@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 11, 2021 at 02:53 PM
+-- Generation Time: Mar 12, 2021 at 12:32 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -124,7 +124,9 @@ CREATE TABLE `tbl_category` (
 --
 
 INSERT INTO `tbl_category` (`category_code`, `category_name`) VALUES
-(1, 'CEMENT');
+(1, 'CEMENT'),
+(3, 'hell no'),
+(2, 'JESUS');
 
 -- --------------------------------------------------------
 
@@ -723,7 +725,10 @@ CREATE TABLE `tbl_subcategory` (
 
 INSERT INTO `tbl_subcategory` (`id`, `name`, `category`, `sub_cat_code`) VALUES
 (2, 'SIMBA', 'CEMENT', '001-001'),
-(4, 'KALAMU', 'CEMENT', '001-002');
+(4, 'KALAMU', 'CEMENT', '001-002'),
+(5, 'swara', 'cement', '001-003'),
+(6, 'ezekiel mutua', 'jesus', '002-001'),
+(7, 'heaven yes', 'hell no', '003-001');
 
 -- --------------------------------------------------------
 
@@ -1104,7 +1109,7 @@ ALTER TABLE `tbl_branch`
 -- AUTO_INCREMENT for table `tbl_category`
 --
 ALTER TABLE `tbl_category`
-  MODIFY `category_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `category_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_invoice`
@@ -1218,7 +1223,7 @@ ALTER TABLE `tbl_store_item`
 -- AUTO_INCREMENT for table `tbl_subcategory`
 --
 ALTER TABLE `tbl_subcategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_supplier`
