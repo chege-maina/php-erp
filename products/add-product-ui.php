@@ -870,8 +870,8 @@ include '../includes/base_page/head.php';
                 // opening_balance.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
                 // opening_balance.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
                 opening_balance.setAttribute("onclick", "this.select();");
-                items_in_table[item]['opening_balance'] = ('opening_balance' in items_in_table[item] && items_in_table[item]['opening_balance'] > 0) ?
-                  items_in_table[item]['opening_balance'] : 1;
+                items_in_table[item]['opening_balance'] = ('opening_balance' in items_in_table[item] && items_in_table[item]['opening_balance'] >= 0) ?
+                  items_in_table[item]['opening_balance'] : 0;
                 opening_balance.value = items_in_table[item]['opening_balance'];
 
                 opening_balance.addEventListener("input", (event) => {
