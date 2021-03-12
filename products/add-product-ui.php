@@ -207,7 +207,7 @@ include '../includes/base_page/head.php';
                   <!-- Make Combo -->
                   <label class="form-label" for="branch">Branch*</label>
                   <div class="input-group">
-                    <select class="form-select" name="branch" id="branch_select" required>
+                    <select class="form-select" name="branch" id="branch_select">
                       <option value disabled selected>
                         -- Select Branch --
                       </option>
@@ -467,7 +467,7 @@ include '../includes/base_page/head.php';
                 });
               });
               let to_return = errors ? false : tmp_obj;
-              console.log("Table items", to_return);
+              return to_return;
             };
 
 
@@ -502,16 +502,13 @@ include '../includes/base_page/head.php';
 
             function submitForm() {
               console.log("Submitting");
-              // const product_code = document.querySelector("#product_code").value;
+
               const product_name = document.querySelector("#product_name").value;
               const product_category = document.querySelector("#product_category").value;
+              const sub_group = document.querySelector("#sub_group").value;
+              const weight = document.querySelector("#weight").value;
               const product_unit = document.querySelector("#product_unit").value;
-              // const product_supplier = document.querySelector("#product_supplier").value;
               const product_image = document.querySelector("#product_image").files[0];
-
-              const min_level = document.querySelector("#min_level").value;
-              const max_level = document.querySelector("#max_level").value;
-              const reorder = document.querySelector("#reorder").value;
 
               const tax_type = document.querySelector("#tax_type").value;
               const applicable_tax = document.querySelector("#applicable_tax").value;
@@ -522,19 +519,50 @@ include '../includes/base_page/head.php';
               const profit_margin = document.querySelector("#profit_margin").value;
               const dsp_price = document.querySelector("#dsp_price").value;
 
+              const table_items = getTableData();
+              if (table_items == undefined || table_items.length <= 0) {
+                document.querySelector("#branch_select").focus();
+                return false;
+              }
+
+              // ===================================================================
+              // -------------------------------------------------------------------
+              // ===================================================================
+              console.log("user_name", user_name);
+
+              console.log("product_name", product_name);
+              console.log("product_category", product_category);
+              console.log("sub_group", sub_group);
+              console.log("weight", weight);
+              console.log("product_unit", product_unit);
+              console.log("product_image", product_image);
+
+              console.log("tax_type", tax_type);
+              console.log("applicable_tax", applicable_tax);
+              console.log("amount_before_tax", amount_before_tax);
+
+              console.log("dpp_exc_tax", dpp_exc_tax);
+              console.log("dpp_inc_tax", dpp_inc_tax);
+              console.log("profit_margin", profit_margin);
+              console.log("dsp_price", dsp_price);
+
+              console.log("table_items", table_items);
+              // ===================================================================
+              // ___________________________________________________________________
+              // ===================================================================
+
+
+
               const formData = new FormData();
               formData.append("user_name", user_name);
 
               //formData.append("product_code", product_code);
               formData.append("product_name", product_name);
               formData.append("product_category", product_category);
+              formData.append("sub_group", sub_group);
+              formData.append("weight", weight);
               formData.append("product_unit", product_unit);
-              //  formData.append("product_supplier", product_supplier);
               formData.append("product_image", product_image);
-
-              formData.append("min_level", min_level);
-              formData.append("max_level", max_level);
-              formData.append("reorder", reorder);
 
               formData.append("tax_type", tax_type);
               formData.append("applicable_tax", applicable_tax);
@@ -544,6 +572,8 @@ include '../includes/base_page/head.php';
               formData.append("dpp_inc_tax", dpp_inc_tax);
               formData.append("profit_margin", profit_margin);
               formData.append("dsp_price", dsp_price);
+
+              formData.append("table_items", table_items);
 
               fetch('add_product.php', {
                   method: 'POST',
