@@ -483,6 +483,9 @@ include '../includes/base_page/head.php';
               const formData = new FormData();
               formData.append("sub_category", modal_subcategory_name);
               formData.append("category", product_category);
+
+              console.log("sub_category", modal_subcategory_name);
+              console.log("category", product_category);
               fetch('../includes/add_subcategory.php', {
                   method: 'POST',
                   body: formData
