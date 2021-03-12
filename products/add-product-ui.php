@@ -302,7 +302,7 @@ include '../includes/base_page/head.php';
                         <input type="text" name="modal_subcategory_name" id="modal_subcategory_name" class="form-control" required>
                         <div class="invalid-feedback">This field cannot be left blank.</div>
                       </div>
-                      <input type="button" value="Add" class="btn btn-falcon-primary mt-2" id="add_sct_submit" name="add_sct_submit" data-dismiss="modal">
+                      <input type="button" value="Add" class="btn btn-falcon-primary mt-2" id="add_sct_submit" name="add_sct_submit" data-dismiss="modal" onclick="submitSubCategory()">
                     </form>
                   </div>
                 </div>
@@ -469,6 +469,33 @@ include '../includes/base_page/head.php';
               let to_return = errors ? false : tmp_obj;
               console.log("Table items", to_return);
             };
+
+
+            function submitSubCategory() {
+              const modal_subcategory_name = document.querySelector("#modal_subcategory_name").value;
+              const product_category = document.querySelector("#product_category").value;
+
+              if (!modal_subcategory_name) {
+                alert("Incomplete form");
+                return;
+              }
+
+              const formData = new FormData();
+              formData.append("sub_category", modal_subcategory_name);
+              formData.append("category", product_category);
+              fetch('../includes/add_subcategory.php', {
+                  method: 'POST',
+                  body: formData
+                })
+                .then(response => response.json())
+                .then(result => {
+                  alert(result);
+                  updateComboBoxes();
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                });
+            }
 
             function submitForm() {
               console.log("Submitting");
