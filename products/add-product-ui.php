@@ -617,7 +617,6 @@ include '../includes/base_page/head.php';
 
               // Clear it
               sub_group.innerHTML = "";
-              console.log("here")
               // Add the no-selectable item first
               let opt = document.createElement("option");
               opt.appendChild(document.createTextNode("-- Select Group --"));
@@ -627,8 +626,9 @@ include '../includes/base_page/head.php';
               sub_group.appendChild(opt);
 
 
-              let sub_cats = subcategories_dict[product_category.value.toUpperCase()];
+              let sub_cats = subcategories_dict[product_category.value];
               console.log(sub_cats);
+              console.log(sub_cats)
               sub_cats.forEach((sub_cat) => {
                 let opt = document.createElement("option");
                 opt.appendChild(document.createTextNode(sub_cat['subcategory'].toLowerCase()));
@@ -661,7 +661,7 @@ include '../includes/base_page/head.php';
                   data.forEach((value) => {
                     let opt = document.createElement("option");
                     opt.appendChild(document.createTextNode(value['category'].toLowerCase()));
-                    opt.value = value['category'].toLowerCase();
+                    opt.value = value['category'];
                     product_category.appendChild(opt);
                   });
                 });
