@@ -37,7 +37,7 @@ include '../includes/base_page/head.php';
         </h5>
         <div class="card">
           <div class="card-body fs--1 p-4">
-            <div class="row m-3">
+            <div class="row">
               <div class="col">
                 <label class="form-label" for="product_name">First Name*</label>
                 <input type="text" class="form-control" name="first_name" id="first_name" required>
@@ -55,7 +55,7 @@ include '../includes/base_page/head.php';
               </div>
             </div>
 
-            <div class="row m-3">
+            <div class="row mt-2">
               <div class="col">
                 <label for="gender" class="form-label">Gender</label>
                 <select name="gender" id="gender" class="form-select">
@@ -76,7 +76,7 @@ include '../includes/base_page/head.php';
                 </select>
               </div>
             </div>
-            <div class="row m-3">
+            <div class="row mt-2">
               <div class="col">
                 <label class="form-label" for="photo">Passport Photo</label>
                 <input class="form-control" id="photo" name="photo" type="file" accept="image/*" required>
@@ -93,7 +93,7 @@ include '../includes/base_page/head.php';
                 <div class="invalid-feedback">This field cannot be left blank.</div>
               </div>
             </div>
-            <div class="row m-3">
+            <div class="row mt-2">
               <div class="col">
                 <label class="form-label" for="nssf_no">NSSF NO.*</label>
                 <input type="number" class="form-control" name="nssf_no" id="nssf_no" required>
@@ -106,7 +106,7 @@ include '../includes/base_page/head.php';
               </div>
             </div>
 
-            <div class="row m-3">
+            <div class="row mt-2">
               <div class="col">
                 <button class="btn btn-falcon-primary btn-sm m-2" id="submit">
                   Submit
