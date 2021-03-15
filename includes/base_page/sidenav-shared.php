@@ -158,6 +158,18 @@ function genSideBar()
 </ul>
 </li>
 
+<!-- Payroll-->
+<li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-payroll" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-user-friends" style="color:purple;"></span></span><span class="nav-link-text"> Payroll</span>
+  </div>
+</a>
+<ul class="nav collapse" id="e-payroll" data-parent="#navbarVerticalCollapse">
+  <li class="nav-item"><a class="nav-link" href="../payroll/create_employee.php">Create Employee</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../patroll/customer_listing_ui.php">Manage</a>
+  </li>
+</ul>
+</li>
 
 
 <!-- End of Qubes Working  -->

@@ -147,6 +147,7 @@ export default {
     },
     balance: {
       type: String,
+      min: () => "0",
       default: () => "0",
     },
   },
