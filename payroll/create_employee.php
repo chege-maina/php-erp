@@ -116,6 +116,7 @@ include '../includes/base_page/head.php';
             <!-- Content ends here -->
 
           </div>
+        </div>
           <?php
           include '../includes/base_page/footer.php';
           ?>
