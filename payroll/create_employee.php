@@ -72,7 +72,7 @@ include '../includes/base_page/head.php';
                 </div>
                 <div class="col ">
                   <label for="residence" class="form-label">Residential Status</label>
-                  <select name="residence" id="el_branch" class="form-select">
+                  <select name="residence" id="residential_status" class="form-select">
                     <option value="Resident">Resident</option>
                     <option value="Resident">Resident</option>
                   </select>
@@ -141,6 +141,33 @@ include '../includes/base_page/head.php';
           const photo = document.querySelector("#photo");
 
           function submitForm() {
+
+            const formData = new FormData();
+
+            formData.append("first_name", first_name.value);
+            formData.append("middle_name", middle_name.value);
+            formData.append("last_name", last_name.value);
+            formData.append("gender", gender.value);
+            formData.append("residential_status", residential_status.value);
+            formData.append("national_id_no", national_id.value);
+            formData.append("pin_no", pin_no.value);
+            formData.append("nssf_no", nssf_no.value);
+            formData.append("nhif_no", nhif_no.value);
+            formData.append("date_of_birth", dob.value);
+
+            formData.append("passport", photo.files[0]);
+
+            fetch('./insert_employee.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+                console.log('Success:', result);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
             return false;
           }
         </script>
