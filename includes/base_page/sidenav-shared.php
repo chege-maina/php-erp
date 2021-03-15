@@ -166,7 +166,9 @@ function genSideBar()
 <ul class="nav collapse" id="e-payroll" data-parent="#navbarVerticalCollapse">
   <li class="nav-item"><a class="nav-link" href="../payroll/create_employee.php">Create Employee</a>
   </li>
-  <li class="nav-item"><a class="nav-link" href="../patroll/customer_listing_ui.php">Manage</a>
+  <li class="nav-item"><a class="nav-link" href="../payroll/salary_details.php">Salary Details</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../payroll/hr_details.php">HR Details</a>
   </li>
 </ul>
 </li>
