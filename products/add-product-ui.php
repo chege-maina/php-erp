@@ -442,7 +442,7 @@ include '../includes/base_page/head.php';
                 }
                 t_max_val = t_max_val.value;
 
-                let t_reorder_level = row.childNodes[2].childNodes[0];
+                let t_reorder_level = row.childNodes[3].childNodes[0];
                 if (!t_reorder_level.validity.valid) {
                   t_reorder_level.focus();
                   errors = true;
@@ -450,7 +450,7 @@ include '../includes/base_page/head.php';
                 }
                 t_reorder_level = t_reorder_level.value;
 
-                let t_opening_bal = row.childNodes[2].childNodes[0];
+                let t_opening_bal = row.childNodes[4].childNodes[0];
                 if (!t_opening_bal.validity.valid) {
                   t_opening_bal.focus();
                   errors = true;
