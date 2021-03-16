@@ -1,5 +1,3 @@
-<div class="card">
-  <div class="card-body fs--1 p-4">
     <div class="row m-3">
       <div class="col">
         <label for="employment" class="form-label">Employment Type</label>
@@ -62,17 +60,5 @@
         <input type="checkbox" name="vehicle3" value="Boat" checked>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="card">
-  <div class="card-body fs--1 p-4">
-    <div class="card-header"><b>Tax Exemption</b></div>
-  </div>
-</div>
-
-<script>
-  $(document).ready(function() {
-    $('#contrib').multiselect();
-  });
-</script>
+    <script>
+    </script>
