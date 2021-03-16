@@ -122,13 +122,19 @@ include '../includes/base_page/head.php';
                 </div>
               </div>
               <div id="salary_details" class="hide-this">
-                Salary manenos
+                <?php
+                include "./salary_details.php";
+                ?>
               </div>
               <div id="hr_details" class="hide-this">
-                HR Stories
+                <?php
+                include "./hr_details.php";
+                ?>
               </div>
               <div id="contact_details" class="hide-this">
-                Contact details
+                <?php
+                include "./contact_details.php";
+                ?>
               </div>
               <!-- Content ends here -->
 
