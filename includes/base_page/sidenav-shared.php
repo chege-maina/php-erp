@@ -170,6 +170,8 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../payroll/hr_details.php">HR Details</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../payroll/contact_details.php">Contact Details</a>
+  </li>
 </ul>
 </li>
 
