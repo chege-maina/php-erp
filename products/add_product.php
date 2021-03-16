@@ -21,7 +21,6 @@ function sanitize_input($data)
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $user_name = sanitize_input($_POST["user_name"]);
 
-  $product_code = sanitize_input($_POST["product_code"]);
   $product_name = sanitize_input($_POST["product_name"]);
   $product_category = sanitize_input($_POST["product_category"]);
   $product_unit = sanitize_input($_POST["product_unit"]);

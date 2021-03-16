@@ -556,7 +556,6 @@ include '../includes/base_page/head.php';
               const formData = new FormData();
               formData.append("user_name", user_name);
 
-              //formData.append("product_code", product_code);
               formData.append("product_name", product_name);
               formData.append("product_category", product_category);
               formData.append("sub_group", sub_group);
@@ -573,7 +572,7 @@ include '../includes/base_page/head.php';
               formData.append("profit_margin", profit_margin);
               formData.append("dsp_price", dsp_price);
 
-              formData.append("table_items", table_items);
+              formData.append("table_items", JSON.stringify(table_items));
 
               fetch('add_product.php', {
                   method: 'POST',
