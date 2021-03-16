@@ -1,17 +1,6 @@
-<form action="#" method="#" id="contact_details">
+<form action="#" method="#">
   <div class="card">
     <div class="card-body fs--1 p-4">
-      <div>
-        <button class="btn" onclick="window.location.href='../payroll/create_employee.php';showOnly('employee');">Create employee</button>
-        <button class="btn" onclick="showOnly('salary');">Salary details</button>
-        <button class="btn" onclick="showOnly('hr');">Hr details</button>
-        <button class="btn" onclick="window.location.href='../payroll/contact_details.php';showOnly('contact');">Contact details</button>
-      </div>
-      <style>
-        .hide-this {
-          display: none;
-        }
-      </style>
       <div class="row">
         <div class="col">
           <label class="form-label" for="off_mail">Official Email*</label>

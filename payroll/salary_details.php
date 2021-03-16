@@ -76,6 +76,3 @@
     $('#contrib').multiselect();
   });
 </script>
-<?php
-include '../includes/base_page/footer.php';
-?>
