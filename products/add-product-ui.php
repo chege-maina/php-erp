@@ -532,11 +532,12 @@ include '../includes/base_page/head.php';
 
               console.log("product_name", product_name);
               console.log("product_category", product_category);
-              console.log("sub_group", sub_group);
-              console.log("weight", weight);
               console.log("product_unit", product_unit);
-              console.log("product_image", product_image);
 
+              console.log("sub_category", sub_group);
+              console.log("weight", weight);
+
+              console.log("product_image", product_image);
               console.log("tax_type", tax_type);
               console.log("applicable_tax", applicable_tax);
               console.log("amount_before_tax", amount_before_tax);
@@ -558,10 +559,11 @@ include '../includes/base_page/head.php';
 
               formData.append("product_name", product_name);
               formData.append("product_category", product_category);
-              formData.append("sub_group", sub_group);
-              formData.append("weight", weight);
               formData.append("product_unit", product_unit);
-              formData.append("product_image", product_image);
+
+
+              formData.append("sub_category", sub_group);
+              formData.append("weight", weight);
 
               formData.append("tax_type", tax_type);
               formData.append("applicable_tax", applicable_tax);
@@ -571,6 +573,7 @@ include '../includes/base_page/head.php';
               formData.append("dpp_inc_tax", dpp_inc_tax);
               formData.append("profit_margin", profit_margin);
               formData.append("dsp_price", dsp_price);
+              formData.append("product_image", product_image);
 
               formData.append("table_items", JSON.stringify(table_items));
 
