@@ -89,6 +89,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               if ($stmt->execute()) {
 
                 foreach ($table_items as $key => $value) {
+                  $receipt = "opening_bal";
+                  $status = "done";
 
                   $mysql = "INSERT INTO tbl_store_item (qty, product_name, product_code, branch, receipt_no,
                   lpo_number, product_unit, status) VALUES('" . $value["opening_bal"]  . "','" . $product_name . "','" . $maincode . "','" . $value["branch"] . "', '" . $receipt . "','" . $receipt . "','" . $product_unit . "','" . $status . "')";
