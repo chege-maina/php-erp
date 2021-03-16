@@ -462,8 +462,8 @@ include '../includes/base_page/head.php';
                   branch: t_branch,
                   min_level: t_min_val,
                   max_level: t_max_val,
-                  reorder_level: t_reorder_level,
-                  opening_balance: t_opening_bal,
+                  reorder: t_reorder_level,
+                  opening_bal: t_opening_bal,
                 });
               });
               let to_return = errors ? false : tmp_obj;
