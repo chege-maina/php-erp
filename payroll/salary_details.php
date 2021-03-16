@@ -32,11 +32,24 @@ include '../includes/base_page/head.php';
 
 
         <div id="alert-div"></div>
-        <h5 class="p-2" id="title-header">Salary Details
-
+        <h5 class="p-2" id="title-header">
+          Employee Settings
         </h5>
         <div class="card">
           <div class="card-body fs--1 p-4">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  <a class="nav-item nav-link active" href="create_employee.php">Create Employee</a>
+                  <a class="nav-item nav-link active" href="salary_details.php">Salary Details</a>
+                  <a class="nav-item nav-link active" href="hr_details.php">HR Details</a>
+                  <a class="nav-item nav-link active" href="contact_details.php">Contact Details</a>
+                </div>
+              </div>
+            </nav>
             <div class="row m-3">
               <div class="col">
                 <label for="employment" class="form-label">Employment Type</label>
