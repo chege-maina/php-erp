@@ -1,5 +1,5 @@
 <div class="btn-group">
-  <button type="button" id="emp_btn" class="btn btn-falcon-default disabled" onclick="showOnly('employee');">Create employee</button>
+  <button type="button" id="emp_btn" class="btn btn-falcon-default disabled border" onclick="showOnly('employee');">Create employee</button>
   <button type="button" id="sl_btn" class="btn btn-falcon-default" onclick="showOnly('salary');">Salary details</button>
   <button type="button" id="hr_btn" class="btn btn-falcon-default" onclick="showOnly('hr');">Hr details</button>
   <button type="button" id="cn_btn" class="btn btn-falcon-default" onclick="showOnly('contact');">Contact details</button>
