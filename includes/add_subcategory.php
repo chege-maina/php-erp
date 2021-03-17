@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $code2 = "0" . $code2;
         }
       }
-      $maincode = $code . "-" . $code2;
+      $maincode = $code . "_" . $code2;
       $mysql = "INSERT INTO tbl_subcategory (name, category, sub_cat_code) VALUES('" . $sub_category . "','" . $category . "','" . $maincode . "')";
       mysqli_query($conn, $mysql);
       $message = "Sub-Group added Successfully..";
