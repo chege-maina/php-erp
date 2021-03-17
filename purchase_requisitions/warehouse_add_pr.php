@@ -122,10 +122,9 @@ include '../includes/base_page/head.php';
             // console.log(user_name);
             // Fetch items and balance
             fetch('../includes/requisition_items.php')
-              .then(response => response.text())
+              .then(response => response.json())
               .then(data => {
                 console.log(data)
-                return;
                 data.forEach((value) => {
                   all_requisitionable_items[value["product_name"]] = {
                     name: value["product_name"],
