@@ -20,15 +20,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         $result = mysqli_query($conn, $query);
-        $response = array();
 
         while ($row = mysqli_fetch_assoc($result)) {
 
             $product = $row['product_name'];
             $productcode = $row['product_code'];
             $unit = $row['product_unit'];
-            $reorder = $row['min_level'];
-            $max = $row['max_level'];
             $tax = $row['applicable_tax'];
             $price = $row['dsp_price'];
 
