@@ -7,7 +7,7 @@ session_start();
 
 $branch = $_SESSION['branch'];
 
-$query = "SELECT * FROM tbl_product";
+$query = "SELECT * FROM tbl_branch_levels WHERE branch='$branch'";
 
 
 $result = mysqli_query($conn, $query);
@@ -16,8 +16,12 @@ $response = array();
 while ($row = mysqli_fetch_assoc($result)) {
 
     $product = $row['product_name'];
-    $productcode = $row['product_code'];
-    $unit = $row['product_unit'];
+    $query8 = "SELECT * FROM tbl_product WHERE product_name='$product'";
+    $result8 = mysqli_query($conn, $query8);
+    $row8 = mysqli_fetch_assoc($result8);
+    $productcode = $row8['product_code'];
+
+    $unit = $row8['product_unit'];
     $reorder = $row['reorder'];
     $max = $row['max_level'];
 
