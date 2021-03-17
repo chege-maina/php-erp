@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $code2 = "0" . $code2;
               }
             }
-            $maincode = $code . "-" . $code2;
+            $maincode = $code . "_" . $code2;
 
 
 
