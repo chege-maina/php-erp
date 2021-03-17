@@ -42,6 +42,11 @@
       <select name="off_days" id="off_days" class="form-select">
         <option value="SUNDAY">SUNDAY</option>
         <option value="MONDAY">MONDAY</option>
+        <option value="TUESDAY">TUESDAY</option>
+        <option value="WEDNESDAY">WEDNESDAY</option>
+        <option value="THURSDAY">THURSDAY</option>
+        <option value="FRIDAY">FRIDAY</option>
+        <option value="SATURDAY">SATURDAY</option>
       </select>
     </div>
   </div>
@@ -65,4 +70,7 @@
       </div>
     </div>
   </div>
+  <?php
+  include './payment_details.php';
+  ?>
 </div>
