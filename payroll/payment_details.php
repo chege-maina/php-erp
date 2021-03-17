@@ -53,6 +53,52 @@
   const so_bank_transfer = document.querySelector("#so_bank_transfer");
   const so_mobile_money = document.querySelector("#so_mobile_money");
 
+  const s_account_no = document.querySelector("#s_account_no");
+  const s_account_name = document.querySelector("#s_account_name");
+  const s_bank_name = document.querySelector("#s_bank_name");
+  const s_bank_branch = document.querySelector("#s_bank_branch");
+  const s_sort_code = document.querySelector("#s_sort_code");
+
+  const s_mobile_no = document.querySelector("#s_mobile_no");
+
+  const so_bank_transfer_fields = [s_account_no, s_account_name, s_bank_name, s_bank_branch, s_sort_code];
+
+  function checkPaymentOption() {
+    if (s_payment_option.value == "Bank Transfer") {
+      so_bank_transfer_fields.forEach(field => {
+        if (field.value.trim() == "") {
+          return {
+            success: false,
+            message: "Some bank transfer details have not been filled"
+          };
+        }
+      });
+    } else if (s_payment_option.value == "Mobile Money") {
+      if (s_mobile_no.value.trim() == "") {
+        return {
+          success: false,
+          message: "Payment mobile number not filled"
+        };
+      }
+    }
+
+    return {
+      success: true
+    };
+
+  }
+
+  function getPaymentOption() {
+    return {
+      s_payment_option: s_payment_option.value,
+      s_account_no: s_account_no.value,
+      s_bank_name: s_bank_name.value,
+      s_bank_branch: s_bank_branch.value,
+      s_sort_code: s_sort_code.value,
+      s_mobile_no: s_mobile_no.value
+    }
+  }
+
   function paymentOptionChanged() {
     switch (s_payment_option.value) {
       case "Bank Transfer":
