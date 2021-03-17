@@ -36,12 +36,20 @@ include '../includes/base_page/head.php';
           Employee Settings
         </h5>
 
+        <div class="card mb-1">
+          <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/illustrations/corner-4.png);">
+          </div>
+          <!--/.bg-holder-->
+          <div class="card-body position-relative">
+            <?php
+            include './new-button.php';
+            ?>
+          </div>
+        </div>
+
         <form action="#" method="POST" onsubmit="return submitForm();">
           <div class="card">
             <div class="card-body fs--1 p-4">
-              <?php
-              include '../includes/base_page/new-button.php';
-              ?>
               <div id="create_employee">
 
                 <div class="row">
