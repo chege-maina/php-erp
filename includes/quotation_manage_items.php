@@ -93,9 +93,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 )
             );
         }
-
-        echo json_encode($response);
     }
+    echo json_encode($response);
 } else {
     $message = "Fields have no data...";
     echo json_encode($message);
