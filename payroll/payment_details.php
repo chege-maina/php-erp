@@ -92,6 +92,7 @@
     return {
       s_payment_option: s_payment_option.value,
       s_account_no: s_account_no.value,
+      s_account_name: s_account_name.value,
       s_bank_name: s_bank_name.value,
       s_bank_branch: s_bank_branch.value,
       s_sort_code: s_sort_code.value,

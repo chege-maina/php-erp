@@ -100,8 +100,8 @@
       salary_type: salary_type.value,
       off_days: off_days.value,
       income_tax: income_tax.value,
-      deduct_nssf: deduct_nssf.value,
-      deduct_nhif: deduct_nhif.value,
+      deduct_nssf: deduct_nssf.checked,
+      deduct_nhif: deduct_nhif.checked,
     };
 
     const paymentOptions = getPaymentOption();
