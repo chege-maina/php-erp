@@ -925,7 +925,7 @@ include '../includes/base_page/head.php';
                 opening_balance.setAttribute("required", "");
                 opening_balance.classList.add("form-control", "form-control-sm", "align-middle");
                 // opening_balance.setAttribute("data-ref", items_in_table[item]["name"]);
-                opening_balance.setAttribute("min", 1);
+                opening_balance.setAttribute("min", 0);
                 // opening_balance.setAttribute("max", items_in_table[item]['max']);
 
                 // make sure the opening_balance is always greater than 0
