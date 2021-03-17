@@ -62,9 +62,17 @@ include '../includes/base_page/head.php';
                   <label for="physical_address" class="form-label">Physical Address*</label>
                   <input name="physical_address" id="sup_physical_address" class="form-control" type="text" placeholder="Physical Address" required>
                 </div>
+                <div class="col">
+                  <label for="#" class="form-label">Select Sales Rep </label>
+                  <div class="input-group">
+                    <input list="suppliers" name="supplier" id="supplier_name" class="form-select" required>
+                    <datalist id="suppliers"></datalist>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+
           <div class="card mt-1">
             <div class="card-body fs--1 p-4">
               <div class="row">
@@ -108,8 +116,10 @@ include '../includes/base_page/head.php';
 
     <script>
       // const items_in_requisitionable_item
-      const add_customer = document.querySelector("#add_customer");
+      const suppliers = document.querySelector("#suppliers");
+      const supplier_name = document.querySelector("#supplier_name");
 
+      const add_customer = document.querySelector("#add_customer");
       const sup_nm = document.querySelector("#sup_nm");
       const sup_email = document.querySelector("#sup_email");
       const sup_tel = document.querySelector("#sup_tel");
@@ -119,11 +129,51 @@ include '../includes/base_page/head.php';
       const payment_terms = document.querySelector("#payment_terms");
       const credit_limit = document.querySelector("#credit_limit");
 
+      function initSelectElement(elem, init_text = "-- Select --") {
+        elem = document.querySelector(elem);
+        let opt = document.createElement("option");
+        opt.appendChild(document.createTextNode(init_text));
+        opt.setAttribute("value", "");
+        opt.setAttribute("disabled", "");
+        opt.setAttribute("selected", "");
+        elem.appendChild(opt);
+      }
+
+      function populateSelectElement(elem, url_path, key_name, testing = false) {
+        elem = document.querySelector(elem);
+
+        fetch(url_path)
+          .then(response => response.json())
+          .then(data => {
+            if (testing) {
+              console.log(url_path, data);
+              return;
+            }
+            data.forEach((value) => {
+              let opt = document.createElement("option");
+              opt.appendChild(document.createTextNode(value[key_name]));
+              opt.value = value[key_name];
+              elem.appendChild(opt);
+            });
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+
+      }
+
+      window.addEventListener('DOMContentLoaded', (event) => {
+
+        initSelectElement("#suppliers", "-- Select Currency --");
+        populateSelectElement("#suppliers", '../includes/load_sales_rep.php', "name");
+
+      });
+
 
       function sendEverything() {
 
         const formData = new FormData();
-
+        formData.append("sales_rep", supplier_name.value);
         formData.append("name", sup_nm.value);
         formData.append("email", sup_email.value);
         formData.append("tel_no", sup_tel.value);
