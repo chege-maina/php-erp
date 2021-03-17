@@ -108,5 +108,6 @@
     for (let key in paymentOptions) {
       tmp[key] = paymentOptions[key];
     }
+    return tmp;
   }
 </script>
