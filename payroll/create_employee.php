@@ -74,6 +74,16 @@ include '../includes/base_page/head.php';
 
             </div>
           </div>
+
+          <div class="card mt-1 p-1">
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-falcon-primary btn-sm m-2" id="submit">
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
         </form>
         <?php
         include '../includes/base_page/footer.php';

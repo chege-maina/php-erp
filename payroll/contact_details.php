@@ -340,7 +340,6 @@
       </table>
     </div>
   </div>
-  <input type="submit" class="btn btn-falcon-primary m-2" name="submit" id="submit" value="Submit">
 </form>
 <script>
   function edit_row(no) {

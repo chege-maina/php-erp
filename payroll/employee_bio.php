@@ -67,12 +67,4 @@
       <div class="invalid-feedback">This field cannot be left blank.</div>
     </div>
   </div>
-
-  <div class="row mt-2">
-    <div class="col">
-      <button class="btn btn-falcon-primary btn-sm m-2" id="submit">
-        Submit
-      </button>
-    </div>
-  </div>
 </div>
