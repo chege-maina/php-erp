@@ -115,8 +115,11 @@ include '../includes/base_page/head.php';
 
                 <div class="row mt-2">
                   <div class="col">
-                    <button class="btn btn-falcon-primary btn-sm m-2" id="submit">
+                    <!--  <button class="btn btn-falcon-primary btn-sm m-2" id="submit">
                       Submit
+                    </button>-->
+                    <button class="btn btn-falcon-primary btn-sm m-2">
+                      Next
                     </button>
                   </div>
                 </div>
