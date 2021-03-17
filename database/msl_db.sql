@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2021 at 12:32 PM
+-- Generation Time: Mar 17, 2021 at 08:03 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -32,13 +32,6 @@ CREATE TABLE `supplier_product` (
   `supplier_name` varchar(50) NOT NULL,
   `product_cost` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `supplier_product`
---
-
-INSERT INTO `supplier_product` (`product_name`, `supplier_name`, `product_cost`) VALUES
-('Xaviera Kramer', 'Maite Calderon', '1000');
 
 -- --------------------------------------------------------
 
@@ -104,8 +97,7 @@ CREATE TABLE `tbl_branch_levels` (
   `branch` varchar(50) NOT NULL,
   `min_level` varchar(50) NOT NULL,
   `max_level` varchar(50) NOT NULL,
-  `reorder` varchar(50) NOT NULL,
-  `opening_bal` varchar(100) NOT NULL
+  `reorder` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -118,15 +110,6 @@ CREATE TABLE `tbl_category` (
   `category_code` int(11) NOT NULL,
   `category_name` varchar(254) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_category`
---
-
-INSERT INTO `tbl_category` (`category_code`, `category_name`) VALUES
-(1, 'CEMENT'),
-(3, 'hell no'),
-(2, 'JESUS');
 
 -- --------------------------------------------------------
 
@@ -144,14 +127,6 @@ CREATE TABLE `tbl_customer` (
   `payment_terms` varchar(100) NOT NULL,
   `credit_limit` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_customer`
---
-
-INSERT INTO `tbl_customer` (`name`, `email`, `physical_address`, `postal_address`, `tel_no`, `tax_id`, `payment_terms`, `credit_limit`) VALUES
-('Amir Holder', 'nufuwac@mailinator.com', 'Est eu sit quo quia', 'Aliquam quo sint asp', '+1 (232) 749-8112', 'Perferendis nihil eo', '18', '95'),
-('Hilary Curry', 'rahuqexo@mailinator.com', 'Amet et eligendi re', 'Optio saepe modi al', '+1 (779) 275-2269', 'Reiciendis obcaecati', '25', '290000');
 
 -- --------------------------------------------------------
 
@@ -177,14 +152,6 @@ CREATE TABLE `tbl_invoice` (
   `branch` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tbl_invoice`
---
-
-INSERT INTO `tbl_invoice` (`salesbill_no`, `so_number`, `customer_name`, `payment_terms`, `date`, `due_date`, `total`, `status`, `total_bf_tax`, `tax`, `user`, `driver_name`, `truck_no`, `transport_cost`, `branch`) VALUES
-(1, '2', 'Hilary Curry', '18', '2021-03-08', '2021-03-26', '8309.08', 'pending', '7163', '1146.08', 'Jael Joel', '', '', '0', 'MM2'),
-(2, '1', 'Hilary Curry', '25', '2021-03-08', '2021-04-02', '21903.68', 'pending', '18882.48', '3021.2', 'Jael Joel', '', '', '0', 'MM2');
-
 -- --------------------------------------------------------
 
 --
@@ -207,15 +174,6 @@ CREATE TABLE `tbl_invoice_items` (
   `branch` varchar(30) NOT NULL,
   `tax` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_invoice_items`
---
-
-INSERT INTO `tbl_invoice_items` (`id`, `salesbill_no`, `so_number`, `product_code`, `product_name`, `unit`, `qty`, `price`, `total`, `status`, `user`, `tax_pc`, `branch`, `tax`) VALUES
-(1, '1', '2', '1', 'Xaviera Kramer', 'kgs', '1', '369', '7163.00', 'pending', 'Jael Joel', '0', 'MM2', '0.00'),
-(2, '2', '1', '1', 'Xaviera Kramer', 'kgs', '1', '7163', '7163.00', 'pending', 'Jael Joel', '0', 'MM2', '0.00'),
-(3, '2', '1', '2', 'Florence Vincent', 'kgs', '1', '10103', '11719.48', 'pending', 'Jael Joel', '16', 'MM2', '1616.48');
 
 -- --------------------------------------------------------
 
@@ -278,13 +236,6 @@ CREATE TABLE `tbl_purchaseorder` (
   `po_total` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tbl_purchaseorder`
---
-
-INSERT INTO `tbl_purchaseorder` (`po_number`, `supplier_name`, `branch`, `date`, `time`, `user`, `status`, `before_tax`, `tax_amt`, `po_total`) VALUES
-(1, 'Maite Calderon', 'MM2', '2021-03-04', '15:11', 'Jael Joel', 'partial', '100000', '16000', '116000');
-
 -- --------------------------------------------------------
 
 --
@@ -303,13 +254,6 @@ CREATE TABLE `tbl_purchaseorder_items` (
   `status` varchar(10) NOT NULL DEFAULT 'pending',
   `branch` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_purchaseorder_items`
---
-
-INSERT INTO `tbl_purchaseorder_items` (`id`, `po_number`, `product_code`, `product_name`, `product_unit`, `product_quantity`, `product_cost`, `total`, `status`, `branch`) VALUES
-(1, '1', '1', 'Xaviera Kramer', 'kgs', '100', '1000', '100000', 'partial', 'MM2');
 
 -- --------------------------------------------------------
 
@@ -334,13 +278,6 @@ CREATE TABLE `tbl_purchase_bill` (
   `receipt_no` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tbl_purchase_bill`
---
-
-INSERT INTO `tbl_purchase_bill` (`purchasebill_no`, `po_number`, `supplier_name`, `payment_terms`, `delivery_note_no`, `date`, `due_date`, `invoice_no`, `total`, `status`, `total_bf_tax`, `tax`, `user`, `receipt_no`) VALUES
-(1, '1', 'Maite Calderon', '5', 'HHF6', '2021-03-04', '2021-03-09', 'HFTYH', '58000', 'pending', '50000', '8000', 'Jael Joel', '1');
-
 -- --------------------------------------------------------
 
 --
@@ -363,13 +300,6 @@ CREATE TABLE `tbl_purchase_bill_items` (
   `invoice_no` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tbl_purchase_bill_items`
---
-
-INSERT INTO `tbl_purchase_bill_items` (`id`, `purchasebill_no`, `po_number`, `product_code`, `product_name`, `unit`, `qty`, `product_cost`, `total`, `status`, `user`, `receipt_no`, `invoice_no`) VALUES
-(1, '1', '1', '1', 'Xaviera Kramer', 'kgs', '50', '1000', '50000', 'pending', 'Jael Joel', '1', 'HFTYH');
-
 -- --------------------------------------------------------
 
 --
@@ -391,16 +321,6 @@ CREATE TABLE `tbl_quotation` (
   `branch_location` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tbl_quotation`
---
-
-INSERT INTO `tbl_quotation` (`quote_no`, `date`, `customer_name`, `terms`, `due_date`, `time`, `status`, `user`, `sub_total`, `tax`, `amount`, `branch_location`) VALUES
-(1, '2021-03-05', 'Hilary Curry', '25', '2021-03-13', '15:11', 'done', 'Jael Joel', '18882.48', '1616.48', '18882.48', 'MM2'),
-(2, '2021-03-08', 'Hilary Curry', '25', '2021-03-16', '09:24', 'approved', 'Jael Joel', '71630', '0', '71630', 'MM2'),
-(3, '2021-03-08', 'Hilary Curry', '25', '2021-03-16', '09:26', 'done', 'Jael Joel', '7163', '0', '7163', 'MM2'),
-(4, '2021-03-09', 'Amir Holder', '18', '2021-03-17', '10:23', 'pending', 'Jael Joel', '11719.48', '1616.48', '11719.48', 'MM2');
-
 -- --------------------------------------------------------
 
 --
@@ -420,17 +340,6 @@ CREATE TABLE `tbl_quotation_items` (
   `tax_pc` varchar(10) NOT NULL,
   `branch_location` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_quotation_items`
---
-
-INSERT INTO `tbl_quotation_items` (`quote_no`, `product_code`, `product_name`, `unit`, `price`, `qty`, `amount`, `tax`, `status`, `tax_pc`, `branch_location`) VALUES
-(1, '1', 'Xaviera Kramer', 'kgs', '7163', '1', '7163.00', '0.00', 'done', '0', 'MM2'),
-(1, '2', 'Florence Vincent', 'kgs', '10103', '1', '11719.48', '1616.48', 'done', '16', 'MM2'),
-(2, '1', 'Xaviera Kramer', 'kgs', '200', '10', '2000', '0', 'approved', '0', 'MM2'),
-(3, '1', 'Xaviera Kramer', 'kgs', '7163', '1', '7163.00', '0.00', 'done', '0', 'MM2'),
-(4, '2', 'Florence Vincent', 'kgs', '10103', '1', '11719.48', '1616.48', 'pending', '16', 'MM2');
 
 -- --------------------------------------------------------
 
@@ -486,15 +395,6 @@ CREATE TABLE `tbl_remittance` (
   `user` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tbl_remittance`
---
-
-INSERT INTO `tbl_remittance` (`rem_no`, `supplier_name`, `date`, `amount`, `payable`, `wht`, `status`, `user`) VALUES
-(2, 'Maite Calderon', '2021-03-04', '58000', '57000.00000000001', '1000.0000000000001', 'rejected', 'Jael Joel'),
-(3, 'Maite Calderon', '2021-03-08', '58000', '57000.00000000001', '1000.0000000000001', 'rejected', 'Jael Joel'),
-(4, 'Maite Calderon', '2021-03-08', '58000', '57000.00000000001', '1000.0000000000001', 'rejected', 'Jael Joel');
-
 -- --------------------------------------------------------
 
 --
@@ -515,15 +415,6 @@ CREATE TABLE `tbl_remittance_items` (
   `user` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tbl_remittance_items`
---
-
-INSERT INTO `tbl_remittance_items` (`id`, `rem_no`, `due_date`, `invoice_no`, `amount_due`, `wht`, `payable`, `supplier_name`, `date`, `status`, `user`) VALUES
-(2, 2, '2021-03-09', 'HFTYH', '58000', '1000', '57000', 'Maite Calderon', '2021-03-04', 'rejected', 'Jael Joel'),
-(3, 3, '2021-03-09', 'HFTYH', '58000', '1000', '57000', 'Maite Calderon', '2021-03-08', 'rejected', 'Jael Joel'),
-(4, 4, '2021-03-09', 'HFTYH', '58000', '1000', '57000', 'Maite Calderon', '2021-03-08', 'rejected', 'Jael Joel');
-
 -- --------------------------------------------------------
 
 --
@@ -538,13 +429,6 @@ CREATE TABLE `tbl_requisition` (
   `branch` varchar(100) NOT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_requisition`
---
-
-INSERT INTO `tbl_requisition` (`requisition_No`, `date`, `time`, `user`, `branch`, `status`) VALUES
-(1, '2021-03-04', '15:02', 'Jael Joel', 'MM2', 'done');
 
 -- --------------------------------------------------------
 
@@ -563,13 +447,6 @@ CREATE TABLE `tbl_requisition_items` (
   `branch` varchar(50) NOT NULL,
   `balance` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_requisition_items`
---
-
-INSERT INTO `tbl_requisition_items` (`id`, `requisition_No`, `product_code`, `product_name`, `product_unit`, `product_quantity`, `status`, `branch`, `balance`) VALUES
-(1, '1', '1', 'Xaviera Kramer', 'kgs', '100', 'done', 'MM2', '0');
 
 -- --------------------------------------------------------
 
@@ -590,16 +467,6 @@ CREATE TABLE `tbl_sale` (
   `branch_location` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tbl_sale`
---
-
-INSERT INTO `tbl_sale` (`quote_no`, `date`, `customer_name`, `terms`, `status`, `user`, `sub_total`, `tax`, `amount`, `branch_location`) VALUES
-(1, '2021-03-05', 'Hilary Curry', '25', 'approved', 'Jael Joel', '17266', '1616.48', '18882.48', 'MM2'),
-(2, '2021-03-08', 'Hilary Curry', '18', 'done', 'Jael Joel', '7,163.00', '0.00', '7,163.00', 'MM2'),
-(3, '2021-03-08', 'Hilary Curry', '25', 'approved', 'Jael Joel', '7163', '0', '7163', 'MM2'),
-(4, '2021-03-10', 'Hilary Curry', '18', 'pending', 'Jael Joel', '71,630.00', '0.00', '71,630.00', 'MM2');
-
 -- --------------------------------------------------------
 
 --
@@ -619,17 +486,6 @@ CREATE TABLE `tbl_sale_items` (
   `tax_pc` varchar(10) NOT NULL,
   `branch_location` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_sale_items`
---
-
-INSERT INTO `tbl_sale_items` (`quote_no`, `product_code`, `product_name`, `unit`, `price`, `qty`, `amount`, `tax`, `status`, `tax_pc`, `branch_location`) VALUES
-(1, '1', 'Xaviera Kramer', 'kgs', '7163', '1', '7163.00', '0.00', 'done', '0', 'MM2'),
-(1, '2', 'Florence Vincent', 'kgs', '10103', '1', '11719.48', '1616.48', 'done', '16', 'MM2'),
-(2, '1', 'Xaviera Kramer', 'kgs', '369', '1', '7163.00', '0.00', 'done', '0', 'MM2'),
-(3, '1', 'Xaviera Kramer', 'kgs', '7163', '1', '7163.00', '0.00', 'approved', '0', 'MM2'),
-(4, '1', 'Xaviera Kramer', 'kgs', '366', '10', '71630.00', '0.00', 'pending', '0', 'MM2');
 
 -- --------------------------------------------------------
 
@@ -669,15 +525,6 @@ CREATE TABLE `tbl_store` (
   `invoice_no` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tbl_store`
---
-
-INSERT INTO `tbl_store` (`date`, `time`, `branch`, `user`, `supplier_name`, `receipt_no`, `lpo_number`, `status`, `invoice_no`) VALUES
-('2021-03-04', '15:23', 'MM2', 'Jael Joel', 'Maite Calderon', 1, '1', 'done', ''),
-('2021-03-05', '13:39', 'MM2', 'Jael Joel', 'Maite Calderon', 2, '1', 'pending', ''),
-('2021-03-05', '13:44', 'MM2', 'Jael Joel', 'Maite Calderon', 5, '1', 'rejected', '');
-
 -- --------------------------------------------------------
 
 --
@@ -696,16 +543,6 @@ CREATE TABLE `tbl_store_item` (
   `status` varchar(20) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tbl_store_item`
---
-
-INSERT INTO `tbl_store_item` (`qty`, `product_name`, `product_code`, `branch`, `receipt_no`, `id`, `lpo_number`, `product_unit`, `status`) VALUES
-('350', 'Xaviera Kramer', '1', 'MM2', '1', 1, '1', 'kgs', 'done'),
-('10', 'Xaviera Kramer', '1', 'MM2', '2', 2, '1', 'kgs', 'pending'),
-('5', 'Xaviera Kramer', '1', 'MM2', '3', 3, '1', 'kgs', 'pending'),
-('4', 'Xaviera Kramer', '1', 'MM2', '5', 4, '1', 'kgs', 'rejected');
-
 -- --------------------------------------------------------
 
 --
@@ -718,17 +555,6 @@ CREATE TABLE `tbl_subcategory` (
   `category` varchar(20) NOT NULL,
   `sub_cat_code` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_subcategory`
---
-
-INSERT INTO `tbl_subcategory` (`id`, `name`, `category`, `sub_cat_code`) VALUES
-(2, 'SIMBA', 'CEMENT', '001-001'),
-(4, 'KALAMU', 'CEMENT', '001-002'),
-(5, 'swara', 'cement', '001-003'),
-(6, 'ezekiel mutua', 'jesus', '002-001'),
-(7, 'heaven yes', 'hell no', '003-001');
 
 -- --------------------------------------------------------
 
@@ -747,13 +573,6 @@ CREATE TABLE `tbl_supplier` (
   `payment_terms` varchar(100) NOT NULL,
   `number_of_days` varchar(50) NOT NULL DEFAULT '30'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_supplier`
---
-
-INSERT INTO `tbl_supplier` (`supplier_id`, `name`, `email`, `tel_no`, `postal_address`, `physical_address`, `tax_id`, `payment_terms`, `number_of_days`) VALUES
-(1, 'Maite Calderon', 'zekovejoz@mailinator.com', '+1 (471) 382-9539', 'Fugiat deserunt beat', 'Duis tempore repreh', 'Elit eaque illum s', '5', '30');
 
 -- --------------------------------------------------------
 
@@ -821,13 +640,6 @@ CREATE TABLE `tbl_unit` (
   `product_unit` varchar(254) NOT NULL,
   `unit_description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_unit`
---
-
-INSERT INTO `tbl_unit` (`unit_code`, `product_unit`, `unit_description`) VALUES
-(1, 'KGS', 'Kilo');
 
 -- --------------------------------------------------------
 
@@ -1109,19 +921,19 @@ ALTER TABLE `tbl_branch`
 -- AUTO_INCREMENT for table `tbl_category`
 --
 ALTER TABLE `tbl_category`
-  MODIFY `category_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `category_code` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_invoice`
 --
 ALTER TABLE `tbl_invoice`
-  MODIFY `salesbill_no` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `salesbill_no` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_invoice_items`
 --
 ALTER TABLE `tbl_invoice_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_product`
@@ -1133,31 +945,31 @@ ALTER TABLE `tbl_product`
 -- AUTO_INCREMENT for table `tbl_purchaseorder`
 --
 ALTER TABLE `tbl_purchaseorder`
-  MODIFY `po_number` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `po_number` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_purchaseorder_items`
 --
 ALTER TABLE `tbl_purchaseorder_items`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_purchase_bill`
 --
 ALTER TABLE `tbl_purchase_bill`
-  MODIFY `purchasebill_no` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `purchasebill_no` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_purchase_bill_items`
 --
 ALTER TABLE `tbl_purchase_bill_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_quotation`
 --
 ALTER TABLE `tbl_quotation`
-  MODIFY `quote_no` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `quote_no` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_receiptadv`
@@ -1175,31 +987,31 @@ ALTER TABLE `tbl_receiptadv_items`
 -- AUTO_INCREMENT for table `tbl_remittance`
 --
 ALTER TABLE `tbl_remittance`
-  MODIFY `rem_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `rem_no` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_remittance_items`
 --
 ALTER TABLE `tbl_remittance_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_requisition`
 --
 ALTER TABLE `tbl_requisition`
-  MODIFY `requisition_No` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `requisition_No` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_requisition_items`
 --
 ALTER TABLE `tbl_requisition_items`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_sale`
 --
 ALTER TABLE `tbl_sale`
-  MODIFY `quote_no` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `quote_no` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_staff`
@@ -1211,25 +1023,25 @@ ALTER TABLE `tbl_staff`
 -- AUTO_INCREMENT for table `tbl_store`
 --
 ALTER TABLE `tbl_store`
-  MODIFY `receipt_no` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `receipt_no` bigint(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_store_item`
 --
 ALTER TABLE `tbl_store_item`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_subcategory`
 --
 ALTER TABLE `tbl_subcategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_supplier`
 --
 ALTER TABLE `tbl_supplier`
-  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_transfer`
@@ -1247,7 +1059,7 @@ ALTER TABLE `tbl_transfer_items`
 -- AUTO_INCREMENT for table `tbl_unit`
 --
 ALTER TABLE `tbl_unit`
-  MODIFY `unit_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `unit_code` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
