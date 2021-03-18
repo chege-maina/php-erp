@@ -317,8 +317,8 @@
           <th scope="col" class="col-md-2">Action</th>
         </tr>
       </thead>
-      <tbody id="table_body">
-        <tr>
+      <tbody id="c_table_body">
+        <tr id="row_adder">
           <td><input type="text" class="form-control" id="new_name"></td>
           <td><input type="text" class="form-control" id="new_relation"></td>
           <td><input type="text" class="form-control" id="new_phone"></td>
@@ -331,9 +331,30 @@
 </div>
 
 <script>
+  const co_table_body = document.querySelector("#c_table_body").childNodes;
+  let valid_table_items = [];
+
+  function getContactDetails() {
+    for (let i = 0; i < co_table_body.length; i++) {
+      if (i == 0 || i >= (co_table_body.length - 1)) {
+        continue;
+      }
+      if (co_table_body[i].childNodes[i].length > 5) {
+        continue;
+      }
+      valid_table_items.push(co_table_body[i]);
+    }
+
+    valid_table_items.forEach(row => {
+      console.log("Row", row);
+    })
+  }
+</script>
+
+<script>
   function edit_row(no) {
     document.getElementById("edit_button" + no).style.display = "none";
-    document.getElementById("save_button" + no).style.display = "block";
+    document.getElementById("save_button" + no).style.display = "inline";
 
     var name = document.getElementById("name_row" + no);
     var relation = document.getElementById("relation_row" + no);
@@ -362,7 +383,7 @@
     document.getElementById("phone_row" + no).innerHTML = phone_val;
     document.getElementById("email_row" + no).innerHTML = email_val;
 
-    document.getElementById("edit_button" + no).style.display = "block";
+    document.getElementById("edit_button" + no).style.display = "inline";
     document.getElementById("save_button" + no).style.display = "none";
   }
 
@@ -378,11 +399,73 @@
 
     var table = document.getElementById("data_table");
     var table_len = (table.rows.length) - 1;
-    var row = table.insertRow(table_len).outerHTML = "<tr id='row" + table_len + "'><td id='name_row" + table_len + "'>" + new_name + "</td><td id='relation_row" + table_len + "'>" + new_relation + "</td><td id='phone_row" + table_len + "'>" + new_phone + "</td><td id='email_row" + table_len + "'>" + new_email + "</td><td><input type='button' id='edit_button" + table_len + "' value='Edit' class='btn btn-sm btn-falcon-primary' onclick='edit_row(" + table_len + ")'> <input type='button' class='btn btn-sm btn-falcon-success' id='save_button" + table_len + "' value='Save' onclick='save_row(" + table_len + ")'> <input type='button' value='Delete' class='btn btn-sm btn-falcon-danger' onclick='delete_row(" + table_len + ")'></td></tr>";
+    const tbl_body = document.getElementById("c_table_body");
+    const latest_row = document.getElementById(`row_adder`);
+    tbl_body.insertBefore(getNewRow(new_name, new_relation, new_phone, new_email, table_len), latest_row);
+    // var row = table.insertRow(table_len).outerHTML = "<tr id='row" + table_len + "'><td id='name_row" + table_len + "'>" + new_name + "</td><td id='relation_row" + table_len + "'>" + new_relation + "</td><td id='phone_row" + table_len + "'>" + new_phone + "</td><td id='email_row" + table_len + "'>" + new_email + "</td><td><input type='button' id='edit_button" + table_len + "' value='Edit' class='btn btn-sm btn-falcon-primary' onclick='edit_row(" + table_len + ")'> <input type='button' class='btn btn-sm btn-falcon-success' id='save_button" + table_len + "' value='Save' onclick='save_row(" + table_len + ")'> <input type='button' value='Delete' class='btn btn-sm btn-falcon-danger' onclick='delete_row(" + table_len + ")'></td></tr>";
 
     document.getElementById("new_name").value = "";
     document.getElementById("new_relation").value = "";
     document.getElementById("new_phone").value = "";
     document.getElementById("new_email").value = "";
+  }
+
+  let current_index = 0;
+
+  function getNewRow(name, relation, phone, email, index) {
+    const tr = document.createElement("tr");
+    tr.setAttribute("id", `row${index}`);
+    current_index = index;
+
+    const name_row = document.createElement("td");
+    name_row.appendChild(document.createTextNode(name));
+    name_row.setAttribute("id", `name_row${index}`);
+
+    const rel_row = document.createElement("td");
+    rel_row.appendChild(document.createTextNode(relation));
+    rel_row.setAttribute("id", `relation_row${index}`);
+
+    const phone_row = document.createElement("td");
+    phone_row.appendChild(document.createTextNode(phone));
+    phone_row.setAttribute("id", `phone_row${index}`);
+
+    const email_row = document.createElement("td");
+    email_row.appendChild(document.createTextNode(email));
+    email_row.setAttribute("id", `email_row${index}`);
+
+    const action_wrapper = document.createElement("td");
+
+    const edit = document.createElement("input");
+    edit.setAttribute("type", "button");
+    edit.setAttribute("value", "Edit");
+    edit.setAttribute("id", `edit_button${index}`);
+    edit.classList.add("btn", "btn-sm", "btn-falcon-primary", "mr-1");
+    edit.addEventListener("click", () => {
+      edit_row(index);
+    });
+
+
+    const save = document.createElement("input");
+    save.setAttribute("type", "button");
+    save.setAttribute("value", "Save");
+    save.setAttribute("id", `save_button${index}`);
+    save.classList.add("btn", "btn-sm", "btn-falcon-primary", "mr-1");
+    save.addEventListener("click", () => {
+      save_row(index);
+    });
+
+    const del = document.createElement("input");
+    del.setAttribute("type", "button");
+    del.setAttribute("value", "Delete");
+    del.setAttribute("id", `del_button${index}`);
+    del.classList.add("btn", "btn-sm", "btn-falcon-primary");
+    del.addEventListener("click", () => {
+      delete_row(index);
+    });
+
+    action_wrapper.append(edit, save, del);
+
+    tr.append(name_row, rel_row, phone_row, email_row, action_wrapper);
+    return tr;
   }
 </script>
