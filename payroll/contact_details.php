@@ -332,22 +332,37 @@
 
 <script>
   const co_table_body = document.querySelector("#c_table_body").childNodes;
-  let valid_table_items = [];
+  let valid_table_items = {};
+  let emp_table_items = {};
 
   function getContactDetails() {
     for (let i = 0; i < co_table_body.length; i++) {
-      if (i == 0 || i >= (co_table_body.length - 1)) {
+      if (i == 0 ||
+        i >= (co_table_body.length - 1) ||
+        "id" in co_table_body[i] &&
+        co_table_body[i].id == "row_adder"
+      ) {
         continue;
       }
       if (co_table_body[i].childNodes[i].length > 5) {
         continue;
       }
-      valid_table_items.push(co_table_body[i]);
+      valid_table_items[co_table_body[i].id] = co_table_body[i];
     }
 
-    valid_table_items.forEach(row => {
-      console.log("Row", row);
-    })
+
+    console.log(valid_table_items);
+    for (key in valid_table_items) {
+      console.log("Adding ", valid_table_items[key]);
+      emp_table_items[key] = {
+        "name": valid_table_items[key].childNodes[0].innerHTML,
+        "relation": valid_table_items[key].childNodes[1].innerHTML,
+        "phone": valid_table_items[key].childNodes[2].innerHTML,
+        "email": valid_table_items[key].childNodes[3].innerHTML,
+      };
+    }
+
+    console.log(emp_table_items);
   }
 </script>
 
