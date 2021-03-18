@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $tax_id = sanitize_input($_POST["tax_id"]);
   $terms = sanitize_input($_POST["terms"]);
   $limit = sanitize_input($_POST["limit"]);
+  $sales_rep = sanitize_input($_POST["sales_rep"]);
 
   if ($stmt = $con->prepare('SELECT name FROM tbl_customer WHERE name = ? and email =?')) {
     // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
@@ -32,8 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->store_result();
     if ($stmt->num_rows == 0) {
       if ($stmt = $con->prepare('INSERT INTO tbl_customer (name, email, tel_no, 
-      postal_address, physical_address, tax_id, payment_terms, credit_limit) VALUES (?,?,?,?,?,?,?,?)')) {
-        $stmt->bind_param('ssssssss', $name, $email, $tel_no, $postal_address, $physical_address, $tax_id, $terms, $limit);
+      postal_address, physical_address, tax_id, payment_terms, credit_limit, sales_rep) VALUES (?,?,?,?,?,?,?,?,?)')) {
+        $stmt->bind_param('sssssssss', $name, $email, $tel_no, $postal_address, $physical_address, $tax_id, $terms, $limit, $sales_rep);
 
         if ($stmt->execute()) {
           $responseArray = array(

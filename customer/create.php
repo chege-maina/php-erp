@@ -30,6 +30,11 @@ include '../includes/base_page/head.php';
         <?php
         include '../navbar-shared.php';
         ?>
+
+        <?php
+        include '../base_page/data_list_select.php';
+        ?>
+
         <div id="alert-div"></div>
         <h5 class="p-2">Add Customer</h5>
 
@@ -62,9 +67,17 @@ include '../includes/base_page/head.php';
                   <label for="physical_address" class="form-label">Physical Address*</label>
                   <input name="physical_address" id="sup_physical_address" class="form-control" type="text" placeholder="Physical Address" required>
                 </div>
+                <div class="col">
+                  <label for="#" class="form-label">Select Sales Rep </label>
+                  <div class="input-group">
+                    <input list="suppliers" name="supplier" id="supplier_name" class="form-select" required>
+                    <datalist id="suppliers"></datalist>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+
           <div class="card mt-1">
             <div class="card-body fs--1 p-4">
               <div class="row">
@@ -108,8 +121,10 @@ include '../includes/base_page/head.php';
 
     <script>
       // const items_in_requisitionable_item
-      const add_customer = document.querySelector("#add_customer");
+      const suppliers = document.querySelector("#suppliers");
+      const supplier_name = document.querySelector("#supplier_name");
 
+      const add_customer = document.querySelector("#add_customer");
       const sup_nm = document.querySelector("#sup_nm");
       const sup_email = document.querySelector("#sup_email");
       const sup_tel = document.querySelector("#sup_tel");
@@ -119,11 +134,18 @@ include '../includes/base_page/head.php';
       const payment_terms = document.querySelector("#payment_terms");
       const credit_limit = document.querySelector("#credit_limit");
 
+      window.addEventListener('DOMContentLoaded', (event) => {
+
+        initSelectElement("#suppliers", "-- Select Currency --");
+        populateSelectElement("#suppliers", '../includes/load_sales_rep.php', "name");
+
+      });
+
 
       function sendEverything() {
 
         const formData = new FormData();
-
+        formData.append("sales_rep", supplier_name.value);
         formData.append("name", sup_nm.value);
         formData.append("email", sup_email.value);
         formData.append("tel_no", sup_tel.value);
