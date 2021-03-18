@@ -402,7 +402,6 @@
     const tbl_body = document.getElementById("c_table_body");
     const latest_row = document.getElementById(`row_adder`);
     tbl_body.insertBefore(getNewRow(new_name, new_relation, new_phone, new_email, table_len), latest_row);
-    // var row = table.insertRow(table_len).outerHTML = "<tr id='row" + table_len + "'><td id='name_row" + table_len + "'>" + new_name + "</td><td id='relation_row" + table_len + "'>" + new_relation + "</td><td id='phone_row" + table_len + "'>" + new_phone + "</td><td id='email_row" + table_len + "'>" + new_email + "</td><td><input type='button' id='edit_button" + table_len + "' value='Edit' class='btn btn-sm btn-falcon-primary' onclick='edit_row(" + table_len + ")'> <input type='button' class='btn btn-sm btn-falcon-success' id='save_button" + table_len + "' value='Save' onclick='save_row(" + table_len + ")'> <input type='button' value='Delete' class='btn btn-sm btn-falcon-danger' onclick='delete_row(" + table_len + ")'></td></tr>";
 
     document.getElementById("new_name").value = "";
     document.getElementById("new_relation").value = "";
