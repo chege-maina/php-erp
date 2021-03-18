@@ -124,8 +124,13 @@ include '../includes/base_page/head.php';
       <!-- =========================================================== -->
 
       <script>
-        const supplier_name = document.querySelector("#supplier_name");
-        const supplier = document.querySelector("#supplier");
+        const employee_name = document.querySelector("#employee_name");
+        const employee = document.querySelector("#employee");
+        const att_date = document.querySelector("#att_date");
+        const employee_no = document.querySelector("#employee_no");
+        const branch = document.querySelector("#branch");
+        const designation = document.querySelector("#designation");
+        const shift = document.querySelector("#shift");
       </script>
 
 
