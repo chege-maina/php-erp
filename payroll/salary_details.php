@@ -17,8 +17,6 @@
       <label for="shift" class="form-label">Work Shift</label>
       <select name="shift" id="work_shift" class="form-select">
         <option value="Regular">Regular shift</option>
-        <option value="Night">Night shift</option>
-        <option value="Afternoon">Afternoon shift</option>
       </select>
     </div>
   </div>
@@ -72,6 +70,7 @@
       </div>
     </div>
   </div>
+<<<<<<< HEAD
   <?php
   include './payment_details.php';
   ?>
@@ -113,3 +112,6 @@
     return tmp;
   }
 </script>
+=======
+</div>
+>>>>>>> parent of 34025aa (employee aattendance)
