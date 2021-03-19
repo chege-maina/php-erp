@@ -226,7 +226,7 @@
       city_town: city_town.value,
       county: county.value,
       p_code: p_code.value,
-      next_of_kin: getNextOfKin(),
+      table_items: JSON.stringify(getNextOfKin()),
     }
 
     return tmp;
