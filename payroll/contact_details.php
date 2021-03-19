@@ -56,6 +56,13 @@
 </div>
 <div class="card-header">Next of Kin</div>
 <div class="row">
+  <div class="col col-auto">
+    <button type="button" class="btn btn-sm btn-primary" onclick="addItem();">
+      Add Row
+    </button>
+  </div>
+</div>
+<div class="row">
   <div class="col">
     <table class="table table-striped" id="data_table">
       <thead>
@@ -75,132 +82,64 @@
 
 <script>
   const items_in_table = {};
+  const c_table_body = document.querySelector("#c_table_body");
+
 
   function updateTable() {
-    table_body.innerHTML = "";
+    c_table_body.innerHTML = "";
+    console.log(items_in_table);
     for (let item in items_in_table) {
 
       let tr = document.createElement("tr");
-      // Id will be like 1Tank
-      // tr.setAttribute("id", items_in_table[item]["code"] + items_in_table[item]["name"]);
 
-      let branch_name = document.createElement("td");
-      branch_name.appendChild(document.createTextNode(items_in_table[item].branch));
-      branch_name.classList.add("align-middle");
+      let kin_name = document.createElement("input");
+      kin_name.setAttribute("type", "text");
+      kin_name.setAttribute("required", "");
+      kin_name.setAttribute("value", items_in_table[item].name);
+      kin_name.classList.add("form-control", "form-control-sm", "align-middle");
+      kin_name.addEventListener("change", event => {
+        items_in_table[item].name = String(event.target.value);
+      });
+      let kin_name_wrapper = document.createElement("td");
+      kin_name_wrapper.appendChild(kin_name);
 
-      let min_level = document.createElement("input");
-      const min_level_id = uuidv4();
-      min_level.setAttribute("type", "number");
-      min_level.setAttribute("id", min_level_id);
-      min_level.setAttribute("required", "");
-      min_level.classList.add("form-control", "form-control-sm", "align-middle");
-      // min_level.setAttribute("data-ref", items_in_table[item]["name"]);
-      min_level.setAttribute("min", 1);
+      let kin_relation = document.createElement("input");
+      kin_relation.setAttribute("type", "text");
+      kin_relation.setAttribute("required", "");
+      kin_relation.setAttribute("value", items_in_table[item].relation);
+      kin_relation.classList.add("form-control", "form-control-sm", "align-middle");
+      kin_relation.addEventListener("change", event => {
+        items_in_table[item].relation = String(event.target.value);
+      });
+      let kin_relation_wrapper = document.createElement("td");
+      kin_relation_wrapper.appendChild(kin_relation);
 
-      // make sure the min_level is always greater than 0
-      // min_level.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
-      // min_level.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
-      // min_level.setAttribute("onclick", "this.select();");
-      min_level.addEventListener("input", (event) => {
-        items_in_table[item].min_level = Number(event.target.value);
-      })
-      items_in_table[item]['min_level'] = ('min_level' in items_in_table[item] && items_in_table[item]['min_level'] > 0) ?
-        items_in_table[item]['min_level'] : 1;
-      min_level.value = items_in_table[item]['min_level'];
-      let min_levelWrapper = document.createElement("td");
-      min_levelWrapper.classList.add("m-2", "col-2");
-      min_levelWrapper.appendChild(min_level);
+      let kin_phone = document.createElement("input");
+      kin_phone.setAttribute("type", "tel");
+      kin_phone.setAttribute("required", "");
+      kin_phone.setAttribute("value", items_in_table[item].phone);
+      kin_phone.classList.add("form-control", "form-control-sm", "align-middle");
+      kin_phone.addEventListener("change", event => {
+        items_in_table[item].phone = String(event.target.value);
+      });
+      let kin_phone_wrapper = document.createElement("td");
+      kin_phone_wrapper.appendChild(kin_phone);
 
-
-
-      const max_level_id = uuidv4();
-      const reorder_level_id = uuidv4();
-
-      let max_level = document.createElement("input");
-      max_level.setAttribute("type", "number");
-      max_level.setAttribute("id", max_level_id);
-      max_level.setAttribute("required", "");
-      max_level.classList.add("form-control", "form-control-sm", "align-middle");
-      max_level.setAttribute("data-min", min_level_id);
-      max_level.setAttribute("min", 1);
-
-      // make sure the max_level is always greater than 0
-      max_level.setAttribute("onfocusout",
-        "document.querySelector('#" + reorder_level_id + "').setAttribute('max', this.value)");
-      // max_level.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
-      max_level.setAttribute("onclick", "this.select();");
-      items_in_table[item]['max_level'] = ('max_level' in items_in_table[item] && items_in_table[item]['max_level'] > 0) ?
-        items_in_table[item]['max_level'] : 1;
-      max_level.value = items_in_table[item]['max_level'];
-
-      max_level.addEventListener("input", (event) => {
-        items_in_table[item].max_level = Number(event.target.value);
-      })
-      let max_levelWrapper = document.createElement("td");
-      max_levelWrapper.classList.add("m-2", "col-2");
-      max_levelWrapper.appendChild(max_level);
-
-
-
-      let reorder_level = document.createElement("input");
-      reorder_level.setAttribute("id", reorder_level_id);
-      reorder_level.setAttribute("type", "number");
-      reorder_level.setAttribute("required", "");
-      reorder_level.classList.add("form-control", "form-control-sm", "align-middle");
-      // reorder_level.setAttribute("data-ref", items_in_table[item]["name"]);
-      reorder_level.setAttribute("min", 1);
-      // reorder_level.setAttribute("max", items_in_table[item]['max']);
-
-      // make sure the reorder_level is always greater than 0
-      reorder_level.setAttribute("onfocusout",
-        "document.querySelector('#" + max_level_id + "').setAttribute('min', this.value)");
-      reorder_level.setAttribute("onchange",
-        "document.querySelector('#" + min_level_id + "').setAttribute('max', this.value)");
-      // reorder_level.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
-      // reorder_level.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
-      reorder_level.setAttribute("onclick", "this.select();");
-      items_in_table[item]['reorder_level'] = ('reorder_level' in items_in_table[item] && items_in_table[item]['reorder_level'] > 0) ?
-        items_in_table[item]['reorder_level'] : 1;
-      reorder_level.value = items_in_table[item]['reorder_level'];
-
-      reorder_level.addEventListener("input", (event) => {
-        items_in_table[item].reorder_level = Number(event.target.value);
-      })
-      let reorder_levelWrapper = document.createElement("td");
-      reorder_levelWrapper.classList.add("m-2", "col-2");
-      reorder_levelWrapper.appendChild(reorder_level);
-
-
-
-
-      let opening_balance = document.createElement("input");
-      opening_balance.setAttribute("type", "number");
-      opening_balance.setAttribute("required", "");
-      opening_balance.classList.add("form-control", "form-control-sm", "align-middle");
-      // opening_balance.setAttribute("data-ref", items_in_table[item]["name"]);
-      opening_balance.setAttribute("min", 0);
-      // opening_balance.setAttribute("max", items_in_table[item]['max']);
-
-      // make sure the opening_balance is always greater than 0
-      // opening_balance.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
-      // opening_balance.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
-      opening_balance.setAttribute("onclick", "this.select();");
-      items_in_table[item]['opening_balance'] = ('opening_balance' in items_in_table[item] && items_in_table[item]['opening_balance'] >= 0) ?
-        items_in_table[item]['opening_balance'] : 0;
-      opening_balance.value = items_in_table[item]['opening_balance'];
-
-      opening_balance.addEventListener("input", (event) => {
-        items_in_table[item].opening_balance = Number(event.target.value);
-      })
-      let opening_balanceWrapper = document.createElement("td");
-      opening_balanceWrapper.classList.add("m-2", "col-2");
-      opening_balanceWrapper.appendChild(opening_balance);
-
+      let kin_email = document.createElement("input");
+      kin_email.setAttribute("type", "email");
+      kin_email.setAttribute("required", "");
+      kin_email.setAttribute("value", items_in_table[item].email);
+      kin_email.classList.add("form-control", "form-control-sm", "align-middle");
+      kin_email.addEventListener("change", event => {
+        items_in_table[item].email = String(event.target.value);
+      });
+      let kin_email_wrapper = document.createElement("td");
+      kin_email_wrapper.appendChild(kin_email);
 
       let actionWrapper = document.createElement("td");
       actionWrapper.classList.add("m-2");
       let action = document.createElement("button");
-      action.setAttribute("id", items_in_table[item]["branch"]);
+      action.setAttribute("id", item);
       action.setAttribute("onclick", "removeItem(this.id);");
       let icon = document.createElement("span");
       icon.classList.add("fas", "fa-minus", "mt-1");
@@ -208,20 +147,33 @@
       action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
       actionWrapper.appendChild(action);
 
-      tr.append(branch_name,
-        min_levelWrapper,
-        max_levelWrapper,
-        reorder_levelWrapper,
-        opening_balanceWrapper,
+      tr.append(
+        kin_name_wrapper,
+        kin_relation_wrapper,
+        kin_phone_wrapper,
+        kin_email_wrapper,
         actionWrapper
       );
-      table_body.appendChild(tr);
-
-
-      // tr.append(branch_name, balance_td, units_td, quantityWrapper, actionWrapper);
-      // table_body.appendChild(tr);
-
+      c_table_body.appendChild(tr);
     }
     return;
+  }
+
+  function addItem() {
+    const tmp = {
+      name: "",
+      email: "",
+      phone: "",
+      relation: "",
+    }
+    items_in_table[uuidv4()] = tmp;
+
+    updateTable();
+  }
+
+  function removeItem(item) {
+    delete items_in_table[String(item)];
+
+    updateTable();
   }
 </script>
