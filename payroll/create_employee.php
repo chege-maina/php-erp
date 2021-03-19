@@ -106,6 +106,9 @@ include '../includes/base_page/head.php';
           function submitForm() {
             console.log("=======================================");
             console.log("Submitting");
+            console.log("=======================================");
+            console.log(getEmployeeBio());
+            console.log("=======================================");
             console.log(getSalaryDetails());
             console.log("=======================================");
             console.log(getContactDetails());

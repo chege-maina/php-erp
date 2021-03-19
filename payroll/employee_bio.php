@@ -68,3 +68,35 @@
     </div>
   </div>
 </div>
+
+<script>
+  const emp_first_name = document.querySelector("#first_name");
+  const emp_middle_name = document.querySelector("#middle_name");
+  const emp_last_name = document.querySelector("#last_name");
+  const emp_gender = document.querySelector("#gender");
+  const emp_dob = document.querySelector("#dob");
+  const emp_residential_status = document.querySelector("#residential_status");
+  const emp_photo = document.querySelector("#photo");
+  const emp_national_id = document.querySelector("#national_id");
+  const emp_pin_no = document.querySelector("#pin_no");
+  const emp_nssf_no = document.querySelector("#nssf_no");
+  const emp_nhif_no = document.querySelector("#nhif_no");
+
+  function getEmployeeBio() {
+    let tmp = {
+      first_name: emp_first_name.value,
+      middle_name: emp_middle_name.value,
+      last_name: emp_last_name.value,
+      gender: emp_gender.value,
+      dob: emp_dob.value,
+      residential_status: emp_residential_status.value,
+      photo: photo.files[0],
+      national_id: emp_national_id.value,
+      pin_no: emp_pin_no.value,
+      nssf_no: emp_nssf_no.value,
+      nhif_no: emp_nhif_no.value,
+    };
+
+    return tmp;
+  }
+</script>
