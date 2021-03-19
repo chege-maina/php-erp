@@ -179,6 +179,9 @@
 
   function getTableData() {
     let tmp_obj = [];
+    if (c_table_body.innerHTML.trim() == "") {
+      return tmp_obj;
+    }
     c_table_body.childNodes.forEach(row => {
       const k_name = row.childNodes[0].childNodes[0].value.trim();
 
