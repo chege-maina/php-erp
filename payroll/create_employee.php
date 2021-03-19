@@ -104,16 +104,57 @@ include '../includes/base_page/head.php';
           const photo = document.querySelector("#photo");
 
           function submitForm() {
+
+            const formData = new FormData();
+
             console.log("=======================================");
             console.log("Submitting");
             console.log("=======================================");
-            console.log(getEmployeeBio());
+
+            let employee_bio_data = getEmployeeBio();
+            for (key in employee_bio_data) {
+              formData.append(key, employee_bio_data[key]);
+              console.log(key, employee_bio_data[key]);
+            }
+
             console.log("=======================================");
-            console.log(getSalaryDetails());
+
+            let employee_salary_data = getSalaryDetails();
+            for (key in employee_salary_data) {
+              formData.append(key, employee_salary_data[key]);
+              console.log(key, employee_salary_data[key]);
+            }
+
             console.log("=======================================");
-            console.log(getContactDetails());
+
+            let employee_contact_details = getContactDetails();
+            for (key in employee_contact_details) {
+              formData.append(key, employee_contact_details[key]);
+              console.log(key, employee_contact_details[key]);
+            }
+
+
             console.log("=======================================");
-            console.log(getHrDetails());
+
+            let employee_hr_details = getHrDetails();
+            for (key in employee_hr_details) {
+              formData.append(key, employee_hr_details[key]);
+              console.log(key, employee_hr_details[key]);
+            }
+            console.log("=======================================");
+
+            return;
+            fetch('', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+                console.log('Success:', result);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
           }
         </script>
 </body>
