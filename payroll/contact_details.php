@@ -32,7 +32,7 @@
   <div class="col mt-4">
     <div class="input-group">
       <span class="input-group-text is-static">EXT NO.</span>
-      <input type="number" class="form-control" name="official_no" id="official_no" required>
+      <input type="number" class="form-control" name="ext_no" id="ext_no" required>
       <div class="invalid-feedback">This field cannot be left blank.</div>
     </div>
   </div>
@@ -40,7 +40,7 @@
 <div class="row mt-2">
   <div class="col">
     <label class="form-label" for="mobile_no">City/Town*</label>
-    <input type="text" class="form-control" name="town" id="town" required>
+    <input type="text" class="form-control" name="town" id="city_town" required>
     <div class="invalid-feedback">This field cannot be left blank.</div>
   </div>
   <div class="col">
@@ -177,7 +177,7 @@
     updateTable();
   }
 
-  function getTableData() {
+  function getNextOfKin() {
     let tmp_obj = [];
     if (c_table_body.innerHTML.trim() == "") {
       return tmp_obj;
@@ -203,4 +203,32 @@
     });
     return tmp_obj;
   };
+
+  const off_mail = document.querySelector("#off_mail");
+  const pers_mail = document.querySelector("#pers_mail");
+  const country = document.querySelector("#country");
+  const mobile_no = document.querySelector("#mobile_no");
+  const official_no = document.querySelector("#official_no");
+  const ext_no = document.querySelector("#ext_no");
+  const city_town = document.querySelector("#city_town");
+  const county = document.querySelector("#county");
+  const p_code = document.querySelector("#p_code");
+
+
+  function getContactDetails() {
+    let tmp = {
+      official_email: off_mail.value,
+      personal_email: pers_mail.value,
+      country: country.value,
+      mobile_no: mobile_no.value,
+      official_no: official_no.value,
+      ext_no: ext_no.value,
+      city_town: city_town.value,
+      county: county.value,
+      p_code: p_code.value,
+      next_of_kin: getNextOfKin(),
+    }
+
+    return tmp;
+  }
 </script>
