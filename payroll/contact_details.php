@@ -318,172 +318,160 @@
         </tr>
       </thead>
       <tbody id="c_table_body">
-        <tr id="row_adder">
-          <td><input type="text" class="form-control" id="new_name"></td>
-          <td><input type="text" class="form-control" id="new_relation"></td>
-          <td><input type="text" class="form-control" id="new_phone"></td>
-          <td><input type="text" class="form-control" id="new_email"></td>
-          <td><input type="button" class='btn btn-sm btn-falcon-success' onclick="add_row();" value="Add Row"></td>
-        </tr>
       </tbody>
     </table>
   </div>
 </div>
 
 <script>
-  const co_table_body = document.querySelector("#c_table_body").childNodes;
-  let valid_table_items = {};
-  let emp_table_items = {};
+  const items_in_table = {};
 
-  function getContactDetails() {
-    for (let i = 0; i < co_table_body.length; i++) {
-      if (i == 0 ||
-        i >= (co_table_body.length - 1) ||
-        "id" in co_table_body[i] &&
-        co_table_body[i].id == "row_adder"
-      ) {
-        continue;
-      }
-      if (co_table_body[i].childNodes[i].length > 5) {
-        continue;
-      }
-      valid_table_items[co_table_body[i].id] = co_table_body[i];
+  function updateTable() {
+    table_body.innerHTML = "";
+    for (let item in items_in_table) {
+
+      let tr = document.createElement("tr");
+      // Id will be like 1Tank
+      // tr.setAttribute("id", items_in_table[item]["code"] + items_in_table[item]["name"]);
+
+      let branch_name = document.createElement("td");
+      branch_name.appendChild(document.createTextNode(items_in_table[item].branch));
+      branch_name.classList.add("align-middle");
+
+      let min_level = document.createElement("input");
+      const min_level_id = uuidv4();
+      min_level.setAttribute("type", "number");
+      min_level.setAttribute("id", min_level_id);
+      min_level.setAttribute("required", "");
+      min_level.classList.add("form-control", "form-control-sm", "align-middle");
+      // min_level.setAttribute("data-ref", items_in_table[item]["name"]);
+      min_level.setAttribute("min", 1);
+
+      // make sure the min_level is always greater than 0
+      // min_level.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+      // min_level.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
+      // min_level.setAttribute("onclick", "this.select();");
+      min_level.addEventListener("input", (event) => {
+        items_in_table[item].min_level = Number(event.target.value);
+      })
+      items_in_table[item]['min_level'] = ('min_level' in items_in_table[item] && items_in_table[item]['min_level'] > 0) ?
+        items_in_table[item]['min_level'] : 1;
+      min_level.value = items_in_table[item]['min_level'];
+      let min_levelWrapper = document.createElement("td");
+      min_levelWrapper.classList.add("m-2", "col-2");
+      min_levelWrapper.appendChild(min_level);
+
+
+
+      const max_level_id = uuidv4();
+      const reorder_level_id = uuidv4();
+
+      let max_level = document.createElement("input");
+      max_level.setAttribute("type", "number");
+      max_level.setAttribute("id", max_level_id);
+      max_level.setAttribute("required", "");
+      max_level.classList.add("form-control", "form-control-sm", "align-middle");
+      max_level.setAttribute("data-min", min_level_id);
+      max_level.setAttribute("min", 1);
+
+      // make sure the max_level is always greater than 0
+      max_level.setAttribute("onfocusout",
+        "document.querySelector('#" + reorder_level_id + "').setAttribute('max', this.value)");
+      // max_level.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
+      max_level.setAttribute("onclick", "this.select();");
+      items_in_table[item]['max_level'] = ('max_level' in items_in_table[item] && items_in_table[item]['max_level'] > 0) ?
+        items_in_table[item]['max_level'] : 1;
+      max_level.value = items_in_table[item]['max_level'];
+
+      max_level.addEventListener("input", (event) => {
+        items_in_table[item].max_level = Number(event.target.value);
+      })
+      let max_levelWrapper = document.createElement("td");
+      max_levelWrapper.classList.add("m-2", "col-2");
+      max_levelWrapper.appendChild(max_level);
+
+
+
+      let reorder_level = document.createElement("input");
+      reorder_level.setAttribute("id", reorder_level_id);
+      reorder_level.setAttribute("type", "number");
+      reorder_level.setAttribute("required", "");
+      reorder_level.classList.add("form-control", "form-control-sm", "align-middle");
+      // reorder_level.setAttribute("data-ref", items_in_table[item]["name"]);
+      reorder_level.setAttribute("min", 1);
+      // reorder_level.setAttribute("max", items_in_table[item]['max']);
+
+      // make sure the reorder_level is always greater than 0
+      reorder_level.setAttribute("onfocusout",
+        "document.querySelector('#" + max_level_id + "').setAttribute('min', this.value)");
+      reorder_level.setAttribute("onchange",
+        "document.querySelector('#" + min_level_id + "').setAttribute('max', this.value)");
+      // reorder_level.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+      // reorder_level.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
+      reorder_level.setAttribute("onclick", "this.select();");
+      items_in_table[item]['reorder_level'] = ('reorder_level' in items_in_table[item] && items_in_table[item]['reorder_level'] > 0) ?
+        items_in_table[item]['reorder_level'] : 1;
+      reorder_level.value = items_in_table[item]['reorder_level'];
+
+      reorder_level.addEventListener("input", (event) => {
+        items_in_table[item].reorder_level = Number(event.target.value);
+      })
+      let reorder_levelWrapper = document.createElement("td");
+      reorder_levelWrapper.classList.add("m-2", "col-2");
+      reorder_levelWrapper.appendChild(reorder_level);
+
+
+
+
+      let opening_balance = document.createElement("input");
+      opening_balance.setAttribute("type", "number");
+      opening_balance.setAttribute("required", "");
+      opening_balance.classList.add("form-control", "form-control-sm", "align-middle");
+      // opening_balance.setAttribute("data-ref", items_in_table[item]["name"]);
+      opening_balance.setAttribute("min", 0);
+      // opening_balance.setAttribute("max", items_in_table[item]['max']);
+
+      // make sure the opening_balance is always greater than 0
+      // opening_balance.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+      // opening_balance.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
+      opening_balance.setAttribute("onclick", "this.select();");
+      items_in_table[item]['opening_balance'] = ('opening_balance' in items_in_table[item] && items_in_table[item]['opening_balance'] >= 0) ?
+        items_in_table[item]['opening_balance'] : 0;
+      opening_balance.value = items_in_table[item]['opening_balance'];
+
+      opening_balance.addEventListener("input", (event) => {
+        items_in_table[item].opening_balance = Number(event.target.value);
+      })
+      let opening_balanceWrapper = document.createElement("td");
+      opening_balanceWrapper.classList.add("m-2", "col-2");
+      opening_balanceWrapper.appendChild(opening_balance);
+
+
+      let actionWrapper = document.createElement("td");
+      actionWrapper.classList.add("m-2");
+      let action = document.createElement("button");
+      action.setAttribute("id", items_in_table[item]["branch"]);
+      action.setAttribute("onclick", "removeItem(this.id);");
+      let icon = document.createElement("span");
+      icon.classList.add("fas", "fa-minus", "mt-1");
+      action.appendChild(icon);
+      action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
+      actionWrapper.appendChild(action);
+
+      tr.append(branch_name,
+        min_levelWrapper,
+        max_levelWrapper,
+        reorder_levelWrapper,
+        opening_balanceWrapper,
+        actionWrapper
+      );
+      table_body.appendChild(tr);
+
+
+      // tr.append(branch_name, balance_td, units_td, quantityWrapper, actionWrapper);
+      // table_body.appendChild(tr);
+
     }
-
-
-    console.log(valid_table_items);
-    for (key in valid_table_items) {
-      console.log("Adding ", valid_table_items[key]);
-      emp_table_items[key] = {
-        "name": valid_table_items[key].childNodes[0].innerHTML,
-        "relation": valid_table_items[key].childNodes[1].innerHTML,
-        "phone": valid_table_items[key].childNodes[2].innerHTML,
-        "email": valid_table_items[key].childNodes[3].innerHTML,
-      };
-    }
-
-    let tmp_array = [];
-    for (let key in emp_table_items) {
-      tmp_array.push(emp_table_items[key]);
-    }
-    console.log(emp_table_items, tmp_array);
-  }
-</script>
-
-<script>
-  function edit_row(no) {
-    document.getElementById("edit_button" + no).style.display = "none";
-    document.getElementById("save_button" + no).style.display = "inline";
-
-    var name = document.getElementById("name_row" + no);
-    var relation = document.getElementById("relation_row" + no);
-    var phone = document.getElementById("phone_row" + no);
-    var email = document.getElementById("email_row" + no);
-
-    var name_data = name.innerHTML;
-    var relation_data = relation.innerHTML;
-    var phone_data = phone.innerHTML;
-    var email_data = phone.innerHTML;
-
-    name.innerHTML = "<input type='text' class='form-control form-control-sm' id='name_text" + no + "' value='" + name_data + "'>";
-    relation.innerHTML = "<input type='text' class='form-control form-control-sm' id='relation_text" + no + "' value='" + relation_data + "'>";
-    phone.innerHTML = "<input type='text' class='form-control form-control-sm' id='phone_text" + no + "' value='" + phone_data + "'>";
-    email.innerHTML = "<input type='text' class='form-control form-control-sm' id='email_text" + no + "' value='" + email_data + "'>";
-  }
-
-  function save_row(no) {
-    var name_val = document.getElementById("name_text" + no).value;
-    var relation_val = document.getElementById("relation_text" + no).value;
-    var phone_val = document.getElementById("phone_text" + no).value;
-    var email_val = document.getElementById("email_text" + no).value;
-
-    document.getElementById("name_row" + no).innerHTML = name_val;
-    document.getElementById("relation_row" + no).innerHTML = relation_val;
-    document.getElementById("phone_row" + no).innerHTML = phone_val;
-    document.getElementById("email_row" + no).innerHTML = email_val;
-
-    document.getElementById("edit_button" + no).style.display = "inline";
-    document.getElementById("save_button" + no).style.display = "none";
-  }
-
-  function delete_row(no) {
-    document.getElementById("row" + no + "").outerHTML = "";
-  }
-
-  function add_row() {
-    var new_name = document.getElementById("new_name").value;
-    var new_relation = document.getElementById("new_relation").value;
-    var new_phone = document.getElementById("new_phone").value;
-    var new_email = document.getElementById("new_email").value;
-
-    var table = document.getElementById("data_table");
-    var table_len = (table.rows.length) - 1;
-    const tbl_body = document.getElementById("c_table_body");
-    const latest_row = document.getElementById(`row_adder`);
-    tbl_body.insertBefore(getNewRow(new_name, new_relation, new_phone, new_email, table_len), latest_row);
-
-    document.getElementById("new_name").value = "";
-    document.getElementById("new_relation").value = "";
-    document.getElementById("new_phone").value = "";
-    document.getElementById("new_email").value = "";
-  }
-
-  let current_index = 0;
-
-  function getNewRow(name, relation, phone, email, index) {
-    const tr = document.createElement("tr");
-    tr.setAttribute("id", `row${index}`);
-    current_index = index;
-
-    const name_row = document.createElement("td");
-    name_row.appendChild(document.createTextNode(name));
-    name_row.setAttribute("id", `name_row${index}`);
-
-    const rel_row = document.createElement("td");
-    rel_row.appendChild(document.createTextNode(relation));
-    rel_row.setAttribute("id", `relation_row${index}`);
-
-    const phone_row = document.createElement("td");
-    phone_row.appendChild(document.createTextNode(phone));
-    phone_row.setAttribute("id", `phone_row${index}`);
-
-    const email_row = document.createElement("td");
-    email_row.appendChild(document.createTextNode(email));
-    email_row.setAttribute("id", `email_row${index}`);
-
-    const action_wrapper = document.createElement("td");
-
-    const edit = document.createElement("input");
-    edit.setAttribute("type", "button");
-    edit.setAttribute("value", "Edit");
-    edit.setAttribute("id", `edit_button${index}`);
-    edit.classList.add("btn", "btn-sm", "btn-falcon-primary", "mr-1");
-    edit.addEventListener("click", () => {
-      edit_row(index);
-    });
-
-
-    const save = document.createElement("input");
-    save.setAttribute("type", "button");
-    save.setAttribute("value", "Save");
-    save.setAttribute("id", `save_button${index}`);
-    save.classList.add("btn", "btn-sm", "btn-falcon-primary", "mr-1");
-    save.addEventListener("click", () => {
-      save_row(index);
-    });
-
-    const del = document.createElement("input");
-    del.setAttribute("type", "button");
-    del.setAttribute("value", "Delete");
-    del.setAttribute("id", `del_button${index}`);
-    del.classList.add("btn", "btn-sm", "btn-falcon-primary");
-    del.addEventListener("click", () => {
-      delete_row(index);
-    });
-
-    action_wrapper.append(edit, save, del);
-
-    tr.append(name_row, rel_row, phone_row, email_row, action_wrapper);
-    return tr;
+    return;
   }
 </script>
