@@ -71,3 +71,32 @@
     </div>
   </div>
 </div>
+
+<script>
+  const job_number = document.querySelector("#job_number");
+  const employ_date = document.querySelector("#employ_date");
+  const start_date = document.querySelector("#start_date");
+  const end_date = document.querySelector("#end_date");
+  const duration = document.querySelector("#duration");
+  const job_title = document.querySelector("#job_title");
+  const department = document.querySelector("#department");
+  const head_of = document.querySelector("#head_of");
+  const report_to = document.querySelector("#report_to");
+  const region = document.querySelector("#region");
+
+  function getHrDetails() {
+    let tmp = {
+      job_number: job_number.value,
+      employ_date: employ_date.value,
+      start_date: start_date.value,
+      end_date: end_date.value,
+      duration: duration.value,
+      job_title: job_title.value,
+      department: department.value,
+      head_of: head_of.value,
+      report_to: report_to.value,
+      region: region.value,
+    }
+    return tmp;
+  }
+</script>

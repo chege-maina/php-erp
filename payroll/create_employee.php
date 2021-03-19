@@ -108,8 +108,9 @@ include '../includes/base_page/head.php';
             console.log("Submitting");
             console.log(getSalaryDetails());
             console.log("=======================================");
-
             console.log(getContactDetails());
+            console.log("=======================================");
+            console.log(getHrDetails());
           }
         </script>
 </body>
