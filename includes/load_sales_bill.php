@@ -27,6 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $query3 = "SELECT * FROM tbl_sale_items WHERE quote_no='$lpo_no'";
         $result3 = mysqli_query($conn, $query3);
         $response2 = array();
+        $quantity = 0;
+        $weight = 0;
 
         while ($row3 = mysqli_fetch_assoc($result3)) {
             $prod_code = $row3['product_code'];
@@ -36,6 +38,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $cost = $row3['price'];
             $itm_tax = $row3['tax'];
             $total = $row3['amount'];
+            $quantity = $quantity + $qty;
+
+            $query4 = "SELECT * FROM tbl_product WHERE product_name='$prod_name'";
+            $result4 = mysqli_query($conn, $query4);
+            $row4 = mysqli_fetch_assoc($result4);
+            $weight_adder = $row4['weight'];
+            $weight = $weight * $qty;
+            $weight = $weight + $weight_adder;
 
             array_push(
                 $response2,
@@ -61,6 +71,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'receipt_no' => $amount,
                 'terms' => $terms,
                 'branch' => $branch,
+                'total_weight' => $weight,
+                'total_quantity' => $quantity,
                 'table_data' => $response2
             )
         );
