@@ -70,4 +70,44 @@
       </div>
     </div>
   </div>
+  <?php
+  include './payment_details.php';
+  ?>
 </div>
+
+<script>
+  const employment_type = document.querySelector("#employment_type");
+  const payment_currency = document.querySelector("#payment_currency");
+  const work_shift = document.querySelector("#work_shift");
+  const monthly_salary = document.querySelector("#monthly_salary");
+  const salary_type = document.querySelector("#salary_type");
+
+  const off_days = document.querySelector("#off_days");
+  const income_tax = document.querySelector("#income_tax");
+  const deduct_nhif = document.querySelector("#deduct_nhif");
+  const deduct_nssf = document.querySelector("#deduct_nssf");
+
+  function checkSalaryDetails() {
+    return checkPaymentOption();
+  }
+
+  function getSalaryDetails() {
+    let tmp = {
+      employment_type: employment_type.value,
+      payment_currency: payment_currency.value,
+      work_shift: work_shift.value,
+      monthly_salary: monthly_salary.value,
+      salary_type: salary_type.value,
+      off_days: off_days.value,
+      income_tax: income_tax.value,
+      deduct_nssf: deduct_nssf.checked,
+      deduct_nhif: deduct_nhif.checked,
+    };
+
+    const paymentOptions = getPaymentOption();
+    for (let key in paymentOptions) {
+      tmp[key] = paymentOptions[key];
+    }
+    return tmp;
+  }
+</script>
