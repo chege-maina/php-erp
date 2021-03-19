@@ -78,10 +78,7 @@ include '../includes/base_page/head.php';
               <div class="row">
                 <div class="col">
                   <label for="#" class="form-label">Shift </label>
-                  <div class="input-group">
-                    <input list="shift" name="supplier" id="shift_type" class="form-select" required>
-                    <datalist id="shift"></datalist>
-                  </div>
+                  <input type="text" name="shift_type" id="shift_type" class="form-select" required readonly>
                 </div>
                 <div class="col">
                   <label for="#" class="form-label">Status </label>
