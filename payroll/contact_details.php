@@ -176,4 +176,55 @@
 
     updateTable();
   }
+
+  function getTableData() {
+    let tmp_obj = [];
+    let errors = false;
+    c_table_body.childNodes.forEach(row => {
+      console.log(row);
+      // const t_branch = row.childNodes[0].innerHTML;
+
+      // let t_min_val = row.childNodes[1].childNodes[0];
+      // if (!t_min_val.validity.valid) {
+      // t_min_val.focus();
+      // errors = true;
+      // return;
+      // }
+      // t_min_val = t_min_val.value;
+
+      // let t_max_val = row.childNodes[2].childNodes[0];
+      // if (!t_max_val.validity.valid) {
+      // t_max_val.focus();
+      // errors = true;
+      // return;
+      // }
+      // t_max_val = t_max_val.value;
+
+      // let t_reorder_level = row.childNodes[3].childNodes[0];
+      // if (!t_reorder_level.validity.valid) {
+      // t_reorder_level.focus();
+      // errors = true;
+      // return;
+      // }
+      // t_reorder_level = t_reorder_level.value;
+
+      // let t_opening_bal = row.childNodes[4].childNodes[0];
+      // if (!t_opening_bal.validity.valid) {
+      // t_opening_bal.focus();
+      // errors = true;
+      // return;
+      // }
+      // t_opening_bal = t_opening_bal.value;
+
+      // tmp_obj.push({
+      // branch: t_branch,
+      // min_level: t_min_val,
+      // max_level: t_max_val,
+      // reorder: t_reorder_level,
+      // opening_bal: t_opening_bal,
+      // });
+    });
+    // let to_return = errors ? false : tmp_obj;
+    // return to_return;
+  };
 </script>

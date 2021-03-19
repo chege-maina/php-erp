@@ -106,13 +106,13 @@ include '../includes/base_page/head.php';
           function submitForm() {
             console.log("=======================================");
             console.log("Submitting");
-            const salary_details = getSalaryDetails();
+            // const salary_details = getSalaryDetails();
 
             // for (key in salary_details) {
             // console.log(key, "-", salary_details[key]);
             // }
             // console.log(getContactDetails());
-            getContactDetails();
+            getTableData();
           }
         </script>
 </body>
