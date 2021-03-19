@@ -179,52 +179,25 @@
 
   function getTableData() {
     let tmp_obj = [];
-    let errors = false;
     c_table_body.childNodes.forEach(row => {
-      console.log(row);
-      // const t_branch = row.childNodes[0].innerHTML;
+      const k_name = row.childNodes[0].childNodes[0].value.trim();
 
-      // let t_min_val = row.childNodes[1].childNodes[0];
-      // if (!t_min_val.validity.valid) {
-      // t_min_val.focus();
-      // errors = true;
-      // return;
-      // }
-      // t_min_val = t_min_val.value;
+      const k_relation = row.childNodes[1].childNodes[0].value.trim();
 
-      // let t_max_val = row.childNodes[2].childNodes[0];
-      // if (!t_max_val.validity.valid) {
-      // t_max_val.focus();
-      // errors = true;
-      // return;
-      // }
-      // t_max_val = t_max_val.value;
+      const k_phone = row.childNodes[2].childNodes[0].value.trim();
 
-      // let t_reorder_level = row.childNodes[3].childNodes[0];
-      // if (!t_reorder_level.validity.valid) {
-      // t_reorder_level.focus();
-      // errors = true;
-      // return;
-      // }
-      // t_reorder_level = t_reorder_level.value;
+      const k_email = row.childNodes[2].childNodes[0].value.trim();
 
-      // let t_opening_bal = row.childNodes[4].childNodes[0];
-      // if (!t_opening_bal.validity.valid) {
-      // t_opening_bal.focus();
-      // errors = true;
-      // return;
-      // }
-      // t_opening_bal = t_opening_bal.value;
 
-      // tmp_obj.push({
-      // branch: t_branch,
-      // min_level: t_min_val,
-      // max_level: t_max_val,
-      // reorder: t_reorder_level,
-      // opening_bal: t_opening_bal,
-      // });
+      if (!(k_name == "" && k_relation == "" && k_phone == "" && k_email == "")) {
+        tmp_obj.push({
+          name: k_name,
+          relation: k_relation,
+          phone: k_phone,
+          email: k_email,
+        });
+      }
     });
-    // let to_return = errors ? false : tmp_obj;
-    // return to_return;
+    return tmp_obj;
   };
 </script>

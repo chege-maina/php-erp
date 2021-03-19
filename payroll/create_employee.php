@@ -112,7 +112,7 @@ include '../includes/base_page/head.php';
             // console.log(key, "-", salary_details[key]);
             // }
             // console.log(getContactDetails());
-            getTableData();
+            console.log(getTableData());
           }
         </script>
 </body>
