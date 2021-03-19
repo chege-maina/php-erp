@@ -106,6 +106,12 @@ include '../includes/base_page/head.php';
 
             <div class="row m-3">
               <div class="col text-right fw-bold">
+                Total Weight
+              </div>
+              <div class="col col-auto">
+                <input type="number" class="form-control text-right" id="ttweight" min="0" value="0" disabled>
+              </div>
+              <div class="col text-right fw-bold">
                 Total Before Tax
               </div>
               <div class="col col-auto">
@@ -113,6 +119,12 @@ include '../includes/base_page/head.php';
               </div>
             </div>
             <div class="row m-3">
+              <div class="col text-right fw-bold">
+                Total Quantity
+              </div>
+              <div class="col col-auto">
+                <input type="number" class="form-control text-right" id="ttquantity" min="0" value="0" disabled>
+              </div>
               <div class="col text-right fw-bold">
                 Tax 16 %
               </div>
@@ -177,7 +189,8 @@ include '../includes/base_page/head.php';
     <script>
       let invoice_number = -1;
       const lpo_number = document.querySelector("#lpo_number");
-
+      const ttweight = document.querySelector("#ttweight");
+      const ttquantity = document.querySelector("#ttquantity");
       const purchase_order_number = document.querySelector("#purchase_order_number");
       const purchase_order_number_items = document.querySelector("#purchase_order_number_items");
 
@@ -349,6 +362,8 @@ include '../includes/base_page/head.php';
             supplier_name.value = result["supplier_name"];
             terms_of_payment.value = result["terms"];
             branch_name.value = result["branch"];
+            ttweight.value = result["total_weight"];
+            ttquantity.value = result["total_quantity"];
             bill_date.setAttribute("min", result["date"])
             updateDueDate();
             updateTable(result["table_data"]);
