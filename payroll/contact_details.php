@@ -362,7 +362,11 @@
       };
     }
 
-    console.log(emp_table_items);
+    let tmp_array = [];
+    for (let key in emp_table_items) {
+      tmp_array.push(emp_table_items[key]);
+    }
+    console.log(emp_table_items, tmp_array);
   }
 </script>
 
