@@ -88,13 +88,13 @@
       middle_name: emp_middle_name.value,
       last_name: emp_last_name.value,
       gender: emp_gender.value,
-      dob: emp_dob.value,
+      date_of_birth: emp_dob.value,
       residential_status: emp_residential_status.value,
-      photo: photo.files[0],
-      national_id: emp_national_id.value,
+      national_id_no: emp_national_id.value,
       pin_no: emp_pin_no.value,
       nssf_no: emp_nssf_no.value,
       nhif_no: emp_nhif_no.value,
+      passport: photo.files[0],
     };
 
     return tmp;
