@@ -306,7 +306,7 @@ include '../includes/base_page/head.php';
               method: 'POST',
               body: formData
             })
-            .then(response => response.text())
+            .then(response => response.json())
             .then(data => {
               console.log("from server", data);
               // return false;
