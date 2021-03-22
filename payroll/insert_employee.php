@@ -26,6 +26,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $nssf_no = sanitize_input($_POST["nssf_no"]);
   $nhif_no = sanitize_input($_POST["nhif_no"]);
 
+
+  $job_number = sanitize_input($_POST["job_number"]);
+  $employ_date = sanitize_input($_POST["employ_date"]);
+  $start_date = sanitize_input($_POST["start_date"]);
+  $end_date = sanitize_input($_POST["end_date"]);
+  $duration = sanitize_input($_POST["duration"]);
+  $job_title = sanitize_input($_POST["job_title"]);
+  $department = sanitize_input($_POST["department"]);
+  $head_of = sanitize_input($_POST["head_of"]);
+  $report_to = sanitize_input($_POST["report_to"]);
+  $region = sanitize_input($_POST["region"]);
+
+
+  $employment_type = sanitize_input($_POST["employment_type"]);
+  $payment_currency = sanitize_input($_POST["payment_currency"]);
+  $work_shift = sanitize_input($_POST["work_shift"]);
+  $monthly_salary = sanitize_input($_POST["monthly_salary"]);
+  $salary_type = sanitize_input($_POST["salary_type"]);
+  $off_days = sanitize_input($_POST["off_days"]);
+  $income_tax = sanitize_input($_POST["income_tax"]);
+  $deduct_nssf = sanitize_input($_POST["deduct_nssf"]);
+  $deduct_nhif = sanitize_input($_POST["deduct_nhif"]);
+
+
+  $official_email = sanitize_input($_POST["official_email"]);
+  $personal_email = sanitize_input($_POST["personal_email"]);
+  $country = sanitize_input($_POST["country"]);
+  $mobile_no = sanitize_input($_POST["mobile_no"]);
+  $official_no = sanitize_input($_POST["official_no"]);
+  $ext_no = sanitize_input($_POST["ext_no"]);
+  $city_town = sanitize_input($_POST["city_town"]);
+  $county = sanitize_input($_POST["county"]);
+  $p_code = sanitize_input($_POST["p_code"]);
+
+  $s_payment_option = sanitize_input($_POST["s_payment_option"]);
+  $s_account_no = sanitize_input($_POST["s_account_no"]);
+  $s_account_name = sanitize_input($_POST["s_account_name"]);
+  $s_bank_name = sanitize_input($_POST["s_bank_name"]);
+  $s_sort_code = sanitize_input($_POST["s_sort_code"]);
+  $s_mobile_no = sanitize_input($_POST["s_mobile_no"]);
+  $s_bank_branch = sanitize_input($_POST["s_bank_branch"]);
+
   $filename = $_FILES["passport"]["name"];
   $filetype = $_FILES["passport"]["type"];
   $filesize = $_FILES["passport"]["size"];
@@ -49,10 +91,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Store the result so we can check if the account exists in the database.
         $stmt->store_result();
         if ($stmt->num_rows == 0) {
-          if ($stmt = $con->prepare('INSERT INTO tbl_employee (first_name, middle_name, last_name,
-      gender, dob, residential_status, national_id, pin_no, nssf_no, nhif_no, passport) VALUES (?,?,?,?,?,?,?,?,?,?,?)')) {
+          if ($stmt = $con->prepare('INSERT INTO tbl_staff_items (f_name, m_name, l_name,
+      gender, dob, res, nat_id, pin_no, nssf_no, nhif_no, passport, off_mail, pers_mail, country, mobile_no, phone_no, ext_no, city, county, postal_code, job_no, employ_date, begin_date, end_date, job_title, department, report_to, head_of, region, currency, shift, off_days, pay_type, salary, income_tax, deduct_nssf, deduct_nhif,account_name, account_no, bank_name, bank_branch, sort_code, s_mobile_no , s_bank_branch, s_payment  ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')) {
             $path = "/uploads/" . $filename;
-            $stmt->bind_param('sssssssssss', $first_name, $middle_name, $last_name, $gender, $date_of_birth, $residential_status, $national_id_no, $pin_no, $nssf_no, $nhif_no, $path);
+            $stmt->bind_param('sssssssssssssssssssssssssssssssssssssssssssss', $first_name, $middle_name, $last_name, $gender, $date_of_birth, $residential_status, $national_id_no, $pin_no, $nssf_no, $nhif_no, $path,  $off_mail, $pers_mail, $country, $mobile_no, $phone_no, $ext_no, $city, $county, $postal_code, $job_no, $employ_date, $begin_date, $end_date, $job_title, $department, $report_to, $head_of, $region, $currency, $shift, $off_days, $pay_type, $salary, $income_tax, $deduct_nssf, $deduct_nhif, $account_name, $account_no, $bank_name, $bank_branch, $sort_code, $s_mobile_no, $s_bank_branch, $s_payment);
 
             if ($stmt->execute()) {
               $responseArray = array(
