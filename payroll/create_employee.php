@@ -143,8 +143,7 @@ include '../includes/base_page/head.php';
             }
             console.log("=======================================");
 
-            return;
-            fetch('', {
+            fetch('insert_employee.php', {
                 method: 'POST',
                 body: formData
               })
