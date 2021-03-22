@@ -544,8 +544,8 @@ include '../includes/base_page/head.php';
               const sub_group = document.querySelector("#sub_group").value;
               const weight = document.querySelector("#weight").value;
 
-              const purchasing_unit = document.querySelector("#purchasing_unit");
-              const conversion_value = document.querySelector("#conversion_value");
+              const purchasing_unit = document.querySelector("#purchasing_unit").value;
+              const conversion_value = document.querySelector("#conversion_value").value;
               const selling_unit = document.querySelector("#selling_unit").value;
 
               const product_image = document.querySelector("#product_image").files[0];
@@ -602,7 +602,10 @@ include '../includes/base_page/head.php';
 
               formData.append("product_name", product_name);
               formData.append("product_category", product_category);
+
+              formData.append("product_unit", purchasing_unit);
               formData.append("selling_unit", selling_unit);
+              formData.append("conversion_value", conversion_value);
 
 
               formData.append("sub_category", sub_group);
@@ -624,7 +627,7 @@ include '../includes/base_page/head.php';
                   method: 'POST',
                   body: formData
                 })
-                .then(response => response.json())
+                .then(response => response.text())
                 .then(data => {
                   console.log(data);
                   if (data["message"] == "success") {
