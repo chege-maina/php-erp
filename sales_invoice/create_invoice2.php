@@ -106,7 +106,7 @@ include '../includes/base_page/head.php';
 
             <div class="row m-3">
               <div class="col text-right fw-bold">
-                Total Weight
+                Total Weight (KG)
               </div>
               <div class="col col-auto">
                 <input type="number" class="form-control text-right" id="ttweight" min="0" value="0" disabled>
