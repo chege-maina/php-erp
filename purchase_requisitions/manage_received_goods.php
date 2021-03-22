@@ -134,6 +134,8 @@ include '../includes/base_page/head.php';
               badge.classList.add("badge-soft-success");
             } else if (tmp_status == "rejected") {
               badge.classList.add("badge-soft-danger");
+            } else if (tmp_status == "partial") {
+              badge.classList.add("badge-soft-warning");
             }
 
             status.appendChild(badge);
