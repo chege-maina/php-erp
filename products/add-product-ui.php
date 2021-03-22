@@ -91,13 +91,20 @@ include '../includes/base_page/head.php';
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
                 <div class="col">
+                  <label class="form-label" for="product_image">Product Image*</label>
+                  <input class="form-control" id="product_image" name="product_image" type="file" accept="image/*" required>
+                  <div class="invalid-feedback">This field cannot be left blank.</div>
+                </div>
+              </div>
+              <div class="row pt-3">
+                <div class="col">
                   <div class="row">
                     <div class="col">
-                      <!-- Units -->
+                      <!-- Bulk Units -->
 
-                      <label class="form-label" for="product_unit">Unit*</label>
+                      <label class="form-label" for="purchasing_unit">Purchasing Unit*</label>
                       <div class="input-group">
-                        <select class="form-select" name="product_unit" id="product_unit" required>
+                        <select class="form-select" name="purchasing_unit" id="purchasing_unit" required>
                           <option value disabled selected>
                             -- Select Unit --
                           </option>
@@ -114,9 +121,40 @@ include '../includes/base_page/head.php';
                   </div>
                 </div>
                 <div class="col">
-                  <label class="form-label" for="product_image">Product Image*</label>
-                  <input class="form-control" id="product_image" name="product_image" type="file" accept="image/*" required>
-                  <div class="invalid-feedback">This field cannot be left blank.</div>
+                  <div class="row">
+                    <div class="col">
+                      <!-- Units -->
+
+                      <label class="form-label" for="selling_unit">Conversion Value*</label>
+
+                      <input type="number" name="conversion_value" id="conversion_value" class="form-control">
+                      <div class="invalid-feedback">This field cannot be left blank.</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="row">
+                    <div class="col">
+                      <!-- Units -->
+
+                      <label class="form-label" for="selling_unit">Unit When Selling*</label>
+                      <div class="input-group">
+                        <select class="form-select" name="selling_unit" id="selling_unit" required>
+                          <option value disabled selected>
+                            -- Select Unit --
+                          </option>
+                        </select>
+
+                        <div class="invalid-feedback">This field cannot be left blank.</div>
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addUnit">
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -507,7 +545,7 @@ include '../includes/base_page/head.php';
               const product_category = document.querySelector("#product_category").value;
               const sub_group = document.querySelector("#sub_group").value;
               const weight = document.querySelector("#weight").value;
-              const product_unit = document.querySelector("#product_unit").value;
+              const selling_unit = document.querySelector("#selling_unit").value;
               const product_image = document.querySelector("#product_image").files[0];
 
               const tax_type = document.querySelector("#tax_type").value;
@@ -532,7 +570,7 @@ include '../includes/base_page/head.php';
 
               console.log("product_name", product_name);
               console.log("product_category", product_category);
-              console.log("product_unit", product_unit);
+              console.log("selling_unit", selling_unit);
 
               console.log("sub_category", sub_group);
               console.log("weight", weight);
@@ -559,7 +597,7 @@ include '../includes/base_page/head.php';
 
               formData.append("product_name", product_name);
               formData.append("product_category", product_category);
-              formData.append("product_unit", product_unit);
+              formData.append("selling_unit", selling_unit);
 
 
               formData.append("sub_category", sub_group);
@@ -670,7 +708,7 @@ include '../includes/base_page/head.php';
             }
 
             function updateComboBoxes() {
-              const product_unit = document.querySelector("#product_unit");
+              const selling_unit = document.querySelector("#selling_unit");
               const applicable_tax = document.querySelector("#applicable_tax");
               const branch_select = document.querySelector("#branch_select");
 
@@ -712,23 +750,41 @@ include '../includes/base_page/head.php';
 
 
               // Clear it
-              product_unit.innerHTML = "";
+              selling_unit.innerHTML = "";
               // Add the no-selectable item first
               opt = document.createElement("option");
               opt.appendChild(document.createTextNode("-- Select Unit --"));
               opt.setAttribute("value", "");
               opt.setAttribute("disabled", "");
               opt.setAttribute("selected", "");
-              product_unit.appendChild(opt);
+              selling_unit.appendChild(opt);
+
+              // Clear it
+              purchasing_unit.innerHTML = "";
+              // Add the no-selectable item first
+              opt = document.createElement("option");
+              opt.appendChild(document.createTextNode("-- Select Unit --"));
+              opt.setAttribute("value", "");
+              opt.setAttribute("disabled", "");
+              opt.setAttribute("selected", "");
+              purchasing_unit.appendChild(opt);
+
               // Populate units combobox
               fetch('../includes/load_unit.php')
                 .then(response => response.json())
                 .then(data => {
+                  console.log(data);
                   data.forEach((value) => {
                     let opt = document.createElement("option");
                     opt.appendChild(document.createTextNode(value['unit'] + " (" + value['desc'].toLowerCase() + ")"));
                     opt.value = value['unit'].toLowerCase();
-                    product_unit.appendChild(opt);
+                    selling_unit.appendChild(opt);
+
+                    opt = document.createElement("option");
+                    opt.appendChild(document.createTextNode(value['unit'] + " (" + value['desc'].toLowerCase() + ")"));
+                    opt.value = value['unit'].toLowerCase();
+                    selling_unit.appendChild(opt);
+                    purchasing_unit.appendChild(opt);
                   });
                 });
 
