@@ -185,11 +185,20 @@ include '../includes/base_page/head.php';
                 console.log('Success:', result);
                 result.forEach(row => {
                   if (row.suppliers.length == 0) {
+                    const alertVar =
+                      `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <strong>Warning!</strong> Add a supplier to ${row.code} - ${row.name}
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                    var divAlert = document.querySelector("#alert-div");
+                    divAlert.innerHTML = alertVar;
+                    divAlert.scrollIntoView();
+
                     window.setTimeout(() => {
                       location.replace("../supplier/create.php");
-                    });
+                    }, 3500);
                   }
-                })
+                });
                 table_items = result;
                 updateTable();
               })
