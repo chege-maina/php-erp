@@ -95,7 +95,7 @@ include '../includes/base_page/head.php';
           <div class="card-body">
             <div class="row justify-content-between align-items-center">
               <div class="col-auto">
-                <button class="btn btn-falcon-primary" onclick="createPurchaseOrder();">Create Purchase Order</button>
+                <button class="btn btn-falcon-primary" id="submit_button" onclick="createPurchaseOrder();">Create Purchase Order</button>
               </div>
             </div>
           </div>
@@ -109,6 +109,8 @@ include '../includes/base_page/head.php';
         <script>
           const po_branch = document.querySelector("#po_branch");
           const supplier = document.querySelector("#supplier");
+          const submit_button = document.querySelector("#submit_button");
+
           const table_body = document.querySelector("#table_body");
           let table_items = [];
           let selectedProductSuppliers = {};
@@ -185,9 +187,10 @@ include '../includes/base_page/head.php';
                 console.log('Success:', result);
                 result.forEach(row => {
                   if (row.suppliers.length == 0) {
+                    submit_button.disabled = true;
                     const alertVar =
                       `<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                      <strong>Warning!</strong> Add a supplier to ${row.code} - ${row.name}
+                      <strong>Redirecting Shortly!</strong> Add a supplier to ${row.code} - ${row.name}.
               <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
               </div>`;
                     var divAlert = document.querySelector("#alert-div");
@@ -196,7 +199,7 @@ include '../includes/base_page/head.php';
 
                     window.setTimeout(() => {
                       location.replace("../supplier/create.php");
-                    }, 3500);
+                    }, 5000);
                   }
                 });
                 table_items = result;
