@@ -183,6 +183,13 @@ include '../includes/base_page/head.php';
               .then(response => response.json())
               .then(result => {
                 console.log('Success:', result);
+                result.forEach(row => {
+                  if (row.suppliers.length == 0) {
+                    window.setTimeout(() => {
+                      location.replace("../supplier/create.php");
+                    });
+                  }
+                })
                 table_items = result;
                 updateTable();
               })
