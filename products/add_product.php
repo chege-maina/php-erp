@@ -24,7 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $product_name = sanitize_input($_POST["product_name"]);
   $product_category = sanitize_input($_POST["product_category"]);
   $product_unit = sanitize_input($_POST["product_unit"]);
-  // $product_supplier = sanitize_input($_POST["product_supplier"]);
+  $selling_unit = sanitize_input($_POST["selling_unit"]);
+  $coversion_value = sanitize_input($_POST["conversion_value"]);
 
   $weight = sanitize_input($_POST["weight"]);
   $sub_category = sanitize_input($_POST["sub_category"]);
@@ -82,8 +83,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
             $path = "/uploads/" . $filename;
-            if ($stmt = $con->prepare('INSERT INTO tbl_product (product_name, product_unit, product_category, product_code, weight, sub_category, product_image, dsp_price, amount_before_tax, dpp_inc_tax, applicable_tax, profit_margin, user) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)')) {
-              $stmt->bind_param('sssssssssssss', $product_name, $product_unit, $product_category, $maincode, $weight, $sub_category, $path, $dsp_price, $amount_before_tax, $dpp_inc_tax, $applicable_tax, $profit_margin, $user_name);
+            if ($stmt = $con->prepare('INSERT INTO tbl_product (product_name, product_unit, product_category, product_code, weight, sub_category, product_image, dsp_price, amount_before_tax, dpp_inc_tax, applicable_tax, profit_margin, user, bulk_unit, conversion) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')) {
+              $stmt->bind_param('sssssssssssssss', $product_name, $product_unit, $product_category, $maincode, $weight, $sub_category, $path, $dsp_price, $amount_before_tax, $dpp_inc_tax, $applicable_tax, $profit_margin, $user_name, $selling_unit, $coversion_value);
 
               if ($stmt->execute()) {
 
