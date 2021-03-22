@@ -111,11 +111,6 @@ include '../includes/base_page/head.php';
                         </select>
 
                         <div class="invalid-feedback">This field cannot be left blank.</div>
-
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addUnit">
-                          +
-                        </button>
                       </div>
                     </div>
                   </div>
@@ -138,21 +133,24 @@ include '../includes/base_page/head.php';
                     <div class="col">
                       <!-- Units -->
 
-                      <label class="form-label" for="selling_unit">Unit When Selling*</label>
-                      <div class="input-group">
-                        <select class="form-select" name="selling_unit" id="selling_unit" required>
-                          <option value disabled selected>
-                            -- Select Unit --
-                          </option>
-                        </select>
+                      <label class="form-label" for="selling_unit">Selling Unit*</label>
+                      <select class="form-select" name="selling_unit" id="selling_unit" required>
+                        <option value disabled selected>
+                          -- Select Unit --
+                        </option>
+                      </select>
 
-                        <div class="invalid-feedback">This field cannot be left blank.</div>
+                      <div class="invalid-feedback">This field cannot be left blank.</div>
 
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addUnit">
-                          +
+                      <!-- Button trigger modal -->
+                    </div>
+                    <div class="col col-auto">
+                      <div class="d-flex align-items-end pb-3" style="height: 5rem;">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUnit">
+                          Add Unit
                         </button>
                       </div>
+
                     </div>
                   </div>
                 </div>
@@ -545,7 +543,11 @@ include '../includes/base_page/head.php';
               const product_category = document.querySelector("#product_category").value;
               const sub_group = document.querySelector("#sub_group").value;
               const weight = document.querySelector("#weight").value;
+
+              const purchasing_unit = document.querySelector("#purchasing_unit");
+              const conversion_value = document.querySelector("#conversion_value");
               const selling_unit = document.querySelector("#selling_unit").value;
+
               const product_image = document.querySelector("#product_image").files[0];
 
               const tax_type = document.querySelector("#tax_type").value;
@@ -570,7 +572,10 @@ include '../includes/base_page/head.php';
 
               console.log("product_name", product_name);
               console.log("product_category", product_category);
+
+              console.log("product_unit", purchasing_unit);
               console.log("selling_unit", selling_unit);
+              console.log("conversion_value", conversion_value);
 
               console.log("sub_category", sub_group);
               console.log("weight", weight);
