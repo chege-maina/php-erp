@@ -174,11 +174,11 @@ include '../includes/base_page/head.php';
         for (let item in items_in_combobox) {
           // console.log(items_in_combobox[item]);
           let opt = document.createElement("option");
-          opt.appendChild(
-            document.createTextNode(
-              "Remaining " + items_in_combobox[item]["name"]
-            )
-          );
+          // opt.appendChild(
+          // document.createTextNode(
+          // "Remaining " + items_in_combobox[item]["name"]
+          // )
+          // );
           opt.setAttribute("value", items_in_combobox[item]["name"]);
           requisitionable_items_datalist.appendChild(opt);
         }
