@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2021 at 01:34 PM
+-- Generation Time: Mar 23, 2021 at 09:10 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -112,6 +112,7 @@ CREATE TABLE `tbl_branch_levels` (
 --
 
 INSERT INTO `tbl_branch_levels` (`product_name`, `branch`, `min_level`, `max_level`, `reorder`) VALUES
+('Eden Cline', 'MM1', '120', '500', '150'),
 ('Kaden Dawson', 'MM1', '10', '100', '50'),
 ('Kaden Dawson', 'MM2', '5', '69', '30'),
 ('Marsden Myers', 'MM1', '20', '500', '100'),
@@ -270,19 +271,21 @@ CREATE TABLE `tbl_product` (
   `applicable_tax` int(50) NOT NULL,
   `profit_margin` int(50) NOT NULL,
   `user` varchar(50) NOT NULL,
-  `status` varchar(15) NOT NULL DEFAULT 'active',
+  `status` varchar(15) NOT NULL DEFAULT 'pending',
   `bulk_unit` varchar(100) NOT NULL,
-  `conversion` varchar(200) NOT NULL
+  `conversion` varchar(200) NOT NULL,
+  `bs_price` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_product`
 --
 
-INSERT INTO `tbl_product` (`id`, `product_name`, `product_code`, `product_unit`, `product_category`, `weight`, `sub_category`, `product_image`, `dsp_price`, `amount_before_tax`, `dpp_inc_tax`, `applicable_tax`, `profit_margin`, `user`, `status`, `bulk_unit`, `conversion`) VALUES
-(1, 'Kaden Dawson', '001_002_001', 'kg', 'CEMENT', '38', 'funky', '/uploads/gg.png', 6000, 5000, 5700, 14, 20, 'Jael Joel', 'active', '', ''),
-(2, 'Marsden Myers', '002_001_001', 'kg', 'gggg', '58', 'heaven yes', '/uploads/gg.png', 6420, 5000, 5700, 14, 28, 'Jael Joel', 'active', '', ''),
-(3, 'Sierra Gutierrez', '002_001_002', '', 'gggg', '92', 'heaven yes', '/uploads/error1.png', 6100, 4500, 4500, 14, 36, 'Jael Joel', 'active', 'kg', '');
+INSERT INTO `tbl_product` (`id`, `product_name`, `product_code`, `product_unit`, `product_category`, `weight`, `sub_category`, `product_image`, `dsp_price`, `amount_before_tax`, `dpp_inc_tax`, `applicable_tax`, `profit_margin`, `user`, `status`, `bulk_unit`, `conversion`, `bs_price`) VALUES
+(1, 'Kaden Dawson', '001_002_001', 'kg', 'CEMENT', '38', 'funky', '/uploads/gg.png', 6000, 5000, 5700, 14, 20, 'Jael Joel', 'active', '', '', ''),
+(2, 'Marsden Myers', '002_001_001', 'kg', 'gggg', '58', 'heaven yes', '/uploads/gg.png', 6420, 5000, 5700, 14, 28, 'Jael Joel', 'active', '', '', ''),
+(3, 'Sierra Gutierrez', '002_001_002', '', 'gggg', '92', 'heaven yes', '/uploads/error1.png', 6100, 4500, 4500, 14, 36, 'Jael Joel', 'active', 'kg', '1', ''),
+(4, 'Eden Cline', '002_001_003', 'kg', 'gggg', '91', 'heaven yes', '/uploads/schedule.png', 7099, 4565, 4565, 0, 56, 'Jael Joel', 'active', 'kg', '1', '');
 
 -- --------------------------------------------------------
 
@@ -639,9 +642,8 @@ CREATE TABLE `tbl_sale` (
 --
 
 INSERT INTO `tbl_sale` (`quote_no`, `date`, `customer_name`, `terms`, `status`, `user`, `sub_total`, `tax`, `amount`, `branch_location`) VALUES
-(1, '2021-03-17', 'Whitney Walters', '28', 'approved', 'Jael Joel', '1242000', '173880', '1415880', 'MM2'),
-(2, '2021-03-18', 'Whitney Walters', '28', 'done', 'Jael Joel', '12420', '1738.8', '14158.8', 'MM2'),
-(3, '2021-03-19', 'Whitney Walters', '28', 'pending', 'Jael Joel', '6,840.00', '840.00', '6,000.00', 'MM2');
+(1, '2021-03-23', 'Whitney Walters', '28', 'pending', 'Jael Joel', '54,948.00', '6,748.00', '48,200.00', 'MM2'),
+(2, '2021-03-23', 'Whitney Walters', '28', 'pending', 'Jael Joel', '6,840.00', '840.00', '6,000.00', 'MM2');
 
 -- --------------------------------------------------------
 
@@ -668,11 +670,9 @@ CREATE TABLE `tbl_sale_items` (
 --
 
 INSERT INTO `tbl_sale_items` (`quote_no`, `product_code`, `product_name`, `unit`, `price`, `qty`, `amount`, `tax`, `status`, `tax_pc`, `branch_location`) VALUES
-(1, '001_002_001', 'Kaden Dawson', 'kg', '6000', '10', '68400', '8400', 'approved', '14', 'MM2'),
-(1, '002_001_001', 'Marsden Myers', 'kg', '6420', '100', '731880', '89880', 'approved', '14', 'MM2'),
-(2, '001_002_001', 'Kaden Dawson', 'kg', '6000', '1', '6840', '840', 'done', '14', 'MM2'),
-(2, '002_001_001', 'Marsden Myers', 'kg', '6420', '1', '7318.80', '898.80', 'done', '14', 'MM2'),
-(3, '001_002_001', 'Kaden Dawson', 'kg', '6', '1', '6840.00', '840.00', 'pending', '14', 'MM2');
+(1, '001_002_001', 'Kaden Dawson', 'kg', '26', '6', '41040.00', '5040.00', 'pending', '14', 'MM2'),
+(1, '002_001_002', 'Sierra Gutierrez', '', '203', '2', '13908.00', '1708.00', 'pending', '14', 'MM2'),
+(2, '001_002_001', 'Kaden Dawson', 'kg', '26', '1', '6840.00', '840.00', 'pending', '14', 'MM2');
 
 -- --------------------------------------------------------
 
@@ -753,7 +753,8 @@ INSERT INTO `tbl_store_item` (`qty`, `product_name`, `product_code`, `branch`, `
 ('1', 'Marsden Myers', '002_001_001', 'MM1', 'opening_bal', 5, 'opening_bal', 'kg', 'done'),
 ('1', 'Kaden Dawson', '001_002_001', 'MM2', '3', 6, '2', 'kg', 'approved'),
 ('123', 'Sierra Gutierrez', '002_001_002', 'MM1', 'opening_bal', 7, 'opening_bal', '', 'done'),
-('203', 'Sierra Gutierrez', '002_001_002', 'MM2', 'opening_bal', 8, 'opening_bal', '', 'done');
+('203', 'Sierra Gutierrez', '002_001_002', 'MM2', 'opening_bal', 8, 'opening_bal', '', 'done'),
+('130', 'Eden Cline', '002_001_003', 'MM1', 'opening_bal', 9, 'opening_bal', 'kg', 'done');
 
 -- --------------------------------------------------------
 
@@ -1188,7 +1189,7 @@ ALTER TABLE `tbl_invoice_items`
 -- AUTO_INCREMENT for table `tbl_product`
 --
 ALTER TABLE `tbl_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_purchaseorder`
@@ -1260,7 +1261,7 @@ ALTER TABLE `tbl_requisition_items`
 -- AUTO_INCREMENT for table `tbl_sale`
 --
 ALTER TABLE `tbl_sale`
-  MODIFY `quote_no` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `quote_no` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_staff`
@@ -1278,7 +1279,7 @@ ALTER TABLE `tbl_store`
 -- AUTO_INCREMENT for table `tbl_store_item`
 --
 ALTER TABLE `tbl_store_item`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_subcategory`
