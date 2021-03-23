@@ -510,6 +510,8 @@ include '../includes/base_page/head.php';
 
       function unitChanged(id, val) {
         console.log(`${id} changed to ${val}`);
+        const qtt = document.getElementById("qtt_s_s_s_" + id.split("_s_s_s_")[1]);
+        addQuantity(qtt.dataset.ref, qtt.value, qtt.max, qtt);
       }
     </script>
     <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
