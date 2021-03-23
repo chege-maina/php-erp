@@ -192,17 +192,17 @@ include '../includes/base_page/head.php';
 
               <div class="row mt-3">
                 <div class="col">
-                  <label class="form-label" for="dsp_price">Default Selling Price</label>
+                  <label class="form-label" for="dsp_price">Default Selling Price*</label>
                   <div class="input-group">
-                    <span class="input-group-text is-static">Exc. Tax*</span>
+                    <span class="input-group-text is-static">Exc. Tax</span>
                     <input type="number" class="form-control" name="dsp_price" id="dsp_price" required onkeyup="calculatePrices();" onfocusout="this.value = this.value > 0 ? this.value : 1">
                     <div class="invalid-feedback">This field cannot be left blank.</div>
                   </div>
                 </div>
                 <div class="col">
-                  <label class="form-label" for="bulk_dsp_price">Default Selling Price(Bulk Items)</label>
+                  <label class="form-label" for="bulk_dsp_price">Default Selling Price(Bulk Items)*</label>
                   <div class="input-group">
-                    <span class="input-group-text is-static">Exc. Tax*</span>
+                    <span class="input-group-text is-static">Exc. Tax</span>
                     <input type="number" class="form-control" name="bulk_dsp_price" id="bulk_dsp_price" required onkeyup="calculatePrices();" onfocusout="this.value = this.value > 0 ? this.value : 1">
                     <div class="invalid-feedback">This field cannot be left blank.</div>
                   </div>
