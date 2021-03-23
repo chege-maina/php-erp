@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2021 at 09:10 AM
+-- Generation Time: Mar 23, 2021 at 10:52 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -272,7 +272,7 @@ CREATE TABLE `tbl_product` (
   `profit_margin` int(50) NOT NULL,
   `user` varchar(50) NOT NULL,
   `status` varchar(15) NOT NULL DEFAULT 'pending',
-  `bulk_unit` varchar(100) NOT NULL,
+  `atomic_unit` varchar(100) NOT NULL,
   `conversion` varchar(200) NOT NULL,
   `bs_price` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -281,7 +281,7 @@ CREATE TABLE `tbl_product` (
 -- Dumping data for table `tbl_product`
 --
 
-INSERT INTO `tbl_product` (`id`, `product_name`, `product_code`, `product_unit`, `product_category`, `weight`, `sub_category`, `product_image`, `dsp_price`, `amount_before_tax`, `dpp_inc_tax`, `applicable_tax`, `profit_margin`, `user`, `status`, `bulk_unit`, `conversion`, `bs_price`) VALUES
+INSERT INTO `tbl_product` (`id`, `product_name`, `product_code`, `product_unit`, `product_category`, `weight`, `sub_category`, `product_image`, `dsp_price`, `amount_before_tax`, `dpp_inc_tax`, `applicable_tax`, `profit_margin`, `user`, `status`, `atomic_unit`, `conversion`, `bs_price`) VALUES
 (1, 'Kaden Dawson', '001_002_001', 'kg', 'CEMENT', '38', 'funky', '/uploads/gg.png', 6000, 5000, 5700, 14, 20, 'Jael Joel', 'active', '', '', ''),
 (2, 'Marsden Myers', '002_001_001', 'kg', 'gggg', '58', 'heaven yes', '/uploads/gg.png', 6420, 5000, 5700, 14, 28, 'Jael Joel', 'active', '', '', ''),
 (3, 'Sierra Gutierrez', '002_001_002', '', 'gggg', '92', 'heaven yes', '/uploads/error1.png', 6100, 4500, 4500, 14, 36, 'Jael Joel', 'active', 'kg', '1', ''),
