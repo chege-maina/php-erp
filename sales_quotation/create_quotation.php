@@ -296,7 +296,12 @@ include '../includes/base_page/head.php';
           let units_td = document.createElement("td");
           units_td.classList.add("align-middle");
 
+          let r_id = "_s_s_s_" + uuidv4();
           let unit_select = document.createElement("select");
+          unit_select.id = "sel" + r_id;
+          unit_select.addEventListener("change", event => {
+            unitChanged(event.target.id, event.target.value);
+          });
           unit_select.classList.add("form-select", "form-select-sm");
           let opt_atomic = document.createElement("option");
           opt_atomic.appendChild(document.createTextNode(table_items[item]["atomic_unit"]));
@@ -309,6 +314,7 @@ include '../includes/base_page/head.php';
           units_td.appendChild(unit_select);
 
           let quantity = document.createElement("input");
+          quantity.id = "qtt" + r_id;
           quantity.setAttribute("type", "number");
           quantity.setAttribute("required", "");
           quantity.classList.add("form-control", "form-control-sm", "align-middle");
@@ -318,7 +324,7 @@ include '../includes/base_page/head.php';
 
           // make sure the quantity is always greater than 0
           quantity.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
-          quantity.setAttribute("onkeyup", "addQuantity(this.dataset.ref, this.value, this.max);");
+          quantity.setAttribute("onkeyup", "addQuantity(this.dataset.ref, this.value, this.max, this);");
           quantity.setAttribute("onclick", "this.select();");
           table_items[item]['quantity'] = ('quantity' in table_items[item] && table_items[item]['quantity'] > 0) ?
             table_items[item]['quantity'] : 1;
@@ -363,26 +369,30 @@ include '../includes/base_page/head.php';
         return;
       }
 
-      function addQuantity(item, value, max) {
+      function addQuantity(item, value, max, elem) {
         value = Number(value);
         max = Number(max);
         value = value <= 0 ? 1 : value;
         value = value > max ? max : value;
-        console.log(item, table_items);
+        const unit = document.getElementById("sel_s_s_s_" + elem.id.split("_s_s_s_")[1]).value;
+        console.log("Unit: ", unit, table_items);
         for (key in table_items) {
           if (table_items[key]['name'] === item) {
+
+            const price_key = table_items[key].atomic_unit == unit ? "price" : "bs_price";
+
             table_items[key]['quantity'] = value;
 
             table_items[key]["tax_amt"] =
               ((Number(table_items[key]["tax"]) / 100) *
                 Number(table_items[key]["quantity"]) *
-                Number(table_items[key]["price"])).toFixed(2);
+                Number(table_items[key][price_key])).toFixed(2);
 
             // Update tax calculations
             table_items[key]["total"] =
               (((Number(table_items[key]["tax"]) / 100) + 1) *
                 Number(table_items[key]["quantity"]) *
-                Number(table_items[key]["price"])).toFixed(2);
+                Number(table_items[key][price_key])).toFixed(2);
             const tax_td = document.querySelector("#t-" + table_items[key]["code"]);
             const total_td = document.querySelector("#td-" + table_items[key]["code"]);
             total_td.innerHTML = "";
@@ -497,6 +507,10 @@ include '../includes/base_page/head.php';
 
         po_time.value = hours + ":" + minutes;
       });
+
+      function unitChanged(id, val) {
+        console.log(`${id} changed to ${val}`);
+      }
     </script>
     <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
     <!-- Footer End -->
