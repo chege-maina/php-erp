@@ -294,8 +294,19 @@ include '../includes/base_page/head.php';
           price_td.classList.add("align-middle");
 
           let units_td = document.createElement("td");
-          units_td.appendChild(document.createTextNode(table_items[item]["unit"]));
           units_td.classList.add("align-middle");
+
+          let unit_select = document.createElement("select");
+          unit_select.classList.add("form-select", "form-select-sm");
+          let opt_atomic = document.createElement("option");
+          opt_atomic.appendChild(document.createTextNode(table_items[item]["atomic_unit"]));
+          opt_atomic.value = table_items[item]["atomic_unit"];
+          let opt_bulk = document.createElement("option");
+          opt_bulk.appendChild(document.createTextNode(table_items[item]["unit"]));
+          opt_bulk.value = table_items[item]["unit"];
+
+          unit_select.append(opt_atomic, opt_bulk);
+          units_td.appendChild(unit_select);
 
           let quantity = document.createElement("input");
           quantity.setAttribute("type", "number");
