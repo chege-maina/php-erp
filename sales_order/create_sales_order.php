@@ -214,6 +214,7 @@ include '../includes/base_page/head.php';
         disableAllButtons();
 
         const formData = new FormData();
+
         formData.append("date", requisition_date.value);
         formData.append("customer", customer.value);
         formData.append("sub_total", po_total.value);
@@ -238,6 +239,19 @@ include '../includes/base_page/head.php';
         });
 
         formData.append("table_items", JSON.stringify(sendable_table));
+
+        console.log("===========================================");
+        console.log("date", requisition_date.value);
+        console.log("customer", customer.value);
+        console.log("sub_total", po_total.value);
+        console.log("tax", tax_total.value);
+        console.log("terms", terms);
+        console.log("user", user_name);
+        console.log("amount", total_before_tax.value);
+        console.log("checker", "from scratch");
+        console.log("quotation_no", -1);
+        console.log("table_items", JSON.stringify(sendable_table));
+        console.log("===========================================");
 
         fetch('../includes/add_sales_order.php', {
             method: 'POST',
