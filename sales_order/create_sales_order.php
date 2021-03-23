@@ -268,6 +268,7 @@ include '../includes/base_page/head.php';
             divAlert.innerHTML = alertVar;
             divAlert.scrollIntoView();
 
+            return;
             window.setTimeout(() => {
               location.reload();
             }, 2500);
