@@ -69,6 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $s_sort_code = sanitize_input($_POST["s_sort_code"]);
   $s_mobile_no = sanitize_input($_POST["s_mobile_no"]);
   $s_bank_branch = sanitize_input($_POST["s_bank_branch"]);
+  $table_items = json_decode($_POST["table_items"], true);
 
   $filename = $_FILES["passport"]["name"];
   $filetype = $_FILES["passport"]["type"];
@@ -154,6 +155,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             );
 
             if ($stmt->execute()) {
+              $name = "name";
+              $email = "email";
+              $phone = "phone";
+              $relation = "relation";
+
+              foreach ($table_items as $key => $value) {
+                $mysql = "INSERT INTO tbl_staff_items (name, email, phone, relation) VALUES('" . $value["name"] . "', '" . $value["email"] . "','" . $value["phone"] . "','" . $value["relation"] . "')";
+                mysqli_query($conn, $mysql);
+              }
+
+
               $responseArray = array(
                 "message" => "success"
               );
