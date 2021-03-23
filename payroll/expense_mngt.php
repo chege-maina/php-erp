@@ -31,12 +31,10 @@ include '../includes/base_page/head.php';
         <div class="card-body fs--1 p-4">
           <!-- Content is to start here -->
           <div class="row pb-2 ">
-            <div class="col-lg-5 mb-3">
+            <div class="col">
               <label for="exp_date" class="form-label">Date </label>
               <input type="date" name="exp_date" id="exp_date" class="form-control" required>
             </div>
-          </div>
-          <div class="row">
             <div class="col">
               <label for="#" class="form-label">Select Employee </label>
               <div class="input-group">
@@ -45,6 +43,9 @@ include '../includes/base_page/head.php';
                 <button type="button" class="btn btn-primary">Select</button>
               </div>
             </div>
+          </div>
+          <div class="row">
+
             <div class="col">
               <label for="designation" class="form-label">Designation </label>
               <input type="text" name="designation" id="designation" class="form-control" required readonly>

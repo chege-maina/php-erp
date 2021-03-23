@@ -189,13 +189,31 @@ include '../includes/base_page/head.php';
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
               </div>
+
+              <div class="row mt-3">
+                <div class="col">
+                  <label class="form-label" for="dsp_price">Default Selling Price</label>
+                  <div class="input-group">
+                    <span class="input-group-text is-static">Exc. Tax*</span>
+                    <input type="number" class="form-control" name="dsp_price" id="dsp_price" required onkeyup="calculatePrices();" onfocusout="this.value = this.value > 0 ? this.value : 1">
+                    <div class="invalid-feedback">This field cannot be left blank.</div>
+                  </div>
+                </div>
+                <div class="col">
+                  <label class="form-label" for="bulk_dsp_price">Default Selling Price(Bulk Items)</label>
+                  <div class="input-group">
+                    <span class="input-group-text is-static">Exc. Tax*</span>
+                    <input type="number" class="form-control" name="bulk_dsp_price" id="bulk_dsp_price" required onkeyup="calculatePrices();" onfocusout="this.value = this.value > 0 ? this.value : 1">
+                    <div class="invalid-feedback">This field cannot be left blank.</div>
+                  </div>
+                </div>
+              </div>
               <!-- Tax table -->
               <table class="table mt-3">
                 <thead>
                   <tr>
                     <th scope="col">Default Purchase Price</th>
                     <th scope="col">Profit Margin(%)</th>
-                    <th scope="col">Default Selling Price</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -219,11 +237,6 @@ include '../includes/base_page/head.php';
                         <input type="number" class="form-control" name="profit_margin" aria-describedby="margin-percentage-label" value="25" id="profit_margin" required onkeyup=="calculatePrices();" readonly>
                         <span class="input-group-text" id="margin-percentage-label">%</span>
                       </div>
-                      <div class="invalid-feedback">This field cannot be left blank.</div>
-                    </td>
-                    <td>
-                      <label class="form-label" for="dsp_price">Exc. Tax*</label>
-                      <input type="number" class="form-control" name="dsp_price" id="dsp_price" required onkeyup="calculatePrices();" onfocusout="this.value = this.value > 0 ? this.value : 1">
                       <div class="invalid-feedback">This field cannot be left blank.</div>
                     </td>
                   </tr>
