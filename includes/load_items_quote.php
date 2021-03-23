@@ -18,8 +18,11 @@ while ($row = mysqli_fetch_assoc($result)) {
     array(
       'code' => $row['product_code'],
       'name' => $row['product_name'],
-      'unit' => $row['product_unit'],
+      'atomic_unit' => $row['atomic_unit'],
       'tax' => $row['applicable_tax'],
+      'bs_price' => $row['bs_price'],
+      'conversion' => $row['conversion'],
+      'unit' => $row['product_unit'],
       'price' => $row['dsp_price']
     )
   );
