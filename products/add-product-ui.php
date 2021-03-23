@@ -571,6 +571,7 @@ include '../includes/base_page/head.php';
               const dpp_inc_tax = document.querySelector("#dpp_inc_tax").value;
               const profit_margin = document.querySelector("#profit_margin").value;
               const dsp_price = document.querySelector("#dsp_price").value;
+              const bulk_dsp_price = document.querySelector("#bulk_dsp_price").value;
 
               const table_items = getTableData();
               if (table_items == undefined || table_items.length <= 0) {
@@ -602,6 +603,7 @@ include '../includes/base_page/head.php';
               console.log("dpp_inc_tax", dpp_inc_tax);
               console.log("profit_margin", profit_margin);
               console.log("dsp_price", dsp_price);
+              console.log("bs_price", dsp_price);
 
               console.log("table_items", table_items);
               // ===================================================================
@@ -632,6 +634,8 @@ include '../includes/base_page/head.php';
               formData.append("dpp_inc_tax", dpp_inc_tax);
               formData.append("profit_margin", profit_margin);
               formData.append("dsp_price", dsp_price);
+              formData.append("bs_price", bulk_dsp_price);
+
               formData.append("product_image", product_image);
 
               formData.append("table_items", JSON.stringify(table_items));
