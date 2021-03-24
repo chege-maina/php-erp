@@ -25,6 +25,7 @@
           v-bind:title="item.title"
           v-bind:balance="item.balance"
           v-bind:price="item.price"
+          v-bind:image_url="item.image_url"
         />
       </div>
     </div>
@@ -50,52 +51,62 @@ export default {
       {
         title: "Evertec, Inc.",
         balance: 306,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
         price: 4420.85,
       },
       {
         title: "Anthem, Inc.",
         balance: 348,
         price: 2803.86,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
       },
       {
         title: "Guggenheim ",
         balance: 344,
         price: 6047.61,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
       },
       {
         title: "Travelzoo",
         balance: 300,
         price: 5652.12,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
       },
       {
         title: "Mercury Systems Inc",
         balance: 928,
         price: 3799.74,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
       },
       {
         title: "Central",
         balance: 916,
         price: 7928.88,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
       },
       {
         title: "Nuveen",
         balance: 784,
         price: 1119.75,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
       },
       {
         title: "McCormick & Company",
         balance: 395,
         price: 8748.93,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
       },
       {
         title: "BioAmber Inc.",
         balance: 416,
         price: 1088.95,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
       },
       {
         title: "West Marine, Inc.",
         balance: 905,
         price: 1341.35,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
       },
     ],
     search_term: "",

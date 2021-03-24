@@ -37,6 +37,10 @@ export default {
       type: Number,
       default: () => "35,000",
     },
+    image_url: {
+      type: String,
+      default: () => "",
+    },
   },
   mounted() {
     const falcon_js = document.createElement("script");
