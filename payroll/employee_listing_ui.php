@@ -75,17 +75,16 @@ include '../includes/base_page/head.php';
 
             elem.setAttribute("manage_key", "Employee_No");
             elem.setAttribute("manage_key_2", "Last_Name");
-            elem.setAttribute("redirect", getBaseUrl() + "/payroll/edit-employee-ui.php");
+            //  elem.setAttribute("redirect", getBaseUrl() + "/payroll/edit-employee-ui.php");
             // elem.classList.add("is-fullwidth");
             datatable.appendChild(elem);
           };
 
           window.addEventListener('DOMContentLoaded', (event) => {
 
-            fetch('/payroll/employee_listing.php')
+            fetch('../payroll/employee_listing.php')
               .then(response => response.json())
               .then(data => {
-                console.log(data);
                 updateTable(data);
               })
               .catch((error) => {

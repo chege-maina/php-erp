@@ -2,7 +2,7 @@
 
 header("Content-type:application/json");
 
-include_once '../dbconnect.php';
+include_once '../includes/dbconnect.php';
 
 $query = "SELECT * FROM tbl_staff";
 
