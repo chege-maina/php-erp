@@ -192,17 +192,17 @@ include '../includes/base_page/head.php';
 
               <div class="row mt-3">
                 <div class="col">
-                  <label class="form-label" for="dsp_price">Default Selling Price</label>
+                  <label class="form-label" for="dsp_price">Default Selling Price*</label>
                   <div class="input-group">
-                    <span class="input-group-text is-static">Exc. Tax*</span>
+                    <span class="input-group-text is-static">Exc. Tax</span>
                     <input type="number" class="form-control" name="dsp_price" id="dsp_price" required onkeyup="calculatePrices();" onfocusout="this.value = this.value > 0 ? this.value : 1">
                     <div class="invalid-feedback">This field cannot be left blank.</div>
                   </div>
                 </div>
                 <div class="col">
-                  <label class="form-label" for="bulk_dsp_price">Default Selling Price(Bulk Items)</label>
+                  <label class="form-label" for="bulk_dsp_price">Default Selling Price(Bulk Items)*</label>
                   <div class="input-group">
-                    <span class="input-group-text is-static">Exc. Tax*</span>
+                    <span class="input-group-text is-static">Exc. Tax</span>
                     <input type="number" class="form-control" name="bulk_dsp_price" id="bulk_dsp_price" required onkeyup="calculatePrices();" onfocusout="this.value = this.value > 0 ? this.value : 1">
                     <div class="invalid-feedback">This field cannot be left blank.</div>
                   </div>
@@ -571,6 +571,7 @@ include '../includes/base_page/head.php';
               const dpp_inc_tax = document.querySelector("#dpp_inc_tax").value;
               const profit_margin = document.querySelector("#profit_margin").value;
               const dsp_price = document.querySelector("#dsp_price").value;
+              const bulk_dsp_price = document.querySelector("#bulk_dsp_price").value;
 
               const table_items = getTableData();
               if (table_items == undefined || table_items.length <= 0) {
@@ -602,6 +603,7 @@ include '../includes/base_page/head.php';
               console.log("dpp_inc_tax", dpp_inc_tax);
               console.log("profit_margin", profit_margin);
               console.log("dsp_price", dsp_price);
+              console.log("bs_price", dsp_price);
 
               console.log("table_items", table_items);
               // ===================================================================
@@ -632,6 +634,8 @@ include '../includes/base_page/head.php';
               formData.append("dpp_inc_tax", dpp_inc_tax);
               formData.append("profit_margin", profit_margin);
               formData.append("dsp_price", dsp_price);
+              formData.append("bs_price", bulk_dsp_price);
+
               formData.append("product_image", product_image);
 
               formData.append("table_items", JSON.stringify(table_items));

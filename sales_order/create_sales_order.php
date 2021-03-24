@@ -225,6 +225,7 @@ include '../includes/base_page/head.php';
         formData.append("checker", "from scratch");
         formData.append("quotation_no", -1);
         let sendable_table = [];
+        console.log("Table Items", table_items);
         table_items.forEach(item => {
           sendable_table.push({
             p_code: item.code,

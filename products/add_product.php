@@ -38,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $dpp_inc_tax = sanitize_input($_POST["dpp_inc_tax"]);
   $profit_margin = sanitize_input($_POST["profit_margin"]);
   $dsp_price = sanitize_input($_POST["dsp_price"]);
+  $bs_price = sanitize_input($_POST["bs_price"]);
   $table_items = json_decode($_POST["table_items"], true);
 
   $filename = $_FILES["product_image"]["name"];
@@ -83,8 +84,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
             $path = "/uploads/" . $filename;
-            if ($stmt = $con->prepare('INSERT INTO tbl_product (product_name, product_unit, product_category, product_code, weight, sub_category, product_image, dsp_price, amount_before_tax, dpp_inc_tax, applicable_tax, profit_margin, user, bulk_unit, conversion) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')) {
-              $stmt->bind_param('sssssssssssssss', $product_name, $product_unit, $product_category, $maincode, $weight, $sub_category, $path, $dsp_price, $amount_before_tax, $dpp_inc_tax, $applicable_tax, $profit_margin, $user_name, $selling_unit, $coversion_value);
+            if ($stmt = $con->prepare('INSERT INTO tbl_product (product_name, product_unit, product_category, product_code, weight, sub_category, product_image, dsp_price, amount_before_tax, dpp_inc_tax, applicable_tax, profit_margin, user, atomic_unit, conversion, bs_price) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')) {
+              $stmt->bind_param('ssssssssssssssss', $product_name, $product_unit, $product_category, $maincode, $weight, $sub_category, $path, $dsp_price, $amount_before_tax, $dpp_inc_tax, $applicable_tax, $profit_margin, $user_name, $selling_unit, $coversion_value, $bs_price);
 
               if ($stmt->execute()) {
 
