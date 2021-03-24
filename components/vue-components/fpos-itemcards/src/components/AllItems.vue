@@ -1,5 +1,20 @@
 <template>
   <div class="p-2 ml-3">
+    <div class="row pb-4 px-4">
+      <input
+        id="search_term"
+        type="text"
+        name="search_term"
+        placeholder="Search Term"
+        class="form-control"
+        v-model="search_term"
+      />
+    </div>
+    <div class="row">
+      <div class="col">
+        {{ search_term }}
+      </div>
+    </div>
     <div class="row">
       <div
         class="col mx-0 mb-3 px-0"
@@ -83,6 +98,7 @@ export default {
         price: 1341.35,
       },
     ],
+    search_term: "",
   }),
   mounted() {
     const falcon_js = document.createElement("script");
@@ -164,10 +180,31 @@ export default {
       let tmp = {};
       let i = 1;
       this.items_array.forEach((row) => {
-        tmp[i] = row;
+        if (
+          row.title.toLowerCase().search(this.search_term.toLowerCase()) != -1
+        ) {
+          tmp[i] = row;
+        }
+
         i++;
       });
       return tmp;
+    },
+  },
+  watch: {
+    search_term: function () {
+      console.log(this.search_term);
+      let tmp = {};
+      let i = 1;
+      this.items_array.forEach((row) => {
+        if (
+          row.title.toLowerCase().search(this.search_term.toLowerCase()) != -1
+        ) {
+          tmp[i] = row;
+        }
+        i++;
+      });
+      console.log(tmp);
     },
   },
 };
