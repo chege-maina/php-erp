@@ -267,6 +267,7 @@ include '../includes/base_page/head.php';
             divAlert.innerHTML = alertVar;
             divAlert.scrollIntoView();
 
+            return;
             window.setTimeout(() => {
               divAlert.innerHTML = "";
               location.reload();
@@ -312,6 +313,7 @@ include '../includes/base_page/head.php';
           let opt_atomic = document.createElement("option");
           opt_atomic.appendChild(document.createTextNode(table_items[item]["atomic_unit"]));
           opt_atomic.value = table_items[item]["atomic_unit"];
+          table_items[item]['current_unit'] = "atomic_unit";
           let opt_bulk = document.createElement("option");
           opt_bulk.appendChild(document.createTextNode(table_items[item]["unit"]));
           opt_bulk.value = table_items[item]["unit"];
