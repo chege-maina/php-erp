@@ -245,7 +245,7 @@ include '../includes/base_page/head.php';
           })
         })
 
-        console.log(sendable_table, table_items);
+        console.log(sendable_table, " : ", table_items);
         return false;
         formData.append("table_items", JSON.stringify(sendable_table));
 
@@ -383,6 +383,8 @@ include '../includes/base_page/head.php';
           if (table_items[key]['name'] === item) {
 
             const price_key = table_items[key].atomic_unit == unit ? "price" : "bs_price";
+            table_items[key]['current_unit'] = table_items[key].atomic_unit == unit ?
+              "atomic_unit" : "unit";
 
             table_items[key]['quantity'] = value;
 
@@ -512,7 +514,6 @@ include '../includes/base_page/head.php';
       });
 
       function unitChanged(id, val) {
-        console.log(`${id} changed to ${val}`);
         const qtt = document.getElementById("qtt_s_s_s_" + id.split("_s_s_s_")[1]);
         addQuantity(qtt.dataset.ref, qtt.value, qtt.max, qtt);
       }
