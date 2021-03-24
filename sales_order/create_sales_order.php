@@ -389,26 +389,36 @@ include '../includes/base_page/head.php';
         return;
       }
 
-      function addQuantity(item, value, max) {
+
+      function addQuantity(item, value, max, elem) {
         value = Number(value);
         max = Number(max);
         value = value <= 0 ? 1 : value;
         value = value > max ? max : value;
-        console.log(item, table_items);
+        const unit = document.getElementById("sel_s_s_s_" + elem.id.split("_s_s_s_")[1]).value;
+        const price_widget = document.getElementById("prc_s_s_s_" + elem.id.split("_s_s_s_")[1]);
+        console.log("Unit: ", unit, table_items);
         for (key in table_items) {
           if (table_items[key]['name'] === item) {
+
+            const price_key = table_items[key].atomic_unit == unit ? "price" : "bs_price";
+            table_items[key]['current_unit'] = table_items[key].atomic_unit == unit ?
+              "atomic_unit" : "unit";
+            price_widget.innerHTML = "";
+            price_widget.appendChild(document.createTextNode(table_items[key][price_key]));
+
             table_items[key]['quantity'] = value;
 
             table_items[key]["tax_amt"] =
               ((Number(table_items[key]["tax"]) / 100) *
                 Number(table_items[key]["quantity"]) *
-                Number(table_items[key]["price"])).toFixed(2);
+                Number(table_items[key][price_key])).toFixed(2);
 
             // Update tax calculations
             table_items[key]["total"] =
               (((Number(table_items[key]["tax"]) / 100) + 1) *
                 Number(table_items[key]["quantity"]) *
-                Number(table_items[key]["price"])).toFixed(2);
+                Number(table_items[key][price_key])).toFixed(2);
             const tax_td = document.querySelector("#t-" + table_items[key]["code"]);
             const total_td = document.querySelector("#td-" + table_items[key]["code"]);
             total_td.innerHTML = "";
@@ -450,7 +460,9 @@ include '../includes/base_page/head.php';
         let total_tax = 0;
         let quotation_total = 0;
         table_items.forEach(item => {
-          before_tax += Number(item["price"]) * item["quantity"];
+          console.log("Yaaah", item);
+          const price_key = "atomic_unit" == item.current_unit ? "price" : "bs_price";
+          before_tax += Number(item[price_key]) * item["quantity"];
           total_tax += Number(item.tax_amt);
           quotation_total += Number(item.total);
         });
@@ -458,6 +470,9 @@ include '../includes/base_page/head.php';
         tax_total_a.set(total_tax);
         po_total_a.set(quotation_total);
       }
+
+
+
 
       function checkCustomerStatus(value) {
         const status_elem = document.querySelector("#status");
@@ -559,6 +574,11 @@ include '../includes/base_page/head.php';
 
         po_time.value = hours + ":" + minutes;
       });
+
+      function unitChanged(id, val) {
+        const qtt = document.getElementById("qtt_s_s_s_" + id.split("_s_s_s_")[1]);
+        addQuantity(qtt.dataset.ref, qtt.value, qtt.max, qtt);
+      }
     </script>
     <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
     <!-- Footer End -->
