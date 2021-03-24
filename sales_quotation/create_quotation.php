@@ -244,6 +244,9 @@ include '../includes/base_page/head.php';
             p_tax: item.tax_amt
           })
         })
+
+        console.log(sendable_table, table_items);
+        return false;
         formData.append("table_items", JSON.stringify(sendable_table));
 
         fetch('../includes/add_quotation.php', {
@@ -294,7 +297,7 @@ include '../includes/base_page/head.php';
           price_td.classList.add("align-middle");
 
           let units_td = document.createElement("td");
-          units_td.classList.add("align-middle");
+          units_td.classList.add("align-middle", "col-md-2");
 
           let r_id = "_s_s_s_" + uuidv4();
           let unit_select = document.createElement("select");
@@ -330,7 +333,7 @@ include '../includes/base_page/head.php';
             table_items[item]['quantity'] : 1;
           quantity.value = table_items[item]['quantity'];
           let quantityWrapper = document.createElement("td");
-          quantityWrapper.classList.add("m-2");
+          quantityWrapper.classList.add("m-2", "col-md-2");
           quantityWrapper.appendChild(quantity);
 
           let tax_td = document.createElement("td");
