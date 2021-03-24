@@ -296,14 +296,16 @@ include '../includes/base_page/head.php';
           name_td.appendChild(document.createTextNode(table_items[item]["name"]));
           name_td.classList.add("align-middle");
 
+          let r_id = "_s_s_s_" + uuidv4();
+
           let price_td = document.createElement("td");
+          price_td.id = "prc" + r_id;
           price_td.appendChild(document.createTextNode(table_items[item]["price"]));
           price_td.classList.add("align-middle");
 
           let units_td = document.createElement("td");
           units_td.classList.add("align-middle", "col-md-2");
 
-          let r_id = "_s_s_s_" + uuidv4();
           let unit_select = document.createElement("select");
           unit_select.id = "sel" + r_id;
           unit_select.addEventListener("change", event => {
@@ -383,6 +385,7 @@ include '../includes/base_page/head.php';
         value = value <= 0 ? 1 : value;
         value = value > max ? max : value;
         const unit = document.getElementById("sel_s_s_s_" + elem.id.split("_s_s_s_")[1]).value;
+        const price_widget = document.getElementById("prc_s_s_s_" + elem.id.split("_s_s_s_")[1]);
         console.log("Unit: ", unit, table_items);
         for (key in table_items) {
           if (table_items[key]['name'] === item) {
@@ -390,6 +393,8 @@ include '../includes/base_page/head.php';
             const price_key = table_items[key].atomic_unit == unit ? "price" : "bs_price";
             table_items[key]['current_unit'] = table_items[key].atomic_unit == unit ?
               "atomic_unit" : "unit";
+            price_widget.innerHTML = "";
+            price_widget.appendChild(document.createTextNode(table_items[key][price_key]));
 
             table_items[key]['quantity'] = value;
 
