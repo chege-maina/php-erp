@@ -6,6 +6,8 @@ if (mysqli_connect_errno()) {
   die('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
 
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
 function sanitize_input($data)
 {
   $data = trim($data);
@@ -67,6 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $s_sort_code = sanitize_input($_POST["s_sort_code"]);
   $s_mobile_no = sanitize_input($_POST["s_mobile_no"]);
   $s_bank_branch = sanitize_input($_POST["s_bank_branch"]);
+  $table_items = json_decode($_POST["table_items"], true);
 
   $filename = $_FILES["passport"]["name"];
   $filetype = $_FILES["passport"]["type"];
@@ -84,19 +87,85 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       // =======================================================================================
       // Attempt data insert
       // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-      if ($stmt = $con->prepare('SELECT first_name FROM tbl_employee WHERE national_id = ?')) {
+      if ($stmt = $con->prepare('SELECT f_name FROM tbl_staff WHERE nat_id = ?')) {
         // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
         $stmt->bind_param('s', $national_id_no);
         $stmt->execute();
         // Store the result so we can check if the account exists in the database.
         $stmt->store_result();
         if ($stmt->num_rows == 0) {
-          if ($stmt = $con->prepare('INSERT INTO tbl_staff_items (f_name, m_name, l_name,
-      gender, dob, res, nat_id, pin_no, nssf_no, nhif_no, passport, off_mail, pers_mail, country, mobile_no, phone_no, ext_no, city, county, postal_code, job_no, employ_date, begin_date, end_date, job_title, department, report_to, head_of, region, currency, shift, off_days, pay_type, salary, income_tax, deduct_nssf, deduct_nhif,account_name, account_no, bank_name, bank_branch, sort_code, s_mobile_no , s_bank_branch, s_payment  ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')) {
+          if ($stmt = $con->prepare('INSERT INTO tbl_staff (
+          f_name, m_name, l_name,
+          gender, dob, res, nat_id, pin_no, nssf_no, nhif_no, passport, off_mail, pers_mail,
+          country, mobile_no, phone_no, ext_no, city, county, postal_code, job_no, employ_date, 
+          begin_date, duration, end_date, job_title, department, report_to, head_of, region, currency, 
+          employ_type, shift, off_days, pay_type, salary, income_tax, deduct_nssf, deduct_nhif, account_name,
+          account_no, bank_name, sort_code, s_mobile_no , s_bank_branch, s_payment) 
+          VALUES (
+            ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')) {
             $path = "/uploads/" . $filename;
-            $stmt->bind_param('sssssssssssssssssssssssssssssssssssssssssssss', $first_name, $middle_name, $last_name, $gender, $date_of_birth, $residential_status, $national_id_no, $pin_no, $nssf_no, $nhif_no, $path,  $off_mail, $pers_mail, $country, $mobile_no, $phone_no, $ext_no, $city, $county, $postal_code, $job_no, $employ_date, $begin_date, $end_date, $job_title, $department, $report_to, $head_of, $region, $currency, $shift, $off_days, $pay_type, $salary, $income_tax, $deduct_nssf, $deduct_nhif, $account_name, $account_no, $bank_name, $bank_branch, $sort_code, $s_mobile_no, $s_bank_branch, $s_payment);
+            $stmt->bind_param(
+              'ssssssssssssssssssssssssssssssssssssssssssssss',
+              $first_name,
+              $middle_name,
+              $last_name,
+              $gender,
+              $date_of_birth,
+              $residential_status,
+              $national_id_no,
+              $pin_no,
+              $nssf_no,
+              $nhif_no,
+              $path,
+              $official_email,
+              $personal_email,
+              $country,
+              $mobile_no,
+              $official_no,
+              $ext_no,
+              $city_town,
+              $county,
+              $p_code,
+              $job_number,
+              $employ_date,
+              $start_date,
+              $duration,
+              $end_date,
+              $job_title,
+              $department,
+              $report_to,
+              $head_of,
+              $region,
+              $payment_currency,
+              $employ_date,
+              $work_shift,
+              $off_days,
+              $salary_type,
+              $monthly_salary,
+              $income_tax,
+              $deduct_nssf,
+              $deduct_nhif,
+              $s_account_name,
+              $s_account_no,
+              $s_bank_name,
+              $s_sort_code,
+              $s_mobile_no,
+              $s_bank_branch,
+              $s_payment_option
+            );
 
             if ($stmt->execute()) {
+              $name = "name";
+              $email = "email";
+              $phone = "phone";
+              $relation = "relation";
+
+              foreach ($table_items as $key => $value) {
+                $mysql = "INSERT INTO tbl_staff_items (name, email, phone, relation) VALUES('" . $value["name"] . "', '" . $value["email"] . "','" . $value["phone"] . "','" . $value["relation"] . "')";
+                mysqli_query($conn, $mysql);
+              }
+
+
               $responseArray = array(
                 "message" => "success"
               );
@@ -104,7 +173,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               $responseArray = array(
                 "message" => "error",
                 "desc" => "Could not insert",
-                "details" => mysqli_error($con)
+                "details" => $con->error
               );
             }
             echo json_encode($responseArray);
@@ -112,7 +181,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo json_encode(array(
               "message" => "error",
               "desc" => "Could not prepare insert query",
-              "details" => mysqli_error($con)
+              "details" => $con->error
             ));
           }
         } else {
