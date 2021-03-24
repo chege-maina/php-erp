@@ -250,7 +250,6 @@ include '../includes/base_page/head.php';
         })
 
         console.log(sendable_table, " : ", table_items);
-        return false;
         formData.append("table_items", JSON.stringify(sendable_table));
 
         fetch('../includes/add_quotation.php', {
