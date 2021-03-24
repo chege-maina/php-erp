@@ -238,14 +238,17 @@ include '../includes/base_page/head.php';
             p_name: item.name,
             p_tax_pc: item.tax,
             p_units: item.unit,
-            p_atomic_unit: item.atomic_unit,
-            p_quantity: item.quantity,
             p_price: item.price,
             p_amount: item.total,
             p_tax: item.tax_amt,
+            p_conversion: item.quantity,
+            p_atomic_unit: item.atomic_unit,
+            p_atomic_price: item.atomic_price,
             p_selected_unit: item.current_unit,
             p_quantity_in_base_unit: item.current_unit === "unit" ?
               item.quantity : item.quantity / item.conversion,
+            p_entered_price: item.current_unit === "unit" ?
+              item.price : item.atomic_price;
           })
         })
 
