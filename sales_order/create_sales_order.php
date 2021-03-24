@@ -306,31 +306,51 @@ include '../includes/base_page/head.php';
           name_td.appendChild(document.createTextNode(table_items[item]["name"]));
           name_td.classList.add("align-middle");
 
+          let r_id = "_s_s_s_" + uuidv4();
+
           let price_td = document.createElement("td");
+          price_td.id = "prc" + r_id;
           price_td.appendChild(document.createTextNode(table_items[item]["price"]));
           price_td.classList.add("align-middle");
 
           let units_td = document.createElement("td");
-          units_td.appendChild(document.createTextNode(table_items[item]["unit"]));
-          units_td.classList.add("align-middle");
+          units_td.classList.add("align-middle", "col-md-2");
+
+          let unit_select = document.createElement("select");
+          unit_select.id = "sel" + r_id;
+          unit_select.addEventListener("change", event => {
+            unitChanged(event.target.id, event.target.value);
+          });
+          unit_select.classList.add("form-select", "form-select-sm");
+          let opt_atomic = document.createElement("option");
+          opt_atomic.appendChild(document.createTextNode(table_items[item]["atomic_unit"]));
+          opt_atomic.value = table_items[item]["atomic_unit"];
+          table_items[item]['current_unit'] = "atomic_unit";
+          let opt_bulk = document.createElement("option");
+          opt_bulk.appendChild(document.createTextNode(table_items[item]["unit"]));
+          opt_bulk.value = table_items[item]["unit"];
+
+          unit_select.append(opt_atomic, opt_bulk);
+          units_td.appendChild(unit_select);
 
           let quantity = document.createElement("input");
+          quantity.id = "qtt" + r_id;
           quantity.setAttribute("type", "number");
           quantity.setAttribute("required", "");
           quantity.classList.add("form-control", "form-control-sm", "align-middle");
           quantity.setAttribute("data-ref", table_items[item]["name"]);
           quantity.setAttribute("min", 1);
-          quantity.setAttribute("max", table_items[item]['balance']);
+          quantity.setAttribute("max", table_items[item]['max']);
 
           // make sure the quantity is always greater than 0
           quantity.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
-          quantity.setAttribute("onkeyup", "addQuantity(this.dataset.ref, this.value, this.max);");
+          quantity.setAttribute("onkeyup", "addQuantity(this.dataset.ref, this.value, this.max, this);");
           quantity.setAttribute("onclick", "this.select();");
           table_items[item]['quantity'] = ('quantity' in table_items[item] && table_items[item]['quantity'] > 0) ?
             table_items[item]['quantity'] : 1;
           quantity.value = table_items[item]['quantity'];
           let quantityWrapper = document.createElement("td");
-          quantityWrapper.classList.add("m-2");
+          quantityWrapper.classList.add("m-2", "col-md-2");
           quantityWrapper.appendChild(quantity);
 
           let tax_td = document.createElement("td");
@@ -511,7 +531,9 @@ include '../includes/base_page/head.php';
             console.error('Error:', error);
           });
 
-        fetch('../includes/load_items_sales.php')
+        // TODO: Uncomment this
+        // fetch('../includes/load_items_sales.php')
+        fetch('../includes/load_items_quote.php')
           .then(response => response.json())
           .then(result => {
             result.forEach((item) => {
