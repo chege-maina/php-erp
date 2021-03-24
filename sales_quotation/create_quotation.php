@@ -245,7 +245,7 @@ include '../includes/base_page/head.php';
             p_atomic_unit: item.atomic_unit,
             p_atomic_price: item.atomic_price,
             p_selected_unit: item.current_unit,
-            p_quantity_in_base_unit: item.current_unit === "unit" ?
+            p_quantity: item.current_unit === "unit" ?
               item.quantity : item.quantity / item.conversion,
             p_entered_price: item.current_unit === "unit" ?
               item.price : item.atomic_price
