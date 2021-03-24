@@ -444,7 +444,9 @@ include '../includes/base_page/head.php';
         let total_tax = 0;
         let quotation_total = 0;
         table_items.forEach(item => {
-          before_tax += Number(item["price"]) * item["quantity"];
+          console.log("Yaaah", item);
+          const price_key = "atomic_unit" == item.current_unit ? "price" : "bs_price";
+          before_tax += Number(item[price_key]) * item["quantity"];
           total_tax += Number(item.tax_amt);
           quotation_total += Number(item.total);
         });
