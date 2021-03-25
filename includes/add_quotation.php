@@ -52,9 +52,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     foreach ($table_items as $key => $value) {
 
       $mysql = "INSERT INTO tbl_quotation_items (quote_no, product_code, product_name, 
-  unit, qty, price, amount, tax, tax_pc, branch_location) VALUES('" . $quote_no . "','" . $value["p_code"] . "',
+  unit, qty, price, amount, tax, tax_pc, branch_location, conversion, atm_unit, atm_price, selected_unit, entered_price) VALUES('" . $quote_no . "','" . $value["p_code"] . "',
   '" . $value["p_name"] . "','" . $value["p_units"] . "', '" . $value["p_quantity"] . "',
-  '" . $value["p_price"] . "','" . $value["p_amount"] . "','" . $value["p_tax"] . "','" . $value["p_tax_pc"] . "','" . $branch . "')";
+  '" . $value["p_price"] . "','" . $value["p_amount"] . "','" . $value["p_tax"] . "','" . $value["p_tax_pc"] . "','" . $branch . "','" . $value["p_conversion"] . "','" . $value["p_atomic_unit"] . "','" . $value["p_atomic_price"] . "','" . $value["p_selected_unit"] . "','" . $value["p_enetered_price"] . "')";
       mysqli_query($conn, $mysql);
 
       $message = "Quotation " . $quote_no . " Created Successfully..";

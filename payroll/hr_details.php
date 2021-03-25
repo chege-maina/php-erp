@@ -35,10 +35,18 @@
     </div>
     <hr>
     <div class="row mt-3">
-      <div class="col col-md-4 my-1">
+      <div class="col">
         <label class="form-label" for="job_title">Job Title</label>
         <input type="text" class="form-control" name="job_title" id="job_title" required>
         <div class="invalid-feedback">This field cannot be left blank.</div>
+      </div>
+      <div class="col">
+        <label for="branch" class="form-label">Branch</label>
+        <select name="branch" id="branch" class="form-select">
+          <option value="" disabled selected>Select Branch</option>
+          <option value="mm1">MM1</option>
+          <option value="mm2">MM2</option>
+        </select>
       </div>
     </div>
     <div class="row mt-3">
@@ -74,6 +82,7 @@
 
 <script>
   const job_number = document.querySelector("#job_number");
+  const branch = document.querySelector("#branch");
   const employ_date = document.querySelector("#employ_date");
   const start_date = document.querySelector("#start_date");
   const end_date = document.querySelector("#end_date");
@@ -86,6 +95,7 @@
 
   function getHrDetails() {
     let tmp = {
+      branch: branch.value,
       job_number: job_number.value,
       employ_date: employ_date.value,
       start_date: start_date.value,
