@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $response,
       array(
         'job_number' => $row['job_no'],
-        'branch' => $row['branch'],
+        'branch_name' => $row['branch'],
         'job_title' => $row['job_title']
       )
     );
