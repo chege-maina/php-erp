@@ -279,7 +279,7 @@ export default {
       let i = 1;
       this.items_array.forEach((row) => {
         if (
-          row.title.toLowerCase().search(this.search_term.toLowerCase()) != -1
+          row.name.toLowerCase().search(this.search_term.toLowerCase()) != -1
         ) {
           tmp[i] = row;
         }
