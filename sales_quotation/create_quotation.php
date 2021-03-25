@@ -238,12 +238,21 @@ include '../includes/base_page/head.php';
             p_name: item.name,
             p_tax_pc: item.tax,
             p_units: item.unit,
-            p_quantity: item.quantity,
             p_price: item.price,
             p_amount: item.total,
-            p_tax: item.tax_amt
+            p_tax: item.tax_amt,
+            p_conversion: item.quantity,
+            p_atomic_unit: item.atomic_unit,
+            p_atomic_price: item.atomic_price,
+            p_selected_unit: item.current_unit,
+            p_quantity: item.current_unit === "unit" ?
+              item.quantity : item.quantity / item.conversion,
+            p_entered_price: item.current_unit === "unit" ?
+              item.price : item.atomic_price
           })
         })
+
+        console.log(sendable_table, " : ", table_items);
         formData.append("table_items", JSON.stringify(sendable_table));
 
         fetch('../includes/add_quotation.php', {
@@ -261,6 +270,7 @@ include '../includes/base_page/head.php';
             divAlert.innerHTML = alertVar;
             divAlert.scrollIntoView();
 
+            return;
             window.setTimeout(() => {
               divAlert.innerHTML = "";
               location.reload();
@@ -289,14 +299,16 @@ include '../includes/base_page/head.php';
           name_td.appendChild(document.createTextNode(table_items[item]["name"]));
           name_td.classList.add("align-middle");
 
+          let r_id = "_s_s_s_" + uuidv4();
+
           let price_td = document.createElement("td");
+          price_td.id = "prc" + r_id;
           price_td.appendChild(document.createTextNode(table_items[item]["price"]));
           price_td.classList.add("align-middle");
 
           let units_td = document.createElement("td");
-          units_td.classList.add("align-middle");
+          units_td.classList.add("align-middle", "col-md-2");
 
-          let r_id = "_s_s_s_" + uuidv4();
           let unit_select = document.createElement("select");
           unit_select.id = "sel" + r_id;
           unit_select.addEventListener("change", event => {
@@ -306,6 +318,7 @@ include '../includes/base_page/head.php';
           let opt_atomic = document.createElement("option");
           opt_atomic.appendChild(document.createTextNode(table_items[item]["atomic_unit"]));
           opt_atomic.value = table_items[item]["atomic_unit"];
+          table_items[item]['current_unit'] = "atomic_unit";
           let opt_bulk = document.createElement("option");
           opt_bulk.appendChild(document.createTextNode(table_items[item]["unit"]));
           opt_bulk.value = table_items[item]["unit"];
@@ -330,7 +343,7 @@ include '../includes/base_page/head.php';
             table_items[item]['quantity'] : 1;
           quantity.value = table_items[item]['quantity'];
           let quantityWrapper = document.createElement("td");
-          quantityWrapper.classList.add("m-2");
+          quantityWrapper.classList.add("m-2", "col-md-2");
           quantityWrapper.appendChild(quantity);
 
           let tax_td = document.createElement("td");
@@ -375,11 +388,16 @@ include '../includes/base_page/head.php';
         value = value <= 0 ? 1 : value;
         value = value > max ? max : value;
         const unit = document.getElementById("sel_s_s_s_" + elem.id.split("_s_s_s_")[1]).value;
+        const price_widget = document.getElementById("prc_s_s_s_" + elem.id.split("_s_s_s_")[1]);
         console.log("Unit: ", unit, table_items);
         for (key in table_items) {
           if (table_items[key]['name'] === item) {
 
             const price_key = table_items[key].atomic_unit == unit ? "price" : "bs_price";
+            table_items[key]['current_unit'] = table_items[key].atomic_unit == unit ?
+              "atomic_unit" : "unit";
+            price_widget.innerHTML = "";
+            price_widget.appendChild(document.createTextNode(table_items[key][price_key]));
 
             table_items[key]['quantity'] = value;
 
@@ -434,7 +452,9 @@ include '../includes/base_page/head.php';
         let total_tax = 0;
         let quotation_total = 0;
         table_items.forEach(item => {
-          before_tax += Number(item["price"]) * item["quantity"];
+          console.log("Yaaah", item);
+          const price_key = "atomic_unit" == item.current_unit ? "price" : "bs_price";
+          before_tax += Number(item[price_key]) * item["quantity"];
           total_tax += Number(item.tax_amt);
           quotation_total += Number(item.total);
         });
@@ -509,7 +529,6 @@ include '../includes/base_page/head.php';
       });
 
       function unitChanged(id, val) {
-        console.log(`${id} changed to ${val}`);
         const qtt = document.getElementById("qtt_s_s_s_" + id.split("_s_s_s_")[1]);
         addQuantity(qtt.dataset.ref, qtt.value, qtt.max, qtt);
       }

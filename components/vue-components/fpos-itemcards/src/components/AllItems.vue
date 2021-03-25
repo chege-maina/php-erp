@@ -1,5 +1,20 @@
 <template>
   <div class="p-2 ml-3">
+    <div class="row pb-4 px-4">
+      <input
+        id="search_term"
+        type="text"
+        name="search_term"
+        placeholder="Search Term"
+        class="form-control"
+        v-model="search_term"
+      />
+    </div>
+    <div class="row">
+      <div class="col">
+        {{ search_term }}
+      </div>
+    </div>
     <div class="row">
       <div
         class="col mx-0 mb-3 px-0"
@@ -10,6 +25,7 @@
           v-bind:title="item.title"
           v-bind:balance="item.balance"
           v-bind:price="item.price"
+          v-bind:image_url="item.image_url"
         />
       </div>
     </div>
@@ -35,54 +51,65 @@ export default {
       {
         title: "Evertec, Inc.",
         balance: 306,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
         price: 4420.85,
       },
       {
         title: "Anthem, Inc.",
         balance: 348,
         price: 2803.86,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
       },
       {
         title: "Guggenheim ",
         balance: 344,
         price: 6047.61,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
       },
       {
         title: "Travelzoo",
         balance: 300,
         price: 5652.12,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
       },
       {
         title: "Mercury Systems Inc",
         balance: 928,
         price: 3799.74,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
       },
       {
         title: "Central",
         balance: 916,
         price: 7928.88,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
       },
       {
         title: "Nuveen",
         balance: 784,
         price: 1119.75,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
       },
       {
         title: "McCormick & Company",
         balance: 395,
         price: 8748.93,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
       },
       {
         title: "BioAmber Inc.",
         balance: 416,
         price: 1088.95,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
       },
       {
         title: "West Marine, Inc.",
         balance: 905,
         price: 1341.35,
+        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
       },
     ],
+    search_term: "",
   }),
   mounted() {
     const falcon_js = document.createElement("script");
@@ -164,10 +191,31 @@ export default {
       let tmp = {};
       let i = 1;
       this.items_array.forEach((row) => {
-        tmp[i] = row;
+        if (
+          row.title.toLowerCase().search(this.search_term.toLowerCase()) != -1
+        ) {
+          tmp[i] = row;
+        }
+
         i++;
       });
       return tmp;
+    },
+  },
+  watch: {
+    search_term: function () {
+      console.log(this.search_term);
+      let tmp = {};
+      let i = 1;
+      this.items_array.forEach((row) => {
+        if (
+          row.title.toLowerCase().search(this.search_term.toLowerCase()) != -1
+        ) {
+          tmp[i] = row;
+        }
+        i++;
+      });
+      console.log(tmp);
     },
   },
 };

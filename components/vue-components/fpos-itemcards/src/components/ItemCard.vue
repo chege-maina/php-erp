@@ -5,11 +5,7 @@
     v-on:click="itemClicked()"
   >
     <div class="card-img-top">
-      <img
-        class="img-fluid"
-        src="https://homepages.cae.wisc.edu/~ece533/images/girl.png"
-        alt="Card image cap"
-      />
+      <img class="img-fluid" v-bind:src="image_url" alt="Card image cap" />
     </div>
     <div class="card-body m-0 p-2 pl-3 pb-3">
       <h6 class="card-title">{{ title }}</h6>
@@ -36,6 +32,10 @@ export default {
     price: {
       type: Number,
       default: () => "35,000",
+    },
+    image_url: {
+      type: String,
+      default: () => "",
     },
   },
   mounted() {

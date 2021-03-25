@@ -306,31 +306,51 @@ include '../includes/base_page/head.php';
           name_td.appendChild(document.createTextNode(table_items[item]["name"]));
           name_td.classList.add("align-middle");
 
+          let r_id = "_s_s_s_" + uuidv4();
+
           let price_td = document.createElement("td");
+          price_td.id = "prc" + r_id;
           price_td.appendChild(document.createTextNode(table_items[item]["price"]));
           price_td.classList.add("align-middle");
 
           let units_td = document.createElement("td");
-          units_td.appendChild(document.createTextNode(table_items[item]["unit"]));
-          units_td.classList.add("align-middle");
+          units_td.classList.add("align-middle", "col-md-2");
+
+          let unit_select = document.createElement("select");
+          unit_select.id = "sel" + r_id;
+          unit_select.addEventListener("change", event => {
+            unitChanged(event.target.id, event.target.value);
+          });
+          unit_select.classList.add("form-select", "form-select-sm");
+          let opt_atomic = document.createElement("option");
+          opt_atomic.appendChild(document.createTextNode(table_items[item]["atomic_unit"]));
+          opt_atomic.value = table_items[item]["atomic_unit"];
+          table_items[item]['current_unit'] = "atomic_unit";
+          let opt_bulk = document.createElement("option");
+          opt_bulk.appendChild(document.createTextNode(table_items[item]["unit"]));
+          opt_bulk.value = table_items[item]["unit"];
+
+          unit_select.append(opt_atomic, opt_bulk);
+          units_td.appendChild(unit_select);
 
           let quantity = document.createElement("input");
+          quantity.id = "qtt" + r_id;
           quantity.setAttribute("type", "number");
           quantity.setAttribute("required", "");
           quantity.classList.add("form-control", "form-control-sm", "align-middle");
           quantity.setAttribute("data-ref", table_items[item]["name"]);
           quantity.setAttribute("min", 1);
-          quantity.setAttribute("max", table_items[item]['balance']);
+          quantity.setAttribute("max", table_items[item]['max']);
 
           // make sure the quantity is always greater than 0
           quantity.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
-          quantity.setAttribute("onkeyup", "addQuantity(this.dataset.ref, this.value, this.max);");
+          quantity.setAttribute("onkeyup", "addQuantity(this.dataset.ref, this.value, this.max, this);");
           quantity.setAttribute("onclick", "this.select();");
           table_items[item]['quantity'] = ('quantity' in table_items[item] && table_items[item]['quantity'] > 0) ?
             table_items[item]['quantity'] : 1;
           quantity.value = table_items[item]['quantity'];
           let quantityWrapper = document.createElement("td");
-          quantityWrapper.classList.add("m-2");
+          quantityWrapper.classList.add("m-2", "col-md-2");
           quantityWrapper.appendChild(quantity);
 
           let tax_td = document.createElement("td");
@@ -369,26 +389,36 @@ include '../includes/base_page/head.php';
         return;
       }
 
-      function addQuantity(item, value, max) {
+
+      function addQuantity(item, value, max, elem) {
         value = Number(value);
         max = Number(max);
         value = value <= 0 ? 1 : value;
         value = value > max ? max : value;
-        console.log(item, table_items);
+        const unit = document.getElementById("sel_s_s_s_" + elem.id.split("_s_s_s_")[1]).value;
+        const price_widget = document.getElementById("prc_s_s_s_" + elem.id.split("_s_s_s_")[1]);
+        console.log("Unit: ", unit, table_items);
         for (key in table_items) {
           if (table_items[key]['name'] === item) {
+
+            const price_key = table_items[key].atomic_unit == unit ? "price" : "bs_price";
+            table_items[key]['current_unit'] = table_items[key].atomic_unit == unit ?
+              "atomic_unit" : "unit";
+            price_widget.innerHTML = "";
+            price_widget.appendChild(document.createTextNode(table_items[key][price_key]));
+
             table_items[key]['quantity'] = value;
 
             table_items[key]["tax_amt"] =
               ((Number(table_items[key]["tax"]) / 100) *
                 Number(table_items[key]["quantity"]) *
-                Number(table_items[key]["price"])).toFixed(2);
+                Number(table_items[key][price_key])).toFixed(2);
 
             // Update tax calculations
             table_items[key]["total"] =
               (((Number(table_items[key]["tax"]) / 100) + 1) *
                 Number(table_items[key]["quantity"]) *
-                Number(table_items[key]["price"])).toFixed(2);
+                Number(table_items[key][price_key])).toFixed(2);
             const tax_td = document.querySelector("#t-" + table_items[key]["code"]);
             const total_td = document.querySelector("#td-" + table_items[key]["code"]);
             total_td.innerHTML = "";
@@ -430,7 +460,9 @@ include '../includes/base_page/head.php';
         let total_tax = 0;
         let quotation_total = 0;
         table_items.forEach(item => {
-          before_tax += Number(item["price"]) * item["quantity"];
+          console.log("Yaaah", item);
+          const price_key = "atomic_unit" == item.current_unit ? "price" : "bs_price";
+          before_tax += Number(item[price_key]) * item["quantity"];
           total_tax += Number(item.tax_amt);
           quotation_total += Number(item.total);
         });
@@ -438,6 +470,9 @@ include '../includes/base_page/head.php';
         tax_total_a.set(total_tax);
         po_total_a.set(quotation_total);
       }
+
+
+
 
       function checkCustomerStatus(value) {
         const status_elem = document.querySelector("#status");
@@ -511,7 +546,9 @@ include '../includes/base_page/head.php';
             console.error('Error:', error);
           });
 
-        fetch('../includes/load_items_sales.php')
+        // TODO: Uncomment this
+        // fetch('../includes/load_items_sales.php')
+        fetch('../includes/load_items_quote.php')
           .then(response => response.json())
           .then(result => {
             result.forEach((item) => {
@@ -537,6 +574,11 @@ include '../includes/base_page/head.php';
 
         po_time.value = hours + ":" + minutes;
       });
+
+      function unitChanged(id, val) {
+        const qtt = document.getElementById("qtt_s_s_s_" + id.split("_s_s_s_")[1]);
+        addQuantity(qtt.dataset.ref, qtt.value, qtt.max, qtt);
+      }
     </script>
     <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
     <!-- Footer End -->
