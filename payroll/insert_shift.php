@@ -25,9 +25,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $non_work = sanitize_input($_POST["non_work"]);
 
 
-  if ($stmt = $con->prepare('SELECT shift_name FROM tbl_shift WHERE shift_name = ?')) {
+  if ($stmt = $con->prepare('SELECT shift_id FROM tbl_shift WHERE shift_id = ?')) {
     // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
-    $stmt->bind_param('s', $shift_name);
+    $stmt->bind_param('s', $shift_id);
     $stmt->execute();
     // Store the result so we can check if the account exists in the database.
     $stmt->store_result();

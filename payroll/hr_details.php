@@ -50,12 +50,28 @@
       </div>
     </div>
     <div class="row mt-3">
+
+      <!--ancm,mx,c nxz -->
+
       <div class="col">
+        <!-- Make Combo -->
         <label for="department" class="form-label">Department</label>
-        <select name="department" id="department" class="form-select">
-          <option value="all">All</option>
-        </select>
+        <div class="input-group">
+          <select name="department" id="department" class="form-select">
+            <option value="all">All</option>
+          </select>
+          <div class="invalid-tooltip">This field cannot be left blank.</div>
+
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addCategory">
+            +
+          </button>
+
+        </div>
       </div>
+
+      <!--dkznlsknl--->
+
       <div class="col">
         <label for="head_of" class="form-label">Head Of</label>
         <select name="head_of" id="head_of" class="form-select">
@@ -79,7 +95,33 @@
     </div>
   </div>
 </div>
+<div class="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-labelledby="addCategoryLabel" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog" role="document">
 
+    <div class="modal-content border-0">
+      <div class="position-absolute top-0 right-0 mt-3 mr-3 z-index-1">
+        <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="bg-light rounded-top-lg py-3 pl-4 pr-6">
+          <h4 class="mb-1" id="addUnitLabel">Add Department</h4>
+        </div>
+        <div class="p-4">
+          <!-- Category Form -->
+          <form id="add_ct_frm" name="add_ct_frm">
+            <div class="p2">
+              <label for="modal_category_name" class="form-label">Department Name*</label>
+              <input type="text" name="modal_category_name" id="modal_category_name" class="form-control" required>
+              <div class="invalid-feedback">This field cannot be left blank.</div>
+            </div>
+            <input type="button" value="Add" class="btn btn-falcon-primary mt-2" id="add_ct_submit" name="add_ct_submit" data-dismiss="modal">
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
 <script>
   const job_number = document.querySelector("#job_number");
   const branch = document.querySelector("#branch");
