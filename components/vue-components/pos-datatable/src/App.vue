@@ -13,8 +13,6 @@
 </template>
 
 <script>
-/* tax: -1, */
-/* subtotal: 60054, */
 import PosComponent from "./components/PosComponent.vue";
 
 export default {
