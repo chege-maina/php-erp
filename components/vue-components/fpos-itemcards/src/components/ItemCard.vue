@@ -123,7 +123,10 @@ export default {
       let sessioned_table = sessionStorage.getItem("table_data");
       sessioned_table =
         sessioned_table === null ? {} : JSON.parse(sessioned_table);
-      sessioned_table[this.uuid()] = this.product_object;
+      let uuid = this.uuid();
+      sessioned_table[uuid] = this.product_object;
+      sessioned_table[uuid]["key"] = uuid;
+      console.log(this.product_object);
       window.sessionStorage.setItem(
         "table_data",
         JSON.stringify(sessioned_table)
