@@ -18,25 +18,22 @@ function sanitize_input($data)
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $employee_name = sanitize_input($_POST["employee_name"]);
-  $att_date = sanitize_input($_POST["att_date"]);
-  $employee_no = sanitize_input($_POST["employee_no"]);
-  $branch = sanitize_input($_POST["branch"]);
-  $job_title = sanitize_input($_POST["job_title"]);
-  $status = sanitize_input($_POST["status"]);
-  $late_entry = sanitize_input($_POST["late_entry"]);
-  $early_exit = sanitize_input($_POST["early_exit"]);
+  $shift_name = sanitize_input($_POST["shift_name"]);
+  $start_time = sanitize_input($_POST["start_time"]);
+  $end_time = sanitize_input($_POST["end_time"]);
+  $work_hours = sanitize_input($_POST["work_hours"]);
+  $non_work = sanitize_input($_POST["non_work"]);
 
 
-  if ($stmt = $con->prepare('SELECT employee_no FROM tbl_attendance WHERE employee_no = ?')) {
+  if ($stmt = $con->prepare('SELECT shift_name FROM tbl_shift WHERE shift_name = ?')) {
     // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
-    $stmt->bind_param('s', $employee_no);
+    $stmt->bind_param('s', $shift_name);
     $stmt->execute();
     // Store the result so we can check if the account exists in the database.
     $stmt->store_result();
     if ($stmt->num_rows == 0) {
-      if ($stmt = $con->prepare('INSERT INTO tbl_attendance (employee_name,att_date,employee_no,branch,job_title,status,late_entry,early_exit) VALUES (?,?,?,?,?,?,?,?)')) {
-        $stmt->bind_param('ssssssss', $employee_name, $att_date, $employee_no, $branch, $job_title, $status, $late_entry, $early_exit);
+      if ($stmt = $con->prepare('INSERT INTO tbl_shift (shift_name,start_time,end_time,work_hours,non_work) VALUES (?,?,?,?,?)')) {
+        $stmt->bind_param('sssss', $shift_name, $start_time, $end_time, $work_hours, $non_work);
 
         if ($stmt->execute()) {
           $responseArray = array(
@@ -58,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
       echo json_encode(array(
         "message" => "error",
-        "desc" => "Employee Already exists.."
+        "desc" => "Record Already exists.."
       ));
     }
   } else {
