@@ -28,6 +28,9 @@ while ($row8 = mysqli_fetch_assoc($result8)) {
         $unit = $row['product_unit'];
         $tax = $row['applicable_tax'];
         $price = $row['dsp_price'];
+        $atomic_unit = $row['atomic_unit'];
+        $bs_price = $row['bs_price'];
+        $conversion = $row['conversion'];
 
         $totalstore = 0;
         $totalsale = 0;
@@ -86,6 +89,9 @@ while ($row8 = mysqli_fetch_assoc($result8)) {
                     'code' => $productcode,
                     'name' => $product,
                     'unit' => $unit,
+                    'atomic_unit' => $atomic_unit,
+                    'bs_price' => $bs_price,
+                    'conversion' => $conversion,
                     'tax' => $tax,
                     'price' => $price
                 )
