@@ -75,7 +75,7 @@ include '../includes/base_page/head.php';
 
             elem.setAttribute("manage_key", "Employee_No");
             elem.setAttribute("manage_key_2", "Last_Name");
-            //  elem.setAttribute("redirect", getBaseUrl() + "/payroll/edit-employee-ui.php");
+            elem.setAttribute("redirect", getBaseUrl() + "/payroll/edit-employee-ui.php");
             // elem.classList.add("is-fullwidth");
             datatable.appendChild(elem);
           };
