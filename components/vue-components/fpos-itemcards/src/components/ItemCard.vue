@@ -21,6 +21,10 @@
 <script>
 export default {
   props: {
+    product_json: {
+      type: String,
+      default: () => "",
+    },
     title: {
       type: String,
       default: () => "Title",
@@ -109,9 +113,29 @@ export default {
       falcon_js
     );
   },
+  computed: {
+    product_object: function () {
+      return JSON.parse(this.product_json);
+    },
+  },
   methods: {
     itemClicked: function () {
-      console.log(this.title);
+      let sessioned_table = sessionStorage.getItem("table_data");
+      sessioned_table =
+        sessioned_table === null ? {} : JSON.parse(sessioned_table);
+      sessioned_table[this.uuid()] = this.product_json;
+      window.sessionStorage.setItem(
+        "table_data",
+        JSON.stringify(sessioned_table)
+      );
+    },
+    uuid: function () {
+      return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+        (
+          c ^
+          (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+        ).toString(16)
+      );
     },
   },
 };

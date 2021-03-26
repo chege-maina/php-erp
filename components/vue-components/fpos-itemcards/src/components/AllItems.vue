@@ -22,10 +22,11 @@
         :key="key"
       >
         <ItemCard
-          v-bind:title="item.title"
+          v-bind:title="item.name"
           v-bind:balance="item.balance"
           v-bind:price="item.price"
           v-bind:image_url="item.image_url"
+          v-bind:product_json="JSON.stringify(item)"
         />
       </div>
     </div>
@@ -49,64 +50,144 @@ export default {
   data: () => ({
     json_items: [
       {
-        title: "Evertec, Inc.",
-        balance: 306,
-        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
-        price: 4420.85,
+        key: 1,
+        name: "Visipaque",
+        code: "497-23-2865",
+        stock: 9,
+        quantity: 3,
+        balance: 43,
+        price: 5176,
+        discount: 82,
+        tax: 84,
+        tax_pc: 0,
+        subtotal: 0,
+        image_url: "http://dummyimage.com/532x548.png/dddddd/000000",
       },
       {
-        title: "Anthem, Inc.",
-        balance: 348,
-        price: 2803.86,
-        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
+        key: 2,
+        name: "All Day",
+        code: "223-32-5184",
+        stock: 69,
+        quantity: 2,
+        balance: 92,
+        price: 4296,
+        discount: 3,
+        tax: 89,
+        tax_pc: 0,
+        subtotal: -1,
+        image_url: "http://dummyimage.com/516x539.png/5fa2dd/ffffff",
       },
       {
-        title: "Guggenheim ",
-        balance: 344,
-        price: 6047.61,
-        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
+        key: 3,
+        name: "Pulmo 8",
+        code: "356-89-1023",
+        stock: 62,
+        quantity: 1,
+        balance: 61,
+        price: 1123,
+        discount: 38,
+        tax: 41,
+        tax_pc: 0,
+        subtotal: 0,
+        image_url: "http://dummyimage.com/518x548.png/ff4444/ffffff",
       },
       {
-        title: "Travelzoo",
-        balance: 300,
-        price: 5652.12,
-        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
+        key: 4,
+        name: "Bupropion Hydrochloride",
+        code: "557-97-6362",
+        stock: 98,
+        quantity: 6,
+        balance: 76,
+        price: 7127,
+        discount: 51,
+        tax: 90,
+        tax_pc: -1,
+        subtotal: -1,
+        image_url: "http://dummyimage.com/508x549.png/dddddd/000000",
       },
       {
-        title: "Mercury Systems Inc",
-        balance: 928,
-        price: 3799.74,
-        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
+        key: 5,
+        name: "Benazepril Hydrochloride and Hydrochlorothiazide",
+        code: "443-28-6453",
+        stock: 77,
+        quantity: 6,
+        balance: 60,
+        price: 8404,
+        discount: 69,
+        tax: 15,
+        tax_pc: 0,
+        subtotal: -1,
+        image_url: "http://dummyimage.com/507x517.png/5fa2dd/ffffff",
       },
       {
-        title: "Central",
-        balance: 916,
-        price: 7928.88,
-        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
+        ke: 6,
+        name: "Nartussal",
+        code: "583-67-6246",
+        stock: 43,
+        quantity: 7,
+        balance: 87,
+        price: 2447,
+        discount: 5,
+        tax: 30,
+        tax_pc: 0,
+        subtotal: 0,
+        image_url: "http://dummyimage.com/503x509.png/5fa2dd/ffffff",
       },
       {
-        title: "Nuveen",
-        balance: 784,
-        price: 1119.75,
-        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
+        key: 7,
+        name: "Argentum Nitricum 6x",
+        code: "472-76-3927",
+        stock: 16,
+        quantity: 7,
+        balance: 57,
+        price: 5296,
+        discount: 81,
+        tax: 46,
+        tax_pc: -1,
+        subtotal: 0,
+        image_url: "http://dummyimage.com/504x514.png/cc0000/ffffff",
       },
       {
-        title: "McCormick & Company",
-        balance: 395,
-        price: 8748.93,
-        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
+        key: 8,
+        name: "OXYGEN",
+        code: "247-93-9447",
+        stock: 99,
+        quantity: 8,
+        balance: 38,
+        price: 9396,
+        discount: 20,
+        tax: 39,
+        tax_pc: 0,
+        subtotal: 0,
+        image_url: "http://dummyimage.com/526x548.png/cc0000/ffffff",
       },
       {
-        title: "BioAmber Inc.",
-        balance: 416,
-        price: 1088.95,
-        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
+        key: 9,
+        name: "Clean and Clear Advantage",
+        code: "592-14-3054",
+        stock: 46,
+        quantity: 3,
+        balance: 83,
+        price: 5156,
+        discount: 57,
+        tax: 76,
+        tax_pc: -1,
+        subtotal: 0,
+        image_url: "http://dummyimage.com/526x526.png/ff4444/ffffff",
       },
       {
-        title: "West Marine, Inc.",
-        balance: 905,
-        price: 1341.35,
-        image_url: "https://homepages.cae.wisc.edu/~ece533/images/girl.png",
+        key: 10,
+        name: "Metronidazole",
+        code: "230-96-5894",
+        stock: 47,
+        quantity: 3,
+        balance: 30,
+        price: 8585,
+        discount: 35,
+        tax: 30,
+        tax_pc: -1,
+        subtotal: 0,
+        image_url: "http://dummyimage.com/528x514.png/dddddd/000000",
       },
     ],
     search_term: "",
@@ -192,7 +273,7 @@ export default {
       let i = 1;
       this.items_array.forEach((row) => {
         if (
-          row.title.toLowerCase().search(this.search_term.toLowerCase()) != -1
+          row.name.toLowerCase().search(this.search_term.toLowerCase()) != -1
         ) {
           tmp[i] = row;
         }
@@ -204,18 +285,16 @@ export default {
   },
   watch: {
     search_term: function () {
-      console.log(this.search_term);
       let tmp = {};
       let i = 1;
       this.items_array.forEach((row) => {
         if (
-          row.title.toLowerCase().search(this.search_term.toLowerCase()) != -1
+          row.name.toLowerCase().search(this.search_term.toLowerCase()) != -1
         ) {
           tmp[i] = row;
         }
         i++;
       });
-      console.log(tmp);
     },
   },
 };
