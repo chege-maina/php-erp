@@ -120,7 +120,6 @@ export default {
   },
   methods: {
     itemClicked: function () {
-      console.log(this.title, " : ", this.uuid(), " : ", this.product_object);
       let sessioned_table = sessionStorage.getItem("table_data");
       sessioned_table =
         sessioned_table === null ? {} : JSON.parse(sessioned_table);
