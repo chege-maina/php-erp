@@ -123,11 +123,32 @@ export default {
       let sessioned_table = sessionStorage.getItem("table_data");
       sessioned_table =
         sessioned_table === null ? {} : JSON.parse(sessioned_table);
-      sessioned_table[this.uuid()] = this.product_object;
+      /* let uuid = this.uuid(); */
+      sessioned_table["23432450-9683-47d6-af60-84f84ea04620"] = {
+        name: "Pulmo 8",
+        key: "23432450-9683-47d6-af60-84f84ea04620",
+        code: "356-89-1023",
+        stock: 62,
+        quantity: 1,
+        price: 1123,
+        discount: 38,
+        tax_pc: 0,
+        tax: 41,
+        subtotal: 0,
+      };
+      /* sessioned_table[uuid] = this.product_object; */
+      /* sessioned_table[uuid] = tmp_obj; */
+      /* sessioned_table[uuid]["key"] = uuid; */
+      console.log(this.product_object);
       window.sessionStorage.setItem(
         "table_data",
         JSON.stringify(sessioned_table)
       );
+
+      const ev = new StorageEvent("storage", {
+        key: "table_data",
+      });
+      window.dispatchEvent(ev);
     },
     uuid: function () {
       return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>

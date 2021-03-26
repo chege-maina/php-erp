@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2021 at 10:52 AM
+-- Generation Time: Mar 26, 2021 at 12:33 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -453,18 +453,23 @@ CREATE TABLE `tbl_quotation_items` (
   `tax` varchar(100) NOT NULL,
   `status` varchar(15) NOT NULL DEFAULT 'pending',
   `tax_pc` varchar(10) NOT NULL,
-  `branch_location` varchar(100) NOT NULL
+  `branch_location` varchar(100) NOT NULL,
+  `conversion` varchar(100) NOT NULL,
+  `atm_price` varchar(100) NOT NULL,
+  `entered_price` varchar(100) NOT NULL,
+  `selected_unit` varchar(100) NOT NULL,
+  `atm_unit` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_quotation_items`
 --
 
-INSERT INTO `tbl_quotation_items` (`quote_no`, `product_code`, `product_name`, `unit`, `price`, `qty`, `amount`, `tax`, `status`, `tax_pc`, `branch_location`) VALUES
-(1, '001_002_001', 'Kaden Dawson', 'kg', '6000', '100', '684000', '84000', 'done', '14', 'MM2'),
-(1, '002_001_001', 'Marsden Myers', 'kg', '6420', '100', '731880', '89880', 'done', '14', 'MM2'),
-(2, '001_002_001', 'Kaden Dawson', 'kg', '6000', '1', '6840.00', '840.00', 'done', '14', 'MM2'),
-(2, '002_001_001', 'Marsden Myers', 'kg', '6420', '1', '7318.80', '898.80', 'done', '14', 'MM2');
+INSERT INTO `tbl_quotation_items` (`quote_no`, `product_code`, `product_name`, `unit`, `price`, `qty`, `amount`, `tax`, `status`, `tax_pc`, `branch_location`, `conversion`, `atm_price`, `entered_price`, `selected_unit`, `atm_unit`) VALUES
+(1, '001_002_001', 'Kaden Dawson', 'kg', '6000', '100', '684000', '84000', 'done', '14', 'MM2', '', '', '', '', ''),
+(1, '002_001_001', 'Marsden Myers', 'kg', '6420', '100', '731880', '89880', 'done', '14', 'MM2', '', '', '', '', ''),
+(2, '001_002_001', 'Kaden Dawson', 'kg', '6000', '1', '6840.00', '840.00', 'done', '14', 'MM2', '', '', '', '', ''),
+(2, '002_001_001', 'Marsden Myers', 'kg', '6420', '1', '7318.80', '898.80', 'done', '14', 'MM2', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
