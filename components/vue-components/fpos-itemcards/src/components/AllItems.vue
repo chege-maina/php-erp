@@ -26,6 +26,7 @@
           v-bind:balance="item.balance"
           v-bind:price="item.price"
           v-bind:image_url="item.image_url"
+          v-bind:product_json="JSON.stringify(item)"
         />
       </div>
     </div>
@@ -284,7 +285,6 @@ export default {
   },
   watch: {
     search_term: function () {
-      console.log(this.search_term);
       let tmp = {};
       let i = 1;
       this.items_array.forEach((row) => {
@@ -295,7 +295,6 @@ export default {
         }
         i++;
       });
-      console.log(tmp);
     },
   },
 };

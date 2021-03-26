@@ -21,6 +21,10 @@
 <script>
 export default {
   props: {
+    product_json: {
+      type: String,
+      default: () => "",
+    },
     title: {
       type: String,
       default: () => "Title",
@@ -109,9 +113,15 @@ export default {
       falcon_js
     );
   },
+  computed: {
+    product_object: function () {
+      return JSON.parse(this.product_json);
+    },
+  },
   methods: {
     itemClicked: function () {
-      console.log(this.title, " : ", this.uuid());
+      console.log(this.title, " : ", this.uuid(), " : ", this.product_object);
+      window.sessionStorage.setItem("table_data", this.product_json);
     },
     uuid: function () {
       return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
