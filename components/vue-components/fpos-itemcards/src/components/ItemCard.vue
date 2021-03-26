@@ -121,7 +121,14 @@ export default {
   methods: {
     itemClicked: function () {
       console.log(this.title, " : ", this.uuid(), " : ", this.product_object);
-      window.sessionStorage.setItem("table_data", this.product_json);
+      let sessioned_table = sessionStorage.getItem("table_data");
+      sessioned_table =
+        sessioned_table === null ? {} : JSON.parse(sessioned_table);
+      sessioned_table[this.uuid()] = this.product_json;
+      window.sessionStorage.setItem(
+        "table_data",
+        JSON.stringify(sessioned_table)
+      );
     },
     uuid: function () {
       return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
