@@ -145,8 +145,10 @@ export default {
         JSON.stringify(sessioned_table)
       );
 
-      const ev = new StorageEvent("storage");
-      dispatchEvent(ev);
+      const ev = new StorageEvent("storage", {
+        key: "table_data",
+      });
+      window.dispatchEvent(ev);
     },
     uuid: function () {
       return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
