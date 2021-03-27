@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2021 at 02:33 PM
+-- Generation Time: Mar 27, 2021 at 06:19 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -706,17 +706,22 @@ CREATE TABLE `tbl_sale_items` (
   `tax` varchar(100) NOT NULL,
   `status` varchar(15) NOT NULL DEFAULT 'pending',
   `tax_pc` varchar(10) NOT NULL,
-  `branch_location` varchar(100) NOT NULL
+  `branch_location` varchar(100) NOT NULL,
+  `conversion` varchar(10) NOT NULL,
+  `atm_price` varchar(100) NOT NULL,
+  `entered_price` varchar(100) NOT NULL,
+  `selected_unit` varchar(100) NOT NULL,
+  `atm_unit` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_sale_items`
 --
 
-INSERT INTO `tbl_sale_items` (`quote_no`, `product_code`, `product_name`, `unit`, `price`, `qty`, `amount`, `tax`, `status`, `tax_pc`, `branch_location`) VALUES
-(1, '001_002_001', 'Kaden Dawson', 'kg', '26', '6', '41040.00', '5040.00', 'pending', '14', 'MM2'),
-(1, '002_001_002', 'Sierra Gutierrez', '', '203', '2', '13908.00', '1708.00', 'pending', '14', 'MM2'),
-(2, '001_002_001', 'Kaden Dawson', 'kg', '26', '1', '6840.00', '840.00', 'pending', '14', 'MM2');
+INSERT INTO `tbl_sale_items` (`quote_no`, `product_code`, `product_name`, `unit`, `price`, `qty`, `amount`, `tax`, `status`, `tax_pc`, `branch_location`, `conversion`, `atm_price`, `entered_price`, `selected_unit`, `atm_unit`) VALUES
+(1, '001_002_001', 'Kaden Dawson', 'kg', '26', '6', '41040.00', '5040.00', 'pending', '14', 'MM2', '', '', '', '', ''),
+(1, '002_001_002', 'Sierra Gutierrez', '', '203', '2', '13908.00', '1708.00', 'pending', '14', 'MM2', '', '', '', '', ''),
+(2, '001_002_001', 'Kaden Dawson', 'kg', '26', '1', '6840.00', '840.00', 'pending', '14', 'MM2', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
