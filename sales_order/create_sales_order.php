@@ -547,8 +547,7 @@ include '../includes/base_page/head.php';
           });
 
         // TODO: Uncomment this
-        // fetch('../includes/load_items_sales.php')
-        fetch('../includes/load_items_quote.php')
+        fetch('../includes/load_items_sales.php')
           .then(response => response.json())
           .then(result => {
             result.forEach((item) => {

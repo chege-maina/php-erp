@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2021 at 12:33 PM
+-- Generation Time: Mar 27, 2021 at 06:19 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -39,6 +39,31 @@ CREATE TABLE `supplier_product` (
 
 INSERT INTO `supplier_product` (`product_name`, `supplier_name`, `product_cost`) VALUES
 ('Kaden Dawson', 'Leila Stokes', '5100');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_attendance`
+--
+
+CREATE TABLE `tbl_attendance` (
+  `employee_name` varchar(50) NOT NULL,
+  `att_date` varchar(50) NOT NULL,
+  `employee_no` varchar(50) NOT NULL,
+  `branch` varchar(15) NOT NULL,
+  `job_title` varchar(50) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `late_entry` varchar(20) NOT NULL,
+  `early_exit` varchar(20) NOT NULL,
+  `id` bigint(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_attendance`
+--
+
+INSERT INTO `tbl_attendance` (`employee_name`, `att_date`, `employee_no`, `branch`, `job_title`, `status`, `late_entry`, `early_exit`, `id`) VALUES
+('Josiah Perkins', '1998-06-05', '225', 'mm2', 'Animi officia sed a', 'absent', 'true', 'false', 9);
 
 -- --------------------------------------------------------
 
@@ -113,6 +138,8 @@ CREATE TABLE `tbl_branch_levels` (
 
 INSERT INTO `tbl_branch_levels` (`product_name`, `branch`, `min_level`, `max_level`, `reorder`) VALUES
 ('Eden Cline', 'MM1', '120', '500', '150'),
+('Georgia Frye', 'MM1', '120', '500', '200'),
+('Georgia Frye', 'MM2', '130', '600', '300'),
 ('Kaden Dawson', 'MM1', '10', '100', '50'),
 ('Kaden Dawson', 'MM2', '5', '69', '30'),
 ('Marsden Myers', 'MM1', '20', '500', '100'),
@@ -162,6 +189,17 @@ CREATE TABLE `tbl_customer` (
 
 INSERT INTO `tbl_customer` (`name`, `email`, `physical_address`, `postal_address`, `tel_no`, `tax_id`, `payment_terms`, `credit_limit`, `sales_rep`) VALUES
 ('Whitney Walters', 'huly@mailinator.com', 'Eum voluptas ut volu', 'Eiusmod molestias il', '+1 (483) 975-7668', 'Omnis esse exercitat', '28', '85', 'KIPGHOGE');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_department`
+--
+
+CREATE TABLE `tbl_department` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -285,7 +323,8 @@ INSERT INTO `tbl_product` (`id`, `product_name`, `product_code`, `product_unit`,
 (1, 'Kaden Dawson', '001_002_001', 'kg', 'CEMENT', '38', 'funky', '/uploads/gg.png', 6000, 5000, 5700, 14, 20, 'Jael Joel', 'active', '', '', ''),
 (2, 'Marsden Myers', '002_001_001', 'kg', 'gggg', '58', 'heaven yes', '/uploads/gg.png', 6420, 5000, 5700, 14, 28, 'Jael Joel', 'active', '', '', ''),
 (3, 'Sierra Gutierrez', '002_001_002', '', 'gggg', '92', 'heaven yes', '/uploads/error1.png', 6100, 4500, 4500, 14, 36, 'Jael Joel', 'active', 'kg', '1', ''),
-(4, 'Eden Cline', '002_001_003', 'kg', 'gggg', '91', 'heaven yes', '/uploads/schedule.png', 7099, 4565, 4565, 0, 56, 'Jael Joel', 'active', 'kg', '1', '');
+(4, 'Eden Cline', '002_001_003', 'kg', 'gggg', '91', 'heaven yes', '/uploads/schedule.png', 7099, 4565, 4565, 0, 56, 'Jael Joel', 'active', 'kg', '1', ''),
+(5, 'Georgia Frye', '002_001_004', 'kg', 'gggg', '97', 'heaven yes', '/uploads/error1.png', 7680, 5000, 5000, 14, 54, 'Jael Joel', 'pending', 'gm', '10', '8950');
 
 -- --------------------------------------------------------
 
@@ -667,39 +706,66 @@ CREATE TABLE `tbl_sale_items` (
   `tax` varchar(100) NOT NULL,
   `status` varchar(15) NOT NULL DEFAULT 'pending',
   `tax_pc` varchar(10) NOT NULL,
-  `branch_location` varchar(100) NOT NULL
+  `branch_location` varchar(100) NOT NULL,
+  `conversion` varchar(10) NOT NULL,
+  `atm_price` varchar(100) NOT NULL,
+  `entered_price` varchar(100) NOT NULL,
+  `selected_unit` varchar(100) NOT NULL,
+  `atm_unit` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_sale_items`
 --
 
-INSERT INTO `tbl_sale_items` (`quote_no`, `product_code`, `product_name`, `unit`, `price`, `qty`, `amount`, `tax`, `status`, `tax_pc`, `branch_location`) VALUES
-(1, '001_002_001', 'Kaden Dawson', 'kg', '26', '6', '41040.00', '5040.00', 'pending', '14', 'MM2'),
-(1, '002_001_002', 'Sierra Gutierrez', '', '203', '2', '13908.00', '1708.00', 'pending', '14', 'MM2'),
-(2, '001_002_001', 'Kaden Dawson', 'kg', '26', '1', '6840.00', '840.00', 'pending', '14', 'MM2');
+INSERT INTO `tbl_sale_items` (`quote_no`, `product_code`, `product_name`, `unit`, `price`, `qty`, `amount`, `tax`, `status`, `tax_pc`, `branch_location`, `conversion`, `atm_price`, `entered_price`, `selected_unit`, `atm_unit`) VALUES
+(1, '001_002_001', 'Kaden Dawson', 'kg', '26', '6', '41040.00', '5040.00', 'pending', '14', 'MM2', '', '', '', '', ''),
+(1, '002_001_002', 'Sierra Gutierrez', '', '203', '2', '13908.00', '1708.00', 'pending', '14', 'MM2', '', '', '', '', ''),
+(2, '001_002_001', 'Kaden Dawson', 'kg', '26', '1', '6840.00', '840.00', 'pending', '14', 'MM2', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_staff`
+-- Table structure for table `tbl_shift`
 --
 
-CREATE TABLE `tbl_staff` (
-  `employee_no` bigint(20) NOT NULL,
-  `employee_name` varchar(50) NOT NULL,
-  `designation` varchar(50) NOT NULL
+CREATE TABLE `tbl_shift` (
+  `shift_id` int(50) NOT NULL,
+  `shift_name` varchar(50) NOT NULL,
+  `start_time` varchar(50) NOT NULL,
+  `end_time` varchar(50) NOT NULL,
+  `work_hours` varchar(50) NOT NULL,
+  `non_work` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbl_staff`
+-- Dumping data for table `tbl_shift`
 --
 
-INSERT INTO `tbl_staff` (`employee_no`, `employee_name`, `designation`) VALUES
-(23, 'HUMPHREY MWANGI', 'DRIVER'),
-(24, 'CHEGE MAINA', 'DRIVER'),
-(25, 'KIPGHOGE', 'SALES REP'),
-(26, 'NJORO', 'SALES REP');
+INSERT INTO `tbl_shift` (`shift_id`, `shift_name`, `start_time`, `end_time`, `work_hours`, `non_work`) VALUES
+(4, 'Brendan Case', '15:44', '16:54', '81', '72'),
+(5, 'Hector Short', '22:29', '09:04', '62', '55');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_staff_items`
+--
+
+CREATE TABLE `tbl_staff_items` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `phone` varchar(50) NOT NULL,
+  `relation` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_staff_items`
+--
+
+INSERT INTO `tbl_staff_items` (`id`, `name`, `email`, `phone`, `relation`) VALUES
+(1, 'Animi non qui quia', '+1 (419) 354-9206', '+1 (419) 354-9206', 'Enim officiis ex qui');
 
 -- --------------------------------------------------------
 
@@ -759,7 +825,9 @@ INSERT INTO `tbl_store_item` (`qty`, `product_name`, `product_code`, `branch`, `
 ('1', 'Kaden Dawson', '001_002_001', 'MM2', '3', 6, '2', 'kg', 'approved'),
 ('123', 'Sierra Gutierrez', '002_001_002', 'MM1', 'opening_bal', 7, 'opening_bal', '', 'done'),
 ('203', 'Sierra Gutierrez', '002_001_002', 'MM2', 'opening_bal', 8, 'opening_bal', '', 'done'),
-('130', 'Eden Cline', '002_001_003', 'MM1', 'opening_bal', 9, 'opening_bal', 'kg', 'done');
+('130', 'Eden Cline', '002_001_003', 'MM1', 'opening_bal', 9, 'opening_bal', 'kg', 'done'),
+('180', 'Georgia Frye', '002_001_004', 'MM1', 'opening_bal', 10, 'opening_bal', 'kg', 'done'),
+('230', 'Georgia Frye', '002_001_004', 'MM2', 'opening_bal', 11, 'opening_bal', 'kg', 'done');
 
 -- --------------------------------------------------------
 
@@ -894,7 +962,8 @@ CREATE TABLE `tbl_unit` (
 --
 
 INSERT INTO `tbl_unit` (`unit_code`, `product_unit`, `unit_description`) VALUES
-(1, 'KG', 'Kilogenes');
+(1, 'KG', 'Kilogenes'),
+(2, 'gm', 'grams');
 
 -- --------------------------------------------------------
 
@@ -952,6 +1021,13 @@ ALTER TABLE `supplier_product`
   ADD PRIMARY KEY (`product_name`,`supplier_name`);
 
 --
+-- Indexes for table `tbl_attendance`
+--
+ALTER TABLE `tbl_attendance`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `employee_no` (`employee_no`);
+
+--
 -- Indexes for table `tbl_bank`
 --
 ALTER TABLE `tbl_bank`
@@ -981,6 +1057,12 @@ ALTER TABLE `tbl_category`
 --
 ALTER TABLE `tbl_customer`
   ADD PRIMARY KEY (`name`,`email`);
+
+--
+-- Indexes for table `tbl_department`
+--
+ALTER TABLE `tbl_department`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_invoice`
@@ -1093,10 +1175,17 @@ ALTER TABLE `tbl_sale_items`
   ADD PRIMARY KEY (`quote_no`,`product_code`);
 
 --
--- Indexes for table `tbl_staff`
+-- Indexes for table `tbl_shift`
 --
-ALTER TABLE `tbl_staff`
-  ADD PRIMARY KEY (`employee_no`);
+ALTER TABLE `tbl_shift`
+  ADD PRIMARY KEY (`shift_id`),
+  ADD UNIQUE KEY `shift_name` (`shift_name`);
+
+--
+-- Indexes for table `tbl_staff_items`
+--
+ALTER TABLE `tbl_staff_items`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_store`
@@ -1167,6 +1256,12 @@ ALTER TABLE `tbl_vehicle`
 --
 
 --
+-- AUTO_INCREMENT for table `tbl_attendance`
+--
+ALTER TABLE `tbl_attendance`
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `tbl_branch`
 --
 ALTER TABLE `tbl_branch`
@@ -1177,6 +1272,12 @@ ALTER TABLE `tbl_branch`
 --
 ALTER TABLE `tbl_category`
   MODIFY `category_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tbl_department`
+--
+ALTER TABLE `tbl_department`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_invoice`
@@ -1194,7 +1295,7 @@ ALTER TABLE `tbl_invoice_items`
 -- AUTO_INCREMENT for table `tbl_product`
 --
 ALTER TABLE `tbl_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_purchaseorder`
@@ -1269,10 +1370,16 @@ ALTER TABLE `tbl_sale`
   MODIFY `quote_no` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `tbl_staff`
+-- AUTO_INCREMENT for table `tbl_shift`
 --
-ALTER TABLE `tbl_staff`
-  MODIFY `employee_no` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+ALTER TABLE `tbl_shift`
+  MODIFY `shift_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tbl_staff_items`
+--
+ALTER TABLE `tbl_staff_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_store`
@@ -1284,7 +1391,7 @@ ALTER TABLE `tbl_store`
 -- AUTO_INCREMENT for table `tbl_store_item`
 --
 ALTER TABLE `tbl_store_item`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbl_subcategory`
@@ -1314,7 +1421,7 @@ ALTER TABLE `tbl_transfer_items`
 -- AUTO_INCREMENT for table `tbl_unit`
 --
 ALTER TABLE `tbl_unit`
-  MODIFY `unit_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `unit_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

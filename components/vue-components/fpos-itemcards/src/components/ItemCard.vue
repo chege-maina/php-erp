@@ -123,23 +123,21 @@ export default {
       let sessioned_table = sessionStorage.getItem("table_data");
       sessioned_table =
         sessioned_table === null ? {} : JSON.parse(sessioned_table);
-      /* let uuid = this.uuid(); */
-      sessioned_table["23432450-9683-47d6-af60-84f84ea04620"] = {
-        name: "Pulmo 8",
-        key: "23432450-9683-47d6-af60-84f84ea04620",
-        code: "356-89-1023",
-        stock: 62,
-        quantity: 1,
-        price: 1123,
-        discount: 38,
-        tax_pc: 0,
-        tax: 41,
-        subtotal: 0,
+      let uuid = this.uuid();
+      let to_insert = {
+        name: this.product_object.name,
+        key: uuid,
+        code: this.product_object.code,
+        stock: this.product_object.stock,
+        quantity: this.product_object.quantity,
+        price: this.product_object.price,
+        discount: this.product_object.discount,
+        tax_pc: this.product_object.tax_pc,
+        tax: this.product_object.tax,
+        subtotal: this.product_object.subtotal,
       };
-      /* sessioned_table[uuid] = this.product_object; */
-      /* sessioned_table[uuid] = tmp_obj; */
-      /* sessioned_table[uuid]["key"] = uuid; */
-      console.log(this.product_object);
+
+      sessioned_table[uuid] = to_insert;
       window.sessionStorage.setItem(
         "table_data",
         JSON.stringify(sessioned_table)
