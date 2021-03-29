@@ -19,7 +19,7 @@ if (!isset($_SESSION['loggedin'])) {
   <!-- ===============================================-->
   <!--    Document Title-->
   <!-- ===============================================-->
-  <title>Falcon | Dashboard &amp; Web App Templat</title>
+  <title>Qubes | POS</title>
 
 
   <!-- ===============================================-->
