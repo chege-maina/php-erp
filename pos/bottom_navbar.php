@@ -1,26 +1,16 @@
-<nav class="navbar fixed-bottom navbar-light bg-300">
-  <table class="table table-sm mb-0">
-    <tbody>
-      <tr>
-        <td class="col">
-          Net Total: <strong>3,000</strong>
-        </td>
-        <td class="col col-md-1 text-right">
-          Paid Amount:
-        </td>
-        <td class="col col-md-3">
-          <input type="number" class="form-control form-control-sm" placeholder="enter amount">
-        </td>
-        <td class="col">
-          Due: <strong>3,000</strong>
-        </td>
-        <td class="col">
-          <button class="btn btn-sm btn-falcon-primary">Full Paid</button>
-        </td>
-        <td class="col">
-          <button class="btn btn-sm btn-falcon-primary">Save Sale</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<nav class="navbar fixed-bottom navbar-light py-2">
+  <div class="row container-fluid d-flex justify-content-end">
+    <div class="col col-auto">
+      <div class="card p-2">
+        <div class="row">
+          <div class="col">
+            <button class="btn btn-falcon-primary">Checkout</button>
+          </div>
+          <div class="col">
+            <button class="btn btn-falcon-primary">Checkout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </nav>

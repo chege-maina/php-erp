@@ -75,6 +75,10 @@ if (!isset($_SESSION['loggedin'])) {
         <script src="../components/vue-components/pos-datatable/dist/pos-component.min.js"></script>
         <script src="../components/vue-components/fpos-itemcards/dist/fpos.js"></script>
 
+        <?php
+        include 'bottom_navbar.php';
+        ?>
+
         <div class="row my-2">
 
           <div class="col-lg-5 col-sm-4">
@@ -141,9 +145,14 @@ if (!isset($_SESSION['loggedin'])) {
             </div>
             <div class="row my-1">
               <div class="col">
-                <?php
-                include 'subtotals.php';
-                ?>
+                <div class="row">
+                  <div class="col">
+                    <?php
+                    include 'subtotals.php';
+                    ?>
+
+                  </div>
+                </div>
               </div>
             </div>
           </div>
