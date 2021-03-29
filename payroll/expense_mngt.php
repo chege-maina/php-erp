@@ -26,7 +26,7 @@ include '../includes/base_page/head.php';
       <?php
       include '../navbar-shared.php';
       ?>
-      <h5 class="p-2">Expense Management</h5>
+      <h5 class="p-2">Company Loans</h5>
       <div class="card">
         <div class="card-body fs--1 p-4">
           <!-- Content is to start here -->
@@ -123,17 +123,20 @@ include '../includes/base_page/head.php';
             </div>
             <div class="col">
               <label for="#" class="form-label">Interest Type</label>
-              <div class="input-group">
-                <input list="interest" name="interest" id="interest_type" class="form-select" required>
-                <datalist id="interest"></datalist>
-              </div>
+              <select class="form-select" id="interest" required>
+                <option disabled selected value>--Select Interest Type--</option>
+                <option value="none">None</option>
+                <option value="straight">Straight-Line</option>
+                <option value="reducing">Reducing Balance</option>
+              </select>
             </div>
             <div class="col">
               <label for="#" class="form-label">Fringe Benefit Tax</label>
-              <div class="input-group">
-                <input list="fringe" name="fringe" id="fringe_tax" class="form-select" required>
-                <datalist id="fringe"></datalist>
-              </div>
+              <select class="form-select" id="fringe" required>
+                <option disabled selected value>--Select Fringe Tax--</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
             </div>
           </div>
           <button class="btn btn-falcon-primary btn-sm my-2" id="submit">
@@ -141,11 +144,12 @@ include '../includes/base_page/head.php';
           </button>
         </div>
       </div>
-
-      <?php
-      include '../includes/base_page/footer.php';
-      ?>
     </div>
-    </body>
+
+    <?php
+    include '../includes/base_page/footer.php';
+    ?>
+  </div>
+  </body>
 
 </html>
