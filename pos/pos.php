@@ -402,6 +402,11 @@ if (!isset($_SESSION['loggedin'])) {
         <script src="../assets/js/vue"></script>
         <script src="../components/vue-components/pos-datatable/dist/pos-component.min.js"></script>
         <script src="../components/vue-components/fpos-itemcards/dist/fpos.js"></script>
+
+        <?php
+        include './bottom_navbar.php';
+        ?>
+
         <div class="row">
 
           <div class="col-lg-5 col-sm-4">
