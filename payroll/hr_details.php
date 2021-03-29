@@ -1,3 +1,7 @@
+<?php
+include '../base_page/data_list_select.php';
+?>
+
 <div>
   <div class="row">
     <div class="col">
@@ -57,11 +61,9 @@
         <!-- Make Combo -->
         <label for="department" class="form-label">Department</label>
         <div class="input-group">
-          <select name="department" id="department" class="form-select">
-            <option value="all">All</option>
-          </select>
+          <input list="departments" name="department" id="department" class="form-select" required>
+          <datalist id="departments"></datalist>
           <div class="invalid-tooltip">This field cannot be left blank.</div>
-
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addCategory">
             +
@@ -123,6 +125,38 @@
   </div>
 </div>
 <script>
+  $(document).ready(function() {
+    $('#add_ct_submit').click(function(e) {
+      e.preventDefault();
+      var cat_name = $('#modal_category_name').val();
+      var data1 = {
+        modal_category_name: cat_name
+      }
+
+      if (cat_name == '') {
+        alert("Please complete form!")
+      } else {
+        var conf = confirm("Do You Want to Add a New Department?")
+        if (conf) {
+          $.ajax({
+            url: "../payroll/add_department.php",
+            method: "POST",
+            data: data1,
+            success: function(data) {
+              $('#add_ct_frm')[0].reset();
+              //$('form').trigger("reset");
+              if (data == 'New Department Added Successfully') {
+                updateComboBoxes();
+              }
+              alert(data)
+            }
+          })
+
+        }
+      }
+    })
+  })
+  const departments = document.querySelector("#departments");
   const job_number = document.querySelector("#job_number");
   const branch = document.querySelector("#branch");
   const employ_date = document.querySelector("#employ_date");
@@ -151,4 +185,11 @@
     }
     return tmp;
   }
+
+  window.addEventListener('DOMContentLoaded', (event) => {
+
+    initSelectElement("#departments", "-- Select Department --");
+    populateSelectElement("#departments", '../payroll/load_department.php', "name");
+
+  });
 </script>
