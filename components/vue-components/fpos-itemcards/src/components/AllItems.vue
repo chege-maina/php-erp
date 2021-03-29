@@ -11,11 +11,6 @@
       />
     </div>
     <div class="row">
-      <div class="col">
-        {{ search_term }}
-      </div>
-    </div>
-    <div class="row">
       <div
         class="col mx-0 mb-3 px-0"
         v-for="(item, key) in items_object"
