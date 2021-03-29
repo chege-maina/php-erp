@@ -403,42 +403,14 @@ if (!isset($_SESSION['loggedin'])) {
         <script src="../components/vue-components/pos-datatable/dist/pos-component.min.js"></script>
         <script src="../components/vue-components/fpos-itemcards/dist/fpos.js"></script>
 
-        <div class="row">
+        <div class="row my-2">
 
           <div class="col-lg-5 col-sm-4">
             <div class="row">
               <div class="col">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col">
-                        <input list="ice-cream-flavors" class="form-select form-select-sm" id="ice-cream-choice" name="ice-cream-choice" placeholder="Categories" />
-                        <datalist id="ice-cream-flavors">
-                          <option value="Chocolate">
-                          <option value="Coconut">
-                          <option value="Mint">
-                          <option value="Strawberry">
-                          <option value="Vanilla">
-                        </datalist>
-                      </div>
-                      <div class="col">
-                        <input list="bice-cream-flavors" class="form-select form-select-sm" id="ice-cream-choice" name="ice-cream-choice" placeholder="Sub Categories" />
-                        <datalist id="bice-cream-flavors">
-                          <option value="Chocolate">
-                          <option value="Coconut">
-                          <option value="Mint">
-                          <option value="Strawberry">
-                          <option value="Vanilla">
-                        </datalist>
-                      </div>
-                      <div class="col col-auto">
-                        <button class="btn btn-falcon-primary btn-sm">
-                          Apply
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <?php
+                include 'cat_filter.php';
+                ?>
               </div>
             </div>
             <div class="row">
@@ -462,23 +434,40 @@ if (!isset($_SESSION['loggedin'])) {
 
           <div class="col">
             <div class="row">
+
               <div class="col">
-                <div class="card">
-                  <div class="card-body fs--1 p-4">
-                    Content is to start here
-                    <div id="pos_component">
+
+                <div class="row">
+                  <div class="col">
+                    <div class="card">
+                      <div class="card-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, cupiditate consequatur dicta minima delectus in fuga
+                      </div>
                     </div>
-                    <script>
-                      window.addEventListener('DOMContentLoaded', (event) => {
-                        const pos_component = document.createElement("pos-component");
-                        pos_component.setAttribute("json_header", JSON.stringify(headers));
-                        pos_component.setAttribute("json_items", JSON.stringify(items));
-                        document.querySelector("#pos_component").appendChild(pos_component);
-                      });
-                    </script>
                   </div>
                 </div>
+
+                <div class="row mt-1">
+                  <div class="col">
+                    <div class="card">
+                      <div class="card-body fs--1 p-4">
+                        <div id="pos_component">
+                        </div>
+                        <script>
+                          window.addEventListener('DOMContentLoaded', (event) => {
+                            const pos_component = document.createElement("pos-component");
+                            pos_component.setAttribute("json_header", JSON.stringify(headers));
+                            pos_component.setAttribute("json_items", JSON.stringify(items));
+                            document.querySelector("#pos_component").appendChild(pos_component);
+                          });
+                        </script>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
+
             </div>
             <div class="row my-1">
               <div class="col">
