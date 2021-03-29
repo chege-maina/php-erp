@@ -4,7 +4,14 @@
       <div class="card p-2 mr-0">
         <div class="row">
           <div class="col">
-            <button class="btn btn-falcon-default">Save</button>
+            Net Total: <strong>Jiji</strong>
+          </div>
+          <div class="col">
+            Paid Amount:
+            <input type="text" class="form-control form-control-sm form-inline">
+          </div>
+          <div class="col">
+            Change Due: <strong>Jiji</strong>
           </div>
           <div class="col">
             <button class="btn btn-falcon-primary">Checkout</button>
