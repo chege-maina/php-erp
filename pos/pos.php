@@ -439,11 +439,9 @@ if (!isset($_SESSION['loggedin'])) {
 
                 <div class="row">
                   <div class="col">
-                    <div class="card">
-                      <div class="card-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, cupiditate consequatur dicta minima delectus in fuga
-                      </div>
-                    </div>
+                    <?php
+                    include 'above_datatable.php';
+                    ?>
                   </div>
                 </div>
 

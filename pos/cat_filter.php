@@ -22,7 +22,7 @@
         </datalist>
       </div>
       <div class="col col-auto">
-        <button class="btn btn-falcon-primary btn-sm">
+        <button class="btn btn-falcon-default btn-sm">
           Apply
         </button>
       </div>
