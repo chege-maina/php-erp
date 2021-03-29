@@ -140,6 +140,7 @@ export default {
       let to_insert = {
         name: this.product_object.name,
         key: uuid,
+        code: product.code,
         stock: this.product_object.stock,
         quantity: this.product_object.quantity,
         price: this.product_object.price,
