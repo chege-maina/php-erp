@@ -1,5 +1,5 @@
 <template>
-  <div class="p-2 ml-3">
+  <div class="ml-3">
     <div class="row pb-4 px-4">
       <input
         id="search_term"
