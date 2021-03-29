@@ -405,17 +405,51 @@ if (!isset($_SESSION['loggedin'])) {
         <div class="row">
 
           <div class="col-lg-5 col-sm-4">
-            <div class="card mt-1">
-              <div class="card-body fs--1 p-4">
-                <div id="items_component">
+            <div class="row">
+              <div class="col">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <input list="ice-cream-flavors" class="form-select" id="ice-cream-choice" name="ice-cream-choice" placeholder="Categories" />
+                        <datalist id="ice-cream-flavors">
+                          <option value="Chocolate">
+                          <option value="Coconut">
+                          <option value="Mint">
+                          <option value="Strawberry">
+                          <option value="Vanilla">
+                        </datalist>
+                      </div>
+                      <div class="col">
+                        <input list="bice-cream-flavors" class="form-select" id="ice-cream-choice" name="ice-cream-choice" placeholder="Sub Categories" />
+                        <datalist id="bice-cream-flavors">
+                          <option value="Chocolate">
+                          <option value="Coconut">
+                          <option value="Mint">
+                          <option value="Strawberry">
+                          <option value="Vanilla">
+                        </datalist>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <script>
-                  window.addEventListener('DOMContentLoaded', (event) => {
-                    const fpos_component = document.createElement("fpos-all-items");
-                    fpos_component.setAttribute("items_json", JSON.stringify(json_items));
-                    document.querySelector("#items_component").appendChild(fpos_component);
-                  });
-                </script>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="card mt-1">
+                  <div class="card-body fs--1 p-4">
+                    <div id="items_component">
+                    </div>
+                    <script>
+                      window.addEventListener('DOMContentLoaded', (event) => {
+                        const fpos_component = document.createElement("fpos-all-items");
+                        fpos_component.setAttribute("items_json", JSON.stringify(json_items));
+                        document.querySelector("#items_component").appendChild(fpos_component);
+                      });
+                    </script>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -440,7 +474,7 @@ if (!isset($_SESSION['loggedin'])) {
                 </div>
               </div>
             </div>
-            <div class="row my-2">
+            <div class="row my-1">
               <div class="col">
                 <div class="card">
                   <div class="card-body">
