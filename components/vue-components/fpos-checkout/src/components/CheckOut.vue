@@ -116,7 +116,7 @@
               </div>
               <div class="row">
                 <div class="col">
-                  <button type="button" class="btn btn-primary">
+                  <button type="button" class="btn btn-falcon-default">
                     Calculate
                   </button>
                 </div>
@@ -129,7 +129,7 @@
         </div>
       </div>
       <div class="text-center mt-3">
-        <button type="button" class="btn btn-warning">CheckOut</button>
+        <button type="button" class="btn btn-falcon-primary">CheckOut</button>
       </div>
     </div>
   </div>
