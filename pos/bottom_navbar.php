@@ -4,16 +4,18 @@
       <div class="card p-2 mr-0">
         <div class="row">
           <div class="col">
-            Net Total: <strong>Jiji</strong>
-          </div>
-          <div class="col">
-            Paid Amount:
+            <label class="form-label" for="product_name">Net Total*</label>
             <input type="text" class="form-control form-control-sm form-inline">
           </div>
           <div class="col">
-            Change Due: <strong>Jiji</strong>
+            <label class="form-label" for="product_name">Paid Amount*</label>
+            <input type="text" class="form-control form-control-sm form-inline">
           </div>
           <div class="col">
+            <label class="form-label" for="product_name">Change Due*</label>
+            <input type="text" class="form-control form-control-sm form-inline">
+          </div>
+          <div class="col col-auto">
             <button class="btn btn-falcon-primary">Checkout</button>
           </div>
         </div>
