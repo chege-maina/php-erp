@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="p-2">
     <AllItems
       v-bind:items_json="JSON.stringify(json_items)"
       style="width: 50rem"
