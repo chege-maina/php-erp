@@ -1,3 +1,50 @@
+<style>
+  /* The Modal (background) */
+  .modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Black w/ opacity */
+  }
+
+  /* Modal Content/Box */
+  .modal-content {
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    border: 1px solid #888;
+    width: 80%;
+    /* Could be more or less, depending on screen size */
+  }
+
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+</style>
 <nav class="navbar fixed-bottom navbar-light py-2 mr-0">
   <div class="row container-fluid d-flex justify-content-end mr-0 p-0">
     <div class="col col-auto p-0 mr-0">
@@ -16,9 +63,24 @@
             <input type="text" class="form-control form-control-sm form-inline">
           </div>
           <div class="col col-auto d-flex align-items-end">
-            <button type="button" id="sub_group_btn" class="btn btn-falcon-primary" data-toggle="modal" data-target="#checkoutPage">
-              Checkout
-            </button>
+            <!-- Trigger/Open The Modal -->
+            <button id="myBtn" class="btn btn-falcon-primary">Open Modal</button>
+
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+
+              <!-- Modal content -->
+              <div class="modal-content">
+                <span class="close">&times;</span>
+                <script src="https://unpkg.com/vue"></script>
+                <script src="../components/vue-components/fpos-checkout/dist/fpos-checkout.js"></script>
+
+
+                <fpos-checkout></fpos-checkout>
+              </div>
+
+            </div>
+
           </div>
         </div>
       </div>
@@ -26,22 +88,30 @@
   </div>
 </nav>
 
-<div class="modal fade" id="checkoutPage" tabindex="-1" role="dialog" aria-labelledby="addSubCategoryLabel" aria-hidden="true" data-backdrop="static">
-  <div class="modal-dialog" role="document">
+<script>
+  // Get the modal
+  var modal = document.getElementById("myModal");
 
-    <div class="modal-content border-0">
-      <div class="position-absolute top-0 right-0 mt-3 mr-3 z-index-1">
-        <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body p-0">
-        <div class="bg-light rounded-top-lg py-3 pl-4 pr-6">
-          <h4 class="mb-1" id="addUnitLabel">Checkout</h4>
-        </div>
-        <div class="p-4">
-          Checkout from here
-        </div>
-      </div>
-    </div>
+  // Get the button that opens the modal
+  var btn = document.getElementById("myBtn");
 
-  </div>
-</div>
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks on the button, open the modal
+  btn.onclick = function() {
+    modal.style.display = "block";
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  // window.onclick = function(event) {
+  // if (event.target == modal) {
+  // modal.style.display = "none";
+  // }
+  // }
+</script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card min-vw-50">
     <div class="card-header text-center h1 display-3">Billing Info</div>
     <div class="card-body">
       <div class="row">
