@@ -22,10 +22,18 @@ include '../includes/base_page/head.php';
     include '../includes/base_page/nav.php';
     ?>
 
+
     <div class="content">
       <?php
       include '../navbar-shared.php';
       ?>
+
+      <style>
+        .hide-this {
+          display: none;
+        }
+      </style>
+
       <h5 class="p-2">Company Loans</h5>
       <div class="card">
         <div class="card-body fs--1 p-4">
@@ -63,16 +71,32 @@ include '../includes/base_page/head.php';
           <div class="row">
             <div class="col">
               <label for="#" class="form-label">Loan Type</label>
-              <div class="input-group">
-                <input list="loan" name="loan" id="loan_type" class="form-select" required>
-                <datalist id="loan"></datalist>
-              </div>
+              <select class="form-select" id="loan_type" onchange="descriptionChanged()" required>
+                <option disabled selected value>--Select Loan Type--</option>
+                <option value="loan">Company Loan</option>
+                <option value="damage">Company Damage</option>
+              </select>
             </div>
             <div class="col">
               <label for="#" class="form-label">Description</label>
-              <div class="input-group">
-                <input list="description" name="description" id="desc" class="form-select" required>
-                <datalist id="description"></datalist>
+
+              <div id="desc1">
+                <select class="form-select" id="desc" required>
+                  <option disabled selected value>--Select the description--</option>
+                  <option value="fees">School Fees</option>
+                  <option value="medical">Medical</option>
+                  <option value="develop">Development</option>
+                </select>
+              </div>
+              <div id="desc2" class="hide-this">
+                <select class="form-select" id="desc" required>
+                  <option disabled selected value>--Select the description--</option>
+                  <option value="fuel">Fuel</option>
+                  <option value="lost">Good Lost</option>
+                  <option value="workshop">Workshop</option>
+                  <option value="types">Types</option>
+                  <option value="breaks">Breakages</option>
+                </select>
               </div>
             </div>
           </div>
@@ -123,7 +147,7 @@ include '../includes/base_page/head.php';
             </div>
             <div class="col">
               <label for="#" class="form-label">Interest Type</label>
-              <select class="form-select" id="interest" required>
+              <select class="form-select" id="interest_type" required>
                 <option disabled selected value>--Select Interest Type--</option>
                 <option value="none">None</option>
                 <option value="straight">Straight-Line</option>
@@ -153,3 +177,38 @@ include '../includes/base_page/head.php';
   </body>
 
 </html>
+
+<script>
+  const exp_date = document.querySelector("#exp_date");
+  const employee_name = document.querySelector("#employee_name");
+  const designation = document.querySelector("#designation");
+  const department = document.querySelector("#department");
+  const emp_no = document.querySelector("#emp_no");
+  const loan_type = document.querySelector("#loan_type");
+  const desc = document.querySelector("#desc");
+  const desc1 = document.querySelector("#desc1");
+  const desc2 = document.querySelector("#desc2");
+  const init_amt = document.querySelector("#init_amt");
+  const balance = document.querySelector("#balance");
+  const installment = document.querySelector("#installment");
+  const interest = document.querySelector("#interest");
+  const issue_date = document.querySelector("#issue_date");
+  const begin_date = document.querySelector("#begin_date");
+  const interest_type = document.querySelector("#interest_type");
+  const fringe = document.querySelector("#fringe");
+
+
+  function descriptionChanged() {
+    switch (loan_type.value) {
+      case "loan":
+        desc1.classList.remove('hide-this');
+        desc2.classList.add('hide-this');
+        break;
+      case "damage":
+        desc1.classList.add('hide-this');
+        desc2.classList.remove('hide-this');
+        break;
+    }
+
+  }
+</script>
