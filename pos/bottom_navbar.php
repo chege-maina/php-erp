@@ -15,7 +15,7 @@
             <label class="form-label" for="product_name">Change Due*</label>
             <input type="text" class="form-control form-control-sm form-inline">
           </div>
-          <div class="col col-auto">
+          <div class="col col-auto d-flex align-items-end">
             <button class="btn btn-falcon-primary">Checkout</button>
           </div>
         </div>
