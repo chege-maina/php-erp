@@ -23,7 +23,7 @@
 
   /* Modal Content/Box */
   .modal-content {
-    margin: 15% auto;
+    margin: 10% auto;
     /* 15% from the top and centered */
     border: 1px solid #888;
     width: 80%;
