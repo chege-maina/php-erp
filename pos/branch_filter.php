@@ -23,7 +23,6 @@
   window.addEventListener('DOMContentLoaded', (event) => {
     const branch_select = document.querySelector("#branch_select");
 
-
     fetch('../includes/load_branch_items.php')
       .then(response => response.json())
       .then(data => {
