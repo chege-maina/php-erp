@@ -1,19 +1,19 @@
 <div class="card">
   <div class="card-body">
     <div class="row">
-      <div class="col">
+      <div class="col pr-1">
         <input list="category_list" class="form-select form-select-sm" name="product_category" id="product_category" placeholder="Categories" onchange="updateSubCategories();" />
         <datalist id="category_list">
         </datalist>
       </div>
-      <div class="col">
+      <div class="col p-0">
         <input list="subcategories_list" class="form-select form-select-sm" id="ice-cream-choice" name="ice-cream-choice" placeholder="Sub Categories" />
         <datalist id="subcategories_list">
         </datalist>
       </div>
-      <div class="col col-auto">
+      <div class="col col-auto pl-1">
         <button class="btn btn-falcon-default btn-sm">
-          Apply
+          <span class="fas fa-check" data-fa-transform="shrink-3"></span>
         </button>
       </div>
     </div>
