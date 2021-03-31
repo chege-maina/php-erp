@@ -45,8 +45,8 @@ function genSideBar()
       </li>
       <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/receive_transfer_item.php">Receive From Transfer</a>
       </li>
-      </ul>
-      </li>
+    </ul>
+  </li>
   <li class="nav-item"><a class="nav-link" href="../warehouse/approve_receipt_note.php">Approve Receipt</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../purchase_requisitions/goods_transfer.php">Request Transfer</a>
@@ -172,6 +172,22 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../payroll/attendance_listing_ui.php">Attendance Listing</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../payroll/expense_mngt.php">Company Loans</a>
+  </li>
+  
+  <li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-company" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authentication-basic">Company Settings</a>
+    <ul class="nav collapse" id="e-company" data-parent="#authentication">
+      <li class="nav-item"><a class="nav-link" href="../payroll/create_shift.php">Create Shift</a>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="../payroll/shift_listing_ui.php">Shifts Listing</a>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="../payroll/create_branch.php">Create Branch</a>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="../payroll/branch_listing_ui.php">Branch Listing</a>
+      </li>
+    </ul>
+  </li>
+
 </ul>
 </li>
 
