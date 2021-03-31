@@ -199,6 +199,5 @@ export default {
 };
 </script>
 <style>
-@import url("http://localhost:5000/assets/css/theme-rtl.min.css");
-@import url("http://localhost:5000/assets/css/theme.min.css");
+@import "https://qonsolidated-solutions.github.io/falcon-assets/assets/css/theme.min.css";
 </style>
