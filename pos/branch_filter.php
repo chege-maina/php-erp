@@ -6,7 +6,7 @@
         <div class="input-group">
           <select class="form-select form-select-sm" name="branch" id="branch_select">
             <option value disabled selected>
-              -- Branch --
+              ----
             </option>
           </select>
           <!-- Button trigger modal -->
