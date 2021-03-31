@@ -90,9 +90,10 @@ INSERT INTO `tbl_staff` (`f_name`, `m_name`, `l_name`, `gender`, `dob`, `passpor
 -- Indexes for dumped tables
 --
 
---
+--ALTER TABLE `tbl_staff`
 -- Indexes for table `tbl_staff`
 --
+ALTER TABLE `tbl_staff` ROW_FORMAT=DYNAMIC;
 ALTER TABLE `tbl_staff`
   ADD UNIQUE KEY `nat_id` (`nat_id`,`pin_no`,`nssf_no`,`nhif_no`,`job_no`,`account_no`);
 COMMIT;
