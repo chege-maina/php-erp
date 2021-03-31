@@ -18,3 +18,22 @@
     </div>
   </div>
 </div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const branch_select = document.querySelector("#branch_select");
+
+
+    fetch('../includes/load_branch_items.php')
+      .then(response => response.json())
+      .then(data => {
+        data.forEach((value) => {
+          let opt = document.createElement("option");
+          opt.appendChild(document.createTextNode(value['branch']));
+          opt.value = value['branch'];
+          branch_select.appendChild(opt);
+        });
+      });
+
+  });
+</script>
