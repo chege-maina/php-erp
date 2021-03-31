@@ -81,7 +81,7 @@ if (!isset($_SESSION['loggedin'])) {
 
         <div class="row my-2">
 
-          <div class="col-lg-5 col-sm-4">
+          <div class="col-lg-5 col-sm-4 pl-2">
             <div class="row">
               <div class="col-lg-9 pr-1">
                 <?php
@@ -120,7 +120,7 @@ if (!isset($_SESSION['loggedin'])) {
               <div class="col">
 
                 <div class="row">
-                  <div class="col">
+                  <div class="col px-2">
                     <?php
                     include 'above_datatable.php';
                     ?>
@@ -128,7 +128,7 @@ if (!isset($_SESSION['loggedin'])) {
                 </div>
 
                 <div class="row mt-1">
-                  <div class="col">
+                  <div class="col px-2">
                     <div class="card">
                       <div class="card-body fs--1 p-4">
                         <div id="pos_component">
@@ -150,7 +150,7 @@ if (!isset($_SESSION['loggedin'])) {
 
             </div>
             <div class="row my-1">
-              <div class="col">
+              <div class="col px-2">
                 <div class="row">
                   <div class="col">
                     <?php
