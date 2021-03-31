@@ -76,7 +76,6 @@ export default {
         this.table_data = JSON.parse(
           window.sessionStorage.getItem(this.session_key)
         );
-        console.log("Yeah");
       }
     });
   },
