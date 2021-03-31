@@ -4,14 +4,14 @@
       <div class="col">
 
         <div class="input-group">
-          <select class="form-select" name="branch" id="branch_select">
+          <select class="form-select form-select-sm" name="branch" id="branch_select">
             <option value disabled selected>
-              -- Select Branch --
+              -- Branch --
             </option>
           </select>
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-falcon-primary input-group-btn" onclick="addItem()">
-            Select
+          <button type="button" class="btn btn-falcon-default btn-sm input-group-btn" onclick="addItem()">
+            <span class="fas fa-check" data-fa-transform="shrink-3"></span>
           </button>
         </div>
       </div>

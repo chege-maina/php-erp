@@ -83,9 +83,15 @@ if (!isset($_SESSION['loggedin'])) {
 
           <div class="col-lg-5 col-sm-4">
             <div class="row">
-              <div class="col">
+              <div class="col-lg-9 pr-1">
                 <?php
                 include 'cat_filter.php';
+                ?>
+              </div>
+              <div class="col p-0">
+
+                <?php
+                include 'branch_filter.php';
                 ?>
               </div>
             </div>
