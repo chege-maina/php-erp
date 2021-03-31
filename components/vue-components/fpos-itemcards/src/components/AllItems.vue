@@ -1,6 +1,6 @@
 <template>
   <div class="ml-3">
-    <div class="row pb-4 px-4">
+    <div class="row pb-4 px-2">
       <input
         id="search_term"
         type="text"
