@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card min-vw-50">
     <div class="card-header text-center h1 display-3">Billing Info</div>
     <div class="card-body">
       <div class="row">
@@ -116,7 +116,7 @@
               </div>
               <div class="row">
                 <div class="col">
-                  <button type="button" class="btn btn-primary">
+                  <button type="button" class="btn btn-falcon-default">
                     Calculate
                   </button>
                 </div>
@@ -129,7 +129,7 @@
         </div>
       </div>
       <div class="text-center mt-3">
-        <button type="button" class="btn btn-warning">CheckOut</button>
+        <button type="button" class="btn btn-falcon-primary">CheckOut</button>
       </div>
     </div>
   </div>
