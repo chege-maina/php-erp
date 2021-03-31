@@ -96,7 +96,7 @@ if (!isset($_SESSION['loggedin'])) {
               </div>
             </div>
             <div class="row">
-              <div class="col">
+              <div class="col pr-0">
                 <div class="card mt-1">
                   <div class="card-body fs--1 p-4">
                     <div id="items_component">
