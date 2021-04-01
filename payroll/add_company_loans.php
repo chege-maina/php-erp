@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $start_date = sanitize_input($_POST["start_date"]);
   $int_type = sanitize_input($_POST["int_type"]);
   $fringe_tax = sanitize_input($_POST["fringe_tax"]);
-  $loan_id = $emp_no." ".$issue_date;
+  $loan_id = $emp_no . " " . $issue_date;
   $stat = "pending";
 
   if (strcmp($loan_type, 'loan') == 0) {
@@ -97,53 +97,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt = $con->prepare('INSERT INTO tbl_companyloans (date, emp_name, designation, 
       department, emp_no, loan_type, desc, amount, balance, installment, pc_interest, issue_date, start_date,
       int_type, fringe_tax, loan_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')) {
-          $stmt->bind_param(
-            'ssssssssssssssss',
-            $data,
-            $emp_name,
-            $designation,
-            $department,
-            $emp_no,
-            $loan_type,
-            $desc,
-            $amount,
-            $balance,
-            $installment,
-            $pc_interest,
-            $issue_date,
-            $start_date,
-            $int_type,
-            $fringe_tax,
-            $loan_id
-          );
+      $stmt->bind_param(
+        'ssssssssssssssss',
+        $data,
+        $emp_name,
+        $designation,
+        $department,
+        $emp_no,
+        $loan_type,
+        $desc,
+        $amount,
+        $balance,
+        $installment,
+        $pc_interest,
+        $issue_date,
+        $start_date,
+        $int_type,
+        $fringe_tax,
+        $loan_id
+      );
 
-          if ($stmt->execute()) {
-            $responseArray = array(
-              "message" => "success"
-            );
-          } else {
-            $responseArray = array(
-              "message" => "error",
-              "desc" => "Internal Server Error"
-            );
-          }
-          echo json_encode($responseArray);
-        } else {
-          echo json_encode(array(
-            "message" => "error",
-            "desc" => mysqli_error($con)
-          ));
-        }
+      if ($stmt->execute()) {
+        $responseArray = array(
+          "message" => "success"
+        );
       } else {
-        echo json_encode(array(
+        $responseArray = array(
           "message" => "error",
-          "desc" => "Loan Already exists.."
-        ));
+          "desc" => "Internal Server Error"
+        );
       }
+      echo json_encode($responseArray);
     } else {
       echo json_encode(array(
         "message" => "error",
-        "desc" => "Database Connection Error.."
+        "desc" => mysqli_error($con)
       ));
     }
   }
