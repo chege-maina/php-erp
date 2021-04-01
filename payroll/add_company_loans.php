@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
       echo json_encode(array(
         "message" => "error",
-        "desc" => "Database Connection Error.."
+        "desc" => mysqli_error($con)
       ));
     }
   } else {
