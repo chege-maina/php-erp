@@ -114,6 +114,7 @@ if (!isset($_SESSION['loggedin'])) {
                       });
 
                       window.addEventListener('ItemsUpdated', (event) => {
+                        // TODO: Account for products in different branches
                         const items_component = document.querySelector("#items_component");
                         items_component.innerHTML = "";
                         const fpos_component = document.createElement("fpos-all-items");
