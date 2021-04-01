@@ -39,6 +39,7 @@
       return;
     }
     console.log("Filtering with: ", product_category.value, sub_category.value);
+    getFilteredByCats(product_category.value, sub_category.value);
   }
 
   // Add the no-selectable item first
@@ -72,6 +73,7 @@
     }
 
     // Clear it
+    sub_category.value = "";
     subcategories_list.innerHTML = "";
     // Add the no-selectable item first
     let opt = document.createElement("option");

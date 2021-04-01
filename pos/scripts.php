@@ -1,5 +1,6 @@
 <script>
   let branch_list = [];
+  let current_item_list = [];
 
   function getBaseUrl() {
     // HACK: This is to accomadate xampp devs
@@ -22,7 +23,9 @@
           branch_list.push(value.branch);
           branch_items[value.branch] = value.branch_stuff;
         });
+        console.log("Look at the data", data);
 
+        // TODO: Get branch from session
         const first_branch = data[0].branch;
         console.log("yaaah: ", getItemsArray(first_branch));
         json_items = getItemsArray(first_branch);
@@ -60,6 +63,14 @@
         bulk_price: Number(product.bs_price),
       })
     });
+    [...current_item_list] = tmp;
+    return tmp;
+  }
+
+  function getFilteredByCats(category, subcategory) {
+    let tmp = [];
+    let i = 1;
+    console.log(category, ", ", subcategory, ", ", current_item_list);
     return tmp;
   }
 </script>
