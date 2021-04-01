@@ -29,6 +29,14 @@
   const subcategories_list = document.querySelector("#subcategories_list");
 
 
+  function getFilteredByCats(category, subcategory) {
+    let tmp = [];
+    let i = 1;
+    tmp = current_item_list.filter(item => item.sub_category == subcategory);
+    return tmp;
+  }
+
+
   function filterWithCategories() {
     if (!product_category.validity.valid) {
       product_category.focus();
@@ -40,6 +48,7 @@
     }
     console.log("Filtering with: ", product_category.value, sub_category.value);
     getFilteredByCats(product_category.value, sub_category.value);
+
   }
 
   // Add the no-selectable item first

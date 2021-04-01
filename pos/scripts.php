@@ -61,16 +61,11 @@
         bulk_unit: product.unit,
         atomic_unit: product.atomic_unit,
         bulk_price: Number(product.bs_price),
+        category: product.category,
+        sub_category: product.sub_category,
       })
     });
     [...current_item_list] = tmp;
-    return tmp;
-  }
-
-  function getFilteredByCats(category, subcategory) {
-    let tmp = [];
-    let i = 1;
-    console.log(category, ", ", subcategory, ", ", current_item_list);
     return tmp;
   }
 </script>
