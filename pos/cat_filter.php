@@ -43,7 +43,6 @@
       sub_category.focus();
       return;
     }
-    console.log("Filtering with: ", product_category.value, sub_category.value);
     let tmp = getFilteredByCats(product_category.value, sub_category.value);
 
     const ev = new CustomEvent('ItemsUpdated', {

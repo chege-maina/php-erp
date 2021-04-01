@@ -36,7 +36,6 @@
 
   function filterWithBranch() {
     const to_branch = branch_select.value;
-    console.log("Laaaala  ", branch_items[to_branch]);
     json_items = getItemsArray(to_branch);
 
     const ev = new CustomEvent('ItemsUpdated', {
