@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   } else {
     if ($stmt = $con->prepare('INSERT INTO tbl_companyloans (date, emp_name, designation, 
-      department, emp_no, loan_type, desc, amount, balance, installment, pc_interest, issue_date, start_date,
+      department, emp_no, loan_type, description, amount, balance, installment, pc_interest, issue_date, start_date,
       int_type, fringe_tax, loan_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')) {
       $stmt->bind_param(
         'ssssssssssssssss',

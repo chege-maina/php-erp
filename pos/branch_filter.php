@@ -10,7 +10,7 @@
             </option>
           </select>
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-falcon-default btn-sm input-group-btn" onclick="addItem()">
+          <button type="button" class="btn btn-falcon-default btn-sm input-group-btn" onclick="filterWithBranch()">
             <span class="fas fa-check" data-fa-transform="shrink-3"></span>
           </button>
         </div>
@@ -20,19 +20,28 @@
 </div>
 
 <script>
-  window.addEventListener('DOMContentLoaded', (event) => {
-    const branch_select = document.querySelector("#branch_select");
+  const branch_select = document.querySelector("#branch_select");
+  window.addEventListener('AllItemsLoaded', (event) => {
 
-    fetch('../includes/load_branch_items.php')
-      .then(response => response.json())
-      .then(data => {
-        data.forEach((value) => {
-          let opt = document.createElement("option");
-          opt.appendChild(document.createTextNode(value['branch']));
-          opt.value = value['branch'];
-          branch_select.appendChild(opt);
-        });
-      });
+    branch_select.innerHTML = "";
+    branch_list.forEach((value) => {
+      let opt = document.createElement("option");
+      opt.appendChild(document.createTextNode(value));
+      opt.value = value;
+      branch_select.appendChild(opt);
+    });
+
 
   });
+
+  function filterWithBranch() {
+    const to_branch = branch_select.value;
+    console.log("Laaaala  ", branch_items[to_branch]);
+    json_items = getItemsArray(to_branch);
+
+    const ev = new CustomEvent('ItemsUpdated', {
+      detail: JSON.stringify(json_items)
+    });
+    window.dispatchEvent(ev);
+  }
 </script>
