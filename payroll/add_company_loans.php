@@ -34,19 +34,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $stat = "pending";
 
   if (strcmp($loan_type, 'loan') == 0) {
-    if ($stmt = $con->prepare('SELECT emp_name FROM tbl_companyloans WHERE emp_id = ? and status =?')) {
+    if ($stmt = $con->prepare('SELECT emp_name FROM tbl_companyloans WHERE emp_no = ? and status =? and loan_type =?')) {
       // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
-      $stmt->bind_param('ss', $emp_no, $stat);
+      $stmt->bind_param('sss', $emp_no, $stat, $loan_type);
       $stmt->execute();
       // Store the result so we can check if the account exists in the database.
       $stmt->store_result();
       if ($stmt->num_rows == 0) {
         if ($stmt = $con->prepare('INSERT INTO tbl_companyloans (date, emp_name, designation, 
-      department, emp_no, loan_type, desc, amount, balance, installment, pc_interest, issue_date, start_date,
+      department, emp_no, loan_type, description, amount, balance, installment, pc_interest, issue_date, start_date,
       int_type, fringe_tax, loan_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')) {
           $stmt->bind_param(
             'ssssssssssssssss',
-            $data,
+            $date,
             $emp_name,
             $designation,
             $department,
@@ -90,16 +90,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
       echo json_encode(array(
         "message" => "error",
-        "desc" => "Database Connection Error.."
+        "desc" => mysqli_error($con)
       ));
     }
   } else {
     if ($stmt = $con->prepare('INSERT INTO tbl_companyloans (date, emp_name, designation, 
-      department, emp_no, loan_type, desc, amount, balance, installment, pc_interest, issue_date, start_date,
+      department, emp_no, loan_type, description, amount, balance, installment, pc_interest, issue_date, start_date,
       int_type, fringe_tax, loan_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')) {
       $stmt->bind_param(
         'ssssssssssssssss',
-        $data,
+        $date,
         $emp_name,
         $designation,
         $department,
@@ -124,7 +124,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       } else {
         $responseArray = array(
           "message" => "error",
-          "desc" => "Internal Server Error"
+          "desc" => mysqli_error($con),
+          "descss" => $date . " " . $desc
         );
       }
       echo json_encode($responseArray);
