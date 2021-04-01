@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       int_type, fringe_tax, loan_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')) {
       $stmt->bind_param(
         'ssssssssssssssss',
-        $data,
+        $date,
         $emp_name,
         $designation,
         $department,
