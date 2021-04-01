@@ -55,36 +55,35 @@ CREATE TABLE `tbl_staff` (
   `end_date` date NOT NULL,
   `job_title` varchar(50) NOT NULL,
   `department` varchar(50) NOT NULL,
-  `report_to` varchar(50) NOT NULL,
-  `head_of` varchar(50) NOT NULL,
-  `region` varchar(50) NOT NULL,
-  `currency` varchar(50) NOT NULL,
-  `shift` varchar(50) NOT NULL,
-  `employ_type` varchar(50) NOT NULL,
-  `off_days` varchar(50) NOT NULL,
-  `pay_type` varchar(50) NOT NULL,
-  `salary` varchar(50) NOT NULL,
-  `income_tax` varchar(50) NOT NULL,
-  `deduct_nhif` varchar(50) NOT NULL,
-  `deduct_nssf` varchar(50) NOT NULL,
-  `account_name` varchar(50) NOT NULL,
-  `account_no` varchar(50) NOT NULL,
-  `bank_name` varchar(50) NOT NULL,
-  `sort_code` varchar(50) NOT NULL,
-  `s_mobile_no` varchar(50) NOT NULL,
-  `s_bank_branch` varchar(50) NOT NULL,
-  `s_payment` int(11) NOT NULL,
-  `status` varchar(15) NOT NULL DEFAULT 'pending',
-  `branch` varchar(50) NOT NULL
+  `report_to` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+
+
+ALTER TABLE `tbl_staff`  ADD `head_of` varchar(50) NOT NULL,
+ ADD `region` varchar(50) NOT NULL,
+ ADD `currency` varchar(50) NOT NULL,
+ ADD `shift` varchar(50) NOT NULL,
+ ADD `employ_type` varchar(50) NOT NULL,
+ ADD `off_days` varchar(50) NOT NULL,
+ ADD `pay_type` varchar(50) NOT NULL,
+ ADD `salary` varchar(50) NOT NULL,
+ ADD `income_tax` varchar(50) NOT NULL,
+ ADD `deduct_nhif` varchar(50) NOT NULL,
+ ADD `deduct_nssf` varchar(50) NOT NULL,
+ ADD `account_name` varchar(50) NOT NULL,
+ ADD `account_no` varchar(50) NOT NULL,
+ ADD `bank_name` varchar(50) NOT NULL,
+ ADD `sort_code` varchar(50) NOT NULL,
+ ADD `s_mobile_no` varchar(50) NOT NULL,
+ ADD `s_bank_branch` varchar(50) NOT NULL,
+ ADD `s_payment` int(11) NOT NULL,
+ ADD `status` varchar(15) NOT NULL DEFAULT 'pending',
+ ADD `branch` varchar(50) NOT NULL AFTER `report_to`;
 
 --
 -- Dumping data for table `tbl_staff`
 --
-
-INSERT INTO `tbl_staff` (`f_name`, `m_name`, `l_name`, `gender`, `dob`, `passport`, `nat_id`, `pin_no`, `res`, `nssf_no`, `nhif_no`, `off_mail`, `pers_mail`, `country`, `mobile_no`, `phone_no`, `ext_no`, `city`, `county`, `postal_code`, `job_no`, `employ_date`, `begin_date`, `duration`, `end_date`, `job_title`, `department`, `report_to`, `head_of`, `region`, `currency`, `shift`, `employ_type`, `off_days`, `pay_type`, `salary`, `income_tax`, `deduct_nhif`, `deduct_nssf`, `account_name`, `account_no`, `bank_name`, `sort_code`, `s_mobile_no`, `s_bank_branch`, `s_payment`, `status`, `branch`) VALUES
-('Eric', 'Tate Hammond', 'Bird', 'Male', '2007-07-17', '/uploads/Screenshot (2).png', '19', '36', 'Resident', '27', '43', 'fylydukog@mailinator.com', 'pogez@mailinator.com', 'Australia', '6', '12', '98', 'Voluptate quos et un', 'Qui cupidatat tempor', '28402', '821', '1982-07-26', '1991-03-21', 'Quo officia aliq', '1978-08-19', 'Harum nesciunt nost', 'all', 'all', 'all', 'Nairobi', 'KES', 'Regular', '1982-07-26', 'SATURDAY', 'basic', '2', 'none', 'true', 'false', '', '', '', '', '', '', 0, 'pending', 'mm1'),
-('Josiah', 'Blaine Dickerson', 'Perkins', 'Female', '2015-11-18', '/uploads/Screenshot (2).png', '82', '85', 'Resident', '73', '77', 'liqiraduda@mailinator.com', 'fyfi@mailinator.com', 'British Indian Ocean Territory', '58', '99', '22', 'Consequatur laudanti', 'Velit occaecat volu', '86287', '225', '1990-10-13', '2014-10-13', 'Nulla repellendu', '1983-12-03', 'Animi officia sed a', 'all', 'all', 'all', 'Nairobi', 'JPY', 'Regular', '1990-10-13', 'SUNDAY', 'consolidated', '4', 'none', 'true', 'false', 'Callum Acevedo', 'Quia vel hic sed min', 'Michelle Cash', 'Ut omnis esse expli', '357', 'Aut hic qui sequi ut', 0, 'approved', 'mm2');
 
 --
 -- Indexes for dumped tables
