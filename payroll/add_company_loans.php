@@ -124,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       } else {
         $responseArray = array(
           "message" => "error",
-          "desc" => "Internal Server Error"
+          "desc" => mysqli_error($con)
         );
       }
       echo json_encode($responseArray);
