@@ -1,4 +1,6 @@
 <script>
+  let branch_list = [];
+
   function getBaseUrl() {
     // HACK: This is to accomadate xampp devs
     const path = window.location.pathname.split('/');
@@ -17,6 +19,7 @@
       .then(response => response.json())
       .then(data => {
         data.forEach(value => {
+          branch_list.push(value.branch);
           branch_items[value.branch] = value.branch_stuff;
         });
 
@@ -33,8 +36,6 @@
       .catch((error) => {
         console.error('Error:', error);
       });
-
-
   });
 
   function getItemsArray(branch_name) {
