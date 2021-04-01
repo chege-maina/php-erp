@@ -19,8 +19,10 @@
         data.forEach(value => {
           branch_items[value.branch] = value.branch_stuff;
         });
-        console.log("yaaah: ", getItemsArray("MM1"));
-        json_items = getItemsArray("MM1");
+
+        const first_branch = data[0].branch;
+        console.log("yaaah: ", getItemsArray(first_branch));
+        json_items = getItemsArray(first_branch);
 
 
         const ev = new CustomEvent('AllItemsLoaded', {
