@@ -34,9 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $stat = "pending";
 
   if (strcmp($loan_type, 'loan') == 0) {
-    if ($stmt = $con->prepare('SELECT emp_name FROM tbl_companyloans WHERE emp_no = ? and status =?')) {
+    if ($stmt = $con->prepare('SELECT emp_name FROM tbl_companyloans WHERE emp_no = ? and status =? and loan_type =?')) {
       // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
-      $stmt->bind_param('ss', $emp_no, $stat);
+      $stmt->bind_param('sss', $emp_no, $stat, $loan_type);
       $stmt->execute();
       // Store the result so we can check if the account exists in the database.
       $stmt->store_result();
