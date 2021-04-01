@@ -23,6 +23,7 @@
   window.addEventListener('AllItemsLoaded', (event) => {
     const branch_select = document.querySelector("#branch_select");
 
+    branch_select.innerHTML = "";
     branch_list.forEach((value) => {
       let opt = document.createElement("option");
       opt.appendChild(document.createTextNode(value));
