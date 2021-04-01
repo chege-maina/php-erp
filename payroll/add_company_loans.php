@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $loan_id = $emp_no." ".$issue_date;
   $stat = "pending";
 
-  if (strcmp($loan_type, 'Company Loan') == 0) {
+  if (strcmp($loan_type, 'loan') == 0) {
     if ($stmt = $con->prepare('SELECT emp_name FROM tbl_companyloans WHERE emp_id = ? and status =?')) {
       // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
       $stmt->bind_param('ss', $emp_no, $stat);
