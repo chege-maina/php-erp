@@ -30,10 +30,7 @@
 
 
   function getFilteredByCats(category, subcategory) {
-    let tmp = [];
-    let i = 1;
-    tmp = current_item_list.filter(item => item.sub_category == subcategory);
-    return tmp;
+    return current_item_list.filter(item => item.sub_category == subcategory);
   }
 
 
@@ -47,8 +44,12 @@
       return;
     }
     console.log("Filtering with: ", product_category.value, sub_category.value);
-    getFilteredByCats(product_category.value, sub_category.value);
+    let tmp = getFilteredByCats(product_category.value, sub_category.value);
 
+    const ev = new CustomEvent('ItemsUpdated', {
+      detail: JSON.stringify(tmp)
+    });
+    window.dispatchEvent(ev);
   }
 
   // Add the no-selectable item first
