@@ -124,7 +124,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       } else {
         $responseArray = array(
           "message" => "error",
-          "desc" => mysqli_error($con)
+          "desc" => mysqli_error($con),
+          "descss" => $date . " " . $desc
         );
       }
       echo json_encode($responseArray);
