@@ -43,5 +43,9 @@
       detail: JSON.stringify(json_items)
     });
     window.dispatchEvent(ev);
+
+
+    document.querySelector("#product_category").value = "";
+    document.querySelector("#sub_category").value = "";
   }
 </script>
