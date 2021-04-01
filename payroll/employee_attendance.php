@@ -217,7 +217,7 @@ include '../includes/base_page/head.php';
         window.addEventListener('DOMContentLoaded', (event) => {
           const formData = new FormData();
 
-          fetch('../payroll/load_supplier.php')
+          fetch('../payroll/load_employee.php')
             .then(response => response.json())
             .then(result => {
               console.log(result)

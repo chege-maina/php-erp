@@ -28,14 +28,18 @@ include '../includes/base_page/head.php';
       include '../navbar-shared.php';
       ?>
 
-      <style>
-        .hide-this {
-          display: none;
-        }
-      </style>
-
-      <h5 class="p-2">Company Loans</h5>
+      <?php
+      include '../base_page/data_list_select.php';
+      ?>
       <form onsubmit="return submitForm();">
+        <style>
+          .hide-this {
+            display: none;
+          }
+        </style>
+
+        <h5 class="p-2">Company Loans</h5>
+
         <div class="card">
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
@@ -47,25 +51,25 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="#" class="form-label">Select Employee </label>
                 <div class="input-group">
-                  <input list="employee" name="employee" id="employee_name" class="form-select" required>
+                  <input list="employee" name="employee_name" id="employee_name" class="form-select" required>
                   <datalist id="employee"></datalist>
-                  <button type="button" class="btn btn-primary">Select</button>
+                  <button type="button" class="btn btn-primary" onclick="selectEmployee();">Select</button>
                 </div>
               </div>
             </div>
             <div class="row">
 
               <div class="col">
-                <label for="designation" class="form-label">Designation </label>
-                <input type="text" name="designation" id="designation" class="form-control" required readonly>
+                <label for="design" class="form-label">Designation </label>
+                <input type="text" name="design" id="design" class="form-control" readonly>
               </div>
               <div class="col">
                 <label for="department" class="form-label">Department</label>
-                <input type="text" name="department" id="department" class="form-control" required readonly>
+                <input type="text" name="department" id="department" class="form-control" readonly>
               </div>
               <div class="col">
                 <label for="emp_no" class="form-label">Emp No#</label>
-                <input type="text" name="emp_no" id="emp_no" class="form-control" required readonly>
+                <input type="text" name="emp_no" id="emp_no" class="form-control" readonly>
               </div>
             </div>
             <hr>
@@ -82,7 +86,7 @@ include '../includes/base_page/head.php';
                 <label for="#" class="form-label">Description</label>
 
                 <div id="desc1">
-                  <select class="form-select" id="desc" required>
+                  <select class="form-select" id="desc_1">
                     <option disabled selected value>--Select the description--</option>
                     <option value="fees">School Fees</option>
                     <option value="medical">Medical</option>
@@ -90,7 +94,7 @@ include '../includes/base_page/head.php';
                   </select>
                 </div>
                 <div id="desc2" class="hide-this">
-                  <select class="form-select" id="desc" required>
+                  <select class="form-select" id="desc_2">
                     <option disabled selected value>--Select the description--</option>
                     <option value="fuel">Fuel</option>
                     <option value="lost">Good Lost</option>
@@ -111,6 +115,7 @@ include '../includes/base_page/head.php';
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
               </div>
+              <!--
               <div class="col">
                 <label for="#" class="form-label">Balance</label>
                 <div class="input-group">
@@ -119,6 +124,7 @@ include '../includes/base_page/head.php';
                   <div class="invalid-feedback">This field cannot be left blank.</div>
                 </div>
               </div>
+              -->
               <div class="col">
                 <label for="#" class="form-label">Installment Amount</label>
                 <div class="input-group">
@@ -181,15 +187,19 @@ include '../includes/base_page/head.php';
 </html>
 
 <script>
+  const employee = document.querySelector("#employee");
+
   const exp_date = document.querySelector("#exp_date");
   const employee_name = document.querySelector("#employee_name");
-  const designation = document.querySelector("#designation");
+  const design = document.querySelector("#design");
   const department = document.querySelector("#department");
   const emp_no = document.querySelector("#emp_no");
   const loan_type = document.querySelector("#loan_type");
   const desc = document.querySelector("#desc");
   const desc1 = document.querySelector("#desc1");
   const desc2 = document.querySelector("#desc2");
+  const select_1 = document.querySelector("#desc_1");
+  const select_2 = document.querySelector("#desc_2");
   const init_amt = document.querySelector("#init_amt");
   const balance = document.querySelector("#balance");
   const installment = document.querySelector("#installment");
@@ -199,17 +209,21 @@ include '../includes/base_page/head.php';
   const interest_type = document.querySelector("#interest_type");
   const fringe = document.querySelector("#fringe");
 
+
+  const all_employees = {};
+
   function getLoansDetails() {
+    let e_id = employee_name.value.split("#")[1].trim();
     let tmp = {
       date: exp_date.value,
       emp_name: employee_name.value,
-      designation: designation.value,
+      designation: design.value,
       department: department.value,
       emp_no: emp_no.value,
       loan_type: loan_type.value,
-      desc: desc.value,
+      desc: loan_type.value == "loan" ? select_1.value : select_2.value,
       amount: init_amt.value,
-      balance: balance.value,
+      balance: init_amt.value,
       installment: installment.value,
       pc_interest: interest.value,
       issue_date: issue_date.value,
@@ -255,6 +269,10 @@ include '../includes/base_page/head.php';
   }
 
   function descriptionChanged() {
+    const select_1 = document.querySelector("#desc_1");
+    const select_2 = document.querySelector("#desc_2");
+    select_1.value = null;
+    select_2.value = null;
     switch (loan_type.value) {
       case "loan":
         desc1.classList.remove('hide-this');
@@ -267,4 +285,58 @@ include '../includes/base_page/head.php';
     }
 
   }
+
+
+
+  const selectEmployee = () => {
+    if (!employee_name.value) {
+      employee_name.focus();
+      return;
+    }
+
+    const sn = employee_name.value.split("#")[1].trim();
+
+
+    const formData = new FormData();
+    formData.append("nat_id", sn);
+    fetch('../payroll/loans_load.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log('Success:', result);
+        emp_no.value = result[0]["job_number"];
+        department.value = result[0]["section"];
+        design.value = result[0]["job"];
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+
+
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const formData = new FormData();
+
+    fetch('../payroll/load_employee.php')
+      .then(response => response.json())
+      .then(result => {
+        console.log(result)
+        let opt = document.createElement("option");
+
+        result.forEach((employees) => {
+          opt = document.createElement("option");
+          opt.appendChild(document.createTextNode(employees["fname"] + " " + employees["lname"]));
+          opt.value = "National ID No# " + employees["national_id"];
+          all_employees[employees["fname"] + " " + employees["lname"]] = employees["national_id"];
+          employee.appendChild(opt);
+        });
+
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+  });
 </script>
