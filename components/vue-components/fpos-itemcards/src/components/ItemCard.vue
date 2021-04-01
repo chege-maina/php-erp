@@ -125,12 +125,11 @@ export default {
         sessioned_table === null ? {} : JSON.parse(sessioned_table);
       let uuid = this.uuid();
       let to_insert = {
-        name: this.product_object.name,
         key: uuid,
         code: this.product_object.code,
-        stock: this.product_object.stock,
-        quantity: this.product_object.quantity,
+        name: this.product_object.name,
         price: this.product_object.price,
+        quantity: this.product_object.quantity,
         units: this.product_object.atomic_unit,
         /* bulk_unit: this.product_object.bulk_unit, */
         /* bulk_price: this.product_object.bulk_price, */
