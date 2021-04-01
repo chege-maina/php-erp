@@ -6,21 +6,21 @@
       computed: false
     },
     {
-      name: "Name",
-      editable: false,
-      key: "name",
-      computed: false
-    },
-    {
       name: "Code",
       editable: false,
       key: "code",
       computed: false
     },
     {
-      name: "Stock",
+      name: "Name",
       editable: false,
-      key: "stock",
+      key: "name",
+      computed: false
+    },
+    {
+      name: "Price",
+      editable: false,
+      key: "price",
       computed: false
     },
     {
@@ -30,9 +30,9 @@
       computed: false
     },
     {
-      name: "Price",
+      name: "Units",
       editable: false,
-      key: "price",
+      key: "units",
       computed: false
     },
     {
