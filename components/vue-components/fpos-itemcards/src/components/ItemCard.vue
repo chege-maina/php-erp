@@ -131,7 +131,9 @@ export default {
         stock: this.product_object.stock,
         quantity: this.product_object.quantity,
         price: this.product_object.price,
-        discount: this.product_object.discount,
+        units: this.product_object.atomic_unit,
+        /* bulk_unit: this.product_object.bulk_unit, */
+        /* bulk_price: this.product_object.bulk_price, */
         tax_pc: this.product_object.tax_pc,
         tax: this.product_object.tax,
         subtotal: this.product_object.subtotal,

@@ -36,12 +36,6 @@
       computed: false
     },
     {
-      name: "Discount",
-      editable: true,
-      key: "discount",
-      computed: false
-    },
-    {
       name: "Tax %",
       editable: false,
       key: "tax_pc",

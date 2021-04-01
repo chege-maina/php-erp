@@ -1998,12 +1998,12 @@ var es_regexp_exec = __webpack_require__("ac1f");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
 var es_function_name = __webpack_require__("b0c0");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"796b19f8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ItemCard.vue?vue&type=template&id=6e37374c&
-var ItemCardvue_type_template_id_6e37374c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"card overflow-hidden",staticStyle:{"width":"9rem"},on:{"click":function($event){return _vm.itemClicked()}}},[_c('div',{staticClass:"card-img-top"},[_c('img',{staticClass:"img-fluid",attrs:{"src":_vm.image_url,"alt":"Card image cap"}})]),_c('div',{staticClass:"card-body m-0 p-2 pl-3 pb-3"},[_c('h6',{staticClass:"card-title"},[_vm._v(_vm._s(_vm.title))]),_c('h6',{staticClass:"card-subtitle mb-1 text-muted"},[_vm._v("Remaining "+_vm._s(_vm.balance))]),_c('hr',{staticClass:"my-2"}),_c('div',{staticClass:"text-muted mt-1"},[_c('strong',{staticStyle:{"font-size":"0.9em"}},[_vm._v(_vm._s(_vm.price))]),_vm._v(" "),_c('small',[_vm._v("kes")])])])])}
-var ItemCardvue_type_template_id_6e37374c_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"796b19f8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ItemCard.vue?vue&type=template&id=39a3d85d&
+var ItemCardvue_type_template_id_39a3d85d_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"card overflow-hidden",staticStyle:{"width":"9rem"},on:{"click":function($event){return _vm.itemClicked()}}},[_c('div',{staticClass:"card-img-top"},[_c('img',{staticClass:"img-fluid",attrs:{"src":_vm.image_url,"alt":"Card image cap"}})]),_c('div',{staticClass:"card-body m-0 p-2 pl-3 pb-3"},[_c('h6',{staticClass:"card-title"},[_vm._v(_vm._s(_vm.title))]),_c('h6',{staticClass:"card-subtitle mb-1 text-muted"},[_vm._v("Remaining "+_vm._s(_vm.balance))]),_c('hr',{staticClass:"my-2"}),_c('div',{staticClass:"text-muted mt-1"},[_c('strong',{staticStyle:{"font-size":"0.9em"}},[_vm._v(_vm._s(_vm.price))]),_vm._v(" "),_c('small',[_vm._v("kes")])])])])}
+var ItemCardvue_type_template_id_39a3d85d_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/ItemCard.vue?vue&type=template&id=6e37374c&
+// CONCATENATED MODULE: ./src/components/ItemCard.vue?vue&type=template&id=39a3d85d&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
 var es_number_constructor = __webpack_require__("a9e3");
@@ -2220,7 +2220,11 @@ var es_array_iterator = __webpack_require__("e260");
         stock: this.product_object.stock,
         quantity: this.product_object.quantity,
         price: this.product_object.price,
-        discount: this.product_object.discount,
+        units: this.product_object.atomic_unit,
+
+        /* bulk_unit: this.product_object.bulk_unit, */
+
+        /* bulk_price: this.product_object.bulk_price, */
         tax_pc: this.product_object.tax_pc,
         tax: this.product_object.tax,
         subtotal: this.product_object.subtotal
@@ -2256,8 +2260,8 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = normalizeComponent(
   components_ItemCardvue_type_script_lang_js_,
-  ItemCardvue_type_template_id_6e37374c_render,
-  ItemCardvue_type_template_id_6e37374c_staticRenderFns,
+  ItemCardvue_type_template_id_39a3d85d_render,
+  ItemCardvue_type_template_id_39a3d85d_staticRenderFns,
   false,
   injectStyles,
   null,
@@ -2447,12 +2451,12 @@ var HelloWorldshadow_component = normalizeComponent(
 )
 
 /* harmony default export */ var HelloWorldshadow = (HelloWorldshadow_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"796b19f8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ItemCard.vue?vue&type=template&id=0a9932b3&shadow
-var ItemCardvue_type_template_id_0a9932b3_shadow_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"card overflow-hidden",staticStyle:{"width":"9rem"},on:{"click":function($event){return _vm.itemClicked()}}},[_c('div',{staticClass:"card-img-top"},[_c('img',{staticClass:"img-fluid",attrs:{"src":_vm.image_url,"alt":"Card image cap"}})]),_c('div',{staticClass:"card-body m-0 p-2 pl-3 pb-3"},[_c('h6',{staticClass:"card-title"},[_vm._v(_vm._s(_vm.title))]),_c('h6',{staticClass:"card-subtitle mb-1 text-muted"},[_vm._v("Remaining "+_vm._s(_vm.balance))]),_c('hr',{staticClass:"my-2"}),_c('div',{staticClass:"text-muted mt-1"},[_c('strong',{staticStyle:{"font-size":"0.9em"}},[_vm._v(_vm._s(_vm.price))]),_vm._v(" "),_c('small',[_vm._v("kes")])])])])}
-var ItemCardvue_type_template_id_0a9932b3_shadow_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"796b19f8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ItemCard.vue?vue&type=template&id=43293676&shadow
+var ItemCardvue_type_template_id_43293676_shadow_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"card overflow-hidden",staticStyle:{"width":"9rem"},on:{"click":function($event){return _vm.itemClicked()}}},[_c('div',{staticClass:"card-img-top"},[_c('img',{staticClass:"img-fluid",attrs:{"src":_vm.image_url,"alt":"Card image cap"}})]),_c('div',{staticClass:"card-body m-0 p-2 pl-3 pb-3"},[_c('h6',{staticClass:"card-title"},[_vm._v(_vm._s(_vm.title))]),_c('h6',{staticClass:"card-subtitle mb-1 text-muted"},[_vm._v("Remaining "+_vm._s(_vm.balance))]),_c('hr',{staticClass:"my-2"}),_c('div',{staticClass:"text-muted mt-1"},[_c('strong',{staticStyle:{"font-size":"0.9em"}},[_vm._v(_vm._s(_vm.price))]),_vm._v(" "),_c('small',[_vm._v("kes")])])])])}
+var ItemCardvue_type_template_id_43293676_shadow_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/ItemCard.vue?vue&type=template&id=0a9932b3&shadow
+// CONCATENATED MODULE: ./src/components/ItemCard.vue?vue&type=template&id=43293676&shadow
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ItemCard.vue?vue&type=script&lang=js&shadow
 
@@ -2582,7 +2586,11 @@ var ItemCardvue_type_template_id_0a9932b3_shadow_staticRenderFns = []
         stock: this.product_object.stock,
         quantity: this.product_object.quantity,
         price: this.product_object.price,
-        discount: this.product_object.discount,
+        units: this.product_object.atomic_unit,
+
+        /* bulk_unit: this.product_object.bulk_unit, */
+
+        /* bulk_price: this.product_object.bulk_price, */
         tax_pc: this.product_object.tax_pc,
         tax: this.product_object.tax,
         subtotal: this.product_object.subtotal
@@ -2618,8 +2626,8 @@ if (style0.__inject__) style0.__inject__(context)
 
 var ItemCardshadow_component = normalizeComponent(
   components_ItemCardvue_type_script_lang_js_shadow,
-  ItemCardvue_type_template_id_0a9932b3_shadow_render,
-  ItemCardvue_type_template_id_0a9932b3_shadow_staticRenderFns,
+  ItemCardvue_type_template_id_43293676_shadow_render,
+  ItemCardvue_type_template_id_43293676_shadow_staticRenderFns,
   false,
   ItemCardshadow_injectStyles,
   null,
