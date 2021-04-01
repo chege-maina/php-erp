@@ -19,8 +19,14 @@
         data.forEach(value => {
           branch_items[value.branch] = value.branch_stuff;
         });
-        console.log("Fetched: ", branch_items);
         console.log("yaaah: ", getItemsArray("MM1"));
+        json_items = getItemsArray("MM1");
+
+
+        const ev = new CustomEvent('AllItemsLoaded', {
+          detail: JSON.stringify(json_items)
+        });
+        window.dispatchEvent(ev);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -40,7 +46,7 @@
         stock: product.balance,
         quantity: 1,
         balance: product.balance,
-        price: product.price,
+        price: Number(product.price),
         discount: 0,
         tax: 0,
         tax_pc: product.tax,
@@ -48,7 +54,7 @@
         image_url: getBaseUrl() + product.path,
         bulk_unit: product.unit,
         atomic_unit: product.atomic_unit,
-        bulk_price: product.bs_price,
+        bulk_price: Number(product.bs_price),
       })
     });
     return tmp;

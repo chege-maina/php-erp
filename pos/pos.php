@@ -107,9 +107,9 @@ if (!isset($_SESSION['loggedin'])) {
                     <div id="items_component">
                     </div>
                     <script>
-                      window.addEventListener('DOMContentLoaded', (event) => {
+                      window.addEventListener('AllItemsLoaded', (event) => {
                         const fpos_component = document.createElement("fpos-all-items");
-                        fpos_component.setAttribute("items_json", JSON.stringify(json_items));
+                        fpos_component.setAttribute("items_json", event.detail);
                         document.querySelector("#items_component").appendChild(fpos_component);
                       });
                     </script>
