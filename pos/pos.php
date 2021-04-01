@@ -112,6 +112,14 @@ if (!isset($_SESSION['loggedin'])) {
                         fpos_component.setAttribute("items_json", event.detail);
                         document.querySelector("#items_component").appendChild(fpos_component);
                       });
+
+                      window.addEventListener('ItemsUpdated', (event) => {
+                        const items_component = document.querySelector("#items_component");
+                        items_component.innerHTML = "";
+                        const fpos_component = document.createElement("fpos-all-items");
+                        fpos_component.setAttribute("items_json", event.detail);
+                        items_component.appendChild(fpos_component);
+                      });
                     </script>
                   </div>
                 </div>
