@@ -73,8 +73,11 @@
   <?php
   include './payment_details.php';
   ?>
-</div>
 
+  <?php
+  include './benefit_details.php';
+  ?>
+</div>
 <script>
   const employment_type = document.querySelector("#employment_type");
   const payment_currency = document.querySelector("#payment_currency");
