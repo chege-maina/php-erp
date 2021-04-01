@@ -61,6 +61,11 @@ if (!isset($_SESSION['loggedin'])) {
   include 'dummy_data.php';
   ?>
 
+
+  <?php
+  include 'scripts.php';
+  ?>
+
   <!-- ===============================================-->
   <!--    Main Content-->
   <!-- ===============================================-->
@@ -102,10 +107,19 @@ if (!isset($_SESSION['loggedin'])) {
                     <div id="items_component">
                     </div>
                     <script>
-                      window.addEventListener('DOMContentLoaded', (event) => {
+                      window.addEventListener('AllItemsLoaded', (event) => {
                         const fpos_component = document.createElement("fpos-all-items");
-                        fpos_component.setAttribute("items_json", JSON.stringify(json_items));
+                        fpos_component.setAttribute("items_json", event.detail);
                         document.querySelector("#items_component").appendChild(fpos_component);
+                      });
+
+                      window.addEventListener('ItemsUpdated', (event) => {
+                        // TODO: Account for products in different branches
+                        const items_component = document.querySelector("#items_component");
+                        items_component.innerHTML = "";
+                        const fpos_component = document.createElement("fpos-all-items");
+                        fpos_component.setAttribute("items_json", event.detail);
+                        items_component.appendChild(fpos_component);
                       });
                     </script>
                   </div>
@@ -173,8 +187,6 @@ if (!isset($_SESSION['loggedin'])) {
   <!-- ===============================================-->
   <!--    End of Main Content-->
   <!-- ===============================================-->
-
-
 
 
   <!-- ===============================================-->
