@@ -6,7 +6,7 @@
         type="text"
         name="search_term"
         placeholder="Search Term"
-        class="form-control"
+        class="form-control form-control-sm"
         v-model="search_term"
       />
     </div>
