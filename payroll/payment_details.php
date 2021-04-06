@@ -1,3 +1,12 @@
+<style>
+  #checkBoxes {
+    display: none;
+  }
+
+  #checkBoxes label {
+    display: block;
+  }
+</style>
 <hr>
 <div class="row mt-3">
   <div class="col col-md-3">
@@ -10,6 +19,39 @@
       <option value="Cheque">Cheque</option>
     </select>
   </div>
+  <div class="col col-md-3">
+    <label for="income_tax" class="form-label">Benefits</label>
+
+    <div class="form-check form-switch">
+      <input class="form-check-input" id="flexSwitchCheckDefault" type="checkbox" onchange="showCheckboxes(this.checked);" />
+      <label class="form-check-label" for="flexSwitchCheckDefault">Select the Various Benefits</label>
+    </div>
+
+    <div id="checkBoxes" class="form-check">
+      <div class="col d-flex">
+        <div class="pr-4">
+          <input type="checkbox" class="form-check-input" id="first" />
+          <label for="first" class="form-check-label">checkBox1</label>
+        </div>
+
+        <div class="pr-2">
+          <input type="checkbox" class="form-check-input" id="second" />
+          <label for="second" class="form-check-label">checkBox2</label>
+        </div>
+      </div>
+      <div class="col d-flex">
+        <div class="pr-4">
+          <input type="checkbox" class="form-check-input" id="third" />
+          <label for="third" class="form-check-label"> checkBox3</label>
+        </div>
+        <div class="pr-2">
+          <input type="checkbox" class="form-check-input" id="fourth" />
+          <label for="fourth" class="form-check-label"> checkBox4 </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 <div id="so_bank_transfer" class="bg-light p-2 mt-2 border rounded-3 hide-this">
   <div class="row">
@@ -48,6 +90,24 @@
 </div>
 
 <script>
+  function showCheckboxes(checked) {
+    var checkboxes =
+      document.getElementById("checkBoxes");
+    if (checked) {
+      checkboxes.style.display = "block";
+
+    } else {
+      checkboxes.style.display = "none";
+
+    }
+  }
+
+  // benefits checkboxes
+  const first = document.querySelector("#first");
+  const second = document.querySelector("#second");
+  const third = document.querySelector("#third");
+  const fourth = document.querySelector("#fourth");
+  //ends here
   const s_payment_option = document.querySelector("#s_payment_option");
 
   const so_bank_transfer = document.querySelector("#so_bank_transfer");
@@ -96,7 +156,12 @@
       s_bank_name: s_bank_name.value,
       s_bank_branch: s_bank_branch.value,
       s_sort_code: s_sort_code.value,
-      s_mobile_no: s_mobile_no.value
+      s_mobile_no: s_mobile_no.value,
+      // benefits checkboxes 
+      first: first.checked,
+      second: second.checked,
+      third: third.checked,
+      fourth: fourth.checked,
     }
   }
 
