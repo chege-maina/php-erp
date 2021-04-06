@@ -28,7 +28,7 @@ export default {
       { name: "Price", key: "price" },
       { name: "Bulk Price", key: "bulk_price", visible: false },
       { name: "Quantity", editable: true, key: "quantity" },
-      { name: "Units", key: "units" },
+      { name: "Units", key: "units", selectable: true },
       { name: "Bulk Units", key: "bulk_units", visible: false },
       {
         name: "Tax %",

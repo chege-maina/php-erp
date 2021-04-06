@@ -37,11 +37,14 @@
                 />
               </span>
               <span v-else-if="header_object[key].selectable">
-                <input
-                  class="form-control form-control-sm"
-                  type="number"
-                  v-model="table_data[item.key][key]"
-                />
+                <select class="form-select form-select-sm">
+                  <option v-bind:value="table_data[item.key].units">
+                    {{ table_data[item.key].units }}
+                  </option>
+                  <option v-bind:value="table_data[item.key].bulk_units">
+                    {{ table_data[item.key].bulk_units }}
+                  </option>
+                </select>
               </span>
               <span v-else-if="header_object[key].computed">{{
                 computeField(header_object[key].operation, item.key, key)
