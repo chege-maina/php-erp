@@ -116,9 +116,10 @@ export default {
       let header_object = {};
       this.header.forEach((row) => {
         header_object[row.key] = {
-          editable: row.editable,
-          computed: row.computed,
-          operation: row.operation,
+          editable: "editable" in row ? row.editable : false,
+          computed: "computed" in row ? row.computed : false,
+          operation: "operation" in row ? row.operation : false,
+          visible: "visible" in row ? row.visible : false,
           name: row.name,
         };
       });
