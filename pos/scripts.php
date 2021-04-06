@@ -1,4 +1,8 @@
 <script>
+  // TODO: Requirements
+  // Close and start session
+  // Validation of the above
+
   let branch_list = [];
   let current_item_list = [];
 
