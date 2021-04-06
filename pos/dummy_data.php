@@ -1,59 +1,66 @@
 <script>
   const headers = [{
       name: "key",
-      editable: false,
       key: "key",
-      computed: false
+      visible: false
     },
     {
       name: "Code",
-      editable: false,
-      key: "code",
-      computed: false
+      key: "code"
     },
     {
       name: "Name",
-      editable: false,
-      key: "name",
-      computed: false
+      key: "name"
     },
     {
       name: "Price",
-      editable: false,
-      key: "price",
-      computed: false
+      key: "price"
+    },
+    {
+      name: "Current Unit",
+      key: "current_unit",
+      visible: false
+    },
+    {
+      name: "Current Price",
+      key: "current_price",
+      visible: false
+    },
+    {
+      name: "Bulk Price",
+      key: "bulk_price",
+      visible: false
     },
     {
       name: "Quantity",
       editable: true,
-      key: "quantity",
-      computed: false
+      key: "quantity"
     },
     {
       name: "Units",
-      editable: false,
       key: "units",
-      computed: false
+      selectable: true
+    },
+    {
+      name: "Bulk Units",
+      key: "bulk_units",
+      visible: false
     },
     {
       name: "Tax %",
-      editable: false,
       key: "tax_pc",
-      computed: false
     },
     {
       name: "Tax",
-      editable: false,
       key: "tax",
       computed: true,
-      operation: "tax_pc / 100 * quantity * price",
+      operation: "tax_pc / 100 * quantity * current_price",
     },
     {
       name: "Subtotal",
-      editable: false,
       key: "subtotal",
       computed: true,
-      operation: "tax_pc / 100 + 1 * quantity * price",
+      operation: "tax_pc / 100 + 1 * quantity * current_price",
     },
   ];
 
