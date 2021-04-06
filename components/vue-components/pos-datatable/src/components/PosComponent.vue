@@ -40,7 +40,7 @@
                 <select
                   class="form-select form-select-sm"
                   v-model="table_data[item.key].current_unit"
-                  v-on:click="unitUpdated(item.key, key)"
+                  v-on:click="unitUpdated(item.key)"
                 >
                   <option v-bind:value="table_data[item.key].units">
                     {{ table_data[item.key].units }}
@@ -214,7 +214,7 @@ export default {
       }
       this.table_data = replacement_table;
     },
-    unitUpdated(index, col) {
+    unitUpdated(index) {
       const current_unit = this.table_data[index].current_unit;
       const units = this.table_data[index].units;
       const price =
