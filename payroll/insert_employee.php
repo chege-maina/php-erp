@@ -69,12 +69,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $s_sort_code = sanitize_input($_POST["s_sort_code"]);
   $s_mobile_no = sanitize_input($_POST["s_mobile_no"]);
   $s_bank_branch = sanitize_input($_POST["s_bank_branch"]);
-  // benefits checkboxes
-  $first = sanitize_input($_POST["first"]);
-  $second = sanitize_input($_POST["second"]);
-  $third = sanitize_input($_POST["third"]);
-  $fourth = sanitize_input($_POST["fourth"]);
-
   $table_items = json_decode($_POST["table_items"], true);
 
   $filename = $_FILES["passport"]["name"];
@@ -106,12 +100,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           country, mobile_no, phone_no, ext_no, city, county, postal_code, branch, job_no, employ_date, 
           begin_date, duration, end_date, job_title, department, report_to, head_of, region, currency, 
           employ_type, shift, off_days, pay_type, salary, income_tax, deduct_nssf, deduct_nhif, account_name,
-          account_no, bank_name, sort_code, s_mobile_no , s_bank_branch, s_payment, first, second, third, fourth) 
+          account_no, bank_name, sort_code, s_mobile_no , s_bank_branch, s_payment) 
           VALUES (
-            ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')) {
+            ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')) {
             $path = "/uploads/" . $filename;
             $stmt->bind_param(
-              'sssssssssssssssssssssssssssssssssssssssssssssssssss',
+              'sssssssssssssssssssssssssssssssssssssssssssssss',
               $first_name,
               $middle_name,
               $last_name,
@@ -158,11 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               $s_sort_code,
               $s_mobile_no,
               $s_bank_branch,
-              $s_payment_option,
-              $first,
-              $second,
-              $third,
-              $fourth
+              $s_payment_option
             );
 
             if ($stmt->execute()) {
