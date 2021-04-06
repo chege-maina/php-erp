@@ -22,12 +22,12 @@ export default {
   },
   data: () => ({
     headers: [
-      { name: "key", key: "key" },
+      { name: "key", key: "key", visible: false },
       { name: "Code", key: "code" },
       { name: "Name", key: "name" },
       { name: "Price", key: "price" },
       { name: "Bulk Price", key: "bulk_price", visible: false },
-      { name: "Quantity", key: "quantity" },
+      { name: "Quantity", editable: true, key: "quantity" },
       { name: "Units", key: "units" },
       { name: "Bulk Units", key: "bulk_units", visible: false },
       {

@@ -9,7 +9,7 @@
               scope="col"
               v-bind:class="{ 'col-sm-1': item.editable }"
               :key="key"
-              v-if="item.key !== 'key'"
+              v-if="header_object[item.key].visible"
             >
               {{ item.name }}
             </th>
@@ -24,7 +24,11 @@
           </th>
 
           <template v-for="(value, key) in item">
-            <td v-bind:key="key" v-if="key !== 'key'" class="align-middle py-1">
+            <td
+              v-bind:key="key"
+              v-if="header_object[key].visible"
+              class="align-middle py-1"
+            >
               <span v-if="header_object[key].editable">
                 <input
                   class="form-control form-control-sm"
@@ -119,7 +123,7 @@ export default {
           editable: "editable" in row ? row.editable : false,
           computed: "computed" in row ? row.computed : false,
           operation: "operation" in row ? row.operation : false,
-          visible: "visible" in row ? row.visible : false,
+          visible: "visible" in row ? row.visible : true,
           name: row.name,
         };
       });
