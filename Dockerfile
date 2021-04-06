@@ -7,3 +7,4 @@ RUN docker-php-ext-install mysqli
 # RUN chown -Rf www-data:www-data /var/www/html/*
 # RUN chown -R www-data:www-data /tmp
 RUN chmod 777 /var/www/html/uploads
+# usermod -u 1000 www-data
