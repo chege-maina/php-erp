@@ -37,7 +37,10 @@
                 />
               </span>
               <span v-else-if="header_object[key].selectable">
-                <select class="form-select form-select-sm">
+                <select
+                  class="form-select form-select-sm"
+                  v-model="table_data[item.key].current_unit"
+                >
                   <option v-bind:value="table_data[item.key].units">
                     {{ table_data[item.key].units }}
                   </option>
