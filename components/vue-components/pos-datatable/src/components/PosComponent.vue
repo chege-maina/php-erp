@@ -36,6 +36,13 @@
                   v-model="table_data[item.key][key]"
                 />
               </span>
+              <span v-else-if="header_object[key].selectable">
+                <input
+                  class="form-control form-control-sm"
+                  type="number"
+                  v-model="table_data[item.key][key]"
+                />
+              </span>
               <span v-else-if="header_object[key].computed">{{
                 computeField(header_object[key].operation, item.key, key)
               }}</span>
@@ -123,6 +130,7 @@ export default {
           editable: "editable" in row ? row.editable : false,
           computed: "computed" in row ? row.computed : false,
           operation: "operation" in row ? row.operation : false,
+          selectable: "selectable" in row ? row.selectable : false,
           visible: "visible" in row ? row.visible : true,
           name: row.name,
         };
@@ -148,7 +156,6 @@ export default {
         };
         i++;
       }
-      console.log("kaksdfas", tmp);
       return tmp;
     },
   },
