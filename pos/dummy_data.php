@@ -13,6 +13,10 @@
       key: "name"
     },
     {
+      name: "Branch",
+      key: "branch"
+    },
+    {
       name: "Price",
       key: "price"
     },

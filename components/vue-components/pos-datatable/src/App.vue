@@ -25,6 +25,7 @@ export default {
       { name: "key", key: "key", visible: false },
       { name: "Code", key: "code" },
       { name: "Name", key: "name" },
+      { name: "Branch", key: "branch" },
       { name: "Price", key: "price" },
       { name: "Current Unit", key: "current_unit", visible: false },
       { name: "Current Price", key: "current_price", visible: false },
@@ -53,6 +54,7 @@ export default {
       {
         key: "2591c05f-ed3d-48c7-8de3-25bb84ed6960",
         code: "002_001_001",
+        branch: "MM1",
         name: "Kieran Griffin",
         price: 400,
         bulk_price: 4000,
@@ -68,6 +70,7 @@ export default {
       {
         key: "29969787-6b77-4613-aa85-28872ff98fe8",
         code: "001_001_002",
+        branch: "MM1",
         name: "April Wilson",
         price: 344,
         bulk_price: 4053,
@@ -83,6 +86,7 @@ export default {
       {
         key: "490ed6cb-78cc-44f4-bbfb-9e50ef76d5e1",
         code: "001_001_001",
+        branch: "MM1",
         name: "Brendan Huffman",
         price: 76,
         bulk_price: 4053,
@@ -98,6 +102,7 @@ export default {
       {
         key: "461a5402-606a-4949-84b2-1578853ce6a5",
         code: "002_001_001",
+        branch: "MM1",
         name: "Lesley Malone",
         price: 42,
         bulk_price: 4053,

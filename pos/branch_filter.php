@@ -30,12 +30,13 @@
       opt.value = value;
       branch_select.appendChild(opt);
     });
-
-
+    sessionStorage.setItem("current_branch", branch_select.value);
   });
 
   function filterWithBranch() {
     const to_branch = branch_select.value;
+    sessionStorage.setItem("current_branch", branch_select.value);
+
     json_items = getItemsArray(to_branch);
 
     const ev = new CustomEvent('ItemsUpdated', {
