@@ -9,16 +9,6 @@
           </button>
         </div>
       </div>
-      <div class="col">
-        <div class="input-group">
-          <input list="customer-list" class="form-select form-select-sm" id="customer_list_select" name="customer_list_select" placeholder="Customers" />
-          <datalist id="customer-list">
-          </datalist>
-          <button class="btn btn-falcon-default btn-sm">
-            +
-          </button>
-        </div>
-      </div>
     </div>
   </div>
 </div>
