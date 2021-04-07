@@ -52,19 +52,11 @@
         <div class="row">
           <div class="col">
             <label class="form-label" for="product_name">Net Total*</label>
-            <input type="text" class="form-control form-control-sm form-inline">
-          </div>
-          <div class="col">
-            <label class="form-label" for="product_name">Paid Amount*</label>
-            <input type="text" class="form-control form-control-sm form-inline">
-          </div>
-          <div class="col">
-            <label class="form-label" for="product_name">Change Due*</label>
-            <input type="text" class="form-control form-control-sm form-inline">
+            <input type="text" id="fab_net_total" class="form-control form-control-sm form-inline" readonly>
           </div>
           <div class="col col-auto d-flex align-items-end">
             <!-- Trigger/Open The Modal -->
-            <button id="myBtn" class="btn btn-falcon-primary">Open Modal</button>
+            <button id="myBtn" class="btn btn-falcon-primary">Checkout</button>
 
             <!-- The Modal -->
             <div id="myModal" class="modal">

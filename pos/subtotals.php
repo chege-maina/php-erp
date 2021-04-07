@@ -43,6 +43,8 @@
   const total_before_tax = document.querySelector("#total_before_tax");
   const tax_total = document.querySelector("#tax_total");
   const grand_total = document.querySelector("#grand_total");
+  const fab_net_total = document.querySelector("#fab_net_total");
+
 
   window.addEventListener('calculate_subtotals', function(e) {
     const table_data = JSON.parse(window.sessionStorage.getItem("table_data"));
@@ -62,6 +64,7 @@
     total_before_tax.value = numberWithCommas(cumulative_total_pretax);
     tax_total.value = numberWithCommas(cumulative_tax_total);
     grand_total.value = numberWithCommas(cumulative_grand_total);
+    fab_net_total.value = numberWithCommas(cumulative_grand_total);
 
     console.log(`Tax: ${cumulative_tax_total} -- Pretax: ${cumulative_total_pretax} -- Grand ${cumulative_grand_total}`)
   }, false);
