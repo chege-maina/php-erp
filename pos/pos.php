@@ -59,6 +59,10 @@ if (!isset($_SESSION['loggedin'])) {
   <script>
     // Clear session storage
     window.sessionStorage.clear();
+
+    window.addEventListener("beforeunload", event => {
+      window.sessionStorage.clear();
+    })
   </script>
 
   <?php
