@@ -68,7 +68,8 @@
                 <script src="../components/vue-components/fpos-checkout/dist/fpos-checkout.js"></script>
 
 
-                <fpos-checkout></fpos-checkout>
+                <div id="checkout_div">
+                </div>
               </div>
 
             </div>
@@ -81,6 +82,8 @@
 </nav>
 
 <script>
+  const checkout_div = document.querySelector("#checkout_div");
+
   // Get the modal
   var modal = document.getElementById("myModal");
 
@@ -92,6 +95,20 @@
 
   // When the user clicks on the button, open the modal
   btn.onclick = function() {
+
+    // ==========================================
+    // Create and show the modal
+    // ==========================================
+    const sendable_data = JSON.parse(window.sessionStorage.getItem("sendable_table"));
+    console.log(sendable_data);
+    const checkout_modal = document.createElement("fpos-checkout");
+
+    checkout_modal.setAttribute("title", "POS Checkout Modal");
+    checkout_modal.setAttribute("subtotal", sendable_data.grand_total);
+    checkout_div.innerHTML = "";
+    checkout_div.appendChild(checkout_modal);
+
+
     modal.style.display = "block";
   }
 
