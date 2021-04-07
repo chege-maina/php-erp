@@ -121,6 +121,9 @@ export default {
           this.session_key,
           JSON.stringify(this.table_data)
         );
+        const event = new Event("calculate_subtotals");
+        // Dispatch the event.
+        window.dispatchEvent(event);
       },
       // TODO: receive this as a prop
       deep: true,
