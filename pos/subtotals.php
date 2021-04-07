@@ -59,9 +59,9 @@
       cumulative_grand_total += Number(row.subtotal);
     }
 
-    total_before_tax.value = cumulative_total_pretax;
-    tax_total.value = cumulative_tax_total;
-    grand_total.value = cumulative_grand_total;
+    total_before_tax.value = numberWithCommas(cumulative_total_pretax);
+    tax_total.value = numberWithCommas(cumulative_tax_total);
+    grand_total.value = numberWithCommas(cumulative_grand_total);
 
     console.log(`Tax: ${cumulative_tax_total} -- Pretax: ${cumulative_total_pretax} -- Grand ${cumulative_grand_total}`)
   }, false);
