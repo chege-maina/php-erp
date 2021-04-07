@@ -163,7 +163,7 @@ if (!isset($_SESSION['loggedin'])) {
               </div>
 
             </div>
-            <div class="row my-1">
+            <div class="row my-1 mb-7">
               <div class="col px-2">
                 <div class="row">
                   <div class="col">
