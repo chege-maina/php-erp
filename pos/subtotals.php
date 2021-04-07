@@ -11,7 +11,7 @@
                   <label class="form-label">Total Before Tax</label>
                 </td>
                 <td class="col">
-                  <input type="text" class="form-control form-control-sm col-md-1" name="total_before_tax" id="total_before_tax">
+                  <input type="text" class="form-control form-control-sm col-md-1" name="total_before_tax" id="total_before_tax" readonly>
                 </td>
               </tr>
               <tr>
@@ -19,7 +19,7 @@
                   <label class="form-label">Tax 16%</label>
                 </td>
                 <td class="col">
-                  <input type="text" class="form-control form-control-sm col-md-1" name="tax_total" id="tax_total">
+                  <input type="text" class="form-control form-control-sm col-md-1" name="tax_total" id="tax_total" readonly>
                 </td>
               </tr>
               <tr>
@@ -27,7 +27,7 @@
                   <label class="form-label">Grand Total</label>
                 </td>
                 <td class="col">
-                  <input type="text" class="form-control form-control-sm col-md-1" name="grand_total" id="grand_total">
+                  <input type="text" class="form-control form-control-sm col-md-1" name="grand_total" id="grand_total" readonly>
                 </td>
               </tr>
             </tbody>
@@ -65,4 +65,17 @@
 
     console.log(`Tax: ${cumulative_tax_total} -- Pretax: ${cumulative_total_pretax} -- Grand ${cumulative_grand_total}`)
   }, false);
+
+
+  function numberWithCommas(x) {
+    if (isNaN(x)) {
+      return x;
+    }
+    var parts = x.toString().split(".");
+    if (parts.length < 2) {
+      parts[1] = "00";
+    }
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+  };
 </script>
