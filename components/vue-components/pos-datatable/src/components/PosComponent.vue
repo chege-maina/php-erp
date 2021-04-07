@@ -9,7 +9,7 @@
               scope="col"
               v-bind:class="{ 'col-sm-1': item.editable }"
               :key="key"
-              v-if="item.key !== 'key'"
+              v-if="header_object[item.key].visible"
             >
               {{ item.name }}
             </th>
@@ -24,13 +24,31 @@
           </th>
 
           <template v-for="(value, key) in item">
-            <td v-bind:key="key" v-if="key !== 'key'" class="align-middle py-1">
+            <td
+              v-bind:key="key"
+              v-if="header_object[key].visible"
+              class="align-middle py-1"
+            >
               <span v-if="header_object[key].editable">
                 <input
                   class="form-control form-control-sm"
                   type="number"
                   v-model="table_data[item.key][key]"
                 />
+              </span>
+              <span v-else-if="header_object[key].selectable">
+                <select
+                  class="form-select form-select-sm"
+                  v-model="table_data[item.key].current_unit"
+                  v-on:click="unitUpdated(item.key)"
+                >
+                  <option v-bind:value="table_data[item.key].units">
+                    {{ table_data[item.key].units }}
+                  </option>
+                  <option v-bind:value="table_data[item.key].bulk_units">
+                    {{ table_data[item.key].bulk_units }}
+                  </option>
+                </select>
               </span>
               <span v-else-if="header_object[key].computed">{{
                 computeField(header_object[key].operation, item.key, key)
@@ -116,9 +134,11 @@ export default {
       let header_object = {};
       this.header.forEach((row) => {
         header_object[row.key] = {
-          editable: row.editable,
-          computed: row.computed,
-          operation: row.operation,
+          editable: "editable" in row ? row.editable : false,
+          computed: "computed" in row ? row.computed : false,
+          operation: "operation" in row ? row.operation : false,
+          selectable: "selectable" in row ? row.selectable : false,
+          visible: "visible" in row ? row.visible : true,
           name: row.name,
         };
       });
@@ -143,7 +163,6 @@ export default {
         };
         i++;
       }
-      console.log("kaksdfas", tmp);
       return tmp;
     },
   },
@@ -194,6 +213,15 @@ export default {
         replacement_table[key] = this.table_data[key];
       }
       this.table_data = replacement_table;
+    },
+    unitUpdated(index) {
+      const current_unit = this.table_data[index].current_unit;
+      const units = this.table_data[index].units;
+      const price =
+        current_unit == units
+          ? this.table_data[index].price
+          : this.table_data[index].bulk_price;
+      this.table_data[index].current_price = price;
     },
   },
 };
