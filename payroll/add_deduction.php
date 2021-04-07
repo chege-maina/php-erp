@@ -21,7 +21,7 @@ if (empty($_POST['modal_benefit_name'])) {
 }
 
 // We need to check if the account with that username exists.
-if ($stmt = $con->prepare('SELECT count(*) as total FROM tbl_benefit WHERE benefit = ?')) {
+if ($stmt = $con->prepare('SELECT count(*) as total FROM tbl_deduction WHERE deduction = ?')) {
   // Bind parameters (s = string, i = int, b = blob, etc), hash the password using the PHP password_hash function.
   $stmt->bind_param('s', $_POST['modal_benefit_name']);
   $stmt->execute();
@@ -37,7 +37,7 @@ if ($stmt = $con->prepare('SELECT count(*) as total FROM tbl_benefit WHERE benef
     die('That Record Exists');
   } else {
     // Username doesnt exists, insert new account
-    if ($stmt = $con->prepare('INSERT INTO tbl_benefit (benefit) VALUES (?)')) {
+    if ($stmt = $con->prepare('INSERT INTO tbl_deduction (deduction) VALUES (?)')) {
       $stmt->bind_param('s', $_POST['modal_benefit_name']);
       $stmt->execute();
       echo "Added Successfully";
