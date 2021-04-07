@@ -64,13 +64,19 @@
     cumulative_tax_total = cumulative_tax_total.toFixed(2);
     cumulative_grand_total = cumulative_grand_total.toFixed(2);
     cumulative_total_pretax = cumulative_total_pretax.toFixed(2);
+    const tmp_obj = {
+      tax_total: cumulative_tax_total,
+      pretax_total: cumulative_total_pretax,
+      grand_total: cumulative_grand_total,
+      table_items: table_array,
+    }
+
+    sessionStorage.setItem("sendable_table", JSON.stringify(tmp_obj));
 
     total_before_tax.value = numberWithCommas(cumulative_total_pretax);
     tax_total.value = numberWithCommas(cumulative_tax_total);
     grand_total.value = numberWithCommas(cumulative_grand_total);
     fab_net_total.value = numberWithCommas(cumulative_grand_total);
-
-    console.log(`Tax: ${cumulative_tax_total} -- Pretax: ${cumulative_total_pretax} -- Grand ${cumulative_grand_total}`)
   }, false);
 
 
