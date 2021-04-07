@@ -129,10 +129,12 @@ export default {
         code: this.product_object.code,
         name: this.product_object.name,
         price: this.product_object.price,
+        bulk_price: this.product_object.bulk_price,
+        current_price: this.product_object.price,
         quantity: this.product_object.quantity,
         units: this.product_object.atomic_unit,
-        /* bulk_unit: this.product_object.bulk_unit, */
-        /* bulk_price: this.product_object.bulk_price, */
+        bulk_units: this.product_object.bulk_unit,
+        current_unit: this.product_object.current_unit,
         tax_pc: this.product_object.tax_pc,
         tax: this.product_object.tax,
         subtotal: this.product_object.subtotal,
