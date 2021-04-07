@@ -134,7 +134,7 @@ export default {
         quantity: this.product_object.quantity,
         units: this.product_object.atomic_unit,
         bulk_units: this.product_object.bulk_unit,
-        current_unit: this.product_object.current_unit,
+        current_unit: this.product_object.atomic_unit,
         tax_pc: this.product_object.tax_pc,
         tax: this.product_object.tax,
         subtotal: this.product_object.subtotal,
