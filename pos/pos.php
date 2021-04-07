@@ -56,6 +56,10 @@ if (!isset($_SESSION['loggedin'])) {
 
 
 <body>
+  <script>
+    // Clear session storage
+    window.sessionStorage.clear();
+  </script>
 
   <?php
   include 'dummy_data.php';
