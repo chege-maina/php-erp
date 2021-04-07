@@ -49,7 +49,6 @@
     let tmp = [];
     let i = 1;
     const branch_select = document.querySelector("#branch_select");
-    console.log("Sharisuke ", branch_select.value);
 
     branch_items[branch_name].forEach(product => {
       tmp.push({

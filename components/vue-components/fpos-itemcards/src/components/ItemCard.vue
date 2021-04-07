@@ -124,7 +124,6 @@ export default {
       sessioned_table =
         sessioned_table === null ? {} : JSON.parse(sessioned_table);
       let uuid = this.uuid();
-      console.log("adding, ", this.product_object);
       let to_insert = {
         key: uuid,
         code: this.product_object.code,
