@@ -27,11 +27,11 @@
           branch_list.push(value.branch);
           branch_items[value.branch] = value.branch_stuff;
         });
-        console.log("Look at the data", data);
+        // console.log("Look at the data", data);
 
         // TODO: Get branch from session
         const first_branch = data[0].branch;
-        console.log("yaaah: ", getItemsArray(first_branch));
+        // console.log("yaaah: ", getItemsArray(first_branch));
         json_items = getItemsArray(first_branch);
 
 
