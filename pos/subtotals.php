@@ -40,6 +40,9 @@
 
 <script>
   let i = 0;
+  const total_before_tax = document.querySelector("#total_before_tax");
+  const tax_total = document.querySelector("#tax_total");
+  const grand_total = document.querySelector("#grand_total");
 
   window.addEventListener('calculate_subtotals', function(e) {
     const table_data = JSON.parse(window.sessionStorage.getItem("table_data"));
@@ -55,6 +58,11 @@
       cumulative_total_pretax += Number(row.subtotal) - Number(row.tax);
       cumulative_grand_total += Number(row.subtotal);
     }
+
+    total_before_tax.value = cumulative_total_pretax;
+    tax_total.value = cumulative_tax_total;
+    grand_total.value = cumulative_grand_total;
+
     console.log(`Tax: ${cumulative_tax_total} -- Pretax: ${cumulative_total_pretax} -- Grand ${cumulative_grand_total}`)
   }, false);
 </script>
