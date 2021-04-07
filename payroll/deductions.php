@@ -353,6 +353,25 @@ include '../includes/base_page/head.php';
         }
 
         // fetch goes here
+
+        fetch('#.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.text())
+          .then(result => {
+            console.log('Success:', result);
+
+            setTimeout(function() {
+              location.reload();
+            }, 2500);
+
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+
+        return false;
       }
     </script>
     <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->

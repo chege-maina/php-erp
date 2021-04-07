@@ -311,7 +311,7 @@ include '../includes/base_page/head.php';
               opt = document.createElement("option");
               opt.appendChild(document.createTextNode("National ID No# " + employees["nat"] + "  Employee No# " + employees["job"]));
               opt.value = employees["fname"] + " " + employees["lname"];
-              all_employees[employees["fname"] + " " + employees["lname"]] = employees["nat"];
+              all_employees[employees["fname"] + " " + employees["lname"]] = employees;
               employee.appendChild(opt);
             });
 
@@ -321,6 +321,58 @@ include '../includes/base_page/head.php';
           });
 
       });
+
+      function getItems() {
+        const tmp_obj = {};
+        const table_body = document.querySelector("#table_body");
+        const employee_name = document.querySelector("#employee_name");
+        const benefits = [];
+
+        table_body.childNodes.forEach(row => {
+          benefits.push(row.childNodes[0].innerHTML);
+        });
+
+        for (let key in all_employees[employee_name.value]) {
+          tmp_obj[key] = all_employees[employee_name.value][key];
+        }
+
+        tmp_obj["table_items"] = JSON.stringify(benefits);
+        console.log("==================================");
+        console.log(tmp_obj);
+        console.log("==================================");
+
+        return tmp_obj
+      }
+
+      function submitForm() {
+        let tmp_obj = getItems();
+
+        const formData = new FormData();
+        for (let key in tmp_obj) {
+          formData.append(key, tmp_obj[key]);
+        }
+
+        // fetch goes here
+
+        fetch('#.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.text())
+          .then(result => {
+            console.log('Success:', result);
+
+            //  setTimeout(function() {
+            //    location.reload();
+            //  }, 2500);
+
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+
+        return false;
+      }
     </script>
     <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
     <!-- Footer End -->
