@@ -61,6 +61,10 @@
       cumulative_grand_total += Number(row.subtotal);
     }
 
+    cumulative_tax_total = cumulative_tax_total.toFixed(2);
+    cumulative_grand_total = cumulative_grand_total.toFixed(2);
+    cumulative_total_pretax = cumulative_total_pretax.toFixed(2);
+
     total_before_tax.value = numberWithCommas(cumulative_total_pretax);
     tax_total.value = numberWithCommas(cumulative_tax_total);
     grand_total.value = numberWithCommas(cumulative_grand_total);
