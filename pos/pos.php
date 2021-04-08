@@ -203,7 +203,9 @@ if (!isset($_SESSION['loggedin'])) {
         <!-- end page main -->
         <!-- ======================================================= -->
         <div id="page_checkout" class="hide_page">
-          Holla mucha graci
+          <?php
+          include 'checkout_page.php';
+          ?>
         </div>
 
         <!-- ====================================================== -->
