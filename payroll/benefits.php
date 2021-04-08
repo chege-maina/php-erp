@@ -329,7 +329,10 @@ include '../includes/base_page/head.php';
         const benefits = [];
 
         table_body.childNodes.forEach(row => {
-          benefits.push(row.childNodes[0].innerHTML);
+          const k_benefit = row.childNodes[0].innerHTML;
+          benefits.push({
+            benefit: k_benefit
+          });
         });
 
         for (let key in all_employees[employee_name.value]) {
@@ -348,13 +351,14 @@ include '../includes/base_page/head.php';
         let tmp_obj = getItems();
 
         const formData = new FormData();
+        formData.append("type", "benefit");
         for (let key in tmp_obj) {
           formData.append(key, tmp_obj[key]);
         }
 
         // fetch goes here
 
-        fetch('#.php', {
+        fetch('add_emoployee_benededuc.php', {
             method: 'POST',
             body: formData
           })
@@ -362,9 +366,9 @@ include '../includes/base_page/head.php';
           .then(result => {
             console.log('Success:', result);
 
-            //  setTimeout(function() {
-            //    location.reload();
-            //  }, 2500);
+            setTimeout(function() {
+              location.reload();
+            }, 2500);
 
           })
           .catch(error => {
