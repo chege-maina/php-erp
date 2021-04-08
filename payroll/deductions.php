@@ -348,7 +348,7 @@ include '../includes/base_page/head.php';
         let tmp_obj = getItems();
 
         const formData = new FormData();
-        formData.append("type", "benefit");
+        formData.append("type", "deduction");
         for (let key in tmp_obj) {
           formData.append(key, tmp_obj[key]);
         }
