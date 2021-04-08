@@ -104,23 +104,23 @@
 
   // When the user clicks on the button, open the modal
   btn.onclick = function() {
-    page_main.classList.add("hide_page");
-    page_checkout.classList.remove("hide_page");
+    // page_main.classList.add("hide_page");
+    // page_checkout.classList.remove("hide_page");
 
     // ==========================================
     // Create and show the modal
     // ==========================================
-    // const sendable_data = JSON.parse(window.sessionStorage.getItem("sendable_table"));
-    // console.log(sendable_data);
-    // const checkout_modal = document.createElement("fpos-checkout");
+    const sendable_data = JSON.parse(window.sessionStorage.getItem("sendable_table"));
+    console.log(sendable_data);
+    const checkout_modal = document.createElement("fpos-checkout");
 
-    // checkout_modal.setAttribute("title", "POS Checkout Modal");
-    // checkout_modal.setAttribute("subtotal", sendable_data.grand_total);
-    // checkout_div.innerHTML = "";
-    // checkout_div.appendChild(checkout_modal);
+    checkout_modal.setAttribute("title", "POS Checkout Modal");
+    checkout_modal.setAttribute("subtotal", sendable_data.grand_total);
+    checkout_div.innerHTML = "";
+    checkout_div.appendChild(checkout_modal);
 
 
-    // modal.style.display = "block";
+    modal.style.display = "block";
   }
 
   // When the user clicks on <span> (x), close the modal
