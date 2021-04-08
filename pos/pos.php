@@ -52,6 +52,12 @@ if (!isset($_SESSION['loggedin'])) {
       linkRTL.setAttribute('disabled', true);
     }
   </script>
+
+  <style>
+    .hide_page {
+      display: none;
+    }
+  </style>
 </head>
 
 
@@ -92,100 +98,116 @@ if (!isset($_SESSION['loggedin'])) {
         include 'bottom_navbar.php';
         ?>
 
-        <div class="row my-2">
+        <!-- ======================================================= -->
+        <!-- page main -->
+        <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+        <div id="page_main">
 
-          <div class="col-lg-5 col-sm-4 pl-2">
-            <div class="row">
-              <div class="col-lg-9 pr-1">
-                <?php
-                include 'cat_filter.php';
-                ?>
-              </div>
-              <div class="col p-0">
+          <div class="row my-2">
 
-                <?php
-                include 'branch_filter.php';
-                ?>
+            <div class="col-lg-5 col-sm-4 pl-2">
+              <div class="row">
+                <div class="col-lg-9 pr-1">
+                  <?php
+                  include 'cat_filter.php';
+                  ?>
+                </div>
+                <div class="col p-0">
+
+                  <?php
+                  include 'branch_filter.php';
+                  ?>
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col pr-0">
-                <div class="card mt-1">
-                  <div class="card-body fs--1 p-4">
-                    <div id="items_component">
+              <div class="row">
+                <div class="col pr-0">
+                  <div class="card mt-1">
+                    <div class="card-body fs--1 p-4">
+                      <div id="items_component">
+                      </div>
+                      <script>
+                        window.addEventListener('AllItemsLoaded', (event) => {
+                          const fpos_component = document.createElement("fpos-all-items");
+                          fpos_component.setAttribute("items_json", event.detail);
+                          document.querySelector("#items_component").appendChild(fpos_component);
+                        });
+
+                        window.addEventListener('ItemsUpdated', (event) => {
+                          // TODO: Account for products in different branches
+                          const items_component = document.querySelector("#items_component");
+                          items_component.innerHTML = "";
+                          const fpos_component = document.createElement("fpos-all-items");
+                          fpos_component.setAttribute("items_json", event.detail);
+                          items_component.appendChild(fpos_component);
+                        });
+                      </script>
                     </div>
-                    <script>
-                      window.addEventListener('AllItemsLoaded', (event) => {
-                        const fpos_component = document.createElement("fpos-all-items");
-                        fpos_component.setAttribute("items_json", event.detail);
-                        document.querySelector("#items_component").appendChild(fpos_component);
-                      });
-
-                      window.addEventListener('ItemsUpdated', (event) => {
-                        // TODO: Account for products in different branches
-                        const items_component = document.querySelector("#items_component");
-                        items_component.innerHTML = "";
-                        const fpos_component = document.createElement("fpos-all-items");
-                        fpos_component.setAttribute("items_json", event.detail);
-                        items_component.appendChild(fpos_component);
-                      });
-                    </script>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="col">
-            <div class="row">
+            <div class="col">
+              <div class="row">
 
-              <div class="col">
+                <div class="col">
 
-                <div class="row">
-                  <div class="col px-2">
-                    <?php
-                    include 'above_datatable.php';
-                    ?>
+                  <div class="row">
+                    <div class="col px-2">
+                      <?php
+                      include 'above_datatable.php';
+                      ?>
+                    </div>
                   </div>
-                </div>
 
-                <div class="row mt-1">
-                  <div class="col px-2">
-                    <div class="card">
-                      <div class="card-body fs--1 p-4">
-                        <div id="pos_component">
+                  <div class="row mt-1">
+                    <div class="col px-2">
+                      <div class="card">
+                        <div class="card-body fs--1 p-4">
+                          <div id="pos_component">
+                          </div>
+                          <script>
+                            window.addEventListener('DOMContentLoaded', (event) => {
+                              const pos_component = document.createElement("pos-component");
+                              pos_component.setAttribute("json_header", JSON.stringify(headers));
+                              pos_component.setAttribute("json_items", JSON.stringify(items));
+                              document.querySelector("#pos_component").appendChild(pos_component);
+                            });
+                          </script>
                         </div>
-                        <script>
-                          window.addEventListener('DOMContentLoaded', (event) => {
-                            const pos_component = document.createElement("pos-component");
-                            pos_component.setAttribute("json_header", JSON.stringify(headers));
-                            pos_component.setAttribute("json_items", JSON.stringify(items));
-                            document.querySelector("#pos_component").appendChild(pos_component);
-                          });
-                        </script>
                       </div>
                     </div>
                   </div>
+
                 </div>
 
               </div>
+              <div class="row my-1 mb-7">
+                <div class="col px-2">
+                  <div class="row">
+                    <div class="col">
+                      <?php
+                      include 'subtotals.php';
+                      ?>
 
-            </div>
-            <div class="row my-1 mb-7">
-              <div class="col px-2">
-                <div class="row">
-                  <div class="col">
-                    <?php
-                    include 'subtotals.php';
-                    ?>
-
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+
           </div>
 
         </div>
+        <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+        <!-- end page main -->
+        <!-- ======================================================= -->
+        <div id="page_checkout" class="hide_page">
+          <?php
+          include 'checkout_page.php';
+          ?>
+        </div>
+
         <!-- ====================================================== -->
         <!-- body ends here  -->
         <!-- ====================================================== -->
