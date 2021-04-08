@@ -205,6 +205,7 @@ include '../includes/base_page/head.php';
           national.appendChild(document.createTextNode(items_in_table[item].nat));
           national.classList.add("align-middle");
 
+          // CONTINUE FROM HERE RUTH
 
           let opening_balance = document.createElement("input");
           opening_balance.setAttribute("type", "number");
@@ -236,6 +237,9 @@ include '../includes/base_page/head.php';
           // opening_balance.setAttribute("data-ref", items_in_table[item]["name"]);
           adv_date.setAttribute("onclick", "this.select();");
 
+          adv_date.addEventListener("input", (event) => {
+            items_in_table[item].adv_date = event.target.value;
+          })
           let adv_dateWrapper = document.createElement("td");
           adv_dateWrapper.classList.add("m-2", "col-2");
           adv_dateWrapper.appendChild(adv_date);
@@ -245,7 +249,7 @@ include '../includes/base_page/head.php';
           let actionWrapper = document.createElement("td");
           actionWrapper.classList.add("m-2");
           let action = document.createElement("button");
-          action.setAttribute("id", items_in_table[item]["branch"]);
+          action.setAttribute("id", items_in_table[item]["job"]);
           action.setAttribute("onclick", "removeItem(this.id);");
           let icon = document.createElement("span");
           icon.classList.add("fas", "fa-minus", "mt-1");
@@ -271,6 +275,8 @@ include '../includes/base_page/head.php';
         delete items_in_table[String(item)];
         employee_dict[item] = item;
 
+        console.log("hehehehe", items_in_table);
+
         updateTable();
         updateEmployeeSelect();
       }
@@ -288,19 +294,25 @@ include '../includes/base_page/head.php';
       function getItems() {
         const tmp_obj = {};
         const table_body = document.querySelector("#table_body");
-        const employee_name = document.querySelector("#employee_name");
         const benefits = [];
-
+        console.log("submitting", benefits);
         table_body.childNodes.forEach(row => {
-          const k_benefit = row.childNodes[0].innerHTML;
+          const k_fname = row.childNodes[0].innerHTML;
+          const k_lname = row.childNodes[1].innerHTML;
+          const k_nat = row.childNodes[2].innerHTML;
+          const k_job = row.childNodes[3].innerHTML;
+          const k_amount = row.childNodes[4].innerHTML;
+          const k_date = row.childNodes[5].innerHTML;
           benefits.push({
-            benefit: k_benefit
+            fname: k_fname,
+            lname: k_lname,
+            nat: k_nat,
+            job: k_job,
+            amount: k_amount,
+            date_issued: k_date,
+
           });
         });
-
-        for (let key in all_employees[employee_name.value]) {
-          tmp_obj[key] = all_employees[employee_name.value][key];
-        }
 
         tmp_obj["table_items"] = JSON.stringify(benefits);
         console.log("==================================");
@@ -314,14 +326,13 @@ include '../includes/base_page/head.php';
         let tmp_obj = getItems();
 
         const formData = new FormData();
-        formData.append("type", "benefit");
         for (let key in tmp_obj) {
           formData.append(key, tmp_obj[key]);
         }
 
         // fetch goes here
 
-        fetch('add_emoployee_benededuc.php', {
+        fetch('add_advanced.php', {
             method: 'POST',
             body: formData
           })
@@ -329,9 +340,9 @@ include '../includes/base_page/head.php';
           .then(result => {
             console.log('Success:', result);
 
-            setTimeout(function() {
-              location.reload();
-            }, 2500);
+            //     setTimeout(function() {
+            //      location.reload();
+            //    }, 2500);
 
           })
           .catch(error => {
