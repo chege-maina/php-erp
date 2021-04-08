@@ -33,7 +33,6 @@
                         <input
                           type="number"
                           class="form-control form-control-sm"
-                          v-on:click="this.select()"
                           v-model="shipping"
                         />
                       </td>
