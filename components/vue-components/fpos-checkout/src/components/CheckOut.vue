@@ -141,7 +141,7 @@
         </div>
       </div>
       <div class="row px-1 py-1">
-        <div class="card">
+        <div class="card bg-100">
           <div class="text-center p-2">
             <button type="button" class="btn btn-falcon-primary">
               CheckOut
