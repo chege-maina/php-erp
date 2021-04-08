@@ -150,6 +150,7 @@ include '../includes/base_page/head.php';
           return;
         }
 
+
         const employee_row_to_add = all_employees[employee_dict[employee_name.value]];
 
 
@@ -157,6 +158,7 @@ include '../includes/base_page/head.php';
         items_in_table[employee_name.value] = employee_row_to_add;
 
         delete employee_dict[employee_name.value];
+        console.log(employee_name.value, " ", employee_dict);
 
         updateTable();
         updateEmployeeSelect();
@@ -164,14 +166,9 @@ include '../includes/base_page/head.php';
 
       function updateEmployeeSelect() {
         // Clear it
-        employee_name.innerHTML = "";
-        // Add the no-selectable item first
-        opt = document.createElement("option");
-        opt.appendChild(document.createTextNode("-- Select Branch --"));
-        opt.setAttribute("value", "");
-        opt.setAttribute("disabled", "");
-        opt.setAttribute("selected", "");
-        employee_name.appendChild(opt);
+        employee_name.value = "";
+        employee.innerHTML = "";
+
         // Populate combobox
         for (key in employee_dict) {
           let opt = document.createElement("option");
@@ -182,6 +179,7 @@ include '../includes/base_page/head.php';
       }
 
       function updateTable() {
+        return;
         table_body.innerHTML = "";
         for (let item in items_in_table) {
 
