@@ -33,6 +33,7 @@
                         <input
                           type="number"
                           class="form-control form-control-sm"
+                          v-model="shipping"
                         />
                       </td>
                     </tr>
@@ -57,6 +58,8 @@
                         <input
                           type="number"
                           class="form-control form-control-sm"
+                          v-model="grand_total"
+                          readonly
                         />
                       </td>
                     </tr>
@@ -160,13 +163,24 @@ export default {
       default: () => "1000",
     },
     subtotal: {
-      type: String,
-      default: () => "1000",
+      type: Number,
+      default: () => 1000,
     },
     balance: {
       type: String,
       min: () => "0",
       default: () => "0",
+    },
+  },
+  data: () => ({
+    grand_total: 0,
+    shipping: 0,
+  }),
+  watch: {
+    shipping: {
+      handler() {
+        this.grand_total = Number(this.subtotal) + Number(this.shipping);
+      },
     },
   },
   mounted() {
