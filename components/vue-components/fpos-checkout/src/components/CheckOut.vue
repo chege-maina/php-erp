@@ -1,135 +1,165 @@
 <template>
   <div class="card min-vw-50">
-    <div class="card-header text-center h1 display-3">Billing Info</div>
+    <div class="card-header text-center h1 display-6 pb-0">
+      Billing Information
+    </div>
     <div class="card-body">
       <div class="row">
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="card-header">Order Summary</h4>
-              <hr />
-              <div class="row pb-2">
-                <div class="col">
-                  <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"
-                      >Subtotal</span
-                    >
-                    <input
-                      type="number"
-                      class="form-control"
-                      aria-label="subtotal"
-                      v-model="subtotal"
-                      aria-describedby="basic-addon1"
-                      readonly
-                    />
-                  </div>
-                </div>
+        <div class="col-sm-6 pl-1 pr-0">
+          <div class="row p-0 m-0">
+            <div class="card p-0">
+              <h5 class="card-header bg-100">Order Summary</h5>
+              <div class="card-body">
+                <table class="table table-sm table-striped table-hover">
+                  <tbody>
+                    <tr>
+                      <td class="text-right">
+                        <label class="form-label">Subtotal*</label>
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          class="form-control form-control-sm"
+                          v-model="subtotal"
+                          readonly
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-right">
+                        <label class="form-label">Shipping*</label>
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          class="form-control form-control-sm"
+                          v-model="shipping"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="row pb-2">
-                <div class="col">
-                  <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"
-                      >Shipping</span
-                    >
-                    <input
-                      type="number"
-                      class="form-control"
-                      placeholder="shipping"
-                      aria-label="shipping"
-                      value="0"
-                      min="0"
-                      aria-describedby="basic-addon1"
-                    />
-                  </div>
-                </div>
-              </div>
-              <hr />
-              <div class="row pb-2">
-                <div class="col">
-                  <div class="input-group mb-4">
-                    <span class="input-group-text" id="basic-addon1"
-                      >Grand Total</span
-                    >
-                    <input
-                      type="number"
-                      class="form-control"
-                      placeholder="total"
-                      aria-label="total"
-                      v-model="title"
-                      readonly
-                      aria-describedby="basic-addon1"
-                    />
-                  </div>
-                </div>
+            </div>
+          </div>
+
+          <div class="row p-0 m-0 mt-1">
+            <div class="card p-0">
+              <div class="card-body py-2">
+                <table class="table table-sm table-striped table-hover mb-0">
+                  <tbody>
+                    <tr>
+                      <td class="text-right">
+                        <label class="form-label"
+                          ><strong>Grand Total*</strong></label
+                        >
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          class="form-control form-control-sm"
+                          v-model="grand_total"
+                          readonly
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="card-header text-center">{{ title }}</h4>
-              <hr />
-              <div class="row pb-2">
-                <div class="col">
-                  <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">CASH</span>
-                    <input
-                      type="number"
-                      class="form-control"
-                      placeholder="Cash"
-                      aria-label="Cash"
-                      aria-describedby="basic-addon1"
-                    />
-                  </div>
-                </div>
+        <div class="col-sm-6 px-1">
+          <!-- =========== -->
+          <div class="row p-0 m-0">
+            <div class="card p-0">
+              <h5 class="card-header bg-100">Payment Options</h5>
+              <div class="card-body">
+                <table class="table table-sm table-striped table-hover">
+                  <tbody>
+                    <tr>
+                      <td class="text-right">
+                        <label class="form-label">Cash</label>
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          class="form-control form-control-sm"
+                          id="cash_input"
+                          v-on:click="paymentInputClicked('cash')"
+                          v-model="cash_paid"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-right">
+                        <label class="form-label">VISA</label>
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          class="form-control form-control-sm"
+                          id="visa_input"
+                          v-on:click="paymentInputClicked('visa')"
+                          v-model="visa_paid"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-right">
+                        <label class="form-label">M-PESA</label>
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          id="mpesa_input"
+                          class="form-control form-control-sm"
+                          v-on:click="paymentInputClicked('mpesa')"
+                          v-model="mpesa_paid"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="row pb-2">
-                <div class="col">
-                  <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">VISA</span>
-                    <input
-                      type="number"
-                      class="form-control"
-                      placeholder="visa"
-                      aria-label="visa"
-                      aria-describedby="basic-addon1"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row pb-2">
-                <div class="col">
-                  <div class="input-group mb-4">
-                    <span class="input-group-text" id="basic-addon1"
-                      >M-PESA</span
-                    >
-                    <input
-                      type="number"
-                      class="form-control"
-                      placeholder="mpesa"
-                      aria-label="mpesa"
-                      aria-describedby="basic-addon1"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <button type="button" class="btn btn-falcon-default">
-                    Calculate
-                  </button>
-                </div>
-                <div class="col">
-                  <span>Balance : {{ balance }}</span>
-                </div>
+            </div>
+          </div>
+          <!-- =========== -->
+          <div class="row mt-1 p-0 m-0">
+            <div class="card">
+              <div class="card-body p-2">
+                <table class="table table-sm table-striped table-hover mb-0">
+                  <tbody>
+                    <tr>
+                      <td class="text-right">
+                        <label class="form-label"
+                          ><strong>Balance</strong></label
+                        >
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          class="form-control form-control-sm"
+                          v-model="balance_amount"
+                          readonly
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="text-center mt-3">
-        <button type="button" class="btn btn-falcon-primary">CheckOut</button>
+      <div class="row px-1 py-1">
+        <div class="card bg-100">
+          <div class="text-center p-2">
+            <button type="button" class="btn btn-falcon-primary">
+              CheckOut
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -142,16 +172,70 @@ export default {
       default: () => "1000",
     },
     subtotal: {
-      type: String,
-      default: () => "1000",
+      type: Number,
+      default: () => 1000,
     },
-    balance: {
-      type: String,
-      min: () => "0",
-      default: () => "0",
+  },
+  data: () => ({
+    grand_total: 0,
+    shipping: 0,
+    cash_paid: 0,
+    visa_paid: 0,
+    mpesa_paid: 0,
+    balance_amount: 0,
+  }),
+  watch: {
+    shipping: {
+      handler() {
+        this.grand_total = Number(this.subtotal) + Number(this.shipping);
+        this.grand_total = this.grand_total.toFixed(2);
+      },
+    },
+    cash_paid: {
+      handler() {
+        this.calculateBalance();
+      },
+    },
+    visa_paid: {
+      handler() {
+        this.calculateBalance();
+      },
+    },
+    mpesa_paid: {
+      handler() {
+        this.calculateBalance();
+      },
+    },
+  },
+  methods: {
+    calculateBalance() {
+      this.balance_amount =
+        Number(this.cash_paid) +
+        Number(this.visa_paid) +
+        Number(this.mpesa_paid) -
+        Number(this.grand_total);
+      this.balance_amount = this.balance_amount.toFixed(2);
+    },
+    paymentInputClicked(elem) {
+      // These three don't work in shadow dom. Look for alternatives
+      /* const cash_input = window.document.querySelector("#cash_input"); */
+      /* const visa_input = document.querySelector("#visa_input"); */
+      /* const mpesa_input = document.querySelector("#mpesa_input"); */
+      switch (elem) {
+        case "cash":
+          /* cash_input.select(); */
+          break;
+        /* case "visa": */
+        /* visa_input.select(); */
+        /* break; */
+        /* case "mpesa": */
+        /* mpesa_input.select(); */
+        /* break; */
+      }
     },
   },
   mounted() {
+    this.grand_total = this.subtotal;
     const falcon_js = document.createElement("script");
     falcon_js.setAttribute(
       "src",

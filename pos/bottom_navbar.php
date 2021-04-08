@@ -84,6 +84,15 @@
 <script>
   const checkout_div = document.querySelector("#checkout_div");
 
+  let page_main;
+  let page_checkout;
+  window.addEventListener('DOMContentLoaded', (event) => {
+    page_main = document.querySelector("#page_main");
+    page_checkout = document.querySelector("#page_checkout");
+  });
+
+
+
   // Get the modal
   var modal = document.getElementById("myModal");
 
@@ -95,6 +104,8 @@
 
   // When the user clicks on the button, open the modal
   btn.onclick = function() {
+    // page_main.classList.add("hide_page");
+    // page_checkout.classList.remove("hide_page");
 
     // ==========================================
     // Create and show the modal

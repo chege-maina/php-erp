@@ -128,7 +128,9 @@ export default {
         key: uuid,
         code: this.product_object.code,
         name: this.product_object.name,
-        branch: this.product_object.branch,
+        // TODO: Remove the corresponding code that sets this
+        /* branch: this.product_object.branch, */
+        branch: sessionStorage.getItem("current_branch"),
         price: this.product_object.price,
         bulk_price: this.product_object.bulk_price,
         current_price: this.product_object.price,
