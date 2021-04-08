@@ -165,6 +165,28 @@ module.exports = exports;
 
 /***/ }),
 
+/***/ "1148":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var toInteger = __webpack_require__("a691");
+var requireObjectCoercible = __webpack_require__("1d80");
+
+// `String.prototype.repeat` method implementation
+// https://tc39.es/ecma262/#sec-string.prototype.repeat
+module.exports = function repeat(count) {
+  var str = String(requireObjectCoercible(this));
+  var result = '';
+  var n = toInteger(count);
+  if (n < 0 || n == Infinity) throw RangeError('Wrong number of repetitions');
+  for (;n > 0; (n >>>= 1) && (str += str)) if (n & 1) result += str;
+  return result;
+};
+
+
+/***/ }),
+
 /***/ "1be4":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -202,6 +224,67 @@ var min = Math.min;
 module.exports = function (index, length) {
   var integer = toInteger(index);
   return integer < 0 ? max(integer + length, 0) : min(integer, length);
+};
+
+
+/***/ }),
+
+/***/ "23e7":
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__("da84");
+var getOwnPropertyDescriptor = __webpack_require__("06cf").f;
+var createNonEnumerableProperty = __webpack_require__("9112");
+var redefine = __webpack_require__("6eeb");
+var setGlobal = __webpack_require__("ce4e");
+var copyConstructorProperties = __webpack_require__("e893");
+var isForced = __webpack_require__("94ca");
+
+/*
+  options.target      - name of the target object
+  options.global      - target is the global object
+  options.stat        - export as static methods of target
+  options.proto       - export as prototype methods of target
+  options.real        - real prototype method for the `pure` version
+  options.forced      - export even if the native feature is available
+  options.bind        - bind methods to the target, required for the `pure` version
+  options.wrap        - wrap constructors to preventing global pollution, required for the `pure` version
+  options.unsafe      - use the simple assignment of property instead of delete + defineProperty
+  options.sham        - add a flag to not completely full polyfills
+  options.enumerable  - export as enumerable property
+  options.noTargetGet - prevent calling a getter on target
+*/
+module.exports = function (options, source) {
+  var TARGET = options.target;
+  var GLOBAL = options.global;
+  var STATIC = options.stat;
+  var FORCED, target, key, targetProperty, sourceProperty, descriptor;
+  if (GLOBAL) {
+    target = global;
+  } else if (STATIC) {
+    target = global[TARGET] || setGlobal(TARGET, {});
+  } else {
+    target = (global[TARGET] || {}).prototype;
+  }
+  if (target) for (key in source) {
+    sourceProperty = source[key];
+    if (options.noTargetGet) {
+      descriptor = getOwnPropertyDescriptor(target, key);
+      targetProperty = descriptor && descriptor.value;
+    } else targetProperty = target[key];
+    FORCED = isForced(GLOBAL ? key : TARGET + (STATIC ? '.' : '#') + key, options.forced);
+    // contained in target
+    if (!FORCED && targetProperty !== undefined) {
+      if (typeof sourceProperty === typeof targetProperty) continue;
+      copyConstructorProperties(sourceProperty, targetProperty);
+    }
+    // add a flag to not completely full polyfills
+    if (options.sham || (targetProperty && targetProperty.sham)) {
+      createNonEnumerableProperty(sourceProperty, 'sham', true);
+    }
+    // extend global
+    redefine(target, key, sourceProperty, options);
+  }
 };
 
 
@@ -490,6 +573,23 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ "408a":
+/***/ (function(module, exports, __webpack_require__) {
+
+var classof = __webpack_require__("c6b6");
+
+// `thisNumberValue` abstract operation
+// https://tc39.es/ecma262/#sec-thisnumbervalue
+module.exports = function (value) {
+  if (typeof value != 'number' && classof(value) != 'Number') {
+    throw TypeError('Incorrect invocation');
+  }
+  return +value;
+};
+
+
+/***/ }),
+
 /***/ "428f":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -600,6 +700,24 @@ var store = __webpack_require__("c6cd");
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
 });
+
+
+/***/ }),
+
+/***/ "56ef":
+/***/ (function(module, exports, __webpack_require__) {
+
+var getBuiltIn = __webpack_require__("d066");
+var getOwnPropertyNamesModule = __webpack_require__("241c");
+var getOwnPropertySymbolsModule = __webpack_require__("7418");
+var anObject = __webpack_require__("825a");
+
+// all object keys, includes non-enumerable and symbols
+module.exports = getBuiltIn('Reflect', 'ownKeys') || function ownKeys(it) {
+  var keys = getOwnPropertyNamesModule.f(anObject(it));
+  var getOwnPropertySymbols = getOwnPropertySymbolsModule.f;
+  return getOwnPropertySymbols ? keys.concat(getOwnPropertySymbols(it)) : keys;
+};
 
 
 /***/ }),
@@ -1059,17 +1177,21 @@ function normalizeComponent (
   }
 }
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"275a434e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CheckOut.vue?vue&type=template&id=97373b96&shadow
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"275a434e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CheckOut.vue?vue&type=template&id=55cc15c5&shadow
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"card min-vw-50"},[_c('div',{staticClass:"card-header text-center h1 display-6 pb-0"},[_vm._v(" Billing Information ")]),_c('div',{staticClass:"card-body"},[_c('div',{staticClass:"row"},[_c('div',{staticClass:"col-sm-6 pl-1 pr-0"},[_c('div',{staticClass:"row p-0 m-0"},[_c('div',{staticClass:"card p-0"},[_c('h5',{staticClass:"card-header bg-100"},[_vm._v("Order Summary")]),_c('div',{staticClass:"card-body"},[_c('table',{staticClass:"table table-sm table-striped table-hover"},[_c('tbody',[_c('tr',[_vm._m(0),_c('td',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.subtotal),expression:"subtotal"}],staticClass:"form-control form-control-sm",attrs:{"type":"number","readonly":""},domProps:{"value":(_vm.subtotal)},on:{"input":function($event){if($event.target.composing){ return; }_vm.subtotal=$event.target.value}}})])]),_c('tr',[_vm._m(1),_c('td',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.shipping),expression:"shipping"}],staticClass:"form-control form-control-sm",attrs:{"type":"number"},domProps:{"value":(_vm.shipping)},on:{"input":function($event){if($event.target.composing){ return; }_vm.shipping=$event.target.value}}})])])])])])])]),_c('div',{staticClass:"row p-0 m-0 mt-1"},[_c('div',{staticClass:"card p-0"},[_c('div',{staticClass:"card-body py-2"},[_c('table',{staticClass:"table table-sm table-striped table-hover mb-0"},[_c('tbody',[_c('tr',[_vm._m(2),_c('td',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.grand_total),expression:"grand_total"}],staticClass:"form-control form-control-sm",attrs:{"type":"number","readonly":""},domProps:{"value":(_vm.grand_total)},on:{"input":function($event){if($event.target.composing){ return; }_vm.grand_total=$event.target.value}}})])])])])])])])]),_c('div',{staticClass:"col-sm-6 px-1"},[_c('div',{staticClass:"row p-0 m-0"},[_c('div',{staticClass:"card p-0"},[_c('h5',{staticClass:"card-header bg-100"},[_vm._v("Payment Options")]),_c('div',{staticClass:"card-body"},[_c('table',{staticClass:"table table-sm table-striped table-hover"},[_c('tbody',[_c('tr',[_vm._m(3),_c('td',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.cash_paid),expression:"cash_paid"}],staticClass:"form-control form-control-sm",attrs:{"type":"number","id":"cash_input"},domProps:{"value":(_vm.cash_paid)},on:{"click":function($event){return _vm.paymentInputClicked('cash')},"input":function($event){if($event.target.composing){ return; }_vm.cash_paid=$event.target.value}}})])]),_c('tr',[_vm._m(4),_c('td',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.visa_paid),expression:"visa_paid"}],staticClass:"form-control form-control-sm",attrs:{"type":"number","id":"visa_input"},domProps:{"value":(_vm.visa_paid)},on:{"click":function($event){return _vm.paymentInputClicked('visa')},"input":function($event){if($event.target.composing){ return; }_vm.visa_paid=$event.target.value}}})])]),_c('tr',[_vm._m(5),_c('td',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.mpesa_paid),expression:"mpesa_paid"}],staticClass:"form-control form-control-sm",attrs:{"type":"number","id":"mpesa_input"},domProps:{"value":(_vm.mpesa_paid)},on:{"click":function($event){return _vm.paymentInputClicked('mpesa')},"input":function($event){if($event.target.composing){ return; }_vm.mpesa_paid=$event.target.value}}})])])])])])])]),_c('div',{staticClass:"row mt-1 p-0 m-0"},[_c('div',{staticClass:"card"},[_c('div',{staticClass:"card-body p-2"},[_c('table',{staticClass:"table table-sm table-striped table-hover mb-0"},[_c('tbody',[_c('tr',[_vm._m(6),_c('td',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.balance_amount),expression:"balance_amount"}],staticClass:"form-control form-control-sm",attrs:{"type":"number","readonly":""},domProps:{"value":(_vm.balance_amount)},on:{"input":function($event){if($event.target.composing){ return; }_vm.balance_amount=$event.target.value}}})])])])])])])])])]),_vm._m(7)])])}
 var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('td',{staticClass:"text-right"},[_c('label',{staticClass:"form-label"},[_vm._v("Subtotal*")])])},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('td',{staticClass:"text-right"},[_c('label',{staticClass:"form-label"},[_vm._v("Shipping*")])])},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('td',{staticClass:"text-right"},[_c('label',{staticClass:"form-label"},[_c('strong',[_vm._v("Grand Total*")])])])},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('td',{staticClass:"text-right"},[_c('label',{staticClass:"form-label"},[_vm._v("Cash")])])},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('td',{staticClass:"text-right"},[_c('label',{staticClass:"form-label"},[_vm._v("VISA")])])},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('td',{staticClass:"text-right"},[_c('label',{staticClass:"form-label"},[_vm._v("M-PESA")])])},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('td',{staticClass:"text-right"},[_c('label',{staticClass:"form-label"},[_c('strong',[_vm._v("Balance")])])])},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"row px-1 py-1"},[_c('div',{staticClass:"card bg-100"},[_c('div',{staticClass:"text-center p-2"},[_c('button',{staticClass:"btn btn-falcon-primary",attrs:{"type":"button"}},[_vm._v(" CheckOut ")])])])])}]
 
 
-// CONCATENATED MODULE: ./src/components/CheckOut.vue?vue&type=template&id=97373b96&shadow
+// CONCATENATED MODULE: ./src/components/CheckOut.vue?vue&type=template&id=55cc15c5&shadow
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
 var es_number_constructor = __webpack_require__("a9e3");
 
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.to-fixed.js
+var es_number_to_fixed = __webpack_require__("b680");
+
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CheckOut.vue?vue&type=script&lang=js&shadow
+
 
 //
 //
@@ -1266,6 +1388,7 @@ var es_number_constructor = __webpack_require__("a9e3");
     shipping: {
       handler: function handler() {
         this.grand_total = Number(this.subtotal) + Number(this.shipping);
+        this.grand_total = this.grand_total.toFixed(2);
       }
     },
     cash_paid: {
@@ -1287,6 +1410,7 @@ var es_number_constructor = __webpack_require__("a9e3");
   methods: {
     calculateBalance: function calculateBalance() {
       this.balance_amount = Number(this.cash_paid) + Number(this.visa_paid) + Number(this.mpesa_paid) - Number(this.grand_total);
+      this.balance_amount = this.balance_amount.toFixed(2);
     },
     paymentInputClicked: function paymentInputClicked(elem) {
       // These three don't work in shadow dom. Look for alternatives
@@ -1538,6 +1662,15 @@ module.exports = function ($this, dummy, Wrapper) {
   ) setPrototypeOf($this, NewTargetPrototype);
   return $this;
 };
+
+
+/***/ }),
+
+/***/ "7418":
+/***/ (function(module, exports) {
+
+// eslint-disable-next-line es/no-object-getownpropertysymbols -- safe
+exports.f = Object.getOwnPropertySymbols;
 
 
 /***/ }),
@@ -1995,6 +2128,139 @@ if (isForced(NUMBER, !NativeNumber(' 0o1') || !NativeNumber('0b1') || NativeNumb
 
 /***/ }),
 
+/***/ "b680":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var toInteger = __webpack_require__("a691");
+var thisNumberValue = __webpack_require__("408a");
+var repeat = __webpack_require__("1148");
+var fails = __webpack_require__("d039");
+
+var nativeToFixed = 1.0.toFixed;
+var floor = Math.floor;
+
+var pow = function (x, n, acc) {
+  return n === 0 ? acc : n % 2 === 1 ? pow(x, n - 1, acc * x) : pow(x * x, n / 2, acc);
+};
+
+var log = function (x) {
+  var n = 0;
+  var x2 = x;
+  while (x2 >= 4096) {
+    n += 12;
+    x2 /= 4096;
+  }
+  while (x2 >= 2) {
+    n += 1;
+    x2 /= 2;
+  } return n;
+};
+
+var multiply = function (data, n, c) {
+  var index = -1;
+  var c2 = c;
+  while (++index < 6) {
+    c2 += n * data[index];
+    data[index] = c2 % 1e7;
+    c2 = floor(c2 / 1e7);
+  }
+};
+
+var divide = function (data, n) {
+  var index = 6;
+  var c = 0;
+  while (--index >= 0) {
+    c += data[index];
+    data[index] = floor(c / n);
+    c = (c % n) * 1e7;
+  }
+};
+
+var dataToString = function (data) {
+  var index = 6;
+  var s = '';
+  while (--index >= 0) {
+    if (s !== '' || index === 0 || data[index] !== 0) {
+      var t = String(data[index]);
+      s = s === '' ? t : s + repeat.call('0', 7 - t.length) + t;
+    }
+  } return s;
+};
+
+var FORCED = nativeToFixed && (
+  0.00008.toFixed(3) !== '0.000' ||
+  0.9.toFixed(0) !== '1' ||
+  1.255.toFixed(2) !== '1.25' ||
+  1000000000000000128.0.toFixed(0) !== '1000000000000000128'
+) || !fails(function () {
+  // V8 ~ Android 4.3-
+  nativeToFixed.call({});
+});
+
+// `Number.prototype.toFixed` method
+// https://tc39.es/ecma262/#sec-number.prototype.tofixed
+$({ target: 'Number', proto: true, forced: FORCED }, {
+  toFixed: function toFixed(fractionDigits) {
+    var number = thisNumberValue(this);
+    var fractDigits = toInteger(fractionDigits);
+    var data = [0, 0, 0, 0, 0, 0];
+    var sign = '';
+    var result = '0';
+    var e, z, j, k;
+
+    if (fractDigits < 0 || fractDigits > 20) throw RangeError('Incorrect fraction digits');
+    // eslint-disable-next-line no-self-compare -- NaN check
+    if (number != number) return 'NaN';
+    if (number <= -1e21 || number >= 1e21) return String(number);
+    if (number < 0) {
+      sign = '-';
+      number = -number;
+    }
+    if (number > 1e-21) {
+      e = log(number * pow(2, 69, 1)) - 69;
+      z = e < 0 ? number * pow(2, -e, 1) : number / pow(2, e, 1);
+      z *= 0x10000000000000;
+      e = 52 - e;
+      if (e > 0) {
+        multiply(data, 0, z);
+        j = fractDigits;
+        while (j >= 7) {
+          multiply(data, 1e7, 0);
+          j -= 7;
+        }
+        multiply(data, pow(10, j, 1), 0);
+        j = e - 1;
+        while (j >= 23) {
+          divide(data, 1 << 23);
+          j -= 23;
+        }
+        divide(data, 1 << j);
+        multiply(data, 1, 1);
+        divide(data, 2);
+        result = dataToString(data);
+      } else {
+        multiply(data, 0, z);
+        multiply(data, 1 << -e, 0);
+        result = dataToString(data) + repeat.call('0', fractDigits);
+      }
+    }
+    if (fractDigits > 0) {
+      k = result.length;
+      result = sign + (k <= fractDigits
+        ? '0.' + repeat.call('0', fractDigits - k) + result
+        : result.slice(0, k - fractDigits) + '.' + result.slice(k - fractDigits));
+    } else {
+      result = sign + result;
+    } return result;
+  }
+});
+
+
+/***/ }),
+
 /***/ "c04e":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2263,6 +2529,27 @@ var enumBugKeys = __webpack_require__("7839");
 // eslint-disable-next-line es/no-object-keys -- safe
 module.exports = Object.keys || function keys(O) {
   return internalObjectKeys(O, enumBugKeys);
+};
+
+
+/***/ }),
+
+/***/ "e893":
+/***/ (function(module, exports, __webpack_require__) {
+
+var has = __webpack_require__("5135");
+var ownKeys = __webpack_require__("56ef");
+var getOwnPropertyDescriptorModule = __webpack_require__("06cf");
+var definePropertyModule = __webpack_require__("9bf2");
+
+module.exports = function (target, source) {
+  var keys = ownKeys(source);
+  var defineProperty = definePropertyModule.f;
+  var getOwnPropertyDescriptor = getOwnPropertyDescriptorModule.f;
+  for (var i = 0; i < keys.length; i++) {
+    var key = keys[i];
+    if (!has(target, key)) defineProperty(target, key, getOwnPropertyDescriptor(source, key));
+  }
 };
 
 
