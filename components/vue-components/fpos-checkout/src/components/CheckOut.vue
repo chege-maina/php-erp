@@ -3,7 +3,7 @@
     <div class="card-header text-center h1 display-3">Billing Info</div>
     <div class="card-body">
       <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-6 pl-1 pr-0">
           <div class="card">
             <div class="card-body">
               <h4 class="card-header">Order Summary</h4>
@@ -65,7 +65,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6 px-1">
           <div class="card">
             <div class="card-body">
               <h4 class="card-header text-center">{{ title }}</h4>
@@ -128,8 +128,14 @@
           </div>
         </div>
       </div>
-      <div class="text-center mt-3">
-        <button type="button" class="btn btn-falcon-primary">CheckOut</button>
+      <div class="row px-1 py-1">
+        <div class="card">
+          <div class="text-center p-2">
+            <button type="button" class="btn btn-falcon-primary">
+              CheckOut
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
