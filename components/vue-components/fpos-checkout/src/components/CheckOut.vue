@@ -188,6 +188,7 @@ export default {
     shipping: {
       handler() {
         this.grand_total = Number(this.subtotal) + Number(this.shipping);
+        this.grand_total = this.grand_total.toFixed(2);
       },
     },
     cash_paid: {
@@ -213,6 +214,7 @@ export default {
         Number(this.visa_paid) +
         Number(this.mpesa_paid) -
         Number(this.grand_total);
+      this.balance_amount = this.balance_amount.toFixed(2);
     },
     paymentInputClicked(elem) {
       // These three don't work in shadow dom. Look for alternatives
