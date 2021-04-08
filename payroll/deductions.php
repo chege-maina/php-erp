@@ -329,7 +329,10 @@ include '../includes/base_page/head.php';
         const benefits = [];
 
         table_body.childNodes.forEach(row => {
-          benefits.push(row.childNodes[0].innerHTML);
+          const k_benefit = row.childNodes[0].innerHTML;
+          benefits.push({
+            benefit: k_benefit
+          });
         });
 
         for (let key in all_employees[employee_name.value]) {
