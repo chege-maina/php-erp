@@ -19,8 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   foreach ($table_items as $key => $value) {
 
-    $mysql = "INSERT INTO tbl_emp_benefit (fname, lname, type, 
-  nat, job, benefit) VALUES('" . $fname . "','" . $lname . "','" . $type . "','" . $nat . "','" . $job . "','" . $value["benefit"] . "')";
+    $mysql = "INSERT INTO tbl_emp_benefit (fname, lname, amount, 
+  nat, job, date_issued, year, month) VALUES('" . $fname . "','" . $lname . "','" . $type . "','" . $nat . "','" . $job . "','" . $value["benefit"] . "')";
     mysqli_query($conn, $mysql);
   }
 
