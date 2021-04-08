@@ -5,63 +5,50 @@
       <div class="row">
         <div class="col-sm-6 pl-1 pr-0">
           <div class="card">
+            <h5 class="card-header bg-100">Order Summary</h5>
             <div class="card-body">
-              <h4 class="card-header">Order Summary</h4>
-              <hr />
-              <div class="row pb-2">
-                <div class="col">
-                  <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"
-                      >Subtotal</span
-                    >
-                    <input
-                      type="number"
-                      class="form-control"
-                      aria-label="subtotal"
-                      v-model="subtotal"
-                      aria-describedby="basic-addon1"
-                      readonly
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row pb-2">
-                <div class="col">
-                  <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"
-                      >Shipping</span
-                    >
-                    <input
-                      type="number"
-                      class="form-control"
-                      placeholder="shipping"
-                      aria-label="shipping"
-                      value="0"
-                      min="0"
-                      aria-describedby="basic-addon1"
-                    />
-                  </div>
-                </div>
-              </div>
-              <hr />
-              <div class="row pb-2">
-                <div class="col">
-                  <div class="input-group mb-4">
-                    <span class="input-group-text" id="basic-addon1"
-                      >Grand Total</span
-                    >
-                    <input
-                      type="number"
-                      class="form-control"
-                      placeholder="total"
-                      aria-label="total"
-                      v-model="title"
-                      readonly
-                      aria-describedby="basic-addon1"
-                    />
-                  </div>
-                </div>
-              </div>
+              <table class="table table-sm table-striped table-hover">
+                <tbody>
+                  <tr>
+                    <td>
+                      <label class="form-label">Subtotal*</label>
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        class="form-control form-control-sm"
+                        v-model="subtotal"
+                        readonly
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="form-label">Shipping*</label>
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        class="form-control form-control-sm"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="form-label"
+                        ><strong>Grand Total*</strong></label
+                      >
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        class="form-control form-control-sm"
+                        v-model="title"
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
