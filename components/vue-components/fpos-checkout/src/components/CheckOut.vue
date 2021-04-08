@@ -1,6 +1,8 @@
 <template>
   <div class="card min-vw-50">
-    <div class="card-header text-center h1 display-3">Billing Info</div>
+    <div class="card-header text-center h1 display-6 pb-0">
+      Billing Information
+    </div>
     <div class="card-body">
       <div class="row">
         <div class="col-sm-6 pl-1 pr-0">
