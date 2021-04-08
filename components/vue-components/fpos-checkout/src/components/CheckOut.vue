@@ -215,20 +215,20 @@ export default {
         Number(this.grand_total);
     },
     paymentInputClicked(elem) {
-      const cash_input = document.querySelector("#cash_input");
-      const visa_input = document.querySelector("#visa_input");
-      const mpesa_input = document.querySelector("#mpesa_input");
-
+      // These three don't work in shadow dom. Look for alternatives
+      /* const cash_input = window.document.querySelector("#cash_input"); */
+      /* const visa_input = document.querySelector("#visa_input"); */
+      /* const mpesa_input = document.querySelector("#mpesa_input"); */
       switch (elem) {
         case "cash":
-          cash_input.select();
+          /* cash_input.select(); */
           break;
-        case "visa":
-          visa_input.select();
-          break;
-        case "mpesa":
-          mpesa_input.select();
-          break;
+        /* case "visa": */
+        /* visa_input.select(); */
+        /* break; */
+        /* case "mpesa": */
+        /* mpesa_input.select(); */
+        /* break; */
       }
     },
   },
