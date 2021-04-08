@@ -6,51 +6,63 @@
     <div class="card-body">
       <div class="row">
         <div class="col-sm-6 pl-1 pr-0">
-          <div class="card">
-            <h5 class="card-header bg-100">Order Summary</h5>
-            <div class="card-body">
-              <table class="table table-sm table-striped table-hover">
-                <tbody>
-                  <tr>
-                    <td class="text-right">
-                      <label class="form-label">Subtotal*</label>
-                    </td>
-                    <td>
-                      <input
-                        type="number"
-                        class="form-control form-control-sm"
-                        v-model="subtotal"
-                        readonly
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-right">
-                      <label class="form-label">Shipping*</label>
-                    </td>
-                    <td>
-                      <input
-                        type="number"
-                        class="form-control form-control-sm"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-right">
-                      <label class="form-label"
-                        ><strong>Grand Total*</strong></label
-                      >
-                    </td>
-                    <td>
-                      <input
-                        type="number"
-                        class="form-control form-control-sm"
-                        v-model="title"
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+          <div class="row p-0 m-0">
+            <div class="card p-0">
+              <h5 class="card-header bg-100">Order Summary</h5>
+              <div class="card-body">
+                <table class="table table-sm table-striped table-hover">
+                  <tbody>
+                    <tr>
+                      <td class="text-right">
+                        <label class="form-label">Subtotal*</label>
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          class="form-control form-control-sm"
+                          v-model="subtotal"
+                          readonly
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-right">
+                        <label class="form-label">Shipping*</label>
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          class="form-control form-control-sm"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="row p-0 m-0 mt-1">
+            <div class="card p-0">
+              <div class="card-body py-2">
+                <table class="table table-sm table-striped table-hover mb-0">
+                  <tbody>
+                    <tr>
+                      <td class="text-right">
+                        <label class="form-label"
+                          ><strong>Grand Total*</strong></label
+                        >
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          class="form-control form-control-sm"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
