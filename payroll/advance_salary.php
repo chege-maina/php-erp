@@ -153,6 +153,9 @@ include '../includes/base_page/head.php';
 
         const employee_row_to_add = all_employees[employee_name.value];
         items_in_table[employee_name.value] = employee_row_to_add;
+        items_in_table[employee_name.value]["amount"] = 1;
+        items_in_table[employee_name.value]["date_issued"] = "";
+
 
         delete employee_dict[employee_name.value];
 
@@ -176,7 +179,6 @@ include '../includes/base_page/head.php';
 
       function updateTable() {
         console.log("Rasta ", items_in_table);
-        return;
         table_body.innerHTML = "";
         for (let item in items_in_table) {
 
@@ -185,22 +187,22 @@ include '../includes/base_page/head.php';
           // tr.setAttribute("id", items_in_table[item]["code"] + items_in_table[item]["name"]);
 
           let employee_no = document.createElement("td");
-          employee_no.appendChild(document.createTextNode(items_in_table[item].branch));
+          employee_no.appendChild(document.createTextNode(items_in_table[item].job));
           employee_no.classList.add("align-middle");
 
 
           let firstname = document.createElement("td");
-          firstname.appendChild(document.createTextNode(items_in_table[item].branch));
+          firstname.appendChild(document.createTextNode(items_in_table[item].fname));
           firstname.classList.add("align-middle");
 
 
           let secondname = document.createElement("td");
-          secondname.appendChild(document.createTextNode(items_in_table[item].branch));
+          secondname.appendChild(document.createTextNode(items_in_table[item].lname));
           secondname.classList.add("align-middle");
 
 
           let national = document.createElement("td");
-          national.appendChild(document.createTextNode(items_in_table[item].branch));
+          national.appendChild(document.createTextNode(items_in_table[item].nat));
           national.classList.add("align-middle");
 
 
@@ -216,9 +218,9 @@ include '../includes/base_page/head.php';
           // opening_balance.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
           // opening_balance.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
           opening_balance.setAttribute("onclick", "this.select();");
-          items_in_table[item]['opening_balance'] = ('opening_balance' in items_in_table[item] && items_in_table[item]['opening_balance'] >= 0) ?
-            items_in_table[item]['opening_balance'] : 0;
-          opening_balance.value = items_in_table[item]['opening_balance'];
+          items_in_table[item]['amount'] = ('amount' in items_in_table[item] && items_in_table[item]['opening_balance'] >= 0) ?
+            items_in_table[item]['amount'] : 0;
+          opening_balance.value = items_in_table[item]['amount'];
 
           opening_balance.addEventListener("input", (event) => {
             items_in_table[item].opening_balance = Number(event.target.value);
