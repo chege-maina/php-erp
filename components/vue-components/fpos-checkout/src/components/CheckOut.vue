@@ -33,6 +33,7 @@
                         <input
                           type="number"
                           class="form-control form-control-sm"
+                          v-on:click="this.select()"
                           v-model="shipping"
                         />
                       </td>
@@ -85,6 +86,8 @@
                         <input
                           type="number"
                           class="form-control form-control-sm"
+                          id="cash_input"
+                          v-on:click="paymentInputClicked('cash')"
                           v-model="cash_paid"
                         />
                       </td>
@@ -97,6 +100,8 @@
                         <input
                           type="number"
                           class="form-control form-control-sm"
+                          id="visa_input"
+                          v-on:click="paymentInputClicked('visa')"
                           v-model="visa_paid"
                         />
                       </td>
@@ -108,7 +113,9 @@
                       <td>
                         <input
                           type="number"
+                          id="mpesa_input"
                           class="form-control form-control-sm"
+                          v-on:click="paymentInputClicked('mpesa')"
                           v-model="mpesa_paid"
                         />
                       </td>
@@ -207,6 +214,23 @@ export default {
         Number(this.visa_paid) +
         Number(this.mpesa_paid) -
         Number(this.grand_total);
+    },
+    paymentInputClicked(elem) {
+      const cash_input = document.querySelector("#cash_input");
+      const visa_input = document.querySelector("#visa_input");
+      const mpesa_input = document.querySelector("#mpesa_input");
+
+      switch (elem) {
+        case "cash":
+          cash_input.select();
+          break;
+        case "visa":
+          visa_input.select();
+          break;
+        case "mpesa":
+          mpesa_input.select();
+          break;
+      }
     },
   },
   mounted() {
