@@ -10,7 +10,7 @@
               <table class="table table-sm table-striped table-hover">
                 <tbody>
                   <tr>
-                    <td>
+                    <td class="text-right">
                       <label class="form-label">Subtotal*</label>
                     </td>
                     <td>
@@ -23,7 +23,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td class="text-right">
                       <label class="form-label">Shipping*</label>
                     </td>
                     <td>
@@ -34,7 +34,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td class="text-right">
                       <label class="form-label"
                         ><strong>Grand Total*</strong></label
                       >
@@ -53,63 +53,74 @@
           </div>
         </div>
         <div class="col-sm-6 px-1">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="card-header text-center">{{ title }}</h4>
-              <hr />
-              <div class="row pb-2">
-                <div class="col">
-                  <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">CASH</span>
-                    <input
-                      type="number"
-                      class="form-control"
-                      placeholder="Cash"
-                      aria-label="Cash"
-                      aria-describedby="basic-addon1"
-                    />
-                  </div>
-                </div>
+          <!-- =========== -->
+          <div class="row p-0 m-0">
+            <div class="card p-0">
+              <h5 class="card-header bg-100">Payment Options</h5>
+              <div class="card-body">
+                <table class="table table-sm table-striped table-hover">
+                  <tbody>
+                    <tr>
+                      <td class="text-right">
+                        <label class="form-label">Cash</label>
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          class="form-control form-control-sm"
+                          readonly
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-right">
+                        <label class="form-label">VISA</label>
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          class="form-control form-control-sm"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-right">
+                        <label class="form-label">M-PESA</label>
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          class="form-control form-control-sm"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="row pb-2">
-                <div class="col">
-                  <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">VISA</span>
-                    <input
-                      type="number"
-                      class="form-control"
-                      placeholder="visa"
-                      aria-label="visa"
-                      aria-describedby="basic-addon1"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row pb-2">
-                <div class="col">
-                  <div class="input-group mb-4">
-                    <span class="input-group-text" id="basic-addon1"
-                      >M-PESA</span
-                    >
-                    <input
-                      type="number"
-                      class="form-control"
-                      placeholder="mpesa"
-                      aria-label="mpesa"
-                      aria-describedby="basic-addon1"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <button type="button" class="btn btn-falcon-default">
-                    Calculate
-                  </button>
-                </div>
-                <div class="col">
-                  <span>Balance : {{ balance }}</span>
-                </div>
+            </div>
+          </div>
+          <!-- =========== -->
+          <div class="row mt-1 p-0 m-0">
+            <div class="card">
+              <div class="card-body p-2">
+                <table class="table table-sm table-striped table-hover mb-0">
+                  <tbody>
+                    <tr>
+                      <td class="text-right">
+                        <label class="form-label"
+                          ><strong>Balance</strong></label
+                        >
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          class="form-control form-control-sm"
+                          readonly
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
