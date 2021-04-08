@@ -358,7 +358,7 @@ include '../includes/base_page/head.php';
 
         // fetch goes here
 
-        fetch('#.php', {
+        fetch('add_emoployee_benededuc.php', {
             method: 'POST',
             body: formData
           })
@@ -366,9 +366,9 @@ include '../includes/base_page/head.php';
           .then(result => {
             console.log('Success:', result);
 
-            //  setTimeout(function() {
-            //    location.reload();
-            //  }, 2500);
+            setTimeout(function() {
+              location.reload();
+            }, 2500);
 
           })
           .catch(error => {
