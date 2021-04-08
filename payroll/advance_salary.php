@@ -114,6 +114,7 @@ include '../includes/base_page/head.php';
       const employee_name = document.querySelector("#employee_name");
       const all_employees = {};
       let employee_dict = {};
+      let items_in_table = {};
 
       window.addEventListener('DOMContentLoaded', (event) => {
         const formData = new FormData();
@@ -142,7 +143,6 @@ include '../includes/base_page/head.php';
     </script>
 
     <script>
-      let items_in_table = {};
       const table_body = document.querySelector("#table_body");
 
       function addData() {
@@ -151,14 +151,10 @@ include '../includes/base_page/head.php';
         }
 
 
-        const employee_row_to_add = all_employees[employee_dict[employee_name.value]];
-
-
-        console.log(employee_row_to_add);
+        const employee_row_to_add = all_employees[employee_name.value];
         items_in_table[employee_name.value] = employee_row_to_add;
 
         delete employee_dict[employee_name.value];
-        console.log(employee_name.value, " ", employee_dict);
 
         updateTable();
         updateEmployeeSelect();
@@ -179,6 +175,7 @@ include '../includes/base_page/head.php';
       }
 
       function updateTable() {
+        console.log("Rasta ", items_in_table);
         return;
         table_body.innerHTML = "";
         for (let item in items_in_table) {
