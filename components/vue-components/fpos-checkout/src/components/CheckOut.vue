@@ -85,7 +85,7 @@
                         <input
                           type="number"
                           class="form-control form-control-sm"
-                          readonly
+                          v-model="cash_paid"
                         />
                       </td>
                     </tr>
@@ -97,6 +97,7 @@
                         <input
                           type="number"
                           class="form-control form-control-sm"
+                          v-model="visa_paid"
                         />
                       </td>
                     </tr>
@@ -108,6 +109,7 @@
                         <input
                           type="number"
                           class="form-control form-control-sm"
+                          v-model="mpesa_paid"
                         />
                       </td>
                     </tr>
@@ -132,6 +134,7 @@
                         <input
                           type="number"
                           class="form-control form-control-sm"
+                          v-model="balance_amount"
                           readonly
                         />
                       </td>
@@ -166,15 +169,14 @@ export default {
       type: Number,
       default: () => 1000,
     },
-    balance: {
-      type: String,
-      min: () => "0",
-      default: () => "0",
-    },
   },
   data: () => ({
     grand_total: 0,
     shipping: 0,
+    cash_paid: 0,
+    visa_paid: 0,
+    mpesa_paid: 0,
+    balance_amount: 0,
   }),
   watch: {
     shipping: {
@@ -182,8 +184,33 @@ export default {
         this.grand_total = Number(this.subtotal) + Number(this.shipping);
       },
     },
+    cash_paid: {
+      handler() {
+        this.calculateBalance();
+      },
+    },
+    visa_paid: {
+      handler() {
+        this.calculateBalance();
+      },
+    },
+    mpesa_paid: {
+      handler() {
+        this.calculateBalance();
+      },
+    },
+  },
+  methods: {
+    calculateBalance() {
+      this.balance_amount =
+        Number(this.cash_paid) +
+        Number(this.visa_paid) +
+        Number(this.mpesa_paid) -
+        Number(this.grand_total);
+    },
   },
   mounted() {
+    this.grand_total = this.subtotal;
     const falcon_js = document.createElement("script");
     falcon_js.setAttribute(
       "src",
