@@ -168,6 +168,32 @@
       });
     });
 
+    sendableTable["table_items"] = groupedByBranch;
+
     console.log(groupedByBranch);
+    console.log("..... ", sendableTable);
+
+
+
+    const formData = new FormData();
+
+    for (key in sendableTable) {
+      console.log(key, " : ",
+        sendableTable[key]);
+      formData.append(key, sendableTable[key]);
+    }
+
+    return;
+    fetch('#', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log('Success:', result);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   });
 </script>
