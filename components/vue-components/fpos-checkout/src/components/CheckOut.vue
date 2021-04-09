@@ -202,6 +202,7 @@ export default {
         sendableTable["net_total_with_shipping"] = this.grand_total;
 
         sessionStorage.setItem("sendable_table", JSON.stringify(sendableTable));
+        this.calculateBalance();
       },
     },
     cash_paid: {
