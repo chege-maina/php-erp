@@ -196,6 +196,20 @@ function genSideBar()
 </li>
 
 
+<!-- Customer Relations Management -->
+<li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-pos" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
+  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-store" style="color:#Fb870c;"></span></span><span class="nav-link-text">Ultimate POS</span>
+  </div>
+</a>
+<ul class="nav collapse" id="e-pos" data-parent="#navbarVerticalCollapse">
+  <li class="nav-item"><a class="nav-link" href="../pos/pos.php">POS</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="#">POS Listing</a>
+  </li>
+</ul>
+</li>
+
+
 <!-- End of Qubes Working  -->
 
 <ul class="nav collapse" id="authentication" data-parent="#navbarVerticalCollapse">
