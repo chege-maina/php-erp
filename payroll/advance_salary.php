@@ -249,7 +249,7 @@ include '../includes/base_page/head.php';
           let actionWrapper = document.createElement("td");
           actionWrapper.classList.add("m-2");
           let action = document.createElement("button");
-          action.setAttribute("id", items_in_table[item]["job"]);
+          action.setAttribute("id", items_in_table[item]["fname"] + " " + items_in_table[item]["lname"]);
           action.setAttribute("onclick", "removeItem(this.id);");
           let icon = document.createElement("span");
           icon.classList.add("fas", "fa-minus", "mt-1");
@@ -273,9 +273,10 @@ include '../includes/base_page/head.php';
 
       function removeItem(item) {
         delete items_in_table[String(item)];
-        employee_dict[item] = item;
 
-        console.log("hehehehe", items_in_table);
+        const employee_subtext =
+          "National ID No# " + all_employees[item]["nat"] + "  Employee No# " + all_employees[item]["job"];
+        employee_dict[item] = employee_subtext;
 
         updateTable();
         updateEmployeeSelect();
