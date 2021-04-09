@@ -18,7 +18,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     )
   );
 }
-$query = "SELECT benefit FROM tbl_benefit";
+$query = "SELECT deduction FROM tbl_deduction";
 
 $result = mysqli_query($conn, $query);
 $type = "deduction";
@@ -27,7 +27,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   array_push(
     $response,
     array(
-      'benefit' => $row['benefit'],
+      'benefit' => $row['deduction'],
       'type' => $type
     )
   );
