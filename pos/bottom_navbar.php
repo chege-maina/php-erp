@@ -148,7 +148,24 @@
         groupedByBranch[item.branch] : [];
 
       // Add this item
-      groupedByBranch[item.branch].push(item);
+      groupedByBranch[item.branch].push({
+        p_code: item.code,
+        p_name: item.name,
+        p_tax_pc: item.tax_pc,
+        // This is the bulk unit
+        p_units: item.bulk_units,
+        p_price: item.bulk_price,
+        p_amount: item.subtotal,
+        p_tax: item.tax,
+        // TODO: Add this in item cards
+        p_conversion: item.conversion,
+        p_atomic_unit: item.units,
+        p_atomic_price: item.price,
+        p_selected_unit: item.current_unit,
+        p_quantity: item.current_unit === item.units ?
+          item.quantity / item.conversion : item.quantity,
+        p_entered_price: item.current_price,
+      });
     });
 
     console.log(groupedByBranch);
