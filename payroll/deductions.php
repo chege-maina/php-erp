@@ -38,7 +38,7 @@ include '../includes/base_page/head.php';
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <div id="alert-div"></div>
-        <h5 class="p-2">Add Deduction</h5>
+        <h5 class="p-2">Define Deduction</h5>
         <div class="card">
 
 
