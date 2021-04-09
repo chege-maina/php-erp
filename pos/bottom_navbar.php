@@ -168,6 +168,44 @@
       });
     });
 
-    console.log(groupedByBranch);
+    // HACK: Told to ungroup
+    const ungroupedTable = [];
+
+    for (key in groupedByBranch) {
+      groupedByBranch[key].forEach(item => {
+        ungroupedTable.push(item);
+      });
+    }
+
+    const user_name = "<?= $_SESSION['name'] ?>";
+    const user_branch = "<?= $_SESSION['branch'] ?>";
+
+    // sendableTable["table_items"] = groupedByBranch;
+    sendableTable["table_items"] = ungroupedTable;
+    sendableTable["user_name"] = user_name;
+    sendableTable["user_branch"] = user_branch;
+
+    console.log("============================================");
+
+    const formData = new FormData();
+
+    for (key in sendableTable) {
+      console.log(key, " : ",
+        sendableTable[key]);
+      formData.append(key, sendableTable[key]);
+    }
+
+    return;
+    fetch('#', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log('Success:', result);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   });
 </script>
