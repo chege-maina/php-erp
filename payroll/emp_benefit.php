@@ -38,7 +38,7 @@ include '../includes/base_page/head.php';
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <div id="alert-div"></div>
-        <h5 class="p-2">Advance Salary</h5>
+        <h5 class="p-2">Earnings and Deductions</h5>
         <div class="card">
 
 
@@ -51,9 +51,9 @@ include '../includes/base_page/head.php';
             <div class="row justify-content-between">
               <div class="col-sm-5 my-3">
                 <!-- Make Combo -->
-                <label class="form-label" for="branch">Select Benefit/Deduction*</label>
+                <label class="form-label" for="benefit_select">Select Benefit/Deduction*</label>
                 <div class="input-group">
-                  <select class="form-select" name="branch" id="benefit_select">
+                  <select class="form-select" name="benefit_select" id="benefit_select">
                     <option value disabled selected>
                       -- Select Benefit/Deduction --
                     </option>
@@ -61,8 +61,8 @@ include '../includes/base_page/head.php';
                   <div class="invalid-tooltip">This field cannot be left blank.</div>
 
                   <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-primary input-group-btn" onclick="addData()">
-                    +
+                  <button type="button" class="btn btn-primary input-group-btn" onclick="SearchItem();">
+                    Search
                   </button>
 
                 </div>
@@ -103,8 +103,7 @@ include '../includes/base_page/head.php';
                 <thead>
                   <tr>
                     <th scope="col">Employee Number</th>
-                    <th scope="col">First Name </th>
-                    <th scope="col">Last Name</th>
+                    <th scope="col"> Name </th>
                     <th scope="col">Fixed Amount</th>
                     <th scope="col">Qty(Days/Hours)</th>
                     <th scope="col">Rate(Ksh/Day or Hour)</th>
@@ -166,6 +165,24 @@ include '../includes/base_page/head.php';
           }
         </script>
         <script>
+          const formData = new FormData();
+          formData.append("benefit", branch_dict[benefit.value]);
+          formData.append("type", branch_dict[type.value]);
+          fetch('../payroll/load_emp_dedct.php', {
+              method: 'POST',
+              body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
+              console.log('look here:', result);
+              fname.value = result[0]["emp_name"];
+              job.value = result[0]["emp_no"];
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        </script>
+        <script>
           // the table items now 
 
 
@@ -174,11 +191,23 @@ include '../includes/base_page/head.php';
           const month = document.querySelector("#month");
           const adv_year = document.querySelector("#adv_year");
 
-          function addData() {
+          function SearchItem() {
 
             if (!benefit_select.value) {
               return;
             }
+
+            const select = {
+
+              qty: 0,
+              rate: 0,
+              f_amt: 0,
+            }
+            console.log(select);
+            items_in_table[benefit_select.value] = select;
+
+
+            delete branch_dict[benefit_select.value];
 
             updateTable();
             updateEmployeeSelect();
@@ -214,11 +243,6 @@ include '../includes/base_page/head.php';
               let firstname = document.createElement("td");
               firstname.appendChild(document.createTextNode(items_in_table[item].fname));
               firstname.classList.add("align-middle");
-
-
-              let lastname = document.createElement("td");
-              lastname.appendChild(document.createTextNode(items_in_table[item].lname));
-              lastname.classList.add("align-middle");
 
               // defined fixed amount 
 
@@ -340,7 +364,6 @@ include '../includes/base_page/head.php';
 
               tr.append(employee_no,
                 firstname,
-                secondname,
                 f_amtWrapper,
                 qtyWrapper,
                 rateWrapper,
@@ -357,9 +380,9 @@ include '../includes/base_page/head.php';
           function removeItem(item) {
             delete items_in_table[String(item)];
 
-            const employee_subtext =
-              "National ID No# " + all_employees[item]["nat"] + "  Employee No# " + all_employees[item]["job"];
-            employee_dict[item] = employee_subtext;
+            //  const employee_subtext =
+            //    "National ID No# " + all_employees[item]["nat"] + "  Employee No# " + all_employees[item]["job"];
+            //  employee_dict[item] = employee_subtext;
 
             updateTable();
             updateEmployeeSelect();
