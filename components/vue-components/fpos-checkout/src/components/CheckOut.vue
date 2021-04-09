@@ -257,7 +257,9 @@ export default {
       }
     },
     checkoutNow() {
-      return;
+      const event = new Event("checkout_now");
+      // Dispatch the event.
+      window.dispatchEvent(event);
     },
   },
   mounted() {
