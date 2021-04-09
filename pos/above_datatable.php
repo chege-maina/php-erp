@@ -11,7 +11,9 @@
         </div>
         <div class="row m-0 p-0">
           <small>
-            Logged in at: 0000 HRS, <?php echo date("d/m/Y"); ?>
+            Logged in at:
+            <?= $_SESSION['login_time'] ?>
+            , <?php echo date("d/m/Y"); ?>
           </small>
         </div>
       </div>
