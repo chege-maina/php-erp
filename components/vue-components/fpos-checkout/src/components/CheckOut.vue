@@ -155,7 +155,11 @@
       <div class="row px-1 py-1">
         <div class="card bg-100">
           <div class="text-center p-2">
-            <button type="button" class="btn btn-falcon-primary">
+            <button
+              type="button"
+              class="btn btn-falcon-primary"
+              v-on:click="checkoutNow()"
+            >
               CheckOut
             </button>
           </div>
@@ -189,6 +193,15 @@ export default {
       handler() {
         this.grand_total = Number(this.subtotal) + Number(this.shipping);
         this.grand_total = this.grand_total.toFixed(2);
+
+        const sendableTable =
+          sessionStorage.getItem("sendable_table") === null
+            ? {}
+            : JSON.parse(sessionStorage.getItem("sendable_table"));
+        sendableTable["shipping"] = Number(this.shipping).toFixed(2);
+        sendableTable["net_total_with_shipping"] = this.grand_total;
+
+        sessionStorage.setItem("sendable_table", JSON.stringify(sendableTable));
       },
     },
     cash_paid: {
@@ -215,6 +228,16 @@ export default {
         Number(this.mpesa_paid) -
         Number(this.grand_total);
       this.balance_amount = this.balance_amount.toFixed(2);
+
+      const sendableTable = JSON.parse(
+        sessionStorage.getItem("sendable_table")
+      );
+      sendableTable["cash_paid"] = Number(this.cash_paid).toFixed(2);
+      sendableTable["visa_paid"] = Number(this.visa_paid).toFixed(2);
+      sendableTable["mpesa_paid"] = Number(this.mpesa_paid).toFixed(2);
+      sendableTable["balance_amount"] = this.balance_amount;
+
+      sessionStorage.setItem("sendable_table", JSON.stringify(sendableTable));
     },
     paymentInputClicked(elem) {
       // These three don't work in shadow dom. Look for alternatives
@@ -232,6 +255,11 @@ export default {
         /* mpesa_input.select(); */
         /* break; */
       }
+    },
+    checkoutNow() {
+      const event = new Event("checkout_now");
+      // Dispatch the event.
+      window.dispatchEvent(event);
     },
   },
   mounted() {

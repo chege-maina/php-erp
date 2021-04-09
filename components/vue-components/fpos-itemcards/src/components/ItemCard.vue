@@ -141,6 +141,7 @@ export default {
         tax_pc: this.product_object.tax_pc,
         tax: this.product_object.tax,
         subtotal: this.product_object.subtotal,
+        conversion: this.product_object.conversion,
       };
 
       sessioned_table[uuid] = to_insert;
