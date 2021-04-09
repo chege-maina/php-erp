@@ -5,13 +5,13 @@
         <div class="row m-0 p-0">
           <b>
             <small>
-              John Doe
+              <?= $_SESSION['name'] ?>
             </small>
           </b>
         </div>
         <div class="row m-0 p-0">
           <small>
-            Logged in at: 0000 HRS, 2/2/2000
+            Logged in at: 0000 HRS, <?php echo date("d/m/Y"); ?>
           </small>
         </div>
       </div>
