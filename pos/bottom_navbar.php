@@ -168,12 +168,14 @@
       });
     });
 
+    const user_name = "<?= $_SESSION['name'] ?>";
+    const user_branch = "<?= $_SESSION['branch'] ?>";
+
     sendableTable["table_items"] = groupedByBranch;
+    sendableTable["user_name"] = user_name;
+    sendableTable["user_branch"] = user_branch;
 
-    console.log(groupedByBranch);
-    console.log("..... ", sendableTable);
-
-
+    console.log("============================================");
 
     const formData = new FormData();
 
