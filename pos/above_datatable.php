@@ -20,10 +20,11 @@
         </div>
       </div>
       <div class="col col-auto d-flex align-items-center">
-        <button class="btn btn-falcon-default btn-sm">
+        <!-- TODO: Possibly show alert? -->
+        <a class="btn btn-falcon-default btn-sm" href="../includes/logout.php">
           <span class="fas fa-door-open"></span>
           End Session
-        </button>
+        </a>
       </div>
     </div>
   </div>
