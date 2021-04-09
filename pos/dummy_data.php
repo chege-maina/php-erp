@@ -66,6 +66,11 @@
       computed: true,
       operation: "tax_pc / 100 + 1 * quantity * current_price",
     },
+    {
+      name: "Conversion",
+      key: "conversion",
+      visible: false
+    },
   ];
 
   const items = [];
