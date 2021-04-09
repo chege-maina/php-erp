@@ -29,6 +29,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $message = "Created Successfully..";
   echo json_encode($message);
 } else {
-  // echo "Multiquery failed: " . $mysql;
   echo "Multi query failed: (" . $conn->errno . ") " . $conn->error . "sql: " . $mysql;
 }
