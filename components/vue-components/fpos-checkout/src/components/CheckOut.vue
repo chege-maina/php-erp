@@ -194,9 +194,10 @@ export default {
         this.grand_total = Number(this.subtotal) + Number(this.shipping);
         this.grand_total = this.grand_total.toFixed(2);
 
-        const sendableTable = JSON.parse(
-          sessionStorage.getItem("sendable_table")
-        );
+        const sendableTable =
+          sessionStorage.getItem("sendable_table") === null
+            ? {}
+            : JSON.parse(sessionStorage.getItem("sendable_table"));
         sendableTable["shipping"] = Number(this.shipping).toFixed(2);
         sendableTable["net_total_with_shipping"] = this.grand_total;
 
