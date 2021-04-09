@@ -70,6 +70,7 @@
         bulk_price: Number(product.bs_price),
         category: product.category,
         sub_category: product.sub_category,
+        conversion: Number(product.conversion),
       })
     });
     [...current_item_list] = tmp;
