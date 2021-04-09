@@ -137,5 +137,20 @@
 
   window.addEventListener('checkout_now', (event) => {
     console.log("ready");
+    const sendableTable = JSON.parse(sessionStorage.getItem("sendable_table"));
+    const rawTableItems = sendableTable["table_items"];
+    const groupedByBranch = {};
+    rawTableItems.forEach(item => {
+      console.log(item);
+      // Initialize it if necessary
+      groupedByBranch[item.branch] =
+        item.branch in groupedByBranch ?
+        groupedByBranch[item.branch] : [];
+
+      // Add this item
+      groupedByBranch[item.branch].push(item);
+    });
+
+    console.log(groupedByBranch);
   });
 </script>
