@@ -326,7 +326,7 @@ include '../includes/base_page/head.php';
           const k_fname = row.childNodes[1].innerHTML;
           const k_lname = row.childNodes[2].innerHTML;
           const k_nat = row.childNodes[3].innerHTML;
-          const k_amount = row.childNodes[4].value;
+          const k_amount = row.childNodes[4].childNodes[0].value;
           const k_date = row.childNodes[5].value;
 
 
