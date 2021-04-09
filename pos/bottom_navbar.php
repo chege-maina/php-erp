@@ -134,4 +134,8 @@
   // modal.style.display = "none";
   // }
   // }
+
+  window.addEventListener('checkout_now', (event) => {
+    console.log("ready");
+  });
 </script>
