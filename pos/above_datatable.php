@@ -3,11 +3,13 @@
     <div class="row">
       <div class="col px-4">
         <div class="row m-0 p-0">
-          <b>
-            <small>
+          <small>
+            <b>
               <?= $_SESSION['name'] ?>
-            </small>
-          </b>
+            </b>
+            ,
+            <?= $_SESSION['branch'] ?>
+          </small>
         </div>
         <div class="row m-0 p-0">
           <small>
