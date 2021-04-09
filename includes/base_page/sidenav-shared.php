@@ -176,6 +176,10 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../payroll/attendance_listing_ui.php">Attendance Listing</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../payroll/emp_benefit.php">Earnings and Deductions</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../payroll/advance_salary.php">Advance Salary</a>
+  </li>
   <li class="nav-item"><a class="nav-link" href="../payroll/expense_mngt.php">Company Loans</a>
   </li>
   

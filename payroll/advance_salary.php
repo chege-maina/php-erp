@@ -48,7 +48,7 @@ include '../includes/base_page/head.php';
 
           <div class="card-body fs--1 p-4 position-relative">
             <!-- Content is to start here -->
-            <div class="row">
+            <div class="row justify-content-between">
               <div class="col col-md-5 my-4">
                 <label for="#" class="form-label">Select Employee </label>
                 <div class="input-group">
@@ -57,6 +57,27 @@ include '../includes/base_page/head.php';
                   <button type="button" class="btn btn-primary input-group-btn" onclick="addData()">
                     +
                   </button>
+                </div>
+              </div>
+              <div class="col col-md-5 my-4">
+                <label for="#" class="form-label">Insert Month and Year</label>
+                <div class="input-group">
+                  <select class="form-select" id="month" required>
+                    <option disabled selected value>--Select Month--</option>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                  </select>
+                  <input style="width:25px;" type="number" name="adv_year" id="adv_year" class="form-control" required>
                 </div>
               </div>
             </div>
@@ -144,6 +165,9 @@ include '../includes/base_page/head.php';
 
     <script>
       const table_body = document.querySelector("#table_body");
+
+      const month = document.querySelector("#month");
+      const adv_year = document.querySelector("#adv_year");
 
       function addData() {
         if (!employee_name.value) {
@@ -249,7 +273,7 @@ include '../includes/base_page/head.php';
           let actionWrapper = document.createElement("td");
           actionWrapper.classList.add("m-2");
           let action = document.createElement("button");
-          action.setAttribute("id", items_in_table[item]["job"]);
+          action.setAttribute("id", items_in_table[item]["fname"] + " " + items_in_table[item]["lname"]);
           action.setAttribute("onclick", "removeItem(this.id);");
           let icon = document.createElement("span");
           icon.classList.add("fas", "fa-minus", "mt-1");
@@ -273,9 +297,10 @@ include '../includes/base_page/head.php';
 
       function removeItem(item) {
         delete items_in_table[String(item)];
-        employee_dict[item] = item;
 
-        console.log("hehehehe", items_in_table);
+        const employee_subtext =
+          "National ID No# " + all_employees[item]["nat"] + "  Employee No# " + all_employees[item]["job"];
+        employee_dict[item] = employee_subtext;
 
         updateTable();
         updateEmployeeSelect();
@@ -295,14 +320,16 @@ include '../includes/base_page/head.php';
         const tmp_obj = {};
         const table_body = document.querySelector("#table_body");
         const benefits = [];
-        console.log("submitting", benefits);
         table_body.childNodes.forEach(row => {
-          const k_fname = row.childNodes[0].innerHTML;
-          const k_lname = row.childNodes[1].innerHTML;
-          const k_nat = row.childNodes[2].innerHTML;
-          const k_job = row.childNodes[3].innerHTML;
-          const k_amount = row.childNodes[4].innerHTML;
-          const k_date = row.childNodes[5].innerHTML;
+
+          const k_job = row.childNodes[0].innerHTML;
+          const k_fname = row.childNodes[1].innerHTML;
+          const k_lname = row.childNodes[2].innerHTML;
+          const k_nat = row.childNodes[3].innerHTML;
+          const k_amount = row.childNodes[4].childNodes[0].value;
+          const k_date = row.childNodes[5].value;
+
+
           benefits.push({
             fname: k_fname,
             lname: k_lname,
@@ -314,6 +341,8 @@ include '../includes/base_page/head.php';
           });
         });
 
+        console.log("submitting", benefits);
+
         tmp_obj["table_items"] = JSON.stringify(benefits);
         console.log("==================================");
         console.log(tmp_obj);
@@ -323,9 +352,19 @@ include '../includes/base_page/head.php';
       }
 
       function submitForm() {
+
+        if (!adv_year.value) {
+          return;
+        }
+
+        if (!month.value) {
+          return;
+        }
         let tmp_obj = getItems();
 
         const formData = new FormData();
+        formData.append("year", adv_year.value);
+        formData.append("month", month.value);
         for (let key in tmp_obj) {
           formData.append(key, tmp_obj[key]);
         }
