@@ -19,8 +19,11 @@
 </template>
 
 <script>
+import Vuetify from "vuetify/lib/framework";
+
 export default {
   name: "Tree",
+  vuetify: new Vuetify(),
 
   data: () => ({
     initiallyOpen: ["public"],
