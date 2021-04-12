@@ -48,7 +48,7 @@ include '../includes/base_page/head.php';
 
           <div class="card-body fs--1 p-4 position-relative">
             <!-- Content is to start here -->
-            <div class="row">
+            <div class="row justify-content-between">
               <div class="col">
                 <label for="#" class="form-label">Select Employee </label>
                 <input list="employee" name="employee_name" id="employee_name" class="form-select" required>
