@@ -15,7 +15,6 @@ function sanitize_input($data)
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $type = sanitize_input($_POST["type"]);
   $fname = sanitize_input($_POST["fname"]);
   $lname = sanitize_input($_POST["lname"]);
   $nat = sanitize_input($_POST["nat"]);
@@ -24,8 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   foreach ($table_items as $key => $value) {
 
-    $mysql = "INSERT INTO tbl_emp_leave (fname, lname, type, 
-  nat, job, benefit) VALUES('" . $fname . "','" . $lname . "','" . $type . "','" . $nat . "','" . $job . "','" . $value["benefit"] . "')";
+    $mysql = "INSERT INTO tbl_emp_leave (fname, lname, 
+  nat, job, empleave, num_days, opening_balance) VALUES('" . $fname . "','" . $lname . "','" . $nat . "','" . $job . "','" . $value["empleave"] . "','" . $value["num_days"] . "','" . $value["opening_balance"] . "')";
     mysqli_query($conn, $mysql);
   }
 
