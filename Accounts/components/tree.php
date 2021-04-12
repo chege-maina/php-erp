@@ -15,6 +15,11 @@
           </v-icon>
         </a>
       </template>
+      <template v-slot:append="{ item, open }">
+        <a @click="itemClicked(item.name)">
+          Values go Here
+        </a>
+      </template>
     </v-treeview>
   </v-app>
 </div>
