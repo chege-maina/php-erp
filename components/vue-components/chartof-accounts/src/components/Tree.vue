@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: "Tree",
 
   data: () => ({
     initiallyOpen: ["public"],
@@ -37,7 +37,7 @@ export default {
     tree: [],
     items: [
       {
-        name: ".git",
+        name: "assets",
       },
       {
         name: "node_modules",
@@ -92,3 +92,4 @@ export default {
   }),
 };
 </script>
+
