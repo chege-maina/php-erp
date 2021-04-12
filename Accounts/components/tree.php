@@ -17,7 +17,12 @@
       </template>
       <template v-slot:append="{ item, open }">
         <a @click="itemClicked(item.name)">
-          Values go Here
+          <span v-if="!item.value">
+            0
+          </span>
+          <span v-else>
+            {{ item.value }}
+          </span>
         </a>
       </template>
     </v-treeview>
