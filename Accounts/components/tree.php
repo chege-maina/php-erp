@@ -89,7 +89,7 @@
     },
     methods: {
       itemClicked: function(item) {
-        console.log("You clicked: ", item, "  jdf ", this.$vuetify.theme.dark);
+        console.log("You clicked: ", item);
       },
     },
   })
