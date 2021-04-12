@@ -1,9 +1,11 @@
 <script>
   const items_to_show = [{
       "name": "Assets",
+      "code": 1000,
     },
     {
       "name": "Receivables",
+      "code": 1100,
       "children": [{
           "name": "alpha",
           "value": 10,
@@ -37,6 +39,7 @@
     },
     {
       "name": "Inventory",
+      "code": 1200,
       "children": [{
           "name": "static",
           "children": [{

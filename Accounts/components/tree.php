@@ -13,6 +13,10 @@
           <v-icon v-else>
             {{ files[item.file] }}
           </v-icon>
+          <span v-if="item.code" class="font-weight-thin">
+            {{ item.code }}
+          </span>
+
         </a>
       </template>
       <template v-slot:append="{ item, open }">
