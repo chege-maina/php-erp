@@ -31,7 +31,7 @@
       </template>
     </v-treeview>
     <v-container>
-      <v-btn color="primary" elevation="2">Calculate</v-btn>
+      <v-btn color="primary" elevation="2" v-on:click="buttonClicked()">Calculate</v-btn>
     </v-container>
   </v-app>
 </div>
@@ -88,6 +88,22 @@
     methods: {
       itemClicked: function(item) {
         console.log("You clicked: ", item);
+      },
+      getTotals: function(tree, level, iteration) {
+        const total = 0;
+        if ('children' in tree) {
+          tree.children.forEach(subItem => {
+            this.getTotals(subItem, level + 1, iteration++);
+          });
+        } else {
+          console.log(`iteration ${iteration}`)
+          console.log(level, " Finale ", tree);
+        }
+      },
+      buttonClicked: function(item) {
+        this.items.forEach(item => {
+          this.getTotals(item, 0, 1);
+        });
       },
     },
   })

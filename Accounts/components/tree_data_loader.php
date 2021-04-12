@@ -7,35 +7,35 @@
       "name": "Receivables",
       "code": 1100,
       "children": [{
-          "name": "alpha",
-          "value": 10,
-          "file": "txt"
-        },
-        {
-          "name": "beta",
-          "value": 10,
-          "file": "txt"
-        },
-        {
-          "name": "gamma",
-          "value": 10,
-          "file": "txt"
-        },
-        {
-          "name": "delta",
-          "value": 10,
-          "file": "txt"
-        },
-        {
-          "name": "epsilon",
-          "value": 10,
-          "file": "txt"
-        },
-        {
-          "name": "zeta",
-          "value": 10,
-        },
-      ],
+        "name": "zeta",
+        "children": [{
+            "name": "alpha",
+            "value": 10,
+            "file": "txt"
+          },
+          {
+            "name": "beta",
+            "value": 10,
+            "file": "txt"
+          },
+          {
+            "name": "gamma",
+            "value": 10,
+            "file": "txt"
+          },
+          {
+            "name": "delta",
+            "value": 10,
+            "file": "txt"
+          },
+          {
+            "name": "epsilon",
+            "value": 10,
+            "file": "txt"
+          },
+
+        ]
+      }, ],
     },
     {
       "name": "Inventory",
