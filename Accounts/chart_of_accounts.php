@@ -38,7 +38,8 @@ include '../includes/base_page/head.php';
         <div class="card">
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
-            Chart Goes Here
+            <?php include 'components/tree.php' ?>
+
             <!-- Content ends here -->
           </div>
           <!-- Additional cards can be added here -->
