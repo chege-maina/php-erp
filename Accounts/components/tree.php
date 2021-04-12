@@ -3,7 +3,7 @@
 <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
 
 <div id="app">
-  <v-app>
+  <v-app style="background-color: #121E2D00">
     <v-treeview v-model="tree" :open="initiallyOpen" :items="items" activatable item-key="name" open-on-click>
       <template v-slot:prepend="{ item, open }">
         <a @click="itemClicked(item.name)">
@@ -38,9 +38,19 @@
 <script>
   new Vue({
     el: '#app',
-    vuetify: new Vuetify(),
+    vuetify: new Vuetify({
+      theme: {
+        dark: false,
+        themes: {
+          dark: {
+            background: '#121E2D',
+          },
+        },
+      },
+    }),
     data: () => ({
       initiallyOpen: ['public'],
+      darkTheme: false,
       files: {
         html: 'mdi-language-html5',
         js: 'mdi-nodejs',
@@ -63,6 +73,9 @@
           this.items = JSON.parse(
             window.sessionStorage.getItem('items')
           );
+        } else if (event.key == 'theme') {
+          const currentTheme = window.localStorage.getItem('theme')
+          this.$vuetify.theme.dark = currentTheme === 'dark' ? true : false;
         }
       });
     },
@@ -70,10 +83,14 @@
       this.items = JSON.parse(
         window.sessionStorage.getItem('items')
       );
+
+      const currentTheme = window.localStorage.getItem('theme')
+      this.$vuetify.theme.dark = currentTheme === 'dark' ? true : false;
     },
     methods: {
       itemClicked: function(item) {
-        console.log("You clicked: ", item);
+        this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+        console.log("You clicked: ", item, "  jdf ", this.$vuetify.theme.dark);
       },
     },
   })
