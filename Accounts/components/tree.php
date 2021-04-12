@@ -6,17 +6,16 @@
   <v-app>
     <v-treeview v-model="tree" :open="initiallyOpen" :items="items" activatable item-key="name" open-on-click>
       <template v-slot:prepend="{ item, open }">
-        <v-icon v-if="!item.file">
-          {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
-        </v-icon>
-        <v-icon v-else>
-          {{ files[item.file] }}
-        </v-icon>
+        <a @click="itemClicked(item.name)">
+          <v-icon v-if="!item.file">
+            {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
+          </v-icon>
+          <v-icon v-else>
+            {{ files[item.file] }}
+          </v-icon>
+        </a>
       </template>
     </v-treeview>
-    <v-container>
-      <v-btn color="primary" elevation="2" v-on:click="buttonClicked()">Holla</v-btn>
-    </v-container>
   </v-app>
 </div>
 
@@ -59,9 +58,8 @@
       );
     },
     methods: {
-      buttonClicked: function() {
-        console.log("Yaaay");
-        sessionStorage.setItem("items", JSON.stringify(this.items));
+      itemClicked: function(item) {
+        console.log("You clicked: ", item);
       },
     },
   })
