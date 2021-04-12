@@ -184,6 +184,8 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../payroll/assign_leave.php">Leave Assignement</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../payroll/leave_app.php">Employee Leave Application</a>
+  </li>
   
   <li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-company" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authentication-basic">Company Settings</a>
     <ul class="nav collapse" id="e-company" data-parent="#authentication">
