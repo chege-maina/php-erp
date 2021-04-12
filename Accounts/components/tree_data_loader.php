@@ -1,57 +1,57 @@
 <script>
   const items_to_show = [{
-      "name": ".grit",
+      "name": "Assets",
     },
     {
-      "name": "node_modules",
+      "name": "Receivables",
       "children": [{
-          "name": ".gitignore",
+          "name": "alpha",
           "value": 10,
           "file": "txt"
         },
         {
-          "name": "babel.config.js",
+          "name": "beta",
           "value": 10,
           "file": "txt"
         },
         {
-          "name": "package.json",
+          "name": "gamma",
           "value": 10,
           "file": "txt"
         },
         {
-          "name": "README.md",
+          "name": "delta",
           "value": 10,
           "file": "txt"
         },
         {
-          "name": "vue.config.js",
+          "name": "epsilon",
           "value": 10,
           "file": "txt"
         },
         {
-          "name": "yarn.lock",
+          "name": "zeta",
           "value": 10,
         },
       ],
     },
     {
-      "name": "public",
+      "name": "Inventory",
       "children": [{
           "name": "static",
           "children": [{
-            "name": "logo.png",
+            "name": "eta",
             "value": 10,
             "file": "txt"
           }]
         },
         {
-          "name": "favicon.ico",
+          "name": "theta",
           "value": 10,
           "file": "txt"
         },
         {
-          "name": "index.html",
+          "name": "iota",
           "value": 10,
           "file": "txt"
         }
