@@ -30,6 +30,9 @@
         </a>
       </template>
     </v-treeview>
+    <v-container>
+      <v-btn color="primary" elevation="2">Calculate</v-btn>
+    </v-container>
   </v-app>
 </div>
 
@@ -41,11 +44,6 @@
     vuetify: new Vuetify({
       theme: {
         dark: false,
-        themes: {
-          dark: {
-            background: '#121E2D',
-          },
-        },
       },
     }),
     data: () => ({
