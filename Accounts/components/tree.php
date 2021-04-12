@@ -39,60 +39,29 @@
         xls: 'mdi-file-excel',
       },
       tree: [],
-      items: [{
-          name: '.git',
-        },
-        {
-          name: 'node_modules',
-        },
-        {
-          name: 'public',
-          children: [{
-              name: 'static',
-              children: [{
-                name: 'logo.png',
-                file: 'png',
-              }],
-            },
-            {
-              name: 'favicon.ico',
-              file: 'png',
-            },
-            {
-              name: 'index.html',
-              file: 'html',
-            },
-          ],
-        },
-        {
-          name: '.gitignore',
-          file: 'txt',
-        },
-        {
-          name: 'babel.config.js',
-          file: 'js',
-        },
-        {
-          name: 'package.json',
-          file: 'json',
-        },
-        {
-          name: 'README.md',
-          file: 'md',
-        },
-        {
-          name: 'vue.config.js',
-          file: 'js',
-        },
-        {
-          name: 'yarn.lock',
-          file: 'txt',
-        },
-      ],
+      items: [],
     }),
+    created() {
+      // Init the object that will hold the table values
+      // this.items = this.body_object;
+      window.addEventListener("storage", (event) => {
+        // If our table data in the session storage has been changed
+        if (event.key == 'items') {
+          this.items = JSON.parse(
+            window.sessionStorage.getItem('items')
+          );
+        }
+      });
+    },
+    mounted() {
+      this.items = JSON.parse(
+        window.sessionStorage.getItem('items')
+      );
+    },
     methods: {
       buttonClicked: function() {
         console.log("Yaaay");
+        sessionStorage.setItem("items", JSON.stringify(this.items));
       },
     },
   })
