@@ -14,6 +14,9 @@
         </v-icon>
       </template>
     </v-treeview>
+    <v-container>
+      <v-btn color="primary" elevation="2" v-on:click="buttonClicked()">Holla</v-btn>
+    </v-container>
   </v-app>
 </div>
 
@@ -87,5 +90,10 @@
         },
       ],
     }),
+    methods: {
+      buttonClicked: function() {
+        console.log("Yaaay");
+      },
+    },
   })
 </script>
