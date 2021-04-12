@@ -4,6 +4,36 @@
     },
     {
       "name": "node_modules",
+      "children": [{
+          "name": ".gitignore",
+          "value": 10,
+          "file": "txt"
+        },
+        {
+          "name": "babel.config.js",
+          "value": 10,
+          "file": "txt"
+        },
+        {
+          "name": "package.json",
+          "value": 10,
+          "file": "txt"
+        },
+        {
+          "name": "README.md",
+          "value": 10,
+          "file": "txt"
+        },
+        {
+          "name": "vue.config.js",
+          "value": 10,
+          "file": "txt"
+        },
+        {
+          "name": "yarn.lock",
+          "value": 10,
+        },
+      ],
     },
     {
       "name": "public",
@@ -12,51 +42,22 @@
           "children": [{
             "name": "logo.png",
             "value": 10,
-            "file": "png"
+            "file": "txt"
           }]
         },
         {
           "name": "favicon.ico",
           "value": 10,
-          "file": "png"
+          "file": "txt"
         },
         {
           "name": "index.html",
           "value": 10,
-          "file": "html"
+          "file": "txt"
         }
       ]
     },
-    {
-      "name": ".gitignore",
-      "value": 10,
-      "file": "txt"
-    },
-    {
-      "name": "babel.config.js",
-      "value": 10,
-      "file": "js"
-    },
-    {
-      "name": "package.json",
-      "value": 10,
-      "file": "json"
-    },
-    {
-      "name": "README.md",
-      "value": 10,
-      "file": "md"
-    },
-    {
-      "name": "vue.config.js",
-      "value": 10,
-      "file": "js"
-    },
-    {
-      "name": "yarn.lock",
-      "value": 10,
-      "file": "txt"
-    }
+
   ];
 
   window.sessionStorage.clear();
