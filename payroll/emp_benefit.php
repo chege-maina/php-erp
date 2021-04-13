@@ -117,12 +117,38 @@ include '../includes/base_page/head.php';
             </div>
           </div>
         </div>
+
+        <!--first script -->
         <script>
           const benefit_select = document.querySelector("#benefit_select");
 
           let items_in_table = {};
-          let branch_dict = {};
+          let employee_benefits = {};
+          let select_data = {};
           const table_body = document.querySelector("#table_body");
+
+          function SearchItem() {
+
+            if (!benefit_select.value) {
+              return;
+            }
+            const benefit_var = employee_benefits[benefit_select.value].benefit;
+            const type_var = employee_benefits[benefit_select.value].type;
+            console.log(`Rasta is the truth: ${benefit_var} : ${type_var}`);
+
+            const select = {
+
+              qty: 0,
+              rate: 0,
+              f_amt: 0,
+            }
+            console.log(select);
+
+            getEmployee(type_var, benefit_var);
+            // updateEmployeeSelect();
+
+
+          }
 
           fetch('../payroll/load_dem_benefits.php')
             .then(response => response.json())
@@ -131,18 +157,24 @@ include '../includes/base_page/head.php';
               data.forEach((value) => {
                 let opt = document.createElement("option");
                 opt.appendChild(document.createTextNode(value['benefit'] + " (" + value['type'] + ")"));
-                opt.value = value['benefit'] + " (" + value['type'] + ")";
+
                 benefit_select.appendChild(opt);
 
                 // Update dicts
-                branch_dict[value.benefit + " (" + value['type'] + ")"] = value.benefit + value.type;
+                select_data[value['benefit'] + " (" + value['type'] + ")"] = value['benefit']
+                employee_benefits[value['benefit'] + " (" + value['type'] + ")"] = {
+                  type: value.type,
+                  benefit: value.benefit
+                };
                 items_in_table = {};
-                console.log("hohoho", benefit_select);
+
                 updateBranchSelect();
                 // updateTable();
 
                 // removeSpinner();
               });
+              // console.log("hohoho", benefit_select);
+              console.log("fill me", employee_benefits);
             });
 
           function updateBranchSelect() {
@@ -156,7 +188,7 @@ include '../includes/base_page/head.php';
             opt.setAttribute("selected", "");
             benefit_select.appendChild(opt);
             // Populate combobox
-            for (key in branch_dict) {
+            for (key in select_data) {
               let opt = document.createElement("option");
               opt.appendChild(document.createTextNode(key));
               opt.value = key;
@@ -164,63 +196,50 @@ include '../includes/base_page/head.php';
             }
           }
         </script>
-        <script>
-          const formData = new FormData();
-          formData.append("benefit", branch_dict[benefit.value]);
-          formData.append("type", branch_dict[type.value]);
-          fetch('../payroll/load_emp_dedct.php', {
-              method: 'POST',
-              body: formData
-            })
-            .then(response => response.json())
-            .then(result => {
-              console.log('look here:', result);
-              fname.value = result[0]["emp_name"];
-              job.value = result[0]["emp_no"];
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
-        </script>
+
+        <!--second script -->
+
         <script>
           // the table items now 
-
-
-          const table_body = document.querySelector("#table_body");
 
           const month = document.querySelector("#month");
           const adv_year = document.querySelector("#adv_year");
 
-          function SearchItem() {
+          function getEmployee(type, benefit) {
 
-            if (!benefit_select.value) {
-              return;
-            }
-
-            const select = {
-
-              qty: 0,
-              rate: 0,
-              f_amt: 0,
-            }
-            console.log(select);
-            items_in_table[benefit_select.value] = select;
-
-
-            delete branch_dict[benefit_select.value];
-
-            updateTable();
-            updateEmployeeSelect();
+            const formData = new FormData();
+            formData.append("benefit", benefit);
+            formData.append("type", type);
+            fetch('../payroll/load_emp_dedct.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+                items_in_table = {};
+                result.forEach(row => {
+                  items_in_table[row.emp_no] = {
+                    emp_no: row.emp_no,
+                    emp_name: row.emp_name,
+                  };
+                });
+                updateTable();
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
           }
+
+
 
           function updateEmployeeSelect() {
             // Clear it
             benefit_select.value = "";
 
             // Populate combobox
-            for (key in branch_dict) {
+            for (key in employee_benefits) {
               let opt = document.createElement("option");
-              opt.appendChild(document.createTextNode(branch_dict[key]));
+              opt.appendChild(document.createTextNode(select_data[key]));
               opt.value = key;
               benefit_select.appendChild(opt);
             }
@@ -230,18 +249,19 @@ include '../includes/base_page/head.php';
             console.log("Rasta ", items_in_table);
             table_body.innerHTML = "";
             for (let item in items_in_table) {
+              console.log("Jah");
 
               let tr = document.createElement("tr");
               // Id will be like 1Tank
               // tr.setAttribute("id", items_in_table[item]["code"] + items_in_table[item]["name"]);
 
               let employee_no = document.createElement("td");
-              employee_no.appendChild(document.createTextNode(items_in_table[item].job));
+              employee_no.appendChild(document.createTextNode(items_in_table[item].emp_no));
               employee_no.classList.add("align-middle");
 
 
               let firstname = document.createElement("td");
-              firstname.appendChild(document.createTextNode(items_in_table[item].fname));
+              firstname.appendChild(document.createTextNode(items_in_table[item].emp_name));
               firstname.classList.add("align-middle");
 
               // defined fixed amount 
@@ -354,20 +374,19 @@ include '../includes/base_page/head.php';
               let actionWrapper = document.createElement("td");
               actionWrapper.classList.add("m-2");
               let action = document.createElement("button");
-              action.setAttribute("id", items_in_table[item]["fname"] + " " + items_in_table[item]["lname"]);
+              action.setAttribute("id", item);
               action.setAttribute("onclick", "removeItem(this.id);");
-              let icon = document.createElement("span");
-              icon.classList.add("fas", "fa-minus", "mt-1");
-              action.appendChild(icon);
+
+              action.appendChild(document.createTextNode("-"));
               action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
-              actionWrapper.appendChild(action);
+              actionWrapper.appendChild(action);;
 
               tr.append(employee_no,
                 firstname,
                 f_amtWrapper,
                 qtyWrapper,
                 rateWrapper,
-                earnings,
+                earningsWrapper,
                 actionWrapper
               );
               table_body.appendChild(tr);
