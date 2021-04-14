@@ -1,5 +1,5 @@
 <script>
-  const root = {
+  const parent_children = {
     assets: {
       code: 1000,
       children_to_add: []
@@ -59,7 +59,7 @@
   }
   window.sessionStorage.setItem("items", JSON.stringify(object_to_array));
 
-  function createChildren(_map) {
+  function createChildren(parent_children) {
     // Begin with root
     for (let key in root) {
       // Add the root
