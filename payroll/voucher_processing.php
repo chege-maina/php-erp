@@ -63,12 +63,10 @@ include '../includes/base_page/head.php';
                 <label class="form-label" for="voucher">Select Voucher Type</label>
                 <select class="form-select" name="voucher" id="voucher">
                   <option value disabled selected>
-                  <option value="1">Journal</option>
-                  <option value="2">Contract</option>
-                  <option value="3">Credit</option>
-                  <option value="3">Debit/option>
-                  <option value="3">Expense</option>
-                  <option value="3">Bank Reconciliation</option>
+                  <option value="journal">Journal</option>
+                  <option value="contract">Contract</option>
+                  <option value="creditdebit">Credit/Debit</option>
+                  <option value="Expense">Expense</option>
                 </select>
               </div>
             </div>

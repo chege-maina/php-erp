@@ -31,9 +31,9 @@
       <div class="input-group">
         <span class="input-group-text is-static">Monthly</span>
         <select name="monthly" id="salary_type" class="form-select">
-          <option value="basic">Basic Pay</option>
-          <option value="consolidated">Consolidated</option>
-          <option value="net">Net Pay</option>
+          <option value="Basic Pay">Basic Pay</option>
+          <option value="Consolidated">Consolidated</option>
+          <option value="Net Pay">Net Pay</option>
         </select>
       </div>
     </div>
@@ -55,8 +55,7 @@
       <label for="income_tax" class="form-label">Income Tax</label>
       <select name="income_tax" id="income_tax" class="form-select">
         <option value="none">NONE</option>
-        <option value="primary">P.A.Y.E Primary Employee</option>
-        <option value="secondary">P.A.Y.E Secondary Employee</option>
+        <option value="primary">P.A.Y.E</option>
       </select>
     </div>
     <div class="col d-flex align-items-end">

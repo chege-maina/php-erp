@@ -147,49 +147,47 @@ include '../includes/base_page/head.php';
   const leave_category = document.querySelector("#leave_category");
   const category = document.querySelector("#category");
   const all_employees = {};
-  const all_leave = {};
+  const select_emp = {};
+  // const all_leave = {};
 
   window.addEventListener('DOMContentLoaded', (event) => {
+
     const formData = new FormData();
 
-    fetch('../payroll/load_bfemployee.php')
+    fetch('../payroll/loadleave.php')
       .then(response => response.json())
       .then(result => {
-        console.log(result)
-        let opt = document.createElement("option");
+        console.log("rasra", result)
+        result.forEach((value) => {
+          let opt = document.createElement("option");
+          opt.appendChild(document.createTextNode("National ID No# " + value["nat"] + "  Employee No# " + value["job"]));
+          opt.value = value["fname"] + " " + value["lname"];
+          all_employees[value["fname"] + " " + value["lname"]] = value;
 
-        result.forEach((employees) => {
-          opt = document.createElement("option");
-          opt.appendChild(document.createTextNode("National ID No# " + employees["nat"] + "  Employee No# " + employees["job"]));
-          opt.value = employees["fname"] + " " + employees["lname"];
-          all_employees[employees["fname"] + " " + employees["lname"]] = employees;
+          select_emp[value['nat'] + " , " + value['job']] = {
+            nat: value.leave,
+          };
+          console.log(select_emp);
           employee.appendChild(opt);
         });
 
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-
-
-    fetch('../payroll/load_leave.php')
-      .then(response => response.json())
-      .then(result => {
-        console.log(result)
         let opt = document.createElement("option");
 
-        result.forEach((leave) => {
+        result.forEach((value) => {
           opt = document.createElement("option");
-          opt.appendChild(document.createTextNode(leave["branch"]));
-          opt.value = leave["branch"];
-          all_leave[leave["branch"]] = leave;
+          opt.appendChild(document.createTextNode(select_emp));
+          opt.value = select_emp[value["leave"]];
+
           category.appendChild(opt);
         });
 
+
       })
+
       .catch((error) => {
         console.error('Error:', error);
       });
+
 
   });
 </script>
