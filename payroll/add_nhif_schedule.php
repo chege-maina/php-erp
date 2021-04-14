@@ -27,6 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_query($conn, $mysql);
   }
 
-  $message = "Schedule " . $quote_no . " Created Successfully..";
+  $message = "Schedule Created Successfully..";
+  echo json_encode($message);
+} else {
+  $message = "No fields";
   echo json_encode($message);
 }
