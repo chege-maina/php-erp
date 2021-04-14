@@ -107,7 +107,7 @@ include '../includes/base_page/head.php';
                     <th scope="col">Fixed Amount</th>
                     <th scope="col">Qty(Days/Hours)</th>
                     <th scope="col">Rate(Ksh/Day or Hour)</th>
-                    <th scope="col">Earnings(Total Kshs)</th>
+                    <th scope="col">Total(Kshs)</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -286,7 +286,7 @@ include '../includes/base_page/head.php';
               f_amt.setAttribute("type", "number");
               f_amt.setAttribute("required", "");
               f_amt.classList.add("form-control", "form-control-sm", "align-middle");
-              f_amt.setAttribute("data-ref", items_in_table[item]["name"]);
+              f_amt.setAttribute("data-ref", items_in_table[item]["emp_no"]);
               f_amt.setAttribute("min", 0);
               f_amt.setAttribute("max", items_in_table[item]['max']);
 
@@ -304,115 +304,65 @@ include '../includes/base_page/head.php';
 
               // Define Quantity 
 
-              let qty = document.createElement("td");
-              qty.setAttribute("id", "td-" + items_in_table[item]["emp_no"]);
-              items_in_table[item]["qty"] =
-                (((Number(items_in_table[item]["tax"]) / 100) + 1) *
-                  Number(items_in_table[item]["quantity"]) *
-                  Number(items_in_table[item]["price"])).toFixed(2);
-              qty.appendChild(document.createTextNode(items_in_table[item]["qty"]));
-              qty.classList.add("align-middle");
-
-              // do not forget this 
-
 
               let qty = document.createElement("input");
+              qty.id = "qtt" + r_id;
               qty.setAttribute("type", "number");
               qty.setAttribute("required", "");
               qty.classList.add("form-control", "form-control-sm", "align-middle");
-              // qty.setAttribute("data-ref", items_in_table[item]["name"]);
+              qty.setAttribute("data-ref", items_in_table[item]["emp_no"]);
               qty.setAttribute("min", 0);
-              // qty.setAttribute("max", items_in_table[item]['max']);
+              qty.setAttribute("max", items_in_table[item]['max']);
 
               // make sure the qty is always greater than 0
-              // qty.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
-              // qty.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
+              qty.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+              qty.setAttribute("onkeyup", "addQuantity(this.dataset.ref, this.value, this.max, this);");
               qty.setAttribute("onclick", "this.select();");
-              items_in_table[item]['amount'] = ('amount' in items_in_table[item] && items_in_table[item]['qty'] >= 0) ?
-                items_in_table[item]['amount'] : 0;
-              qty.value = items_in_table[item]['amount'];
-
-              qty.addEventListener("input", (event) => {
-                items_in_table[item].qty = Number(event.target.value);
-              })
+              items_in_table[item]['qty'] = ('qty' in items_in_table[item] && items_in_table[item]['qty'] >= 0) ?
+                items_in_table[item]['qty'] : 0;
+              qty.value = items_in_table[item]['qty'];
               let qtyWrapper = document.createElement("td");
-              qtyWrapper.classList.add("m-2", "col-2");
+              qtyWrapper.classList.add("m-2", "col-md-2");
               qtyWrapper.appendChild(qty);
 
               // Define Rate 
 
-
-              let rate = document.createElement("td");
-              rate.setAttribute("id", "td-" + items_in_table[item]["emp_no"]);
-              items_in_table[item]["rate"] =
-                (((Number(items_in_table[item]["tax"]) / 100) + 1) *
-                  Number(items_in_table[item]["quantity"]) *
-                  Number(items_in_table[item]["price"])).toFixed(2);
-              rate.appendChild(document.createTextNode(items_in_table[item]["rate"]));
-              rate.classList.add("align-middle");
-
-              // Do not forget  rate as well 
-
               // CONTINUE FROM HERE RUTH
 
               let rate = document.createElement("input");
+              rate.id = "qtt" + r_id;
               rate.setAttribute("type", "number");
               rate.setAttribute("required", "");
               rate.classList.add("form-control", "form-control-sm", "align-middle");
-              // rate.setAttribute("data-ref", items_in_table[item]["name"]);
+              rate.setAttribute("data-ref", items_in_table[item]["emp_no"]);
               rate.setAttribute("min", 0);
-              // rate.setAttribute("max", items_in_table[item]['max']);
+              rate.setAttribute("max", items_in_table[item]['max']);
 
               // make sure the rate is always greater than 0
-              // rate.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
-              // rate.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
+              rate.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+              rate.setAttribute("onkeyup", "addQuantity(this.dataset.ref, this.value, this.max, this);");
               rate.setAttribute("onclick", "this.select();");
-              items_in_table[item]['amount'] = ('amount' in items_in_table[item] && items_in_table[item]['rate'] >= 0) ?
-                items_in_table[item]['amount'] : 0;
-              rate.value = items_in_table[item]['amount'];
-
-              rate.addEventListener("input", (event) => {
-                items_in_table[item].rate = Number(event.target.value);
-              })
+              items_in_table[item]['rate'] = ('rate' in items_in_table[item] && items_in_table[item]['rate'] >= 0) ?
+                items_in_table[item]['rate'] : 0;
+              rate.value = items_in_table[item]['rate'];
               let rateWrapper = document.createElement("td");
-              rateWrapper.classList.add("m-2", "col-2");
+              rateWrapper.classList.add("m-2", "col-md-2");
               rateWrapper.appendChild(rate);
 
               // earnings 
 
-              let qty = document.createElement("td");
-              qty.setAttribute("id", "td-" + items_in_table[item]["emp_no"]);
-              items_in_table[item]["qty"] =
-                (((Number(items_in_table[item]["tax"]) / 100) + 1) *
-                  Number(items_in_table[item]["quantity"]) *
-                  Number(items_in_table[item]["price"])).toFixed(2);
-              qty.appendChild(document.createTextNode(items_in_table[item]["qty"]));
-              qty.classList.add("align-middle");
 
-              //do not forget this rate  
+              let earnings = document.createElement("td");
+              earnings.setAttribute("id", "td-" + items_in_table[item]["emp_no"]);
+              items_in_table[item]["earnings"] =
+                (Number(items_in_table[item]["f_amt"]) + (
+                  Number(items_in_table[item]["qty"]) *
+                  Number(items_in_table[item]["rate"])).toFixed(2));
+              earnings.appendChild(document.createTextNode(items_in_table[item]["earnings"]));
+              earnings.classList.add("align-middle");
 
-              let earnings = document.createElement("input");
-              earnings.setAttribute("type", "number");
-              earnings.setAttribute("required", "");
-              earnings.classList.add("form-control", "form-control-sm", "align-middle");
-              // earnings.setAttribute("data-ref", items_in_table[item]["name"]);
-              earnings.setAttribute("min", 0);
-              // earnings.setAttribute("max", items_in_table[item]['max']);
+              // do not forget this earnings 
 
-              // make sure the earnings is always greater than 0
-              // earnings.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
-              // earnings.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
-              earnings.setAttribute("onclick", "this.select();");
-              items_in_table[item]['amount'] = ('amount' in items_in_table[item] && items_in_table[item]['earnings'] >= 0) ?
-                items_in_table[item]['amount'] : 0;
-              earnings.value = items_in_table[item]['amount'];
-
-              earnings.addEventListener("input", (event) => {
-                items_in_table[item].earnings = Number(event.target.value);
-              })
-              let earningsWrapper = document.createElement("td");
-              earningsWrapper.classList.add("m-2", "col-2");
-              earningsWrapper.appendChild(earnings);
               // end of editable values 
 
 
@@ -431,7 +381,7 @@ include '../includes/base_page/head.php';
                 f_amtWrapper,
                 qtyWrapper,
                 rateWrapper,
-                earningsWrapper,
+                earnings,
                 actionWrapper
               );
               table_body.appendChild(tr);
@@ -439,6 +389,55 @@ include '../includes/base_page/head.php';
             }
             return;
           }
+
+          function addQuantity(item, value, max, elem) {
+            value = Number(value);
+            max = Number(max);
+            value = value <= 0 ? 1 : value;
+            value = value > max ? max : value;
+
+            //const unit = document.getElementById("sel_s_s_s_" + elem.id.split("_s_s_s_")[1]).value;
+            //  const price_widget = document.getElementById("prc_s_s_s_" + elem.id.split("_s_s_s_")[1]);
+            //  console.log("Unit: ", unit, items_in_table);
+
+            for (key in items_in_table) {
+              if (items_in_table[key]['emp_no'] === item) {
+
+                //  const price_key = items_in_table[key].atomic_unit == unit ? "price" : "bs_price";
+                //  items_in_table[key]['current_unit'] = items_in_table[key].atomic_unit == unit ?
+                //    "atomic_unit" : "unit";
+                //  price_widget.innerHTML = "";
+                //  price_widget.appendChild(document.createTextNode(items_in_table[key][price_key]));
+
+                items_in_table[key]['qty'] = value;
+                items_in_table[key]['rate'] = value;
+                items_in_table[key]['f_amt'] = value;
+
+
+                // Update tax calculations
+                items_in_table[item]["earnings"] =
+                  (Number(items_in_table[item]["f_amt"]) + (
+                    Number(items_in_table[item]["qty"]) *
+                    Number(items_in_table[item]["rate"])).toFixed(2));
+                const total_td = document.querySelector("#td-" + items_in_table[key]["emp_no"]);
+                total_td.innerHTML = "";
+                total_td.appendChild(document.createTextNode(items_in_table[key]["earnings"]));
+              }
+            }
+            //   cumulative_total();
+          }
+
+
+          // let cumulative_total = () => {
+
+          //       let quotation_total = 0;
+          //      items_in_table.forEach(item => {
+          //       console.log("Yaaah", item);
+
+          //     quotation_total += Number(item.earnings);
+          //   });
+
+          // }
 
 
           function removeItem(item) {
