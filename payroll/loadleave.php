@@ -22,7 +22,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     array_push(
       $response2,
       array(
-        'leave' => $row['empleave']
+        'leave' => $row2['empleave']
       )
     );
   }
