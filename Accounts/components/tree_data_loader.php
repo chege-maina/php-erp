@@ -66,8 +66,6 @@
   window.sessionStorage.clear();
   window.sessionStorage.setItem("items", JSON.stringify(items_to_show));
 
-
-  console.clear();
   const root = {
     assets: {
       code: 1000,
@@ -105,7 +103,13 @@
       children_to_add: [{
         name: 'force'
       }, {
-        name: 'man'
+        name: 'mean'
+      }]
+    },
+    mean: {
+      code: 1400,
+      children_to_add: [{
+        name: 'chili'
       }]
     },
   };
@@ -114,6 +118,8 @@
   const index = {};
 
   createChildren(root);
+
+
 
 
   const object_to_array = [];
@@ -176,6 +182,34 @@
                   j_child.name,
                   k_child.name,
                 ];
+
+                if (k_child.name in root) {
+                  created_object[key].children[i].children[j].children[k][
+                    'code'
+                  ] = root[k_child.name].code;
+                  for (
+                    let l = 0; l < root[k_child.name].children_to_add.length; l++
+                  ) {
+                    const l_child = root[k_child.name].children_to_add[l];
+                    created_object[key].children[i].children[j].children[
+                      k
+                    ].children.push({
+                      name: l_child.name,
+                      children: [],
+                    });
+                    // Add it to index
+                    index[j_child.name] = [
+                      key,
+                      i_child.name,
+                      j_child.name,
+                      k_child.name,
+                      l_child.name,
+                    ];
+                  }
+                  // We've added the child, delete it from root
+                  delete root[k_child.name];
+                }
+                // Add the next k_child
               }
               // We've added j_child's children, now delete it from root
               delete root[j_child.name];
@@ -189,7 +223,4 @@
       }
     }
   }
-
-  console.log(JSON.stringify(created_object, null, 4));
-  // console.log(JSON.stringify(index, null, 2));
 </script>
