@@ -118,6 +118,16 @@ include '../includes/base_page/head.php';
           </div>
         </div>
 
+        <div class="card mt-1">
+          <div class="card-body fs--1 p-1">
+            <div class="d-flex flex-row-reverse">
+              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitForm();">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+
         <?php
         include '../includes/base_page/footer.php';
         ?>
@@ -269,32 +279,42 @@ include '../includes/base_page/head.php';
               firstname.classList.add("align-middle");
 
               // defined fixed amount 
+              let r_id = "_s_s_s_" + uuidv4();
 
               let f_amt = document.createElement("input");
+              f_amt.id = "qtt" + r_id;
               f_amt.setAttribute("type", "number");
               f_amt.setAttribute("required", "");
               f_amt.classList.add("form-control", "form-control-sm", "align-middle");
-              // f_amt.setAttribute("data-ref", items_in_table[item]["name"]);
+              f_amt.setAttribute("data-ref", items_in_table[item]["name"]);
               f_amt.setAttribute("min", 0);
-              // f_amt.setAttribute("max", items_in_table[item]['max']);
+              f_amt.setAttribute("max", items_in_table[item]['max']);
 
               // make sure the f_amt is always greater than 0
-              // f_amt.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
-              // f_amt.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
+              f_amt.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+              f_amt.setAttribute("onkeyup", "addQuantity(this.dataset.ref, this.value, this.max, this);");
               f_amt.setAttribute("onclick", "this.select();");
-              items_in_table[item]['amount'] = ('amount' in items_in_table[item] && items_in_table[item]['f_amt'] >= 0) ?
-                items_in_table[item]['amount'] : 0;
-              f_amt.value = items_in_table[item]['amount'];
-
-              f_amt.addEventListener("input", (event) => {
-                items_in_table[item].f_amt = Number(event.target.value);
-              })
+              items_in_table[item]['f_amt'] = ('f_amt' in items_in_table[item] && items_in_table[item]['f_amt'] >= 0) ?
+                items_in_table[item]['f_amt'] : 0;
+              f_amt.value = items_in_table[item]['f_amt'];
               let f_amtWrapper = document.createElement("td");
-              f_amtWrapper.classList.add("m-2", "col-2");
+              f_amtWrapper.classList.add("m-2", "col-md-2");
               f_amtWrapper.appendChild(f_amt);
 
 
               // Define Quantity 
+
+              let qty = document.createElement("td");
+              qty.setAttribute("id", "td-" + items_in_table[item]["emp_no"]);
+              items_in_table[item]["qty"] =
+                (((Number(items_in_table[item]["tax"]) / 100) + 1) *
+                  Number(items_in_table[item]["quantity"]) *
+                  Number(items_in_table[item]["price"])).toFixed(2);
+              qty.appendChild(document.createTextNode(items_in_table[item]["qty"]));
+              qty.classList.add("align-middle");
+
+              // do not forget this 
+
 
               let qty = document.createElement("input");
               qty.setAttribute("type", "number");
@@ -322,6 +342,16 @@ include '../includes/base_page/head.php';
               // Define Rate 
 
 
+              let rate = document.createElement("td");
+              rate.setAttribute("id", "td-" + items_in_table[item]["emp_no"]);
+              items_in_table[item]["rate"] =
+                (((Number(items_in_table[item]["tax"]) / 100) + 1) *
+                  Number(items_in_table[item]["quantity"]) *
+                  Number(items_in_table[item]["price"])).toFixed(2);
+              rate.appendChild(document.createTextNode(items_in_table[item]["rate"]));
+              rate.classList.add("align-middle");
+
+              // Do not forget  rate as well 
 
               // CONTINUE FROM HERE RUTH
 
@@ -349,6 +379,17 @@ include '../includes/base_page/head.php';
               rateWrapper.appendChild(rate);
 
               // earnings 
+
+              let qty = document.createElement("td");
+              qty.setAttribute("id", "td-" + items_in_table[item]["emp_no"]);
+              items_in_table[item]["qty"] =
+                (((Number(items_in_table[item]["tax"]) / 100) + 1) *
+                  Number(items_in_table[item]["quantity"]) *
+                  Number(items_in_table[item]["price"])).toFixed(2);
+              qty.appendChild(document.createTextNode(items_in_table[item]["qty"]));
+              qty.classList.add("align-middle");
+
+              //do not forget this rate  
 
               let earnings = document.createElement("input");
               earnings.setAttribute("type", "number");

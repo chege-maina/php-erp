@@ -55,7 +55,7 @@ include '../includes/base_page/head.php';
                 <input type="number" name="adv_year" id="adv_year" class="form-control" required>
                 <div class="invalid-feedback">This field cannot be left blank.</div>
               </div>
-              <div class="col col-auto my-4">
+              <div class="col-auto ml-auto p-2 my-4">
                 <button type="button" class="form-control btn btn-sm btn-primary" onclick="addItem();">
                   Add Row
                 </button>
@@ -103,6 +103,8 @@ include '../includes/base_page/head.php';
 <script>
   const items_in_table = {};
   const c_table_body = document.querySelector("#c_table_body");
+
+  const adv_year = document.querySelector("#adv_year");
 
   function updateTable() {
     c_table_body.innerHTML = "";

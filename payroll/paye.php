@@ -48,14 +48,19 @@ include '../includes/base_page/head.php';
 
           <div class="card-body fs--1 p-4 position-relative">
 
-            <div class="row justify-content-between">
+            <div class="row ">
 
-              <div class="col col-md-2">
+              <div class="col col-lg-2">
                 <label for="#" class="form-label">Insert Year</label>
                 <input type="number" name="adv_year" id="adv_year" class="form-control" required>
                 <div class="invalid-feedback">This field cannot be left blank.</div>
               </div>
-              <div class="col col-auto my-4">
+              <div class="col col-md-2">
+                <label for="#" class="form-label">Personal Relief</label>
+                <input type="number" name="relief" id="relief" class="form-control" required>
+                <div class="invalid-feedback">This field cannot be left blank.</div>
+              </div>
+              <div class="col-auto ml-auto p-2 my-4">
                 <button type="button" class="form-control btn btn-sm btn-primary" onclick="addItem();">
                   Add Row
                 </button>
@@ -102,6 +107,9 @@ include '../includes/base_page/head.php';
       <script>
         const items_in_table = {};
         const c_table_body = document.querySelector("#c_table_body");
+
+        const adv_year = document.querySelector("#adv_year");
+        const relief = document.querySelector("#relief");
 
         function updateTable() {
           c_table_body.innerHTML = "";
@@ -268,10 +276,15 @@ include '../includes/base_page/head.php';
             return;
           }
 
+          if (!relief.value) {
+            return;
+          }
+
           let tmp_obj = getItems();
 
           const formData = new FormData();
           formData.append("year", adv_year.value);
+          formData.append("relief", relief.value);
           for (let key in tmp_obj) {
             formData.append(key, tmp_obj[key]);
           }
