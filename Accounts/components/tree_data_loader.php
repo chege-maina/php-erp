@@ -50,7 +50,7 @@
   const created_object = {};
   const index = {};
 
-  createChildren(root);
+  createChildren(parent_children);
 
 
   const object_to_array = [];
@@ -59,7 +59,7 @@
   }
   window.sessionStorage.setItem("items", JSON.stringify(object_to_array));
 
-  function createChildren(parent_children) {
+  function createChildren(root) {
     // Begin with root
     for (let key in root) {
       // Add the root
