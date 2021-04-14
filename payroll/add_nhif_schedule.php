@@ -16,12 +16,15 @@ function sanitize_input($data)
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
   $desc = sanitize_input($_POST["year"]);
   $table_items = json_decode($_POST["table_items"], true);
 
-  foreach ($table_items as $key => $value) {
 
-    $mysql = "INSERT INTO tbl_nhif (desc, from, to, 
+  foreach ($table_items as $key => $value) {
+    echo $value["from"];
+    echo $desc;
+    $mysql = "INSERT INTO tbl_nhif (descnhif, fromnhif, tonhif, 
   rate) VALUES('" . $desc . "','" . $value["from"] . "',
   '" . $value["to"] . "','" . $value["rate"] . "')";
     mysqli_query($conn, $mysql);
