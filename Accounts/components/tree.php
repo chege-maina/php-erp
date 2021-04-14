@@ -4,7 +4,7 @@
 
 <div id="app">
   <v-app style="background-color: #121E2D00">
-    <v-treeview v-model="tree" :open="initiallyOpen" :items="items" activatable item-key="name" open-on-click>
+    <v-treeview v-model="tree" :open="initiallyOpen" :items="arrayed_tree" activatable item-key="name" open-on-click>
       <template v-slot:prepend="{ item, open }">
         <a @click="itemClicked(item.name)">
           <v-icon v-if="!item.file">
@@ -59,7 +59,7 @@
         txt: 'mdi-file-document-outline',
         xls: 'mdi-file-excel',
       },
-      tree: [],
+      root: [],
       items: [],
     }),
     created() {
@@ -68,7 +68,7 @@
       window.addEventListener("storage", (event) => {
         // If our table data in the session storage has been changed
         if (event.key == 'items') {
-          this.items = JSON.parse(
+          this.root = JSON.parse(
             window.sessionStorage.getItem('items')
           );
         } else if (event.key == 'theme') {
@@ -78,12 +78,118 @@
       });
     },
     mounted() {
-      this.items = JSON.parse(
+      this.root = JSON.parse(
         window.sessionStorage.getItem('items')
       );
 
       const currentTheme = window.localStorage.getItem('theme')
       this.$vuetify.theme.dark = currentTheme === 'dark' ? true : false;
+    },
+    computed: {
+      arrayed_tree: function() {
+        const tree_array = [];
+        for (let key in this.tree) {
+          tree_array.push(this.tree[key]);
+        }
+        return tree_array;
+      },
+      tree: function() {
+        let created_object = {};
+        // Begin with root
+        for (let key in this.root) {
+          // Add the this.root
+          created_object[key] = {
+            code: this.root[key].code,
+            name: key,
+            children: []
+          };
+          // Add it to index
+          index[key] = [key];
+
+          // Check if there are children and add them
+          for (let i = 0; i < this.root[key].children_to_add.length; i++) {
+            const i_child = this.root[key].children_to_add[i];
+            created_object[key].children.push({
+              name: i_child.name,
+              children: [],
+            });
+            // Add it to index
+            index[i_child.name] = [key, i_child.name];
+
+            // Check if the child has children
+            if (i_child.name in this.root) {
+              // It probably has a code, add it
+              created_object[key].children[i]['code'] = this.root[i_child.name].code;
+              for (let j = 0; j < this.root[i_child.name].children_to_add.length; j++) {
+                const j_child = this.root[i_child.name].children_to_add[j];
+                created_object[key].children[i].children.push({
+                  name: j_child.name,
+                  children: [],
+                });
+                // Add it to index
+                index[j_child.name] = [key, i_child.name, j_child.name];
+
+                // Check if j_child has children
+                if (j_child.name in this.root) {
+                  created_object[key].children[i].children[j]['code'] =
+                    this.root[j_child.name].code;
+                  for (
+                    let k = 0; k < this.root[j_child.name].children_to_add.length; k++
+                  ) {
+                    const k_child = this.root[j_child.name].children_to_add[k];
+                    created_object[key].children[i].children[j].children.push({
+                      name: k_child.name,
+                      children: [],
+                    });
+                    // Add it to index
+                    index[k_child.name] = [
+                      key,
+                      i_child.name,
+                      j_child.name,
+                      k_child.name,
+                    ];
+
+                    if (k_child.name in this.root) {
+                      created_object[key].children[i].children[j].children[k][
+                        'code'
+                      ] = this.root[k_child.name].code;
+                      for (
+                        let l = 0; l < this.root[k_child.name].children_to_add.length; l++
+                      ) {
+                        const l_child = this.root[k_child.name].children_to_add[l];
+                        created_object[key].children[i].children[j].children[
+                          k
+                        ].children.push({
+                          name: l_child.name,
+                          children: [],
+                        });
+                        // Add it to index
+                        index[j_child.name] = [
+                          key,
+                          i_child.name,
+                          j_child.name,
+                          k_child.name,
+                          l_child.name,
+                        ];
+                      }
+                      // We've added the child, delete it from this.root
+                      delete this.root[k_child.name];
+                    }
+                    // Add the next k_child
+                  }
+                  // We've added j_child's children, now delete it from this.root
+                  delete this.root[j_child.name];
+                }
+                // Add the next j_child
+              }
+              // We've added i_child's children, now delete it from this.root
+              delete this.root[i_child.name];
+            }
+            // Add the next i_child
+          }
+        }
+        return created_object;
+      },
     },
     methods: {
       itemClicked: function(item) {
