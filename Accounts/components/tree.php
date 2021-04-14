@@ -61,6 +61,7 @@
       },
       root: [],
       items: [],
+      index: [],
     }),
     created() {
       // Init the object that will hold the table values
@@ -103,8 +104,8 @@
             name: key,
             children: []
           };
-          // Add it to index
-          index[key] = [key];
+          // Add it to this.index
+          this.index[key] = [key];
 
           // Check if there are children and add them
           for (let i = 0; i < this.root[key].children_to_add.length; i++) {
@@ -113,8 +114,8 @@
               name: i_child.name,
               children: [],
             });
-            // Add it to index
-            index[i_child.name] = [key, i_child.name];
+            // Add it to this.index
+            this.index[i_child.name] = [key, i_child.name];
 
             // Check if the child has children
             if (i_child.name in this.root) {
@@ -126,8 +127,8 @@
                   name: j_child.name,
                   children: [],
                 });
-                // Add it to index
-                index[j_child.name] = [key, i_child.name, j_child.name];
+                // Add it to this.index
+                this.index[j_child.name] = [key, i_child.name, j_child.name];
 
                 // Check if j_child has children
                 if (j_child.name in this.root) {
@@ -141,8 +142,8 @@
                       name: k_child.name,
                       children: [],
                     });
-                    // Add it to index
-                    index[k_child.name] = [
+                    // Add it to this.index
+                    this.index[k_child.name] = [
                       key,
                       i_child.name,
                       j_child.name,
@@ -163,8 +164,8 @@
                           name: l_child.name,
                           children: [],
                         });
-                        // Add it to index
-                        index[j_child.name] = [
+                        // Add it to this.index
+                        this.index[j_child.name] = [
                           key,
                           i_child.name,
                           j_child.name,
