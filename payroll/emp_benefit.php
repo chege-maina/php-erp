@@ -118,6 +118,10 @@ include '../includes/base_page/head.php';
           </div>
         </div>
 
+        <?php
+        include '../includes/base_page/footer.php';
+        ?>
+
         <!--first script -->
         <script>
           const benefit_select = document.querySelector("#benefit_select");

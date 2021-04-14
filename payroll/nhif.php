@@ -53,6 +53,7 @@ include '../includes/base_page/head.php';
               <div class="col col-md-2">
                 <label for="#" class="form-label">Insert Year</label>
                 <input type="number" name="adv_year" id="adv_year" class="form-control" required>
+                <div class="invalid-feedback">This field cannot be left blank.</div>
               </div>
               <div class="col col-auto my-4">
                 <button type="button" class="form-control btn btn-sm btn-primary" onclick="addItem();">
@@ -76,11 +77,25 @@ include '../includes/base_page/head.php';
                 </table>
               </div>
             </div>
-
           </div>
-
         </div>
+
+        <div class="card mt-1">
+          <div class="card-body fs--1 p-1">
+            <div class="d-flex flex-row-reverse">
+              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitForm();">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Content ends here -->
       </div>
+
+      <?php
+      include '../includes/base_page/footer.php';
+      ?>
+
     </div>
   </main>
 </body>
@@ -215,5 +230,71 @@ include '../includes/base_page/head.php';
     max = Number(max);
     elmt.value = elmt.value <= 0 ? 1 : elmt.value;
     elmt.value = elmt.value > max ? max : elmt.value;
+  }
+</script>
+
+<script>
+  function getItems() {
+    const tmp_obj = {};
+    const nhifs = [];
+    c_table_body.childNodes.forEach(row => {
+
+      const p_from = row.childNodes[0].childNodes[0].value;
+      const p_to = row.childNodes[1].childNodes[0].value;
+      const p_rate = row.childNodes[2].childNodes[0].value;
+
+
+      nhifs.push({
+        from: p_from,
+        to: p_to,
+        rate: p_rate,
+
+      });
+    });
+
+    console.log("submitting", nhifs);
+
+    tmp_obj["table_items"] = JSON.stringify(nhifs);
+    console.log("==================================");
+    console.log(tmp_obj);
+    console.log("==================================");
+
+    return tmp_obj
+  }
+
+  function submitForm() {
+
+    if (!adv_year.value) {
+      return;
+    }
+
+    let tmp_obj = getItems();
+
+    const formData = new FormData();
+    formData.append("year", adv_year.value);
+    for (let key in tmp_obj) {
+      formData.append(key, tmp_obj[key]);
+    }
+
+    // fetch goes here
+
+    fetch('#.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(result => {
+        console.log('Success:', result);
+
+        // setTimeout(function() {
+        //   location.reload();
+        // }, 2500);
+
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
+    return false;
   }
 </script>

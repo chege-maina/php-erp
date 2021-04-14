@@ -134,6 +134,11 @@ include '../includes/base_page/head.php';
           </div>
         </div>
       </div>
+
+      <?php
+      include '../includes/base_page/footer.php';
+      ?>
+
     </div>
   </main>
 </body>
