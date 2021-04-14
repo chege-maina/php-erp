@@ -115,6 +115,13 @@
 
   createChildren(root);
 
+
+  const object_to_array = [];
+  for (let key in created_object) {
+    object_to_array.push(created_object[key]);
+  }
+  window.sessionStorage.setItem("items", JSON.stringify(object_to_array));
+
   function createChildren(_map) {
     // Begin with root
     for (let key in root) {
@@ -184,8 +191,5 @@
   }
 
   console.log(JSON.stringify(created_object, null, 4));
-  console.log('\n\n=============================================');
-  console.log('=============================================');
-  console.log('=============================================\n\n');
   // console.log(JSON.stringify(index, null, 2));
 </script>
