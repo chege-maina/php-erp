@@ -26,12 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   '" . $value["to"] . "','" . $value["rate"] . "')";
     mysqli_query($conn, $mysql);
   }
-  if (strcmp($checker, 'from quote') == 0) {
-    $sql1 = "UPDATE tbl_quotation_items SET status = 'done' WHERE quote_no = '" . $quotation_no . "'";
-    $sql = "UPDATE tbl_quotation SET status = 'done' WHERE quote_no = '" . $quotation_no . "'";
-    mysqli_query($conn, $sql);
-    mysqli_query($conn, $sql1);
-  }
-  $message = "Sales Order " . $quote_no . " Created Successfully..";
+
+  $message = "Schedule " . $quote_no . " Created Successfully..";
   echo json_encode($message);
 }
