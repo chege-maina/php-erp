@@ -148,7 +148,6 @@ include '../includes/base_page/head.php';
             }
             const benefit_var = employee_benefits[benefit_select.value].benefit;
             const type_var = employee_benefits[benefit_select.value].type;
-            console.log(`Rasta is the truth: ${benefit_var} : ${type_var}`);
 
             const select = {
 
@@ -188,7 +187,6 @@ include '../includes/base_page/head.php';
                 // removeSpinner();
               });
               // console.log("hohoho", benefit_select);
-              console.log("fill me", employee_benefits);
             });
 
           function updateBranchSelect() {
@@ -260,10 +258,8 @@ include '../includes/base_page/head.php';
           }
 
           function updateTable() {
-            console.log("Rasta ", items_in_table);
             table_body.innerHTML = "";
             for (let item in items_in_table) {
-              console.log("Jah");
 
               let tr = document.createElement("tr");
               // Id will be like 1Tank
@@ -282,7 +278,7 @@ include '../includes/base_page/head.php';
               let r_id = "_s_s_s_" + uuidv4();
 
               let f_amt = document.createElement("input");
-              f_amt.id = "qtt" + r_id;
+              f_amt.id = "famt" + r_id;
               f_amt.setAttribute("type", "number");
               f_amt.setAttribute("required", "");
               f_amt.classList.add("form-control", "form-control-sm", "align-middle");
@@ -292,7 +288,8 @@ include '../includes/base_page/head.php';
 
               // make sure the f_amt is always greater than 0
               //  f_amt.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
-              f_amt.setAttribute("onkeyup", "addQuantity(this.dataset.ref, this.value, this.max, this);");
+              f_amt.setAttribute("onkeyup", "calculateEarnings(this.dataset.ref, this.id);");
+              f_amt.setAttribute("onchange", "calculateEarnings(this.dataset.ref, this.id);");
               f_amt.setAttribute("onclick", "this.select();");
               items_in_table[item]['f_amt'] = ('f_amt' in items_in_table[item] && items_in_table[item]['f_amt'] >= 0) ?
                 items_in_table[item]['f_amt'] : 0;
@@ -306,7 +303,7 @@ include '../includes/base_page/head.php';
 
 
               let qty = document.createElement("input");
-              qty.id = "qtt" + r_id;
+              qty.id = "qty" + r_id;
               qty.setAttribute("type", "number");
               qty.setAttribute("required", "");
               qty.classList.add("form-control", "form-control-sm", "align-middle");
@@ -316,7 +313,8 @@ include '../includes/base_page/head.php';
 
               // make sure the qty is always greater than 0
               //   qty.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
-              qty.setAttribute("onkeyup", "addQuantity(this.dataset.ref, this.value, this.max, this);");
+              qty.setAttribute("onkeyup", "calculateEarnings(this.dataset.ref, this.id);");
+              qty.setAttribute("onchange", "calculateEarnings(this.dataset.ref, this.id);");
               qty.setAttribute("onclick", "this.select();");
               items_in_table[item]['qty'] = ('qty' in items_in_table[item] && items_in_table[item]['qty'] >= 0) ?
                 items_in_table[item]['qty'] : 0;
@@ -327,10 +325,9 @@ include '../includes/base_page/head.php';
 
               // Define Rate 
 
-              // CONTINUE FROM HERE RUTH
 
               let rate = document.createElement("input");
-              rate.id = "qtt" + r_id;
+              rate.id = "rate" + r_id;
               rate.setAttribute("type", "number");
               rate.setAttribute("required", "");
               rate.classList.add("form-control", "form-control-sm", "align-middle");
@@ -340,7 +337,8 @@ include '../includes/base_page/head.php';
 
               // make sure the rate is always greater than 0
               //  rate.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
-              rate.setAttribute("onkeyup", "addQuantity(this.dataset.ref, this.value, this.max, this);");
+              rate.setAttribute("onkeyup", "calculateEarnings(this.dataset.ref, this.id);");
+              rate.setAttribute("onchange", "calculateEarnings(this.dataset.ref, this.id);");
               rate.setAttribute("onclick", "this.select();");
               items_in_table[item]['rate'] = ('rate' in items_in_table[item] && items_in_table[item]['rate'] >= 0) ?
                 items_in_table[item]['rate'] : 0;
@@ -353,7 +351,8 @@ include '../includes/base_page/head.php';
 
 
               let earnings = document.createElement("td");
-              earnings.setAttribute("id", "td-" + items_in_table[item]["emp_no"]);
+              earnings.id = "earnings" + r_id;
+              // earnings.setAttribute("id", "td-" + items_in_table[item]["emp_no"]);
               items_in_table[item]["earnings"] = ((Number(items_in_table[item]["f_amt"])) + (Number(items_in_table[item]["qty"]) * Number(items_in_table[item]["rate"]))).toFixed(2);
               earnings.appendChild(document.createTextNode(items_in_table[item]["earnings"]));
               earnings.classList.add("align-middle");
@@ -387,7 +386,32 @@ include '../includes/base_page/head.php';
             return;
           }
 
-          function addQuantity(item, value, max, elem) {
+          function calculateEarnings(item, id) {
+            // Get the UUID
+            const uuid = id.split("_s_s_s_")[1];
+            console.log("jjs", item, id, uuid);
+            let f_amt = "famt" + "_s_s_s_" + uuid;
+            let qty = "qty" + "_s_s_s_" + uuid;
+            let rate = "rate" + "_s_s_s_" + uuid;
+            let earnings = "earnings" + "_s_s_s_" + uuid;
+
+            f_amt = document.querySelector("#" + f_amt);
+            qty = document.querySelector("#" + qty);
+            rate = document.querySelector("#" + rate);
+            earnings = document.querySelector("#" + earnings);
+
+            if (Number(f_amt.value) > 0) {
+              console.log("asdfasdfasdfasdfad");
+              qty.value = 0;
+              rate.value = 0;
+              qty.setAttribute("readonly", "");
+              rate.setAttribute("readonly", "");
+            } else {
+
+              qty.removeAttribute("readonly");
+              rate.removeAttribute("readonly");
+            }
+            return;
             value = Number(value);
             max = Number(max);
             value = value <= 0 ? 1 : value;
