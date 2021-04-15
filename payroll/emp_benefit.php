@@ -405,14 +405,17 @@ include '../includes/base_page/head.php';
               console.log("asdfasdfasdfasdfad");
               qty.value = 0;
               rate.value = 0;
-              earnings_val = Number(f_amt.value);
-
               qty.setAttribute("readonly", "");
               rate.setAttribute("readonly", "");
-            } else {
 
+              // The earning is the f_amt 
+              earnings_val = Number(f_amt.value);
+            } else {
               qty.removeAttribute("readonly");
               rate.removeAttribute("readonly");
+
+              // The earning is a function of qty and rate
+              earnings_val = Number(qty.value) * Number(rate.value)
             }
             earnings.innerHTML = numberWithCommas(earnings_val);
 
