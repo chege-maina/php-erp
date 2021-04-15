@@ -4,11 +4,11 @@
 
 <div id="app">
   <v-app style="background-color: #121E2D00">
-    <v-treeview v-model="tree" :open="initiallyOpen" :items="arrayed_tree" activatable item-key="name" open-on-click>
+    <v-treeview :open="initiallyOpen" :items="arrayed_tree" activatable item-key="name" open-on-click>
       <template v-slot:prepend="{ item, open }">
         <a @click="itemClicked(item.name)">
           <v-icon v-if="!item.file">
-            {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
+            {{ open ? "mdi-folder-open" : "mdi-folder" }}
           </v-icon>
           <v-icon v-else>
             {{ files[item.file] }}
@@ -16,14 +16,11 @@
           <span v-if="item.code" class="font-weight-thin">
             {{ item.code }}
           </span>
-
         </a>
       </template>
-      <template v-slot:append="{ item, open }">
+      <template v-slot:append="{ item }">
         <a @click="itemClicked(item.name)">
-          <span v-if="!item.value">
-            0
-          </span>
+          <span v-if="!item.value"> 0 </span>
           <span v-else>
             {{ item.value }}
           </span>
@@ -46,45 +43,42 @@
         dark: false,
       },
     }),
+
     data: () => ({
-      initiallyOpen: ['public'],
+      initiallyOpen: ["public"],
       darkTheme: false,
       files: {
-        html: 'mdi-language-html5',
-        js: 'mdi-nodejs',
-        json: 'mdi-code-json',
-        md: 'mdi-language-markdown',
-        pdf: 'mdi-file-pdf',
-        png: 'mdi-file-image',
-        txt: 'mdi-file-document-outline',
-        xls: 'mdi-file-excel',
+        html: "mdi-language-html5",
+        js: "mdi-nodejs",
+        json: "mdi-code-json",
+        md: "mdi-language-markdown",
+        pdf: "mdi-file-pdf",
+        png: "mdi-file-image",
+        txt: "mdi-file-document-outline",
+        xls: "mdi-file-excel",
       },
       root: [],
       items: [],
-      index: [],
+      index: {},
     }),
     created() {
       // Init the object that will hold the table values
       // this.items = this.body_object;
       window.addEventListener("storage", (event) => {
         // If our table data in the session storage has been changed
-        if (event.key == 'items') {
-          this.root = JSON.parse(
-            window.sessionStorage.getItem('items')
-          );
-        } else if (event.key == 'theme') {
-          const currentTheme = window.localStorage.getItem('theme')
-          this.$vuetify.theme.dark = currentTheme === 'dark' ? true : false;
+        if (event.key == "items") {
+          this.root = JSON.parse(window.sessionStorage.getItem("items"));
+        } else if (event.key == "theme") {
+          const currentTheme = window.localStorage.getItem("theme");
+          this.$vuetify.theme.dark = currentTheme === "dark" ? true : false;
         }
       });
     },
     mounted() {
-      this.root = JSON.parse(
-        window.sessionStorage.getItem('items')
-      );
+      this.root = JSON.parse(window.sessionStorage.getItem("items"));
 
-      const currentTheme = window.localStorage.getItem('theme')
-      this.$vuetify.theme.dark = currentTheme === 'dark' ? true : false;
+      const currentTheme = window.localStorage.getItem("theme");
+      this.$vuetify.theme.dark = currentTheme === "dark" ? true : false;
     },
     computed: {
       arrayed_tree: function() {
@@ -95,15 +89,19 @@
         return tree_array;
       },
       tree: function() {
+        return this.getTreeObject();
+      },
+    },
+    methods: {
+      getTreeObject: function() {
         let created_object = {};
-        return created_object;
         // Begin with root
         for (let key in this.root) {
           // Add the this.root
           created_object[key] = {
             code: this.root[key].code,
             name: key,
-            children: []
+            children: [],
           };
           // Add it to this.index
           this.index[key] = [key];
@@ -121,8 +119,12 @@
             // Check if the child has children
             if (i_child.name in this.root) {
               // It probably has a code, add it
-              created_object[key].children[i]['code'] = this.root[i_child.name].code;
-              for (let j = 0; j < this.root[i_child.name].children_to_add.length; j++) {
+              created_object[key].children[i]["code"] = this.root[
+                i_child.name
+              ].code;
+              for (
+                let j = 0; j < this.root[i_child.name].children_to_add.length; j++
+              ) {
                 const j_child = this.root[i_child.name].children_to_add[j];
                 created_object[key].children[i].children.push({
                   name: j_child.name,
@@ -133,8 +135,9 @@
 
                 // Check if j_child has children
                 if (j_child.name in this.root) {
-                  created_object[key].children[i].children[j]['code'] =
-                    this.root[j_child.name].code;
+                  created_object[key].children[i].children[j]["code"] = this.root[
+                    j_child.name
+                  ].code;
                   for (
                     let k = 0; k < this.root[j_child.name].children_to_add.length; k++
                   ) {
@@ -153,12 +156,14 @@
 
                     if (k_child.name in this.root) {
                       created_object[key].children[i].children[j].children[k][
-                        'code'
+                        "code"
                       ] = this.root[k_child.name].code;
                       for (
                         let l = 0; l < this.root[k_child.name].children_to_add.length; l++
                       ) {
-                        const l_child = this.root[k_child.name].children_to_add[l];
+                        const l_child = this.root[k_child.name].children_to_add[
+                          l
+                        ];
                         created_object[key].children[i].children[j].children[
                           k
                         ].children.push({
@@ -192,27 +197,26 @@
         }
         return created_object;
       },
-    },
-    methods: {
       itemClicked: function(item) {
         console.log("You clicked: ", item);
       },
       getTotals: function(tree, level, iteration) {
         const total = 0;
-        if ('children' in tree) {
-          tree.children.forEach(subItem => {
+        if ("children" in tree) {
+          tree.children.forEach((subItem) => {
             this.getTotals(subItem, level + 1, iteration++);
           });
         } else {
-          console.log(`iteration ${iteration}`)
+          console.log(`iteration ${iteration}`);
           console.log(level, " Finale ", tree);
         }
+        return total;
       },
-      buttonClicked: function(item) {
-        this.items.forEach(item => {
+      buttonClicked: function() {
+        this.items.forEach((item) => {
           this.getTotals(item, 0, 1);
         });
       },
     },
-  })
+  });
 </script>
