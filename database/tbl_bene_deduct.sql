@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2021 at 10:20 AM
+-- Generation Time: Apr 15, 2021 at 11:16 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -37,7 +37,8 @@ CREATE TABLE `tbl_bene_deduct` (
   `qty` varchar(100) NOT NULL,
   `rate` varchar(20) NOT NULL,
   `total` varchar(100) NOT NULL,
-  `type` varchar(15) NOT NULL
+  `type` varchar(15) NOT NULL,
+  `status` varchar(15) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
