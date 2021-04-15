@@ -1,6 +1,5 @@
 <template>
   <v-treeview
-    v-model="tree"
     :open="initiallyOpen"
     :items="arrayed_tree"
     activatable
