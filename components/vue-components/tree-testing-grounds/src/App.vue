@@ -1,10 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
+    <v-app-bar app color="primary" dark>
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -38,23 +34,84 @@
     </v-app-bar>
 
     <v-main>
-      <HelloWorld/>
+      <HelloWorld />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import HelloWorld from "./components/HelloWorld";
 
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
     HelloWorld,
   },
-
   data: () => ({
-    //
+    parent_children: {
+      assets: {
+        code: 1000,
+        children_to_add: [],
+      },
+      receivables: {
+        code: 1100,
+        children_to_add: [
+          {
+            name: "boom",
+          },
+          {
+            name: "zeta",
+          },
+        ],
+      },
+      zeta: {
+        code: 1200,
+        children_to_add: [
+          {
+            name: "alpha",
+          },
+          {
+            name: "beta",
+          },
+          {
+            name: "gamma",
+          },
+          {
+            name: "delta",
+          },
+          {
+            name: "epsilon",
+          },
+        ],
+      },
+      delta: {
+        code: 1300,
+        children_to_add: [
+          {
+            name: "force",
+          },
+          {
+            name: "mean",
+          },
+        ],
+      },
+      mean: {
+        code: 1400,
+        children_to_add: [
+          {
+            name: "chili",
+          },
+        ],
+      },
+    },
   }),
+  mounted() {
+    window.sessionStorage.clear();
+    window.sessionStorage.setItem(
+      "items",
+      JSON.stringify(this.parent_children)
+    );
+  },
 };
 </script>
