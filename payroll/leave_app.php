@@ -164,56 +164,22 @@ include '../includes/base_page/head.php';
     fetch('../payroll/loadleave.php')
       .then(response => response.json())
       .then(result => {
-        console.log("rasra", result)
-        result.forEach((value) => {
-          let opt = document.createElement("option");
-          opt.appendChild(document.createTextNode("National ID No# " + value["nat"] + "  Employee No# " + value["job"]));
-          opt.value = value["fname"] + " " + value["lname"];
-          all_employees[value["fname"] + " " + value["lname"]] = value;
-
-          select_emp[value['nat'] + " , " + value['job']] = {
-            nat: value.leave,
-          };
-
-          res = select_emp[value['nat'] + " , " + value['job']] = {
-            nat: value.leave,
-          };
-
-          const mee = select_emp[value['nat'] + " , " + value['job']];
-          const mee2 = mee['nat'];
-          const mee3 = mee2.map(o => o.leave)
-
-
-
-          console.log("the value", value);
-          console.log("the mee", mee);
-          console.log("the mee2", mee2);
-          console.log("the mee3", mee3);
-          console.log("the result", res);
-          console.log("the mother", select_emp);
-          employee.appendChild(opt);
-
-          for (var i = 0; i < mee3.length; i++) {
-            var opt2 = mee3[i];
-            var el = document.createElement("option");
-            el.textContent = opt2;
-            el.value = opt2;
-            category.appendChild(el);
-
-          }
-          console.log("the el", opt2);
-
-
-        });
-
-
-
+        console.log("rasra", result);
+        updateEmployeeDatalist(result);
       })
 
       .catch((error) => {
         console.error('Error:', error);
       });
-
-
   });
+
+  function updateEmployeeDatalist(data) {
+    data.forEach(row => {
+      let opt = document.createElement("option");
+      opt.appendChild(document.createTextNode("National ID No# " + row["nat"] + "  Employee No# " + row["job"]));
+      opt.value = row["fname"] + " " + row["lname"];
+      all_employees[row["fname"] + " " + row["lname"]] = row
+      employee.appendChild(opt);
+    });
+  }
 </script>
