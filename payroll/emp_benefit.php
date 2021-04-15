@@ -389,7 +389,6 @@ include '../includes/base_page/head.php';
           function calculateEarnings(item, id) {
             // Get the UUID
             const uuid = id.split("_s_s_s_")[1];
-            console.log("jjs", item, id, uuid);
             let f_amt = "famt" + "_s_s_s_" + uuid;
             let qty = "qty" + "_s_s_s_" + uuid;
             let rate = "rate" + "_s_s_s_" + uuid;
@@ -402,7 +401,6 @@ include '../includes/base_page/head.php';
             earnings = document.querySelector("#" + earnings);
 
             if (Number(f_amt.value) > 0) {
-              console.log("asdfasdfasdfasdfad");
               qty.value = 0;
               rate.value = 0;
               qty.setAttribute("readonly", "");
@@ -422,9 +420,9 @@ include '../includes/base_page/head.php';
             for (key in items_in_table) {
               if (items_in_table[key]['emp_no'] === item) {
 
-                items_in_table[key]['qty'] = qty.value;
-                items_in_table[key]['rate'] = rate.value;
-                items_in_table[key]['f_amt'] = f_amt.value;
+                items_in_table[key]['qty'] = Number(qty.value);
+                items_in_table[key]['rate'] = Number(rate.value);
+                items_in_table[key]['f_amt'] = Number(f_amt.value);
                 items_in_table[key]['earnings'] = earnings_val;
 
               }
