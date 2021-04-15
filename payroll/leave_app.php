@@ -102,7 +102,7 @@ include '../includes/base_page/head.php';
                 </div>
                 <div class="row my-3">
                   <div class="col">
-                    <label for="duration" class="form-label">Comment </label>
+                    <label for="comment" class="form-label">Comment </label>
                     <textarea class="form-control" id="comment" aria-label="With textarea"></textarea>
                   </div>
                 </div>

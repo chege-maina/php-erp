@@ -124,10 +124,19 @@ include '../includes/base_page/head.php';
                   <tr>
                     <th scope="col">Employee Number</th>
                     <th scope="col">Employee Name </th>
+                    <th scope="col"> Branch </th>
+                    <th scope="col"> Department </th>
                     <th scope="col">Salary</th>
-                    <th scope="col">Total Stationery </th>
-                    <th scope="col">Total Benefit</th>
-                    <th scope="col">Total(Kshs)</th>
+                    <th scope="col">Absenteeism</th>
+                    <th scope="col"> Earnings </th>
+                    <th scope="col"> P.A.Y.E</th>
+                    <th scope="col"> N.S.S.F </th>
+                    <th scope="col"> NHIF </th>
+                    <th scope="col">Salary Advance</th>
+                    <th scope="col"> Loans </th>
+                    <th scope="col"> Other Deductions </th>
+                    <th scope="col"> Net Pay </th>
+                    <th scope="col"> Employee Contributions </th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
