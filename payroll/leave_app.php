@@ -154,6 +154,7 @@ include '../includes/base_page/head.php';
   const category = document.querySelector("#category");
   const all_employees = {};
   const select_emp = {};
+  var res = [];
   // const all_leave = {};
 
   window.addEventListener('DOMContentLoaded', (event) => {
@@ -174,26 +175,35 @@ include '../includes/base_page/head.php';
             nat: value.leave,
           };
 
-          const res = select_emp[value['nat'] + " , " + value['job']] = {
+          res = select_emp[value['nat'] + " , " + value['job']] = {
             nat: value.leave,
           };
 
-          console.log("the national", nat);
+          const mee = select_emp[value['nat'] + " , " + value['job']];
+          const mee2 = mee['nat'];
+
+          const mee3 = mee2.map(({
+            leave
+          }) => leave);
+
 
           console.log("the value", value);
-
+          console.log("the mee", mee);
+          console.log("the mee2", mee2);
+          console.log("the mee3", mee3);
           console.log("the result", res);
           console.log("the mother", select_emp);
           employee.appendChild(opt);
 
-          let opt2 = document.createElement("option");
-          result.forEach((value) => {
-            opt2 = document.createElement("option");
-            opt2.appendChild(document.createTextNode());
-            opt2.value = value["leave"];
+          for (var i = 0; i < mee3; i++) {
+            var opt2 = mee3[i];
+            var el = document.createElement("option");
+            el.textContent = opt2;
+            el.value = opt2;
+            category.appendChild(el);
 
-            category.appendChild(opt2);
-          });
+          }
+          console.log("the el", opt2);
 
 
         });
