@@ -17,19 +17,22 @@ function sanitize_input($data)
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  $desc = sanitize_input($_POST["year"]);
+  $type = sanitize_input($_POST["type"]);
+  $benefit = sanitize_input($_POST["benefit"]);
+  $month = sanitize_input($_POST["month"]);
+  $year = sanitize_input($_POST["year"]);
   $table_items = json_decode($_POST["table_items"], true);
 
 
   foreach ($table_items as $key => $value) {
 
-    $mysql = "INSERT INTO tbl_nhif (descnhif, fromnhif, tonhif, 
-  rate) VALUES('" . $desc . "','" . $value["from"] . "',
-  '" . $value["to"] . "','" . $value["rate"] . "')";
+    $mysql = "INSERT INTO tbl_bene_deduct (benefit, b_month, b_year, emp_no, name, fixed, qty, rate, total, type)
+     VALUES('" . $benefit . "','" . $month . "','" . $year . "','" . $value["emp_no"] . "','" . $value["emp_name"] . "',
+  '" . $value["f_amt"] . "','" . $value["qty"] . "','" . $value["rate"] . "','" . $value["earnings"] . "','" . $type . "',)";
     mysqli_query($conn, $mysql);
   }
 
-  $message = "Schedule Created Successfully..";
+  $message = "Created Successfully..";
   echo json_encode($message);
 } else {
   $message = "No fields";
