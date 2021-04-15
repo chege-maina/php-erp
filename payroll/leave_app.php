@@ -174,25 +174,30 @@ include '../includes/base_page/head.php';
             nat: value.leave,
           };
 
+          const res = select_emp[value['nat'] + " , " + value['job']] = {
+            nat: value.leave,
+          };
+
+          console.log("the national", nat);
+
+          console.log("the value", value);
+
+          console.log("the result", res);
           console.log("the mother", select_emp);
           employee.appendChild(opt);
+
+          let opt2 = document.createElement("option");
+          result.forEach((value) => {
+            opt2 = document.createElement("option");
+            opt2.appendChild(document.createTextNode());
+            opt2.value = value["leave"];
+
+            category.appendChild(opt2);
+          });
+
+
         });
 
-        let opt = document.createElement("option");
-
-
-        result.forEach((value) => {
-          opt = document.createElement("option");
-          opt.appendChild(document.createTextNode(
-            select_emp.value(({
-              nat
-            }) => nat)
-          ));
-          opt.value =
-
-            console.log("hello", opt);
-          category.appendChild(opt);
-        });
 
 
       })
