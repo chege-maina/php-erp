@@ -419,31 +419,16 @@ include '../includes/base_page/head.php';
             }
             earnings.innerHTML = numberWithCommas(earnings_val);
 
-            return;
-            value = Number(value);
-            max = Number(max);
-            value = value <= 0 ? 1 : value;
-            value = value > max ? max : value;
-
             for (key in items_in_table) {
               if (items_in_table[key]['emp_no'] === item) {
 
+                items_in_table[key]['qty'] = qty.value;
+                items_in_table[key]['rate'] = rate.value;
+                items_in_table[key]['f_amt'] = f_amt.value;
+                items_in_table[key]['earnings'] = earnings_val;
 
-
-                items_in_table[key]['qty'] = value;
-                items_in_table[key]['rate'] = value;
-                items_in_table[key]['f_amt'] = value;
-
-
-                // Update tax calculations
-                items_in_table[item]["earnings"] =
-                  ((Number(items_in_table[item]["f_amt"])) + (Number(items_in_table[item]["qty"]) * Number(items_in_table[item]["rate"]))).toFixed(2);
-                const total_td = document.querySelector("#td-" + items_in_table[key]["emp_no"]);
-                total_td.innerHTML = "";
-                total_td.appendChild(document.createTextNode(items_in_table[key]["earnings"]));
               }
             }
-            //   cumulative_total();
           }
 
           function deactivate() {
