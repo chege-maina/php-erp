@@ -484,8 +484,8 @@ include '../includes/base_page/head.php';
                 body: formData
               })
               .then(response => response.json())
-              .then(result => {
-                if (data["message"] == "Created Successfully..") {
+              .then(data => {
+                if (data == "Created Successfully..") {
                   const alertVar =
                     `<div class="alert alert-success alert-dismissible fade show" role="alert">
               <strong>Success!</strong> Records saved successfully.
