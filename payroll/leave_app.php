@@ -173,17 +173,24 @@ include '../includes/base_page/head.php';
           select_emp[value['nat'] + " , " + value['job']] = {
             nat: value.leave,
           };
-          console.log(select_emp);
+
+          console.log("the mother", select_emp);
           employee.appendChild(opt);
         });
 
         let opt = document.createElement("option");
 
+
         result.forEach((value) => {
           opt = document.createElement("option");
-          opt.appendChild(document.createTextNode(select_emp));
-          opt.value = select_emp[value["leave"]];
+          opt.appendChild(document.createTextNode(
+            select_emp.value(({
+              nat
+            }) => nat)
+          ));
+          opt.value =
 
+            console.log("hello", opt);
           category.appendChild(opt);
         });
 

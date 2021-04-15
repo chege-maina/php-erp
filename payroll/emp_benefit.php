@@ -291,7 +291,7 @@ include '../includes/base_page/head.php';
               f_amt.setAttribute("max", items_in_table[item]['max']);
 
               // make sure the f_amt is always greater than 0
-              f_amt.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+              //  f_amt.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
               f_amt.setAttribute("onkeyup", "addQuantity(this.dataset.ref, this.value, this.max, this);");
               f_amt.setAttribute("onclick", "this.select();");
               items_in_table[item]['f_amt'] = ('f_amt' in items_in_table[item] && items_in_table[item]['f_amt'] >= 0) ?
@@ -315,7 +315,7 @@ include '../includes/base_page/head.php';
               qty.setAttribute("max", items_in_table[item]['max']);
 
               // make sure the qty is always greater than 0
-              qty.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+              //   qty.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
               qty.setAttribute("onkeyup", "addQuantity(this.dataset.ref, this.value, this.max, this);");
               qty.setAttribute("onclick", "this.select();");
               items_in_table[item]['qty'] = ('qty' in items_in_table[item] && items_in_table[item]['qty'] >= 0) ?
@@ -339,7 +339,7 @@ include '../includes/base_page/head.php';
               rate.setAttribute("max", items_in_table[item]['max']);
 
               // make sure the rate is always greater than 0
-              rate.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+              //  rate.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
               rate.setAttribute("onkeyup", "addQuantity(this.dataset.ref, this.value, this.max, this);");
               rate.setAttribute("onclick", "this.select();");
               items_in_table[item]['rate'] = ('rate' in items_in_table[item] && items_in_table[item]['rate'] >= 0) ?
@@ -354,10 +354,7 @@ include '../includes/base_page/head.php';
 
               let earnings = document.createElement("td");
               earnings.setAttribute("id", "td-" + items_in_table[item]["emp_no"]);
-              items_in_table[item]["earnings"] =
-                (Number(items_in_table[item]["f_amt"]) + (
-                  Number(items_in_table[item]["qty"]) *
-                  Number(items_in_table[item]["rate"])).toFixed(2));
+              items_in_table[item]["earnings"] = ((Number(items_in_table[item]["f_amt"])) + (Number(items_in_table[item]["qty"]) * Number(items_in_table[item]["rate"]))).toFixed(2);
               earnings.appendChild(document.createTextNode(items_in_table[item]["earnings"]));
               earnings.classList.add("align-middle");
 
@@ -396,18 +393,10 @@ include '../includes/base_page/head.php';
             value = value <= 0 ? 1 : value;
             value = value > max ? max : value;
 
-            //const unit = document.getElementById("sel_s_s_s_" + elem.id.split("_s_s_s_")[1]).value;
-            //  const price_widget = document.getElementById("prc_s_s_s_" + elem.id.split("_s_s_s_")[1]);
-            //  console.log("Unit: ", unit, items_in_table);
-
             for (key in items_in_table) {
               if (items_in_table[key]['emp_no'] === item) {
 
-                //  const price_key = items_in_table[key].atomic_unit == unit ? "price" : "bs_price";
-                //  items_in_table[key]['current_unit'] = items_in_table[key].atomic_unit == unit ?
-                //    "atomic_unit" : "unit";
-                //  price_widget.innerHTML = "";
-                //  price_widget.appendChild(document.createTextNode(items_in_table[key][price_key]));
+
 
                 items_in_table[key]['qty'] = value;
                 items_in_table[key]['rate'] = value;
@@ -416,9 +405,7 @@ include '../includes/base_page/head.php';
 
                 // Update tax calculations
                 items_in_table[item]["earnings"] =
-                  (Number(items_in_table[item]["f_amt"]) + (
-                    Number(items_in_table[item]["qty"]) *
-                    Number(items_in_table[item]["rate"])).toFixed(2));
+                  ((Number(items_in_table[item]["f_amt"])) + (Number(items_in_table[item]["qty"]) * Number(items_in_table[item]["rate"]))).toFixed(2);
                 const total_td = document.querySelector("#td-" + items_in_table[key]["emp_no"]);
                 total_td.innerHTML = "";
                 total_td.appendChild(document.createTextNode(items_in_table[key]["earnings"]));
@@ -427,6 +414,11 @@ include '../includes/base_page/head.php';
             //   cumulative_total();
           }
 
+          function deactivate() {
+
+
+
+          }
 
           // let cumulative_total = () => {
 
