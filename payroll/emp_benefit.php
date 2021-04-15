@@ -52,20 +52,11 @@ include '../includes/base_page/head.php';
               <div class="col-sm-5 my-3">
                 <!-- Make Combo -->
                 <label class="form-label" for="benefit_select">Select Benefit/Deduction*</label>
-                <div class="input-group">
-                  <select class="form-select" name="benefit_select" id="benefit_select">
-                    <option value disabled selected>
-                      -- Select Benefit/Deduction --
-                    </option>
-                  </select>
-                  <div class="invalid-tooltip">This field cannot be left blank.</div>
-
-                  <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-primary input-group-btn" onclick="SearchItem();">
-                    Search
-                  </button>
-
-                </div>
+                <select class="form-select" name="benefit_select" id="benefit_select" onchange="SearchItem();">
+                  <option value disabled selected>
+                    -- Select Benefit/Deduction --
+                  </option>
+                </select>
               </div>
               <div class="col col-md-5 my-3">
                 <label for="#" class="form-label">Insert Month and Year</label>
