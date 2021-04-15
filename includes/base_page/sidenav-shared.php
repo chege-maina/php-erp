@@ -183,6 +183,8 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../payroll/expense_mngt.php">Company Loans</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../payroll/payroll_muster.php">Payroll Master</a>
+  </li>
   <li class="nav-item"><a class="nav-link" href="../payroll/assign_leave.php">Leave Assignement</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../payroll/leave_app.php">Employee Leave Application</a>

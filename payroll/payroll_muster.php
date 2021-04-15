@@ -29,6 +29,10 @@ include '../includes/base_page/head.php';
       include '../includes/base_page/nav.php';
       ?>
 
+      <?php
+      include '../base_page/data_list_select.php';
+      ?>
+
       <div class="content">
         <?php
         include '../navbar-shared.php';
@@ -48,7 +52,7 @@ include '../includes/base_page/head.php';
 
           <div class="card-body fs--1 p-4 position-relative">
 
-            <div class="row justify-content-between">
+            <div class="row justify-content-between my-3">
               <div class="col">
                 <label class="form-label" for="b_month">Select Month*</label>
                 <select class="form-select" name="b_month" id="b_month">
@@ -82,7 +86,7 @@ include '../includes/base_page/head.php';
               </div>
             </div>
 
-            <div class="row justify-content-between">
+            <div class="row justify-content-between my-3">
               <div class="col">
                 <label class="form-label" for="b_month">Select NHIF Schedule*</label>
                 <select class="form-select" name="b_nhif" id="b_nhif">
@@ -103,3 +107,76 @@ include '../includes/base_page/head.php';
                 <div class="invalid-tooltip">This field cannot be left blank.</div>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="card mt-1">
+          <div class="card-header bg-light p-2 pt-3 pl-3">
+            <div class="d-flex flex-row-reverse">
+              <button class="btn btn-falcon-primary btn-sm m-2" id="b_create" onclick="">
+                Create
+              </button>
+            </div>
+          </div>
+          <div class="card-body fs--1 p-2">
+            <div class=" table-responsive">
+              <table class="table table-sm table-striped mt-0">
+                <thead>
+                  <tr>
+                    <th scope="col">Employee Number</th>
+                    <th scope="col">Employee Name </th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Total Stationery </th>
+                    <th scope="col">Total Benefit</th>
+                    <th scope="col">Total(Kshs)</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="table_body">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-1">
+          <div class="card-body fs--1 p-1">
+            <div class="d-flex flex-row-reverse">
+              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitForm();">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php
+    include '../includes/base_page/footer.php';
+    ?>
+    </div>
+  </main>
+
+  <!-- select options scripts -->
+
+  <script>
+    const b_paye = document.querySelector("#b_paye");
+    const b_nhif = document.querySelector("#b_nhif");
+    const b_year = document.querySelector("#b_year");
+    const b_month = document.querySelector("#b_month");
+
+
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+
+      populateSelectElement("#b_paye", '../payroll/#.php', "name");
+      populateSelectElement("#b_nhif", '../payroll/#.php', "name");
+      populateSelectElement("#b_year", '../payroll/#.php', "name");
+      populateSelectElement("#b_month", '../payroll/#.php', "name");
+
+    });
+  </script>
+
+  <!-- table_items script-->
+
+  <script>
+
+  </script>
