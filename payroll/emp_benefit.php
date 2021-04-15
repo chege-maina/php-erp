@@ -465,18 +465,28 @@ include '../includes/base_page/head.php';
               return;
             }
 
+            const benefit_var = employee_benefits[benefit_select.value].benefit;
+            const type_var = employee_benefits[benefit_select.value].type;
+
             console.log("====================================================")
             console.log("****************************************************")
             console.log("table_items", JSON.stringify(table_items, null, 2));
             console.log("month", month.value);
-            console.log("adv_year", adv_year.value);
+            console.log("year", adv_year.value);
+            console.log("benefit", benefit_var);
+            console.log("type", type_var);
             console.log("****************************************************")
             console.log("====================================================")
+
+
+
 
             const formData = new FormData();
             formData.append("table_items", JSON.stringify(table_items));
             formData.append("month", month.value);
-            formData.append("adv_year", adv_year.value);
+            formData.append("year", adv_year.value);
+            formData.append("benefit", benefit_var);
+            formData.append("type", type_var);
 
             fetch('#', {
                 method: 'POST',
