@@ -30,6 +30,9 @@
     <v-container>
       <v-btn color="primary" elevation="2" v-on:click="buttonClicked()">Calculate</v-btn>
     </v-container>
+    <v-container>
+      <?php include 'category_crud_modal.php' ?>
+    </v-container>
   </v-app>
 </div>
 
@@ -60,6 +63,7 @@
       root: [],
       items: [],
       index: {},
+      dialog: false,
     }),
     created() {
       // Init the object that will hold the table values
