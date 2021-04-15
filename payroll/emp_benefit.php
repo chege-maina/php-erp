@@ -445,6 +445,17 @@ include '../includes/base_page/head.php';
 
             const table_items = [];
             for (let key in items_in_table) {
+              if (items_in_table[key].earnings <= 0) {
+                console.log("No fam");
+                const alertVar = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Warning!</strong> ${items_in_table[key]['emp_name']} Should have earnings > 0.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                var divAlert = document.querySelector("#alert-div");
+                divAlert.innerHTML = alertVar;
+                divAlert.scrollIntoView();
+                return;
+              }
               table_items.push(items_in_table[key]);
             }
 
