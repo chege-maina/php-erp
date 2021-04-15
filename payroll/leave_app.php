@@ -59,7 +59,7 @@ include '../includes/base_page/head.php';
                 <div class="row my-3">
                   <div class="col">
                     <label for="#" class="form-label">Select Employee </label>
-                    <input list="employee" name="employee_name" id="employee_name" class="form-select" required>
+                    <input list="employee" name="employee_name" id="employee_name" class="form-select" required onchange="employeeChanged();">
                     <datalist id="employee"></datalist>
                   </div>
                   <div class="col">
@@ -163,15 +163,12 @@ include '../includes/base_page/head.php';
     fetch('../payroll/loadleave.php')
       .then(response => response.json())
       .then(result => {
-        console.log("rasra", result);
         updateEmployeeDatalist(result);
 
         result.forEach(row => {
-          console.log(row);
           employee_leaves[row['fname'] + " " + row['lname']] = row['leave'];
         });
 
-        console.log(employee_leaves);
       })
 
       .catch((error) => {
@@ -185,6 +182,25 @@ include '../includes/base_page/head.php';
       opt.appendChild(document.createTextNode("National ID No# " + row["nat"] + "  Employee No# " + row["job"]));
       opt.value = row["fname"] + " " + row["lname"];
       employee.appendChild(opt);
+    });
+  }
+
+  function employeeChanged() {
+    if (!employee_name.validity.valid) {
+      employee_name.focus();
+      return;
+    }
+
+    updateLeaveCategories(employee_leaves[employee_name.value]);
+  }
+
+  function updateLeaveCategories(data) {
+    console.log("UUUwiii ", data);
+    category.innerHTML = "";
+    data.forEach(row => {
+      let opt = document.createElement("option");
+      opt.value = row["leave"];
+      category.appendChild(opt);
     });
   }
 </script>
