@@ -152,8 +152,7 @@ include '../includes/base_page/head.php';
   const employee = document.querySelector("#employee");
   const leave_category = document.querySelector("#leave_category");
   const category = document.querySelector("#category");
-  const all_employees = {};
-  const select_emp = {};
+  const employee_leaves = {};
   var res = [];
   // const all_leave = {};
 
@@ -166,6 +165,13 @@ include '../includes/base_page/head.php';
       .then(result => {
         console.log("rasra", result);
         updateEmployeeDatalist(result);
+
+        result.forEach(row => {
+          console.log(row);
+          employee_leaves[row['fname'] + " " + row['lname']] = row['leave'];
+        });
+
+        console.log(employee_leaves);
       })
 
       .catch((error) => {
@@ -178,7 +184,6 @@ include '../includes/base_page/head.php';
       let opt = document.createElement("option");
       opt.appendChild(document.createTextNode("National ID No# " + row["nat"] + "  Employee No# " + row["job"]));
       opt.value = row["fname"] + " " + row["lname"];
-      all_employees[row["fname"] + " " + row["lname"]] = row
       employee.appendChild(opt);
     });
   }
