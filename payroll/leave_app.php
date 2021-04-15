@@ -195,7 +195,6 @@ include '../includes/base_page/head.php';
   }
 
   function updateLeaveCategories(data) {
-    console.log("UUUwiii ", data);
     category.innerHTML = "";
     data.forEach(row => {
       let opt = document.createElement("option");
