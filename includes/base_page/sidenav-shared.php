@@ -121,7 +121,8 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/purchase_bill_listing.php">Purchase Listing</a>
   </li>
-
+  <li class="nav-item"><a class="nav-link" href="../Accounts/voucher_processing.php">Voucher Processing</a>
+  </li>
 </ul>
 </li>
 <!-- Customers -->
@@ -186,10 +187,17 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../payroll/leave_app.php">Employee Leave Application</a>
   </li>
-  
+  <li class="nav-item"><a class="nav-link" href="../payroll/leave_assignlisting_ui.php">Manage Leave Assignment</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../payroll/leave_listing_ui.php">Manage Leave Application</a>
+  </li>
   <li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-company" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="authentication-basic">Company Settings</a>
     <ul class="nav collapse" id="e-company" data-parent="#authentication">
       <li class="nav-item"><a class="nav-link" href="../payroll/create_shift.php">Create Shift</a>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="../payroll/nhif.php">Define NHIF Rates</a>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="../payroll/paye.php">Define P.A.Y.E Rates</a>
       </li>
       <li class="nav-item"><a class="nav-link" href="../payroll/shift_listing_ui.php">Shifts Listing</a>
       </li>

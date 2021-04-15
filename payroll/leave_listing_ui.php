@@ -44,7 +44,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <h5 class="mb-0">Leave Listings</h5>
+        <h5 class="mb-0">Manage Leave Application</h5>
         <!-- ===============================================-->
         <!--    COMPONENT:: Add it -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ -->
@@ -81,7 +81,7 @@ include '../includes/base_page/head.php';
 
           window.addEventListener('DOMContentLoaded', (event) => {
 
-            fetch('../payroll/leave_listing.php')
+            fetch('../payroll/#.php')
               .then(response => response.json())
               .then(data => {
                 updateTable(data);

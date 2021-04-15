@@ -15,6 +15,12 @@ include_once '../includes/dbconnect.php';
 include '../includes/base_page/head.php';
 ?>
 
+<style>
+  .vertical {
+    border-left: 1px solid black;
+    height: 200px;
+  }
+</style>
 
 
 <body>
@@ -48,77 +54,76 @@ include '../includes/base_page/head.php';
 
           <div class="card-body fs--1 p-4 position-relative">
             <!-- Content is to start here -->
-            <div class="container">
-              <div class="row">
-                <div class="col-sm-8">
-                  <div class="row my-3">
-                    <div class="col">
-                      <label for="#" class="form-label">Select Employee </label>
-                      <input list="employee" name="employee_name" id="employee_name" class="form-select" required>
-                      <datalist id="employee"></datalist>
-                    </div>
-                    <div class="col">
-                      <label for="#" class="form-label">Select Leave Category </label>
-                      <input list="category" name="leave_category" id="leave_category" class="form-select" required>
-                      <datalist id="category"></datalist>
-                    </div>
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="row my-3">
+                  <div class="col">
+                    <label for="#" class="form-label">Select Employee </label>
+                    <input list="employee" name="employee_name" id="employee_name" class="form-select" required>
+                    <datalist id="employee"></datalist>
                   </div>
-                  <div class="row justify-content-between my-3">
-
-                    <div class="col">
-                      <label for="startdate" class="form-label">From</label>
-                      <!-- autofill current date  -->
-                      <input type="date" name="startdate" id="startdate" class="form-control" required>
-                    </div>
-
-                    <div class="col">
-                      <label for="enddate" class="form-label">To</label>
-                      <!-- autofill current date  -->
-                      <input type="date" name="enddate" id="enddate" class="form-control" required>
-                    </div>
-                    <!--other rows go here -->
-
-                  </div>
-                  <div class="row my-3">
-                    <div class="col">
-                      <label for="duration" class="form-label">Duration</label>
-                      <div class="input-group">
-                        <input type="number" name="duration" id="duration" class="form-control" required>
-                        <span class="input-group-text">
-                          Days
-                        </span>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <label for="duration" class="form-label">Comment </label>
-                      <textarea class="form-control" id="comment" aria-label="With textarea"></textarea>
-                    </div>
-
-                    <div class="col">
-                      <label for="formFile" class="form-label">Attach File</label>
-                      <input class="form-control" type="file" id="formFile" multiple />
-                    </div>
+                  <div class="col">
+                    <label for="#" class="form-label">Select Leave Category </label>
+                    <input list="category" name="leave_category" id="leave_category" class="form-select" required>
+                    <datalist id="category"></datalist>
                   </div>
                 </div>
-                <div class="col-sm-4">
-                  <div class=" table-responsive">
-                    <caption>
-                      <h6>Balance for the Leave Type</h6>
-                    </caption>
-                    <table class="table table-sm table-striped mt-0">
-                      <thead>
-                        <tr>
-                          <th scope="col">Balance</th>
-                          <th scope="col">Earned</th>
-                          <th scope="col">Used</th>
-                          <th scope="col">Available</th>
-                        </tr>
-                      </thead>
-                      <tbody id="table_body">
-                      </tbody>
-                    </table>
+                <div class="row justify-content-between my-3">
+
+                  <div class="col">
+                    <label for="startdate" class="form-label">From</label>
+                    <!-- autofill current date  -->
+                    <input type="date" name="startdate" id="startdate" class="form-control" required>
                   </div>
+
+                  <div class="col">
+                    <label for="enddate" class="form-label">To</label>
+                    <!-- autofill current date  -->
+                    <input type="date" name="enddate" id="enddate" class="form-control" required>
+                  </div>
+                  <!--other rows go here -->
+
+                </div>
+                <div class="row my-3">
+                  <div class="col">
+                    <label for="duration" class="form-label">Duration</label>
+                    <div class="input-group">
+                      <input type="number" name="duration" id="duration" class="form-control" required>
+                      <span class="input-group-text">
+                        Days
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <label for="formFile" class="form-label">Attach File</label>
+                    <input class="form-control" type="file" id="formFile" multiple />
+                  </div>
+                </div>
+                <div class="row my-3">
+                  <div class="col">
+                    <label for="duration" class="form-label">Comment </label>
+                    <textarea class="form-control" id="comment" aria-label="With textarea"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class=" table-responsive">
+                  <caption>
+                    <h6>Balance for the Leave Type</h6>
+                  </caption>
+                  <table class="table table-sm table-striped mt-0">
+                    <thead>
+                      <tr>
+                        <th scope="col">Balance</th>
+                        <th scope="col">Earned</th>
+                        <th scope="col">Used</th>
+                        <th scope="col">Available</th>
+                      </tr>
+                    </thead>
+                    <tbody id="table_body">
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
@@ -134,6 +139,12 @@ include '../includes/base_page/head.php';
             <!-- Content ends here -->
           </div>
         </div>
+
+        <?php
+        include '../includes/base_page/footer.php';
+        ?>
+      </div>
+    </div>
   </main>
 </body>
 <script>
@@ -142,49 +153,47 @@ include '../includes/base_page/head.php';
   const leave_category = document.querySelector("#leave_category");
   const category = document.querySelector("#category");
   const all_employees = {};
-  const all_leave = {};
+  const select_emp = {};
+  // const all_leave = {};
 
   window.addEventListener('DOMContentLoaded', (event) => {
+
     const formData = new FormData();
 
-    fetch('../payroll/load_bfemployee.php')
+    fetch('../payroll/loadleave.php')
       .then(response => response.json())
       .then(result => {
-        console.log(result)
-        let opt = document.createElement("option");
+        console.log("rasra", result)
+        result.forEach((value) => {
+          let opt = document.createElement("option");
+          opt.appendChild(document.createTextNode("National ID No# " + value["nat"] + "  Employee No# " + value["job"]));
+          opt.value = value["fname"] + " " + value["lname"];
+          all_employees[value["fname"] + " " + value["lname"]] = value;
 
-        result.forEach((employees) => {
-          opt = document.createElement("option");
-          opt.appendChild(document.createTextNode("National ID No# " + employees["nat"] + "  Employee No# " + employees["job"]));
-          opt.value = employees["fname"] + " " + employees["lname"];
-          all_employees[employees["fname"] + " " + employees["lname"]] = employees;
+          select_emp[value['nat'] + " , " + value['job']] = {
+            nat: value.leave,
+          };
+          console.log(select_emp);
           employee.appendChild(opt);
         });
 
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-
-
-    fetch('../payroll/load_leave.php')
-      .then(response => response.json())
-      .then(result => {
-        console.log(result)
         let opt = document.createElement("option");
 
-        result.forEach((leave) => {
+        result.forEach((value) => {
           opt = document.createElement("option");
-          opt.appendChild(document.createTextNode(leave["branch"]));
-          opt.value = leave["branch"];
-          all_leave[leave["branch"]] = leave;
+          opt.appendChild(document.createTextNode(select_emp));
+          opt.value = select_emp[value["leave"]];
+
           category.appendChild(opt);
         });
 
+
       })
+
       .catch((error) => {
         console.error('Error:', error);
       });
+
 
   });
 </script>
