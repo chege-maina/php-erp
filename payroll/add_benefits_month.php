@@ -25,10 +25,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
   foreach ($table_items as $key => $value) {
-
     $mysql = "INSERT INTO tbl_bene_deduct (benefit, b_month, b_year, emp_no, name, fixed, qty, rate, total, type)
      VALUES('" . $benefit . "','" . $month . "','" . $year . "','" . $value["emp_no"] . "','" . $value["emp_name"] . "',
-  '" . $value["f_amt"] . "','" . $value["qty"] . "','" . $value["rate"] . "','" . $value["earnings"] . "','" . $type . "',)";
+  '" . $value["f_amt"] . "','" . $value["qty"] . "','" . $value["rate"] . "','" . $value["earnings"] . "','" . $type . "')";
     mysqli_query($conn, $mysql);
   }
 
