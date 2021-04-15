@@ -151,5 +151,18 @@
     function uuidv4() {
       return "id-" + uuid();
     }
+
+    function numberWithCommas(x) {
+      if (isNaN(x)) {
+        return x;
+      }
+      var parts = x.toString().split(".");
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return parts.join(".");
+    }
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+      window.localStorage.setItem("theme", "light");
+    });
   </script>
 </head>

@@ -394,6 +394,7 @@ include '../includes/base_page/head.php';
             let qty = "qty" + "_s_s_s_" + uuid;
             let rate = "rate" + "_s_s_s_" + uuid;
             let earnings = "earnings" + "_s_s_s_" + uuid;
+            let earnings_val = 0;
 
             f_amt = document.querySelector("#" + f_amt);
             qty = document.querySelector("#" + qty);
@@ -404,6 +405,8 @@ include '../includes/base_page/head.php';
               console.log("asdfasdfasdfasdfad");
               qty.value = 0;
               rate.value = 0;
+              earnings_val = Number(f_amt.value);
+
               qty.setAttribute("readonly", "");
               rate.setAttribute("readonly", "");
             } else {
@@ -411,6 +414,8 @@ include '../includes/base_page/head.php';
               qty.removeAttribute("readonly");
               rate.removeAttribute("readonly");
             }
+            earnings.innerHTML = numberWithCommas(earnings_val);
+
             return;
             value = Number(value);
             max = Number(max);
