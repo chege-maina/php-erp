@@ -488,7 +488,7 @@ include '../includes/base_page/head.php';
             formData.append("benefit", benefit_var);
             formData.append("type", type_var);
 
-            fetch('#', {
+            fetch('add_benefits_month.php', {
                 method: 'POST',
                 body: formData
               })
