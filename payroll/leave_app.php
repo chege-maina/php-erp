@@ -181,10 +181,8 @@ include '../includes/base_page/head.php';
 
           const mee = select_emp[value['nat'] + " , " + value['job']];
           const mee2 = mee['nat'];
+          const mee3 = mee2.map(o => o.leave)
 
-          const mee3 = mee2.map(({
-            leave
-          }) => leave);
 
 
           console.log("the value", value);
@@ -195,7 +193,7 @@ include '../includes/base_page/head.php';
           console.log("the mother", select_emp);
           employee.appendChild(opt);
 
-          for (var i = 0; i < mee3; i++) {
+          for (var i = 0; i < mee3.length; i++) {
             var opt2 = mee3[i];
             var el = document.createElement("option");
             el.textContent = opt2;
