@@ -1,5 +1,34 @@
 <template>
-  <h1>Hello World</h1>
+  <v-treeview
+    v-model="tree"
+    :open="initiallyOpen"
+    :items="arrayed_tree"
+    activatable
+    item-key="name"
+    open-on-click
+  >
+    <template v-slot:prepend="{ item, open }">
+      <a @click="itemClicked(item.name)">
+        <v-icon v-if="!item.file">
+          {{ open ? "mdi-folder-open" : "mdi-folder" }}
+        </v-icon>
+        <v-icon v-else>
+          {{ files[item.file] }}
+        </v-icon>
+        <span v-if="item.code" class="font-weight-thin">
+          {{ item.code }}
+        </span>
+      </a>
+    </template>
+    <template v-slot:append="{ item }">
+      <a @click="itemClicked(item.name)">
+        <span v-if="!item.value"> 0 </span>
+        <span v-else>
+          {{ item.value }}
+        </span>
+      </a>
+    </template>
+  </v-treeview>
 </template>
 
 <script>

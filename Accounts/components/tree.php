@@ -96,6 +96,7 @@
       },
       tree: function() {
         let created_object = {};
+        return created_object;
         // Begin with root
         for (let key in this.root) {
           // Add the this.root
