@@ -85,7 +85,7 @@ include '../includes/base_page/head.php';
                     <option value="November">November</option>
                     <option value="December">December</option>
                   </select>
-                  <input style="width:25px;" type="number" name="adv_year" id="adv_year" class="form-control" required>
+                  <input style="width:15px;" type="number" name="adv_year" id="adv_year" class="form-control" min="1900" max="2999" required>
                 </div>
               </div>
             </div>
@@ -429,10 +429,55 @@ include '../includes/base_page/head.php';
             }
           }
 
-          function deactivate() {
+          function submitForm() {
+            const month = document.querySelector("#month");
+            const adv_year = document.querySelector("#adv_year");
 
+            if (!month.validity.valid) { // Validation 1
+              month.focus();
+              month.scrollIntoView();
+              return;
+            } else if (!adv_year.validity.valid) { // Validation 2
+              adv_year.focus();
+              adv_year.scrollIntoView();
+              return;
+            }
 
+            const table_items = [];
+            for (let key in items_in_table) {
+              table_items.push(items_in_table[key]);
+            }
 
+            if (table_items.length == 0) {
+              benefit_select.focus();
+              benefit_select.scrollIntoView();
+              return;
+            }
+
+            console.log("====================================================")
+            console.log("****************************************************")
+            console.log("table_items", JSON.stringify(table_items, null, 2));
+            console.log("month", month.value);
+            console.log("adv_year", adv_year.value);
+            console.log("****************************************************")
+            console.log("====================================================")
+
+            const formData = new FormData();
+            formData.append("table_items", JSON.stringify(table_items));
+            formData.append("month", month.value);
+            formData.append("adv_year", adv_year.value);
+
+            fetch('#', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+                console.log('Success:', result);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
           }
 
           // let cumulative_total = () => {
