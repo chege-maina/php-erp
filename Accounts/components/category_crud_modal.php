@@ -61,6 +61,7 @@
   const account_type = document.querySelector("#account_type");
   const carrying_forward = document.querySelector("#carrying_forward");
 
+  let parent_children_map;
   let item_object;
 
 
@@ -73,13 +74,19 @@
   }
 
   function saveDetails() {
+    const path = item_object.path
+    switch (path.length) {
+      case 1:
+        console.log(parent_children_map[path[0]]);
+        break;
+    }
     $('#catCRUDModal').modal('hide');
   }
 
   window.addEventListener('show_category_crud', event => {
     const id = event.detail.id;
     const index = JSON.parse(event.detail.index);
-    const parent_children_map = JSON.parse(sessionStorage.getItem("items"));
+    parent_children_map = JSON.parse(sessionStorage.getItem("items"));
 
     const [...item_path_array] = index[id];
 
@@ -90,7 +97,11 @@
     let level_5_item;
     switch (item_path_array.length) {
       case 1:
-        item_object = parent_children_map[item_path_array[0]];
+        let tmp_obj = {};
+        tmp_obj = parent_children_map[item_path_array[0]];
+        ({
+          ...item_object
+        } = tmp_obj);
         item_object.name = item_path_array[0];
         item_object.level = 1;
         break;
@@ -103,7 +114,11 @@
           }
         });
 
-        item_object = level_2_item;
+        ({
+          ...item_object
+        } = {
+          level_2_item
+        });
         item_object.level = 2;
         break;
 
@@ -121,7 +136,11 @@
           }
         });
 
-        item_object = level_3_item;
+        ({
+          ...item_object
+        } = {
+          level_3_item
+        });
         item_object.level = 3;
         break;
 
@@ -146,7 +165,11 @@
           }
         });
 
-        item_object = level_4_item;
+        ({
+          ...item_object
+        } = {
+          level_4_item
+        });
         item_object.level = 4;
 
         break;
@@ -177,7 +200,12 @@
             level_5_item = item;
           }
         });
-        item_object = level_5_item;
+
+        ({
+          ...item_object
+        } = {
+          level_5_item
+        });
         item_object.level = 5;
     }
 
