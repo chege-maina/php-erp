@@ -1,13 +1,8 @@
 <script>
-  // $(document).ready(function() {
-  // $('.btn').click(function() {
-  // $('#myModal').modal('show');
-  // });
-  // });
-
   window.addEventListener('show_category_crud', event => {
     // console.log(event.detail);
     console.log("Ready to begin");
+    $('#myModal').modal('show');
   });
 </script>
 
