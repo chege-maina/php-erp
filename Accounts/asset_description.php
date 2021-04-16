@@ -15,13 +15,6 @@ include_once '../includes/dbconnect.php';
 include '../includes/base_page/head.php';
 ?>
 
-<style>
-  .vertical {
-    border-left: 1px solid black;
-    height: 200px;
-  }
-</style>
-
 
 <body>
   <!-- ===============================================-->
@@ -53,7 +46,7 @@ include '../includes/base_page/head.php';
           <!--/.bg-holder-->
 
           <div class="card-body fs--1 p-4 position-relative">
-            <div class="row">
+            <div class="row my-3">
               <div class="col">
                 <label for="" class="form-label">Name</label>
                 <input class="form-control" name="asset_name" type="text" id="asset_name" required />
@@ -67,7 +60,7 @@ include '../includes/base_page/head.php';
                 <input class="form-control" name="tag_no" type="number" id="tag_no" required />
               </div>
             </div>
-            <div class="row">
+            <div class="row my-3">
               <div class="col">
                 <label class="form-label" for="branch">Select Branch*</label>
                 <select class="form-select" name="branch" id="branch" required>
@@ -96,7 +89,7 @@ include '../includes/base_page/head.php';
                 <div class="invalid-tooltip">This field cannot be left blank.</div>
               </div>
             </div>
-            <div class="row">
+            <div class="row my-3">
               <div class="col">
                 <label for="comment" class="form-label"> Description</label>
                 <textarea class="form-control" id="comment" aria-label="With textarea" required></textarea>
@@ -116,7 +109,7 @@ include '../includes/base_page/head.php';
 
         <div class="card mt-1">
           <div class="card-body fs--1 p-4 position-relative">
-            <div class="row">
+            <div class="row my-3">
               <div class="col">
                 <label for="asset_date" class="form-label"> Date*</label>
                 <input class="form-control" name="asset_date" id="asset_date" type="date" required></input>
@@ -140,7 +133,7 @@ include '../includes/base_page/head.php';
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div class="row my-3">
               <div class="col">
                 <label class="form-label" for="dep_method">Depreciation Method*</label>
                 <select class="form-select" name="dep_method" id="dep_method" required>

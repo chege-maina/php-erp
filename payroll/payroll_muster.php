@@ -15,13 +15,6 @@ include_once '../includes/dbconnect.php';
 include '../includes/base_page/head.php';
 ?>
 
-<style>
-  .vertical {
-    border-left: 1px solid black;
-    height: 200px;
-  }
-</style>
-
 
 <body>
   <!-- ===============================================-->
