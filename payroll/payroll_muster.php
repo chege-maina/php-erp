@@ -15,6 +15,12 @@ include_once '../includes/dbconnect.php';
 include '../includes/base_page/head.php';
 ?>
 
+<style>
+  .vertical {
+    border-left: 1px solid black;
+    height: 200px;
+  }
+</style>
 
 
 <body>
@@ -27,10 +33,6 @@ include '../includes/base_page/head.php';
       <!--nav starts here -->
       <?php
       include '../includes/base_page/nav.php';
-      ?>
-
-      <?php
-      include '../base_page/data_list_select.php';
       ?>
 
       <div class="content">
@@ -137,7 +139,6 @@ include '../includes/base_page/head.php';
                     <th scope="col"> Other Deductions </th>
                     <th scope="col"> Net Pay </th>
                     <th scope="col"> Employee Contributions </th>
-                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody id="table_body">
