@@ -30,7 +30,7 @@ include 'category_crud_modal.php';
       </template>
     </v-treeview>
     <v-container :fluid="true">
-      <v-btn color="primary" elevation="2" v-on:click="buttonClicked()">Add Category</v-btn>
+      <v-btn color="primary" elevation="2" v-on:click="buttonClicked()">Do Something</v-btn>
     </v-container>
   </v-app>
 </div>
