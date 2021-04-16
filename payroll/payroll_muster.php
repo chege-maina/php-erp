@@ -28,11 +28,15 @@ include '../includes/base_page/head.php';
       include '../includes/base_page/nav.php';
       ?>
 
+
       <div class="content">
         <?php
         include '../navbar-shared.php';
         ?>
 
+        <?php
+        include '../base_page/data_list_select.php';
+        ?>
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
@@ -170,16 +174,117 @@ include '../includes/base_page/head.php';
 
     window.addEventListener('DOMContentLoaded', (event) => {
 
-      populateSelectElement("#b_paye", '../payroll/#.php', "name");
-      populateSelectElement("#b_nhif", '../payroll/#.php', "name");
-      populateSelectElement("#b_year", '../payroll/#.php', "name");
-      populateSelectElement("#b_month", '../payroll/#.php', "name");
+      populateSelectElement("#b_paye", '../payroll/#.php', "paye");
+      populateSelectElement("#b_nhif", '../payroll/#.php', "nhif");
+      populateSelectElement("#b_year", '../payroll/#.php', "year");
+      populateSelectElement("#b_month", '../payroll/#.php', "month");
 
     });
   </script>
 
   <!-- table_items script-->
 
-  <script>
 
+  <script>
+    const table_body = document.querySelector("#table_body");
+    let items_in_table = {};
+
+
+    function updateTable() {
+      console.log("Rasta ", items_in_table);
+      table_body.innerHTML = "";
+      for (let item in items_in_table) {
+
+        let tr = document.createElement("tr");
+        // Id will be like 1Tank
+        // tr.setAttribute("id", items_in_table[item]["code"] + items_in_table[item]["name"]);
+
+        // employee details
+        let employee_no = document.createElement("td");
+        employee_no.appendChild(document.createTextNode(items_in_table[item].job));
+        employee_no.classList.add("align-middle");
+
+        //employee  number 
+        let firstname = document.createElement("td");
+        firstname.appendChild(document.createTextNode(items_in_table[item].fname));
+        firstname.classList.add("align-middle");
+
+        // branch
+        let secondname = document.createElement("td");
+        secondname.appendChild(document.createTextNode(items_in_table[item].lname));
+        secondname.classList.add("align-middle");
+
+        //department
+        let national = document.createElement("td");
+        national.appendChild(document.createTextNode(items_in_table[item].nat));
+        national.classList.add("align-middle");
+        //salary
+
+        let national = document.createElement("td");
+        national.appendChild(document.createTextNode(items_in_table[item].nat));
+        national.classList.add("align-middle");
+        //earnings
+        let national = document.createElement("td");
+        national.appendChild(document.createTextNode(items_in_table[item].nat));
+        national.classList.add("align-middle");
+        //absenteeism
+        let national = document.createElement("td");
+        national.appendChild(document.createTextNode(items_in_table[item].nat));
+        national.classList.add("align-middle");
+        //paye
+        let national = document.createElement("td");
+        national.appendChild(document.createTextNode(items_in_table[item].nat));
+        national.classList.add("align-middle");
+        //nssf
+        let national = document.createElement("td");
+        national.appendChild(document.createTextNode(items_in_table[item].nat));
+        national.classList.add("align-middle");
+        //salary advance
+        let national = document.createElement("td");
+        national.appendChild(document.createTextNode(items_in_table[item].nat));
+        national.classList.add("align-middle");
+        //loans
+        let national = document.createElement("td");
+        national.appendChild(document.createTextNode(items_in_table[item].nat));
+        national.classList.add("align-middle");
+        //other deductions
+        let national = document.createElement("td");
+        national.appendChild(document.createTextNode(items_in_table[item].nat));
+        national.classList.add("align-middle");
+        // net pay
+        let national = document.createElement("td");
+        national.appendChild(document.createTextNode(items_in_table[item].nat));
+        national.classList.add("align-middle");
+        //employee contribution 
+        let national = document.createElement("td");
+        national.appendChild(document.createTextNode(items_in_table[item].nat));
+        national.classList.add("align-middle");
+        // CONTINUE FROM HERE RUTH
+
+
+
+        let actionWrapper = document.createElement("td");
+        actionWrapper.classList.add("m-2");
+        let action = document.createElement("button");
+        action.setAttribute("id", items_in_table[item]["fname"] + " " + items_in_table[item]["lname"]);
+        action.setAttribute("onclick", "removeItem(this.id);");
+        let icon = document.createElement("span");
+        icon.classList.add("fas", "fa-minus", "mt-1");
+        action.appendChild(icon);
+        action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
+        actionWrapper.appendChild(action);
+
+        tr.append(employee_no,
+          firstname,
+          secondname,
+          national,
+          opening_balanceWrapper,
+          adv_date,
+          actionWrapper
+        );
+        table_body.appendChild(tr);
+
+      }
+      return;
+    }
   </script>
