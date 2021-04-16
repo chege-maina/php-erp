@@ -29,8 +29,8 @@ include 'category_crud_modal.php';
         </a>
       </template>
     </v-treeview>
-    <v-container>
-      <v-btn color="primary" elevation="2" v-on:click="buttonClicked()">Calculate</v-btn>
+    <v-container :fluid="true">
+      <v-btn color="primary" elevation="2" v-on:click="buttonClicked()">Add Category</v-btn>
     </v-container>
   </v-app>
 </div>
@@ -202,6 +202,8 @@ include 'category_crud_modal.php';
       },
       itemClicked: function(item) {
         console.log("You clicked: ", item);
+        const ev = new Event("show_category_crud");
+        window.dispatchEvent(ev);
       },
       getTotals: function(tree, level, iteration) {
         const total = 0;
@@ -216,8 +218,6 @@ include 'category_crud_modal.php';
         return total;
       },
       buttonClicked: function() {
-        const ev = new Event("show_category_crud");
-        window.dispatchEvent(ev);
 
         this.items.forEach((item) => {
           this.getTotals(item, 0, 1);
