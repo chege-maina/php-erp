@@ -174,7 +174,7 @@ include 'category_crud_modal.php';
                           children: [],
                         });
                         // Add it to this.index
-                        this.index[j_child.name] = [
+                        this.index[l_child.name] = [
                           key,
                           i_child.name,
                           j_child.name,

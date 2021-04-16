@@ -6,6 +6,8 @@
 
     const [...item_path_array] = index[id];
 
+    console.log(item_path_array);
+
     let level_2_item;
     let level_3_item;
     let level_4_item;
