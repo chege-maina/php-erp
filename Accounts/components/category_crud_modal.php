@@ -64,7 +64,6 @@
   let parent_children_map;
   let item_object;
 
-
   function showModal() {
     console.log("Showing", item_object);
     head_name.value = item_object.name;
@@ -86,7 +85,13 @@
         if (head_name.value !== path[0]) {
           console.log("Node name has changed");
           delete parent_children_map[path[0]];
-          parent_children_map[head_name.value] = 1;
+          parent_children_map[head_name.value] = tmp_obj;
+          sessionStorage.setItem("items", JSON.stringify(parent_children_map));
+
+          const ev = new StorageEvent("storage", {
+            key: "items",
+          });
+          window.dispatchEvent(ev);
         }
         break;
     }
