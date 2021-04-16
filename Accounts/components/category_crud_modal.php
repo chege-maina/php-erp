@@ -24,7 +24,7 @@
               </div>
               <div class="col">
                 <label for="head_level" class="form-label">Head Level*</label>
-                <input type="text" name="head_level" id="head_level" class="form-control" required>
+                <input type="text" name="head_level" id="head_level" class="form-control" required readonly>
               </div>
             </div>
 
@@ -66,6 +66,7 @@
     console.log("Showing", item);
     head_name.value = item.name;
     head_code.value = "code" in item ? item.code : "";
+    head_level.value = item.level;
     $('#catCRUDModal').modal('show');
   }
 
@@ -86,6 +87,7 @@
       case 1:
         item_object = parent_children_map[item_path_array[0]];
         item_object.name = item_path_array[0];
+        item_object.level = 1;
         break;
 
       case 2:
@@ -95,7 +97,9 @@
             level_2_item = item;
           }
         });
+
         item_object = level_2_item;
+        item_object.level = 2;
         break;
 
       case 3:
@@ -111,7 +115,9 @@
             level_3_item = item;
           }
         });
+
         item_object = level_3_item;
+        item_object.level = 3;
         break;
 
       case 4:
@@ -136,6 +142,7 @@
         });
 
         item_object = level_4_item;
+        item_object.level = 4;
 
         break;
       case 5:
@@ -166,6 +173,7 @@
           }
         });
         item_object = level_5_item;
+        item_object.level = 5;
     }
 
     showModal(item_object);
