@@ -61,17 +61,18 @@
   const account_type = document.querySelector("#account_type");
   const carrying_forward = document.querySelector("#carrying_forward");
 
+  let item_object;
 
-  function showModal(item) {
-    console.log("Showing", item);
-    head_name.value = item.name;
-    head_code.value = "code" in item ? item.code : "";
-    head_level.value = item.level;
+
+  function showModal() {
+    console.log("Showing", item_object);
+    head_name.value = item_object.name;
+    head_code.value = "code" in item_object ? item_object.code : "";
+    head_level.value = item_object.level;
     $('#catCRUDModal').modal('show');
   }
 
   function saveDetails() {
-    console.log("Yes");
     $('#catCRUDModal').modal('hide');
   }
 
@@ -83,7 +84,6 @@
     const [...item_path_array] = index[id];
 
 
-    let item_object;
     let level_2_item;
     let level_3_item;
     let level_4_item;
@@ -181,6 +181,7 @@
         item_object.level = 5;
     }
 
-    showModal(item_object);
+    item_object.path = item_path_array;
+    showModal();
   });
 </script>
