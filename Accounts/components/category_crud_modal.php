@@ -4,7 +4,10 @@
       Open Dialog
     </v-btn>
   </template>
+  <!--
   <v-card style="background-color: #121E2D00;">
+-->
+  <v-card>
     <v-card-title>
       <span class="headline">Chart of Accounts</span>
     </v-card-title>
