@@ -78,6 +78,16 @@
     switch (path.length) {
       case 1:
         console.log(parent_children_map[path[0]]);
+        const {
+          ...tmp_obj
+        } = parent_children_map[path[0]];
+
+        // Now that we have the detail object of this item, check if the key has changed
+        if (head_name.value !== path[0]) {
+          console.log("Node name has changed");
+          delete parent_children_map[path[0]];
+          parent_children_map[head_name.value] = 1;
+        }
         break;
     }
     $('#catCRUDModal').modal('hide');
@@ -115,10 +125,10 @@
         });
 
         ({
-          ...item_object
-        } = {
+            ...item_object
+          } =
           level_2_item
-        });
+        );
         item_object.level = 2;
         break;
 
@@ -137,10 +147,10 @@
         });
 
         ({
-          ...item_object
-        } = {
+            ...item_object
+          } =
           level_3_item
-        });
+        );
         item_object.level = 3;
         break;
 
@@ -166,10 +176,10 @@
         });
 
         ({
-          ...item_object
-        } = {
+            ...item_object
+          } =
           level_4_item
-        });
+        );
         item_object.level = 4;
 
         break;
@@ -202,10 +212,10 @@
         });
 
         ({
-          ...item_object
-        } = {
+            ...item_object
+          } =
           level_5_item
-        });
+        );
         item_object.level = 5;
     }
 
