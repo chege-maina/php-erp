@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2021 at 07:19 AM
+-- Generation Time: Apr 16, 2021 at 04:01 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -67,7 +67,8 @@ INSERT INTO `tbl_advance` (`fname`, `lname`, `nat`, `job`, `amount`, `date_issue
 ('Eric', 'Bird', '19', '821', '', '3333-11-22', '2323', 'March', 'pending'),
 ('Eric', 'Bird', '19', '821', '', '3333-11-22', '2323', 'March', 'pending'),
 ('Xaviera', 'Simmons', '35', '614', '69420', '2021-04-28', '121212', 'February', 'pending'),
-('Eric', 'Bird', '19', '821', '', '0000-00-00', '6890', 'February', 'pending');
+('Eric', 'Bird', '19', '821', '', '0000-00-00', '6890', 'February', 'pending'),
+('Eric', 'Bird', '19', '821', '11', '0000-00-00', '2021', 'February', 'pending');
 
 -- --------------------------------------------------------
 
@@ -143,6 +144,26 @@ INSERT INTO `tbl_benefit` (`benefit`) VALUES
 ('FUEL'),
 ('House'),
 ('Transport');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_bene_deduct`
+--
+
+CREATE TABLE `tbl_bene_deduct` (
+  `benefit` varchar(50) NOT NULL,
+  `b_month` varchar(50) NOT NULL,
+  `b_year` varchar(50) NOT NULL,
+  `emp_no` varchar(100) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `fixed` varchar(100) NOT NULL,
+  `qty` varchar(100) NOT NULL,
+  `rate` varchar(20) NOT NULL,
+  `total` varchar(100) NOT NULL,
+  `type` varchar(15) NOT NULL,
+  `status` varchar(15) NOT NULL DEFAULT 'pending'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -419,6 +440,34 @@ CREATE TABLE `tbl_leavecat` (
 INSERT INTO `tbl_leavecat` (`id`, `name`) VALUES
 (1, 'Annual'),
 (2, 'Maternity');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_muster`
+--
+
+CREATE TABLE `tbl_muster` (
+  `must_year` varchar(50) NOT NULL,
+  `must_month` varchar(50) NOT NULL,
+  `paye_year` varchar(50) NOT NULL,
+  `nhif_year` varchar(50) NOT NULL,
+  `emp_no` varchar(50) NOT NULL,
+  `emp_name` varchar(50) NOT NULL,
+  `branch` varchar(15) NOT NULL,
+  `dept` varchar(50) NOT NULL,
+  `salary` varchar(100) NOT NULL,
+  `absentee` varchar(50) NOT NULL,
+  `earnings` varchar(100) NOT NULL,
+  `paye` varchar(100) NOT NULL,
+  `nssf` varchar(100) NOT NULL,
+  `nhif` varchar(100) NOT NULL,
+  `advance` varchar(100) NOT NULL,
+  `loan` varchar(100) NOT NULL,
+  `deduct` varchar(100) NOT NULL,
+  `pay` varchar(100) NOT NULL,
+  `nssf_employer` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -823,36 +872,34 @@ CREATE TABLE `tbl_staff` (
   `county` varchar(50) NOT NULL,
   `postal_code` varchar(50) NOT NULL,
   `job_no` varchar(50) NOT NULL,
+  `employ_date` date NOT NULL,
+  `begin_date` date NOT NULL,
+  `duration` varchar(16) NOT NULL,
+  `end_date` date NOT NULL,
+  `job_title` varchar(50) NOT NULL,
+  `department` varchar(50) NOT NULL,
+  `report_to` varchar(50) NOT NULL,
+  `head_of` varchar(50) NOT NULL,
+  `region` varchar(50) NOT NULL,
+  `currency` varchar(50) NOT NULL,
+  `shift` varchar(50) NOT NULL,
+  `employ_type` varchar(50) NOT NULL,
+  `off_days` varchar(50) NOT NULL,
+  `pay_type` varchar(50) NOT NULL,
+  `salary` varchar(50) NOT NULL,
+  `income_tax` varchar(50) NOT NULL,
+  `deduct_nhif` varchar(50) NOT NULL,
+  `deduct_nssf` varchar(50) NOT NULL,
+  `account_name` varchar(50) NOT NULL,
   `account_no` varchar(50) NOT NULL,
-  `begin_date` date NOT NULL
+  `bank_name` varchar(50) NOT NULL,
+  `sort_code` varchar(50) NOT NULL,
+  `s_mobile_no` varchar(50) NOT NULL,
+  `s_bank_branch` varchar(50) NOT NULL,
+  `s_payment` int(11) NOT NULL,
+  `status` varchar(15) NOT NULL DEFAULT 'pending',
+  `branch` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
-
-ALTER TABLE `tbl_staff`
-  ADD `employ_date` date NOT NULL AFTER `begin_date`,
-  ADD `duration` varchar(16) NOT NULL AFTER `employ_date`,
-  ADD `end_date` date NOT NULL AFTER `duration`,
-  ADD `job_title` varchar(50) NOT NULL AFTER `end_date`,
-  ADD `department` varchar(50) NOT NULL AFTER `job_title`,
-  ADD `report_to` varchar(50) NOT NULL AFTER `department`,
-  ADD `head_of` varchar(50) NOT NULL AFTER `report_to`,
-  ADD `region` varchar(50) NOT NULL AFTER `head_of`,
-  ADD `currency` varchar(50) NOT NULL AFTER `region`,
-  ADD `shift` varchar(50) NOT NULL AFTER `currency`,
-  ADD `employ_type` varchar(50) NOT NULL AFTER `shift`,
-  ADD `off_days` varchar(50) NOT NULL AFTER `employ_type`,
-  ADD `pay_type` varchar(50) NOT NULL AFTER `off_days`,
-  ADD `salary` varchar(50) NOT NULL AFTER `pay_type`,
-  ADD `income_tax` varchar(50) NOT NULL AFTER `salary`,
-  ADD `deduct_nhif` varchar(50) NOT NULL AFTER `income_tax`,
-  ADD `deduct_nssf` varchar(50) NOT NULL AFTER `deduct_nhif`,
-  ADD `account_name` varchar(50) NOT NULL AFTER `deduct_nssf`,
-  ADD `bank_name` varchar(50) NOT NULL AFTER `account_name`,
-  ADD `sort_code` varchar(50) NOT NULL AFTER `bank_name`,
-  ADD `s_mobile_no` varchar(50) NOT NULL AFTER `sort_code`,
-  ADD `s_bank_branch` varchar(50) NOT NULL AFTER `s_mobile_no`,
-  ADD `s_payment` int(11) NOT NULL AFTER `s_bank_branch`,
-  ADD `status` varchar(15) NOT NULL DEFAULT 'pending' AFTER `s_payment`,
-  ADD `branch` varchar(50) NOT NULL AFTER `status`;
 
 --
 -- Dumping data for table `tbl_staff`
@@ -1110,6 +1157,12 @@ ALTER TABLE `tbl_benefit`
   ADD PRIMARY KEY (`benefit`);
 
 --
+-- Indexes for table `tbl_bene_deduct`
+--
+ALTER TABLE `tbl_bene_deduct`
+  ADD PRIMARY KEY (`benefit`,`b_month`,`b_year`,`emp_no`);
+
+--
 -- Indexes for table `tbl_branch`
 --
 ALTER TABLE `tbl_branch`
@@ -1182,6 +1235,12 @@ ALTER TABLE `tbl_invoice_items`
 --
 ALTER TABLE `tbl_leavecat`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_muster`
+--
+ALTER TABLE `tbl_muster`
+  ADD PRIMARY KEY (`must_year`,`must_month`,`emp_no`);
 
 --
 -- Indexes for table `tbl_nhif`

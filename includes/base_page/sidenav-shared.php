@@ -123,6 +123,8 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/voucher_processing.php">Voucher Processing</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/asset_description.php">Asset Description</a>
+  </li>
 </ul>
 </li>
 <!-- Customers -->
