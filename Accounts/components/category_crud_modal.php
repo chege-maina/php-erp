@@ -45,7 +45,7 @@
               </div>
             </div>
 
-            <input type="button" value="Add" class="btn btn-falcon-primary mt-3" id="add_ct_submit" name="add_ct_submit" data-dismiss="modal">
+            <input type="button" value="Add" class="btn btn-falcon-primary mt-3" id="add_ct_submit" name="add_ct_submit" onclick="saveDetails()">
           </form>
         </div>
       </div>
@@ -68,6 +68,11 @@
     head_code.value = "code" in item ? item.code : "";
     head_level.value = item.level;
     $('#catCRUDModal').modal('show');
+  }
+
+  function saveDetails() {
+    console.log("Yes");
+    $('#catCRUDModal').modal('hide');
   }
 
   window.addEventListener('show_category_crud', event => {
