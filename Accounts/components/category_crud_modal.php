@@ -66,9 +66,9 @@
 
   function showModal() {
     console.log("Showing", item_object);
-    head_name.value = item_object.name;
-    head_code.value = "code" in item_object ? item_object.code : "";
-    head_level.value = item_object.level;
+    // head_name.value = item_object.name;
+    // head_code.value = "code" in item_object ? item_object.code : "";
+    head_level.value = Number(item_object.level) + 1;
     $('#catCRUDModal').modal('show');
   }
 
