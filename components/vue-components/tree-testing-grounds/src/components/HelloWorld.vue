@@ -166,7 +166,7 @@ export default {
                         children: [],
                       });
                       // Add it to this.index
-                      this.index[j_child.name] = [
+                      this.index[l_child.name] = [
                         key,
                         i_child.name,
                         j_child.name,
