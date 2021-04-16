@@ -19,7 +19,7 @@ if ($counter == 0) {
 
 
   //get employee number
-  $query = "SELECT emp_no FROM tbl_bene_deduct WHERE b_month ='$month' and b_year='$year' and status='$stats'";
+  $query = "SELECT emp_no FROM tbl_bene_deduct WHERE b_month ='$month' and b_year='$year' and status='$stats' GROUP BY emp_no ASC";
   $result = mysqli_query($conn, $query);
 
   while ($row = mysqli_fetch_assoc($result)) {
