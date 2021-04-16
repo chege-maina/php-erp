@@ -202,7 +202,12 @@ include 'category_crud_modal.php';
       },
       itemClicked: function(item) {
         console.log("You clicked: ", item);
-        const ev = new Event("show_category_crud");
+        const ev = new CustomEvent("show_category_crud", {
+          detail: {
+            id: item,
+            index: JSON.stringify(this.index)
+          }
+        });
         window.dispatchEvent(ev);
       },
       getTotals: function(tree, level, iteration) {
