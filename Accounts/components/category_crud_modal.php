@@ -1,108 +1,3 @@
-<script>
-  window.addEventListener('show_category_crud', event => {
-    const id = event.detail.id;
-    const index = JSON.parse(event.detail.index);
-    const parent_children_map = JSON.parse(sessionStorage.getItem("items"));
-
-    const [...item_path_array] = index[id];
-
-    console.log(item_path_array);
-
-    let level_2_item;
-    let level_3_item;
-    let level_4_item;
-    let level_5_item;
-    switch (item_path_array.length) {
-      case 1:
-        console.log(id, parent_children_map[item_path_array[0]]);
-        break;
-
-      case 2:
-        // 1. Get the level 2 item;
-        parent_children_map[item_path_array[0]].children_to_add.forEach(item => {
-          if (item.name == item_path_array[1]) {
-            level_2_item = item;
-          }
-        });
-        console.log(id, level_2_item);
-        break;
-
-      case 3:
-        // 1. Get the level 2 item;
-        parent_children_map[item_path_array[0]].children_to_add.forEach(item => {
-          if (item.name == item_path_array[1]) {
-            level_2_item = item;
-          }
-        });
-        // 2. At level three, the level_2_item is in root, get it's children
-        parent_children_map[level_2_item.name].children_to_add.forEach(item => {
-          if (item.name == item_path_array[2]) {
-            level_3_item = item;
-          }
-        });
-        console.log(id, level_3_item);
-        break;
-
-      case 4:
-        // 1. Get the level 2 item;
-        parent_children_map[item_path_array[0]].children_to_add.forEach(item => {
-          if (item.name == item_path_array[1]) {
-            level_2_item = item;
-          }
-        });
-        // 2. At level three, the level_2_item is in root, get it's children
-        parent_children_map[level_2_item.name].children_to_add.forEach(item => {
-          if (item.name == item_path_array[2]) {
-            level_3_item = item;
-          }
-        });
-
-        // 3. At level four, the level_3_item is in root, get it's children
-        parent_children_map[level_3_item.name].children_to_add.forEach(item => {
-          if (item.name == item_path_array[3]) {
-            level_4_item = item;
-          }
-        });
-
-        console.log(id, level_4_item);
-
-        break;
-      case 5:
-        // 1. Get the level 2 item;
-        parent_children_map[item_path_array[0]].children_to_add.forEach(item => {
-          if (item.name == item_path_array[1]) {
-            level_2_item = item;
-          }
-        });
-        // 2. At level three, the level_2_item is in root, get it's children
-        parent_children_map[level_2_item.name].children_to_add.forEach(item => {
-          if (item.name == item_path_array[2]) {
-            level_3_item = item;
-          }
-        });
-
-        // 3. At level four, the level_3_item is in root, get it's children
-        parent_children_map[level_3_item.name].children_to_add.forEach(item => {
-          if (item.name == item_path_array[3]) {
-            level_4_item = item;
-          }
-        });
-
-        // 3. At level four, the level_4_item is in root, get it's children
-        parent_children_map[level_4_item.name].children_to_add.forEach(item => {
-          if (item.name == item_path_array[4]) {
-            level_5_item = item;
-          }
-        });
-
-
-        console.log(id, level_5_item);
-    }
-
-    // $('#catCRUDModal').modal('show');
-  });
-</script>
-
 <div class="modal fade" id="catCRUDModal" width="60vw" tabindex="-1" role="dialog" aria-labelledby="modalHeader" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog" role="document">
 
@@ -118,8 +13,8 @@
           <!-- Form -->
           <form id="add_ct_frm" name="add_ct_frm">
             <div class="p2">
-              <label for="head_code" class="form-label">Head Name*</label>
-              <input type="text" name="head_code" id="head_code" class="form-control" required>
+              <label for="head_name" class="form-label">Head Name*</label>
+              <input type="text" name="head_name" id="head_name" class="form-control" required>
             </div>
 
             <div class="row mt-1">
@@ -158,3 +53,121 @@
 
   </div>
 </div>
+
+<script>
+  const head_name = document.querySelector("#head_name");
+  const head_code = document.querySelector("#head_code");
+  const head_level = document.querySelector("#head_level");
+  const account_type = document.querySelector("#account_type");
+  const carrying_forward = document.querySelector("#carrying_forward");
+
+
+  function showModal(item) {
+    console.log("Showing", item);
+    head_name.value = item.name;
+    head_code.value = "code" in item ? item.code : "";
+    $('#catCRUDModal').modal('show');
+  }
+
+  window.addEventListener('show_category_crud', event => {
+    const id = event.detail.id;
+    const index = JSON.parse(event.detail.index);
+    const parent_children_map = JSON.parse(sessionStorage.getItem("items"));
+
+    const [...item_path_array] = index[id];
+
+
+    let item_object;
+    let level_2_item;
+    let level_3_item;
+    let level_4_item;
+    let level_5_item;
+    switch (item_path_array.length) {
+      case 1:
+        item_object = parent_children_map[item_path_array[0]];
+        item_object.name = item_path_array[0];
+        break;
+
+      case 2:
+        // 1. Get the level 2 item;
+        parent_children_map[item_path_array[0]].children_to_add.forEach(item => {
+          if (item.name == item_path_array[1]) {
+            level_2_item = item;
+          }
+        });
+        item_object = level_2_item;
+        break;
+
+      case 3:
+        // 1. Get the level 2 item;
+        parent_children_map[item_path_array[0]].children_to_add.forEach(item => {
+          if (item.name == item_path_array[1]) {
+            level_2_item = item;
+          }
+        });
+        // 2. At level three, the level_2_item is in root, get it's children
+        parent_children_map[level_2_item.name].children_to_add.forEach(item => {
+          if (item.name == item_path_array[2]) {
+            level_3_item = item;
+          }
+        });
+        item_object = level_3_item;
+        break;
+
+      case 4:
+        // 1. Get the level 2 item;
+        parent_children_map[item_path_array[0]].children_to_add.forEach(item => {
+          if (item.name == item_path_array[1]) {
+            level_2_item = item;
+          }
+        });
+        // 2. At level three, the level_2_item is in root, get it's children
+        parent_children_map[level_2_item.name].children_to_add.forEach(item => {
+          if (item.name == item_path_array[2]) {
+            level_3_item = item;
+          }
+        });
+
+        // 3. At level four, the level_3_item is in root, get it's children
+        parent_children_map[level_3_item.name].children_to_add.forEach(item => {
+          if (item.name == item_path_array[3]) {
+            level_4_item = item;
+          }
+        });
+
+        item_object = level_4_item;
+
+        break;
+      case 5:
+        // 1. Get the level 2 item;
+        parent_children_map[item_path_array[0]].children_to_add.forEach(item => {
+          if (item.name == item_path_array[1]) {
+            level_2_item = item;
+          }
+        });
+        // 2. At level three, the level_2_item is in root, get it's children
+        parent_children_map[level_2_item.name].children_to_add.forEach(item => {
+          if (item.name == item_path_array[2]) {
+            level_3_item = item;
+          }
+        });
+
+        // 3. At level four, the level_3_item is in root, get it's children
+        parent_children_map[level_3_item.name].children_to_add.forEach(item => {
+          if (item.name == item_path_array[3]) {
+            level_4_item = item;
+          }
+        });
+
+        // 3. At level four, the level_4_item is in root, get it's children
+        parent_children_map[level_4_item.name].children_to_add.forEach(item => {
+          if (item.name == item_path_array[4]) {
+            level_5_item = item;
+          }
+        });
+        item_object = level_5_item;
+    }
+
+    showModal(item_object);
+  });
+</script>
