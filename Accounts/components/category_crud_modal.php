@@ -1,21 +1,14 @@
 <script>
   window.addEventListener('show_category_crud', event => {
-    // console.log(event.detail);
     const id = event.detail.id;
     const index = JSON.parse(event.detail.index);
     const parent_children_map = JSON.parse(sessionStorage.getItem("items"));
 
-    console.log("Ready to begin ", index[id], parent_children_map);
-    // Remember to check if the key is in root index
-    // console.log(parent_children_map[index[id]]);
-
-    // index[id].forEach(value => {});
     const [...item_path_array] = index[id];
-    // if (id in parent_children_map) {
-    // console.log(parent_children_map[id]);
-    // }
+
     let level_2_item;
     let level_3_item;
+    let level_4_item;
     switch (item_path_array.length) {
       case 1:
         console.log(id, parent_children_map[item_path_array[0]]);
@@ -48,7 +41,28 @@
         break;
 
       case 4:
-        console.log("Length of 4");
+        // 1. Get the level 2 item;
+        parent_children_map[item_path_array[0]].children_to_add.forEach(item => {
+          if (item.name == item_path_array[1]) {
+            level_2_item = item;
+          }
+        });
+        // 2. At level three, the level_2_item is in root, get it's children
+        parent_children_map[level_2_item.name].children_to_add.forEach(item => {
+          if (item.name == item_path_array[2]) {
+            level_3_item = item;
+          }
+        });
+
+        // 3. At level four, the level_3_item is in root, get it's children
+        parent_children_map[level_3_item.name].children_to_add.forEach(item => {
+          if (item.name == item_path_array[3]) {
+            level_4_item = item;
+          }
+        });
+
+        console.log(id, level_4_item);
+
         break;
     }
 
