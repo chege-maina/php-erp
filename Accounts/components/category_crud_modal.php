@@ -11,6 +11,7 @@
     let level_2_item;
     let level_3_item;
     let level_4_item;
+    let level_5_item;
     switch (item_path_array.length) {
       case 1:
         console.log(id, parent_children_map[item_path_array[0]]);
@@ -66,6 +67,36 @@
         console.log(id, level_4_item);
 
         break;
+      case 5:
+        // 1. Get the level 2 item;
+        parent_children_map[item_path_array[0]].children_to_add.forEach(item => {
+          if (item.name == item_path_array[1]) {
+            level_2_item = item;
+          }
+        });
+        // 2. At level three, the level_2_item is in root, get it's children
+        parent_children_map[level_2_item.name].children_to_add.forEach(item => {
+          if (item.name == item_path_array[2]) {
+            level_3_item = item;
+          }
+        });
+
+        // 3. At level four, the level_3_item is in root, get it's children
+        parent_children_map[level_3_item.name].children_to_add.forEach(item => {
+          if (item.name == item_path_array[3]) {
+            level_4_item = item;
+          }
+        });
+
+        // 3. At level four, the level_4_item is in root, get it's children
+        parent_children_map[level_4_item.name].children_to_add.forEach(item => {
+          if (item.name == item_path_array[4]) {
+            level_5_item = item;
+          }
+        });
+
+
+        console.log(id, level_5_item);
     }
 
     // $('#catCRUDModal').modal('show');
