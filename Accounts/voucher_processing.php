@@ -64,9 +64,9 @@ include '../includes/base_page/head.php';
                 <select class="form-select" name="voucher" id="voucher">
                   <option value disabled selected>-- Select Voucher --</option>
                   <option value="journal">Journal</option>
-                  <option value="contract">Contract</option>
-                  <option value="creditdebit">Credit/Debit</option>
-                  <option value="Expense">Expense</option>
+                  <option value="contract">Contra</option>
+                  <option value="creditdebit">Credit</option>
+                  <option value="creditdebit">Debit</option>\
                 </select>
               </div>
             </div>

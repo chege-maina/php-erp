@@ -301,4 +301,55 @@ include '../includes/base_page/head.php';
       }
       return;
     }
+
+
+    function submitForm() {
+
+      if (!b_year.value) {
+        return;
+      }
+
+      if (!b_month.value) {
+        return;
+      }
+
+      if (!b_nhif.value) {
+        return;
+      }
+
+      if (!b_paye.value) {
+        return;
+      }
+      let tmp_obj = getItems();
+
+      const formData = new FormData();
+      formData.append("year", b_year.value);
+      formData.append("month", b_month.value);
+      formData.append("paye", b_paye.value);
+      formData.append("nhif", b_nhif.value);
+      for (let key in tmp_obj) {
+        formData.append(key, tmp_obj[key]);
+      }
+
+      // fetch goes here
+
+      fetch('#.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.text())
+        .then(result => {
+          console.log('Success:', result);
+
+          // setTimeout(function() {
+          //   location.reload();
+          // }, 2500);
+
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+
+      return false;
+    }
   </script>
