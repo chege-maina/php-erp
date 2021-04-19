@@ -40,11 +40,14 @@ include '../includes/base_page/head.php';
         include '../navbar-shared.php';
         ?>
 
+        <?php
+        include '../base_page/data_list_select.php';
+        ?>
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <div id="alert-div"></div>
-        <h5 class="p-2">Voucher Processing</h5>
+        <h5 class="p-2">Add Opening Balances</h5>
         <div class="card">
 
 
@@ -56,14 +59,14 @@ include '../includes/base_page/head.php';
 
             <div class="row my-2">
               <div class="col">
-                <label class="form-label" for="voucher">Select Account</label>
-                <select class="form-select" name="voucher" id="voucher">
+                <label class="form-label" for="account">Select Account</label>
+                <select class="form-select" name="account" id="account">
                   <option value disabled selected>-- Select Account --</option>
                 </select>
               </div>
               <div class="col">
-                <label for="startdate" class="form-label">Transaction Date</label>
-                <input type="date" name="startdate" id="startdate" class="form-control" required>
+                <label for="transdate" class="form-label">Transaction Date</label>
+                <input type="date" name="transdate" id="transdate" class="form-control" required>
               </div>
             </div>
             <hr>
@@ -92,8 +95,17 @@ include '../includes/base_page/head.php';
                 </table>
               </div>
             </div>
+          </div>
+        </div>
+        <!--card body -->
 
-            <!--card body -->
+        <div class="card mt-1">
+          <div class="card-body fs--1 p-1">
+            <div class="d-flex flex-row-reverse">
+              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitForm();">
+                Submit
+              </button>
+            </div>
           </div>
         </div>
         <?php
@@ -108,6 +120,16 @@ include '../includes/base_page/head.php';
 </html>
 
 <script>
+  const items_in_table = {};
+  const c_table_body = document.querySelector("#c_table_body");
+  const account = document.querySelector("#account");
+  const transdate = document.querySelector("#transdate");
+
+  window.addEventListener('DOMContentLoaded', (event) => {
+
+    populateSelectElement("#account", '../includes/#.php', "name");
+  });
+
   function updateTable() {
     c_table_body.innerHTML = "";
     console.log(items_in_table);
@@ -122,7 +144,6 @@ include '../includes/base_page/head.php';
       open_date.setAttribute("type", "date");
       open_date.setAttribute("required", "");
       open_date.classList.add("form-control", "form-control-sm", "align-middle");
-      // opening_balance.setAttribute("data-ref", items_in_table[item]["name"]);
       open_date.setAttribute("onclick", "this.select();");
 
       open_date.addEventListener("input", (event) => {
@@ -159,31 +180,43 @@ include '../includes/base_page/head.php';
 
       // Voucher Description
 
+      let desc = document.createElement("input");
+      desc.setAttribute("type", "text");
+      desc.setAttribute("required", "");
+      desc.classList.add("form-control", "form-control-sm", "align-middle");
+      desc.setAttribute("onclick", "this.select();");
+
+      desc.addEventListener("input", (event) => {
+        items_in_table[item].desc = event.target.value;
+      })
+      let descWrapper = document.createElement("td");
+      descWrapper.classList.add("m-2", "col-2");
+      descWrapper.appendChild(desc);
 
       //Amount
 
-      let rate = document.createElement("input");
-      rate.setAttribute("type", "number");
-      rate.setAttribute("required", "");
-      rate.classList.add("form-control", "form-control-sm", "align-middle");
-      // rate.setAttribute("data-ref", items_in_table[item]["name"]);
-      rate.setAttribute("min", 0);
-      // rate.setAttribute("max", items_in_table[item]['max']);
+      let amount = document.createElement("input");
+      amount.setAttribute("type", "number");
+      amount.setAttribute("required", "");
+      amount.classList.add("form-control", "form-control-sm", "align-middle");
+      // amount.setAttribute("data-ref", items_in_table[item]["name"]);
+      amount.setAttribute("min", 0);
+      // amount.setAttribute("max", items_in_table[item]['max']);
 
-      // make sure the rate is always greater than 0
-      // rate.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
-      // rate.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
-      rate.setAttribute("onclick", "this.select();");
-      items_in_table[item]['rate'] = ('rate' in items_in_table[item] && items_in_table[item]['rate'] >= 0) ?
-        items_in_table[item]['rate'] : 0;
-      rate.value = items_in_table[item]['rate'];
+      // make sure the amount is always greater than 0
+      // amount.setAttribute("onfocusout", "validateQuantity(this, this.value, this.max);");
+      // amount.setAttribute("onkeyup", "addQuantityToReqItem(this.dataset.ref, this.value, this.max);");
+      amount.setAttribute("onclick", "this.select();");
+      items_in_table[item]['amount'] = ('amount' in items_in_table[item] && items_in_table[item]['amount'] >= 0) ?
+        items_in_table[item]['amount'] : 0;
+      amount.value = items_in_table[item]['amount'];
 
-      rate.addEventListener("input", (event) => {
-        items_in_table[item].rate = Number(event.target.value);
+      amount.addEventListener("input", (event) => {
+        items_in_table[item].amount = Number(event.target.value);
       })
-      let rateWrapper = document.createElement("td");
-      rateWrapper.classList.add("m-2", "col-2");
-      rateWrapper.appendChild(rate);
+      let amountWrapper = document.createElement("td");
+      amountWrapper.classList.add("m-2", "col-2");
+      amountWrapper.appendChild(amount);
 
       // imagine this as the debit or credit 
 
@@ -219,11 +252,111 @@ include '../includes/base_page/head.php';
       tr.append(
         open_dateWrapper,
         voucher_numWrapper,
+        descWrapper,
+        amountWrapper,
         kin_phone_wrapper,
         actionWrapper
       );
       c_table_body.appendChild(tr);
     }
     return;
+  }
+
+  function addItem() {
+    const tmp = {
+      open_date: "",
+      voucher_num: 0,
+      desc: "",
+      amount: 0,
+      kin_phone: "",
+    }
+    items_in_table[uuidv4()] = tmp;
+
+    updateTable();
+  }
+
+  function removeItem(item) {
+    delete items_in_table[String(item)];
+
+    updateTable();
+  }
+
+  function getItems() {
+    const tmp_obj = {};
+    const openings = [];
+    c_table_body.childNodes.forEach(row => {
+
+      const k_date = row.childNodes[0].childNodes[0].value;
+      const k_voucher = row.childNodes[1].childNodes[0].value;
+      const k_desc = row.childNodes[2].childNodes[0].value;
+      const k_amount = row.childNodes[3].childNodes[0].value;
+      const k_type = row.childNodes[4].childNodes[0].value;
+
+      openings.push({
+        date: k_date,
+        voucher: k_voucher,
+        desc: k_desc,
+        amount: k_amount,
+        type: k_type,
+
+      });
+    });
+
+    console.log("submitting", openings);
+
+    tmp_obj["table_items"] = JSON.stringify(openings);
+    console.log("==================================");
+    console.log(tmp_obj);
+    console.log("==================================");
+
+    return tmp_obj
+  }
+
+  function submitForm() {
+
+    if (!account.value) {
+      return;
+    }
+
+    if (!transdate.value) {
+      return;
+    }
+    let tmp_obj = getItems();
+
+    const formData = new FormData();
+    formData.append("account", account.value);
+    formData.append("date", transdate.value);
+    for (let key in tmp_obj) {
+      formData.append(key, tmp_obj[key]);
+    }
+
+    // fetch goes here
+
+    fetch('#.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(result => {
+        console.log('Success:', result);
+
+        // setTimeout(function() {
+        //   location.reload();
+        // }, 2500);
+
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
+    return false;
+  }
+
+
+  function validateQuantity(elmt, value, max) {
+    value = Number(value);
+    max = Number(max);
+    elmt.value = elmt.value <= 0 ? 1 : elmt.value;
+    elmt.value = elmt.value > max ? max : elmt.value;
   }
 </script>
