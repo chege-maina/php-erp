@@ -99,7 +99,7 @@ include '../includes/base_page/head.php';
         <div class="card mt-1">
           <div class="card-header bg-light p-2 pt-3 pl-3">
             <div class="d-flex flex-row-reverse">
-              <button class="btn btn-falcon-primary btn-sm m-2" id="b_create" onclick="updateTable();">
+              <button class="btn btn-falcon-primary btn-sm m-2" id="b_create" onclick="updateTable(this.this_row);">
                 Create
               </button>
             </div>
@@ -126,16 +126,6 @@ include '../includes/base_page/head.php';
                 <tbody id="table_body">
                 </tbody>
               </table>
-            </div>
-          </div>
-        </div>
-
-        <div class="card mt-1">
-          <div class="card-body fs--1 p-1">
-            <div class="d-flex flex-row-reverse">
-              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitForm();">
-                Submit
-              </button>
             </div>
           </div>
         </div>
@@ -174,7 +164,9 @@ include '../includes/base_page/head.php';
     const table_body = document.querySelector("#table_body");
     let items_in_table = {};
 
-    window.addEventListener('DOMContentLoaded', (event) => {
+
+
+    const selectRows = () => {
       const formData = new FormData();
       formData.append("year", b_year.value);
       formData.append("month", b_paye.value);
@@ -188,19 +180,20 @@ include '../includes/base_page/head.php';
         .then(response => response.json())
         .then(data => {
           console.log('Success:', data);
+          updateTable(items_in_table);
         })
         .catch(error => {
           console.error('Error:', error);
         });
 
-    })
+    }
 
-    function updateTable() {
-      console.log("Rasta ", items_in_table);
+    let updateTable = (data) => {
+      console.log('hello:', data);
       table_body.innerHTML = "";
-      for (let item in items_in_table) {
+      data.forEach(value => {
 
-        let tr = document.createElement("tr");
+        const this_row = document.createElement("tr");
         // Id will be like 1Tank
         // tr.setAttribute("id", items_in_table[item]["code"] + items_in_table[item]["name"]);
 
@@ -293,7 +286,7 @@ include '../includes/base_page/head.php';
         action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
         actionWrapper.appendChild(action);
 
-        tr.append(employee_no,
+        this_row.append(employee_no,
           name,
           branch,
           department,
@@ -307,9 +300,8 @@ include '../includes/base_page/head.php';
           contrib,
           actionWrapper
         );
-        table_body.appendChild(tr);
+        table_body.appendChild(this_row);
 
-      }
-      return;
+      });
     }
   </script>
