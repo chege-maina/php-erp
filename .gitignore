@@ -6,3 +6,4 @@ uploads/*.jpg
 uploads/*.jpeg
 .env
 mysql-data/
+vendor/
