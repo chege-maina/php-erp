@@ -174,15 +174,26 @@ include '../includes/base_page/head.php';
     const table_body = document.querySelector("#table_body");
     let items_in_table = {};
 
+    window.addEventListener('DOMContentLoaded', (event) => {
+      const formData = new FormData();
+      formData.append("year", b_year.value);
+      formData.append("month", b_paye.value);
+      formData.append("paye", b_month.value);
+      formData.append("nhif", b_nhif.value);
 
-    fetch('muster_roll.php')
-      .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+      fetch('muster_roll.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Success:', data);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+
+    })
 
     function updateTable() {
       console.log("Rasta ", items_in_table);
