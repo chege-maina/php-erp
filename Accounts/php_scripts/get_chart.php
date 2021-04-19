@@ -19,6 +19,7 @@ if ($result->num_rows > 0) {
     foreach ($row as $key => $value) {
       $data[$key] = $value;
     }
+    $data_array[] = $row;
   }
 } else {
   echo "0 results";
