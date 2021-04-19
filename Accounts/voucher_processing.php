@@ -62,7 +62,7 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label class="form-label" for="voucher">Select Voucher Type</label>
                 <select class="form-select" name="voucher" id="voucher">
-                  <option value disabled selected>
+                  <option value disabled selected>-- Select Voucher --</option>
                   <option value="journal">Journal</option>
                   <option value="contract">Contract</option>
                   <option value="creditdebit">Credit/Debit</option>

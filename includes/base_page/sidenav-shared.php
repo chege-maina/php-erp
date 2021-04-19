@@ -125,6 +125,8 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/asset_description.php">Asset Description</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/opening_balance.php">Opening Balance</a>
+  </li>
 </ul>
 </li>
 <!-- Customers -->

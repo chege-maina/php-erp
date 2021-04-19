@@ -58,18 +58,6 @@ include '../includes/base_page/head.php';
                   <option value disabled selected>
                     -- Select Month --
                   </option>
-                  <option value="January">January</option>
-                  <option value="February">February</option>
-                  <option value="March">March</option>
-                  <option value="April">April</option>
-                  <option value="May">May</option>
-                  <option value="June">June</option>
-                  <option value="July">July</option>
-                  <option value="August">August</option>
-                  <option value="September">September</option>
-                  <option value="October">October</option>
-                  <option value="November">November</option>
-                  <option value="December">December</option>
                 </select>
                 <div class="invalid-tooltip">This field cannot be left blank.</div>
               </div>
@@ -111,7 +99,7 @@ include '../includes/base_page/head.php';
         <div class="card mt-1">
           <div class="card-header bg-light p-2 pt-3 pl-3">
             <div class="d-flex flex-row-reverse">
-              <button class="btn btn-falcon-primary btn-sm m-2" id="b_create" onclick="">
+              <button class="btn btn-falcon-primary btn-sm m-2" id="b_create" onclick="updateTable();">
                 Create
               </button>
             </div>
@@ -126,15 +114,12 @@ include '../includes/base_page/head.php';
                     <th scope="col"> Branch </th>
                     <th scope="col"> Department </th>
                     <th scope="col">Salary</th>
-                    <th scope="col">Absenteeism</th>
                     <th scope="col"> Earnings </th>
                     <th scope="col"> P.A.Y.E</th>
                     <th scope="col"> N.S.S.F </th>
                     <th scope="col"> NHIF </th>
                     <th scope="col">Salary Advance</th>
-                    <th scope="col"> Loans </th>
                     <th scope="col"> Other Deductions </th>
-                    <th scope="col"> Net Pay </th>
                     <th scope="col"> Employee Contributions </th>
                   </tr>
                 </thead>
@@ -174,10 +159,10 @@ include '../includes/base_page/head.php';
 
     window.addEventListener('DOMContentLoaded', (event) => {
 
-      populateSelectElement("#b_paye", '../payroll/#.php', "paye");
-      populateSelectElement("#b_nhif", '../payroll/#.php', "nhif");
-      populateSelectElement("#b_year", '../payroll/#.php', "year");
-      populateSelectElement("#b_month", '../payroll/#.php', "month");
+      populateSelectElement("#b_paye", '../payroll/load_paye_schedule.php', "paye");
+      populateSelectElement("#b_nhif", '../payroll/load_nhif_schedule.php', "nhif");
+      populateSelectElement("#b_year", '../payroll/load_year.php', "year");
+      populateSelectElement("#b_month", '../payroll/load_month.php', "month");
 
     });
   </script>
@@ -190,6 +175,15 @@ include '../includes/base_page/head.php';
     let items_in_table = {};
 
 
+    fetch('muster_roll.php')
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
     function updateTable() {
       console.log("Rasta ", items_in_table);
       table_body.innerHTML = "";
@@ -201,64 +195,78 @@ include '../includes/base_page/head.php';
 
         // employee details
         let employee_no = document.createElement("td");
-        employee_no.appendChild(document.createTextNode(items_in_table[item].job));
+        employee_no.appendChild(document.createTextNode(items_in_table[item].emp_no));
         employee_no.classList.add("align-middle");
 
         //employee  number 
-        let firstname = document.createElement("td");
-        firstname.appendChild(document.createTextNode(items_in_table[item].fname));
-        firstname.classList.add("align-middle");
+        let name = document.createElement("td");
+        name.appendChild(document.createTextNode(items_in_table[item].emp_name));
+        name.classList.add("align-middle");
 
         // branch
-        let secondname = document.createElement("td");
-        secondname.appendChild(document.createTextNode(items_in_table[item].lname));
-        secondname.classList.add("align-middle");
+        let branch = document.createElement("td");
+        branch.appendChild(document.createTextNode(items_in_table[item].branch));
+        branch.classList.add("align-middle");
 
         //department
-        let national = document.createElement("td");
-        national.appendChild(document.createTextNode(items_in_table[item].nat));
-        national.classList.add("align-middle");
+        let department = document.createElement("td");
+        department.appendChild(document.createTextNode(items_in_table[item].department));
+        department.classList.add("align-middle");
         //salary
 
-        let national = document.createElement("td");
-        national.appendChild(document.createTextNode(items_in_table[item].nat));
-        national.classList.add("align-middle");
+        let salary = document.createElement("td");
+        salary.appendChild(document.createTextNode(items_in_table[item].salary));
+        salary.classList.add("align-middle");
         //earnings
-        let national = document.createElement("td");
-        national.appendChild(document.createTextNode(items_in_table[item].nat));
-        national.classList.add("align-middle");
+
+        let earnings = document.createElement("td");
+        earnings.appendChild(document.createTextNode(items_in_table[item].earnings));
+        earnings.classList.add("align-middle");
         //absenteeism
-        let national = document.createElement("td");
-        national.appendChild(document.createTextNode(items_in_table[item].nat));
-        national.classList.add("align-middle");
+
+        // let absent = document.createElement("td");
+        // absent.appendChild(document.createTextNode(items_in_table[item].absent));
+        // absent.classList.add("align-middle");
+
         //paye
-        let national = document.createElement("td");
-        national.appendChild(document.createTextNode(items_in_table[item].nat));
-        national.classList.add("align-middle");
+        let paye = document.createElement("td");
+        paye.appendChild(document.createTextNode(items_in_table[item].paye));
+        paye.classList.add("align-middle");
         //nssf
-        let national = document.createElement("td");
-        national.appendChild(document.createTextNode(items_in_table[item].nat));
-        national.classList.add("align-middle");
+        let nssf = document.createElement("td");
+        nssf.appendChild(document.createTextNode(items_in_table[item].nssf));
+        nssf.classList.add("align-middle");
+        //nhif
+
+        let nhif = document.createElement("td");
+        nhif.appendChild(document.createTextNode(items_in_table[item].nhif));
+        nhif.classList.add("align-middle");
         //salary advance
-        let national = document.createElement("td");
-        national.appendChild(document.createTextNode(items_in_table[item].nat));
-        national.classList.add("align-middle");
+        let advance = document.createElement("td");
+        advance.appendChild(document.createTextNode(items_in_table[item].advanced));
+        advance.classList.add("align-middle");
         //loans
-        let national = document.createElement("td");
-        national.appendChild(document.createTextNode(items_in_table[item].nat));
-        national.classList.add("align-middle");
+
+        //  let loans = document.createElement("td");
+        // loans.appendChild(document.createTextNode(items_in_table[item].loans));
+        // loans.classList.add("align-middle");
+
+
         //other deductions
-        let national = document.createElement("td");
-        national.appendChild(document.createTextNode(items_in_table[item].nat));
-        national.classList.add("align-middle");
+        let deduct = document.createElement("td");
+        deduct.appendChild(document.createTextNode(items_in_table[item].deduct));
+        deduct.classList.add("align-middle");
         // net pay
-        let national = document.createElement("td");
-        national.appendChild(document.createTextNode(items_in_table[item].nat));
-        national.classList.add("align-middle");
+
+        //  let netpay = document.createElement("td");
+        // netpay.appendChild(document.createTextNode(items_in_table[item].netpay));
+        // netpay.classList.add("align-middle");
+
+
         //employee contribution 
-        let national = document.createElement("td");
-        national.appendChild(document.createTextNode(items_in_table[item].nat));
-        national.classList.add("align-middle");
+        let contrib = document.createElement("td");
+        contrib.appendChild(document.createTextNode(items_in_table[item].employer_nssf));
+        contrib.classList.add("align-middle");
         // CONTINUE FROM HERE RUTH
 
 
@@ -275,11 +283,17 @@ include '../includes/base_page/head.php';
         actionWrapper.appendChild(action);
 
         tr.append(employee_no,
-          firstname,
-          secondname,
-          national,
-          opening_balanceWrapper,
-          adv_date,
+          name,
+          branch,
+          department,
+          salary,
+          earnings,
+          paye,
+          nssf,
+          nhif,
+          advance,
+          deduct,
+          contrib,
           actionWrapper
         );
         table_body.appendChild(tr);
