@@ -13,6 +13,11 @@
           <!-- Form -->
           <form id="add_ct_frm" name="add_ct_frm">
             <div class="p2">
+              <label for="parent_name" class="form-label">Parent Name*</label>
+              <input type="text" name="parent_name" id="parent_name" class="form-control" required>
+            </div>
+
+            <div class="p2">
               <label for="head_name" class="form-label">Head Name*</label>
               <input type="text" name="head_name" id="head_name" class="form-control" required>
             </div>
@@ -45,7 +50,14 @@
               </div>
             </div>
 
-            <input type="button" value="Add" class="btn btn-falcon-primary mt-3" id="add_ct_submit" name="add_ct_submit" onclick="saveDetails()">
+            <div class="row mt-1">
+              <div class="col-auto">
+                <input type="button" value="Save" class="btn btn-falcon-primary mt-3" id="add_ct_submit" name="add_ct_submit" onclick="saveDetails()">
+                <input type="button" value="Add Child" class="btn btn-falcon-primary mt-3 ml-1" id="add_child_submit" name="add_ct_submit" onclick="addNewChild()">
+              </div>
+              <div class="col-auto">
+              </div>
+            </div>
           </form>
         </div>
       </div>
@@ -55,6 +67,7 @@
 </div>
 
 <script>
+  const parent_name = document.querySelector("#parent_name");
   const head_name = document.querySelector("#head_name");
   const head_code = document.querySelector("#head_code");
   const head_level = document.querySelector("#head_level");
@@ -65,11 +78,21 @@
   let item_object;
   let command;
 
+  function addNewChild() {
+    console.log("About to save");
+  }
+
+  function getChildParent(child_code) {
+    console.log(child_code);
+    return "";
+  }
+
   function showModal() {
     console.log("Showing", item_object);
     if (command === "edit") {
       head_name.value = item_object.name;
       head_code.value = "code" in item_object ? item_object.code : "";
+      parent_name.value = getChildParent(item_object.code);
       account_type.value = item_object.type;
       head_level.value = Number(item_object.level) + 1;
       $('#catCRUDModal').modal('show');
