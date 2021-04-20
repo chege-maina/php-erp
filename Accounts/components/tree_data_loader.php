@@ -51,7 +51,6 @@
     fetch('./php_scripts/get_chart.php')
       .then(response => response.json())
       .then(data => {
-        console.log("Rasta is life", data);
 
         let data_map = {};
         data.forEach(row => {
@@ -68,7 +67,6 @@
           });
         });
 
-        console.log(data_map);
         window.sessionStorage.clear();
         window.sessionStorage.setItem("items", JSON.stringify(data_map));
         const ev = new StorageEvent("storage", {
