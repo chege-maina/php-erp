@@ -32,8 +32,8 @@
               <div class="col">
                 <label for="account_type" class="form-label">Account Type*</label>
                 <select name="account_type" id="account_type" class="form-select" required>
-                  <option value="Debit">Debit</option>
-                  <option value="Credit">Credit</option>
+                  <option value="debit">debit</option>
+                  <option value="credit">credit</option>
                 </select>
               </div>
               <div class="col">
