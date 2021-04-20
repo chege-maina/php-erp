@@ -173,10 +173,10 @@ include '../includes/base_page/head.php';
       console.log("======================================");
       console.log("selected these");
       console.log("''''''''''''''''''''''''''''''''''''''");
-      console.log("year", b_year.value);
-      console.log("month", b_month.value);
-      console.log("paye", b_paye.value);
-      console.log("nhif", b_nhif.value);
+      formData.append("year", b_year.value);
+      formData.append("month", b_month.value);
+      formData.append("paye", b_paye.value);
+      formData.append("nhif", b_nhif.value);
       console.log("======================================");
 
 
