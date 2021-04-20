@@ -51,18 +51,20 @@
     fetch('./php_scripts/get_chart.php')
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        console.log("Rasta is life", data);
 
         let data_map = {};
         data.forEach(row => {
           data_map[row.parent_title] = row.parent_title in data_map ?
             data_map[row.parent_title] : {
               code: row.parent_number,
-              children_to_add: []
+              children_to_add: [],
+              type: row.parent_type
             };
           data_map[row.parent_title].children_to_add.push({
             name: row.child_title,
             code: row.child_number,
+            type: row.child_type
           });
         });
 

@@ -22,9 +22,17 @@ include 'category_crud_modal.php';
       </template>
       <template v-slot:append="{ item }">
         <a @click="itemClicked(item.name)">
-          <span v-if="!item.value"> 0 </span>
-          <span v-else>
-            {{ item.value }}
+          <span>
+            <span v-if="!item.type"></span>
+            <span v-else>
+              {{ item.type }}
+            </span>
+          </span>
+          <span>
+            <span v-if="!item.value"> 0 </span>
+            <span v-else>
+              {{ item.value }}
+            </span>
           </span>
         </a>
       </template>
@@ -104,6 +112,7 @@ include 'category_crud_modal.php';
           created_object[key] = {
             code: this.root[key].code,
             name: key,
+            type: this.root[key].type,
             children: [],
           };
           // Add it to this.index
@@ -114,6 +123,8 @@ include 'category_crud_modal.php';
             const i_child = this.root[key].children_to_add[i];
             created_object[key].children.push({
               name: i_child.name,
+              code: i_child.code,
+              type: i_child.type,
               children: [],
             });
             // Add it to this.index
@@ -131,6 +142,8 @@ include 'category_crud_modal.php';
                 const j_child = this.root[i_child.name].children_to_add[j];
                 created_object[key].children[i].children.push({
                   name: j_child.name,
+                  type: j_child.type,
+                  code: j_child.code,
                   children: [],
                 });
                 // Add it to this.index
@@ -147,6 +160,8 @@ include 'category_crud_modal.php';
                     const k_child = this.root[j_child.name].children_to_add[k];
                     created_object[key].children[i].children[j].children.push({
                       name: k_child.name,
+                      type: k_child.type,
+                      code: k_child.code,
                       children: [],
                     });
                     // Add it to this.index
@@ -205,6 +220,7 @@ include 'category_crud_modal.php';
         const ev = new CustomEvent("show_category_crud", {
           detail: {
             id: item,
+            command: 'edit',
             index: JSON.stringify(this.index)
           }
         });
