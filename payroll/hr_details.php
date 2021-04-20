@@ -28,13 +28,16 @@ include '../base_page/data_list_select.php';
       </div>
       <div class="col">
         <label class="form-label" for="end_date">Contract End Date</label>
-        <input type="date" class="form-control" name="end_date" id="end_date" required>
+        <input type="date" class="form-control" name="end_date" id="end_date" onchange="setDateDifference(this.value);" required>
         <div class="invalid-feedback">This field cannot be left blank.</div>
       </div>
       <div class="col">
         <label class="form-label" for="duration">Contract Duration</label>
-        <input type="text" class="form-control" name="duration" id="duration" required>
-        <div class="invalid-feedback">This field cannot be left blank.</div>
+        <div class="input-group">
+          <input type="text" class="form-control" name="duration" id="duration" readonly required>
+          <span class="input-group-text">Days</span>
+          <div class="invalid-feedback">This field cannot be left blank.</div>
+        </div>
       </div>
     </div>
     <hr>
@@ -168,6 +171,11 @@ include '../base_page/data_list_select.php';
   const head_of = document.querySelector("#head_of");
   const report_to = document.querySelector("#report_to");
   const region = document.querySelector("#region");
+
+  let setDateDifference = val => {
+    const diff = ((new Date(val)).getTime() - (new Date(start_date.value)).getTime()) / (1000 * 60 * 60 * 24)
+    duration.value = diff;
+  }
 
   function getHrDetails() {
     let tmp = {
