@@ -140,7 +140,7 @@ include '../includes/base_page/head.php';
                   <option value disabled selected>
                     -- Select Method --
                   </option>
-                  <option value="Straight-Line">Straight-Line</option>
+                  <option value="Fixed">Fixed</option>
                   <option value="Reducing">Reducing</option>
                 </select>
                 <div class="invalid-tooltip">This field cannot be left blank.</div>

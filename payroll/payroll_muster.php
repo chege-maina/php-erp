@@ -184,10 +184,9 @@ include '../includes/base_page/head.php';
           method: 'POST',
           body: formData
         })
-        .then(response => response.text())
+        .then(response => response.json())
         .then(data => {
           console.log('Success:', data);
-          return;
           [...table_items] = data;
           updateTable(table_items);
         })
