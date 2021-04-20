@@ -77,7 +77,6 @@
 
   function convertRawDataToMap(data) {
     let data_map = {};
-    console.log(data);
     data.forEach(row => {
       data_map[row.parent_title] = row.parent_title in data_map ?
         data_map[row.parent_title] : {
