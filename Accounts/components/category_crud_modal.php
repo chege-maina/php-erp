@@ -119,28 +119,40 @@
   }
 
   function saveDetails() {
-    const path = item_object.path
-    switch (path.length) {
-      case 1:
-        console.log(parent_children_map[path[0]]);
-        const {
-          ...tmp_obj
-        } = parent_children_map[path[0]];
-
-        // Now that we have the detail object of this item, check if the key has changed
-        if (head_name.value !== path[0]) {
-          console.log("Node name has changed");
-          delete parent_children_map[path[0]];
-          parent_children_map[head_name.value] = tmp_obj;
-          sessionStorage.setItem("items", JSON.stringify(parent_children_map));
-
-          const ev = new StorageEvent("storage", {
-            key: "items",
-          });
-          window.dispatchEvent(ev);
-        }
-        break;
+    if (!head_name.validity.valid) {
+      head_name.focus();
+      return;
+    } else if (!head_code.validity.valid) {
+      head_code.focus();
+      return;
     }
+
+
+    console.log("===================================");
+    console.log("prev_code", item_object.code);
+    console.log("head_code", head_code.value);
+    console.log("head_name", head_name.value);
+    console.log("account_type", account_type.value);
+    console.log("===================================");
+    return;
+
+    const formData = new FormData();
+    formData.append("prev_code", item_object.code);
+    formData.append("head_code", head_code.value);
+    formData.append("head_name", head_name.value);
+    formData.append("account_type", account_type.value);
+
+    fetch('', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log('Success:', result);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
     $('#catCRUDModal').modal('hide');
   }
 
