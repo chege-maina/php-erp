@@ -58,7 +58,6 @@ include '../includes/base_page/head.php';
                   <option value disabled selected>
                     -- Select Month --
                   </option>
-                  <option value="November">November</option>
                 </select>
                 <div class="invalid-tooltip">This field cannot be left blank.</div>
               </div>
@@ -69,7 +68,6 @@ include '../includes/base_page/head.php';
                   <option value disabled selected>
                     -- Select Year --
                   </option>
-                  <option value="2006">2006</option>
                 </select>
                 <div class="invalid-tooltip">This field cannot be left blank.</div>
               </div>
@@ -82,7 +80,6 @@ include '../includes/base_page/head.php';
                   <option value disabled selected>
                     -- Select NHIF Schedule --
                   </option>
-                  <option value="2012">2012</option>
                 </select>
                 <div class="invalid-tooltip">This field cannot be left blank.</div>
               </div>
@@ -93,7 +90,6 @@ include '../includes/base_page/head.php';
                   <option value disabled selected>
                     -- Select P.A.Y.E Schedule --
                   </option>
-                  <option value="2012">2012</option>
                 </select>
                 <div class="invalid-tooltip">This field cannot be left blank.</div>
               </div>
@@ -151,14 +147,14 @@ include '../includes/base_page/head.php';
 
 
 
-    //  window.addEventListener('DOMContentLoaded', (event) => {
+    window.addEventListener('DOMContentLoaded', (event) => {
 
-    //   populateSelectElement("#b_paye", '../payroll/load_paye_schedule.php', "paye");
-    //   populateSelectElement("#b_nhif", '../payroll/load_nhif_schedule.php', "nhif");
-    //   populateSelectElement("#b_year", '../payroll/load_year.php', "year");
-    //   populateSelectElement("#b_month", '../payroll/load_month.php', "month");
+      populateSelectElement("#b_paye", '../payroll/load_paye_schedule.php', "paye");
+      populateSelectElement("#b_nhif", '../payroll/load_nhif_schedule.php', "nhif");
+      populateSelectElement("#b_year", '../payroll/load_year.php', "year");
+      populateSelectElement("#b_month", '../payroll/load_month.php', "month");
 
-    // });
+    });
   </script>
 
   <!-- table_items script-->
@@ -178,15 +174,11 @@ include '../includes/base_page/head.php';
       console.log("selected these");
       console.log("''''''''''''''''''''''''''''''''''''''");
       console.log("year", b_year.value);
-      console.log("month", b_paye.value);
-      console.log("paye", b_month.value);
+      console.log("month", b_month.value);
+      console.log("paye", b_paye.value);
       console.log("nhif", b_nhif.value);
       console.log("======================================");
 
-      formData.append("year", b_year.value);
-      formData.append("month", b_paye.value);
-      formData.append("paye", b_month.value);
-      formData.append("nhif", b_nhif.value);
 
       fetch('muster_roll.php', {
           method: 'POST',
