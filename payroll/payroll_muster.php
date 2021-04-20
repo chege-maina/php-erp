@@ -99,7 +99,7 @@ include '../includes/base_page/head.php';
         <div class="card mt-1">
           <div class="card-header bg-light p-2 pt-3 pl-3">
             <div class="d-flex flex-row-reverse">
-              <button class="btn btn-falcon-primary btn-sm m-2" id="b_create" onclick="updateTable(this.this_row);">
+              <button class="btn btn-falcon-primary btn-sm m-2" id="b_create" onclick="selectRows();">
                 Create
               </button>
             </div>
@@ -162,25 +162,34 @@ include '../includes/base_page/head.php';
 
   <script>
     const table_body = document.querySelector("#table_body");
-    let items_in_table = {};
 
 
+
+    let table_items;
 
     const selectRows = () => {
       const formData = new FormData();
+
+      console.log("======================================");
+      console.log("selected these");
+      console.log("''''''''''''''''''''''''''''''''''''''");
       formData.append("year", b_year.value);
-      formData.append("month", b_paye.value);
-      formData.append("paye", b_month.value);
+      formData.append("month", b_month.value);
+      formData.append("paye", b_paye.value);
       formData.append("nhif", b_nhif.value);
+      console.log("======================================");
+
 
       fetch('muster_roll.php', {
           method: 'POST',
           body: formData
         })
-        .then(response => response.json())
+        .then(response => response.text())
         .then(data => {
           console.log('Success:', data);
-          updateTable(items_in_table);
+          return;
+          [...table_items] = data;
+          updateTable(table_items);
         })
         .catch(error => {
           console.error('Error:', error);
@@ -189,8 +198,8 @@ include '../includes/base_page/head.php';
     }
 
     let updateTable = (data) => {
-      console.log('hello:', data);
       table_body.innerHTML = "";
+      console.log("Ladadida", "Commodore ", data);
       data.forEach(value => {
 
         const this_row = document.createElement("tr");
@@ -199,32 +208,32 @@ include '../includes/base_page/head.php';
 
         // employee details
         let employee_no = document.createElement("td");
-        employee_no.appendChild(document.createTextNode(items_in_table[item].emp_no));
+        employee_no.appendChild(document.createTextNode(value["emp_no"]));
         employee_no.classList.add("align-middle");
 
         //employee  number 
         let name = document.createElement("td");
-        name.appendChild(document.createTextNode(items_in_table[item].emp_name));
+        name.appendChild(document.createTextNode(value["emp_name"]));
         name.classList.add("align-middle");
 
         // branch
         let branch = document.createElement("td");
-        branch.appendChild(document.createTextNode(items_in_table[item].branch));
+        branch.appendChild(document.createTextNode(value["branch"]));
         branch.classList.add("align-middle");
 
         //department
         let department = document.createElement("td");
-        department.appendChild(document.createTextNode(items_in_table[item].department));
+        department.appendChild(document.createTextNode(value["dept"]));
         department.classList.add("align-middle");
         //salary
 
         let salary = document.createElement("td");
-        salary.appendChild(document.createTextNode(items_in_table[item].salary));
+        salary.appendChild(document.createTextNode(value["salary"]));
         salary.classList.add("align-middle");
         //earnings
 
         let earnings = document.createElement("td");
-        earnings.appendChild(document.createTextNode(items_in_table[item].earnings));
+        earnings.appendChild(document.createTextNode(value["earnings"]));
         earnings.classList.add("align-middle");
         //absenteeism
 
@@ -234,20 +243,20 @@ include '../includes/base_page/head.php';
 
         //paye
         let paye = document.createElement("td");
-        paye.appendChild(document.createTextNode(items_in_table[item].paye));
+        paye.appendChild(document.createTextNode(value["paye"]));
         paye.classList.add("align-middle");
         //nssf
         let nssf = document.createElement("td");
-        nssf.appendChild(document.createTextNode(items_in_table[item].nssf));
+        nssf.appendChild(document.createTextNode(value["nssf"]));
         nssf.classList.add("align-middle");
         //nhif
 
         let nhif = document.createElement("td");
-        nhif.appendChild(document.createTextNode(items_in_table[item].nhif));
+        nhif.appendChild(document.createTextNode(value["nhif"]));
         nhif.classList.add("align-middle");
         //salary advance
         let advance = document.createElement("td");
-        advance.appendChild(document.createTextNode(items_in_table[item].advanced));
+        advance.appendChild(document.createTextNode(value["advanced"]));
         advance.classList.add("align-middle");
         //loans
 
@@ -258,7 +267,7 @@ include '../includes/base_page/head.php';
 
         //other deductions
         let deduct = document.createElement("td");
-        deduct.appendChild(document.createTextNode(items_in_table[item].deduct));
+        deduct.appendChild(document.createTextNode(value["deductions"]));
         deduct.classList.add("align-middle");
         // net pay
 
@@ -269,22 +278,11 @@ include '../includes/base_page/head.php';
 
         //employee contribution 
         let contrib = document.createElement("td");
-        contrib.appendChild(document.createTextNode(items_in_table[item].employer_nssf));
+        contrib.appendChild(document.createTextNode(value["employer_nssf"]));
         contrib.classList.add("align-middle");
         // CONTINUE FROM HERE RUTH
 
 
-
-        let actionWrapper = document.createElement("td");
-        actionWrapper.classList.add("m-2");
-        let action = document.createElement("button");
-        action.setAttribute("id", items_in_table[item]["fname"] + " " + items_in_table[item]["lname"]);
-        action.setAttribute("onclick", "removeItem(this.id);");
-        let icon = document.createElement("span");
-        icon.classList.add("fas", "fa-minus", "mt-1");
-        action.appendChild(icon);
-        action.classList.add("btn", "btn-falcon-danger", "btn-sm", "rounded-pill");
-        actionWrapper.appendChild(action);
 
         this_row.append(employee_no,
           name,
@@ -298,7 +296,6 @@ include '../includes/base_page/head.php';
           advance,
           deduct,
           contrib,
-          actionWrapper
         );
         table_body.appendChild(this_row);
 
