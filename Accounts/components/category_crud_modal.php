@@ -52,7 +52,7 @@
 
             <div class="row mt-1">
               <div class="col-auto">
-                <input type="button" value="Save" class="btn btn-falcon-primary mt-3" id="add_ct_submit" name="add_ct_submit" onclick="saveDetails()">
+                <input type="button" value="Save" class="btn btn-falcon-primary mt-3" id="save_account" name="save_account" onclick="saveDetails()">
                 <input type="button" value="Add Child" class="btn btn-falcon-primary mt-3 ml-1" id="add_child_submit" name="add_ct_submit" onclick="addNewChild()">
               </div>
               <div class="col-auto">
@@ -73,13 +73,24 @@
   const head_level = document.querySelector("#head_level");
   const account_type = document.querySelector("#account_type");
   const carrying_forward = document.querySelector("#carrying_forward");
+  const add_child_submit = document.querySelector("#add_child_submit");
+  const save_account = document.querySelector("#save_account");
+
 
   let parent_children_map;
   let item_object;
   let command;
   let parent_object = {};
+  let adding_child = false;
 
   function addNewChild() {
+    add_child_submit.value = "Save Child";
+    save_account.disabled = true;
+    parent_name.value = item_object.name;
+    head_name.value = "";
+    head_code.value = "";
+    account_type.value = "debit";
+    head_level.value = Number(head_level.value) + 1;
     console.log("About to save");
   }
 
@@ -88,7 +99,7 @@
     let found = false;
 
     raw_data.forEach(row => {
-      if (row.child_number = child_code) {
+      if (row.child_number == child_code) {
         found = true;
         parent_object = {
           code: row.parent_number,
@@ -103,6 +114,7 @@
     };
 
     console.log(child_code, raw_data);
+    console.log(parent_object);
     return parent_object.title;
   }
 
@@ -113,7 +125,7 @@
       head_code.value = "code" in item_object ? item_object.code : "";
       parent_name.value = getChildParent(item_object.code);
       account_type.value = item_object.type;
-      head_level.value = Number(item_object.level) + 1;
+      head_level.value = Number(item_object.level);
       $('#catCRUDModal').modal('show');
     }
   }
@@ -134,7 +146,6 @@
     console.log("head_name", head_name.value);
     console.log("account_type", account_type.value);
     console.log("===================================");
-    return;
 
     const formData = new FormData();
     formData.append("prev_code", item_object.code);
@@ -142,13 +153,16 @@
     formData.append("head_name", head_name.value);
     formData.append("account_type", account_type.value);
 
-    fetch('', {
+    fetch('./php_scripts/update_node.php', {
         method: 'POST',
         body: formData
       })
       .then(response => response.json())
       .then(result => {
         console.log('Success:', result);
+        if (result.message == 'success') {
+          location.reload();
+        }
       })
       .catch(error => {
         console.error('Error:', error);
