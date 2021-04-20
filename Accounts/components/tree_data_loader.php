@@ -47,30 +47,17 @@
     },
   };
 
+  let raw_data = [];
+
   window.addEventListener('DOMContentLoaded', (event) => {
     fetch('./php_scripts/get_chart.php')
       .then(response => response.json())
       .then(data => {
+        [...raw_data] = data;
 
-        let data_map = {};
-        data.forEach(row => {
-          data_map[row.parent_title] = row.parent_title in data_map ?
-            data_map[row.parent_title] : {
-              code: row.parent_number,
-              children_to_add: [],
-              type: row.parent_type
-            };
-          data_map[row.parent_title].children_to_add.push({
-            name: row.child_title,
-            code: row.child_number,
-            type: row.child_type
-          });
-        });
-
-        window.sessionStorage.clear();
-        window.sessionStorage.setItem("items", JSON.stringify(data_map));
+        window.sessionStorage.setItem("raw_data", JSON.stringify(raw_data));
         const ev = new StorageEvent("storage", {
-          key: "items"
+          key: "raw_data"
         });
         window.dispatchEvent(ev);
       })
@@ -78,6 +65,39 @@
         console.error('Error:', error);
       });
   });
+
+  window.addEventListener("storage", (event) => {
+    // If our table data in the session storage has been changed
+    if (event.key == "raw_data") {
+      let raw_data = window.sessionStorage.getItem("raw_data");
+      raw_data = JSON.parse(raw_data);
+      convertRawDataToMap(raw_data);
+    }
+  });
+
+  function convertRawDataToMap(data) {
+    let data_map = {};
+    console.log(data);
+    data.forEach(row => {
+      data_map[row.parent_title] = row.parent_title in data_map ?
+        data_map[row.parent_title] : {
+          code: row.parent_number,
+          children_to_add: [],
+          type: row.parent_type
+        };
+      data_map[row.parent_title].children_to_add.push({
+        name: row.child_title,
+        code: row.child_number,
+        type: row.child_type
+      });
+    });
+
+    window.sessionStorage.setItem("items", JSON.stringify(data_map));
+    const ev = new StorageEvent("storage", {
+      key: "items"
+    });
+    window.dispatchEvent(ev);
+  }
 
   window.sessionStorage.clear();
   window.sessionStorage.setItem("items", JSON.stringify(parent_children));
