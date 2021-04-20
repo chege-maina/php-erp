@@ -123,6 +123,7 @@ include 'category_crud_modal.php';
             const i_child = this.root[key].children_to_add[i];
             created_object[key].children.push({
               name: i_child.name,
+              code: i_child.code,
               type: i_child.type,
               children: [],
             });
@@ -142,6 +143,7 @@ include 'category_crud_modal.php';
                 created_object[key].children[i].children.push({
                   name: j_child.name,
                   type: j_child.type,
+                  code: j_child.code,
                   children: [],
                 });
                 // Add it to this.index
@@ -159,6 +161,7 @@ include 'category_crud_modal.php';
                     created_object[key].children[i].children[j].children.push({
                       name: k_child.name,
                       type: k_child.type,
+                      code: k_child.code,
                       children: [],
                     });
                     // Add it to this.index
