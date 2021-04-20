@@ -84,14 +84,57 @@
   let adding_child = false;
 
   function addNewChild() {
-    add_child_submit.value = "Save Child";
-    save_account.disabled = true;
-    parent_name.value = item_object.name;
-    head_name.value = "";
-    head_code.value = "";
-    account_type.value = "debit";
-    head_level.value = Number(head_level.value) + 1;
-    console.log("About to save");
+    if (!adding_child) {
+      save_account.disabled = true;
+      parent_name.value = item_object.name;
+      head_name.value = "";
+      head_code.value = "";
+      account_type.value = "debit";
+      head_level.value = Number(head_level.value) + 1;
+      console.log("About to save");
+      add_child_submit.value = "Save Child";
+      adding_child = true;
+    } else {
+      // We are adding children, commit
+      if (!head_name.validity.valid) {
+        head_name.focus();
+        return;
+      } else if (!head_code.validity.valid) {
+        head_code.focus();
+        return;
+      }
+
+
+      console.log("===================================");
+      console.log("prev_code", item_object.code);
+      console.log("head_code", head_code.value);
+      console.log("head_name", head_name.value);
+      console.log("account_type", account_type.value);
+      console.log("===================================");
+
+      const formData = new FormData();
+      formData.append("prev_code", item_object.code);
+      formData.append("head_code", head_code.value);
+      formData.append("head_name", head_name.value);
+      formData.append("account_type", account_type.value);
+
+      return;
+      fetch('./php_scripts/update_node.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+          console.log('Success:', result);
+          if (result.message == 'success') {
+            location.reload();
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+
+    }
   }
 
   function getChildParent(child_code) {
