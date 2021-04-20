@@ -63,13 +63,17 @@
 
   let parent_children_map;
   let item_object;
+  let command;
 
   function showModal() {
     console.log("Showing", item_object);
-    head_name.value = item_object.name;
-    head_code.value = "code" in item_object ? item_object.code : "";
-    head_level.value = Number(item_object.level) + 1;
-    $('#catCRUDModal').modal('show');
+    if (command === "edit") {
+      head_name.value = item_object.name;
+      head_code.value = "code" in item_object ? item_object.code : "";
+      account_type.value = item_object.type;
+      head_level.value = Number(item_object.level) + 1;
+      $('#catCRUDModal').modal('show');
+    }
   }
 
   function saveDetails() {
@@ -102,9 +106,9 @@
     const id = event.detail.id;
     const index = JSON.parse(event.detail.index);
     parent_children_map = JSON.parse(sessionStorage.getItem("items"));
+    command = event.detail.command;
 
     const [...item_path_array] = index[id];
-
 
     let level_2_item;
     let level_3_item;
