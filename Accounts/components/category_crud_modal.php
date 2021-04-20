@@ -14,7 +14,7 @@
           <form id="add_ct_frm" name="add_ct_frm">
             <div class="p2">
               <label for="parent_name" class="form-label">Parent Name*</label>
-              <input type="text" name="parent_name" id="parent_name" class="form-control" required>
+              <input type="text" name="parent_name" id="parent_name" class="form-control" required readonly>
             </div>
 
             <div class="p2">
@@ -77,14 +77,33 @@
   let parent_children_map;
   let item_object;
   let command;
+  let parent_object = {};
 
   function addNewChild() {
     console.log("About to save");
   }
 
   function getChildParent(child_code) {
-    console.log(child_code);
-    return "";
+    const raw_data = JSON.parse(window.sessionStorage.getItem("raw_data"));
+    let found = false;
+
+    raw_data.forEach(row => {
+      if (row.child_number = child_code) {
+        found = true;
+        parent_object = {
+          code: row.parent_number,
+          title: row.parent_title,
+        };
+      }
+    });
+
+    parent_object = found ? parent_object : {
+      code: 0,
+      title: ""
+    };
+
+    console.log(child_code, raw_data);
+    return parent_object.title;
   }
 
   function showModal() {
