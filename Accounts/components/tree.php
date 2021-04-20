@@ -205,6 +205,7 @@ include 'category_crud_modal.php';
         const ev = new CustomEvent("show_category_crud", {
           detail: {
             id: item,
+            command: 'edit',
             index: JSON.stringify(this.index)
           }
         });
