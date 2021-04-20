@@ -57,16 +57,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $query2 = "SELECT * FROM tbl_paye WHERE descnhif='$paye' GROUP BY fromnhif ASC";
           $result2 = mysqli_query($conn, $query2);
           $paye_amt = 0;
+          $checker = 2;
           $the_figure = $salary;
           while ($row2 = mysqli_fetch_assoc($result2)) {
             $upto = $row2['tonhif'];
             $rate = $row2['rate'];
             $relief = $row2['relief'];
-            if ($the_figure > $upto) {
-              $paye_amt = $paye_amt + ($upto * $rate / 100);
-            } else {
-              $paye_amt = $paye_amt + ($the_figure * $rate / 100);
+            if ($checker == 2) {
+              if ($the_figure > $upto) {
+
+                $paye_amt = $paye_amt + ($upto * $rate / 100);
+                $the_figure = $the_figure - $upto;
+              } else {
+                $checker = 8;
+                $paye_amt = $paye_amt + ($the_figure * $rate / 100);
+              }
             }
+            //$the_figure = $the_figure - $upto;
           }
           $paye_topay = $paye_amt - $relief;
           //get NHIF
@@ -98,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           'dept' => $dept,
           'salary' => $salary,
           'earnings' => $total_benef,
-          'paye' => $paye_topay,
+          'paye' => round($paye_topay, 2),
           'nssf' => $nssf_amt,
           'nhif' => $nhif_amt,
           'advanced' => $advanced,
