@@ -1,11 +1,14 @@
 <script>
   let root = {};
   let index = {};
+  let deepest_of_them = {};
 
   window.addEventListener("storage", (event) => {
     // If our table data in the session storage has been changed
     if (event.key == "items") {
       root = JSON.parse(window.sessionStorage.getItem("items"));
+      getTreeObject();
+      // console.log("Deepest ", deepest_of_them);
     }
   });
 
@@ -102,19 +105,31 @@
                       k_child.name,
                       l_child.name,
                     ];
+
+                    // All l_childs are the deepest_of_them
+                    deepest_of_them[l_child.code] = l_child;
                   }
                   // We've added the child, delete it from root
                   delete root[k_child.name];
+                } else {
+                  // k_child k not in root, add it to our deepest_of_them
+                  deepest_of_them[k_child.code] = k_child;
                 }
                 // Add the next k_child
               }
               // We've added j_child's children, now delete it from root
               delete root[j_child.name];
+            } else {
+              // j_child j not in root, add it to our deepest_of_them
+              deepest_of_them[j_child.code] = j_child;
             }
             // Add the next j_child
           }
           // We've added i_child's children, now delete it from root
           delete root[i_child.name];
+        } else {
+          // i_child i not in root, add it to our deepest_of_them
+          deepest_of_them[i_child.code] = i_child;
         }
         // Add the next i_child
       }
