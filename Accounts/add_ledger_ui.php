@@ -31,6 +31,11 @@ include '../includes/base_page/head.php';
         include '../navbar-shared.php';
         ?>
 
+        window.sessionStorage.clear();
+        <?php
+        include './components/tree_data_loader.php';
+        ?>
+
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
