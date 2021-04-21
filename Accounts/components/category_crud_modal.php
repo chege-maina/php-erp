@@ -209,6 +209,7 @@
     console.log("head_code", head_code.value);
     console.log("head_name", head_name.value);
     console.log("account_type", account_type.value);
+    console.log("carrying_forward", carrying_forward.value == "no" ? 0 : 1);
     console.log("===================================");
 
     const formData = new FormData();
@@ -216,6 +217,7 @@
     formData.append("head_code", head_code.value);
     formData.append("head_name", head_name.value);
     formData.append("account_type", account_type.value);
+    formData.append("carrying_forward", carrying_forward.value == "no" ? 0 : 1);
 
     fetch('./php_scripts/update_node.php', {
         method: 'POST',

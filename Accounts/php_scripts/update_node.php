@@ -22,12 +22,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $head_code = sanitize_input($_POST["head_code"]);
   $head_name = sanitize_input($_POST["head_name"]);
   $account_type = sanitize_input($_POST["account_type"]);
+  $carrying_forward = sanitize_input($_POST["carrying_forward"]);
 
   // 2. Prepare the statement
-  $query = "UPDATE tbl_chart_account_details SET number = ?, title = ?, type= ? WHERE number= ?;";
+  $query = "UPDATE tbl_chart_account_details SET number = ?, title = ?, type= ?, carrying_forward = ? WHERE number= ?;";
   $sttmt;
   if ($sttmt = $con->prepare($query)) {
-    $sttmt->bind_param('ssss', $head_code, $head_name, $account_type, $prev_code);
+    $sttmt->bind_param('sssis', $head_code, $head_name, $account_type, $carrying_forward, $prev_code);
     if ($sttmt->execute()) {
       echo json_encode(array(
         "message" => "success",
