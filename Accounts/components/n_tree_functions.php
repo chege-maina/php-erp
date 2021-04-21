@@ -8,6 +8,11 @@
     if (event.key == "items") {
       root = JSON.parse(window.sessionStorage.getItem("items"));
       getTreeObject();
+
+      const ev = new CustomEvent('populate_groups', {
+        detail: JSON.stringify(deepest_of_them)
+      });
+      window.dispatchEvent(ev);
       // console.log("Deepest ", deepest_of_them);
     }
   });
