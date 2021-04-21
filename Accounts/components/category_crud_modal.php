@@ -106,15 +106,16 @@
 
 
       console.log("===================================");
-      console.log("prev_code", item_object.code);
+      console.log("parent_code", item_object.code);
       console.log("head_code", head_code.value);
       console.log("head_name", head_name.value);
       console.log("account_type", account_type.value);
       console.log("carrying_forward", carrying_forward.value == "no" ? 0 : 1);
       console.log("===================================");
+      return
 
       const formData = new FormData();
-      formData.append("prev_code", item_object.code);
+      formData.append("parent_code", item_object.code);
       formData.append("head_code", head_code.value);
       formData.append("head_name", head_name.value);
       formData.append("account_type", account_type.value);
