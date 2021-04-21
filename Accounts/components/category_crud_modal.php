@@ -129,7 +129,7 @@
           method: 'POST',
           body: formData
         })
-        .then(response => response.text())
+        .then(response => response.json())
         .then(result => {
           if (result.message == 'success') {
             location.reload();
