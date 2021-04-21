@@ -286,6 +286,7 @@ include '../includes/base_page/head.php';
     delete items_in_table[String(item)];
 
     updateTable();
+    calculateDbCrTotals();
   }
 
   function validateQuantity(elmt, value, max) {
