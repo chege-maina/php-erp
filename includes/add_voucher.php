@@ -24,11 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $credit = sanitize_input($_POST["credit"]);
   $table_items = json_decode($_POST["table_items"], true);
 
-  if (strcmp($type, 'Journal')) {
+  if (strcmp($type, 'Journal') == 0) {
     $prefix = "JV-";
-  } elseif (strcmp($type, 'Contra')) {
+  } elseif (strcmp($type, 'Contra') == 0) {
     $prefix = "CV-";
-  } elseif (strcmp($type, 'Credit')) {
+  } elseif (strcmp($type, 'Credit') == 0) {
     $prefix = "CN-";
   } else {
     $prefix = "DN-";
