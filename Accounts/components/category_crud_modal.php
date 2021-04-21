@@ -44,8 +44,8 @@
               <div class="col">
                 <label for="carrying_forward" class="form-label">Carrying Forward*</label>
                 <select name="carrying_forward" id="carrying_forward" class="form-select" required>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
+                  <option value="yes">yes</option>
+                  <option value="no">no</option>
                 </select>
               </div>
             </div>
@@ -106,17 +106,20 @@
 
 
       console.log("===================================");
-      console.log("prev_code", item_object.code);
+      console.log("parent_code", item_object.code);
       console.log("head_code", head_code.value);
       console.log("head_name", head_name.value);
       console.log("account_type", account_type.value);
+      console.log("carrying_forward", carrying_forward.value == "no" ? 0 : 1);
       console.log("===================================");
+      return
 
       const formData = new FormData();
-      formData.append("prev_code", item_object.code);
+      formData.append("parent_code", item_object.code);
       formData.append("head_code", head_code.value);
       formData.append("head_name", head_name.value);
       formData.append("account_type", account_type.value);
+      formData.append("carrying_forward", carrying_forward.value == "no" ? 0 : 1);
 
       return;
       fetch('./php_scripts/update_node.php', {
@@ -125,7 +128,6 @@
         })
         .then(response => response.json())
         .then(result => {
-          console.log('Success:', result);
           if (result.message == 'success') {
             location.reload();
           }
@@ -156,17 +158,38 @@
       title: ""
     };
 
-    console.log(child_code, raw_data);
-    console.log(parent_object);
     return parent_object.title;
   }
 
+  function isChildCarryingForward(child_code) {
+    const raw_data = JSON.parse(window.sessionStorage.getItem("raw_data"));
+    let child_object = {};
+
+    raw_data.forEach(row => {
+      if (row.child_number == child_code) {
+        child_object = {
+          code: row.child_number,
+          title: row.child_title,
+          carrying_forward: Boolean(Number(row.child_carrying_forward))
+        };
+      }
+    });
+
+    return child_object.carrying_forward;
+  }
+
   function showModal() {
-    console.log("Showing", item_object);
+    if (Number(item_object.level) == 3) {
+      add_child_submit.disabled = true;
+    } else {
+      add_child_submit.removeAttribute("disabled");
+    }
     if (command === "edit") {
       head_name.value = item_object.name;
       head_code.value = "code" in item_object ? item_object.code : "";
       parent_name.value = getChildParent(item_object.code);
+      parent_name.value = getChildParent(item_object.code);
+      carrying_forward.value = isChildCarryingForward(item_object.code) ? 'yes' : 'no';
       account_type.value = item_object.type;
       head_level.value = Number(item_object.level);
       $('#catCRUDModal').modal('show');
@@ -188,6 +211,7 @@
     console.log("head_code", head_code.value);
     console.log("head_name", head_name.value);
     console.log("account_type", account_type.value);
+    console.log("carrying_forward", carrying_forward.value == "no" ? 0 : 1);
     console.log("===================================");
 
     const formData = new FormData();
@@ -195,6 +219,7 @@
     formData.append("head_code", head_code.value);
     formData.append("head_name", head_name.value);
     formData.append("account_type", account_type.value);
+    formData.append("carrying_forward", carrying_forward.value == "no" ? 0 : 1);
 
     fetch('./php_scripts/update_node.php', {
         method: 'POST',
