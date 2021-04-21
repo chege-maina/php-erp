@@ -24,30 +24,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $credit = sanitize_input($_POST["credit"]);
   $table_items = json_decode($_POST["table_items"], true);
 
-  if(strcmp($type, 'Journal'){
-$prefix="JV-";
-  }
-  elseif(strcmp($type, 'Contra'){
-    $prefix="CV-";
-  }
-  elseif(strcmp($type, 'Credit'){
-    $prefix="CN-";
-  }
-  else{
-    $prefix="DN-";
+  if (strcmp($type, 'Journal')) {
+    $prefix = "JV-";
+  } elseif (strcmp($type, 'Contra')) {
+    $prefix = "CV-";
+  } elseif (strcmp($type, 'Credit')) {
+    $prefix = "CN-";
+  } else {
+    $prefix = "DN-";
   }
   $query = "SELECT count(voucher_no) FROM tbl_voucher WHERE voucher_type='$type'";
 
-            $result = mysqli_query($conn, $query);
-            if ($row = mysqli_fetch_assoc($result)) {
-              $code2 = $row['count(voucher_no)'] + 1;
-              if ($code2 < 10) {
-                $code2 = "00" . $code2;
-              } else if ($code2 < 100) {
-                $code2 = "0" . $code2;
-              }
-            }
-            $voucher_no=$prefix.$code2;
+  $result = mysqli_query($conn, $query);
+  if ($row = mysqli_fetch_assoc($result)) {
+    $code2 = $row['count(voucher_no)'] + 1;
+    if ($code2 < 10) {
+      $code2 = "00" . $code2;
+    } else if ($code2 < 100) {
+      $code2 = "0" . $code2;
+    }
+  }
+  $voucher_no = $prefix . $code2;
 
 
   $mysql = "INSERT INTO tbl_voucher (voucher_no, voucher_type, debit, credit, date) VALUES ('" . $voucher_no . "', 
