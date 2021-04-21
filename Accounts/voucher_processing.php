@@ -208,11 +208,11 @@ include '../includes/base_page/head.php';
     let tmp_obj = getItems();
 
     const formData = new FormData();
-    formData.append("startdate", startdate.value);
-    formData.append("voucher", voucher.value);
+    formData.append("date", startdate.value);
+    formData.append("type", voucher.value);
     formData.append("debit", debit.value);
     formData.append("credit", credit.value);
-    formData.append("comment", comment.value);
+    formData.append("remarkd", comment.value);
     for (let key in tmp_obj) {
       formData.append(key, tmp_obj[key]);
     }
