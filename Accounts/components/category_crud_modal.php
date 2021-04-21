@@ -112,7 +112,6 @@
       console.log("account_type", account_type.value);
       console.log("carrying_forward", carrying_forward.value == "no" ? 0 : 1);
       console.log("===================================");
-      return
 
       const formData = new FormData();
       formData.append("parent_code", item_object.code);
@@ -121,15 +120,16 @@
       formData.append("account_type", account_type.value);
       formData.append("carrying_forward", carrying_forward.value == "no" ? 0 : 1);
 
-      return;
-      fetch('./php_scripts/update_node.php', {
+      fetch('./php_scripts/add_node.php', {
           method: 'POST',
           body: formData
         })
-        .then(response => response.json())
+        .then(response => response.text())
         .then(result => {
+          console.log("Saved yay", result);
+          return;
           if (result.message == 'success') {
-            location.reload();
+            // location.reload();
           }
         })
         .catch(error => {
