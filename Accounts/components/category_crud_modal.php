@@ -143,9 +143,6 @@
   }
 
   function addRootNode() {
-    console.log("Let the submission begin");
-
-
     if (!head_name.validity.valid) {
       head_name.focus();
       return;
@@ -168,13 +165,13 @@
     formData.append("account_type", account_type.value);
     formData.append("carrying_forward", carrying_forward.value == "no" ? 0 : 1);
 
-    return;
-    fetch('./php_scripts/add_node.php', {
+    fetch('./php_scripts/add_parent_node.php', {
         method: 'POST',
         body: formData
       })
-      .then(response => response.text())
+      .then(response => response.json())
       .then(result => {
+        console.log("Server says: ", result);
         if (result.message == 'success') {
           location.reload();
         }
