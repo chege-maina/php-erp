@@ -48,12 +48,14 @@ include '../includes/base_page/head.php';
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
             <div class="mb-3">
-              <label class="form-label" for="exampleFormControlInput1">Ledger Name</label>
-              <input class="form-control" id="exampleFormControlInput1" type="text" />
+              <label class="form-label" for="ledger_name">Ledger Name</label>
+              <input class="form-control" id="ledger_name" type="text" />
             </div>
             <div class="mb-3">
-              <label class="form-label" for="exampleFormControlInput1">Group Name</label>
-              <input class="form-control" id="exampleFormControlInput1" type="text" />
+              <label class="form-label" for="group_name">Group Name</label>
+              <input list="group_names" class="form-select" name="group_name" id="group_name">
+              <datalist id="group_names">
+              </datalist>
             </div>
             <!-- Content ends here -->
           </div>
@@ -70,6 +72,20 @@ include '../includes/base_page/head.php';
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <!-- body ends here -->
         <!-- =========================================================== -->
+        <script>
+          const group_names = document.querySelector("#group_names");
+
+          window.addEventListener("populate_groups", (event) => {
+            const group_dictionary = JSON.parse(event.detail);
+
+            for (key in group_dictionary) {
+              const opt = document.createElement("option");
+              opt.setAttribute("value", group_dictionary[key].code);
+              opt.appendChild(document.createTextNode(group_dictionary[key].name));
+              group_names.appendChild(opt);
+            }
+          });
+        </script>
 
 
 
