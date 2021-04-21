@@ -47,7 +47,6 @@ function add_child_to_db($con, $head_code, $head_name, $account_type, $carrying_
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // 1. Get the post fields
-  $parent_code = sanitize_input($_POST["parent_code"]);
   $head_code = sanitize_input($_POST["head_code"]);
   $head_name = sanitize_input($_POST["head_name"]);
   $account_type = sanitize_input($_POST["account_type"]);
