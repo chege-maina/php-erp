@@ -127,7 +127,6 @@
         })
         .then(response => response.json())
         .then(result => {
-          console.log('Success:', result);
           if (result.message == 'success') {
             location.reload();
           }
@@ -158,8 +157,6 @@
       title: ""
     };
 
-    console.log(child_code, raw_data);
-    console.log(parent_object);
     return parent_object.title;
   }
 
@@ -181,7 +178,11 @@
   }
 
   function showModal() {
-    console.log("Showing", item_object);
+    if (Number(item_object.level) == 3) {
+      add_child_submit.disabled = true;
+    } else {
+      add_child_submit.removeAttribute("disabled");
+    }
     if (command === "edit") {
       head_name.value = item_object.name;
       head_code.value = "code" in item_object ? item_object.code : "";
