@@ -197,6 +197,7 @@ include '../includes/base_page/head.php';
 
       num_days.addEventListener("input", (event) => {
         items_in_table[item].num_days = Number(event.target.value);
+        calculateDbCrTotals();
       })
       let num_daysWrapper = document.createElement("td");
       num_daysWrapper.classList.add("m-2", "col-2");
@@ -250,7 +251,15 @@ include '../includes/base_page/head.php';
   }
 
   function calculateDbCrTotals() {
-    console.log("Holla");
+    const table_body_elem = document.querySelector("#c_table_body");
+    const accounts_totals = {
+      Debit: 0,
+      Credit: 0,
+    }
+    table_body_elem.childNodes.forEach(row => {
+      accounts_totals[row.childNodes[2].childNodes[0].value] += Number(row.childNodes[1].childNodes[0].value);
+    });
+    console.log(accounts_totals);
   }
 
 
