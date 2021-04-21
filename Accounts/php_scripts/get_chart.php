@@ -15,14 +15,33 @@ $data_array;
 if ($result->num_rows > 0) {
   // output data of each row
   while ($row = $result->fetch_assoc()) {
-    $data;
-    foreach ($row as $key => $value) {
-      $data[$key] = $value;
-    }
     $data_array[] = $row;
   }
 } else {
   echo "0 results";
+}
+
+// 2. Now get root parents that have no children at all
+$parent_query = "SELECT * FROM `tbl_chart_account_details` AS `ad` LEFT JOIN `tbl_chart_parent_child` as `pc` ON `ad`.`number`= `pc`.`child_number` OR `ad`.`number`=`pc`.`parent_number` WHERE `pc`.`child_number`IS NULL AND `pc`.`parent_number` IS NULL;";
+
+$result = $conn->query($parent_query);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while ($row = $result->fetch_assoc()) {
+    $data = array(
+      "parent_number" => $row["number"],
+      "parent_title" => $row["title"],
+      "parent_type" => $row["type"],
+      "parent_carrying_forward" => $row["carrying_forward"],
+      "child_number" => "null",
+      "child_title" => "null",
+      "child_type" => "null",
+      "child_carrying_forward" => "null"
+
+    );
+    $data_array[] = $data;
+  }
 }
 
 echo json_encode($data_array);
