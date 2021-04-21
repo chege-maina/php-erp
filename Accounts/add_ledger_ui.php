@@ -36,6 +36,10 @@ include '../includes/base_page/head.php';
         include './components/tree_data_loader.php';
         ?>
 
+        <?php
+        include './components/n_tree_functions.php';
+        ?>
+
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
