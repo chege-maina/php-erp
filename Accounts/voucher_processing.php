@@ -144,13 +144,127 @@ include '../includes/base_page/head.php';
 </body>
 
 <script>
-  const items_in_table = {};
-  const c_table_body = document.querySelector("#c_table_body");
-  const ledgers = ['kuku', 'nyama', 'ugali'];
+  const startdate = document.querySelector("#startdate");
+  const voucher = document.querySelector("#voucher");
   const debit = document.querySelector("#debit");
   const credit = document.querySelector("#credit");
+  const comment = document.querySelector("#comment");
 
 
+  function getItems() {
+    const tmp_obj = {};
+    const types = [];
+    c_table_body.childNodes.forEach(row => {
+
+      const t_ledger = row.childNodes[0].childNodes[0].value;
+      const t_kes = row.childNodes[1].childNodes[0].value;
+      const t_credit = row.childNodes[2].childNodes[0].value;
+
+
+      types.push({
+        ledger: t_ledger,
+        kes: t_kes,
+        credit: t_credit,
+
+      });
+    });
+
+    console.log("submitting", types);
+
+    tmp_obj["table_items"] = JSON.stringify(types);
+    console.log("==================================");
+    console.log(tmp_obj);
+    console.log("==================================");
+
+    return tmp_obj
+  }
+
+  function submitForm() {
+
+    if (!startdate.value) {
+      return;
+    }
+
+    if (!voucher.value) {
+      return;
+    }
+
+    if (!debit.value) {
+      return;
+    }
+
+    if (!credit.value) {
+      return;
+    }
+
+    if (!comment.value) {
+      return;
+    }
+
+    if (debit.value !== credit.value) {
+      console.log("they are not equal ")
+      return;
+    }
+    let tmp_obj = getItems();
+
+    const formData = new FormData();
+    formData.append("startdate", startdate.value);
+    formData.append("voucher", voucher.value);
+    formData.append("debit", debit.value);
+    formData.append("credit", credit.value);
+    formData.append("comment", comment.value);
+    for (let key in tmp_obj) {
+      formData.append(key, tmp_obj[key]);
+    }
+
+    // fetch goes here
+
+    fetch('#.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(result => {
+        console.log('Success:', result);
+
+        setTimeout(function() {
+          location.reload();
+        }, 2500);
+
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
+    return false;
+  }
+</script>
+
+<script>
+  const items_in_table = {};
+  const c_table_body = document.querySelector("#c_table_body");
+  const ledgers = [];
+
+
+  window.addEventListener('DOMContentLoaded', (event) => {
+    fetch('../payroll/load_ledger_name.php')
+      .then(response => response.json())
+      .then(result => {
+
+        console.log(result);
+
+        result.forEach(row => {
+          ledgers.push(row['ledger_name']);
+        });
+
+        console.log("hello", ledgers);
+
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+  });
 
   function addLedgerOptions(elem) {
     ledgers.forEach(ledger => {

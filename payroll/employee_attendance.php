@@ -226,7 +226,7 @@ include '../includes/base_page/head.php';
               result.forEach((employees) => {
                 opt = document.createElement("option");
                 opt.appendChild(document.createTextNode(employees["fname"] + " " + employees["lname"]));
-                opt.value = "ID No# " + employees["national_id"];
+                opt.value = "ID No#   " + employees["national_id"];
                 all_employees[employees["national_id"]] = employees["fname"] + " " + employees["lname"];
                 employee.appendChild(opt);
               });
