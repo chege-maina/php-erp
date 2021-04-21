@@ -44,8 +44,8 @@
               <div class="col">
                 <label for="carrying_forward" class="form-label">Carrying Forward*</label>
                 <select name="carrying_forward" id="carrying_forward" class="form-select" required>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
+                  <option value="yes">yes</option>
+                  <option value="no">no</option>
                 </select>
               </div>
             </div>
@@ -161,12 +161,31 @@
     return parent_object.title;
   }
 
+  function isChildCarryingForward(child_code) {
+    const raw_data = JSON.parse(window.sessionStorage.getItem("raw_data"));
+    let child_object = {};
+
+    raw_data.forEach(row => {
+      if (row.child_number == child_code) {
+        child_object = {
+          code: row.child_number,
+          title: row.child_title,
+          carrying_forward: Boolean(Number(row.child_carrying_forward))
+        };
+      }
+    });
+
+    return child_object.carrying_forward;
+  }
+
   function showModal() {
     console.log("Showing", item_object);
     if (command === "edit") {
       head_name.value = item_object.name;
       head_code.value = "code" in item_object ? item_object.code : "";
       parent_name.value = getChildParent(item_object.code);
+      parent_name.value = getChildParent(item_object.code);
+      carrying_forward.value = isChildCarryingForward(item_object.code) ? 'yes' : 'no';
       account_type.value = item_object.type;
       head_level.value = Number(item_object.level);
       $('#catCRUDModal').modal('show');
