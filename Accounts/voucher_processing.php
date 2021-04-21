@@ -147,6 +147,10 @@ include '../includes/base_page/head.php';
   const items_in_table = {};
   const c_table_body = document.querySelector("#c_table_body");
   const ledgers = ['kuku', 'nyama', 'ugali'];
+  const debit = document.querySelector("#debit");
+  const credit = document.querySelector("#credit");
+
+
 
   function addLedgerOptions(elem) {
     ledgers.forEach(ledger => {
@@ -260,6 +264,9 @@ include '../includes/base_page/head.php';
       accounts_totals[row.childNodes[2].childNodes[0].value] += Number(row.childNodes[1].childNodes[0].value);
     });
     console.log(accounts_totals);
+
+    debit.value = accounts_totals.Debit;
+    credit.value = accounts_totals.Credit;
   }
 
 
