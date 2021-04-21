@@ -206,10 +206,13 @@ include '../includes/base_page/head.php';
 
       // imagine this as the debit or credit 
 
-      let kin_phone = document.createElement("select");
-      kin_phone.setAttribute("required", "");
-      kin_phone.setAttribute("value", items_in_table[item].phone);
-      kin_phone.classList.add("form-select", "form-select-sm", "align-middle");
+      let account_type = document.createElement("select");
+      account_type.setAttribute("required", "");
+      account_type.setAttribute("value", items_in_table[item].phone);
+      account_type.classList.add("form-select", "form-select-sm", "align-middle");
+      account_type.addEventListener("change", event => {
+        calculateDbCrTotals();
+      });
       const opt1 = document.createElement("option");
       opt1.value = "Debit";
       opt1.appendChild(document.createTextNode("Debit"));
@@ -218,12 +221,12 @@ include '../includes/base_page/head.php';
       opt2.value = "Credit";
       opt2.appendChild(document.createTextNode("Credit"));
 
-      kin_phone.append(opt1, opt2);
-      kin_phone.addEventListener("change", event => {
+      account_type.append(opt1, opt2);
+      account_type.addEventListener("change", event => {
         items_in_table[item].phone = String(event.target.value);
       });
       let kin_phone_wrapper = document.createElement("td");
-      kin_phone_wrapper.appendChild(kin_phone);
+      kin_phone_wrapper.appendChild(account_type);
 
       let actionWrapper = document.createElement("td");
       actionWrapper.classList.add("m-2");
@@ -246,6 +249,10 @@ include '../includes/base_page/head.php';
     return;
   }
 
+  function calculateDbCrTotals() {
+    console.log("Holla");
+  }
+
 
   function addItem() {
     const tmp = {
@@ -256,6 +263,7 @@ include '../includes/base_page/head.php';
     items_in_table[uuidv4()] = tmp;
 
     updateTable();
+    calculateDbCrTotals();
   }
 
   function removeItem(item) {
