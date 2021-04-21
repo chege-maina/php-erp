@@ -201,6 +201,10 @@ include '../includes/base_page/head.php';
       return;
     }
 
+    if (debit.value !== credit.value) {
+      console.log("they are not equal ")
+      return;
+    }
     let tmp_obj = getItems();
 
     const formData = new FormData();
