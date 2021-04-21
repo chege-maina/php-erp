@@ -142,6 +142,48 @@
     }
   }
 
+  function addRootNode() {
+    console.log("Let the submission begin");
+
+
+    if (!head_name.validity.valid) {
+      head_name.focus();
+      return;
+    } else if (!head_code.validity.valid) {
+      head_code.focus();
+      return;
+    }
+
+
+    console.log("===================================");
+    console.log("head_code", head_code.value);
+    console.log("head_name", head_name.value);
+    console.log("account_type", account_type.value);
+    console.log("carrying_forward", carrying_forward.value == "no" ? 0 : 1);
+    console.log("===================================");
+
+    const formData = new FormData();
+    formData.append("head_code", head_code.value);
+    formData.append("head_name", head_name.value);
+    formData.append("account_type", account_type.value);
+    formData.append("carrying_forward", carrying_forward.value == "no" ? 0 : 1);
+
+    return;
+    fetch('./php_scripts/add_node.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(result => {
+        if (result.message == 'success') {
+          location.reload();
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+
   function getChildParent(child_code) {
     const raw_data = JSON.parse(window.sessionStorage.getItem("raw_data"));
     let found = false;
@@ -184,6 +226,8 @@
   function showModal() {
     // If previously disabled, enable it.
     save_account.removeAttribute("disabled");
+    add_root_submit.classList.add("hide-this");
+    adding_child = false;
 
     if (command === "edit") {
       if (Number(item_object.level) == 3) {
@@ -202,6 +246,10 @@
     } else if (command === "add_root") {
       add_child_submit.disabled = true;
       save_account.disabled = true;
+      add_root_submit.classList.remove("hide-this");
+
+      head_name.value = "";
+      head_code.value = "";
       head_level.value = 1;
     }
 
