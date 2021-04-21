@@ -1,3 +1,8 @@
+<style>
+  .hide-this {
+    display: none;
+  }
+</style>
 <div class="modal fade" id="catCRUDModal" width="60vw" tabindex="-1" role="dialog" aria-labelledby="modalHeader" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog" role="document">
 
@@ -54,8 +59,8 @@
               <div class="col-auto">
                 <input type="button" value="Save" class="btn btn-falcon-primary mt-3" id="save_account" name="save_account" onclick="saveDetails()">
                 <input type="button" value="Add Child" class="btn btn-falcon-primary mt-3 ml-1" id="add_child_submit" name="add_ct_submit" onclick="addNewChild()">
-              </div>
-              <div class="col-auto">
+
+                <input type="button" value="Add Root Node" class="btn btn-falcon-primary mt-3 ml-1 hide-this" id="add_root_submit" name="add_root_submit" onclick="addRootNode()">
               </div>
             </div>
           </form>
@@ -75,7 +80,7 @@
   const carrying_forward = document.querySelector("#carrying_forward");
   const add_child_submit = document.querySelector("#add_child_submit");
   const save_account = document.querySelector("#save_account");
-
+  const add_root_submit = document.querySelector("#add_root_submit");
 
   let parent_children_map;
   let item_object;
@@ -126,10 +131,8 @@
         })
         .then(response => response.text())
         .then(result => {
-          console.log("Saved yay", result);
-          return;
           if (result.message == 'success') {
-            // location.reload();
+            location.reload();
           }
         })
         .catch(error => {
