@@ -127,7 +127,7 @@ include '../includes/base_page/head.php';
 
   window.addEventListener('DOMContentLoaded', (event) => {
 
-    populateSelectElement("#account", '../includes/#.php', "name");
+    populateSelectElement("#account", '../payroll/load_ledger_name.php', "ledger_name");
   });
 
   function updateTable() {
