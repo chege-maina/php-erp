@@ -106,8 +106,9 @@ include '../includes/base_page/head.php';
             const formData = new FormData();
             formData.append("ledger_name", ledger_name.value);
             formData.append("group_code", group_code.value);
+            formData.append("prev_name", ln);
 
-            fetch('./php_scripts/add_ledger_entry.php', {
+            fetch('./php_scripts/edit_ledger_entry.php', {
                 method: 'POST',
                 body: formData
               })
@@ -126,6 +127,7 @@ include '../includes/base_page/head.php';
                   divAlert.scrollIntoView();
                   setTimeout(function() {
                     location.reload();
+                    location.href = "../Accounts/ledger_listing_ui.php";
                   }, 2500);
                 } else {
                   const alertVar =
