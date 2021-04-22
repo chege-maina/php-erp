@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $remarks = sanitize_input($_POST["remarks"]);
   $debit = sanitize_input($_POST["debit"]);
   $credit = sanitize_input($_POST["credit"]);
+  $branch = sanitize_input($_POST["branch"]);
   $table_items = json_decode($_POST["table_items"], true);
 
   echo $remarks;
@@ -50,8 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $voucher_no = $prefix . $code2;
 
 
-  $mysql = "INSERT INTO tbl_voucher (voucher_no, voucher_type, debit, credit, remarks, date) VALUES ('" . $voucher_no . "', 
-  '" . $type . "', '" . $debit . "', '" . $credit . "', '" . $remarks . "', '" . $date . "');";
+  $mysql = "INSERT INTO tbl_voucher (voucher_no, voucher_type, debit, credit, remarks, branch, date) VALUES ('" . $voucher_no . "', 
+  '" . $type . "', '" . $debit . "', '" . $credit . "', '" . $remarks . "', '" . $branch . "', '" . $date . "');";
   $mysql .= "SELECT voucher_no FROM tbl_voucher ORDER BY id DESC LIMIT 1";
 
   if (mysqli_multi_query($conn, $mysql)) {

@@ -154,12 +154,8 @@ include '../includes/base_page/head.php';
                 <div class="row">
                   <div class="col">
                     <label class="form-label" for="financed">Financed By*</label>
-                    <select class="form-select" name="financed" id="financed" required>
-                      <option value disabled selected>
-                        -- Select Method --
-                      </option>
-                      <div class="invalid-tooltip">This field cannot be left blank.</div>
-                    </select>
+                    <input class="form-control" name="financed" type="text" id="financed" required />
+                    <div class="invalid-tooltip">This field cannot be left blank.</div>
                   </div>
                   <div class="col">
                     <label for="loan_ref" class="form-label">Loan Ref No*</label>
@@ -187,19 +183,19 @@ include '../includes/base_page/head.php';
                 <div class="input-group">
                   <div class="col ">
                     <div class="form-check">
-                      <input class="form-check-input" id="flexRadioDefault1" type="radio" name="flexRadioDefault" />
+                      <input class="form-check-input" id="asset_status1" value="active" type="radio" name="flexRadioDefault" />
                       <label class="form-check-label" for="flexRadioDefault1">Active</label>
                     </div>
                   </div>
                   <div class="col mx-2">
                     <div class="form-check">
-                      <input class="form-check-input" id="flexRadioDefault1" type="radio" name="flexRadioDefault" />
+                      <input class="form-check-input" id="asset_status2" value="disposed" type="radio" name="flexRadioDefault" />
                       <label class="form-check-label" for="flexRadioDefault1">Disposed </label>
                     </div>
                   </div>
                   <div class="col">
                     <div class="form-check">
-                      <input class="form-check-input" id="flexRadioDefault1" type="radio" name="flexRadioDefault" />
+                      <input class="form-check-input" id="asset_status3" value="inactive" type="radio" name="flexRadioDefault" />
                       <label class="form-check-label" for="flexRadioDefault1">Inactive</label>
                     </div>
                   </div>
@@ -224,13 +220,193 @@ include '../includes/base_page/head.php';
 </body>
 
 </html>
+<script>
+  let account_assets = {};
+  let select_data = {};
+
+
+  fetch('../includes/load_asset_groups.php')
+    .then(response => response.json())
+    .then(data => {
+
+      console.log(data);
+      data.forEach((value) => {
+        let opt = document.createElement("option");
+        opt.appendChild(document.createTextNode(value['code'] + " (" + value['name'] + ")"));
+
+        asset_grp.appendChild(opt);
+
+        select_data[value['code'] + " (" + value['name'] + ")"] = value['code']
+        account_assets[value['code'] + " (" + value['name'] + ")"] = {
+          type: value.type,
+          benefit: value.benefit
+        };
+
+        updateBranchSelect();
+      })
+
+
+
+    })
+
+
+  function updateBranchSelect() {
+    // Clear it
+    asset_grp.innerHTML = "";
+    // Add the no-selectable item first
+    opt = document.createElement("option");
+    opt.appendChild(document.createTextNode("-- Select Asset Group --"));
+    opt.setAttribute("value", "");
+    opt.setAttribute("disabled", "");
+    opt.setAttribute("selected", "");
+    asset_grp.appendChild(opt);
+    // Populate combobox
+    for (key in select_data) {
+      let opt = document.createElement("option");
+      opt.appendChild(document.createTextNode(key));
+      opt.value = key;
+      asset_grp.appendChild(opt);
+    }
+  }
+</script>
+
 
 <script>
   const branch_id = document.querySelector("#branch_id");
+  const asset_name = document.querySelector("#asset_name");
+  const reg_no = document.querySelector("#reg_no");
+  const tag_no = document.querySelector("#tag_no");
+  const asset_grp = document.querySelector("#asset_grp");
+  const unit = document.querySelector("#unit");
+  const comment = document.querySelector("#comment");
+  const weight = document.querySelector("#weight");
+  const asset_date = document.querySelector("#asset_date");
+  const dep_rate = document.querySelector("#dep_rate");
+  const cost = document.querySelector("#cost");
+  const dep_method = document.querySelector("#dep_method");
+  const financed = document.querySelector("#financed");
+  const loan_ref = document.querySelector("#loan_ref");
+  const wear = document.querySelector("#wear");
+  const asset_status1 = document.querySelector("#asset_status1");
+  const asset_status2 = document.querySelector("#asset_status2");
+  const asset_status3 = document.querySelector("#asset_status3");
 
   window.addEventListener('DOMContentLoaded', (event) => {
 
     populateSelectElement("#branch_id", '../includes/load_branch_items.php', "branch");
-
+    // populateSelectElement("#asset_grp", '../includes/load_asset_groups.php', "name");
   });
+
+  function submitForm() {
+
+    if (!wear.value) {
+      return;
+    }
+
+    if (!loan_ref.value) {
+      return;
+    }
+
+    if (!financed.value) {
+      return;
+    }
+
+    if (!dep_method.value) {
+      return;
+    }
+
+    if (!cost.value) {
+      return;
+    }
+
+    if (!dep_rate.value) {
+      return;
+    }
+
+    if (!asset_date.value) {
+      return;
+    }
+
+    if (!weight.value) {
+      return;
+    }
+
+    if (!comment.value) {
+      return;
+    }
+
+    if (!unit.value) {
+      return;
+    }
+
+    if (!asset_grp.value) {
+      return;
+    }
+
+    if (!branch_id.value) {
+      return;
+    }
+
+    if (!tag_no.value) {
+      return;
+    }
+
+    if (!reg_no.value) {
+      return;
+    }
+
+    if (!asset_name.value) {
+      return;
+    }
+
+
+
+    const code_var = account_assets[asset_grp.value].code;
+    const name_var = account_assets[asset_grp.value].name;
+
+
+    const formData = new FormData();
+    formData.append("name", asset_name.value);
+    formData.append("number", reg_no.value);
+    formData.append("tag_no", tag_no.value);
+    formData.append("branch", branch_id.value);
+    formData.append("unit", unit.value);
+    formData.append("descpt", comment.value);
+    formData.append("weight", weight.value);
+    formData.append("date", asset_date.value);
+    formData.append("dep_rate", dep_rate.value);
+    formData.append("cost", cost.value);
+    formData.append("dep_method", dep_method.value);
+    formData.append("financier", financed.value);
+    formData.append("loan_ref", loan_ref.value);
+    formData.append("wear_tear", wear.value);
+    if (asset_status1.checked) {
+      formData.append("asset_status", asset_status1.value);
+    } else if (asset_status2.checked) {
+      formData.append("asset_status", asset_status2.value);
+    } else if (asset_status3.checked) {
+      formData.append("asset_status", asset_status3.value);
+    }
+    formData.append("code", code_var);
+    formData.append("name", name_var);
+    // fetch goes here
+
+    fetch('../includes/add_asset.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(result => {
+        console.log('Success:', result);
+
+        // setTimeout(function() {
+        //   location.reload();
+        // }, 2500);
+
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
+  }
 </script>
