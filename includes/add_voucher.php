@@ -6,6 +6,7 @@ if (mysqli_connect_errno()) {
   die('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
 session_start();
+//mysqli_report(MYSQLI_REPORT_ALL);
 
 function sanitize_input($data)
 {
@@ -23,6 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $debit = sanitize_input($_POST["debit"]);
   $credit = sanitize_input($_POST["credit"]);
   $table_items = json_decode($_POST["table_items"], true);
+
+  echo $remarks;
 
   if (strcmp($type, 'Journal') == 0) {
     $prefix = "JV-";
@@ -47,8 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $voucher_no = $prefix . $code2;
 
 
-  $mysql = "INSERT INTO tbl_voucher (voucher_no, voucher_type, debit, credit, date) VALUES ('" . $voucher_no . "', 
-  '" . $type . "', '" . $debit . "', '" . $credit . "', '" . $date . "');";
+  $mysql = "INSERT INTO tbl_voucher (voucher_no, voucher_type, debit, credit, remarks, date) VALUES ('" . $voucher_no . "', 
+  '" . $type . "', '" . $debit . "', '" . $credit . "', '" . $remarks . "', '" . $date . "');";
   $mysql .= "SELECT voucher_no FROM tbl_voucher ORDER BY id DESC LIMIT 1";
 
   if (mysqli_multi_query($conn, $mysql)) {
