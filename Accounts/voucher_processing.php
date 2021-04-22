@@ -63,10 +63,10 @@ include '../includes/base_page/head.php';
                 <label class="form-label" for="voucher">Select Voucher Type</label>
                 <select class="form-select" name="voucher" id="voucher">
                   <option value disabled selected>-- Select Voucher --</option>
-                  <option value="journal">Journal</option>
-                  <option value="contract">Contra</option>
-                  <option value="creditdebit">Credit</option>
-                  <option value="creditdebit">Debit</option>\
+                  <option value="Journal">Journal</option>
+                  <option value="Contra">Contra</option>
+                  <option value="Credit">Credit</option>
+                  <option value="Debit">Debit</option>\
                 </select>
               </div>
             </div>
@@ -97,8 +97,8 @@ include '../includes/base_page/head.php';
             <hr>
             <div class="row my-2">
               <div class="col">
-                <label for="duration" class="form-label">Voucher Description/Remarks </label>
-                <textarea class="form-control" id="comment" aria-label="With textarea"></textarea>
+                <label for="remarks" class="form-label">Voucher Description/Remarks*</label>
+                <input name="remarks" class="form-control" style="height: 50px;" type="text" id="remarks" required>
               </div>
             </div>
             <hr>
@@ -106,7 +106,7 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="debit" class="form-label">Total</label>
                 <div class="input-group">
-                  <input type="number" name="debit" id="debit" class="form-control" required>
+                  <input type="number" name="debit" id="debit" class="form-control" readonly required>
                   <span class="input-group-text">
                     Debit
                   </span>
@@ -115,7 +115,7 @@ include '../includes/base_page/head.php';
               <div class="col">
                 <label for="credit" class="form-label">Total</label>
                 <div class="input-group">
-                  <input type="number" name="credit" id="credit" class="form-control" required>
+                  <input type="number" name="credit" id="credit" class="form-control" readonly required>
                   <span class="input-group-text">
                     Credit
                   </span>
@@ -148,7 +148,7 @@ include '../includes/base_page/head.php';
   const voucher = document.querySelector("#voucher");
   const debit = document.querySelector("#debit");
   const credit = document.querySelector("#credit");
-  const comment = document.querySelector("#comment");
+  const remarks = document.querySelector("#remarks");
 
 
   function getItems() {
@@ -197,7 +197,7 @@ include '../includes/base_page/head.php';
       return;
     }
 
-    if (!comment.value) {
+    if (!remarks.value) {
       return;
     }
 
@@ -212,14 +212,14 @@ include '../includes/base_page/head.php';
     formData.append("type", voucher.value);
     formData.append("debit", debit.value);
     formData.append("credit", credit.value);
-    formData.append("remarkd", comment.value);
+    formData.append("remarks", remarks.value);
     for (let key in tmp_obj) {
       formData.append(key, tmp_obj[key]);
     }
 
     // fetch goes here
 
-    fetch('#.php', {
+    fetch('../includes/add_voucher.php', {
         method: 'POST',
         body: formData
       })
@@ -227,16 +227,15 @@ include '../includes/base_page/head.php';
       .then(result => {
         console.log('Success:', result);
 
-        setTimeout(function() {
-          location.reload();
-        }, 2500);
+        // setTimeout(function() {
+        //   location.reload();
+        // }, 2500);
 
       })
       .catch(error => {
         console.error('Error:', error);
       });
 
-    return false;
   }
 </script>
 

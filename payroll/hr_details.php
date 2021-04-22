@@ -49,10 +49,8 @@ include '../base_page/data_list_select.php';
       </div>
       <div class="col">
         <label for="branch" class="form-label">Branch</label>
-        <select name="branch" id="branch" class="form-select">
+        <select name="branch" id="branch_id" class="form-select">
           <option value="" disabled selected>Select Branch</option>
-          <option value="mm1">MM1</option>
-          <option value="mm2">MM2</option>
         </select>
       </div>
     </div>
@@ -161,7 +159,7 @@ include '../base_page/data_list_select.php';
   })
   const departments = document.querySelector("#departments");
   const job_number = document.querySelector("#job_number");
-  const branch = document.querySelector("#branch");
+  const branch = document.querySelector("#branch_id");
   const employ_date = document.querySelector("#employ_date");
   const start_date = document.querySelector("#start_date");
   const end_date = document.querySelector("#end_date");
@@ -198,6 +196,6 @@ include '../base_page/data_list_select.php';
 
     initSelectElement("#departments", "-- Select Department --");
     populateSelectElement("#departments", '../payroll/load_department.php', "name");
-
+    populateSelectElement("#branch_id", '../includes/load_branch_items.php', "branch");
   });
 </script>
