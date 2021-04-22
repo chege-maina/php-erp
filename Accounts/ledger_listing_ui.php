@@ -34,10 +34,8 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <h5 class="mb-0">Ledger List</h5>
+        <h4 class="mb-2">Ledger List</h4>
         <div class="card">
-          <div class="card-header bg-light">
-          </div>
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
             <div class="mb-3">
