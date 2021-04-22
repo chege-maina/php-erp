@@ -1,3 +1,8 @@
+<style>
+  .hide-this {
+    display: none;
+  }
+</style>
 <div class="modal fade" id="catCRUDModal" width="60vw" tabindex="-1" role="dialog" aria-labelledby="modalHeader" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog" role="document">
 
@@ -54,8 +59,8 @@
               <div class="col-auto">
                 <input type="button" value="Save" class="btn btn-falcon-primary mt-3" id="save_account" name="save_account" onclick="saveDetails()">
                 <input type="button" value="Add Child" class="btn btn-falcon-primary mt-3 ml-1" id="add_child_submit" name="add_ct_submit" onclick="addNewChild()">
-              </div>
-              <div class="col-auto">
+
+                <input type="button" value="Add Root Node" class="btn btn-falcon-primary mt-3 ml-1 hide-this" id="add_root_submit" name="add_root_submit" onclick="addRootNode()">
               </div>
             </div>
           </form>
@@ -75,7 +80,7 @@
   const carrying_forward = document.querySelector("#carrying_forward");
   const add_child_submit = document.querySelector("#add_child_submit");
   const save_account = document.querySelector("#save_account");
-
+  const add_root_submit = document.querySelector("#add_root_submit");
 
   let parent_children_map;
   let item_object;
@@ -124,12 +129,10 @@
           method: 'POST',
           body: formData
         })
-        .then(response => response.text())
+        .then(response => response.json())
         .then(result => {
-          console.log("Saved yay", result);
-          return;
           if (result.message == 'success') {
-            // location.reload();
+            location.reload();
           }
         })
         .catch(error => {
@@ -137,6 +140,45 @@
         });
 
     }
+  }
+
+  function addRootNode() {
+    if (!head_name.validity.valid) {
+      head_name.focus();
+      return;
+    } else if (!head_code.validity.valid) {
+      head_code.focus();
+      return;
+    }
+
+
+    console.log("===================================");
+    console.log("head_code", head_code.value);
+    console.log("head_name", head_name.value);
+    console.log("account_type", account_type.value);
+    console.log("carrying_forward", carrying_forward.value == "no" ? 0 : 1);
+    console.log("===================================");
+
+    const formData = new FormData();
+    formData.append("head_code", head_code.value);
+    formData.append("head_name", head_name.value);
+    formData.append("account_type", account_type.value);
+    formData.append("carrying_forward", carrying_forward.value == "no" ? 0 : 1);
+
+    fetch('./php_scripts/add_parent_node.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log("Server says: ", result);
+        if (result.message == 'success') {
+          location.reload();
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   }
 
   function getChildParent(child_code) {
@@ -179,12 +221,18 @@
   }
 
   function showModal() {
-    if (Number(item_object.level) == 3) {
-      add_child_submit.disabled = true;
-    } else {
-      add_child_submit.removeAttribute("disabled");
-    }
+    // If previously disabled, enable it.
+    save_account.removeAttribute("disabled");
+    add_root_submit.classList.add("hide-this");
+    adding_child = false;
+
     if (command === "edit") {
+      if (Number(item_object.level) == 3) {
+        add_child_submit.disabled = true;
+      } else {
+        add_child_submit.removeAttribute("disabled");
+      }
+
       head_name.value = item_object.name;
       head_code.value = "code" in item_object ? item_object.code : "";
       parent_name.value = getChildParent(item_object.code);
@@ -192,8 +240,17 @@
       carrying_forward.value = isChildCarryingForward(item_object.code) ? 'yes' : 'no';
       account_type.value = item_object.type;
       head_level.value = Number(item_object.level);
-      $('#catCRUDModal').modal('show');
+    } else if (command === "add_root") {
+      add_child_submit.disabled = true;
+      save_account.disabled = true;
+      add_root_submit.classList.remove("hide-this");
+
+      head_name.value = "";
+      head_code.value = "";
+      head_level.value = 1;
     }
+
+    $('#catCRUDModal').modal('show');
   }
 
   function saveDetails() {
@@ -240,131 +297,135 @@
 
   window.addEventListener('show_category_crud', event => {
     const id = event.detail.id;
-    const index = JSON.parse(event.detail.index);
-    parent_children_map = JSON.parse(sessionStorage.getItem("items"));
     command = event.detail.command;
 
-    const [...item_path_array] = index[id];
+    if (command != "add_root") {
+      const index = JSON.parse(event.detail.index);
+      parent_children_map = JSON.parse(sessionStorage.getItem("items"));
 
-    let level_2_item;
-    let level_3_item;
-    let level_4_item;
-    let level_5_item;
-    switch (item_path_array.length) {
-      case 1:
-        let tmp_obj = {};
-        tmp_obj = parent_children_map[item_path_array[0]];
-        ({
-          ...item_object
-        } = tmp_obj);
-        item_object.name = item_path_array[0];
-        item_object.level = 1;
-        break;
+      const [...item_path_array] = index[id];
 
-      case 2:
-        // 1. Get the level 2 item;
-        parent_children_map[item_path_array[0]].children_to_add.forEach(item => {
-          if (item.name == item_path_array[1]) {
-            level_2_item = item;
-          }
-        });
-
-        ({
+      let level_2_item;
+      let level_3_item;
+      let level_4_item;
+      let level_5_item;
+      switch (item_path_array.length) {
+        case 1:
+          let tmp_obj = {};
+          tmp_obj = parent_children_map[item_path_array[0]];
+          ({
             ...item_object
-          } =
-          level_2_item
-        );
-        item_object.level = 2;
-        break;
+          } = tmp_obj);
+          item_object.name = item_path_array[0];
+          item_object.level = 1;
+          break;
 
-      case 3:
-        // 1. Get the level 2 item;
-        parent_children_map[item_path_array[0]].children_to_add.forEach(item => {
-          if (item.name == item_path_array[1]) {
-            level_2_item = item;
-          }
-        });
-        // 2. At level three, the level_2_item is in root, get it's children
-        parent_children_map[level_2_item.name].children_to_add.forEach(item => {
-          if (item.name == item_path_array[2]) {
-            level_3_item = item;
-          }
-        });
+        case 2:
+          // 1. Get the level 2 item;
+          parent_children_map[item_path_array[0]].children_to_add.forEach(item => {
+            if (item.name == item_path_array[1]) {
+              level_2_item = item;
+            }
+          });
 
-        ({
-            ...item_object
-          } =
-          level_3_item
-        );
-        item_object.level = 3;
-        break;
+          ({
+              ...item_object
+            } =
+            level_2_item
+          );
+          item_object.level = 2;
+          break;
 
-      case 4:
-        // 1. Get the level 2 item;
-        parent_children_map[item_path_array[0]].children_to_add.forEach(item => {
-          if (item.name == item_path_array[1]) {
-            level_2_item = item;
-          }
-        });
-        // 2. At level three, the level_2_item is in root, get it's children
-        parent_children_map[level_2_item.name].children_to_add.forEach(item => {
-          if (item.name == item_path_array[2]) {
-            level_3_item = item;
-          }
-        });
+        case 3:
+          // 1. Get the level 2 item;
+          parent_children_map[item_path_array[0]].children_to_add.forEach(item => {
+            if (item.name == item_path_array[1]) {
+              level_2_item = item;
+            }
+          });
+          // 2. At level three, the level_2_item is in root, get it's children
+          parent_children_map[level_2_item.name].children_to_add.forEach(item => {
+            if (item.name == item_path_array[2]) {
+              level_3_item = item;
+            }
+          });
 
-        // 3. At level four, the level_3_item is in root, get it's children
-        parent_children_map[level_3_item.name].children_to_add.forEach(item => {
-          if (item.name == item_path_array[3]) {
-            level_4_item = item;
-          }
-        });
+          ({
+              ...item_object
+            } =
+            level_3_item
+          );
+          item_object.level = 3;
+          break;
 
-        ({
-            ...item_object
-          } =
-          level_4_item
-        );
-        item_object.level = 4;
+        case 4:
+          // 1. Get the level 2 item;
+          parent_children_map[item_path_array[0]].children_to_add.forEach(item => {
+            if (item.name == item_path_array[1]) {
+              level_2_item = item;
+            }
+          });
+          // 2. At level three, the level_2_item is in root, get it's children
+          parent_children_map[level_2_item.name].children_to_add.forEach(item => {
+            if (item.name == item_path_array[2]) {
+              level_3_item = item;
+            }
+          });
 
-        break;
-      case 5:
-        // 1. Get the level 2 item;
-        parent_children_map[item_path_array[0]].children_to_add.forEach(item => {
-          if (item.name == item_path_array[1]) {
-            level_2_item = item;
-          }
-        });
-        // 2. At level three, the level_2_item is in root, get it's children
-        parent_children_map[level_2_item.name].children_to_add.forEach(item => {
-          if (item.name == item_path_array[2]) {
-            level_3_item = item;
-          }
-        });
+          // 3. At level four, the level_3_item is in root, get it's children
+          parent_children_map[level_3_item.name].children_to_add.forEach(item => {
+            if (item.name == item_path_array[3]) {
+              level_4_item = item;
+            }
+          });
 
-        // 3. At level four, the level_3_item is in root, get it's children
-        parent_children_map[level_3_item.name].children_to_add.forEach(item => {
-          if (item.name == item_path_array[3]) {
-            level_4_item = item;
-          }
-        });
+          ({
+              ...item_object
+            } =
+            level_4_item
+          );
+          item_object.level = 4;
 
-        // 3. At level four, the level_4_item is in root, get it's children
-        parent_children_map[level_4_item.name].children_to_add.forEach(item => {
-          if (item.name == item_path_array[4]) {
-            level_5_item = item;
-          }
-        });
+          break;
+        case 5:
+          // 1. Get the level 2 item;
+          parent_children_map[item_path_array[0]].children_to_add.forEach(item => {
+            if (item.name == item_path_array[1]) {
+              level_2_item = item;
+            }
+          });
+          // 2. At level three, the level_2_item is in root, get it's children
+          parent_children_map[level_2_item.name].children_to_add.forEach(item => {
+            if (item.name == item_path_array[2]) {
+              level_3_item = item;
+            }
+          });
 
-        ({
-            ...item_object
-          } =
-          level_5_item
-        );
-        item_object.level = 5;
+          // 3. At level four, the level_3_item is in root, get it's children
+          parent_children_map[level_3_item.name].children_to_add.forEach(item => {
+            if (item.name == item_path_array[3]) {
+              level_4_item = item;
+            }
+          });
+
+          // 3. At level four, the level_4_item is in root, get it's children
+          parent_children_map[level_4_item.name].children_to_add.forEach(item => {
+            if (item.name == item_path_array[4]) {
+              level_5_item = item;
+            }
+          });
+
+          ({
+              ...item_object
+            } =
+            level_5_item
+          );
+          item_object.level = 5;
+      }
+
+      item_object.path = item_path_array;
     }
 
-    item_object.path = item_path_array;
     showModal();
   });
 </script>

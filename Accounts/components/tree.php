@@ -216,7 +216,6 @@ include 'category_crud_modal.php';
         return created_object;
       },
       itemClicked: function(item) {
-        console.log("You clicked: ", item);
         const ev = new CustomEvent("show_category_crud", {
           detail: {
             id: item,
@@ -239,10 +238,12 @@ include 'category_crud_modal.php';
         return total;
       },
       buttonClicked: function() {
-
-        this.items.forEach((item) => {
-          this.getTotals(item, 0, 1);
+        const ev = new CustomEvent("show_category_crud", {
+          detail: {
+            command: 'add_root',
+          }
         });
+        window.dispatchEvent(ev);
       },
     },
   });

@@ -84,11 +84,15 @@
           children_to_add: [],
           type: row.parent_type
         };
-      data_map[row.parent_title].children_to_add.push({
-        name: row.child_title,
-        code: row.child_number,
-        type: row.child_type
-      });
+      if (row.child_number == "null" && row.child_title == "null" && row.child_type == "null") {
+        return;
+      } else {
+        data_map[row.parent_title].children_to_add.push({
+          name: row.child_title,
+          code: row.child_number,
+          type: row.child_type
+        });
+      }
     });
 
     window.sessionStorage.setItem("items", JSON.stringify(data_map));
