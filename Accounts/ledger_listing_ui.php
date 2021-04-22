@@ -45,6 +45,9 @@ include '../includes/base_page/head.php';
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <h4 class="mb-2">Ledger List</h4>
         <div class="card">
+          <div class="card-header bg-100">
+            <h5 class="mb-0">Ledgers</h5>
+          </div>
           <div class="card-body fs--1 p-4">
             <div id="datatable">
             </div>
