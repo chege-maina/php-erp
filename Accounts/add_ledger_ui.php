@@ -47,16 +47,18 @@ include '../includes/base_page/head.php';
         <div class="card">
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
-            <div class="mb-3">
-              <label class="form-label" for="ledger_name">Ledger Name</label>
-              <input class="form-control" id="ledger_name" type="text" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="group_name">Group Name</label>
-              <input list="group_names" class="form-select" name="group_name" id="group_name">
-              <datalist id="group_names">
-              </datalist>
-            </div>
+            <form action="post" onsubmit="return submitForm()">
+              <div class="mb-3">
+                <label class="form-label" for="ledger_name">Ledger Name</label>
+                <input class="form-control" id="ledger_name" type="text" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="group_name">Group Name</label>
+                <input list="group_names" class="form-select" name="group_name" id="group_name" required>
+                <datalist id="group_names">
+                </datalist>
+              </div>
+            </form>
             <!-- Content ends here -->
           </div>
           <!-- Additional cards can be added here -->
@@ -74,6 +76,8 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <script>
           const group_names = document.querySelector("#group_names");
+          const group_name = document.querySelector("#group_name");
+          const ledger_name = document.querySelector("#ledger_name");
 
           window.addEventListener("populate_groups", (event) => {
             const group_dictionary = JSON.parse(event.detail);
@@ -85,6 +89,10 @@ include '../includes/base_page/head.php';
               group_names.appendChild(opt);
             }
           });
+
+          function submitForm() {
+
+          }
         </script>
 
 
