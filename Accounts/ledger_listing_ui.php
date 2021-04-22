@@ -71,7 +71,7 @@ include '../includes/base_page/head.php';
 
             elem.setAttribute("manage_key", "ledger_name");
             elem.setAttribute("manage_key_2", "group_code");
-            elem.setAttribute("redirect", getBaseUrl() + "/Accounts/add_ledger_ui.php");
+            elem.setAttribute("redirect", getBaseUrl() + "/Accounts/edit_ledger_ui.php");
             // elem.classList.add("is-fullwidth");
             datatable.appendChild(elem);
           };
