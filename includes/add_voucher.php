@@ -47,8 +47,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $voucher_no = $prefix . $code2;
 
 
-  $mysql = "INSERT INTO tbl_voucher (voucher_no, voucher_type, debit, credit, date) VALUES ('" . $voucher_no . "', 
-  '" . $type . "', '" . $debit . "', '" . $credit . "', '" . $date . "');";
+  $mysql = "INSERT INTO tbl_voucher (voucher_no, voucher_type, debit, credit, remarks, date) VALUES ('" . $voucher_no . "', 
+  '" . $type . "', '" . $debit . "', '" . $credit . "', '" . $remarks . "', '" . $date . "');";
   $mysql .= "SELECT voucher_no FROM tbl_voucher ORDER BY id DESC LIMIT 1";
 
   if (mysqli_multi_query($conn, $mysql)) {
