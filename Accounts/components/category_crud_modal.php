@@ -89,6 +89,7 @@
   let adding_child = false;
 
   function addNewChild() {
+    head_code.removeAttribute("disabled");
     if (!adding_child) {
       save_account.disabled = true;
       parent_name.value = item_object.name;
@@ -223,6 +224,7 @@
   function showModal() {
     // If previously disabled, enable it.
     save_account.removeAttribute("disabled");
+    head_code.removeAttribute("disabled");
     add_root_submit.classList.add("hide-this");
     adding_child = false;
 
@@ -235,6 +237,7 @@
 
       head_name.value = item_object.name;
       head_code.value = "code" in item_object ? item_object.code : "";
+      head_code.disabled = true;
       parent_name.value = getChildParent(item_object.code);
       parent_name.value = getChildParent(item_object.code);
       carrying_forward.value = isChildCarryingForward(item_object.code) ? 'yes' : 'no';
