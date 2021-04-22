@@ -25,7 +25,7 @@ function add_ledger_to_db($con, $ledger_name, $group_code)
     $sttmt->bind_param('ss', $ledger_name, $group_code);
     if ($sttmt->execute()) {
       $message = array(
-        "message" => "successa",
+        "message" => "success",
       );
     } else {
       $message = array(

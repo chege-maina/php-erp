@@ -45,6 +45,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+        <div id="alert-div"></div>
         <h5 class="mb-2">Add Ledger</h5>
         <form action="post" onsubmit="return submitForm()">
           <div class="card">
@@ -103,7 +104,32 @@ include '../includes/base_page/head.php';
               })
               .then(response => response.json())
               .then(result => {
-                console.log('Success:', result);
+                console.log('Server says:', result);
+
+                if (result["message"] == "success") {
+                  const alertVar =
+                    `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> Record saved.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                  var divAlert = document.querySelector("#alert-div");
+                  divAlert.innerHTML = alertVar;
+                  divAlert.scrollIntoView();
+                  setTimeout(function() {
+                    location.reload();
+                  }, 2500);
+                } else {
+                  const alertVar =
+                    `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Error!</strong> Could not save record.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                  var divAlert = document.querySelector("#alert-div");
+                  divAlert.innerHTML = alertVar;
+                  divAlert.scrollIntoView();
+                }
+
+
                 return false;
               })
               .catch(error => {
