@@ -129,6 +129,10 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/opening_balance.php">Opening Balance</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/chart_of_accounts.php">Edit Chart of Accounts</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/add_ledger_ui.php">Add Ledger</a>
+  </li>
 </ul>
 </li>
 <!-- Customers -->

@@ -98,7 +98,7 @@ include '../includes/base_page/head.php';
             <div class="row my-2">
               <div class="col">
                 <label for="remarks" class="form-label">Voucher Description/Remarks*</label>
-                <input name="remarks" class="form-control" style="height: 50px;" type="text" id="remarks" required>
+                <textarea name="remarks" class="form-control" type="text" id="remarks" required></textarea>
               </div>
             </div>
             <hr>
@@ -181,6 +181,10 @@ include '../includes/base_page/head.php';
 
   function submitForm() {
 
+    if (!remarks.value) {
+      return;
+    }
+
     if (!startdate.value) {
       return;
     }
@@ -197,9 +201,6 @@ include '../includes/base_page/head.php';
       return;
     }
 
-    if (!remarks.value) {
-      return;
-    }
 
     if (debit.value !== credit.value) {
       console.log("they are not equal ")
