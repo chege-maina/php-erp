@@ -80,7 +80,6 @@ include '../includes/base_page/head.php';
                   <option value disabled selected>
                     -- Select Asset Group --
                   </option>
-                  <option value="all">All</option>
                 </select>
                 <div class="invalid-tooltip">This field cannot be left blank.</div>
               </div>
@@ -245,7 +244,7 @@ include '../includes/base_page/head.php';
   window.addEventListener('DOMContentLoaded', (event) => {
 
     populateSelectElement("#branch_id", '../includes/load_branch_items.php', "branch");
-
+    populateSelectElement("#asset_grp", '../includes/load_asset_groups.php', "name");
   });
 
   function submitForm() {
