@@ -220,6 +220,56 @@ include '../includes/base_page/head.php';
 </body>
 
 </html>
+<script>
+  let account_assets = {};
+  let select_data = {};
+
+
+  fetch('../includes/load_asset_groups.php')
+    .then(response => response.json())
+    .then(data => {
+
+      console.log(data);
+      data.forEach((value) => {
+        let opt = document.createElement("option");
+        opt.appendChild(document.createTextNode(value['code'] + " (" + value['name'] + ")"));
+
+        asset_grp.appendChild(opt);
+
+        select_data[value['code'] + " (" + value['name'] + ")"] = value['code']
+        account_assets[value['code'] + " (" + value['name'] + ")"] = {
+          type: value.type,
+          benefit: value.benefit
+        };
+
+        updateBranchSelect();
+      })
+
+
+
+    })
+
+
+  function updateBranchSelect() {
+    // Clear it
+    asset_grp.innerHTML = "";
+    // Add the no-selectable item first
+    opt = document.createElement("option");
+    opt.appendChild(document.createTextNode("-- Select Asset Group --"));
+    opt.setAttribute("value", "");
+    opt.setAttribute("disabled", "");
+    opt.setAttribute("selected", "");
+    asset_grp.appendChild(opt);
+    // Populate combobox
+    for (key in select_data) {
+      let opt = document.createElement("option");
+      opt.appendChild(document.createTextNode(key));
+      opt.value = key;
+      asset_grp.appendChild(opt);
+    }
+  }
+</script>
+
 
 <script>
   const branch_id = document.querySelector("#branch_id");
@@ -244,7 +294,7 @@ include '../includes/base_page/head.php';
   window.addEventListener('DOMContentLoaded', (event) => {
 
     populateSelectElement("#branch_id", '../includes/load_branch_items.php', "branch");
-    populateSelectElement("#asset_grp", '../includes/load_asset_groups.php', "name");
+    // populateSelectElement("#asset_grp", '../includes/load_asset_groups.php', "name");
   });
 
   function submitForm() {
@@ -309,12 +359,17 @@ include '../includes/base_page/head.php';
       return;
     }
 
+
+
+    const code_var = account_assets[asset_grp.value].code;
+    const name_var = account_assets[asset_grp.value].name;
+
+
     const formData = new FormData();
     formData.append("name", asset_name.value);
     formData.append("number", reg_no.value);
     formData.append("tag_no", tag_no.value);
     formData.append("branch", branch_id.value);
-    formData.append("asset_group", asset_grp.value);
     formData.append("unit", unit.value);
     formData.append("descpt", comment.value);
     formData.append("weight", weight.value);
@@ -332,6 +387,8 @@ include '../includes/base_page/head.php';
     } else if (asset_status3.checked) {
       formData.append("asset_status", asset_status3.value);
     }
+    formData.append("code", code_var);
+    formData.append("name", name_var);
     // fetch goes here
 
     fetch('../includes/add_asset.php', {

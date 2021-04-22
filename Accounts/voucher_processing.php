@@ -40,6 +40,9 @@ include '../includes/base_page/head.php';
         include '../navbar-shared.php';
         ?>
 
+        <?php
+        include '../base_page/data_list_select.php';
+        ?>
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
@@ -68,6 +71,15 @@ include '../includes/base_page/head.php';
                   <option value="Credit">Credit</option>
                   <option value="Debit">Debit</option>\
                 </select>
+              </div>
+              <div class="col">
+                <label class="form-label" for="branch_id">Select Branch*</label>
+                <select class="form-select" name="branch_id" id="branch_id" required>
+                  <option value disabled selected>
+                    -- Select Branch --
+                  </option>
+                </select>
+                <div class="invalid-tooltip">This field cannot be left blank.</div>
               </div>
             </div>
             <hr>
@@ -149,7 +161,14 @@ include '../includes/base_page/head.php';
   const debit = document.querySelector("#debit");
   const credit = document.querySelector("#credit");
   const remarks = document.querySelector("#remarks");
+  const branch_id = document.querySelector("#branch_id");
 
+  window.addEventListener('DOMContentLoaded', (event) => {
+
+    populateSelectElement("#branch_id", '../includes/load_branch_items.php', "branch");
+
+
+  });
 
   function getItems() {
     const tmp_obj = {};
@@ -214,6 +233,7 @@ include '../includes/base_page/head.php';
     formData.append("debit", debit.value);
     formData.append("credit", credit.value);
     formData.append("remarks", remarks.value);
+    formData.append("branch", branch_id.value);
     for (let key in tmp_obj) {
       formData.append(key, tmp_obj[key]);
     }
