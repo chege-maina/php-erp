@@ -31,7 +31,9 @@ include '../includes/base_page/head.php';
         include '../navbar-shared.php';
         ?>
 
-        window.sessionStorage.clear();
+        <script>
+          window.sessionStorage.clear();
+        </script>
         <?php
         include './components/tree_data_loader.php';
         ?>
@@ -44,39 +46,39 @@ include '../includes/base_page/head.php';
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <h5 class="mb-2">Add Ledger</h5>
-        <div class="card">
-          <div class="card-body fs--1 p-4">
-            <!-- Content is to start here -->
-            <form action="post" onsubmit="return submitForm()">
+        <form action="post" onsubmit="return submitForm()">
+          <div class="card">
+            <div class="card-body fs--1 p-4">
+              <!-- Content is to start here -->
               <div class="mb-3">
                 <label class="form-label" for="ledger_name">Ledger Name</label>
                 <input class="form-control" id="ledger_name" type="text" required />
               </div>
               <div class="mb-3">
-                <label class="form-label" for="group_name">Group Name</label>
-                <input list="group_names" class="form-select" name="group_name" id="group_name" required>
+                <label class="form-label" for="group_code">Group</label>
+                <input list="group_names" class="form-select" name="group_code" id="group_code" required>
                 <datalist id="group_names">
                 </datalist>
               </div>
-            </form>
-            <!-- Content ends here -->
+              <!-- Content ends here -->
+            </div>
+            <!-- Additional cards can be added here -->
           </div>
-          <!-- Additional cards can be added here -->
-        </div>
 
-        <div class="card p-2 mt-1">
-          <div class="row">
-            <div class="col-auto">
-              <button class="btn btn-falcon-primary">Submit</button>
+          <div class="card p-2 mt-1">
+            <div class="row">
+              <div class="col-auto">
+                <button class="btn btn-falcon-primary">Submit</button>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <!-- body ends here -->
         <!-- =========================================================== -->
         <script>
           const group_names = document.querySelector("#group_names");
-          const group_name = document.querySelector("#group_name");
+          const group_code = document.querySelector("#group_code");
           const ledger_name = document.querySelector("#ledger_name");
 
           window.addEventListener("populate_groups", (event) => {
@@ -91,7 +93,25 @@ include '../includes/base_page/head.php';
           });
 
           function submitForm() {
+            const formData = new FormData();
+            formData.append("ledger_name", ledger_name.value);
+            formData.append("group_code", group_code.value);
 
+            fetch('./php_scripts/add_ledger_entry.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+                console.log('Success:', result);
+                return false;
+              })
+              .catch(error => {
+                console.error('Error:', error);
+                return false;
+              });
+
+            return false;
           }
         </script>
 
