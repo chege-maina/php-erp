@@ -102,6 +102,5 @@
     window.dispatchEvent(ev);
   }
 
-  window.sessionStorage.clear();
   window.sessionStorage.setItem("items", JSON.stringify(parent_children));
 </script>

@@ -56,6 +56,8 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
 
         <script>
+          window.sessionStorage.clear();
+
           let updateTable = (data) => {
             const datatable = document.querySelector("#datatable");
 
