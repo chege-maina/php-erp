@@ -34,8 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $financier = sanitize_input($_POST["financier"]);
   $loan_ref = sanitize_input($_POST["loan_ref"]);
 
+  echo $asset_status;
 
-  $mysql = "INSERT INTO tbl_voucher_items (name, number, tag_no, branch, 
+  $mysql = "INSERT INTO tbl_asset (name, number, tag_no, branch, 
   asset_group, unit, descpt, weight, date, dep_rate, cost, dep_method, wear_tear, asset_status, financier, loan_ref)
    VALUES('$name', '$number', '$tag_no', '$branch', '$asset_group', '$unit', '$descpt', '$weight', '$date',
    '$dep_rate', '$cost', '$dep_method', '$wear_tear', '$asset_status', '$financier', '$loan_ref')";
