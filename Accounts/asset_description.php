@@ -33,6 +33,10 @@ include '../includes/base_page/head.php';
         include '../navbar-shared.php';
         ?>
 
+
+        <?php
+        include '../base_page/data_list_select.php';
+        ?>
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
@@ -62,8 +66,8 @@ include '../includes/base_page/head.php';
             </div>
             <div class="row my-3">
               <div class="col">
-                <label class="form-label" for="branch">Select Branch*</label>
-                <select class="form-select" name="branch" id="branch" required>
+                <label class="form-label" for="branch_id">Select Branch*</label>
+                <select class="form-select" name="branch_id" id="branch_id" required>
                   <option value disabled selected>
                     -- Select Branch --
                   </option>
@@ -85,6 +89,8 @@ include '../includes/base_page/head.php';
                   <option value disabled selected>
                     -- Select Unit --
                   </option>
+                  <option value="Units">Units</option>
+                  <option value="Pieces">Pieces</option>
                 </select>
                 <div class="invalid-tooltip">This field cannot be left blank.</div>
               </div>
@@ -111,7 +117,7 @@ include '../includes/base_page/head.php';
           <div class="card-body fs--1 p-4 position-relative">
             <div class="row my-3">
               <div class="col">
-                <label for="asset_date" class="form-label"> Date*</label>
+                <label for="asset_date" class="form-label"> Date of Purchase*</label>
                 <input class="form-control" name="asset_date" id="asset_date" type="date" required></input>
               </div>
               <div class="col">
@@ -218,3 +224,13 @@ include '../includes/base_page/head.php';
 </body>
 
 </html>
+
+<script>
+  const branch_id = document.querySelector("#branch_id");
+
+  window.addEventListener('DOMContentLoaded', (event) => {
+
+    populateSelectElement("#branch_id", '../includes/load_branch_items.php', "branch");
+
+  });
+</script>
