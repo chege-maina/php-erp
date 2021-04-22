@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2021 at 08:24 AM
+-- Generation Time: Apr 22, 2021 at 08:23 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -24,46 +24,46 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_voucher_items`
+-- Table structure for table `tbl_voucher`
 --
 
-CREATE TABLE `tbl_voucher_items` (
+CREATE TABLE `tbl_voucher` (
+  `voucher_type` varchar(20) NOT NULL,
   `voucher_no` varchar(100) NOT NULL,
-  `ledger` varchar(50) NOT NULL,
-  `amount` varchar(100) NOT NULL,
-  `type` varchar(50) NOT NULL,
-  `id` int(100) NOT NULL,
-  `date` varchar(15) NOT NULL
+  `debit` varchar(30) NOT NULL,
+  `credit` varchar(30) NOT NULL,
+  `remarks` text NOT NULL,
+  `date` date NOT NULL,
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbl_voucher_items`
+-- Dumping data for table `tbl_voucher`
 --
 
-INSERT INTO `tbl_voucher_items` (`voucher_no`, `ledger`, `amount`, `type`, `id`, `date`) VALUES
-('CN-007', 'Meeee', '1', 'Debit', 67, '2017-12-28'),
-('CN-008', 'Meeee', '1', 'Debit', 69, '2017-12-28');
+INSERT INTO `tbl_voucher` (`voucher_type`, `voucher_no`, `debit`, `credit`, `remarks`, `date`, `id`) VALUES
+('Credit', 'CN-008', '1', '1', 'Id mollit ex lorem n', '2017-12-28', 35),
+('Credit', 'CN-003', '1', '1', 'Id mollit ex lorem n', '2017-12-28', 36);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `tbl_voucher_items`
+-- Indexes for table `tbl_voucher`
 --
-ALTER TABLE `tbl_voucher_items`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `voucher_no` (`voucher_no`);
+ALTER TABLE `tbl_voucher`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `tbl_voucher_items`
+-- AUTO_INCREMENT for table `tbl_voucher`
 --
-ALTER TABLE `tbl_voucher_items`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+ALTER TABLE `tbl_voucher`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
