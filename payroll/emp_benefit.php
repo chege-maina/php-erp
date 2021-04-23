@@ -534,7 +534,7 @@ include '../includes/base_page/head.php';
             //  employee_dict[item] = employee_subtext;
 
             updateTable();
-            updateEmployeeSelect();
+            // updateEmployeeSelect();
           }
 
           function validateQuantity(elmt, value, max) {
