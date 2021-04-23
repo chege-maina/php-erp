@@ -900,7 +900,7 @@ ALTER TABLE `tbl_staff`
   ADD `sort_code` varchar(50) NOT NULL AFTER `bank_name`,
   ADD `s_mobile_no` varchar(50) NOT NULL AFTER `sort_code`,
   ADD `s_bank_branch` varchar(50) NOT NULL AFTER `s_mobile_no`,
-  ADD `s_payment` int(11) NOT NULL AFTER `s_bank_branch`,
+  ADD `s_payment` varchar(50) NOT NULL AFTER `s_bank_branch`,
   ADD `status` varchar(15) NOT NULL DEFAULT 'pending' AFTER `s_payment`,
   ADD `branch` varchar(50) NOT NULL AFTER `status`;
 
