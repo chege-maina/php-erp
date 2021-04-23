@@ -61,14 +61,12 @@ include '../includes/base_page/head.php';
                   <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addBenefit">
                     Add
                   </button>
-                  <select class="form-select" name="branch" id="benefit_select">
+                  <select class="form-select" name="branch" id="benefit_select" onchange="addItem();">
                     <option value disabled selected>
                       -- Select Deduction --
                     </option>
                   </select>
                   <div class="invalid-tooltip">This field cannot be left blank.</div>
-                  <!-- Button trigger modal -->
-                  <input type="button" value="+" class="btn btn-primary" onclick="addItem();">
                 </div>
               </div>
             </div>
@@ -293,7 +291,6 @@ include '../includes/base_page/head.php';
 
     <script>
       //datalist 
-
       const employee = document.querySelector("#employee");
       const employee_name = document.querySelector("#employee_name");
       const all_employees = {};
@@ -348,6 +345,13 @@ include '../includes/base_page/head.php';
       }
 
       function submitForm() {
+
+        if (!employee_name.value) {
+          return;
+        }
+
+
+
         let tmp_obj = getItems();
 
         const formData = new FormData();

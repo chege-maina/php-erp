@@ -238,8 +238,8 @@ include '../includes/base_page/head.php';
 
         select_data[value['code'] + " (" + value['name'] + ")"] = value['code']
         account_assets[value['code'] + " (" + value['name'] + ")"] = {
-          type: value.type,
-          benefit: value.benefit
+          code: value.code,
+          name: value.name
         };
 
         updateBranchSelect();
