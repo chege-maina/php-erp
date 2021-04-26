@@ -70,10 +70,10 @@ include '../includes/base_page/head.php';
                     <span>When Purchasing</span>
                   </td>
                   <td>
-                    <input type="text" name="accounts" id="accounts" class="form-control" readonly required>
+                    <input type="text" name="t_purchase" id="t_purchase" class="form-control" readonly required>
                   </td>
                   <td>
-                    <select class="form-select form-select-sm" name="ledger" id="ledger" required>
+                    <select class="form-select form-select-sm" name="s_purchase" id="s_purchase" required>
                       <option value disabled selected>
                         -- Select COA Ledger --
                       </option>
@@ -85,10 +85,10 @@ include '../includes/base_page/head.php';
                     <span>When Selling</span>
                   </td>
                   <td>
-                    <input type="text" name="accounts" id="accounts" class="form-control" readonly required>
+                    <input type="text" name="t_sale" id="t_sale" class="form-control" readonly required>
                   </td>
                   <td>
-                    <select class="form-select form-select-sm" name="ledger" id="ledger" required>
+                    <select class="form-select form-select-sm" name="s_sale" id="s_sale" required>
                       <option value disabled selected>
                         -- Select COA Ledger --
                       </option>
@@ -100,10 +100,10 @@ include '../includes/base_page/head.php';
                     <span>When Carrying Forward</span>
                   </td>
                   <td>
-                    <input type="text" name="accounts" id="accounts" class="form-control" readonly required>
+                    <input type="text" name="t_fw" id="t_fw" class="form-control" readonly required>
                   </td>
                   <td>
-                    <select class="form-select form-select-sm" name="ledger" id="ledger" required>
+                    <select class="form-select form-select-sm" name="s_fw" id="s_fw" required>
                       <option value disabled selected>
                         -- Select COA Ledger --
                       </option>
@@ -134,3 +134,12 @@ include '../includes/base_page/head.php';
 </body>
 
 </html>
+
+<script>
+  const t_purchase = document.querySelector("#t_purchase");
+  const t_sale = document.querySelector("#t_sale");
+  const t_fw = document.querySelector("#t_fw");
+  const s_purchase = document.querySelector("#s_purchase ");
+  const s_sale = document.querySelector("#s_sale");
+  const s_fw = document.querySelector("s_fw");
+</script>
