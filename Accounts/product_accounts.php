@@ -206,20 +206,25 @@ include '../includes/base_page/head.php';
   let totals = [];
 
   function submitForm() {
+
     if (!employee_name.value) {
-      employee_name.focus()
+      employee_name.focus();
       return;
     }
 
     table_body.childNodes.forEach(item => {
+      if (item.childNodes.length < 7) {
+        return false;
+      }
+      console.log("asta", item.childNodes);
+      const t_group = item.childNodes[3].value;
+      const t_code = item.childNodes[5].value;
 
-      const t_group = item.childNodes[0].value;
-      const t_code = item.childNodes[1].value;
 
 
       totals.push({
         group_code: t_group,
-        ledger: t_ledger,
+        ledger: t_code,
       });
     });
 
