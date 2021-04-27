@@ -75,7 +75,7 @@ include '../includes/base_page/head.php';
               <tbody id="table_body">
                 <tr>
                   <td>
-                    <span>When Purchasing</span>
+                    <span id="purchase">When Purchasing</span>
                   </td>
                   <td>
                     <input type="text" name="t_purchase" id="t_purchase" value="050201" class="form-control" readonly required>
@@ -90,7 +90,7 @@ include '../includes/base_page/head.php';
                 </tr>
                 <tr>
                   <td>
-                    <span>When Selling</span>
+                    <span id="sell">When Selling</span>
                   </td>
                   <td>
                     <input type="text" name="t_sale" id="t_sale" value="040101" class="form-control" readonly required>
@@ -105,7 +105,7 @@ include '../includes/base_page/head.php';
                 </tr>
                 <tr>
                   <td>
-                    <span>When Carrying Forward</span>
+                    <span id="carry">When Carrying Forward</span>
                   </td>
                   <td>
                     <input type="text" name="t_fw" id="t_fw" value="010301" class="form-control" readonly required>
@@ -207,22 +207,24 @@ include '../includes/base_page/head.php';
 
   function submitForm() {
 
-    if (!employee_name.value) {
-      employee_name.focus();
-      return;
-    }
+    //  if (!employee_name.value) {
+    //    employee_name.focus();
+    //    return;
+    //  }
 
     table_body.childNodes.forEach(item => {
       if (item.childNodes.length < 7) {
         return false;
       }
-      console.log("asta", item.childNodes);
-      const t_group = item.childNodes[3].value;
-      const t_code = item.childNodes[5].value;
+
+      const t_status = item.childNodes[1].childNodes[1].innerHTML;
+      const t_group = item.childNodes[3].childNodes[1].value;
+      const t_code = item.childNodes[5].childNodes[1].value;
 
 
 
       totals.push({
+        status: t_status,
         group_code: t_group,
         ledger: t_code,
       });
