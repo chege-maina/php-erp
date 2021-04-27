@@ -205,12 +205,7 @@ include '../includes/base_page/head.php';
 
   let totals = [];
 
-  function submitForm() {
-
-    //  if (!employee_name.value) {
-    //    employee_name.focus();
-    //    return;
-    //  }
+  function getItems() {
 
     table_body.childNodes.forEach(item => {
       if (item.childNodes.length < 7) {
@@ -239,6 +234,28 @@ include '../includes/base_page/head.php';
 
     return tmp_obj
 
+  }
+
+  function submitForm() {
+    if (!employee_name.value) {
+      employee_name.focus();
+      return;
+    }
+
+    if (!s_purchase.value) {
+      s_purchase.focus();
+      return;
+    }
+    if (!s_sale.value) {
+      s_sale.focus();
+      return;
+    }
+    if (!s_fw.value) {
+      s_fw.focus();
+      return;
+    }
+
+    let tmp_obj = getItems();
 
     const code_var = all_employees[employee.value].code;
     const name_var = all_employees[employee.value].name;
