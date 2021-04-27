@@ -164,28 +164,29 @@ include '../includes/base_page/head.php';
 
 <script>
   let select_data = {};
+  window.addEventListener('DOMContentLoaded', (event) => {
+    fetch('../includes/load_product_code.php')
+      .then(response => response.json())
+      .then(data => {
 
-  fetch('../includes/load_product_code.php')
-    .then(response => response.json())
-    .then(data => {
+        console.log(data);
+        data.forEach((value) => {
+          let opt = document.createElement("option");
+          opt.appendChild(document.createTextNode(value['code'] + " (" + value['name'] + ")"));
 
-      console.log(data);
-      data.forEach((value) => {
-        let opt = document.createElement("option");
-        opt.appendChild(document.createTextNode(value['code'] + " (" + value['name'] + ")"));
+          b_product.appendChild(opt);
 
-        b_product.appendChild(opt);
-
-        select_data[value['code'] + value['name']] = value['code']
+          select_data[value['code'] + value['name']] = value['code']
 
 
-        updateBranchSelect();
+          updateBranchSelect();
+        })
+
+
+
       })
 
-
-
-    })
-
+  });
 
   function updateBranchSelect() {
     // Clear it
