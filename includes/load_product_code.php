@@ -6,7 +6,7 @@ include_once 'dbconnect.php';
 session_start();
 
 
-$query = "SELECT * FROM tbl_product";
+$query = "SELECT * FROM tbl_product WHERE status='active'";
 
 $result = mysqli_query($conn, $query);
 $response = array();
