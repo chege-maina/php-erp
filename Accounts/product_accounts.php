@@ -163,6 +163,8 @@ include '../includes/base_page/head.php';
 </script>
 
 <script>
+  let select_data = {};
+
   fetch('../includes/load_product_code.php')
     .then(response => response.json())
     .then(data => {
@@ -170,9 +172,11 @@ include '../includes/base_page/head.php';
       console.log(data);
       data.forEach((value) => {
         const opt = document.createElement("option");
-        opt.setAttribute("value", group_dictionary[key].code);
-        opt.appendChild(document.createTextNode(group_dictionary[key].name));
+        opt.appendChild(document.createTextNode(value['code'] + " (" + value['name'] + ")"));
+
         b_product.appendChild(opt);
+
+        select_data[value['code'] + " (" + value['name'] + ")"] = value['code']
 
         updateBranchSelect();
       })
@@ -193,5 +197,13 @@ include '../includes/base_page/head.php';
     opt.setAttribute("selected", "");
     b_product.appendChild(opt);
     // Populate combobox
+
+    for (key in select_data) {
+      let opt = document.createElement("option");
+
+      opt.setAttribute("value", select_data[key].code);
+      opt.appendChild(document.createTextNode(select_data[key].name));
+      b_product.appendChild(opt);
+    }
   }
 </script>
