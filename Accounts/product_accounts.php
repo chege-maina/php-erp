@@ -103,21 +103,6 @@ include '../includes/base_page/head.php';
                     </select>
                   </td>
                 </tr>
-                <tr>
-                  <td>
-                    <span id="carry">When Carrying Forward</span>
-                  </td>
-                  <td>
-                    <input type="text" name="t_fw" id="t_fw" value="010301" class="form-control" readonly required>
-                  </td>
-                  <td>
-                    <select class="form-select form-select-sm" name="s_fw" id="s_fw" required>
-                      <option value disabled selected>
-                        -- Select COA Ledger --
-                      </option>
-                    </select>
-                  </td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -146,17 +131,14 @@ include '../includes/base_page/head.php';
 <script>
   const t_purchase = document.querySelector("#t_purchase");
   const t_sale = document.querySelector("#t_sale");
-  const t_fw = document.querySelector("#t_fw");
   const s_purchase = document.querySelector("#s_purchase ");
   const s_sale = document.querySelector("#s_sale");
-  const s_fw = document.querySelector("#s_fw");
   const b_product = document.querySelector("#b_product");
   const products = document.querySelector("#products");
 
   window.addEventListener('DOMContentLoaded', (event) => {
 
     populateSelectElement("#s_sale", '../includes/load_sale_ledger.php', "ledger");
-    populateSelectElement("#s_fw", '../includes/load_forward_ledger.php', "ledger");
     populateSelectElement("#s_purchase", '../includes/load_purchase_ledger.php', "ledger");
 
   });
@@ -188,6 +170,8 @@ include '../includes/base_page/head.php';
             opt.setAttribute("value", all_employees[key].name);
             opt.appendChild(document.createTextNode(all_employees[key].code));
             employee.appendChild(opt);
+
+            console.log("just trying", all_employees)
           }
         });
 
@@ -237,25 +221,15 @@ include '../includes/base_page/head.php';
   }
 
   function submitForm() {
-    if (!employee_name.value) {
-      employee_name.focus();
-      return;
-    }
 
-    if (!s_purchase.value) {
-      s_purchase.focus();
-      return;
-    }
-    if (!s_sale.value) {
-      s_sale.focus();
-      return;
-    }
 
 
     let tmp_obj = getItems();
 
-    const code_var = all_employees[employee.value].code;
-    const name_var = all_employees[employee.value].name;
+    const code_var = all_employees[employee["code"]];
+    const name_var = all_employees[employee["name"]];
+
+    console.log("it mse", all_employees);
 
     const formData = new FormData();
     formData.append("code", code_var);
