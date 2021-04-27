@@ -44,8 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $ledger = $row4['ledger'];
                 $le_date = $date;
                 $total_now = $value["p_total"];
-                $mysql = "INSERT INTO tbl_ledger_amounts (group_code, ledger, amount, date) 
-                VALUES('" . $group_code . "', '" . $ledger . "', '" . $total_now . "', '" . $le_date . "')";
+                $mysql = "INSERT INTO tbl_ledger_amounts (group_code, ledger, amount, date, status) 
+                VALUES('" . $group_code . "', '" . $ledger . "', '" . $total_now . "', '" . $le_date . "', 'Debit')";
                 mysqli_query($conn, $mysql);
             }
 
@@ -55,11 +55,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         '" . $value["p_cost"] . "','" . $value["p_total"] . "','" . $user . "', '" . $rec_no . "', '" . $invoice . "')";
             mysqli_query($conn, $mysql);
         }
-        $mysql = "INSERT INTO tbl_ledger_amounts (group_code, ledger, amount, date) 
-                VALUES('020101', '" . $supplier . "', '" . $total . "', '" . $date . "')";
+        $mysql = "INSERT INTO tbl_ledger_amounts (group_code, ledger, amount, date, status) 
+                VALUES('020101', '" . $supplier . "', '" . $total . "', '" . $date . "', 'Credit')";
         mysqli_query($conn, $mysql);
-        $mysql = "INSERT INTO tbl_ledger_amounts (group_code, ledger, amount, date) 
-                VALUES('020203', 'Vat Output Tax', '" . $tax . "', '" . $date . "')";
+        $mysql = "INSERT INTO tbl_ledger_amounts (group_code, ledger, amount, date, status) 
+                VALUES('020203', 'Vat Output Tax', '" . $tax . "', '" . $date . "', 'Debit')";
         mysqli_query($conn, $mysql);
         $sql = "UPDATE tbl_store_item SET status = 'done' WHERE receipt_no = '" . $rec_no . "'";
         $sql2 = "UPDATE tbl_store SET status = 'done' WHERE receipt_no = '" . $rec_no . "'";
