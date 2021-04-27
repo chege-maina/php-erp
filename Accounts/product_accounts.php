@@ -56,6 +56,16 @@ include '../includes/base_page/head.php';
           <!--/.bg-holder-->
 
           <div class="card-body fs--1 p-0 pt-3 pl-3 position-relative">
+            <div class="col col-6 mt-3 pr-3">
+              <label class="form-label" for="b_product">Select Product*</label>
+              <select class="form-select" name="b_product" id="b_product">
+                <option value disabled selected>
+                  -- Select Product --
+                </option>
+              </select>
+              <div class="invalid-tooltip">This field cannot be left blank.</div>
+            </div>
+            <hr>
             <table class="table table-sm table-hover table-striped">
               <thead>
                 <tr>
@@ -141,5 +151,16 @@ include '../includes/base_page/head.php';
   const t_fw = document.querySelector("#t_fw");
   const s_purchase = document.querySelector("#s_purchase ");
   const s_sale = document.querySelector("#s_sale");
-  const s_fw = document.querySelector("s_fw");
+  const s_fw = document.querySelector("#s_fw");
+  const b_product = document.querySelector("#b_product");
+
+
+  window.addEventListener('DOMContentLoaded', (event) => {
+
+    populateSelectElement("#s_sale", '../includes/load_sale_ledger.php', "ledger");
+    populateSelectElement("#s_fw", '../includes/load_forward_ledger.php', "ledger");
+    populateSelectElement("#s_purchase", '../includes/load_purchase_ledger.php', "ledger");
+    populateSelectElement("#b_product", '../includes/load_product_code.php', "ledger");
+
+  });
 </script>
