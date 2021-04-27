@@ -226,7 +226,7 @@ include '../includes/base_page/head.php';
 
     let tmp_obj = getItems();
 
-    console.log("rastaaa", all_employees[name]);
+    console.log("rastaaa", all_employees[employees[name]]);
     return false;
     const code_var = all_employees[employee["code"]];
     const name_var = all_employees[employee["name"]];
