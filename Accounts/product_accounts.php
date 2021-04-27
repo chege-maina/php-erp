@@ -58,8 +58,8 @@ include '../includes/base_page/head.php';
           <div class="card-body fs--1 p-0 pt-3 pl-3 position-relative">
             <div class="col col-6 mt-3 pr-3">
               <label class="form-label" for="b_product">Select Product*</label>
-              <input list="products" class="form-select" name="b_product" id="b_product" required>
-              <datalist id="products">
+              <input list="employee" class="form-select" name="b_product" id="employee_name" required>
+              <datalist id="employee">
               </datalist>
               <div class="invalid-tooltip">This field cannot be left blank.</div>
             </div>
@@ -163,48 +163,33 @@ include '../includes/base_page/head.php';
 </script>
 
 <script>
-  let select_data = {};
+  const employee = document.querySelector("#employee");
+  const employee_name = document.querySelector("#employee_name");
+  const all_employees = {};
+  let all_benefits = {};
+
   window.addEventListener('DOMContentLoaded', (event) => {
+    const formData = new FormData();
+
     fetch('../includes/load_product_code.php')
       .then(response => response.json())
-      .then(data => {
+      .then(result => {
+        console.log(result)
+        let opt = document.createElement("option");
 
-        console.log(data);
-        data.forEach((value) => {
-          let opt = document.createElement("option");
-          opt.appendChild(document.createTextNode(value['code'] + " (" + value['name'] + ")"));
+        result.forEach((employees) => {
+          opt = document.createElement("option");
+          opt.appendChild(document.createTextNode(employees["code"] + employees["name"]));
+          opt.value = employees["code"] + " " + employees["name"];
+          all_employees[employees["code"] + " " + employees["name"]] = employees;
+          employee.appendChild(opt);
 
-          b_product.appendChild(opt);
-
-          select_data[value['code'] + value['name']] = value['code']
-
-
-          updateBranchSelect();
-        })
-
-
+        });
 
       })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
 
   });
-
-  function updateBranchSelect() {
-    // Clear it
-    b_product.innerHTML = "";
-    // Add the no-selectable item first
-    opt = document.createElement("option");
-    opt.appendChild(document.createTextNode("-- Select Product --"));
-    opt.setAttribute("value", "");
-    opt.setAttribute("disabled", "");
-    opt.setAttribute("selected", "");
-    b_product.appendChild(opt);
-    // Populate combobox
-
-    for (key in select_data) {
-      const opt = document.createElement("option");
-      opt.setAttribute("value", select_data[key].code);
-      opt.appendChild(document.createTextNode(select_data[key].name));
-      b_product.appendChild(opt);
-    }
-  }
 </script>
