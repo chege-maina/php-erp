@@ -58,8 +58,8 @@ include '../includes/base_page/head.php';
           <div class="card-body fs--1 p-0 pt-3 pl-3 position-relative">
             <div class="col col-6 mt-3 pr-3">
               <label class="form-label" for="b_product">Select Product*</label>
-              <input list="b_product" class="form-select" name="b_product" id="b_product" required>
-              <datalist id="b_product">
+              <input list="products" class="form-select" name="b_product" id="b_product" required>
+              <datalist id="products">
               </datalist>
               <div class="invalid-tooltip">This field cannot be left blank.</div>
             </div>
@@ -151,7 +151,7 @@ include '../includes/base_page/head.php';
   const s_sale = document.querySelector("#s_sale");
   const s_fw = document.querySelector("#s_fw");
   const b_product = document.querySelector("#b_product");
-
+  const products = document.querySelector("#products");
 
   window.addEventListener('DOMContentLoaded', (event) => {
 
@@ -189,7 +189,7 @@ include '../includes/base_page/head.php';
 
   function updateBranchSelect() {
     // Clear it
-    b_product.value = "";
+    b_product.innerHTML = "";
     // Add the no-selectable item first
     opt = document.createElement("option");
     opt.appendChild(document.createTextNode("-- Select Product --"));
