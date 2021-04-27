@@ -182,8 +182,14 @@ include '../includes/base_page/head.php';
           opt.appendChild(document.createTextNode(employees["code"] + employees["name"]));
           opt.value = employees["code"] + " " + employees["name"];
           all_employees[employees["code"] + " " + employees["name"]] = employees;
-          employee.appendChild(opt);
 
+
+          for (key in all_employees) {
+            const opt = document.createElement("option");
+            opt.setAttribute("value", all_employees[key].code);
+            opt.appendChild(document.createTextNode(all_employees[key].name));
+            employee.appendChild(opt);
+          }
         });
 
       })
