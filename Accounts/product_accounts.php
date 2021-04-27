@@ -70,7 +70,7 @@ include '../includes/base_page/head.php';
                     <span>When Purchasing</span>
                   </td>
                   <td>
-                    <input type="text" name="t_purchase" id="t_purchase" class="form-control" readonly required>
+                    <input type="text" name="t_purchase" id="t_purchase" value="050201" class="form-control" readonly required>
                   </td>
                   <td>
                     <select class="form-select form-select-sm" name="s_purchase" id="s_purchase" required>
@@ -85,7 +85,7 @@ include '../includes/base_page/head.php';
                     <span>When Selling</span>
                   </td>
                   <td>
-                    <input type="text" name="t_sale" id="t_sale" class="form-control" readonly required>
+                    <input type="text" name="t_sale" id="t_sale" value="040101" class="form-control" readonly required>
                   </td>
                   <td>
                     <select class="form-select form-select-sm" name="s_sale" id="s_sale" required>
@@ -100,7 +100,7 @@ include '../includes/base_page/head.php';
                     <span>When Carrying Forward</span>
                   </td>
                   <td>
-                    <input type="text" name="t_fw" id="t_fw" class="form-control" readonly required>
+                    <input type="text" name="t_fw" id="t_fw" value="010301" class="form-control" readonly required>
                   </td>
                   <td>
                     <select class="form-select form-select-sm" name="s_fw" id="s_fw" required>
