@@ -72,7 +72,7 @@ include '../includes/base_page/head.php';
                   <th>Select COA Ledger</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="table_body">
                 <tr>
                   <td>
                     <span>When Purchasing</span>
@@ -126,7 +126,7 @@ include '../includes/base_page/head.php';
         <div class="card mt-1">
           <div class="card-body fs--1 p-1">
             <div class="d-flex flex-row-reverse">
-              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitForm();">
+              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="getItems();">
                 Submit
               </button>
             </div>
@@ -197,4 +197,67 @@ include '../includes/base_page/head.php';
       });
 
   });
+</script>
+
+<script>
+  const table_body = document.querySelector("#table_body");
+  const tmp_obj = {};
+
+  let totals = [];
+
+  function submitForm() {
+    if (!employee_name.value) {
+      employee_name.focus()
+      return;
+    }
+
+    table_body.childNodes.forEach(item => {
+
+      const t_group = item.childNodes[0].childNodes[0].value;
+      const t_code = item.childNodes[1].childNodes[0].value;
+
+
+      totals.push({
+        group_code: t_group,
+        ledger: t_ledger,
+      });
+    });
+
+    console.log("Hey there ", totals);
+
+    tmp_obj["table_items"] = JSON.stringify(totals);
+    console.log("==================================");
+    console.log("tmp_obj", tmp_obj);
+    console.log("==================================");
+
+    return tmp_obj
+
+
+    const code_var = all_employees[employee.value].code;
+    const name_var = all_employees[employee.value].name;
+
+    const formData = new FormData();
+    formData.append("code", code_var);
+    formData.append("name", name_var);
+    for (let key in tmp_obj) {
+      formData.append(key, tmp_obj[key]);
+    }
+
+    fetch('../includes/add_product_mapping.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log('Success:', result);
+
+        window.setTimeout(() => {
+          //TODO:  Show result
+          location.reload();
+        }, 2500);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
 </script>
