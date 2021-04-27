@@ -58,11 +58,9 @@ include '../includes/base_page/head.php';
           <div class="card-body fs--1 p-0 pt-3 pl-3 position-relative">
             <div class="col col-6 mt-3 pr-3">
               <label class="form-label" for="b_product">Select Product*</label>
-              <select class="form-select" name="b_product" id="b_product">
-                <option value disabled selected>
-                  -- Select Product --
-                </option>
-              </select>
+              <input list="b_product" class="form-select" name="b_product" id="b_product" required>
+              <datalist id="b_product">
+              </datalist>
               <div class="invalid-tooltip">This field cannot be left blank.</div>
             </div>
             <hr>
@@ -160,7 +158,40 @@ include '../includes/base_page/head.php';
     populateSelectElement("#s_sale", '../includes/load_sale_ledger.php', "ledger");
     populateSelectElement("#s_fw", '../includes/load_forward_ledger.php', "ledger");
     populateSelectElement("#s_purchase", '../includes/load_purchase_ledger.php', "ledger");
-    populateSelectElement("#b_product", '../includes/load_product_code.php', "ledger");
 
   });
+</script>
+
+<script>
+  fetch('../includes/load_product_code.php')
+    .then(response => response.json())
+    .then(data => {
+
+      console.log(data);
+      data.forEach((value) => {
+        const opt = document.createElement("option");
+        opt.setAttribute("value", group_dictionary[key].code);
+        opt.appendChild(document.createTextNode(group_dictionary[key].name));
+        b_product.appendChild(opt);
+
+        updateBranchSelect();
+      })
+
+
+
+    })
+
+
+  function updateBranchSelect() {
+    // Clear it
+    b_product.innerHTML = "";
+    // Add the no-selectable item first
+    opt = document.createElement("option");
+    opt.appendChild(document.createTextNode("-- Select Product --"));
+    opt.setAttribute("value", "");
+    opt.setAttribute("disabled", "");
+    opt.setAttribute("selected", "");
+    b_product.appendChild(opt);
+    // Populate combobox
+  }
 </script>
