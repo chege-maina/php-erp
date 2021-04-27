@@ -178,11 +178,12 @@ include '../includes/base_page/head.php';
         let opt = document.createElement("option");
 
         result.forEach((employees) => {
+          employee.innerHTML = "";
 
           all_employees[employees["code"] + " " + employees["name"]] = employees;
           for (key in all_employees) {
 
-            employee.innerHTML = "";
+
             const opt = document.createElement("option");
             opt.setAttribute("value", all_employees[key].code);
             opt.appendChild(document.createTextNode(all_employees[key].name));
