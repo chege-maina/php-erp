@@ -10,11 +10,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $stat = "pending";
 
-  $query = "SELECT * FROM tbl_product WHERE product_code='$rem_no' and status='$stat'";
+  $query = "SELECT * FROM tbl_product WHERE product_code='$code' and status='$stat'";
   $result = mysqli_query($conn, $query);
   $response = array();
 
   if ($row = mysqli_fetch_assoc($result)) {
+
+
     array_push(
       $response,
       array(
