@@ -171,12 +171,13 @@ include '../includes/base_page/head.php';
 
       console.log(data);
       data.forEach((value) => {
-        const opt = document.createElement("option");
+        let opt = document.createElement("option");
         opt.appendChild(document.createTextNode(value['code'] + " (" + value['name'] + ")"));
 
         b_product.appendChild(opt);
 
-        select_data[value['code'] + " (" + value['name'] + ")"] = value['code']
+        select_data[value['code'] + value['name']] = value['code']
+
 
         updateBranchSelect();
       })
@@ -188,7 +189,7 @@ include '../includes/base_page/head.php';
 
   function updateBranchSelect() {
     // Clear it
-    b_product.innerHTML = "";
+    b_product.value = "";
     // Add the no-selectable item first
     opt = document.createElement("option");
     opt.appendChild(document.createTextNode("-- Select Product --"));
@@ -199,8 +200,7 @@ include '../includes/base_page/head.php';
     // Populate combobox
 
     for (key in select_data) {
-      let opt = document.createElement("option");
-
+      const opt = document.createElement("option");
       opt.setAttribute("value", select_data[key].code);
       opt.appendChild(document.createTextNode(select_data[key].name));
       b_product.appendChild(opt);
