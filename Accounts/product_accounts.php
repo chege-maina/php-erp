@@ -250,10 +250,7 @@ include '../includes/base_page/head.php';
       s_sale.focus();
       return;
     }
-    if (!s_fw.value) {
-      s_fw.focus();
-      return;
-    }
+
 
     let tmp_obj = getItems();
 
