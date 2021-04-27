@@ -126,7 +126,7 @@ include '../includes/base_page/head.php';
         <div class="card mt-1">
           <div class="card-body fs--1 p-1">
             <div class="d-flex flex-row-reverse">
-              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="getItems();">
+              <button class="btn btn-falcon-primary btn-sm m-2" id="submit" onclick="submitForm();">
                 Submit
               </button>
             </div>
@@ -213,8 +213,8 @@ include '../includes/base_page/head.php';
 
     table_body.childNodes.forEach(item => {
 
-      const t_group = item.childNodes[0].childNodes[0].value;
-      const t_code = item.childNodes[1].childNodes[0].value;
+      const t_group = item.childNodes[0].value;
+      const t_code = item.childNodes[1].value;
 
 
       totals.push({
