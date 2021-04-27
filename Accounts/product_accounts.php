@@ -181,6 +181,8 @@ include '../includes/base_page/head.php';
 
           all_employees[employees["code"] + " " + employees["name"]] = employees;
           for (key in all_employees) {
+
+            employee.innerHTML = "";
             const opt = document.createElement("option");
             opt.setAttribute("value", all_employees[key].code);
             opt.appendChild(document.createTextNode(all_employees[key].name));
