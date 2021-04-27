@@ -185,8 +185,8 @@ include '../includes/base_page/head.php';
 
 
             const opt = document.createElement("option");
-            opt.setAttribute("value", all_employees[key].code);
-            opt.appendChild(document.createTextNode(all_employees[key].name));
+            opt.setAttribute("value", all_employees[key].name);
+            opt.appendChild(document.createTextNode(all_employees[key].code));
             employee.appendChild(opt);
           }
         });
