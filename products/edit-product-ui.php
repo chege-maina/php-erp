@@ -116,6 +116,20 @@ include '../includes/base_page/head.php';
           </div>
           <!-- Additional cards can be added here -->
         </div>
+
+        <div class="card mt-1">
+          <div class="card-body fs--1 p-2">
+            <button class="btn btn-falcon-success btn-sm mr-2">
+              <span class="fas fa-check mr-1" data-fa-transform="shrink-3"></span>
+              Approve
+            </button>
+            <button class="btn btn-falcon-danger btn-sm">
+              <span class="fas fa-times mr-1" data-fa-transform="shrink-3"></span>
+              Reject
+            </button>
+          </div>
+          <!-- Additional cards can be added here -->
+        </div>
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <!-- body ends here -->
         <!-- =========================================================== -->
