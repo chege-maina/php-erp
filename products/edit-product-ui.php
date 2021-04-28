@@ -77,6 +77,10 @@ include '../includes/base_page/head.php';
               </div>
             </div>
             <!-- Content ends here -->
+            <div class="col col-auto">
+              <small><strong>Status:</strong></small>
+              <span id="product_status"></span>
+            </div>
           </div>
           <!-- Additional cards can be added here -->
         </div>
@@ -128,7 +132,6 @@ include '../includes/base_page/head.php';
               Reject
             </button>
           </div>
-          <!-- Additional cards can be added here -->
         </div>
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <!-- body ends here -->
@@ -161,6 +164,7 @@ include '../includes/base_page/head.php';
           const p_selling_price = document.querySelector("#p_selling_price");
           const p_selling_price_bulk = document.querySelector("#p_selling_price_bulk");
           const p_margin = document.querySelector("#p_margin");
+          const product_status = document.querySelector("#product_status");
 
 
           window.addEventListener('DOMContentLoaded', (event) => {
@@ -195,6 +199,19 @@ include '../includes/base_page/head.php';
                 p_inc_tax.value = res.inc_tax;
                 p_margin.value = res.margin;
                 p_conversion.value = res.conversion
+
+                // About to show status
+                switch (res.status) {
+                  case "pending":
+                    product_status.innerHTML = `<span class="badge badge-soft-secondary">Pending</span>`;
+                    break;
+                  case "active":
+                    product_status.innerHTML = `<span class="badge badge-soft-success">Active</span>`;
+                    break;
+                  case "rejected":
+                    product_status.innerHTML = `<span class="badge badge-soft-warning">Rejected</span>`;
+                    break;
+                }
               })
               .catch(error => {
                 console.error('Error:', error);
