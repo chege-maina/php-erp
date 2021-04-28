@@ -35,8 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $mysql = "INSERT INTO tbl_invoice (so_number, customer_name, payment_terms, date, 
   due_date, branch, total_bf_tax, tax, transport_cost, total, driver_name, truck_no, user) 
   VALUES ('" . $sale_order . "', 
-  '" . $customer . "', '" . $terms . "', '" . $date . "','" . $due_date . "',
-  '" . $branch . "', '" . $sub_total . "', '" . $tax . "', '" . $transport . "', '" . $amount . "', '" . $driver . "','" . $vehicle . "','" . $user . "');";
+  '" . $customer . "', '" . $terms . "', '" . $date . "','" . $due_date . "','" . $branch . "', '" . $sub_total . "', '" . $tax . "', '" . $transport . "', '" . $amount . "', '" . $driver . "','" . $vehicle . "','" . $user . "');";
   $mysql .= "SELECT salesbill_no FROM tbl_invoice ORDER BY salesbill_no DESC LIMIT 1";
 
   if (mysqli_multi_query($conn, $mysql)) {
@@ -50,11 +49,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
       /* print divider */
       if (mysqli_more_results($conn)) {
-        // echo "-----------------\n";
+        echo "-----------------\n";
       }
     } while (mysqli_next_result($conn));
 
     foreach ($table_items as $key => $value) {
+
+      $mysql2 = "SELECT * FROM tbl_prdmapping WHERE product_code='" . $value["p_code"] . "' AND group_code='040101'";
+      $result4 = mysqli_query($conn, $mysql2);
+      if ($row4 = mysqli_fetch_assoc($result4)) {
+        $group_code = $row4['group_code'];
+        $ledger = $row4['ledger'];
+        $le_date = $date;
+        $total_now = $value["p_amount"];
+        $mysql = "INSERT INTO tbl_ledger_amounts (group_code, ledger, amount, date, status) 
+                VALUES('" . $group_code . "', '" . $ledger . "', '" . $total_now . "', '" . $le_date . "', 'Credit')";
+        mysqli_query($conn, $mysql);
+      }
 
       $mysql = "INSERT INTO tbl_invoice_items (salesbill_no, so_number, product_code, product_name, 
   unit, qty, price, total, user, tax, tax_pc, branch) VALUES('" . $quote_no . "', '" . $sale_order . "','" . $value["p_code"] . "',
@@ -62,6 +73,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   '" . $value["p_price"] . "','" . $value["p_amount"] . "','" . $user . "','" . $value["p_tax"] . "','" . $value["p_tax_pc"] . "','" . $branch . "')";
       mysqli_query($conn, $mysql);
     }
+    $mysql = "INSERT INTO tbl_ledger_amounts (group_code, ledger, amount, date, status) 
+                VALUES('010201', '" . $customer . "', '" . $amount . "', '" . $date . "', 'Debit')";
+    mysqli_query($conn, $mysql);
+    $mysql = "INSERT INTO tbl_ledger_amounts (group_code, ledger, amount, date, status) 
+                VALUES('020203', 'Vat Input Tax', '" . $tax . "', '" . $date . "', 'Credit')";
+    mysqli_query($conn, $mysql);
     $sql1 = "UPDATE tbl_sale_items SET status = 'done' WHERE quote_no = '" . $sale_order . "'";
     $sql = "UPDATE tbl_sale SET status = 'done' WHERE quote_no = '" . $sale_order . "'";
     mysqli_query($conn, $sql);
@@ -70,7 +87,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = "Sales Invoice " . $quote_no . " Created Successfully..";
     echo json_encode($message);
   } else {
-    // echo "Multiquery failed: " . $mysql;
     echo "Multi query failed: (" . $conn->errno . ") " . $conn->error . "sql: " . $mysql;
   }
 }

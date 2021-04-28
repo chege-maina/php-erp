@@ -16,6 +16,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             VALUES('" . $rem_no . "','" . $cheque_no . "','" . $amount . "','" . $supplier . "', '" . $bank . "','" . $date . "','" . $cheque_type . "', '" . $pay_type . "')";
   mysqli_query($conn, $mysql);
 
+  $mysql = "INSERT INTO tbl_ledger_amounts (group_code, ledger, amount, date, status) 
+                VALUES('020101', '" . $supplier . "', '" . $amount . "', '" . $date . "', 'Debit')";
+  mysqli_query($conn, $mysql);
+  $mysql = "INSERT INTO tbl_ledger_amounts (group_code, ledger, amount, date, status) 
+                VALUES('010107', '" . $bank . "', '" . $amount . "', '" . $date . "', 'Credit')";
+  mysqli_query($conn, $mysql);
+
   $sql = "UPDATE tbl_remittance_items SET status = 'done' WHERE rem_no='$rem_no'";
   $sql2 = "UPDATE tbl_remittance SET status = 'done' WHERE rem_no='$rem_no'";
   mysqli_query($conn, $sql);
