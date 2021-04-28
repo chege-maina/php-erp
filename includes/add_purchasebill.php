@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             /* print divider */
             if (mysqli_more_results($conn)) {
-                // echo "-----------------\n";
+                echo "-----------------\n";
             }
         } while (mysqli_next_result($conn));
         foreach ($table_items as $key => $value) {
@@ -69,7 +69,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "Purchase Bill " . $req_no . " Posted Successfully..";
         echo json_encode($message);
     } else {
-        // echo "Multiquery failed: " . $mysql;
         echo "Multi query failed: (" . $conn->errno . ") " . $conn->error . "sql: " . $mysql;
     }
 }

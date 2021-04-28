@@ -31,8 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $mysql = "INSERT INTO tbl_sale (date, customer_name, terms, branch_location, 
   user, sub_total, tax, amount) VALUES ('" . $date . "', 
-  '" . $customer . "', '" . $terms . "', '" . $branch . "','" . $user . "',
-  '" . $sub_total . "', '" . $tax . "', '" . $amount . "');";
+  '" . $customer . "', '" . $terms . "', '" . $branch . "','" . $user . "','" . $sub_total . "', '" . $tax . "', '" . $amount . "');";
   $mysql .= "SELECT quote_no FROM tbl_sale ORDER BY quote_no DESC LIMIT 1";
 
   if (mysqli_multi_query($conn, $mysql)) {
@@ -52,12 +51,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     foreach ($table_items as $key => $value) {
 
-      $mysql = "INSERT INTO tbl_sale_items (quote_no, product_code, product_name, 
-  unit, qty, price, amount, tax, tax_pc, branch_location, conversion, atm_unit, atm_price, selected_unit, entered_price) VALUES('" . $quote_no . "','" . $value["p_code"] . "',
+      $mysql = "INSERT INTO tbl_sale_items (
+        quote_no, 
+        product_code, 
+        product_name, 
+  unit, 
+  qty, 
+  price, 
+  amount, 
+  tax, 
+  tax_pc, 
+  branch_location, 
+  conversion, 
+  atm_unit, 
+  atm_price, 
+  selected_unit, 
+  entered_price) VALUES('" . $quote_no . "','" . $value["p_code"] . "',
   '" . $value["p_name"] . "','" . $value["p_units"] . "', '" . $value["p_quantity"] . "',
-  '" . $value["p_price"] . "','" . $value["p_amount"] . "','" . $value["p_tax"] . "','" . $value["p_tax_pc"] . "','" . $branch . ",'" . $value["p_conversion"] . "','" . $value["p_atomic_unit"] . "','" . $value["p_atomic_price"] . "','" . $value["p_selected_unit"] . "','" . $value["p_entered_price"] . "')";
+  '" . $value["p_price"] . "','" . $value["p_amount"] . "','" . $value["p_tax"] . "','" . $value["p_tax_pc"] . "','" . $branch . "','" . $value["p_conversion"] . "','" . $value["p_atomic_unit"] . "','" . $value["p_atomic_price"] . "','" . $value["p_selected_unit"] . "','" . $value["p_entered_price"] . "')";
 
-      mysqli_query($conn, $mysql);
+      mysqli_query($conn, $mysql) or die(mysqli_error($conn));
+      echo $mysql;
     }
     if (strcmp($checker, 'from quote') == 0) {
       $sql1 = "UPDATE tbl_quotation_items SET status = 'done' WHERE quote_no = '" . $quotation_no . "'";
