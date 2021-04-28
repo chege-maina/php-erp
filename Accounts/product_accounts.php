@@ -152,14 +152,15 @@ include '../includes/base_page/head.php';
   window.addEventListener('DOMContentLoaded', (event) => {
 
 
-    employee.innerHTML = "";
-
     fetch('../includes/load_product_code.php')
       .then(response => response.json())
       .then(result => {
         console.log(result)
+        let opt = document.createElement("option");
 
         result.forEach((employees) => {
+
+          employee.innerHTML = "";
 
           all_employees[employees["code"] + " " + employees["name"]] = employees;
           for (key in all_employees) {
@@ -168,6 +169,7 @@ include '../includes/base_page/head.php';
             const opt = document.createElement("option");
             opt.setAttribute("value", all_employees[key].name);
             opt.appendChild(document.createTextNode(all_employees[key].code));
+            opt.value = employees["name"] + " " + employees["code"];
             employee.appendChild(opt);
 
             console.log("just trying", all_employees)
