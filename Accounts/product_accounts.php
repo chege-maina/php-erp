@@ -158,7 +158,6 @@ include '../includes/base_page/head.php';
       .then(response => response.json())
       .then(result => {
         console.log(result)
-        let opt = document.createElement("option");
 
         result.forEach((employees) => {
 
