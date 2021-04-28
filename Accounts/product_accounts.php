@@ -133,7 +133,6 @@ include '../includes/base_page/head.php';
   const t_sale = document.querySelector("#t_sale");
   const s_purchase = document.querySelector("#s_purchase ");
   const s_sale = document.querySelector("#s_sale");
-  const b_product = document.querySelector("#b_product");
   const products = document.querySelector("#products");
 
   window.addEventListener('DOMContentLoaded', (event) => {
@@ -172,6 +171,7 @@ include '../includes/base_page/head.php';
             employee.appendChild(opt);
 
             console.log("just trying", all_employees)
+            console.log("hey", all_employees[key].name);
           }
         });
 
@@ -222,16 +222,25 @@ include '../includes/base_page/head.php';
 
   function submitForm() {
 
+    if (!employee_name.value) {
+      return;
+    }
+
+    if (!s_purchase.value) {
+      return;
+    }
+
+    if (!s_sale.value) {
+      return;
+    }
+
+
 
 
     let tmp_obj = getItems();
 
-    console.log("rastaaa", all_employees[employees[name]]);
-    return false;
-    const code_var = all_employees[employee["code"]];
-    const name_var = all_employees[employee["name"]];
-
-    console.log("it mse", all_employees);
+    const code_var = all_employees[key].code;
+    const name_var = all_employees[key].name;
 
     const formData = new FormData();
     formData.append("code", code_var);
