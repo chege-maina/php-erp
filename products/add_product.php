@@ -6,7 +6,7 @@ if (mysqli_connect_errno()) {
   die('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
 
-
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 function sanitize_input($data)
 {
@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $responseArray = array(
                   "message" => "success",
-                  "add" => "Shwari kabisa"
+                  "add" => "Record saved successfuly"
                 );
               } else {
                 $responseArray = array(
@@ -114,8 +114,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               echo json_encode($responseArray);
             } else {
               echo json_encode(array(
-                "message" => "error",
-                "desc" => "Shidaa"
+                "message" => "Error",
+                "desc" => "Could not attempt insertion of data",
+                "detail" => mysqli_error($con)
               ));
             }
           } else {
