@@ -219,6 +219,7 @@ include '../includes/base_page/head.php';
               })
               .then(response => response.json())
               .then(result => {
+                console.log("Rasta dreads:", result)
                 items_in_table = {};
                 result.forEach(row => {
                   items_in_table[row.emp_no] = {

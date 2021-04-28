@@ -5,7 +5,6 @@ if (mysqli_connect_errno()) {
   // If there is an error with the connection, stop the script and display the error.
   die('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
-session_start();
 
 function sanitize_input($data)
 {
@@ -16,26 +15,20 @@ function sanitize_input($data)
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-  $type = sanitize_input($_POST["type"]);
-  $benefit = sanitize_input($_POST["benefit"]);
-  $month = sanitize_input($_POST["month"]);
-  $year = sanitize_input($_POST["year"]);
+  $code = sanitize_input($_POST["code"]);
+  $name = sanitize_input($_POST["name"]);
   $table_items = json_decode($_POST["table_items"], true);
 
-
-
   foreach ($table_items as $key => $value) {
-    $mysql = "INSERT INTO tbl_bene_deduct (benefit, b_month, b_year, emp_no, name, fixed, qty, rate, total, type)
-     VALUES('" . $benefit . "','" . $month . "','" . $year . "','" . $value["emp_no"] . "','" . $value["emp_name"] . "',
-  '" . $value["f_amt"] . "','" . $value["qty"] . "','" . $value["rate"] . "','" . $value["earnings"] . "','" . $type . "')";
+
+    $mysql = "INSERT INTO tbl_prdmapping (product_code, product_name, 
+  group_code, ledger, status) VALUES('" . $code . "','" . $name . "','" . $value["group_code"] . "',
+  '" . $value["ledger"] . "','" . $value["status"] . "')";
     mysqli_query($conn, $mysql);
   }
 
-  echo $table_items;
   $message = "Created Successfully..";
   echo json_encode($message);
 } else {
-  $message = "No fields";
-  echo json_encode($message);
+  echo "Multi query failed: (" . $conn->errno . ") " . $conn->error . "sql: " . $mysql;
 }

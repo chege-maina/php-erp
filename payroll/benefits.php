@@ -61,14 +61,12 @@ include '../includes/base_page/head.php';
                   <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addBenefit">
                     Add
                   </button>
-                  <select class="form-select" name="branch" id="benefit_select">
+                  <select class="form-select" name="branch" id="benefit_select" onchange="addItem();">
                     <option value disabled selected>
                       -- Select Benefit --
                     </option>
                   </select>
                   <div class="invalid-tooltip">This field cannot be left blank.</div>
-                  <!-- Button trigger modal -->
-                  <input type="button" value="+" class="btn btn-primary" onclick="addItem();">
                 </div>
               </div>
             </div>
@@ -297,6 +295,7 @@ include '../includes/base_page/head.php';
       const employee = document.querySelector("#employee");
       const employee_name = document.querySelector("#employee_name");
       const all_employees = {};
+      let all_benefits = {};
 
       window.addEventListener('DOMContentLoaded', (event) => {
         const formData = new FormData();
@@ -313,6 +312,14 @@ include '../includes/base_page/head.php';
               opt.value = employees["fname"] + " " + employees["lname"];
               all_employees[employees["fname"] + " " + employees["lname"]] = employees;
               employee.appendChild(opt);
+
+              all_benefits[employees['nat'] + " " + employees['job'] + " " + employees['fname'] + " " + employees['lname']] = {
+                fname: employees.fname,
+                lname: employees.lname,
+                job: employees.job,
+                nat: employees.nat
+              }
+              console.log("meeeeeee", all_benefits);
             });
 
           })
@@ -341,13 +348,18 @@ include '../includes/base_page/head.php';
 
         tmp_obj["table_items"] = JSON.stringify(benefits);
         console.log("==================================");
-        console.log(tmp_obj);
+        console.log("tmp_obj", tmp_obj);
         console.log("==================================");
 
         return tmp_obj
       }
 
       function submitForm() {
+
+        if (!employee_name.value) {
+          return;
+        }
+
         let tmp_obj = getItems();
 
         const formData = new FormData();
