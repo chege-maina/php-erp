@@ -31,8 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $mysql = "INSERT INTO tbl_sale (date, customer_name, terms, branch_location, 
   user, sub_total, tax, amount) VALUES ('" . $date . "', 
-  '" . $customer . "', '" . $terms . "', '" . $branch . "','" . $user . "',
-  '" . $sub_total . "', '" . $tax . "', '" . $amount . "');";
+  '" . $customer . "', '" . $terms . "', '" . $branch . "','" . $user . "','" . $sub_total . "', '" . $tax . "', '" . $amount . "');";
   $mysql .= "SELECT quote_no FROM tbl_sale ORDER BY quote_no DESC LIMIT 1";
 
   if (mysqli_multi_query($conn, $mysql)) {
