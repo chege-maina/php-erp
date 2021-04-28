@@ -121,9 +121,9 @@ include '../includes/base_page/head.php';
                   <tr>
                     <th scope="col">Product Code</th>
                     <th scope="col">Product Name</th>
-                    <th scope="col">Units</th>
-                    <th scope="col">Quantity</th>
                     <th scope="col">Unit Cost</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Units</th>
                     <th scope="col">Total</th>
                   </tr>
                 </thead>
