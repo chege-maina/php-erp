@@ -8,9 +8,10 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $code = $_POST["code"];
 
-  $stat = "pending";
+  // $stat = "pending";
 
-  $query = "SELECT * FROM tbl_product WHERE product_code='$code' and status='$stat'";
+  // $query = "SELECT * FROM tbl_product WHERE product_code='$code' and status='$stat'";
+  $query = "SELECT * FROM tbl_product WHERE product_code='$code'";
   $result = mysqli_query($conn, $query);
   $response = array();
 

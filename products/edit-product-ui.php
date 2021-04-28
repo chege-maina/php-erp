@@ -36,17 +36,11 @@ include '../includes/base_page/head.php';
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <h5 class="mb-3">Product Details</h5>
         <div class="card">
-          <div class="card-header bg-light">
-          </div>
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
             <div class="mb-3">
-              <label class="form-label" for="exampleFormControlInput1">Email address</label>
-              <input class="form-control" id="exampleFormControlInput1" type="search" placeholder="name@example.com" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="exampleFormControlTextarea1">Example textarea</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              <label class="form-label" for="product_code">Product Code</label>
+              <input class="form-control" id="product_code" type="text" required />
             </div>
             <!-- Content ends here -->
           </div>
@@ -67,6 +61,31 @@ include '../includes/base_page/head.php';
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <!-- Footer End -->
         <!-- =========================================================== -->
+
+        <script>
+          window.addEventListener('DOMContentLoaded', (event) => {
+            let p_code = window.sessionStorage.getItem("Product_Code");
+            if (p_code === null) {
+              location.href = "product-listing-ui.php";
+            }
+
+            console.log("code", p_code);
+
+            const formData = new FormData();
+            formData.append("code", p_code);
+            fetch('../includes/load_item_approval.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.text())
+              .then(result => {
+                console.log('Success:', result);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+          });
+        </script>
 </body>
 
 </html>
