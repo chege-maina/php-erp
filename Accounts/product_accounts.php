@@ -150,7 +150,9 @@ include '../includes/base_page/head.php';
   let all_benefits = {};
 
   window.addEventListener('DOMContentLoaded', (event) => {
-    const formData = new FormData();
+
+
+    employee.innerHTML = "";
 
     fetch('../includes/load_product_code.php')
       .then(response => response.json())
@@ -159,7 +161,6 @@ include '../includes/base_page/head.php';
         let opt = document.createElement("option");
 
         result.forEach((employees) => {
-          employee.innerHTML = "";
 
           all_employees[employees["code"] + " " + employees["name"]] = employees;
           for (key in all_employees) {
