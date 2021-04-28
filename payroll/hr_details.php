@@ -35,7 +35,7 @@ include '../base_page/data_list_select.php';
         <label class="form-label" for="duration">Contract Duration</label>
         <div class="input-group">
           <input type="text" class="form-control" name="duration" id="duration" readonly required>
-          <span class="input-group-text">Days</span>
+          <span class="input-group-text">Months</span>
           <div class="invalid-feedback">This field cannot be left blank.</div>
         </div>
       </div>
@@ -76,23 +76,9 @@ include '../base_page/data_list_select.php';
       <!--dkznlsknl--->
 
       <div class="col">
-        <label for="head_of" class="form-label">Head Of</label>
-        <select name="head_of" id="head_of" class="form-select">
-          <option value="all">All</option>
-        </select>
-      </div>
-    </div>
-    <div class="row mt-3">
-      <div class="col">
         <label for="report_to" class="form-label">Report To</label>
         <select name="report_to" id="report_to" class="form-select">
-          <option value="all">-- SELECT MANAGER --</option>
-        </select>
-      </div>
-      <div class="col">
-        <label for="region" class="form-label">Region</label>
-        <select name="region" id="region" class="form-select">
-          <option value="Nairobi">Nairobi</option>
+          <option value disabled selected>-- SELECT MANAGER --</option>
         </select>
       </div>
     </div>
@@ -170,9 +156,21 @@ include '../base_page/data_list_select.php';
   const report_to = document.querySelector("#report_to");
   const region = document.querySelector("#region");
 
+
+  let great = false;
   let setDateDifference = val => {
-    const diff = ((new Date(val)).getTime() - (new Date(start_date.value)).getTime()) / (1000 * 60 * 60 * 24)
-    duration.value = diff;
+    const diff = (((new Date(val)).getTime() - (new Date(start_date.value)).getTime()) / (1000 * 60 * 60 * 24)) / (30)
+
+    if (diff > 0) {
+      duration.value = diff.toFixed(2);
+      great = true;
+    }
+    if (!great) {
+      document.getElementById('start_date').value = alert("Wrong Date Selection !");
+      start_date.value = "";
+      end_date.value = "";
+      return false;
+    }
   }
 
   function getHrDetails() {
@@ -197,5 +195,6 @@ include '../base_page/data_list_select.php';
     initSelectElement("#departments", "-- Select Department --");
     populateSelectElement("#departments", '../payroll/load_department.php', "name");
     populateSelectElement("#branch_id", '../includes/load_branch_items.php', "branch");
+    populateSelectElement("#report_to", '../payroll/load_report_to.php', "name");
   });
 </script>
