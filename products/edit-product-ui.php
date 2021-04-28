@@ -104,8 +104,8 @@ include '../includes/base_page/head.php';
                 <input class="form-control" id="p_selling_price" type="text" required readonly />
               </div>
               <div class="col">
-                <label class="form-label" for="p_sub_group">Selling Price (Bulk)</label>
-                <input class="form-control" id="p_sub_group" type="text" required readonly />
+                <label class="form-label" for="p_selling_price_bulk">Selling Price (Bulk)</label>
+                <input class="form-control" id="p_selling_price_bulk" type="text" required readonly />
               </div>
               <div class="col">
                 <label class="form-label" for="p_margin">Profit Margin %</label>
@@ -133,21 +133,54 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
 
         <script>
+          const p_code = document.querySelector("#p_code");
+          const p_name = document.querySelector("#p_name");
+          const p_group = document.querySelector("#p_group");
+          const p_sub_group = document.querySelector("#p_sub_group");
+          const p_units = document.querySelector("#p_units");
+          const p_conversion = document.querySelector("#p_conversion");
+          const s_units = document.querySelector("#s_units");
+          const weight = document.querySelector("#weight");
+          const tax_pc = document.querySelector("#tax_pc");
+          const amt_bf_tax = document.querySelector("#amt_bf_tax");
+          const p_inc_tax = document.querySelector("#p_inc_tax");
+          const p_selling_price = document.querySelector("#p_selling_price");
+          const p_selling_price_bulk = document.querySelector("#p_selling_price_bulk");
+          const p_margin = document.querySelector("#p_margin");
+
+
           window.addEventListener('DOMContentLoaded', (event) => {
-            let p_code = window.sessionStorage.getItem("Product_Code");
-            if (p_code === null) {
+            let pr_code = window.sessionStorage.getItem("Product_Code");
+            if (pr_code === null) {
               location.href = "product-listing-ui.php";
             }
 
             const formData = new FormData();
-            formData.append("code", p_code);
+            formData.append("code", pr_code);
             fetch('../includes/load_item_approval.php', {
                 method: 'POST',
                 body: formData
               })
               .then(response => response.json())
               .then(result => {
-                console.log('Success:', JSON.stringify(result, null, '\t'));
+                if (result.length <= 0) {
+                  return;
+                }
+                res = result[0];
+                console.log("Result", JSON.stringify(res, null, "  "));
+                p_code.value = res.code;
+                p_name.value = res.name;
+                p_group.value = res.group;
+                p_sub_group.value = res.sub_group;
+                p_units.value = res.purchase_unit;
+                s_units.value = res.selling_unit;
+                tax_pc.value = res.tax;
+                amt_bf_tax.value = res.bf_tax;
+                p_selling_price.value = res.default_sp;
+                p_selling_price_bulk.value = res.default_sp_bulk;
+                p_inc_tax.value = res.inc_tax;
+                p_margin.value = res.margin;
+                p_conversion.value = res.conversion
               })
               .catch(error => {
                 console.error('Error:', error);
