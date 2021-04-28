@@ -1426,66 +1426,66 @@ INSERT INTO `tbl_shift` (`shift_id`, `shift_name`, `start_time`, `end_time`, `wo
 -- Table structure for table `tbl_staff`
 --
 
-CREATE TABLE `tbl_staff` (
-  `f_name` varchar(50) NOT NULL,
-  `m_name` varchar(50) NOT NULL,
-  `l_name` varchar(50) NOT NULL,
-  `gender` varchar(15) NOT NULL,
-  `dob` date NOT NULL,
-  `passport` varchar(50) NOT NULL,
-  `nat_id` varchar(50) NOT NULL,
-  `pin_no` varchar(50) NOT NULL,
-  `res` varchar(20) NOT NULL,
-  `nssf_no` varchar(50) NOT NULL,
-  `nhif_no` varchar(50) NOT NULL,
-  `off_mail` varchar(50) NOT NULL,
-  `pers_mail` varchar(50) NOT NULL,
-  `country` varchar(50) NOT NULL,
-  `mobile_no` varchar(50) NOT NULL,
-  `phone_no` varchar(50) NOT NULL,
-  `ext_no` varchar(50) NOT NULL,
-  `city` varchar(50) NOT NULL,
-  `county` varchar(50) NOT NULL,
-  `postal_code` varchar(50) NOT NULL,
-  `job_no` varchar(50) NOT NULL,
-  `employ_date` date NOT NULL,
-  `begin_date` date NOT NULL,
-  `duration` varchar(16) NOT NULL,
-  `end_date` date NOT NULL,
-  `job_title` varchar(50) NOT NULL,
-  `department` varchar(50) NOT NULL,
-  `report_to` varchar(50) NOT NULL,
-  `branch` varchar(50) NOT NULL,
-  `head_of` varchar(50) NOT NULL,
-  `region` varchar(50) NOT NULL,
-  `currency` varchar(50) NOT NULL,
-  `shift` varchar(50) NOT NULL,
-  `employ_type` varchar(50) NOT NULL,
-  `off_days` varchar(50) NOT NULL,
-  `pay_type` varchar(50) NOT NULL,
-  `salary` varchar(50) NOT NULL,
-  `income_tax` varchar(50) NOT NULL,
-  `deduct_nhif` varchar(50) NOT NULL,
-  `deduct_nssf` varchar(50) NOT NULL,
-  `account_name` varchar(50) NOT NULL,
-  `account_no` varchar(50) NOT NULL,
-  `bank_name` varchar(50) NOT NULL,
-  `sort_code` varchar(50) NOT NULL,
-  `s_mobile_no` varchar(50) NOT NULL,
-  `s_bank_branch` varchar(50) NOT NULL,
-  `s_payment` int(11) NOT NULL,
-  `status` varchar(15) NOT NULL DEFAULT 'pending'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+--  CREATE TABLE `tbl_staff` (
+  --  `f_name` varchar(50) NOT NULL,
+  --  `m_name` varchar(50) NOT NULL,
+  --  `l_name` varchar(50) NOT NULL,
+  --  `gender` varchar(15) NOT NULL,
+  --  `dob` date NOT NULL,
+  --  `passport` varchar(50) NOT NULL,
+  --  `nat_id` varchar(50) NOT NULL,
+  --  `pin_no` varchar(50) NOT NULL,
+  --  `res` varchar(20) NOT NULL,
+  --  `nssf_no` varchar(50) NOT NULL,
+  --  `nhif_no` varchar(50) NOT NULL,
+  --  `off_mail` varchar(50) NOT NULL,
+  --  `pers_mail` varchar(50) NOT NULL,
+  --  `country` varchar(50) NOT NULL,
+  --  `mobile_no` varchar(50) NOT NULL,
+  --  `phone_no` varchar(50) NOT NULL,
+  --  `ext_no` varchar(50) NOT NULL,
+  --  `city` varchar(50) NOT NULL,
+  --  `county` varchar(50) NOT NULL,
+  --  `postal_code` varchar(50) NOT NULL,
+  --  `job_no` varchar(50) NOT NULL,
+  --  `employ_date` date NOT NULL,
+  --  `begin_date` date NOT NULL,
+  --  `duration` varchar(16) NOT NULL,
+  --  `end_date` date NOT NULL,
+  --  `job_title` varchar(50) NOT NULL,
+  --  `department` varchar(50) NOT NULL,
+  --  `report_to` varchar(50) NOT NULL,
+  --  `branch` varchar(50) NOT NULL,
+  --  `head_of` varchar(50) NOT NULL,
+  --  `region` varchar(50) NOT NULL,
+  --  `currency` varchar(50) NOT NULL,
+  --  `shift` varchar(50) NOT NULL,
+  --  `employ_type` varchar(50) NOT NULL,
+  --  `off_days` varchar(50) NOT NULL,
+  --  `pay_type` varchar(50) NOT NULL,
+  --  `salary` varchar(50) NOT NULL,
+  --  `income_tax` varchar(50) NOT NULL,
+  --  `deduct_nhif` varchar(50) NOT NULL,
+  --  `deduct_nssf` varchar(50) NOT NULL,
+  --  `account_name` varchar(50) NOT NULL,
+  --  `account_no` varchar(50) NOT NULL,
+  --  `bank_name` varchar(50) NOT NULL,
+  --  `sort_code` varchar(50) NOT NULL,
+  --  `s_mobile_no` varchar(50) NOT NULL,
+  --  `s_bank_branch` varchar(50) NOT NULL,
+  --  `s_payment` int(11) NOT NULL,
+  --  `status` varchar(15) NOT NULL DEFAULT 'pending'
+--  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
---
--- Dumping data for table `tbl_staff`
---
+--  --
+--  -- Dumping data for table `tbl_staff`
+--  --
 
-INSERT INTO `tbl_staff` (`f_name`, `m_name`, `l_name`, `gender`, `dob`, `passport`, `nat_id`, `pin_no`, `res`, `nssf_no`, `nhif_no`, `off_mail`, `pers_mail`, `country`, `mobile_no`, `phone_no`, `ext_no`, `city`, `county`, `postal_code`, `job_no`, `employ_date`, `begin_date`, `duration`, `end_date`, `job_title`, `department`, `report_to`, `branch`, `head_of`, `region`, `currency`, `shift`, `employ_type`, `off_days`, `pay_type`, `salary`, `income_tax`, `deduct_nhif`, `deduct_nssf`, `account_name`, `account_no`, `bank_name`, `sort_code`, `s_mobile_no`, `s_bank_branch`, `s_payment`, `status`) VALUES
-('Geoffrey', 'Kirby Carrillo', 'Levine', 'Male', '1973-11-03', '/uploads/kua uone.png', '42', '31', 'Resident', '15', '69', 'jaqylorafo@mailinator.com', 'xakyx@mailinator.com', 'Jamaica', '39', '95', '94', 'Nihil reiciendis rep', 'Officia tempor elit', '52841', '272', '1979-02-06', '2021-04-06', 'Aliquip non accu', '2023-02-06', 'Repudiandae veniam', 'Reprehenderit et ul', 'all', 'undefined', 'all', 'Nairobi', 'KES', 'Regular', '1979-02-06', 'FRIDAY', 'net', '40000', 'primary', 'true', 'true', '', '', '', '', '469', '', 0, 'approved'),
-('Aquila', 'Doris Hartman', 'Rios', 'Male', '2004-08-31', '/uploads/kua uone (1).png', '58', '73', 'Resident', '10', '32', 'zenehoc@mailinator.com', 'sufafu@mailinator.com', 'Philippines', '4', '46', '59', 'Sunt voluptatem duis', 'Accusamus in proiden', '97654', '580', '1975-12-04', '2017-10-10', 'Quaerat tempore ', '2014-02-22', 'Quis necessitatibus', 'Ullam at est corpori', 'all', 'undefined', 'all', 'Nairobi', 'JPY', 'Regular', '1975-12-04', 'WEDNESDAY', 'consolidated', '12', 'none', 'true', 'true', '', '', '', '', '', '', 0, 'pending');
+--  INSERT INTO `tbl_staff` (`f_name`, `m_name`, `l_name`, `gender`, `dob`, `passport`, `nat_id`, `pin_no`, `res`, `nssf_no`, `nhif_no`, `off_mail`, `pers_mail`, `country`, `mobile_no`, `phone_no`, `ext_no`, `city`, `county`, `postal_code`, `job_no`, `employ_date`, `begin_date`, `duration`, `end_date`, `job_title`, `department`, `report_to`, `branch`, `head_of`, `region`, `currency`, `shift`, `employ_type`, `off_days`, `pay_type`, `salary`, `income_tax`, `deduct_nhif`, `deduct_nssf`, `account_name`, `account_no`, `bank_name`, `sort_code`, `s_mobile_no`, `s_bank_branch`, `s_payment`, `status`) VALUES
+--  ('Geoffrey', 'Kirby Carrillo', 'Levine', 'Male', '1973-11-03', '/uploads/kua uone.png', '42', '31', 'Resident', '15', '69', 'jaqylorafo@mailinator.com', 'xakyx@mailinator.com', 'Jamaica', '39', '95', '94', 'Nihil reiciendis rep', 'Officia tempor elit', '52841', '272', '1979-02-06', '2021-04-06', 'Aliquip non accu', '2023-02-06', 'Repudiandae veniam', 'Reprehenderit et ul', 'all', 'undefined', 'all', 'Nairobi', 'KES', 'Regular', '1979-02-06', 'FRIDAY', 'net', '40000', 'primary', 'true', 'true', '', '', '', '', '469', '', 0, 'approved'),
+--  ('Aquila', 'Doris Hartman', 'Rios', 'Male', '2004-08-31', '/uploads/kua uone (1).png', '58', '73', 'Resident', '10', '32', 'zenehoc@mailinator.com', 'sufafu@mailinator.com', 'Philippines', '4', '46', '59', 'Sunt voluptatem duis', 'Accusamus in proiden', '97654', '580', '1975-12-04', '2017-10-10', 'Quaerat tempore ', '2014-02-22', 'Quis necessitatibus', 'Ullam at est corpori', 'all', 'undefined', 'all', 'Nairobi', 'JPY', 'Regular', '1975-12-04', 'WEDNESDAY', 'consolidated', '12', 'none', 'true', 'true', '', '', '', '', '', '', 0, 'pending');
 
--- --------------------------------------------------------
+--  -- --------------------------------------------------------
 
 --
 -- Table structure for table `tbl_staff_items`
