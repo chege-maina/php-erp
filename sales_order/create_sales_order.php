@@ -230,12 +230,19 @@ include '../includes/base_page/head.php';
           sendable_table.push({
             p_code: item.code,
             p_name: item.name,
-            p_units: item.unit,
-            p_amount: item.total,
-            p_quantity: item.quantity,
-            p_price: item.balance,
-            p_tax: item.tax_amt,
             p_tax_pc: item.tax,
+            p_units: item.unit,
+            p_price: item.bs_price,
+            p_amount: item.total,
+            p_tax: item.tax_amt,
+            p_conversion: item.conversion,
+            p_atomic_unit: item.atomic_unit,
+            p_atomic_price: item.price,
+            p_selected_unit: item.current_unit,
+            p_quantity: item.current_unit === "unit" ?
+              item.quantity : item.quantity / item.conversion,
+            p_entered_price: item.current_unit === "unit" ?
+              item.bs_price : item.price
           })
         });
 
