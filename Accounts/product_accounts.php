@@ -169,7 +169,7 @@ include '../includes/base_page/head.php';
             const opt = document.createElement("option");
             opt.setAttribute("value", all_employees[key].name);
             opt.appendChild(document.createTextNode(all_employees[key].code));
-            opt.value = employees["name"] + " " + employees["code"];
+            opt.value = employees["name"];
             employee.appendChild(opt);
 
             console.log("just trying", all_employees)
