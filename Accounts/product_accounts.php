@@ -85,6 +85,7 @@ include '../includes/base_page/head.php';
                       <option value disabled selected>
                         -- Select COA Ledger --
                       </option>
+                      <option value="One">one</option>
                     </select>
                   </td>
                 </tr>
@@ -100,6 +101,7 @@ include '../includes/base_page/head.php';
                       <option value disabled selected>
                         -- Select COA Ledger --
                       </option>
+                      <option value="two">two</option>
                     </select>
                   </td>
                 </tr>
@@ -150,30 +152,29 @@ include '../includes/base_page/head.php';
   let all_benefits = {};
 
   window.addEventListener('DOMContentLoaded', (event) => {
-
-
-    employee.innerHTML = "";
+    // const all_employees = JSON.parse(event.detail);
 
     fetch('../includes/load_product_code.php')
       .then(response => response.json())
       .then(result => {
-        console.log(result)
+        console.log("result", result)
+        let opt = document.createElement("option");
+        employee.innerHTML = "";
 
         result.forEach((employees) => {
-
           all_employees[employees["code"] + " " + employees["name"]] = employees;
-          for (key in all_employees) {
 
-
-            const opt = document.createElement("option");
-            opt.setAttribute("value", all_employees[key].name);
-            opt.appendChild(document.createTextNode(all_employees[key].code));
-            employee.appendChild(opt);
-
-            console.log("just trying", all_employees)
-            console.log("hey", all_employees[key].name);
-          }
         });
+
+        for (key in all_employees) {
+          const opt = document.createElement("option");
+          opt.setAttribute("value", all_employees[key].name);
+          opt.appendChild(document.createTextNode(all_employees[key].code));
+          employee.appendChild(opt);
+          console.log("just trying", all_employees)
+          console.log("hey", all_employees[key].name);
+        }
+
 
       })
       .catch((error) => {
@@ -239,8 +240,22 @@ include '../includes/base_page/head.php';
 
     let tmp_obj = getItems();
 
-    const code_var = all_employees[key].code;
-    const name_var = all_employees[key].name;
+    let employee_details = {};
+    let found = false;
+    for (let key in all_employees) {
+      const row = all_employees[key];
+      if (row.name === employee_name.value) {
+        employee_details = row;
+        found = true;
+      }
+    }
+    if (!found) {
+      employee_name.focus();
+      return false;
+    }
+
+    const code_var = employee_details.code;
+    const name_var = employee_details.name;
 
     const formData = new FormData();
     formData.append("code", code_var);
