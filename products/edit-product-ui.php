@@ -38,9 +38,79 @@ include '../includes/base_page/head.php';
         <div class="card">
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
-            <div class="mb-3">
-              <label class="form-label" for="product_code">Product Code</label>
-              <input class="form-control" id="product_code" type="text" required />
+            <div class=" row mb-3">
+              <div class="col">
+                <label class="form-label" for="p_code">Product Code</label>
+                <input class="form-control" id="p_code" type="text" required readonly />
+              </div>
+              <div class="col">
+                <label class="form-label" for="p_name">Product Name</label>
+                <input class="form-control" id="p_name" type="text" required readonly />
+              </div>
+            </div>
+            <div class=" row mb-3">
+              <div class="col">
+                <label class="form-label" for="p_group">Group</label>
+                <input class="form-control" id="p_group" type="text" required readonly />
+              </div>
+              <div class="col">
+                <label class="form-label" for="p_sub_group">Sub Group</label>
+                <input class="form-control" id="p_sub_group" type="text" required readonly />
+              </div>
+            </div>
+            <div class=" row mb-3">
+              <div class="col">
+                <label class="form-label" for="p_units">Purchasing Unit</label>
+                <input class="form-control" id="p_units" type="text" required readonly />
+              </div>
+              <div class="col">
+                <label class="form-label" for="p_conversion">Conversion Value</label>
+                <input class="form-control" id="p_conversion" type="text" required readonly />
+              </div>
+              <div class="col">
+                <label class="form-label" for="s_units">Selling Unit</label>
+                <input class="form-control" id="s_units" type="text" required readonly />
+              </div>
+              <div class="col">
+                <label class="form-label" for="weight">Weight</label>
+                <input class="form-control" id="weight" type="text" required readonly />
+              </div>
+            </div>
+            <!-- Content ends here -->
+          </div>
+          <!-- Additional cards can be added here -->
+        </div>
+
+        <div class="card mt-1">
+          <div class="card-body fs--1 p-4">
+            <!-- Content is to start here -->
+            <div class=" row mb-3">
+              <div class="col">
+                <label class="form-label" for="tax_pc">Tax %</label>
+                <input class="form-control" id="tax_pc" type="text" required readonly />
+              </div>
+              <div class="col">
+                <label class="form-label" for="amt_bf_tax">Amount Before Tax</label>
+                <input class="form-control" id="amt_bf_tax" type="text" required readonly />
+              </div>
+              <div class="col">
+                <label class="form-label" for="p_inc_tax">Inclusive Tax</label>
+                <input class="form-control" id="p_inc_tax" type="text" required readonly />
+              </div>
+            </div>
+            <div class=" row mb-3">
+              <div class="col">
+                <label class="form-label" for="p_selling_price">Selling Price</label>
+                <input class="form-control" id="p_selling_price" type="text" required readonly />
+              </div>
+              <div class="col">
+                <label class="form-label" for="p_sub_group">Selling Price (Bulk)</label>
+                <input class="form-control" id="p_sub_group" type="text" required readonly />
+              </div>
+              <div class="col">
+                <label class="form-label" for="p_margin">Profit Margin %</label>
+                <input class="form-control" id="p_margin" type="text" required readonly />
+              </div>
             </div>
             <!-- Content ends here -->
           </div>
@@ -69,17 +139,15 @@ include '../includes/base_page/head.php';
               location.href = "product-listing-ui.php";
             }
 
-            console.log("code", p_code);
-
             const formData = new FormData();
             formData.append("code", p_code);
             fetch('../includes/load_item_approval.php', {
                 method: 'POST',
                 body: formData
               })
-              .then(response => response.text())
+              .then(response => response.json())
               .then(result => {
-                console.log('Success:', result);
+                console.log('Success:', JSON.stringify(result, null, '\t'));
               })
               .catch(error => {
                 console.error('Error:', error);
