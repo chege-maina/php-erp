@@ -34,6 +34,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+        <div id="alert-div"></div>
         <h5 class="mb-3">Product Details</h5>
         <div class="card">
           <div class="card-body fs--1 p-4">
@@ -123,11 +124,11 @@ include '../includes/base_page/head.php';
 
         <div class="card mt-1">
           <div class="card-body fs--1 p-2">
-            <button class="btn btn-falcon-success btn-sm mr-2">
+            <button class="btn btn-falcon-success btn-sm mr-2" id="approve_button" onclick="submitForm('approve')">
               <span class="fas fa-check mr-1" data-fa-transform="shrink-3"></span>
               Approve
             </button>
-            <button class="btn btn-falcon-danger btn-sm">
+            <button class="btn btn-falcon-danger btn-sm" id="reject_button" onclick="submitForm('reject')">
               <span class="fas fa-times mr-1" data-fa-transform="shrink-3"></span>
               Reject
             </button>
@@ -165,6 +166,52 @@ include '../includes/base_page/head.php';
           const p_selling_price_bulk = document.querySelector("#p_selling_price_bulk");
           const p_margin = document.querySelector("#p_margin");
           const product_status = document.querySelector("#product_status");
+
+          const approve_button = document.querySelector("#approve_button");
+          const reject_button = document.querySelector("#reject_button");
+
+          function submitForm(action) {
+            const formData = new FormData();
+            formData.append("code", p_code.value);
+            formData.append("action", action);
+            fetch('./approve_reject_item.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+                console.log('Server says:', result);
+
+                if (result["message"] == "success") {
+                  const alertVar =
+                    `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> Saved changes.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                  var divAlert = document.querySelector("#alert-div");
+                  divAlert.innerHTML = alertVar;
+                  divAlert.scrollIntoView();
+                  setTimeout(function() {
+                    location.reload();
+                    location.href = "./product-listing-ui.php";
+                  }, 2500);
+                } else {
+                  const alertVar =
+                    `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Error!</strong> Could not save changes.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                  var divAlert = document.querySelector("#alert-div");
+                  divAlert.innerHTML = alertVar;
+                  divAlert.scrollIntoView();
+                }
+
+                return false;
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+          }
 
 
           window.addEventListener('DOMContentLoaded', (event) => {
@@ -207,9 +254,12 @@ include '../includes/base_page/head.php';
                     break;
                   case "active":
                     product_status.innerHTML = `<span class="badge badge-soft-success">Active</span>`;
+                    approve_button.disabled = true;
+                    reject_button.disabled = true;
                     break;
                   case "rejected":
                     product_status.innerHTML = `<span class="badge badge-soft-warning">Rejected</span>`;
+                    reject_button.disabled = true;
                     break;
                 }
               })
