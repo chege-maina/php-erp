@@ -42,25 +42,25 @@ include '../includes/base_page/head.php';
               <div class="row">
                 <div class="col">
                   <label for="name" class="form-label">Name*</label>
-                  <input name="name" class="form-control" type="text" placeholder="Name" id="customer_nm" required>
+                  <input name="name" class="form-control" type="text" placeholder="Name" id="customer_nm" required readonly>
                 </div>
                 <div class="col">
                   <label for="email" class="form-label">Email*</label>
-                  <input name="email" class="form-control" type="email" placeholder="Email" id="customer_email" required>
+                  <input name="email" class="form-control" type="email" placeholder="Email" id="customer_email" required readonly>
                 </div>
                 <div class="col">
                   <label for="tel_no" class="form-label">Telephone Number*</label>
-                  <input name="tel_no" class="form-control" type="tel" placeholder="Tel No" id="customer_tel" required>
+                  <input name="tel_no" class="form-control" type="tel" placeholder="Tel No" id="customer_tel" required readonly>
                 </div>
               </div>
               <div class="row mt-2">
                 <div class="col">
                   <label for="postal_address" class="form-label">Postal Address*</label>
-                  <input name="postal_address" id="customer_postal" class="form-control" type="text" placeholder="Postal Address" required>
+                  <input name="postal_address" id="customer_postal" class="form-control" type="text" placeholder="Postal Address" required readonly>
                 </div>
                 <div class="col">
                   <label for="physical_address" class="form-label">Physical Address*</label>
-                  <input name="physical_address" id="customer_physical_address" class="form-control" type="text" placeholder="Physical Address" required>
+                  <input name="physical_address" id="customer_physical_address" class="form-control" type="text" placeholder="Physical Address" required readonly>
                 </div>
               </div>
 
@@ -75,15 +75,15 @@ include '../includes/base_page/head.php';
               <div class="row">
                 <div class="col">
                   <label for="tax_id" class="form-label">Customers Tax ID*</label>
-                  <input name="tax_id" id="customer_tax_id" class="form-control" placeholder="Tax ID" type="text" required>
+                  <input name="tax_id" id="customer_tax_id" class="form-control" placeholder="Tax ID" type="text" required readonly>
                 </div>
                 <div class="col">
                   <label for="payment_terms" class="form-label">Payment Terms(Days)*</label>
-                  <input name="payment_terms" id="payment_terms" class="form-control" placeholder="Payment Terms" type="number" required>
+                  <input name="payment_terms" id="payment_terms" class="form-control" placeholder="Payment Terms" type="number" required readonly>
                 </div>
                 <div class="col">
                   <label for="credit" class="form-label">Credit Limit*</label>
-                  <input name="credit_limit" id="credit_limit" class="form-control" placeholder="Credit Limit" type="number" required>
+                  <input name="credit_limit" id="credit_limit" class="form-control" placeholder="Credit Limit" type="number" required readonly>
                 </div>
               </div>
             </div>
