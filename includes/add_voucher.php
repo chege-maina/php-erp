@@ -78,10 +78,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $mysql2 = "INSERT INTO tbl_ledger_amounts (group_code, ledger, amount, date, status) 
                 VALUES('" . $value["code"] . "', '" . $value["ledger"] . "', '" . $value["kes"] . "', '" . $date . "', '" . $value["credit"] . "')";
       mysqli_query($conn, $mysql2);
-
-      $message = "Voucher " . $quote_no . " Created Successfully..";
-      echo json_encode($message);
     }
+    $message = "Voucher " . $quote_no . " Created Successfully..";
+    echo json_encode($message);
   } else {
     // echo "Multiquery failed: " . $mysql;
     echo "Multi query failed: (" . $conn->errno . ") " . $conn->error . "sql: " . $mysql;
