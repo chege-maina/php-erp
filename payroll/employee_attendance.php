@@ -245,23 +245,23 @@ include '../includes/base_page/head.php';
             })
             .then(response => response.json())
             .then(result => {
-              console.log('Success:', result);
-              if (data["message"] == "success") {
+              console.log('Server says:', result);
+              if (result["message"] == "success") {
                 const alertVar =
                   `<div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Success!</strong> Employee added to the database.
+              <strong>Success!</strong> Record saved.
               <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
               </div>`;
                 var divAlert = document.querySelector("#alert-div");
                 divAlert.innerHTML = alertVar;
                 divAlert.scrollIntoView();
                 setTimeout(function() {
-                  location.reload();
+                  //   location.reload();
                 }, 2500);
               } else {
                 const alertVar =
                   `<div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <strong>Error!</strong> ${data["desc"]}.
+              <strong>Error!</strong> Could not save record.
               <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
               </div>`;
                 var divAlert = document.querySelector("#alert-div");
@@ -271,6 +271,7 @@ include '../includes/base_page/head.php';
             })
             .catch(error => {
               console.error('Error:', error);
+
             });
 
         }
