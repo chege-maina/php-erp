@@ -1,7 +1,7 @@
 <hr>
 <div class="row mt-3">
-  <div class="col col-md-3">
-    <label for="s_payment_option" class="form-label">Income Tax</label>
+  <div class="col col-md-4">
+    <label for="s_payment_option" class="form-label">Mode of Salary Payment</label>
     <select name="s_payment_option" class="form-select" id="s_payment_option" onchange="paymentOptionChanged()">
       <option value="Salary Transfer">Salary Transfer</option>
       <option value="Bank Transfer">Bank Transfer</option>

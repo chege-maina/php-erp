@@ -195,6 +195,8 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../payroll/advance_salary.php">Advance Salary</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../payroll/advance_listing_ui.php">Advance Listing</a>
+  </li>
   <li class="nav-item"><a class="nav-link" href="../payroll/expense_mngt.php">Company Loans</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../payroll/payroll_muster.php">Payroll Master</a>

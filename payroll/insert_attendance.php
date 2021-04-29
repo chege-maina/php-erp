@@ -28,9 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $early_exit = sanitize_input($_POST["early_exit"]);
 
 
-  if ($stmt = $con->prepare('SELECT employee_no FROM tbl_attendance WHERE employee_no = ?')) {
+  if ($stmt = $con->prepare('SELECT employee_no FROM tbl_attendance WHERE employee_no = ? AND att_date = ?')) {
     // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
-    $stmt->bind_param('s', $employee_no);
+    $stmt->bind_param('ss', $employee_no, $att_date,);
     $stmt->execute();
     // Store the result so we can check if the account exists in the database.
     $stmt->store_result();
@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
       echo json_encode(array(
         "message" => "error",
-        "desc" => "Employee Already exists.."
+        "desc" =>  "Record Already exists.."
       ));
     }
   } else {

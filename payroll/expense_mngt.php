@@ -96,11 +96,6 @@ include '../includes/base_page/head.php';
                 <div id="desc2" class="hide-this">
                   <select class="form-select" id="desc_2">
                     <option disabled selected value>--Select the description--</option>
-                    <option value="fuel">Fuel</option>
-                    <option value="lost">Good Lost</option>
-                    <option value="workshop">Workshop</option>
-                    <option value="types">Types</option>
-                    <option value="breaks">Breakages</option>
                   </select>
                 </div>
               </div>
