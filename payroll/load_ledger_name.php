@@ -12,6 +12,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $response,
     array(
       'ledger_name' => $row['ledger_name'],
+      'group_id' => $row['group_code']
     )
   );
 }
