@@ -13,7 +13,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     array_push(
         $response,
         array(
-            'lpo_number' => $row['lpo_number']
+            'lpo_number' => $row['lpo_number'],
+            'supplier' => $row['supplier_name']
         )
     );
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2021 at 08:08 AM
+-- Generation Time: Apr 29, 2021 at 10:07 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -40,6 +40,7 @@ CREATE TABLE `supplier_product` (
 INSERT INTO `supplier_product` (`product_name`, `supplier_name`, `product_cost`) VALUES
 ('Eden Cline', 'Kuame Johns', '5000'),
 ('Georgia Frye', 'Dolan Mendoza', '10000'),
+('Georgia Frye', 'Leila Stokes', '6000'),
 ('Kaden Dawson', 'Leila Stokes', '5100');
 
 -- --------------------------------------------------------
@@ -67,6 +68,41 @@ CREATE TABLE `tbl_advance` (
 INSERT INTO `tbl_advance` (`fname`, `lname`, `nat`, `job`, `amount`, `date_issued`, `year`, `month`, `status`) VALUES
 ('Xaviera', 'Simmons', '35', '614', '69420', '2021-04-28', '121212', 'February', 'pending'),
 ('Geoffrey', 'Levine', '42', '272', '4000', '2020-04-07', '2006', 'November', 'pending');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_asset`
+--
+
+CREATE TABLE `tbl_asset` (
+  `name` varchar(100) NOT NULL,
+  `number` varchar(100) NOT NULL,
+  `tag_no` varchar(100) NOT NULL,
+  `branch` varchar(15) NOT NULL,
+  `unit` varchar(20) NOT NULL,
+  `descpt` varchar(30) NOT NULL,
+  `weight` varchar(50) NOT NULL,
+  `date` date NOT NULL,
+  `dep_rate` varchar(15) NOT NULL,
+  `cost` varchar(100) NOT NULL,
+  `dep_method` varchar(50) NOT NULL,
+  `wear_tear` varchar(50) NOT NULL,
+  `asset_status` varchar(50) NOT NULL,
+  `financier` varchar(30) NOT NULL,
+  `loan_ref` varchar(100) NOT NULL,
+  `status` varchar(15) NOT NULL DEFAULT 'pending',
+  `asset_name` varchar(100) NOT NULL,
+  `asset_code` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_asset`
+--
+
+INSERT INTO `tbl_asset` (`name`, `number`, `tag_no`, `branch`, `unit`, `descpt`, `weight`, `date`, `dep_rate`, `cost`, `dep_method`, `wear_tear`, `asset_status`, `financier`, `loan_ref`, `status`, `asset_name`, `asset_code`) VALUES
+('Ivy Wagner', '62', '35', 'MM1', 'Pieces', 'In sequi adipisci do', '60', '1978-09-23', '40', '100', 'Reducing', 'Class 2', 'inactive', 'Quidem sit exercita', '22', 'pending', '', ''),
+('Kitra Villarreal', '96', '49', 'MM1', 'Pieces', 'Laboriosam voluptas', '68', '1980-01-04', '57', '11', 'Reducing', 'Class 3', 'disposed', 'Quia sunt in repell', '47', 'pending', '', '');
 
 -- --------------------------------------------------------
 
@@ -607,15 +643,16 @@ CREATE TABLE `tbl_customer` (
   `tax_id` varchar(20) NOT NULL,
   `payment_terms` varchar(100) NOT NULL,
   `credit_limit` varchar(100) NOT NULL,
-  `sales_rep` varchar(100) NOT NULL
+  `sales_rep` varchar(100) NOT NULL,
+  `status` varchar(100) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_customer`
 --
 
-INSERT INTO `tbl_customer` (`name`, `email`, `physical_address`, `postal_address`, `tel_no`, `tax_id`, `payment_terms`, `credit_limit`, `sales_rep`) VALUES
-('Whitney Walters', 'huly@mailinator.com', 'Eum voluptas ut volu', 'Eiusmod molestias il', '+1 (483) 975-7668', 'Omnis esse exercitat', '28', '85', 'KIPGHOGE');
+INSERT INTO `tbl_customer` (`name`, `email`, `physical_address`, `postal_address`, `tel_no`, `tax_id`, `payment_terms`, `credit_limit`, `sales_rep`, `status`) VALUES
+('Whitney Walters', 'huly@mailinator.com', 'Eum voluptas ut volu', 'Eiusmod molestias il', '+1 (483) 975-7668', 'Omnis esse exercitat', '28', '85', 'KIPGHOGE', 'pending');
 
 -- --------------------------------------------------------
 
@@ -701,7 +738,8 @@ CREATE TABLE `tbl_invoice` (
 --
 
 INSERT INTO `tbl_invoice` (`salesbill_no`, `so_number`, `customer_name`, `payment_terms`, `date`, `due_date`, `total`, `status`, `total_bf_tax`, `tax`, `user`, `driver_name`, `truck_no`, `transport_cost`, `branch`) VALUES
-(1, '2', 'Whitney Walters', '28', '2021-03-19', '2021-04-16', '16424.21', 'approved', '14158.8', '2265.41', 'Jael Joel', '', '', '0', 'MM2');
+(1, '2', 'Whitney Walters', '28', '2021-03-19', '2021-04-16', '16424.21', 'approved', '14158.8', '2265.41', 'Jael Joel', '', '', '0', 'MM2'),
+(2, '1', 'Whitney Walters', '28', '2021-04-28', '2021-05-26', '41893.63', 'approved', '36115.2', '5778.43', 'Jael Joel', '', '', '0', 'MM2');
 
 -- --------------------------------------------------------
 
@@ -732,7 +770,28 @@ CREATE TABLE `tbl_invoice_items` (
 
 INSERT INTO `tbl_invoice_items` (`id`, `salesbill_no`, `so_number`, `product_code`, `product_name`, `unit`, `qty`, `price`, `total`, `status`, `user`, `tax_pc`, `branch`, `tax`) VALUES
 (1, '1', '2', '001_002_001', 'Kaden Dawson', 'kg', '1', '6000', '6840', 'pending', 'Jael Joel', '14', 'MM2', '840'),
-(2, '1', '2', '002_001_001', 'Marsden Myers', 'kg', '1', '6420', '7318.80', 'pending', 'Jael Joel', '14', 'MM2', '898.80');
+(2, '1', '2', '002_001_001', 'Marsden Myers', 'kg', '1', '6420', '7318.80', 'pending', 'Jael Joel', '14', 'MM2', '898.80'),
+(3, '2', '1', '001_002_001', 'Kaden Dawson', 'kg', '0.4', '6907', '27360.00', 'pending', 'Jael Joel', '14', 'MM2', '3360.00'),
+(4, '2', '1', '002_001_004', 'Georgia Frye', 'kg', '0.1', '8950', '8755.20', 'pending', 'Jael Joel', '14', 'MM2', '1075.20');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_leavecat`
+--
+
+CREATE TABLE `tbl_leavecat` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_leavecat`
+--
+
+INSERT INTO `tbl_leavecat` (`id`, `name`) VALUES
+(1, 'Annual'),
+(2, 'Maternity');
 
 -- --------------------------------------------------------
 
@@ -799,9 +858,18 @@ CREATE TABLE `tbl_ledger_amounts` (
   `ledger` varchar(100) NOT NULL,
   `amount` varchar(100) NOT NULL,
   `date` date NOT NULL,
-  `status` varchar(10) NOT NULL,
-  `id` bigint(20) NOT NULL
+  `status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_ledger_amounts`
+--
+
+INSERT INTO `tbl_ledger_amounts` (`group_code`, `ledger`, `amount`, `date`, `status`) VALUES
+('010107', 'EQUITY BANK', '114000.00000000001', '2021-04-27', 'Credit'),
+('010107', 'KCB', '41171.32603448276', '2021-04-28', 'Debit'),
+('010201', 'Whitney Walters', '41171.32603448276', '2021-04-28', 'Credit'),
+('020101', 'Dolan Mendoza', '114000.00000000001', '2021-04-27', 'Debit');
 
 -- --------------------------------------------------------
 
@@ -901,7 +969,10 @@ CREATE TABLE `tbl_paybill` (
 --
 
 INSERT INTO `tbl_paybill` (`supplier_name`, `rem_no`, `cheque_no`, `bank_name`, `amount`, `cheque_type`, `pay_type`, `status`, `date`) VALUES
-('Leila Stokes', '1', '45665', 'EQUITY BANK', '87210', 'interbank', 'pay', 'paid', '2021-04-02');
+('Leila Stokes', '1', '45665', 'EQUITY BANK', '87210', 'interbank', 'pay', 'paid', '2021-04-02'),
+('Leila Stokes', '2', '65', 'KCB', '31122', 'inhouse', 'pay', 'paid', '2021-04-27'),
+('Dolan Mendoza', '3', '76', 'EQUITY BANK', '228000.00000000003', 'inhouse', 'pay', 'paid', '2021-04-28'),
+('Dolan Mendoza', '4', '54', 'Mannix Merrill', '114000.00000000001', 'interbank', 'pay', 'paid', '2021-04-29');
 
 -- --------------------------------------------------------
 
@@ -931,7 +1002,12 @@ INSERT INTO `tbl_paye` (`id`, `fromnhif`, `tonhif`, `rate`, `descnhif`, `relief`
 (11, '10165', '19740', '15', '2012', '2400'),
 (12, '19741', '29316', '20', '2012', '2400'),
 (13, '29317', '38892', '25', '2012', '2400'),
-(14, '38893', '99999999', '30', '2012', '2400');
+(14, '38893', '99999999', '30', '2012', '2400'),
+(15, '61', '61', '25', '2008', '1200'),
+(16, '68', '93', '0', '2008', '1200'),
+(17, '46', '13', '35', '2008', '1200'),
+(18, '44', '13', '15', '2008', '1200'),
+(19, '23', '83', '51', '2008', '1200');
 
 -- --------------------------------------------------------
 
@@ -953,10 +1029,10 @@ CREATE TABLE `tbl_prdmapping` (
 --
 
 INSERT INTO `tbl_prdmapping` (`id`, `product_code`, `product_name`, `group_code`, `ledger`, `status`) VALUES
-(11, '002_001_003', 'Eden Cline', '050201', 'Purchase Account', 'When Purchasing'),
-(12, '002_001_003', 'Eden Cline', '040101', 'Sale of FMCG Products', 'When Selling'),
-(13, '002_001_003', 'Eden Cline', '050201', 'Closing Stock', 'When Purchasing'),
-(14, '002_001_003', 'Eden Cline', '040101', 'Sale of Harware Items', 'When Selling');
+(11, '001_002_001', 'Kaden Dawson', '050201', 'Purchase Account', 'When Purchasing'),
+(12, '001_002_001', 'Kaden Dawson', '040101', 'Sale of FMCG Products', 'When Selling'),
+(15, '002_001_004', 'Georgia Frye', '050201', 'Purchase Account', 'When Purchasing'),
+(16, '002_001_004', 'Georgia Frye', '040101', 'Sale of Harware Items', 'When Selling');
 
 -- --------------------------------------------------------
 
@@ -990,10 +1066,10 @@ CREATE TABLE `tbl_product` (
 --
 
 INSERT INTO `tbl_product` (`id`, `product_name`, `product_code`, `product_unit`, `product_category`, `weight`, `sub_category`, `product_image`, `dsp_price`, `amount_before_tax`, `dpp_inc_tax`, `applicable_tax`, `profit_margin`, `user`, `status`, `atomic_unit`, `conversion`, `bs_price`) VALUES
-(1, 'Kaden Dawson', '001_002_001', 'kg', 'CEMENT', '38', 'funky', '/uploads/gg.png', 6000, 5000, 5700, 14, 20, 'Jael Joel', 'active', '', '', ''),
-(2, 'Marsden Myers', '002_001_001', 'kg', 'gggg', '58', 'heaven yes', '/uploads/gg.png', 6420, 5000, 5700, 14, 28, 'Jael Joel', 'active', '', '', ''),
-(3, 'Sierra Gutierrez', '002_001_002', '', 'gggg', '92', 'heaven yes', '/uploads/error1.png', 6100, 4500, 4500, 14, 36, 'Jael Joel', 'active', 'kg', '1', ''),
-(4, 'Eden Cline', '002_001_003', 'kg', 'gggg', '91', 'heaven yes', '/uploads/schedule.png', 7099, 4565, 4565, 0, 56, 'Jael Joel', 'active', 'kg', '1', ''),
+(1, 'Kaden Dawson', '001_002_001', 'kg', 'CEMENT', '38', 'funky', '/uploads/gg.png', 6000, 5000, 5700, 14, 20, 'Jael Joel', 'active', 'gm', '10', '6907'),
+(2, 'Marsden Myers', '002_001_001', 'kg', 'gggg', '58', 'heaven yes', '/uploads/gg.png', 6420, 5000, 5700, 14, 28, 'Jael Joel', 'active', 'gm', '10', '8009'),
+(3, 'Sierra Gutierrez', '002_001_002', 'kg', 'gggg', '92', 'heaven yes', '/uploads/error1.png', 6100, 4500, 4500, 14, 36, 'Jael Joel', 'active', 'kg', '1', '6400'),
+(4, 'Eden Cline', '002_001_003', 'kg', 'gggg', '91', 'heaven yes', '/uploads/schedule.png', 7099, 4565, 4565, 0, 56, 'Jael Joel', 'active', 'kg', '1', '5000'),
 (5, 'Georgia Frye', '002_001_004', 'kg', 'gggg', '97', 'heaven yes', '/uploads/error1.png', 7680, 5000, 5000, 14, 54, 'Jael Joel', 'pending', 'gm', '10', '8950');
 
 -- --------------------------------------------------------
@@ -1022,7 +1098,8 @@ CREATE TABLE `tbl_purchaseorder` (
 INSERT INTO `tbl_purchaseorder` (`po_number`, `supplier_name`, `branch`, `date`, `time`, `user`, `status`, `before_tax`, `tax_amt`, `po_total`) VALUES
 (1, 'Leila Stokes', 'MM2', '2021-03-17', '11:27', 'Jael Joel', 'done', '76500', '12240', '88740'),
 (2, 'Leila Stokes', 'MM2', '2021-03-22', '11:53', 'Jael Joel', 'done', '5100', '816', '5916'),
-(3, 'Dolan Mendoza', 'MM2', '2021-04-06', '17:44', 'Jael Joel', 'partial', '500000', '80000', '580000');
+(3, 'Dolan Mendoza', 'MM2', '2021-04-06', '17:44', 'Jael Joel', 'partial', '500000', '80000', '580000'),
+(4, 'Leila Stokes', 'MM2', '2021-04-28', '09:37', 'Jael Joel', 'partial', '27300', '4368', '31668');
 
 -- --------------------------------------------------------
 
@@ -1050,7 +1127,9 @@ CREATE TABLE `tbl_purchaseorder_items` (
 INSERT INTO `tbl_purchaseorder_items` (`id`, `po_number`, `product_code`, `product_name`, `product_unit`, `product_quantity`, `product_cost`, `total`, `status`, `branch`) VALUES
 (1, '1', '001_002_001', 'Kaden Dawson', 'kg', '15', '5100', '76500', 'done', 'MM2'),
 (2, '2', '001_002_001', 'Kaden Dawson', 'kg', '1', '5100', '5100', 'done', 'MM2'),
-(3, '3', '002_001_004', 'Georgia Frye', 'kg', '50', '10000', '500000', 'partial', 'MM2');
+(3, '3', '002_001_004', 'Georgia Frye', 'kg', '50', '10000', '500000', 'partial', 'MM2'),
+(4, '4', '001_002_001', 'Kaden Dawson', 'kg', '3', '5100', '15300', 'partial', 'MM2'),
+(5, '4', '002_001_004', 'Georgia Frye', 'kg', '2', '6000', '12000', 'partial', 'MM2');
 
 -- --------------------------------------------------------
 
@@ -1081,7 +1160,12 @@ CREATE TABLE `tbl_purchase_bill` (
 
 INSERT INTO `tbl_purchase_bill` (`purchasebill_no`, `po_number`, `supplier_name`, `payment_terms`, `delivery_note_no`, `date`, `due_date`, `invoice_no`, `total`, `status`, `total_bf_tax`, `tax`, `user`, `receipt_no`) VALUES
 (1, '1', 'Leila Stokes', '19', 'HHFG', '2021-03-17', '2021-04-05', 'GGDAF', '59160', 'approved', '51000', '8160', 'Jael Joel', '1'),
-(2, '1', 'Leila Stokes', '19', 'HFYHBUV', '2021-03-18', '2021-04-06', 'ADDDSEC', '29580', 'approved', '25500', '4080', 'Jael Joel', '2');
+(2, '1', 'Leila Stokes', '19', 'HFYHBUV', '2021-03-18', '2021-04-06', 'ADDDSEC', '29580', 'approved', '25500', '4080', 'Jael Joel', '2'),
+(3, '2', 'Leila Stokes', '19', 'GGGFGHYRUYJN', '2021-04-28', '2021-05-17', 'SDFSDGF', '5916', 'approved', '5100', '816', 'Jael Joel', '3'),
+(4, '4', 'Leila Stokes', '19', 'HJFUYGUKJH', '2021-04-28', '2021-05-17', 'GGFG', '12876', 'approved', '11100', '1776', 'Jael Joel', '6'),
+(5, '4', 'Leila Stokes', '19', 'HJFUYGUKJH', '2021-04-29', '2021-05-18', 'JKGIUU', '12876', 'approved', '11100', '1776', 'Jael Joel', '6'),
+(6, '3', 'Dolan Mendoza', '24', 'HKGJYF7657', '2021-04-27', '2021-05-21', 'SDGER44', '232000', 'approved', '200000', '32000', 'Jael Joel', '4'),
+(7, '3', 'Dolan Mendoza', '24', 'HJFJYG775876', '2021-04-27', '2021-05-21', 'SE454F', '116000', 'approved', '100000', '16000', 'Jael Joel', '5');
 
 -- --------------------------------------------------------
 
@@ -1116,7 +1200,16 @@ INSERT INTO `tbl_purchase_bill_items` (`id`, `purchasebill_no`, `po_number`, `pr
 (4, '1', '1', '001_002_001', 'Kaden Dawson', 'kg', '10', '5100', '51000', 'pending', 'Jael Joel', '1', 'GGDAF'),
 (5, '1', '1', '001_002_001', 'Kaden Dawson', 'kg', '10', '5100', '51000', 'pending', 'Jael Joel', '1', 'GGDAF'),
 (6, '1', '1', '001_002_001', 'Kaden Dawson', 'kg', '10', '5100', '51000', 'pending', 'Jael Joel', '1', 'GGDAF'),
-(7, '2', '1', '001_002_001', 'Kaden Dawson', 'kg', '5', '5100', '25500', 'pending', 'Jael Joel', '2', 'ADDDSEC');
+(7, '2', '1', '001_002_001', 'Kaden Dawson', 'kg', '5', '5100', '25500', 'pending', 'Jael Joel', '2', 'ADDDSEC'),
+(8, '3', '2', '002_001_004', 'Georgia Frye', 'kg', '20', '10000', '200000', 'pending', 'Jael Joel', '3', 'SDFSDGF'),
+(9, '3', '2', '001_002_001', 'Kaden Dawson', 'kg', '1', '5100', '5100', 'pending', 'Jael Joel', '3', 'SDFSDGF'),
+(10, '3', '2', '001_002_001', 'Kaden Dawson', 'kg', '1', '5100', '5100', 'pending', 'Jael Joel', '3', 'SDFSDGF'),
+(11, '4', '4', '001_002_001', 'Kaden Dawson', 'kg', '1', '5100', '5100', 'pending', 'Jael Joel', '6', 'GGFG'),
+(12, '4', '4', '002_001_004', 'Georgia Frye', 'kg', '1', '6000', '6000', 'pending', 'Jael Joel', '6', 'GGFG'),
+(13, '5', '4', '001_002_001', 'Kaden Dawson', 'kg', '1', '5100', '5100', 'pending', 'Jael Joel', '6', 'JKGIUU'),
+(14, '5', '4', '002_001_004', 'Georgia Frye', 'kg', '1', '6000', '6000', 'pending', 'Jael Joel', '6', 'JKGIUU'),
+(15, '6', '3', '002_001_004', 'Georgia Frye', 'kg', '20', '10000', '200000', 'pending', 'Jael Joel', '4', 'SDGER44'),
+(16, '7', '3', '002_001_004', 'Georgia Frye', 'kg', '10', '10000', '100000', 'pending', 'Jael Joel', '5', 'SE454F');
 
 -- --------------------------------------------------------
 
@@ -1204,7 +1297,8 @@ CREATE TABLE `tbl_receiptadv` (
 --
 
 INSERT INTO `tbl_receiptadv` (`rem_no`, `customer_name`, `date`, `amount`, `payable`, `wht`, `status`, `user`) VALUES
-(1, 'Whitney Walters', '2021-03-19', '16424.21', '16424.21', '0', 'done', 'Jael Joel');
+(1, 'Whitney Walters', '2021-03-19', '16424.21', '16424.21', '0', 'done', 'Jael Joel'),
+(2, 'Whitney Walters', '2021-04-29', '41893.63', '41171.32603448276', '722.3039655172414', 'done', 'Jael Joel');
 
 -- --------------------------------------------------------
 
@@ -1231,7 +1325,8 @@ CREATE TABLE `tbl_receiptadv_items` (
 --
 
 INSERT INTO `tbl_receiptadv_items` (`id`, `rem_no`, `due_date`, `invoice_no`, `amount_due`, `wht`, `payable`, `customer_name`, `date`, `status`, `user`) VALUES
-(1, 1, '2021-04-16', '1', '16424.21', '0', '16424.21', 'Whitney Walters', '2021-03-19', 'done', 'Jael Joel');
+(1, 1, '2021-04-16', '1', '16424.21', '0', '16424.21', 'Whitney Walters', '2021-03-19', 'done', 'Jael Joel'),
+(2, 2, '2021-05-26', '2', '41893.63', '722.30396551724', '41171.326034483', 'Whitney Walters', '2021-04-29', 'done', 'Jael Joel');
 
 -- --------------------------------------------------------
 
@@ -1255,7 +1350,10 @@ CREATE TABLE `tbl_remittance` (
 --
 
 INSERT INTO `tbl_remittance` (`rem_no`, `supplier_name`, `date`, `amount`, `payable`, `wht`, `status`, `user`) VALUES
-(1, 'Leila Stokes', '2021-03-17', '88740', '87210', '1530.0000000000002', 'done', 'Jael Joel');
+(1, 'Leila Stokes', '2021-03-17', '88740', '87210', '1530.0000000000002', 'done', 'Jael Joel'),
+(2, 'Leila Stokes', '2021-04-28', '31668', '31122', '546', 'done', 'Jael Joel'),
+(3, 'Dolan Mendoza', '2021-04-28', '232000', '228000.00000000003', '4000.0000000000005', 'done', 'Jael Joel'),
+(4, 'Dolan Mendoza', '2021-04-28', '116000', '114000.00000000001', '2000.0000000000002', 'done', 'Jael Joel');
 
 -- --------------------------------------------------------
 
@@ -1283,7 +1381,12 @@ CREATE TABLE `tbl_remittance_items` (
 
 INSERT INTO `tbl_remittance_items` (`id`, `rem_no`, `due_date`, `invoice_no`, `amount_due`, `wht`, `payable`, `supplier_name`, `date`, `status`, `user`) VALUES
 (1, 1, '2021-04-05', 'GGDAF', '59160', '1020', '58140', 'Leila Stokes', '2021-03-17', 'done', 'Jael Joel'),
-(2, 1, '2021-04-06', 'ADDDSEC', '29580', '510', '29070', 'Leila Stokes', '2021-03-17', 'done', 'Jael Joel');
+(2, 1, '2021-04-06', 'ADDDSEC', '29580', '510', '29070', 'Leila Stokes', '2021-03-17', 'done', 'Jael Joel'),
+(3, 2, '2021-05-17', 'SDFSDGF', '5916', '102', '5814', 'Leila Stokes', '2021-04-28', 'done', 'Jael Joel'),
+(4, 2, '2021-05-17', 'GGFG', '12876', '222', '12654', 'Leila Stokes', '2021-04-28', 'done', 'Jael Joel'),
+(5, 2, '2021-05-18', 'JKGIUU', '12876', '222', '12654', 'Leila Stokes', '2021-04-28', 'done', 'Jael Joel'),
+(6, 3, '2021-05-21', 'SDGER44', '232000', '4000', '228000', 'Dolan Mendoza', '2021-04-28', 'done', 'Jael Joel'),
+(7, 4, '2021-05-21', 'SE454F', '116000', '2000', '114000', 'Dolan Mendoza', '2021-04-28', 'done', 'Jael Joel');
 
 -- --------------------------------------------------------
 
@@ -1307,7 +1410,8 @@ CREATE TABLE `tbl_requisition` (
 INSERT INTO `tbl_requisition` (`requisition_No`, `date`, `time`, `user`, `branch`, `status`) VALUES
 (1, '2021-03-17', '10:39', 'Jael Joel', 'MM2', 'done'),
 (2, '2021-03-22', '11:48', 'Jael Joel', 'MM2', 'done'),
-(3, '2021-04-06', '17:36', 'Jael Joel', 'MM2', 'done');
+(3, '2021-04-06', '17:36', 'Jael Joel', 'MM2', 'done'),
+(4, '2021-04-28', '09:33', 'Jael Joel', 'MM2', 'done');
 
 -- --------------------------------------------------------
 
@@ -1334,7 +1438,9 @@ CREATE TABLE `tbl_requisition_items` (
 INSERT INTO `tbl_requisition_items` (`id`, `requisition_No`, `product_code`, `product_name`, `product_unit`, `product_quantity`, `status`, `branch`, `balance`) VALUES
 (1, '1', '001_002_001', 'Kaden Dawson', 'kg', '15', 'done', 'MM2', '1'),
 (2, '2', '001_002_001', 'Kaden Dawson', 'kg', '1', 'done', 'MM2', '13'),
-(3, '3', '002_001_004', 'Georgia Frye', 'kg', '50', 'done', 'MM2', '230');
+(3, '3', '002_001_004', 'Georgia Frye', 'kg', '50', 'done', 'MM2', '230'),
+(4, '4', '002_001_004', 'Georgia Frye', 'kg', '2', 'done', 'MM2', '260'),
+(5, '4', '001_002_001', 'Kaden Dawson', 'kg', '3', 'done', 'MM2', '19');
 
 -- --------------------------------------------------------
 
@@ -1360,8 +1466,7 @@ CREATE TABLE `tbl_sale` (
 --
 
 INSERT INTO `tbl_sale` (`quote_no`, `date`, `customer_name`, `terms`, `status`, `user`, `sub_total`, `tax`, `amount`, `branch_location`) VALUES
-(1, '2021-03-23', 'Whitney Walters', '28', 'pending', 'Jael Joel', '54,948.00', '6,748.00', '48,200.00', 'MM2'),
-(2, '2021-03-23', 'Whitney Walters', '28', 'pending', 'Jael Joel', '6,840.00', '840.00', '6,000.00', 'MM2');
+(1, '2021-04-28', 'Whitney Walters', '28', 'done', 'Jael Joel', '36,115.20', '4,435.20', '31,680.00', 'MM2');
 
 -- --------------------------------------------------------
 
@@ -1393,9 +1498,8 @@ CREATE TABLE `tbl_sale_items` (
 --
 
 INSERT INTO `tbl_sale_items` (`quote_no`, `product_code`, `product_name`, `unit`, `price`, `qty`, `amount`, `tax`, `status`, `tax_pc`, `branch_location`, `conversion`, `atm_price`, `entered_price`, `selected_unit`, `atm_unit`) VALUES
-(1, '001_002_001', 'Kaden Dawson', 'kg', '26', '6', '41040.00', '5040.00', 'pending', '14', 'MM2', '', '', '', '', ''),
-(1, '002_001_002', 'Sierra Gutierrez', '', '203', '2', '13908.00', '1708.00', 'pending', '14', 'MM2', '', '', '', '', ''),
-(2, '001_002_001', 'Kaden Dawson', 'kg', '26', '1', '6840.00', '840.00', 'pending', '14', 'MM2', '', '', '', '', '');
+(1, '001_002_001', 'Kaden Dawson', 'kg', '6907', '0.4', '27360.00', '3360.00', 'done', '14', 'MM2', '10', '6000', '6000', 'atomic_unit', 'gm'),
+(1, '002_001_004', 'Georgia Frye', 'kg', '8950', '0.1', '8755.20', '1075.20', 'done', '14', 'MM2', '10', '7680', '7680', 'atomic_unit', 'gm');
 
 -- --------------------------------------------------------
 
@@ -1426,66 +1530,66 @@ INSERT INTO `tbl_shift` (`shift_id`, `shift_name`, `start_time`, `end_time`, `wo
 -- Table structure for table `tbl_staff`
 --
 
---  CREATE TABLE `tbl_staff` (
-  --  `f_name` varchar(50) NOT NULL,
-  --  `m_name` varchar(50) NOT NULL,
-  --  `l_name` varchar(50) NOT NULL,
-  --  `gender` varchar(15) NOT NULL,
-  --  `dob` date NOT NULL,
-  --  `passport` varchar(50) NOT NULL,
-  --  `nat_id` varchar(50) NOT NULL,
-  --  `pin_no` varchar(50) NOT NULL,
-  --  `res` varchar(20) NOT NULL,
-  --  `nssf_no` varchar(50) NOT NULL,
-  --  `nhif_no` varchar(50) NOT NULL,
-  --  `off_mail` varchar(50) NOT NULL,
-  --  `pers_mail` varchar(50) NOT NULL,
-  --  `country` varchar(50) NOT NULL,
-  --  `mobile_no` varchar(50) NOT NULL,
-  --  `phone_no` varchar(50) NOT NULL,
-  --  `ext_no` varchar(50) NOT NULL,
-  --  `city` varchar(50) NOT NULL,
-  --  `county` varchar(50) NOT NULL,
-  --  `postal_code` varchar(50) NOT NULL,
-  --  `job_no` varchar(50) NOT NULL,
-  --  `employ_date` date NOT NULL,
-  --  `begin_date` date NOT NULL,
-  --  `duration` varchar(16) NOT NULL,
-  --  `end_date` date NOT NULL,
-  --  `job_title` varchar(50) NOT NULL,
-  --  `department` varchar(50) NOT NULL,
-  --  `report_to` varchar(50) NOT NULL,
-  --  `branch` varchar(50) NOT NULL,
-  --  `head_of` varchar(50) NOT NULL,
-  --  `region` varchar(50) NOT NULL,
-  --  `currency` varchar(50) NOT NULL,
-  --  `shift` varchar(50) NOT NULL,
-  --  `employ_type` varchar(50) NOT NULL,
-  --  `off_days` varchar(50) NOT NULL,
-  --  `pay_type` varchar(50) NOT NULL,
-  --  `salary` varchar(50) NOT NULL,
-  --  `income_tax` varchar(50) NOT NULL,
-  --  `deduct_nhif` varchar(50) NOT NULL,
-  --  `deduct_nssf` varchar(50) NOT NULL,
-  --  `account_name` varchar(50) NOT NULL,
-  --  `account_no` varchar(50) NOT NULL,
-  --  `bank_name` varchar(50) NOT NULL,
-  --  `sort_code` varchar(50) NOT NULL,
-  --  `s_mobile_no` varchar(50) NOT NULL,
-  --  `s_bank_branch` varchar(50) NOT NULL,
-  --  `s_payment` int(11) NOT NULL,
-  --  `status` varchar(15) NOT NULL DEFAULT 'pending'
---  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+CREATE TABLE `tbl_staff` (
+  `f_name` varchar(50) NOT NULL,
+  `m_name` varchar(50) NOT NULL,
+  `l_name` varchar(50) NOT NULL,
+  `gender` varchar(15) NOT NULL,
+  `dob` date NOT NULL,
+  `passport` varchar(50) NOT NULL,
+  `nat_id` varchar(50) NOT NULL,
+  `pin_no` varchar(50) NOT NULL,
+  `res` varchar(20) NOT NULL,
+  `nssf_no` varchar(50) NOT NULL,
+  `nhif_no` varchar(50) NOT NULL,
+  `off_mail` varchar(50) NOT NULL,
+  `pers_mail` varchar(50) NOT NULL,
+  `country` varchar(50) NOT NULL,
+  `mobile_no` varchar(50) NOT NULL,
+  `phone_no` varchar(50) NOT NULL,
+  `ext_no` varchar(50) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `county` varchar(50) NOT NULL,
+  `postal_code` varchar(50) NOT NULL,
+  `job_no` varchar(50) NOT NULL,
+  `employ_date` date NOT NULL,
+  `begin_date` date NOT NULL,
+  `duration` varchar(16) NOT NULL,
+  `end_date` date NOT NULL,
+  `job_title` varchar(50) NOT NULL,
+  `department` varchar(50) NOT NULL,
+  `report_to` varchar(50) NOT NULL,
+  `branch` varchar(50) NOT NULL,
+  `head_of` varchar(50) NOT NULL,
+  `region` varchar(50) NOT NULL,
+  `currency` varchar(50) NOT NULL,
+  `shift` varchar(50) NOT NULL,
+  `employ_type` varchar(50) NOT NULL,
+  `off_days` varchar(50) NOT NULL,
+  `pay_type` varchar(50) NOT NULL,
+  `salary` varchar(50) NOT NULL,
+  `income_tax` varchar(50) NOT NULL,
+  `deduct_nhif` varchar(50) NOT NULL,
+  `deduct_nssf` varchar(50) NOT NULL,
+  `account_name` varchar(50) NOT NULL,
+  `account_no` varchar(50) NOT NULL,
+  `bank_name` varchar(50) NOT NULL,
+  `sort_code` varchar(50) NOT NULL,
+  `s_mobile_no` varchar(50) NOT NULL,
+  `s_bank_branch` varchar(50) NOT NULL,
+  `s_payment` int(11) NOT NULL,
+  `status` varchar(15) NOT NULL DEFAULT 'pending'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
---  --
---  -- Dumping data for table `tbl_staff`
---  --
+--
+-- Dumping data for table `tbl_staff`
+--
 
---  INSERT INTO `tbl_staff` (`f_name`, `m_name`, `l_name`, `gender`, `dob`, `passport`, `nat_id`, `pin_no`, `res`, `nssf_no`, `nhif_no`, `off_mail`, `pers_mail`, `country`, `mobile_no`, `phone_no`, `ext_no`, `city`, `county`, `postal_code`, `job_no`, `employ_date`, `begin_date`, `duration`, `end_date`, `job_title`, `department`, `report_to`, `branch`, `head_of`, `region`, `currency`, `shift`, `employ_type`, `off_days`, `pay_type`, `salary`, `income_tax`, `deduct_nhif`, `deduct_nssf`, `account_name`, `account_no`, `bank_name`, `sort_code`, `s_mobile_no`, `s_bank_branch`, `s_payment`, `status`) VALUES
---  ('Geoffrey', 'Kirby Carrillo', 'Levine', 'Male', '1973-11-03', '/uploads/kua uone.png', '42', '31', 'Resident', '15', '69', 'jaqylorafo@mailinator.com', 'xakyx@mailinator.com', 'Jamaica', '39', '95', '94', 'Nihil reiciendis rep', 'Officia tempor elit', '52841', '272', '1979-02-06', '2021-04-06', 'Aliquip non accu', '2023-02-06', 'Repudiandae veniam', 'Reprehenderit et ul', 'all', 'undefined', 'all', 'Nairobi', 'KES', 'Regular', '1979-02-06', 'FRIDAY', 'net', '40000', 'primary', 'true', 'true', '', '', '', '', '469', '', 0, 'approved'),
---  ('Aquila', 'Doris Hartman', 'Rios', 'Male', '2004-08-31', '/uploads/kua uone (1).png', '58', '73', 'Resident', '10', '32', 'zenehoc@mailinator.com', 'sufafu@mailinator.com', 'Philippines', '4', '46', '59', 'Sunt voluptatem duis', 'Accusamus in proiden', '97654', '580', '1975-12-04', '2017-10-10', 'Quaerat tempore ', '2014-02-22', 'Quis necessitatibus', 'Ullam at est corpori', 'all', 'undefined', 'all', 'Nairobi', 'JPY', 'Regular', '1975-12-04', 'WEDNESDAY', 'consolidated', '12', 'none', 'true', 'true', '', '', '', '', '', '', 0, 'pending');
+INSERT INTO `tbl_staff` (`f_name`, `m_name`, `l_name`, `gender`, `dob`, `passport`, `nat_id`, `pin_no`, `res`, `nssf_no`, `nhif_no`, `off_mail`, `pers_mail`, `country`, `mobile_no`, `phone_no`, `ext_no`, `city`, `county`, `postal_code`, `job_no`, `employ_date`, `begin_date`, `duration`, `end_date`, `job_title`, `department`, `report_to`, `branch`, `head_of`, `region`, `currency`, `shift`, `employ_type`, `off_days`, `pay_type`, `salary`, `income_tax`, `deduct_nhif`, `deduct_nssf`, `account_name`, `account_no`, `bank_name`, `sort_code`, `s_mobile_no`, `s_bank_branch`, `s_payment`, `status`) VALUES
+('Geoffrey', 'Kirby Carrillo', 'Levine', 'Male', '1973-11-03', '/uploads/kua uone.png', '42', '31', 'Resident', '15', '69', 'jaqylorafo@mailinator.com', 'xakyx@mailinator.com', 'Jamaica', '39', '95', '94', 'Nihil reiciendis rep', 'Officia tempor elit', '52841', '272', '1979-02-06', '2021-04-06', 'Aliquip non accu', '2023-02-06', 'Repudiandae veniam', 'Reprehenderit et ul', 'all', 'undefined', 'all', 'Nairobi', 'KES', 'Regular', '1979-02-06', 'FRIDAY', 'net', '40000', 'primary', 'true', 'true', '', '', '', '', '469', '', 0, 'approved'),
+('Aquila', 'Doris Hartman', 'Rios', 'Male', '2004-08-31', '/uploads/kua uone (1).png', '58', '73', 'Resident', '10', '32', 'zenehoc@mailinator.com', 'sufafu@mailinator.com', 'Philippines', '4', '46', '59', 'Sunt voluptatem duis', 'Accusamus in proiden', '97654', '580', '1975-12-04', '2017-10-10', 'Quaerat tempore ', '2014-02-22', 'Quis necessitatibus', 'Ullam at est corpori', 'all', 'undefined', 'all', 'Nairobi', 'JPY', 'Regular', '1975-12-04', 'WEDNESDAY', 'consolidated', '12', 'none', 'true', 'true', '', '', '', '', '', '', 0, 'pending');
 
---  -- --------------------------------------------------------
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `tbl_staff_items`
@@ -1534,9 +1638,10 @@ CREATE TABLE `tbl_store` (
 INSERT INTO `tbl_store` (`date`, `time`, `branch`, `user`, `supplier_name`, `receipt_no`, `lpo_number`, `status`, `invoice_no`) VALUES
 ('2021-03-17', '11:40', 'MM2', 'Jael Joel', 'Leila Stokes', 1, '1', 'done', 'HHFG'),
 ('2021-03-17', '11:48', 'MM2', 'Jael Joel', 'Leila Stokes', 2, '1', 'done', 'HFYHBUV'),
-('2021-03-22', '11:54', 'MM2', 'Jael Joel', 'Leila Stokes', 3, '2', 'approved', 'GGGFGHYRUYJN'),
-('2021-04-06', '17:47', 'MM2', 'Jael Joel', 'Dolan Mendoza', 4, '3', 'approved', 'HKGJYF7657'),
-('2021-04-06', '17:48', 'MM2', 'Jael Joel', 'Dolan Mendoza', 5, '3', 'approved', 'HJFJYG775876');
+('2021-03-22', '11:54', 'MM2', 'Jael Joel', 'Leila Stokes', 3, '2', 'done', 'GGGFGHYRUYJN'),
+('2021-04-06', '17:47', 'MM2', 'Jael Joel', 'Dolan Mendoza', 4, '3', 'done', 'HKGJYF7657'),
+('2021-04-06', '17:48', 'MM2', 'Jael Joel', 'Dolan Mendoza', 5, '3', 'done', 'HJFJYG775876'),
+('2021-04-28', '09:37', 'MM2', 'Jael Joel', 'Leila Stokes', 6, '4', 'done', 'HJFUYGUKJH');
 
 -- --------------------------------------------------------
 
@@ -1566,14 +1671,16 @@ INSERT INTO `tbl_store_item` (`qty`, `product_name`, `product_code`, `branch`, `
 ('10', 'Kaden Dawson', '001_002_001', 'MM2', '1', 3, '1', 'kg', 'done'),
 ('5', 'Kaden Dawson', '001_002_001', 'MM2', '2', 4, '1', 'kg', 'done'),
 ('1', 'Marsden Myers', '002_001_001', 'MM1', 'opening_bal', 5, 'opening_bal', 'kg', 'done'),
-('1', 'Kaden Dawson', '001_002_001', 'MM2', '3', 6, '2', 'kg', 'approved'),
+('1', 'Kaden Dawson', '001_002_001', 'MM2', '3', 6, '2', 'kg', 'done'),
 ('123', 'Sierra Gutierrez', '002_001_002', 'MM1', 'opening_bal', 7, 'opening_bal', '', 'done'),
 ('203', 'Sierra Gutierrez', '002_001_002', 'MM2', 'opening_bal', 8, 'opening_bal', '', 'done'),
 ('130', 'Eden Cline', '002_001_003', 'MM1', 'opening_bal', 9, 'opening_bal', 'kg', 'done'),
 ('180', 'Georgia Frye', '002_001_004', 'MM1', 'opening_bal', 10, 'opening_bal', 'kg', 'done'),
 ('230', 'Georgia Frye', '002_001_004', 'MM2', 'opening_bal', 11, 'opening_bal', 'kg', 'done'),
-('20', 'Georgia Frye', '002_001_004', 'MM2', '4', 12, '3', 'kg', 'approved'),
-('10', 'Georgia Frye', '002_001_004', 'MM2', '5', 13, '3', 'kg', 'approved');
+('20', 'Georgia Frye', '002_001_004', 'MM2', '4', 12, '3', 'kg', 'done'),
+('10', 'Georgia Frye', '002_001_004', 'MM2', '5', 13, '3', 'kg', 'done'),
+('1', 'Kaden Dawson', '001_002_001', 'MM2', '6', 14, '4', 'kg', 'done'),
+('1', 'Georgia Frye', '002_001_004', 'MM2', '6', 15, '4', 'kg', 'done');
 
 -- --------------------------------------------------------
 
@@ -1613,17 +1720,18 @@ CREATE TABLE `tbl_supplier` (
   `physical_address` varchar(50) NOT NULL,
   `tax_id` varchar(50) NOT NULL,
   `payment_terms` varchar(100) NOT NULL,
-  `number_of_days` varchar(50) NOT NULL DEFAULT '30'
+  `number_of_days` varchar(50) NOT NULL DEFAULT '30',
+  `status` varchar(100) NOT NULL DEFAULT 'pending'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_supplier`
 --
 
-INSERT INTO `tbl_supplier` (`supplier_id`, `name`, `email`, `tel_no`, `postal_address`, `physical_address`, `tax_id`, `payment_terms`, `number_of_days`) VALUES
-(1, 'Leila Stokes', 'pinaki@mailinator.com', '+1 (813) 909-5333', 'Minim rerum dolores ', 'Animi est nostrud q', 'Id debitis voluptat', '19', '30'),
-(2, 'Kuame Johns', 'myjykyw@mailinator.com', '+1 (803) 798-8085', 'Atque accusamus inci', 'Voluptatibus volupta', 'Quo perferendis recu', '30', '30'),
-(3, 'Dolan Mendoza', 'medokitizu@mailinator.com', '+1 (785) 947-5304', 'Ipsa incididunt in ', 'Distinctio In ea an', 'Veniam in consequat', '24', '30');
+INSERT INTO `tbl_supplier` (`supplier_id`, `name`, `email`, `tel_no`, `postal_address`, `physical_address`, `tax_id`, `payment_terms`, `number_of_days`, `status`) VALUES
+(1, 'Leila Stokes', 'pinaki@mailinator.com', '+1 (813) 909-5333', 'Minim rerum dolores ', 'Animi est nostrud q', 'Id debitis voluptat', '19', '30', 'pending'),
+(2, 'Kuame Johns', 'myjykyw@mailinator.com', '+1 (803) 798-8085', 'Atque accusamus inci', 'Voluptatibus volupta', 'Quo perferendis recu', '30', '30', 'pending'),
+(3, 'Dolan Mendoza', 'medokitizu@mailinator.com', '+1 (785) 947-5304', 'Ipsa incididunt in ', 'Distinctio In ea an', 'Veniam in consequat', '24', '30', 'pending');
 
 -- --------------------------------------------------------
 
@@ -1761,6 +1869,54 @@ CREATE TABLE `tbl_vehicle` (
 INSERT INTO `tbl_vehicle` (`vehicle_no`, `type`) VALUES
 ('KCY-409J', 'Truck');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_voucher`
+--
+
+CREATE TABLE `tbl_voucher` (
+  `voucher_type` varchar(20) NOT NULL,
+  `voucher_no` varchar(100) NOT NULL,
+  `debit` varchar(30) NOT NULL,
+  `credit` varchar(30) NOT NULL,
+  `remarks` text NOT NULL,
+  `date` date NOT NULL,
+  `id` int(11) NOT NULL,
+  `branch` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_voucher`
+--
+
+INSERT INTO `tbl_voucher` (`voucher_type`, `voucher_no`, `debit`, `credit`, `remarks`, `date`, `id`, `branch`) VALUES
+('Credit', 'CN-008', '1', '1', 'Id mollit ex lorem n', '2017-12-28', 35, ''),
+('Credit', 'CN-003', '1', '1', 'Id mollit ex lorem n', '2017-12-28', 36, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_voucher_items`
+--
+
+CREATE TABLE `tbl_voucher_items` (
+  `voucher_no` varchar(100) NOT NULL,
+  `ledger` varchar(50) NOT NULL,
+  `amount` varchar(100) NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `id` int(100) NOT NULL,
+  `date` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_voucher_items`
+--
+
+INSERT INTO `tbl_voucher_items` (`voucher_no`, `ledger`, `amount`, `type`, `id`, `date`) VALUES
+('CN-007', 'Meeee', '1', 'Debit', 67, '2017-12-28'),
+('CN-008', 'Meeee', '1', 'Debit', 69, '2017-12-28');
+
 --
 -- Indexes for dumped tables
 --
@@ -1770,6 +1926,12 @@ INSERT INTO `tbl_vehicle` (`vehicle_no`, `type`) VALUES
 --
 ALTER TABLE `supplier_product`
   ADD PRIMARY KEY (`product_name`,`supplier_name`);
+
+--
+-- Indexes for table `tbl_asset`
+--
+ALTER TABLE `tbl_asset`
+  ADD PRIMARY KEY (`number`);
 
 --
 -- Indexes for table `tbl_attendance`
@@ -1871,6 +2033,12 @@ ALTER TABLE `tbl_invoice_items`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_leavecat`
+--
+ALTER TABLE `tbl_leavecat`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_ledger`
 --
 ALTER TABLE `tbl_ledger`
@@ -1881,7 +2049,7 @@ ALTER TABLE `tbl_ledger`
 -- Indexes for table `tbl_ledger_amounts`
 --
 ALTER TABLE `tbl_ledger_amounts`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`group_code`,`ledger`,`amount`,`date`,`status`);
 
 --
 -- Indexes for table `tbl_muster`
@@ -2089,6 +2257,19 @@ ALTER TABLE `tbl_vehicle`
   ADD PRIMARY KEY (`vehicle_no`);
 
 --
+-- Indexes for table `tbl_voucher`
+--
+ALTER TABLE `tbl_voucher`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_voucher_items`
+--
+ALTER TABLE `tbl_voucher_items`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `voucher_no` (`voucher_no`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -2132,19 +2313,19 @@ ALTER TABLE `tbl_emp_benefit`
 -- AUTO_INCREMENT for table `tbl_invoice`
 --
 ALTER TABLE `tbl_invoice`
-  MODIFY `salesbill_no` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `salesbill_no` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_invoice_items`
 --
 ALTER TABLE `tbl_invoice_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `tbl_ledger_amounts`
+-- AUTO_INCREMENT for table `tbl_leavecat`
 --
-ALTER TABLE `tbl_ledger_amounts`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tbl_leavecat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_nhif`
@@ -2156,13 +2337,13 @@ ALTER TABLE `tbl_nhif`
 -- AUTO_INCREMENT for table `tbl_paye`
 --
 ALTER TABLE `tbl_paye`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tbl_prdmapping`
 --
 ALTER TABLE `tbl_prdmapping`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tbl_product`
@@ -2174,25 +2355,25 @@ ALTER TABLE `tbl_product`
 -- AUTO_INCREMENT for table `tbl_purchaseorder`
 --
 ALTER TABLE `tbl_purchaseorder`
-  MODIFY `po_number` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `po_number` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_purchaseorder_items`
 --
 ALTER TABLE `tbl_purchaseorder_items`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_purchase_bill`
 --
 ALTER TABLE `tbl_purchase_bill`
-  MODIFY `purchasebill_no` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `purchasebill_no` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_purchase_bill_items`
 --
 ALTER TABLE `tbl_purchase_bill_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tbl_quotation`
@@ -2204,43 +2385,43 @@ ALTER TABLE `tbl_quotation`
 -- AUTO_INCREMENT for table `tbl_receiptadv`
 --
 ALTER TABLE `tbl_receiptadv`
-  MODIFY `rem_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `rem_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_receiptadv_items`
 --
 ALTER TABLE `tbl_receiptadv_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_remittance`
 --
 ALTER TABLE `tbl_remittance`
-  MODIFY `rem_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `rem_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_remittance_items`
 --
 ALTER TABLE `tbl_remittance_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_requisition`
 --
 ALTER TABLE `tbl_requisition`
-  MODIFY `requisition_No` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `requisition_No` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_requisition_items`
 --
 ALTER TABLE `tbl_requisition_items`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_sale`
 --
 ALTER TABLE `tbl_sale`
-  MODIFY `quote_no` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `quote_no` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_shift`
@@ -2258,13 +2439,13 @@ ALTER TABLE `tbl_staff_items`
 -- AUTO_INCREMENT for table `tbl_store`
 --
 ALTER TABLE `tbl_store`
-  MODIFY `receipt_no` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `receipt_no` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_store_item`
 --
 ALTER TABLE `tbl_store_item`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tbl_subcategory`
@@ -2295,6 +2476,18 @@ ALTER TABLE `tbl_transfer_items`
 --
 ALTER TABLE `tbl_unit`
   MODIFY `unit_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tbl_voucher`
+--
+ALTER TABLE `tbl_voucher`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT for table `tbl_voucher_items`
+--
+ALTER TABLE `tbl_voucher_items`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- Constraints for dumped tables
