@@ -14,6 +14,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $mysql = "INSERT INTO tbl_paybill (rem_no, cheque_no, amount, supplier_name, bank_name, date, cheque_type, pay_type) 
             VALUES('" . $rem_no . "','" . $cheque_no . "','" . $amount . "','" . $supplier . "', '" . $bank . "','" . $date . "','" . $cheque_type . "', '" . $pay_type . "')";
   mysqli_query($conn, $mysql);
+  $mysql1 = "INSERT INTO tbl_ledger_amounts (group_code, ledger, amount, date, status) 
+                VALUES('010201', '" . $supplier . "', '" . $amount . "', '" . $date . "', 'Credit')";
+  if (mysqli_query($conn, $mysql1)) {
+    $mysql2 = "INSERT INTO tbl_ledger_amounts (group_code, ledger, amount, date, status) 
+                VALUES('010107', '" . $bank . "', '" . $amount . "', '" . $date . "', 'Debit')";
+    mysqli_query($conn, $mysql2);
+  }
 
   $sql = "UPDATE tbl_receiptadv_items SET status = 'done' WHERE rem_no='$rem_no'";
   $sql2 = "UPDATE tbl_receiptadv SET status = 'done' WHERE rem_no='$rem_no'";
