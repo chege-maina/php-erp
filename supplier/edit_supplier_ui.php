@@ -119,6 +119,61 @@ include '../includes/base_page/head.php';
       const sup_physical_address = document.querySelector("#sup_physical_address");
       const sup_tax_id = document.querySelector("#sup_tax_id");
       const payment_terms = document.querySelector("#payment_terms");
+      const supplier_status = document.querySelector("#supplier_status");
+
+
+      const approve_button = document.querySelector("#approve_button");
+      const reject_button = document.querySelector("#reject_button");
+
+
+      window.addEventListener('DOMContentLoaded', (event) => {
+        const s_id = sessionStorage.getItem("Supplier_Code");
+
+        const formData = new FormData();
+        formData.append("s_id", );
+
+        fetch('load_supplier_details.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(result => {
+            if ('message' in result) {
+              // If we are getting a message means there is an error
+              return;
+            }
+            console.log('Success:', result);
+            result = result[0];
+            sup_nm.value = result.name;
+            sup_email.value = result.email;
+            sup_tel.value = result.tel_no;
+            sup_postal.value = result.postal_address;
+            sup_physical_address.value = result.physical_address;
+            sup_tax_id.value = result.tax_id;
+            payment_terms.value = result.payment_terms;
+
+            // About to show status
+            switch (result.status) {
+              case "pending":
+                supplier_status.innerHTML = `<span class="badge badge-soft-secondary">Pending</span>`;
+                break;
+              case "active":
+                supplier_status.innerHTML = `<span class="badge badge-soft-success">Active</span>`;
+                approve_button.disabled = true;
+                reject_button.disabled = true;
+                break;
+              case "rejected":
+                supplier_status.innerHTML = `<span class="badge badge-soft-warning">Rejected</span>`;
+                reject_button.disabled = true;
+                break;
+            }
+
+
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      });
     </script>
 
 
