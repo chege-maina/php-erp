@@ -123,11 +123,11 @@ include '../includes/base_page/head.php';
 
         <div class="card mt-1">
           <div class="card-body fs--1 p-2">
-            <button class="btn btn-falcon-success btn-sm mr-2">
+            <button class="btn btn-falcon-success btn-sm mr-2" id="approve_button">
               <span class="fas fa-check mr-1" data-fa-transform="shrink-3"></span>
               Approve
             </button>
-            <button class="btn btn-falcon-danger btn-sm">
+            <button class="btn btn-falcon-danger btn-sm" id="reject_button">
               <span class="fas fa-times mr-1" data-fa-transform="shrink-3"></span>
               Reject
             </button>
@@ -165,6 +165,9 @@ include '../includes/base_page/head.php';
           const p_selling_price_bulk = document.querySelector("#p_selling_price_bulk");
           const p_margin = document.querySelector("#p_margin");
           const product_status = document.querySelector("#product_status");
+
+          const approve_button = document.querySelector("#approve_button");
+          const reject_button = document.querySelector("#reject_button");
 
 
           window.addEventListener('DOMContentLoaded', (event) => {
@@ -207,9 +210,12 @@ include '../includes/base_page/head.php';
                     break;
                   case "active":
                     product_status.innerHTML = `<span class="badge badge-soft-success">Active</span>`;
+                    approve_button.disabled = true;
+                    reject_button.disabled = true;
                     break;
                   case "rejected":
                     product_status.innerHTML = `<span class="badge badge-soft-warning">Rejected</span>`;
+                    approve_button.disabled = true;
                     break;
                 }
               })
