@@ -130,7 +130,7 @@ include '../includes/base_page/head.php';
         const s_id = sessionStorage.getItem("Supplier_Code");
 
         const formData = new FormData();
-        formData.append("s_id", );
+        formData.append("s_id", s_id);
 
         fetch('load_supplier_details.php', {
             method: 'POST',
@@ -138,6 +138,7 @@ include '../includes/base_page/head.php';
           })
           .then(response => response.json())
           .then(result => {
+            console.log(result);
             if ('message' in result) {
               // If we are getting a message means there is an error
               return;
