@@ -184,7 +184,7 @@ include '../includes/base_page/head.php';
         ledger: t_ledger,
         kes: t_kes,
         credit: t_credit,
-
+        code: ledgers_with_codes[t_ledger].group_id,
       });
     });
 
@@ -192,7 +192,7 @@ include '../includes/base_page/head.php';
 
     tmp_obj["table_items"] = JSON.stringify(types);
     console.log("==================================");
-    console.log(tmp_obj);
+    console.log("table_items", tmp_obj);
     console.log("==================================");
 
     return tmp_obj
@@ -201,22 +201,27 @@ include '../includes/base_page/head.php';
   function submitForm() {
 
     if (!remarks.value) {
+      remarks.focus();
       return;
     }
 
     if (!startdate.value) {
+      startdate.focus();
       return;
     }
 
     if (!voucher.value) {
+      voucher.focus();
       return;
     }
 
     if (!debit.value) {
+      debit.focus();
       return;
     }
 
     if (!credit.value) {
+      credit.focus();
       return;
     }
 
@@ -264,6 +269,7 @@ include '../includes/base_page/head.php';
   const items_in_table = {};
   const c_table_body = document.querySelector("#c_table_body");
   const ledgers = [];
+  const ledgers_with_codes = {};
 
 
   window.addEventListener('DOMContentLoaded', (event) => {
@@ -275,9 +281,11 @@ include '../includes/base_page/head.php';
 
         result.forEach(row => {
           ledgers.push(row['ledger_name']);
+
+          ledgers_with_codes[row.ledger_name] = row;
         });
 
-        console.log("hello", ledgers);
+        console.log("hello", ledgers, ledgers_with_codes);
 
       })
       .catch((error) => {
