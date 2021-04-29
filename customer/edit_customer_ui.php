@@ -129,6 +129,39 @@ include '../includes/base_page/head.php';
       const credit_limit = document.querySelector("#credit_limit");
       const customer_status = document.querySelector("#customer_status");
 
+      window.addEventListener('DOMContentLoaded', (event) => {
+        const c_name = sessionStorage.getItem("Name");
+        const c_email = sessionStorage.getItem("Email");
+
+        const formData = new FormData();
+        formData.append("name", c_name);
+        formData.append("email", c_email);
+        fetch('load_customer_details.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(result => {
+            if ('message' in result) {
+              // If we are getting a message means there is an error
+              return;
+            }
+            console.log('Success:', result);
+            result = result[0];
+            customer_nm.value = result.name;
+            customer_email.value = result.email;
+            customer_tel.value = result.tel_no;
+            customer_postal.value = result.postal_address;
+            customer_physical_address.value = result.physical_address;
+            customer_tax_id.value = result.tax_id;
+            payment_terms.value = result.payment_terms;
+            credit_limit.value = result.credit_limit;
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      });
+
 
 
       function sendEverything() {
