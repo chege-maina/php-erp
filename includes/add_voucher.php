@@ -26,7 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $branch = sanitize_input($_POST["branch"]);
   $table_items = json_decode($_POST["table_items"], true);
 
-  echo $remarks;
 
   if (strcmp($type, 'Journal') == 0) {
     $prefix = "JV-";
@@ -73,13 +72,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     foreach ($table_items as $key => $value) {
 
       $mysql = "INSERT INTO tbl_voucher_items (date, voucher_no, ledger, amount, 
-  type) VALUES('" . $date . "','" . $quote_no . "','" . $value["ledger"] . "',
-  '" . $value["kes"] . "','" . $value["credit"] . "')";
+  type, group_code) VALUES('" . $date . "','" . $quote_no . "','" . $value["ledger"] . "',
+  '" . $value["kes"] . "','" . $value["credit"] . "','" . $value["code"] . "')";
       mysqli_query($conn, $mysql);
-
-      $message = "Voucher " . $quote_no . " Created Successfully..";
-      echo json_encode($message);
+      $mysql2 = "INSERT INTO tbl_ledger_amounts (group_code, ledger, amount, date, status) 
+                VALUES('" . $value["code"] . "', '" . $value["ledger"] . "', '" . $value["kes"] . "', '" . $date . "', '" . $value["credit"] . "')";
+      mysqli_query($conn, $mysql2);
     }
+    $message = "Voucher " . $quote_no . " Created Successfully..";
+    echo json_encode($message);
   } else {
     // echo "Multiquery failed: " . $mysql;
     echo "Multi query failed: (" . $conn->errno . ") " . $conn->error . "sql: " . $mysql;
