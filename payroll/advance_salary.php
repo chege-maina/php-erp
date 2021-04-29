@@ -399,8 +399,7 @@ include '../includes/base_page/head.php';
         fetch('add_advanced.php', {
             method: 'POST',
             body: formData
-          })
-          .then(response => response.json())
+          }).then(response => response.json())
           .then(result => {
             console.log('Success:', result);
 
@@ -415,7 +414,6 @@ include '../includes/base_page/head.php';
             setTimeout(function() {
               location.reload();
             }, 2500);
-
           })
           .catch(error => {
             console.error('Error:', error);
