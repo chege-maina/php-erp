@@ -105,6 +105,25 @@ include '../includes/base_page/head.php';
 
           function submitForm() {
 
+            if (!job_number.value) {
+              return;
+            }
+
+            if (!nhif_no.value) {
+              return;
+            }
+            if (!nssf_no.value) {
+              return;
+            }
+            if (!pin_no.value) {
+              return;
+            }
+            if (!national_id.value) {
+              return;
+            }
+
+
+
             const formData = new FormData();
 
             console.log("=======================================");
