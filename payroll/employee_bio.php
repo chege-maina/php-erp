@@ -34,7 +34,7 @@
       <label for="residence" class="form-label">Residential Status</label>
       <select name="residence" id="residential_status" class="form-select">
         <option value="Resident">Resident</option>
-        <option value="Resident">Resident</option>
+        <option value="Non Resident">Non Resident</option>
       </select>
     </div>
   </div>

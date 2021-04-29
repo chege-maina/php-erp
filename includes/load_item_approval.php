@@ -8,9 +8,10 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $code = $_POST["code"];
 
-  $stat = "pending";
+  // $stat = "pending";
 
-  $query = "SELECT * FROM tbl_product WHERE product_code='$code' and status='$stat'";
+  // $query = "SELECT * FROM tbl_product WHERE product_code='$code' and status='$stat'";
+  $query = "SELECT * FROM tbl_product WHERE product_code='$code'";
   $result = mysqli_query($conn, $query);
   $response = array();
 
@@ -33,7 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'default_sp' => $row['dsp_price'],
         'default_sp_bulk' => $row['bs_price'],
         'inc_tax' => $row['dpp_inc_tax'],
-        'margin' => $row['profit_margin']
+        'margin' => $row['profit_margin'],
+        'status' => $row['status']
       )
     );
   }

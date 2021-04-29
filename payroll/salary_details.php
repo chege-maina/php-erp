@@ -16,7 +16,7 @@
     <div class="col">
       <label for="shift" class="form-label">Work Shift</label>
       <select name="shift" id="work_shift" class="form-select">
-        <option value="Regular">Regular shift</option>
+        <option value disabled selected>-- SELECT WORK SHIFT --</option>
       </select>
     </div>
   </div>
@@ -108,4 +108,9 @@
     }
     return tmp;
   }
+
+  window.addEventListener('DOMContentLoaded', (event) => {
+
+    populateSelectElement("#work_shift", '../payroll/load_shift.php', "name");
+  });
 </script>
