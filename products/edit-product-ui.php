@@ -177,7 +177,7 @@ include '../includes/base_page/head.php';
                 method: 'POST',
                 body: formData
               })
-              .then(response => response.json())
+              .then(response => response.text())
               .then(result => {
                 console.log('Success:', result);
               })
@@ -228,11 +228,10 @@ include '../includes/base_page/head.php';
                   case "active":
                     product_status.innerHTML = `<span class="badge badge-soft-success">Active</span>`;
                     approve_button.disabled = true;
-                    reject_button.disabled = true;
                     break;
                   case "rejected":
                     product_status.innerHTML = `<span class="badge badge-soft-warning">Rejected</span>`;
-                    approve_button.disabled = true;
+                    reject_button.disabled = true;
                     break;
                 }
               })
