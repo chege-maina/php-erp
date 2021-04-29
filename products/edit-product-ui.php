@@ -123,11 +123,11 @@ include '../includes/base_page/head.php';
 
         <div class="card mt-1">
           <div class="card-body fs--1 p-2">
-            <button class="btn btn-falcon-success btn-sm mr-2" id="approve_button">
+            <button class="btn btn-falcon-success btn-sm mr-2" id="approve_button" onclick="submitForm('approve')">
               <span class="fas fa-check mr-1" data-fa-transform="shrink-3"></span>
               Approve
             </button>
-            <button class="btn btn-falcon-danger btn-sm" id="reject_button">
+            <button class="btn btn-falcon-danger btn-sm" id="reject_button" onclick="submitForm('reject')">
               <span class="fas fa-times mr-1" data-fa-transform="shrink-3"></span>
               Reject
             </button>
@@ -168,6 +168,23 @@ include '../includes/base_page/head.php';
 
           const approve_button = document.querySelector("#approve_button");
           const reject_button = document.querySelector("#reject_button");
+
+          function submitForm(action) {
+            const formData = new FormData();
+            formData.append("code", p_code.value);
+            formData.append("action", action);
+            fetch('./approve_reject_item.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+                console.log('Success:', result);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+          }
 
 
           window.addEventListener('DOMContentLoaded', (event) => {
