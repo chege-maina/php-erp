@@ -129,6 +129,9 @@ include '../includes/base_page/head.php';
       const credit_limit = document.querySelector("#credit_limit");
       const customer_status = document.querySelector("#customer_status");
 
+      const approve_button = document.querySelector("#approve_button");
+      const reject_button = document.querySelector("#reject_button");
+
       window.addEventListener('DOMContentLoaded', (event) => {
         const c_name = sessionStorage.getItem("Name");
         const c_email = sessionStorage.getItem("Email");
@@ -156,6 +159,24 @@ include '../includes/base_page/head.php';
             customer_tax_id.value = result.tax_id;
             payment_terms.value = result.payment_terms;
             credit_limit.value = result.credit_limit;
+
+            // About to show status
+            switch (result.status) {
+              case "pending":
+                customer_status.innerHTML = `<span class="badge badge-soft-secondary">Pending</span>`;
+                break;
+              case "active":
+                customer_status.innerHTML = `<span class="badge badge-soft-success">Active</span>`;
+                approve_button.disabled = true;
+                reject_button.disabled = true;
+                break;
+              case "rejected":
+                customer_status.innerHTML = `<span class="badge badge-soft-warning">Rejected</span>`;
+                reject_button.disabled = true;
+                break;
+            }
+
+
           })
           .catch(error => {
             console.error('Error:', error);
