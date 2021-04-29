@@ -34,6 +34,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+        <div id="alert-div"></div>
         <h5 class="mb-3">Product Details</h5>
         <div class="card">
           <div class="card-body fs--1 p-4">
@@ -177,9 +178,35 @@ include '../includes/base_page/head.php';
                 method: 'POST',
                 body: formData
               })
-              .then(response => response.text())
+              .then(response => response.json())
               .then(result => {
-                console.log('Success:', result);
+                console.log('Server says:', result);
+
+                if (result["message"] == "success") {
+                  const alertVar =
+                    `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> Saved changes.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                  var divAlert = document.querySelector("#alert-div");
+                  divAlert.innerHTML = alertVar;
+                  divAlert.scrollIntoView();
+                  setTimeout(function() {
+                    location.reload();
+                    location.href = "./product-listing-ui.php";
+                  }, 2500);
+                } else {
+                  const alertVar =
+                    `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Error!</strong> Could not save changes.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                  var divAlert = document.querySelector("#alert-div");
+                  divAlert.innerHTML = alertVar;
+                  divAlert.scrollIntoView();
+                }
+
+                return false;
               })
               .catch(error => {
                 console.error('Error:', error);
@@ -228,6 +255,7 @@ include '../includes/base_page/head.php';
                   case "active":
                     product_status.innerHTML = `<span class="badge badge-soft-success">Active</span>`;
                     approve_button.disabled = true;
+                    reject_button.disabled = true;
                     break;
                   case "rejected":
                     product_status.innerHTML = `<span class="badge badge-soft-warning">Rejected</span>`;
