@@ -34,15 +34,12 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+        <h5 class="mb-2">Chart of Accounts</h5>
         <div class="card">
-          <div class="card-header bg-light">
-            <h5 class="mb-0">Vuetiful Staff</h5>
-          </div>
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
-            <?php
-            include './components/stepper.php';
-            ?>
+            <?php include 'components/vc_tree.php' ?>
+
             <!-- Content ends here -->
           </div>
           <!-- Additional cards can be added here -->

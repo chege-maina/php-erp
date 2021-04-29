@@ -133,6 +133,8 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/add_ledger_ui.php">Add Ledger</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/ledger_listing_ui.php">Ledger Listing</a>
+  </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/product_accounts.php">Accounts Mapping</a>
   </li>
 </ul>
@@ -192,6 +194,8 @@ function genSideBar()
   <li class="nav-item"><a class="nav-link" href="../payroll/emp_benefit.php">Earnings and Deductions</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../payroll/advance_salary.php">Advance Salary</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../payroll/advance_listing_ui.php">Advance Listing</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../payroll/expense_mngt.php">Company Loans</a>
   </li>
