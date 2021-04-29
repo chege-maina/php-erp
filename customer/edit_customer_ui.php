@@ -90,11 +90,11 @@ include '../includes/base_page/head.php';
           </div>
           <div class="card mt-1">
             <div class="card-body fs--1 p-3 px-4">
-              <button class="btn btn-falcon-success btn-sm mr-2" id="approve_button" onclick="submitForm('approve')">
+              <button type="button" class="btn btn-falcon-success btn-sm mr-2" id="approve_button" onclick="submitForm('approve')">
                 <span class="fas fa-check mr-1" data-fa-transform="shrink-3"></span>
                 Approve
               </button>
-              <button class="btn btn-falcon-danger btn-sm" id="reject_button" onclick="submitForm('reject')">
+              <button type="button" class="btn btn-falcon-danger btn-sm" id="reject_button" onclick="submitForm('reject')">
                 <span class="fas fa-times mr-1" data-fa-transform="shrink-3"></span>
                 Reject
               </button>
@@ -182,6 +182,53 @@ include '../includes/base_page/head.php';
             console.error('Error:', error);
           });
       });
+
+
+      function submitForm(action) {
+        const formData = new FormData();
+        formData.append("name", customer_nm.value);
+        formData.append("email", customer_email.value);
+        formData.append("action", action);
+        fetch('./approve_reject_customer.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(result => {
+            console.log('Server says:', result);
+
+            if (result["message"] == "success") {
+              const alertVar =
+                `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> Saved changes.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+              var divAlert = document.querySelector("#alert-div");
+              divAlert.innerHTML = alertVar;
+              divAlert.scrollIntoView();
+              setTimeout(function() {
+                location.reload();
+                location.href = "./customer_listing_ui.php";
+              }, 2500);
+            } else {
+              const alertVar =
+                `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Error!</strong> Could not save changes.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+              var divAlert = document.querySelector("#alert-div");
+              divAlert.innerHTML = alertVar;
+              divAlert.scrollIntoView();
+            }
+
+            return false;
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      }
+
+
 
 
 
