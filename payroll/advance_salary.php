@@ -320,6 +320,8 @@ include '../includes/base_page/head.php';
         const tmp_obj = {};
         const table_body = document.querySelector("#table_body");
         const benefits = [];
+        let error_found = false;
+
         table_body.childNodes.forEach(row => {
 
           const k_job = row.childNodes[0].innerHTML;
@@ -327,7 +329,17 @@ include '../includes/base_page/head.php';
           const k_lname = row.childNodes[2].innerHTML;
           const k_nat = row.childNodes[3].innerHTML;
           const k_amount = row.childNodes[4].childNodes[0].value;
+          if (Number(k_amount) <= 0) {
+            row.childNodes[4].childNodes[0].focus()
+            error_found = true;
+            return;
+          }
           const k_date = row.childNodes[5].value;
+          if (!row.childNodes[5].validity.valid) {
+            row.childNodes[5].focus();
+            error_found = true;
+            return;
+          }
 
 
           benefits.push({
@@ -341,26 +353,39 @@ include '../includes/base_page/head.php';
           });
         });
 
-        console.log("submitting", benefits);
+        if (error_found) {
+          return false;
+        } else {
 
-        tmp_obj["table_items"] = JSON.stringify(benefits);
-        console.log("==================================");
-        console.log(tmp_obj);
-        console.log("==================================");
 
-        return tmp_obj
+          console.log("submitting", benefits);
+
+          tmp_obj["table_items"] = JSON.stringify(benefits);
+          console.log("==================================");
+          console.log(tmp_obj);
+          console.log("==================================");
+
+          return tmp_obj
+        }
       }
 
       function submitForm() {
 
         if (!adv_year.value) {
+          adv_year.focus();
           return;
         }
 
         if (!month.value) {
+          month.focus();
           return;
         }
         let tmp_obj = getItems();
+
+        if (!tmp_obj) {
+          console.log("Some error found in the table body");
+          return false;
+        }
 
         const formData = new FormData();
         formData.append("year", adv_year.value);
@@ -375,10 +400,18 @@ include '../includes/base_page/head.php';
             method: 'POST',
             body: formData
           })
-          .then(response => response.text())
+          .then(response => response.json())
           .then(result => {
             console.log('Success:', result);
 
+            const alertVar =
+              `<div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>Success!</strong> ${result}
+          <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+          </div>`;
+            var divAlert = document.querySelector("#alert-div");
+            divAlert.innerHTML = alertVar;
+            divAlert.scrollIntoView();
             setTimeout(function() {
               location.reload();
             }, 2500);
@@ -386,9 +419,9 @@ include '../includes/base_page/head.php';
           })
           .catch(error => {
             console.error('Error:', error);
+
           });
 
-        return false;
       }
     </script>
     <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
