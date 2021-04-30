@@ -1,11 +1,13 @@
 <template>
   <div>
+    <!--
     <div class="d-flex flex-row-reverse mb-0">
       <button class="btn btn-falcon-default" v-on:click="sortUp()">up</button>
       <button class="btn btn-falcon-default ml-2" v-on:click="sortDown()">
         down
       </button>
     </div>
+    -->
     <div class="d-flex flex-row-reverse mb-0">
       <ul class="pagination pagination-sm ml-2">
         <li class="page-item active">
@@ -57,6 +59,7 @@
         <tr>
           <th scope="col">
             #
+            <!--
             <span v-if="largest_first">
               <button
                 class="btn btn-sm btn-outline-secondary px-0 py-0"
@@ -129,6 +132,7 @@
                 </svg>
               </button>
             </span>
+            -->
           </th>
           <template v-for="(item, key) in header">
             <th
@@ -138,6 +142,7 @@
               v-if="item.key !== 'key'"
             >
               {{ item.name }}
+              <!--
               <span v-if="largest_first">
                 <button
                   class="btn btn-sm btn-outline-secondary px-0 py-0"
@@ -210,7 +215,7 @@
                   </svg>
                 </button>
               </span>
-            </th>
+            --></th>
           </template>
           <th scope="col">Action</th>
         </tr>
@@ -235,6 +240,34 @@
               <span v-else-if="header_object[key].computed">{{
                 computeField(header_object[key].operation, item.key, key)
               }}</span>
+              <span
+                v-else-if="header_object[key].name.toLowerCase() == 'status'"
+              >
+                <span
+                  v-if="value.toLowerCase() == 'pending'"
+                  class="badge badge-soft-secondary"
+                >
+                  {{ value }}
+                </span>
+                <span
+                  v-else-if="
+                    value.toLowerCase() == 'active' ||
+                    value.toLowerCase() == 'approved'
+                  "
+                  class="badge badge-soft-success"
+                >
+                  {{ value }}
+                </span>
+                <span
+                  v-else-if="value.toLowerCase() == 'rejected'"
+                  class="badge badge-soft-danger"
+                >
+                  {{ value }}
+                </span>
+                <span v-else class="badge badge-soft-success">
+                  {{ value }}
+                </span>
+              </span>
               <span v-else>{{ value }}</span>
             </td>
           </template>
@@ -571,17 +604,7 @@ export default {
       }
 
       unsorted_array.sort(function (a, b) {
-        let nameA = IsNan(a["key"]) String(a.key).toUpperCase(); // ignore upper and lowercase
-        let nameB = String(b.key).toUpperCase(); // ignore upper and lowercase
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
-
-        // names must be equal
-        return 0;
+        return (a.key - b.key) * -1;
       });
 
       let tmp_obj = {};

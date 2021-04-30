@@ -38,6 +38,7 @@ include '../includes/base_page/head.php';
         <div class="card">
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
+            <?php include 'components/chart_tree_data_loader.php' ?>
             <?php include 'components/vc_tree.php' ?>
 
             <!-- Content ends here -->

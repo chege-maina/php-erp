@@ -71,7 +71,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   '" . $value["p_price"] . "','" . $value["p_amount"] . "','" . $value["p_tax"] . "','" . $value["p_tax_pc"] . "','" . $branch . "','" . $value["p_conversion"] . "','" . $value["p_atomic_unit"] . "','" . $value["p_atomic_price"] . "','" . $value["p_selected_unit"] . "','" . $value["p_entered_price"] . "')";
 
       mysqli_query($conn, $mysql) or die(mysqli_error($conn));
-      echo $mysql;
     }
     if (strcmp($checker, 'from quote') == 0) {
       $sql1 = "UPDATE tbl_quotation_items SET status = 'done' WHERE quote_no = '" . $quotation_no . "'";

@@ -18,7 +18,7 @@ while ($row = mysqli_fetch_assoc($result)) {
       'Date' => $row['date'],
       'Credit' => $row['credit'],
       'Debit' => $row['debit'],
-      'Remarks' => $row['remarks']
+      'Status' => $row['status']
     )
   );
 }
