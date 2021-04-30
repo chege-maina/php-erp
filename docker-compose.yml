@@ -47,3 +47,9 @@ services:
 volumes:
   mysql-data:
   uploads:
+# DB_SERVER=
+# DB_USER=
+# DB_PASS=
+# DB_NAME=
+# MAIN_PORT=
+# PMA_PORT=
