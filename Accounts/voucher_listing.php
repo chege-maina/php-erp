@@ -74,7 +74,7 @@ include '../includes/base_page/head.php';
             elem.setAttribute("json_items", JSON.stringify(getItems(data)));
 
             elem.setAttribute("manage_key", "Voucher_No");
-            elem.setAttribute("redirect", getBaseUrl() + "/Accounts/asset_description.php");
+            elem.setAttribute("redirect", getBaseUrl() + "/Accounts/voucher_editing.php");
             // elem.classList.add("is-fullwidth");
             datatable.appendChild(elem);
           };
