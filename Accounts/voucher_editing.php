@@ -64,10 +64,18 @@ include '../includes/base_page/head.php';
         </div>
 
         <div class="card mt-1">
-          <div class="card-header p-2 pb-2 mb-0 bg-100">
-            <h6 class="mb-0">Items</h6>
-          </div>
           <div class="card-body">
+            <table class="table table-sm table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Group Code</th>
+                  <th>Ledger</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody id="table_body">
+              </tbody>
+            </table>
           </div>
         </div>
 
@@ -134,7 +142,7 @@ include '../includes/base_page/head.php';
                 method: 'POST',
                 body: formData
               })
-              .then(response => response.text())
+              .then(response => response.json())
               .then(result => {
                 console.log('Success:', result);
                 if (result.length <= 0) {
@@ -147,11 +155,28 @@ include '../includes/base_page/head.php';
                 remarks.value = result.remarks;
                 total_credit.value = result.total_credit;
                 total_debit.value = result.total_debit;
+                updateTable(result.table_items);
               })
               .catch(error => {
                 console.error('Error:', error);
               });
           });
+
+          const table_body = document.querySelector("#table_body");
+
+
+          function updateTable(data) {
+            console.log(data);
+            data.forEach(row => {
+              const tr = document.createElement("tr");
+              for (key in row) {
+                const td = document.createElement("td");
+                td.appendChild(document.createTextNode(row[key]));
+                tr.appendChild(td);
+              }
+              table_body.appendChild(tr);
+            });
+          }
         </script>
 </body>
 
