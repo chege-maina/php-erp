@@ -36,21 +36,67 @@ include '../includes/base_page/head.php';
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <h4 class="mb-3">Voucher Details</h4>
         <div class="card">
-          <div class="card-header bg-light">
-          </div>
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
-            <div class="mb-3">
-              <label class="form-label" for="exampleFormControlInput1">Email address</label>
-              <input class="form-control" id="exampleFormControlInput1" type="search" placeholder="name@example.com" />
+            <div class="row">
+              <div class="col">
+                <label for="v_no" class="form-label">No*</label>
+                <input class="form-control" type="text" id="v_no" required readonly>
+              </div>
+              <div class="col">
+                <label for="v_type" class="form-label">Type*</label>
+                <input class="form-control" type="text" id="v_type" required readonly>
+              </div>
+              <div class="col">
+                <label for="v_date" class="form-label">Date*</label>
+                <input class="form-control" type="date" id="v_date" required readonly>
+              </div>
             </div>
-            <div class="mb-3">
-              <label class="form-label" for="exampleFormControlTextarea1">Example textarea</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <div class="row mt-3">
+              <div class="col">
+                <label for="remarks" class="form-label">Remarks*</label>
+                <textarea id="remarks" class="form-control form-control-sm" cols="10" rows="3" readonly></textarea>
+              </div>
             </div>
             <!-- Content ends here -->
           </div>
           <!-- Additional cards can be added here -->
+        </div>
+
+        <div class="card mt-1">
+          <div class="card-header p-2 pb-2 mb-0 bg-100">
+            <h6 class="mb-0">Items</h6>
+          </div>
+          <div class="card-body">
+          </div>
+        </div>
+
+        <div class="card mt-1">
+          <div class="card-body">
+            <div class="row mt">
+              <div class="col">
+                <label for="total_credit" class="form-label">Total Credit*</label>
+                <input class="form-control" type="text" id="total_credit" required readonly>
+              </div>
+              <div class="col">
+                <label for="total_debit" class="form-label">Total Debit*</label>
+                <input class="form-control" type="text" id="total_debit" required readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-1">
+          <div class="card-body fs--1 p-3 px-4">
+            <button type="button" class="btn btn-falcon-success btn-sm mr-2" id="approve_button" onclick="submitForm('approve')">
+              <span class="fas fa-check mr-1" data-fa-transform="shrink-3"></span>
+              Approve
+            </button>
+            <button type="button" class="btn btn-falcon-danger btn-sm" id="reject_button" onclick="submitForm('reject')">
+              <span class="fas fa-times mr-1" data-fa-transform="shrink-3"></span>
+              Reject
+            </button>
+          </div>
         </div>
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <!-- body ends here -->
@@ -67,6 +113,29 @@ include '../includes/base_page/head.php';
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <!-- Footer End -->
         <!-- =========================================================== -->
+        <script>
+          let v_id;
+          window.addEventListener('DOMContentLoaded', (event) => {
+            v_id = window.sessionStorage.getItem("Voucher_No");
+            if (v_id == null) {
+              location.href = "voucher_listing.php";
+            }
+
+            const formData = new FormData();
+            formData.append("voucher_no", v_id);
+            fetch('../includes/load_voucher_items.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+                console.log('Success:', result);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+          });
+        </script>
 </body>
 
 </html>
