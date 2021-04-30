@@ -59,6 +59,7 @@
         <tr>
           <th scope="col">
             #
+            <!--
             <span v-if="largest_first">
               <button
                 class="btn btn-sm btn-outline-secondary px-0 py-0"
@@ -131,6 +132,7 @@
                 </svg>
               </button>
             </span>
+            -->
           </th>
           <template v-for="(item, key) in header">
             <th
@@ -140,6 +142,7 @@
               v-if="item.key !== 'key'"
             >
               {{ item.name }}
+              <!--
               <span v-if="largest_first">
                 <button
                   class="btn btn-sm btn-outline-secondary px-0 py-0"
@@ -212,7 +215,7 @@
                   </svg>
                 </button>
               </span>
-            </th>
+            --></th>
           </template>
           <th scope="col">Action</th>
         </tr>
@@ -247,7 +250,10 @@
                   {{ value }}
                 </span>
                 <span
-                  v-else-if="value.toLowerCase() == 'active' || value.toLowerCase() == 'approved'"
+                  v-else-if="
+                    value.toLowerCase() == 'active' ||
+                    value.toLowerCase() == 'approved'
+                  "
                   class="badge badge-soft-success"
                 >
                   {{ value }}

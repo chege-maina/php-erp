@@ -155,6 +155,7 @@ var fails = __webpack_require__("e27f");
 
 // Detect IE8's incomplete defineProperty implementation
 module.exports = !fails(function () {
+  // eslint-disable-next-line es/no-object-defineproperty -- required for testing
   return Object.defineProperty({}, 1, { get: function () { return 7; } })[1] != 7;
 });
 
@@ -187,11 +188,13 @@ var aPossiblePrototype = __webpack_require__("1bb9");
 // `Object.setPrototypeOf` method
 // https://tc39.es/ecma262/#sec-object.setprototypeof
 // Works with __proto__ only. Old v8 can't work with null proto objects.
+// eslint-disable-next-line es/no-object-setprototypeof -- safe
 module.exports = Object.setPrototypeOf || ('__proto__' in {} ? function () {
   var CORRECT_SETTER = false;
   var test = {};
   var setter;
   try {
+    // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
     setter = Object.getOwnPropertyDescriptor(Object.prototype, '__proto__').set;
     setter.call(test, []);
     CORRECT_SETTER = test instanceof Array;
@@ -278,6 +281,7 @@ var createElement = __webpack_require__("72c2");
 
 // Thank's IE8 for his funny defineProperty
 module.exports = !DESCRIPTORS && !fails(function () {
+  // eslint-disable-next-line es/no-object-defineproperty -- requied for testing
   return Object.defineProperty(createElement('div'), 'a', {
     get: function () { return 7; }
   }).a != 7;
@@ -321,6 +325,7 @@ var enumBugKeys = __webpack_require__("1871");
 
 // `Object.keys` method
 // https://tc39.es/ecma262/#sec-object.keys
+// eslint-disable-next-line es/no-object-keys -- safe
 module.exports = Object.keys || function keys(O) {
   return internalObjectKeys(O, enumBugKeys);
 };
@@ -333,18 +338,19 @@ module.exports = Object.keys || function keys(O) {
 
 "use strict";
 
-var nativePropertyIsEnumerable = {}.propertyIsEnumerable;
+var $propertyIsEnumerable = {}.propertyIsEnumerable;
+// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
 var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
 
 // Nashorn ~ JDK8 bug
-var NASHORN_BUG = getOwnPropertyDescriptor && !nativePropertyIsEnumerable.call({ 1: 2 }, 1);
+var NASHORN_BUG = getOwnPropertyDescriptor && !$propertyIsEnumerable.call({ 1: 2 }, 1);
 
 // `Object.prototype.propertyIsEnumerable` method implementation
 // https://tc39.es/ecma262/#sec-object.prototype.propertyisenumerable
 exports.f = NASHORN_BUG ? function propertyIsEnumerable(V) {
   var descriptor = getOwnPropertyDescriptor(this, V);
   return !!descriptor && descriptor.enumerable;
-} : nativePropertyIsEnumerable;
+} : $propertyIsEnumerable;
 
 
 /***/ }),
@@ -404,16 +410,17 @@ var IE8_DOM_DEFINE = __webpack_require__("13a4");
 var anObject = __webpack_require__("693a");
 var toPrimitive = __webpack_require__("3a48");
 
-var nativeDefineProperty = Object.defineProperty;
+// eslint-disable-next-line es/no-object-defineproperty -- safe
+var $defineProperty = Object.defineProperty;
 
 // `Object.defineProperty` method
 // https://tc39.es/ecma262/#sec-object.defineproperty
-exports.f = DESCRIPTORS ? nativeDefineProperty : function defineProperty(O, P, Attributes) {
+exports.f = DESCRIPTORS ? $defineProperty : function defineProperty(O, P, Attributes) {
   anObject(O);
   P = toPrimitive(P, true);
   anObject(Attributes);
   if (IE8_DOM_DEFINE) try {
-    return nativeDefineProperty(O, P, Attributes);
+    return $defineProperty(O, P, Attributes);
   } catch (error) { /* empty */ }
   if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported');
   if ('value' in Attributes) O[P] = Attributes.value;
@@ -589,12 +596,13 @@ exports.BROKEN_CARET = fails(function () {
 
 // load the styles
 var content = __webpack_require__("e2f5");
+if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to Shadow Root
 var add = __webpack_require__("e58a").default
 module.exports.__inject__ = function (shadowRoot) {
-  add("483f5c75", content, shadowRoot)
+  add("5fad3a39", content, shadowRoot)
 };
 
 /***/ }),
@@ -630,6 +638,7 @@ var objectKeys = __webpack_require__("19c2");
 
 // `Object.defineProperties` method
 // https://tc39.es/ecma262/#sec-object.defineproperties
+// eslint-disable-next-line es/no-object-defineproperties -- safe
 module.exports = DESCRIPTORS ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
   var keys = objectKeys(Properties);
@@ -706,6 +715,7 @@ module.exports = function (METHOD_NAME) {
 /***/ "4588":
 /***/ (function(module, exports) {
 
+// eslint-disable-next-line es/no-object-getownpropertysymbols -- safe
 exports.f = Object.getOwnPropertySymbols;
 
 
@@ -714,10 +724,10 @@ exports.f = Object.getOwnPropertySymbols;
 /***/ "46df":
 /***/ (function(module, exports, __webpack_require__) {
 
+/* eslint-disable es/no-symbol -- required for testing */
 var NATIVE_SYMBOL = __webpack_require__("8d09");
 
 module.exports = NATIVE_SYMBOL
-  /* global Symbol -- safe */
   && !Symbol.sham
   && typeof Symbol.iterator == 'symbol';
 
@@ -851,14 +861,12 @@ var advanceStringIndex = __webpack_require__("f0bd");
 var toLength = __webpack_require__("a7f1");
 var callRegExpExec = __webpack_require__("ee09");
 var regexpExec = __webpack_require__("aa6c");
-var fails = __webpack_require__("e27f");
+var stickyHelpers = __webpack_require__("3971");
 
+var UNSUPPORTED_Y = stickyHelpers.UNSUPPORTED_Y;
 var arrayPush = [].push;
 var min = Math.min;
 var MAX_UINT32 = 0xFFFFFFFF;
-
-// babel-minify transpiles RegExp('x', 'y') -> /x/y and it causes SyntaxError
-var SUPPORTS_Y = !fails(function () { return !RegExp(MAX_UINT32, 'y'); });
 
 // @@split logic
 fixRegExpWellKnownSymbolLogic('split', 2, function (SPLIT, nativeSplit, maybeCallNative) {
@@ -942,11 +950,11 @@ fixRegExpWellKnownSymbolLogic('split', 2, function (SPLIT, nativeSplit, maybeCal
       var flags = (rx.ignoreCase ? 'i' : '') +
                   (rx.multiline ? 'm' : '') +
                   (rx.unicode ? 'u' : '') +
-                  (SUPPORTS_Y ? 'y' : 'g');
+                  (UNSUPPORTED_Y ? 'g' : 'y');
 
       // ^(? + rx + ) is needed, in combination with some S slicing, to
       // simulate the 'y' flag.
-      var splitter = new C(SUPPORTS_Y ? rx : '^(?:' + rx.source + ')', flags);
+      var splitter = new C(UNSUPPORTED_Y ? '^(?:' + rx.source + ')' : rx, flags);
       var lim = limit === undefined ? MAX_UINT32 : limit >>> 0;
       if (lim === 0) return [];
       if (S.length === 0) return callRegExpExec(splitter, S) === null ? [S] : [];
@@ -954,12 +962,12 @@ fixRegExpWellKnownSymbolLogic('split', 2, function (SPLIT, nativeSplit, maybeCal
       var q = 0;
       var A = [];
       while (q < S.length) {
-        splitter.lastIndex = SUPPORTS_Y ? q : 0;
-        var z = callRegExpExec(splitter, SUPPORTS_Y ? S : S.slice(q));
+        splitter.lastIndex = UNSUPPORTED_Y ? 0 : q;
+        var z = callRegExpExec(splitter, UNSUPPORTED_Y ? S.slice(q) : S);
         var e;
         if (
           z === null ||
-          (e = min(toLength(splitter.lastIndex + (SUPPORTS_Y ? 0 : q)), S.length)) === p
+          (e = min(toLength(splitter.lastIndex + (UNSUPPORTED_Y ? q : 0)), S.length)) === p
         ) {
           q = advanceStringIndex(S, q, unicodeMatching);
         } else {
@@ -976,7 +984,7 @@ fixRegExpWellKnownSymbolLogic('split', 2, function (SPLIT, nativeSplit, maybeCal
       return A;
     }
   ];
-}, !SUPPORTS_Y);
+}, UNSUPPORTED_Y);
 
 
 /***/ }),
@@ -1039,6 +1047,7 @@ var STRICT_METHOD = arrayMethodIsStrict('forEach');
 // https://tc39.es/ecma262/#sec-array.prototype.foreach
 module.exports = !STRICT_METHOD ? function forEach(callbackfn /* , thisArg */) {
   return $forEach(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+// eslint-disable-next-line es/no-array-prototype-foreach -- safe
 } : [].forEach;
 
 
@@ -1086,7 +1095,7 @@ var store = __webpack_require__("ae29");
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.9.1',
+  version: '3.10.1',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
 });
@@ -1663,12 +1672,16 @@ function normalizeComponent (
   }
 }
 
-// CONCATENATED MODULE: /home/timo/.npm-global/lib/node_modules/@vue/cli-service-global/node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"2e41c54b-vue-loader-template"}!/home/timo/.npm-global/lib/node_modules/@vue/cli-service-global/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!/home/timo/.npm-global/lib/node_modules/@vue/cli-service-global/node_modules/cache-loader/dist/cjs.js??ref--0-0!/home/timo/.npm-global/lib/node_modules/@vue/cli-service-global/node_modules/vue-loader/lib??vue-loader-options!./src/components/DataTableList.vue?vue&type=template&id=7a3a2dda&shadow
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"d-flex flex-row-reverse mb-0"},[_c('ul',{staticClass:"pagination pagination-sm ml-2"},[_c('li',{staticClass:"page-item active"},[_c('button',{staticClass:"page-link",attrs:{"href":"#","aria-label":"Previous"},on:{"click":function($event){return _vm.prevPage()}}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("«")])])]),_c('li',{staticClass:"page-item"},[_c('span',{staticClass:"page-link",attrs:{"href":"#"}},[_vm._v(_vm._s(_vm.i_current)+" "),_c('span',{staticClass:"fs--2"},[_vm._v("of")]),_vm._v(" "+_vm._s(_vm.i_total))])]),_c('li',{staticClass:"page-item active"},[_c('button',{staticClass:"page-link",attrs:{"href":"#","aria-label":"Next"},on:{"click":function($event){return _vm.nextPage()}}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("»")])])])]),_c('div',{staticClass:"col col-auto align-items-center"},[_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.per_page),expression:"per_page"}],staticClass:"form-select form-select-sm",on:{"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.per_page=$event.target.multiple ? $$selectedVal : $$selectedVal[0]}}},[_vm._l((_vm.list_by),function(value,index){return [(index == 0)?_c('option',{key:index,attrs:{"selected":""},domProps:{"value":value}},[_vm._v(" "+_vm._s(value)+" ")]):_c('option',{key:index,domProps:{"value":value}},[_vm._v(" "+_vm._s(value)+" ")])]})],2)])]),_c('table',{staticClass:"table table-sm table-striped table-hover is-fullwidth pb-0"},[_c('thead',[_c('tr',[_c('th',{attrs:{"scope":"col"}},[_vm._v("#")]),_vm._l((_vm.header),function(item,key){return [(item.key !== 'key')?_c('th',{key:key,class:{ 'col-sm-1': item.editable },attrs:{"scope":"col"}},[_vm._v(" "+_vm._s(item.name)+" ")]):_vm._e()]}),_c('th',{attrs:{"scope":"col"}},[_vm._v("Action")])],2)]),_c('tbody',_vm._l((_vm.visible_table_data),function(item){return _c('tr',{key:item.key,staticClass:"py-0"},[_c('th',{staticClass:"align-middle py-1",attrs:{"scope":"row"}},[_vm._v(" "+_vm._s(_vm.table_data_relative_index[item.key].index)+" ")]),_vm._l((item),function(value,key){return [(key !== 'key')?_c('td',{key:key,staticClass:"align-middle py-1"},[(_vm.header_object[key].editable)?_c('span',{staticClass:"control"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.visible_table_data[item.key][key]),expression:"visible_table_data[item.key][key]"}],staticClass:"form-control form-control-sm",attrs:{"type":"number"},domProps:{"value":(_vm.visible_table_data[item.key][key])},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.visible_table_data[item.key], key, $event.target.value)}}})]):(_vm.header_object[key].computed)?_c('span',[_vm._v(_vm._s(_vm.computeField(_vm.header_object[key].operation, item.key, key)))]):_c('span',[_vm._v(_vm._s(value))])]):_vm._e()]}),_c('td',{staticClass:"align-middle py-1"},[_c('button',{staticClass:"btn btn-falcon-primary btn-sm px-1 py-0",on:{"click":function($event){return _vm.manageItem(item.key)}}},[_vm._v(" Manage ")])])],2)}),0)])])}
+// CONCATENATED MODULE: /home/timo/.npm-global/lib/node_modules/@vue/cli-service-global/node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"3934a2c6-vue-loader-template"}!/home/timo/.npm-global/lib/node_modules/@vue/cli-service-global/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!/home/timo/.npm-global/lib/node_modules/@vue/cli-service-global/node_modules/cache-loader/dist/cjs.js??ref--0-0!/home/timo/.npm-global/lib/node_modules/@vue/cli-service-global/node_modules/vue-loader/lib??vue-loader-options!./src/components/DataTableList.vue?vue&type=template&id=43a7c77c&shadow
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"d-flex flex-row-reverse mb-0"},[_c('ul',{staticClass:"pagination pagination-sm ml-2"},[_c('li',{staticClass:"page-item active"},[_c('button',{staticClass:"page-link",attrs:{"href":"#","aria-label":"Previous"},on:{"click":function($event){return _vm.prevPage()}}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("«")])])]),_c('li',{staticClass:"page-item"},[_c('span',{staticClass:"page-link",attrs:{"href":"#"}},[_vm._v(_vm._s(_vm.i_current)+" "),_c('span',{staticClass:"fs--2"},[_vm._v("of")]),_vm._v(" "+_vm._s(_vm.i_total))])]),_c('li',{staticClass:"page-item active"},[_c('button',{staticClass:"page-link",attrs:{"href":"#","aria-label":"Next"},on:{"click":function($event){return _vm.nextPage()}}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("»")])])])]),_c('div',{staticClass:"col col-auto align-items-center"},[_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.per_page),expression:"per_page"}],staticClass:"form-select form-select-sm",on:{"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.per_page=$event.target.multiple ? $$selectedVal : $$selectedVal[0]}}},[_vm._l((_vm.list_by),function(value,index){return [(index == 0)?_c('option',{key:index,attrs:{"selected":""},domProps:{"value":value}},[_vm._v(" "+_vm._s(value)+" ")]):_c('option',{key:index,domProps:{"value":value}},[_vm._v(" "+_vm._s(value)+" ")])]})],2)])]),_c('table',{staticClass:"table table-sm table-striped table-hover is-fullwidth pb-0"},[_c('thead',[_c('tr',[_c('th',{attrs:{"scope":"col"}},[_vm._v(" # "),(_vm.largest_first)?_c('span',[_c('button',{staticClass:"btn btn-sm btn-outline-secondary px-0 py-0",staticStyle:{"border":"none"},on:{"click":function($event){return _vm.sortUp('index')}}},[(_vm.currently_sorted == 'index')?_c('svg',{staticClass:"bi bi-arrow-up",attrs:{"xmlns":"http://www.w3.org/2000/svg","width":"10","height":"10","fill":"currentColor","viewBox":"0 0 16 16"}},[_c('path',{attrs:{"fill-rule":"evenodd","d":"M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"}})]):_c('svg',{staticClass:"bi bi-arrow-down-up",attrs:{"xmlns":"http://www.w3.org/2000/svg","width":"10","height":"10","fill":"currentColor","viewBox":"0 0 16 16"}},[_c('path',{attrs:{"fill-rule":"evenodd","d":"M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"}})])])]):_c('span',[_c('button',{staticClass:"btn btn-sm btn-outline-secondary px-0 py-0",staticStyle:{"border":"none"},on:{"click":function($event){return _vm.sortDown('index')}}},[(_vm.currently_sorted == 'index')?_c('svg',{staticClass:"bi bi-arrow-down",attrs:{"xmlns":"http://www.w3.org/2000/svg","width":"10","height":"10","fill":"currentColor","viewBox":"0 0 16 16"}},[_c('path',{attrs:{"fill-rule":"evenodd","d":"M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"}})]):_c('svg',{staticClass:"bi bi-arrow-down-up",attrs:{"xmlns":"http://www.w3.org/2000/svg","width":"10","height":"10","fill":"currentColor","viewBox":"0 0 16 16"}},[_c('path',{attrs:{"fill-rule":"evenodd","d":"M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"}})])])])]),_vm._l((_vm.header),function(item,key){return [(item.key !== 'key')?_c('th',{key:key,class:{ 'col-sm-1': item.editable },attrs:{"scope":"col"}},[_vm._v(" "+_vm._s(item.name)+" "),(_vm.largest_first)?_c('span',[_c('button',{staticClass:"btn btn-sm btn-outline-secondary px-0 py-0",staticStyle:{"border":"none"},on:{"click":function($event){return _vm.sortUp(item.key)}}},[(_vm.currently_sorted == item.key)?_c('svg',{staticClass:"bi bi-arrow-up",attrs:{"xmlns":"http://www.w3.org/2000/svg","width":"10","height":"10","fill":"currentColor","viewBox":"0 0 16 16"}},[_c('path',{attrs:{"fill-rule":"evenodd","d":"M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"}})]):_c('svg',{staticClass:"bi bi-arrow-down-up",attrs:{"xmlns":"http://www.w3.org/2000/svg","width":"10","height":"10","fill":"currentColor","viewBox":"0 0 16 16"}},[_c('path',{attrs:{"fill-rule":"evenodd","d":"M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"}})])])]):_c('span',[_c('button',{staticClass:"btn btn-sm btn-outline-secondary px-0 py-0",staticStyle:{"border":"none"},on:{"click":function($event){return _vm.sortDown(item.key)}}},[(_vm.currently_sorted == item.key)?_c('svg',{staticClass:"bi bi-arrow-down",attrs:{"xmlns":"http://www.w3.org/2000/svg","width":"10","height":"10","fill":"currentColor","viewBox":"0 0 16 16"}},[_c('path',{attrs:{"fill-rule":"evenodd","d":"M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"}})]):_c('svg',{staticClass:"bi bi-arrow-down-up",attrs:{"xmlns":"http://www.w3.org/2000/svg","width":"10","height":"10","fill":"currentColor","viewBox":"0 0 16 16"}},[_c('path',{attrs:{"fill-rule":"evenodd","d":"M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"}})])])])]):_vm._e()]}),_c('th',{attrs:{"scope":"col"}},[_vm._v("Action")])],2)]),_c('tbody',_vm._l((_vm.visible_table_data),function(item){return _c('tr',{key:item.key,staticClass:"py-0"},[_c('th',{staticClass:"align-middle py-1",attrs:{"scope":"row"}},[_vm._v(" "+_vm._s(_vm.table_data_relative_index[item.key].index)+" ")]),_vm._l((item),function(value,key){return [(key !== 'key')?_c('td',{key:key,staticClass:"align-middle py-1"},[(_vm.header_object[key].editable)?_c('span',{staticClass:"control"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(
+                  _vm.table_data[_vm.table_data_relative_index[item.key].index][key]
+                ),expression:"\n                  table_data[table_data_relative_index[item.key].index][key]\n                "}],staticClass:"form-control form-control-sm",attrs:{"type":"number"},domProps:{"value":(
+                  _vm.table_data[_vm.table_data_relative_index[item.key].index][key]
+                )},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.table_data[_vm.table_data_relative_index[item.key].index], key, $event.target.value)}}})]):(_vm.header_object[key].computed)?_c('span',[_vm._v(_vm._s(_vm.computeField(_vm.header_object[key].operation, item.key, key)))]):(_vm.header_object[key].name.toLowerCase() == 'status')?_c('span',[(value.toLowerCase() == 'pending')?_c('span',{staticClass:"badge badge-soft-secondary"},[_vm._v(" "+_vm._s(value)+" ")]):(value.toLowerCase() == 'active' || value.toLowerCase() == 'approved')?_c('span',{staticClass:"badge badge-soft-success"},[_vm._v(" "+_vm._s(value)+" ")]):(value.toLowerCase() == 'rejected')?_c('span',{staticClass:"badge badge-soft-danger"},[_vm._v(" "+_vm._s(value)+" ")]):_c('span',{staticClass:"badge badge-soft-success"},[_vm._v(" "+_vm._s(value)+" ")])]):_c('span',[_vm._v(_vm._s(value))])]):_vm._e()]}),_c('td',{staticClass:"align-middle py-1"},[_c('button',{staticClass:"btn btn-falcon-primary btn-sm px-1 py-0",on:{"click":function($event){return _vm.manageItem(item.key)}}},[_vm._v(" Manage ")])])],2)}),0)])])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/DataTableList.vue?vue&type=template&id=7a3a2dda&shadow
+// CONCATENATED MODULE: ./src/components/DataTableList.vue?vue&type=template&id=43a7c77c&shadow
 
 // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayWithHoles.js
 function _arrayWithHoles(arr) {
@@ -1858,6 +1871,187 @@ var es_number_to_fixed = __webpack_require__("b04b");
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ var DataTableListvue_type_script_lang_js_shadow = ({
   created: function created() {
     var _this = this;
@@ -1944,7 +2138,9 @@ var es_number_to_fixed = __webpack_require__("b04b");
       i_current: 1,
       i_total: 9,
       list_by: [10, 25, 50, 100],
-      per_page: 10
+      per_page: 10,
+      largest_first: false,
+      currently_sorted: "index"
     };
   },
   watch: {
@@ -2126,6 +2322,52 @@ var es_number_to_fixed = __webpack_require__("b04b");
     },
     prevPage: function prevPage() {
       this.i_current--;
+    },
+    sortUp: function sortUp(key) {
+      console.clear();
+      console.log("Going up", key);
+      this.largest_first = !this.largest_first;
+      this.currently_sorted = key;
+      var unsorted_array = [];
+
+      for (var _key in this.table_data) {
+        unsorted_array.push(this.table_data[_key]);
+      }
+
+      unsorted_array.sort(function (a, b) {
+        return (a.key - b.key) * -1;
+      });
+      var tmp_obj = {};
+      var i = 1;
+      unsorted_array.forEach(function (value) {
+        tmp_obj[i] = value;
+        i++;
+      });
+      console.log("jj", tmp_obj);
+      this.table_data = tmp_obj;
+    },
+    sortDown: function sortDown(key) {
+      console.clear();
+      console.log("Going Down", key);
+      this.currently_sorted = key;
+      this.largest_first = !this.largest_first;
+      var unsorted_array = [];
+
+      for (var _key2 in this.table_data) {
+        unsorted_array.push(this.table_data[_key2]);
+      }
+
+      unsorted_array.sort(function (a, b) {
+        return a.key - b.key;
+      });
+      var tmp_obj = {};
+      var i = 1;
+      unsorted_array.forEach(function (value) {
+        tmp_obj[i] = value;
+        i++;
+      });
+      console.log("jj", tmp_obj);
+      this.table_data = tmp_obj;
     }
   }
 });
@@ -2423,8 +2665,9 @@ var IS_NODE = __webpack_require__("496e");
 var V8_VERSION = __webpack_require__("4d4c");
 var fails = __webpack_require__("e27f");
 
+// eslint-disable-next-line es/no-object-getownpropertysymbols -- required for testing
 module.exports = !!Object.getOwnPropertySymbols && !fails(function () {
-  /* global Symbol -- required for testing */
+  // eslint-disable-next-line es/no-symbol -- required for testing
   return !Symbol.sham &&
     // Chrome 38 Symbol has incorrect toString conversion
     // Chrome 38-40 symbols are not inherited from DOM collections prototypes to instances
@@ -2592,6 +2835,7 @@ var hiddenKeys = enumBugKeys.concat('length', 'prototype');
 
 // `Object.getOwnPropertyNames` method
 // https://tc39.es/ecma262/#sec-object.getownpropertynames
+// eslint-disable-next-line es/no-object-getownpropertynames -- safe
 exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
   return internalObjectKeys(O, hiddenKeys);
 };
@@ -2680,12 +2924,10 @@ module.exports = function (argument) {
 
 var regexpFlags = __webpack_require__("9d72");
 var stickyHelpers = __webpack_require__("3971");
+var shared = __webpack_require__("6c1a");
 
 var nativeExec = RegExp.prototype.exec;
-// This always refers to the native implementation, because the
-// String#replace polyfill uses ./fix-regexp-well-known-symbol-logic.js,
-// which loads this file before patching the method.
-var nativeReplace = String.prototype.replace;
+var nativeReplace = shared('native-string-replace', String.prototype.replace);
 
 var patchedExec = nativeExec;
 
@@ -2925,9 +3167,10 @@ $({ target: 'Number', proto: true, forced: FORCED }, {
 
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
 module.exports =
-  /* global globalThis -- safe */
+  // eslint-disable-next-line es/no-global-this -- safe
   check(typeof globalThis == 'object' && globalThis) ||
   check(typeof window == 'object' && window) ||
+  // eslint-disable-next-line no-restricted-globals -- safe
   check(typeof self == 'object' && self) ||
   check(typeof global == 'object' && global) ||
   // eslint-disable-next-line no-new-func -- fallback
@@ -2947,7 +3190,7 @@ var requireObjectCoercible = __webpack_require__("1f26");
 
 // `String.prototype.repeat` method implementation
 // https://tc39.es/ecma262/#sec-string.prototype.repeat
-module.exports = ''.repeat || function repeat(count) {
+module.exports = function repeat(count) {
   var str = String(requireObjectCoercible(this));
   var result = '';
   var n = toInteger(count);
@@ -3053,6 +3296,7 @@ var classof = __webpack_require__("3fad");
 
 // `IsArray` abstract operation
 // https://tc39.es/ecma262/#sec-isarray
+// eslint-disable-next-line es/no-array-isarray -- safe
 module.exports = Array.isArray || function isArray(arg) {
   return classof(arg) == 'Array';
 };
@@ -3684,15 +3928,16 @@ var toPrimitive = __webpack_require__("3a48");
 var has = __webpack_require__("8ff6");
 var IE8_DOM_DEFINE = __webpack_require__("13a4");
 
-var nativeGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+var $getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
 
 // `Object.getOwnPropertyDescriptor` method
 // https://tc39.es/ecma262/#sec-object.getownpropertydescriptor
-exports.f = DESCRIPTORS ? nativeGetOwnPropertyDescriptor : function getOwnPropertyDescriptor(O, P) {
+exports.f = DESCRIPTORS ? $getOwnPropertyDescriptor : function getOwnPropertyDescriptor(O, P) {
   O = toIndexedObject(O);
   P = toPrimitive(P, true);
   if (IE8_DOM_DEFINE) try {
-    return nativeGetOwnPropertyDescriptor(O, P);
+    return $getOwnPropertyDescriptor(O, P);
   } catch (error) { /* empty */ }
   if (has(O, P)) return createPropertyDescriptor(!propertyIsEnumerableModule.f.call(O, P), O[P]);
 };
@@ -3710,7 +3955,6 @@ __webpack_require__("647e");
 var redefine = __webpack_require__("c99f");
 var fails = __webpack_require__("e27f");
 var wellKnownSymbol = __webpack_require__("5343");
-var regexpExec = __webpack_require__("aa6c");
 var createNonEnumerableProperty = __webpack_require__("a7d9");
 
 var SPECIES = wellKnownSymbol('species');
@@ -3731,6 +3975,7 @@ var REPLACE_SUPPORTS_NAMED_GROUPS = !fails(function () {
 // IE <= 11 replaces $0 with the whole match, as if it was $&
 // https://stackoverflow.com/questions/6024666/getting-ie-to-replace-a-regex-with-the-literal-string-0
 var REPLACE_KEEPS_$0 = (function () {
+  // eslint-disable-next-line regexp/prefer-escape-replacement-dollar-char -- required for testing
   return 'a'.replace(/./, '$0') === '$0';
 })();
 
@@ -3800,7 +4045,7 @@ module.exports = function (KEY, length, exec, sham) {
   ) {
     var nativeRegExpMethod = /./[SYMBOL];
     var methods = exec(SYMBOL, ''[KEY], function (nativeMethod, regexp, str, arg2, forceStringMethod) {
-      if (regexp.exec === regexpExec) {
+      if (regexp.exec === RegExp.prototype.exec) {
         if (DELEGATES_TO_SYMBOL && !forceStringMethod) {
           // The native String method already delegates to @@method (this
           // polyfilled function), leasing to infinite recursion.
