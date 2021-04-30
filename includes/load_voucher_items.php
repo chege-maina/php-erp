@@ -24,10 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       array_push(
         $response2,
         array(
-          'group_code' => $row['group_code'],
-          'ledger' => $row['ledger'],
-          'amount' => $row['amount'],
-          'type' => $row['type']
+          'group_code' => $row2['group_code'],
+          'ledger' => $row2['ledger'],
+          'amount' => $row2['amount'],
+          'type' => $row2['type']
         )
       );
     }
