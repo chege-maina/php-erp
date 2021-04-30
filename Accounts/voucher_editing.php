@@ -34,6 +34,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
+        <div id="alert-div"></div>
         <h4 class="mb-3">Voucher Details</h4>
         <div class="card">
           <div class="card-body fs--1 p-4">
@@ -57,6 +58,11 @@ include '../includes/base_page/head.php';
                 <label for="remarks" class="form-label">Remarks*</label>
                 <textarea id="remarks" class="form-control form-control-sm" cols="10" rows="3" readonly></textarea>
               </div>
+            </div>
+
+            <div class="col col-auto mt-2">
+              <small><strong>Status:</strong></small>
+              <span id="status_chip"></span>
             </div>
             <!-- Content ends here -->
           </div>
@@ -130,6 +136,10 @@ include '../includes/base_page/head.php';
           const total_credit = document.querySelector("#total_credit");
           const total_debit = document.querySelector("#total_debit");
 
+          const status_chip = document.querySelector("#status_chip");
+          const approve_button = document.querySelector("#approve_button");
+          const reject_button = document.querySelector("#reject_button");
+
           window.addEventListener('DOMContentLoaded', (event) => {
             v_id = window.sessionStorage.getItem("Voucher_No");
             if (v_id == null) {
@@ -156,6 +166,24 @@ include '../includes/base_page/head.php';
                 total_credit.value = result.total_credit;
                 total_debit.value = result.total_debit;
                 updateTable(result.table_items);
+
+
+                // About to show status
+                switch (result.status) {
+                  case "pending":
+                    status_chip.innerHTML = `<span class="badge badge-soft-secondary">Pending</span>`;
+                    break;
+                  case "approved":
+                    status_chip.innerHTML = `<span class="badge badge-soft-success">Active</span>`;
+                    approve_button.disabled = true;
+                    reject_button.disabled = true;
+                    break;
+                  case "rejected":
+                    status_chip.innerHTML = `<span class="badge badge-soft-warning">Rejected</span>`;
+                    reject_button.disabled = true;
+                    break;
+                }
+
               })
               .catch(error => {
                 console.error('Error:', error);
@@ -176,6 +204,50 @@ include '../includes/base_page/head.php';
               }
               table_body.appendChild(tr);
             });
+          }
+
+
+          function submitForm(action) {
+            const formData = new FormData();
+            formData.append("voucher_no", v_id);
+            formData.append("action", action);
+            fetch('./php_scripts/approve_reject_voucher.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+                console.log('Server says:', result);
+
+                if (result["message"] == "success") {
+                  const alertVar =
+                    `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> Saved changes.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                  var divAlert = document.querySelector("#alert-div");
+                  divAlert.innerHTML = alertVar;
+                  divAlert.scrollIntoView();
+                  setTimeout(function() {
+                    location.reload();
+                    location.href = "./voucher_listing.php";
+                  }, 2500);
+                } else {
+                  const alertVar =
+                    `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Error!</strong> Could not save changes.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+                  var divAlert = document.querySelector("#alert-div");
+                  divAlert.innerHTML = alertVar;
+                  divAlert.scrollIntoView();
+                }
+
+                return false;
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
           }
         </script>
 </body>
