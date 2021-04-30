@@ -1,6 +1,6 @@
 <template>
   <div>
-  <!--
+    <!--
     <div class="d-flex flex-row-reverse mb-0">
       <button class="btn btn-falcon-default" v-on:click="sortUp()">up</button>
       <button class="btn btn-falcon-default ml-2" v-on:click="sortDown()">
@@ -237,6 +237,11 @@
               <span v-else-if="header_object[key].computed">{{
                 computeField(header_object[key].operation, item.key, key)
               }}</span>
+              <span
+                v-else-if="header_object[key].name.toLowerCase() == 'status'"
+              >
+                Rasta
+              </span>
               <span v-else>{{ value }}</span>
             </td>
           </template>
