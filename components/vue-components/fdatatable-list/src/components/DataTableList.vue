@@ -1,11 +1,13 @@
 <template>
   <div>
+  <!--
     <div class="d-flex flex-row-reverse mb-0">
       <button class="btn btn-falcon-default" v-on:click="sortUp()">up</button>
       <button class="btn btn-falcon-default ml-2" v-on:click="sortDown()">
         down
       </button>
     </div>
+    -->
     <div class="d-flex flex-row-reverse mb-0">
       <ul class="pagination pagination-sm ml-2">
         <li class="page-item active">
@@ -571,17 +573,7 @@ export default {
       }
 
       unsorted_array.sort(function (a, b) {
-        let nameA = IsNan(a["key"]) String(a.key).toUpperCase(); // ignore upper and lowercase
-        let nameB = String(b.key).toUpperCase(); // ignore upper and lowercase
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
-
-        // names must be equal
-        return 0;
+        return (a.key - b.key) * -1;
       });
 
       let tmp_obj = {};
