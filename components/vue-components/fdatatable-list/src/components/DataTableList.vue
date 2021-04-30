@@ -247,7 +247,7 @@
                   {{ value }}
                 </span>
                 <span
-                  v-else-if="value.toLowerCase() == 'active'"
+                  v-else-if="value.toLowerCase() == 'active' || value.toLowerCase() == 'approved'"
                   class="badge badge-soft-success"
                 >
                   {{ value }}

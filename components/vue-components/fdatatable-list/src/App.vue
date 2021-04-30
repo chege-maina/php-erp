@@ -55,7 +55,7 @@ export default {
         code: "485922360-8",
         stock: 578,
         quantity: 797,
-        status: "active",
+        status: "approved",
         price: 31406,
         discount: 100,
         tax_pc: 63,
