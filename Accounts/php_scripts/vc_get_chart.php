@@ -57,10 +57,10 @@ if ($result->num_rows > 0) {
       "parent_title" => $row["parent_title"],
       "parent_type" => $row["parent_type"],
       "parent_carrying_forward" => $row["parent_carrying_forward"],
-      "child_number" => "null",
+      "child_number" => null,
       "child_title" => $row["child_title"],
-      "child_type" => "null",
-      "child_carrying_forward" => "null"
+      "child_type" => null,
+      "child_carrying_forward" => null
 
     );
     $data_array[] = $data;
