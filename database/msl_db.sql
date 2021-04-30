@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2021 at 04:15 PM
+-- Generation Time: Apr 30, 2021 at 10:52 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -147,17 +147,19 @@ CREATE TABLE `tbl_bank` (
   `id_interest` varchar(100) NOT NULL,
   `over_limit` varchar(100) NOT NULL,
   `late_charges` varchar(100) NOT NULL,
-  `opening_date` date NOT NULL
+  `opening_date` date NOT NULL,
+  `status` varchar(100) NOT NULL DEFAULT 'pending',
+  `group_id` varchar(100) NOT NULL DEFAULT '010107'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_bank`
 --
 
-INSERT INTO `tbl_bank` (`bank_name`, `branch_name`, `acc_no`, `acc_name`, `currency`, `opening_bal`, `clear_days`, `od_limit`, `id_interest`, `over_limit`, `late_charges`, `opening_date`) VALUES
-('EQUITY BANK', 'KARATINA', '255445666', 'JUMANJI2', 'KSHS', '20', '3', '400', '12', '3', '3', '2021-02-07'),
-('KCB', 'RUIRU', '625556', 'JUMANJI', 'KSHS', '1000', '2', '1000000', '11', '4', '5', '2021-02-20'),
-('Mannix Merrill', 'Richard Miranda', '510', 'Russell Walter', 'KSHS', '1000', '2', '82000', '34', '82000', '2', '2021-02-01');
+INSERT INTO `tbl_bank` (`bank_name`, `branch_name`, `acc_no`, `acc_name`, `currency`, `opening_bal`, `clear_days`, `od_limit`, `id_interest`, `over_limit`, `late_charges`, `opening_date`, `status`, `group_id`) VALUES
+('EQUITY BANK', 'KARATINA', '255445666', 'JUMANJI2', 'KSHS', '20', '3', '400', '12', '3', '3', '2021-02-07', 'pending', '010107'),
+('KCB', 'RUIRU', '625556', 'JUMANJI', 'KSHS', '1000', '2', '1000000', '11', '4', '5', '2021-02-20', 'pending', '010107'),
+('Mannix Merrill', 'Richard Miranda', '510', 'Russell Walter', 'KSHS', '1000', '2', '82000', '34', '82000', '2', '2021-02-01', 'pending', '010107');
 
 -- --------------------------------------------------------
 
@@ -858,30 +860,32 @@ CREATE TABLE `tbl_ledger_amounts` (
   `ledger` varchar(100) NOT NULL,
   `amount` varchar(100) NOT NULL,
   `date` date NOT NULL,
-  `status` varchar(10) NOT NULL
+  `status` varchar(10) NOT NULL,
+  `status_appr` varchar(100) NOT NULL DEFAULT 'pending',
+  `ref_no` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_ledger_amounts`
 --
 
-INSERT INTO `tbl_ledger_amounts` (`group_code`, `ledger`, `amount`, `date`, `status`) VALUES
-('010101', 'Land REF No# LR/KW/00024', '1000', '2021-04-30', 'Credit'),
-('010105', 'KAA254', '80', '2011-06-05', 'Debit'),
-('010107', 'EQUITY BANK', '114000.00000000001', '2021-04-27', 'Credit'),
-('010107', 'KCB', '41171.32603448276', '2021-04-28', 'Debit'),
-('010201', 'Mpesa No# 0724', '1000', '2021-04-28', 'Credit'),
-('010201', 'Whitney Walters', '41171.32603448276', '2021-04-28', 'Credit'),
-('020101', 'Dolan Mendoza', '114000.00000000001', '2021-04-27', 'Debit'),
-('040101', 'Sale of FMCG Products', '1000', '2021-04-29', 'Credit'),
-('040101', 'Sale of FMCG Products', '1000', '2021-04-30', 'Debit'),
-('050104', 'Depreciation to Motor Vehicles', '1000', '2021-04-28', 'Debit'),
-('050104', 'Depreciation to Motor Vehicles', '50', '1988-09-29', 'Credit'),
-('050201', 'Goods Returns Outwards', '1000', '2021-04-29', 'Debit'),
-('050201', 'Opening Stock', '50', '1988-09-29', 'Credit'),
-('050202', 'Fines and Penalties', '20', '2011-06-05', 'Debit'),
-('050202', 'Office Expenses', '100', '1988-09-29', 'Debit'),
-('050204', 'Commissions on Bank Guarantee', '100', '2011-06-05', 'Credit');
+INSERT INTO `tbl_ledger_amounts` (`group_code`, `ledger`, `amount`, `date`, `status`, `status_appr`, `ref_no`) VALUES
+('010101', 'Land REF No# LR/KW/00024', '1000', '2021-04-30', 'Credit', 'pending', ''),
+('010105', 'KAA254', '80', '2011-06-05', 'Debit', 'pending', ''),
+('010107', 'EQUITY BANK', '114000.00000000001', '2021-04-27', 'Credit', 'pending', ''),
+('010107', 'KCB', '41171.32603448276', '2021-04-28', 'Debit', 'pending', ''),
+('010201', 'Mpesa No# 0724', '1000', '2021-04-28', 'Credit', 'pending', ''),
+('010201', 'Whitney Walters', '41171.32603448276', '2021-04-28', 'Credit', 'pending', ''),
+('020101', 'Dolan Mendoza', '114000.00000000001', '2021-04-27', 'Debit', 'pending', ''),
+('040101', 'Sale of FMCG Products', '1000', '2021-04-29', 'Credit', 'pending', ''),
+('040101', 'Sale of FMCG Products', '1000', '2021-04-30', 'Debit', 'pending', ''),
+('050104', 'Depreciation to Motor Vehicles', '1000', '2021-04-28', 'Debit', 'pending', ''),
+('050104', 'Depreciation to Motor Vehicles', '50', '1988-09-29', 'Credit', 'pending', ''),
+('050201', 'Goods Returns Outwards', '1000', '2021-04-29', 'Debit', 'pending', ''),
+('050201', 'Opening Stock', '50', '1988-09-29', 'Credit', 'pending', ''),
+('050202', 'Fines and Penalties', '20', '2011-06-05', 'Debit', 'pending', ''),
+('050202', 'Office Expenses', '100', '1988-09-29', 'Debit', 'pending', ''),
+('050204', 'Commissions on Bank Guarantee', '100', '2011-06-05', 'Credit', 'pending', '');
 
 -- --------------------------------------------------------
 
@@ -1542,64 +1546,64 @@ INSERT INTO `tbl_shift` (`shift_id`, `shift_name`, `start_time`, `end_time`, `wo
 -- Table structure for table `tbl_staff`
 --
 
---  CREATE TABLE `tbl_staff` (
-  --  `f_name` varchar(50) NOT NULL,
-  --  `m_name` varchar(50) NOT NULL,
-  --  `l_name` varchar(50) NOT NULL,
-  --  `gender` varchar(15) NOT NULL,
-  --  `dob` date NOT NULL,
-  --  `passport` varchar(50) NOT NULL,
-  --  `nat_id` varchar(50) NOT NULL,
-  --  `pin_no` varchar(50) NOT NULL,
-  --  `res` varchar(20) NOT NULL,
-  --  `nssf_no` varchar(50) NOT NULL,
-  --  `nhif_no` varchar(50) NOT NULL,
-  --  `off_mail` varchar(50) NOT NULL,
-  --  `pers_mail` varchar(50) NOT NULL,
-  --  `country` varchar(50) NOT NULL,
-  --  `mobile_no` varchar(50) NOT NULL,
-  --  `phone_no` varchar(50) NOT NULL,
-  --  `ext_no` varchar(50) NOT NULL,
-  --  `city` varchar(50) NOT NULL,
-  --  `county` varchar(50) NOT NULL,
-  --  `postal_code` varchar(50) NOT NULL,
-  --  `job_no` varchar(50) NOT NULL,
-  --  `employ_date` date NOT NULL,
-  --  `begin_date` date NOT NULL,
-  --  `duration` varchar(16) NOT NULL,
-  --  `end_date` date NOT NULL,
-  --  `job_title` varchar(50) NOT NULL,
-  --  `department` varchar(50) NOT NULL,
-  --  `report_to` varchar(50) NOT NULL,
-  --  `branch` varchar(50) NOT NULL,
-  --  `head_of` varchar(50) NOT NULL,
-  --  `region` varchar(50) NOT NULL,
-  --  `currency` varchar(50) NOT NULL,
-  --  `shift` varchar(50) NOT NULL,
-  --  `employ_type` varchar(50) NOT NULL,
-  --  `off_days` varchar(50) NOT NULL,
-  --  `pay_type` varchar(50) NOT NULL,
-  --  `salary` varchar(50) NOT NULL,
-  --  `income_tax` varchar(50) NOT NULL,
-  --  `deduct_nhif` varchar(50) NOT NULL,
-  --  `deduct_nssf` varchar(50) NOT NULL,
-  --  `account_name` varchar(50) NOT NULL,
-  --  `account_no` varchar(50) NOT NULL,
-  --  `bank_name` varchar(50) NOT NULL,
-  --  `sort_code` varchar(50) NOT NULL,
-  --  `s_mobile_no` varchar(50) NOT NULL,
-  --  `s_bank_branch` varchar(50) NOT NULL,
-  --  `s_payment` int(11) NOT NULL,
-  --  `status` varchar(15) NOT NULL DEFAULT 'pending'
---  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+CREATE TABLE `tbl_staff` (
+  `f_name` varchar(50) NOT NULL,
+  `m_name` varchar(50) NOT NULL,
+  `l_name` varchar(50) NOT NULL,
+  `gender` varchar(15) NOT NULL,
+  `dob` date NOT NULL,
+  `passport` varchar(50) NOT NULL,
+  `nat_id` varchar(50) NOT NULL,
+  `pin_no` varchar(50) NOT NULL,
+  `res` varchar(20) NOT NULL,
+  `nssf_no` varchar(50) NOT NULL,
+  `nhif_no` varchar(50) NOT NULL,
+  `off_mail` varchar(50) NOT NULL,
+  `pers_mail` varchar(50) NOT NULL,
+  `country` varchar(50) NOT NULL,
+  `mobile_no` varchar(50) NOT NULL,
+  `phone_no` varchar(50) NOT NULL,
+  `ext_no` varchar(50) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `county` varchar(50) NOT NULL,
+  `postal_code` varchar(50) NOT NULL,
+  `job_no` varchar(50) NOT NULL,
+  `employ_date` date NOT NULL,
+  `begin_date` date NOT NULL,
+  `duration` varchar(16) NOT NULL,
+  `end_date` date NOT NULL,
+  `job_title` varchar(50) NOT NULL,
+  `department` varchar(50) NOT NULL,
+  `report_to` varchar(50) NOT NULL,
+  `branch` varchar(50) NOT NULL,
+  `head_of` varchar(50) NOT NULL,
+  `region` varchar(50) NOT NULL,
+  `currency` varchar(50) NOT NULL,
+  `shift` varchar(50) NOT NULL,
+  `employ_type` varchar(50) NOT NULL,
+  `off_days` varchar(50) NOT NULL,
+  `pay_type` varchar(50) NOT NULL,
+  `salary` varchar(50) NOT NULL,
+  `income_tax` varchar(50) NOT NULL,
+  `deduct_nhif` varchar(50) NOT NULL,
+  `deduct_nssf` varchar(50) NOT NULL,
+  `account_name` varchar(50) NOT NULL,
+  `account_no` varchar(50) NOT NULL,
+  `bank_name` varchar(50) NOT NULL,
+  `sort_code` varchar(50) NOT NULL,
+  `s_mobile_no` varchar(50) NOT NULL,
+  `s_bank_branch` varchar(50) NOT NULL,
+  `s_payment` int(11) NOT NULL,
+  `status` varchar(15) NOT NULL DEFAULT 'pending'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `tbl_staff`
 --
 
---  INSERT INTO `tbl_staff` (`f_name`, `m_name`, `l_name`, `gender`, `dob`, `passport`, `nat_id`, `pin_no`, `res`, `nssf_no`, `nhif_no`, `off_mail`, `pers_mail`, `country`, `mobile_no`, `phone_no`, `ext_no`, `city`, `county`, `postal_code`, `job_no`, `employ_date`, `begin_date`, `duration`, `end_date`, `job_title`, `department`, `report_to`, `branch`, `head_of`, `region`, `currency`, `shift`, `employ_type`, `off_days`, `pay_type`, `salary`, `income_tax`, `deduct_nhif`, `deduct_nssf`, `account_name`, `account_no`, `bank_name`, `sort_code`, `s_mobile_no`, `s_bank_branch`, `s_payment`, `status`) VALUES
---  ('Geoffrey', 'Kirby Carrillo', 'Levine', 'Male', '1973-11-03', '/uploads/kua uone.png', '42', '31', 'Resident', '15', '69', 'jaqylorafo@mailinator.com', 'xakyx@mailinator.com', 'Jamaica', '39', '95', '94', 'Nihil reiciendis rep', 'Officia tempor elit', '52841', '272', '1979-02-06', '2021-04-06', 'Aliquip non accu', '2023-02-06', 'Repudiandae veniam', 'Reprehenderit et ul', 'all', 'undefined', 'all', 'Nairobi', 'KES', 'Regular', '1979-02-06', 'FRIDAY', 'net', '40000', 'primary', 'true', 'true', '', '', '', '', '469', '', 0, 'approved'),
---  ('Aquila', 'Doris Hartman', 'Rios', 'Male', '2004-08-31', '/uploads/kua uone (1).png', '58', '73', 'Resident', '10', '32', 'zenehoc@mailinator.com', 'sufafu@mailinator.com', 'Philippines', '4', '46', '59', 'Sunt voluptatem duis', 'Accusamus in proiden', '97654', '580', '1975-12-04', '2017-10-10', 'Quaerat tempore ', '2014-02-22', 'Quis necessitatibus', 'Ullam at est corpori', 'all', 'undefined', 'all', 'Nairobi', 'JPY', 'Regular', '1975-12-04', 'WEDNESDAY', 'consolidated', '12', 'none', 'true', 'true', '', '', '', '', '', '', 0, 'pending');
+INSERT INTO `tbl_staff` (`f_name`, `m_name`, `l_name`, `gender`, `dob`, `passport`, `nat_id`, `pin_no`, `res`, `nssf_no`, `nhif_no`, `off_mail`, `pers_mail`, `country`, `mobile_no`, `phone_no`, `ext_no`, `city`, `county`, `postal_code`, `job_no`, `employ_date`, `begin_date`, `duration`, `end_date`, `job_title`, `department`, `report_to`, `branch`, `head_of`, `region`, `currency`, `shift`, `employ_type`, `off_days`, `pay_type`, `salary`, `income_tax`, `deduct_nhif`, `deduct_nssf`, `account_name`, `account_no`, `bank_name`, `sort_code`, `s_mobile_no`, `s_bank_branch`, `s_payment`, `status`) VALUES
+('Geoffrey', 'Kirby Carrillo', 'Levine', 'Male', '1973-11-03', '/uploads/kua uone.png', '42', '31', 'Resident', '15', '69', 'jaqylorafo@mailinator.com', 'xakyx@mailinator.com', 'Jamaica', '39', '95', '94', 'Nihil reiciendis rep', 'Officia tempor elit', '52841', '272', '1979-02-06', '2021-04-06', 'Aliquip non accu', '2023-02-06', 'Repudiandae veniam', 'Reprehenderit et ul', 'all', 'undefined', 'all', 'Nairobi', 'KES', 'Regular', '1979-02-06', 'FRIDAY', 'net', '40000', 'primary', 'true', 'true', '', '', '', '', '469', '', 0, 'approved'),
+('Aquila', 'Doris Hartman', 'Rios', 'Male', '2004-08-31', '/uploads/kua uone (1).png', '58', '73', 'Resident', '10', '32', 'zenehoc@mailinator.com', 'sufafu@mailinator.com', 'Philippines', '4', '46', '59', 'Sunt voluptatem duis', 'Accusamus in proiden', '97654', '580', '1975-12-04', '2017-10-10', 'Quaerat tempore ', '2014-02-22', 'Quis necessitatibus', 'Ullam at est corpori', 'all', 'undefined', 'all', 'Nairobi', 'JPY', 'Regular', '1975-12-04', 'WEDNESDAY', 'consolidated', '12', 'none', 'true', 'true', '', '', '', '', '', '', 0, 'pending');
 
 -- --------------------------------------------------------
 
@@ -1895,21 +1899,22 @@ CREATE TABLE `tbl_voucher` (
   `remarks` text NOT NULL,
   `date` date NOT NULL,
   `id` int(11) NOT NULL,
-  `branch` varchar(20) NOT NULL
+  `branch` varchar(20) NOT NULL,
+  `status` varchar(100) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_voucher`
 --
 
-INSERT INTO `tbl_voucher` (`voucher_type`, `voucher_no`, `debit`, `credit`, `remarks`, `date`, `id`, `branch`) VALUES
-('Credit', 'CN-008', '1', '1', 'Id mollit ex lorem n', '2017-12-28', 35, ''),
-('Credit', 'CN-003', '1', '1', 'Id mollit ex lorem n', '2017-12-28', 36, ''),
-('Journal', 'JV-001', '1000', '1000', 'gfuyfygjg hgkuug', '2021-04-29', 37, 'MM2'),
-('Contra', 'CV-001', '1000', '1000', 'hey jude', '2021-04-28', 38, 'MM1'),
-('Journal', 'JV-002', '1000', '1000', 'adwasss', '2021-04-30', 39, 'MM1'),
-('Contra', 'CV-002', '100', '100', 'Voluptatem dolor ut', '1988-09-29', 40, 'MM2'),
-('Journal', 'JV-003', '100', '100', 'Consectetur perfere', '2011-06-05', 41, 'MM2');
+INSERT INTO `tbl_voucher` (`voucher_type`, `voucher_no`, `debit`, `credit`, `remarks`, `date`, `id`, `branch`, `status`) VALUES
+('Credit', 'CN-008', '1', '1', 'Id mollit ex lorem n', '2017-12-28', 35, '', 'pending'),
+('Credit', 'CN-003', '1', '1', 'Id mollit ex lorem n', '2017-12-28', 36, '', 'pending'),
+('Journal', 'JV-001', '1000', '1000', 'gfuyfygjg hgkuug', '2021-04-29', 37, 'MM2', 'pending'),
+('Contra', 'CV-001', '1000', '1000', 'hey jude', '2021-04-28', 38, 'MM1', 'pending'),
+('Journal', 'JV-002', '1000', '1000', 'adwasss', '2021-04-30', 39, 'MM1', 'pending'),
+('Contra', 'CV-002', '100', '100', 'Voluptatem dolor ut', '1988-09-29', 40, 'MM2', 'pending'),
+('Journal', 'JV-003', '100', '100', 'Consectetur perfere', '2011-06-05', 41, 'MM2', 'pending');
 
 -- --------------------------------------------------------
 
@@ -1924,22 +1929,23 @@ CREATE TABLE `tbl_voucher_items` (
   `id` int(100) NOT NULL,
   `date` varchar(15) NOT NULL,
   `group_code` varchar(100) NOT NULL,
-  `voucher_no` varchar(100) NOT NULL
+  `voucher_no` varchar(100) NOT NULL,
+  `status` varchar(100) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_voucher_items`
 --
 
-INSERT INTO `tbl_voucher_items` (`ledger`, `amount`, `type`, `id`, `date`, `group_code`, `voucher_no`) VALUES
-('Meeee', '1', 'Debit', 67, '2017-12-28', '', ''),
-('Meeee', '1', 'Debit', 69, '2017-12-28', '', ''),
-('Depreciation to Motor Vehicles', '1000', 'Debit', 73, '2021-04-28', '050104', ''),
-('Sale of FMCG Products', '1000', 'Debit', 75, '2021-04-30', '040101', ''),
-('Opening Stock', '50', 'Credit', 77, '1988-09-29', '050201', ''),
-('KAA254', '80', 'Debit', 80, '2011-06-05', '010105', 'JV-003'),
-('Fines and Penalties', '20', 'Debit', 81, '2011-06-05', '050202', 'JV-003'),
-('Commissions on Bank Guarantee', '100', 'Credit', 82, '2011-06-05', '050204', 'JV-003');
+INSERT INTO `tbl_voucher_items` (`ledger`, `amount`, `type`, `id`, `date`, `group_code`, `voucher_no`, `status`) VALUES
+('Meeee', '1', 'Debit', 67, '2017-12-28', '', '', 'pending'),
+('Meeee', '1', 'Debit', 69, '2017-12-28', '', '', 'pending'),
+('Depreciation to Motor Vehicles', '1000', 'Debit', 73, '2021-04-28', '050104', '', 'pending'),
+('Sale of FMCG Products', '1000', 'Debit', 75, '2021-04-30', '040101', '', 'pending'),
+('Opening Stock', '50', 'Credit', 77, '1988-09-29', '050201', '', 'pending'),
+('KAA254', '80', 'Debit', 80, '2011-06-05', '010105', 'JV-003', 'pending'),
+('Fines and Penalties', '20', 'Debit', 81, '2011-06-05', '050202', 'JV-003', 'pending'),
+('Commissions on Bank Guarantee', '100', 'Credit', 82, '2011-06-05', '050204', 'JV-003', 'pending');
 
 --
 -- Indexes for dumped tables
@@ -2073,7 +2079,7 @@ ALTER TABLE `tbl_ledger`
 -- Indexes for table `tbl_ledger_amounts`
 --
 ALTER TABLE `tbl_ledger_amounts`
-  ADD PRIMARY KEY (`group_code`,`ledger`,`amount`,`date`,`status`);
+  ADD PRIMARY KEY (`group_code`,`ledger`,`amount`,`date`,`status`,`status_appr`,`ref_no`);
 
 --
 -- Indexes for table `tbl_muster`
