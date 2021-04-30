@@ -240,7 +240,27 @@
               <span
                 v-else-if="header_object[key].name.toLowerCase() == 'status'"
               >
-                Rasta
+                <span
+                  v-if="value.toLowerCase() == 'pending'"
+                  class="badge badge-soft-secondary"
+                >
+                  {{ value }}
+                </span>
+                <span
+                  v-else-if="value.toLowerCase() == 'active'"
+                  class="badge badge-soft-success"
+                >
+                  {{ value }}
+                </span>
+                <span
+                  v-else-if="value.toLowerCase() == 'rejected'"
+                  class="badge badge-soft-danger"
+                >
+                  {{ value }}
+                </span>
+                <span v-else class="badge badge-soft-success">
+                  {{ value }}
+                </span>
               </span>
               <span v-else>{{ value }}</span>
             </td>
