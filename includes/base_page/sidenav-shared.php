@@ -133,6 +133,8 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/add_ledger_ui.php">Add Ledger</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../Accounts/ledger_listing_ui.php">Ledger Listing</a>
+  </li>
   <li class="nav-item"><a class="nav-link" href="../Accounts/product_accounts.php">Accounts Mapping</a>
   </li>
 </ul>

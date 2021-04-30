@@ -54,13 +54,16 @@ CREATE TABLE `tbl_staff` (
   `duration` varchar(16) NOT NULL,
   `end_date` date NOT NULL,
   `job_title` varchar(50) NOT NULL,
-  `department` varchar(50) NOT NULL,
+  `account_no` varchar(50) NOT NULL,
   `report_to` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 
+ALTER TABLE `tbl_staff`
+  ADD UNIQUE KEY `nat_id` (`nat_id`,`pin_no`,`nssf_no`,`nhif_no`,`job_no`,`account_no`);
 
 ALTER TABLE `tbl_staff`  ADD `head_of` varchar(50) NOT NULL,
+ ADD `department` varchar(50) NOT NULL,
  ADD `region` varchar(50) NOT NULL,
  ADD `currency` varchar(50) NOT NULL,
  ADD `shift` varchar(50) NOT NULL,
@@ -72,7 +75,6 @@ ALTER TABLE `tbl_staff`  ADD `head_of` varchar(50) NOT NULL,
  ADD `deduct_nhif` varchar(50) NOT NULL,
  ADD `deduct_nssf` varchar(50) NOT NULL,
  ADD `account_name` varchar(50) NOT NULL,
- ADD `account_no` varchar(50) NOT NULL,
  ADD `bank_name` varchar(50) NOT NULL,
  ADD `sort_code` varchar(50) NOT NULL,
  ADD `s_mobile_no` varchar(50) NOT NULL,

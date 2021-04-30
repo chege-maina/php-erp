@@ -34,12 +34,11 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <h5 class="mb-2">Edit Chart of Accounts</h5>
+        <h5 class="mb-2">Chart of Accounts</h5>
         <div class="card">
           <div class="card-body fs--1 p-4">
             <!-- Content is to start here -->
-            <?php include 'components/tree_data_loader.php' ?>
-            <?php include 'components/tree.php' ?>
+            <?php include 'components/vc_tree.php' ?>
 
             <!-- Content ends here -->
           </div>

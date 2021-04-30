@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2021 at 10:07 AM
+-- Generation Time: Apr 29, 2021 at 04:15 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -866,10 +866,22 @@ CREATE TABLE `tbl_ledger_amounts` (
 --
 
 INSERT INTO `tbl_ledger_amounts` (`group_code`, `ledger`, `amount`, `date`, `status`) VALUES
+('010101', 'Land REF No# LR/KW/00024', '1000', '2021-04-30', 'Credit'),
+('010105', 'KAA254', '80', '2011-06-05', 'Debit'),
 ('010107', 'EQUITY BANK', '114000.00000000001', '2021-04-27', 'Credit'),
 ('010107', 'KCB', '41171.32603448276', '2021-04-28', 'Debit'),
+('010201', 'Mpesa No# 0724', '1000', '2021-04-28', 'Credit'),
 ('010201', 'Whitney Walters', '41171.32603448276', '2021-04-28', 'Credit'),
-('020101', 'Dolan Mendoza', '114000.00000000001', '2021-04-27', 'Debit');
+('020101', 'Dolan Mendoza', '114000.00000000001', '2021-04-27', 'Debit'),
+('040101', 'Sale of FMCG Products', '1000', '2021-04-29', 'Credit'),
+('040101', 'Sale of FMCG Products', '1000', '2021-04-30', 'Debit'),
+('050104', 'Depreciation to Motor Vehicles', '1000', '2021-04-28', 'Debit'),
+('050104', 'Depreciation to Motor Vehicles', '50', '1988-09-29', 'Credit'),
+('050201', 'Goods Returns Outwards', '1000', '2021-04-29', 'Debit'),
+('050201', 'Opening Stock', '50', '1988-09-29', 'Credit'),
+('050202', 'Fines and Penalties', '20', '2011-06-05', 'Debit'),
+('050202', 'Office Expenses', '100', '1988-09-29', 'Debit'),
+('050204', 'Commissions on Bank Guarantee', '100', '2011-06-05', 'Credit');
 
 -- --------------------------------------------------------
 
@@ -1892,7 +1904,12 @@ CREATE TABLE `tbl_voucher` (
 
 INSERT INTO `tbl_voucher` (`voucher_type`, `voucher_no`, `debit`, `credit`, `remarks`, `date`, `id`, `branch`) VALUES
 ('Credit', 'CN-008', '1', '1', 'Id mollit ex lorem n', '2017-12-28', 35, ''),
-('Credit', 'CN-003', '1', '1', 'Id mollit ex lorem n', '2017-12-28', 36, '');
+('Credit', 'CN-003', '1', '1', 'Id mollit ex lorem n', '2017-12-28', 36, ''),
+('Journal', 'JV-001', '1000', '1000', 'gfuyfygjg hgkuug', '2021-04-29', 37, 'MM2'),
+('Contra', 'CV-001', '1000', '1000', 'hey jude', '2021-04-28', 38, 'MM1'),
+('Journal', 'JV-002', '1000', '1000', 'adwasss', '2021-04-30', 39, 'MM1'),
+('Contra', 'CV-002', '100', '100', 'Voluptatem dolor ut', '1988-09-29', 40, 'MM2'),
+('Journal', 'JV-003', '100', '100', 'Consectetur perfere', '2011-06-05', 41, 'MM2');
 
 -- --------------------------------------------------------
 
@@ -1901,21 +1918,28 @@ INSERT INTO `tbl_voucher` (`voucher_type`, `voucher_no`, `debit`, `credit`, `rem
 --
 
 CREATE TABLE `tbl_voucher_items` (
-  `voucher_no` varchar(100) NOT NULL,
   `ledger` varchar(50) NOT NULL,
   `amount` varchar(100) NOT NULL,
   `type` varchar(50) NOT NULL,
   `id` int(100) NOT NULL,
-  `date` varchar(15) NOT NULL
+  `date` varchar(15) NOT NULL,
+  `group_code` varchar(100) NOT NULL,
+  `voucher_no` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_voucher_items`
 --
 
-INSERT INTO `tbl_voucher_items` (`voucher_no`, `ledger`, `amount`, `type`, `id`, `date`) VALUES
-('CN-007', 'Meeee', '1', 'Debit', 67, '2017-12-28'),
-('CN-008', 'Meeee', '1', 'Debit', 69, '2017-12-28');
+INSERT INTO `tbl_voucher_items` (`ledger`, `amount`, `type`, `id`, `date`, `group_code`, `voucher_no`) VALUES
+('Meeee', '1', 'Debit', 67, '2017-12-28', '', ''),
+('Meeee', '1', 'Debit', 69, '2017-12-28', '', ''),
+('Depreciation to Motor Vehicles', '1000', 'Debit', 73, '2021-04-28', '050104', ''),
+('Sale of FMCG Products', '1000', 'Debit', 75, '2021-04-30', '040101', ''),
+('Opening Stock', '50', 'Credit', 77, '1988-09-29', '050201', ''),
+('KAA254', '80', 'Debit', 80, '2011-06-05', '010105', 'JV-003'),
+('Fines and Penalties', '20', 'Debit', 81, '2011-06-05', '050202', 'JV-003'),
+('Commissions on Bank Guarantee', '100', 'Credit', 82, '2011-06-05', '050204', 'JV-003');
 
 --
 -- Indexes for dumped tables
@@ -2266,8 +2290,7 @@ ALTER TABLE `tbl_voucher`
 -- Indexes for table `tbl_voucher_items`
 --
 ALTER TABLE `tbl_voucher_items`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `voucher_no` (`voucher_no`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -2481,13 +2504,13 @@ ALTER TABLE `tbl_unit`
 -- AUTO_INCREMENT for table `tbl_voucher`
 --
 ALTER TABLE `tbl_voucher`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `tbl_voucher_items`
 --
 ALTER TABLE `tbl_voucher_items`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- Constraints for dumped tables

@@ -41,6 +41,10 @@ include '../includes/base_page/head.php';
         include '../navbar-shared.php';
         ?>
 
+        <script>
+          window.sessionStorage.clear();
+        </script>
+
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
