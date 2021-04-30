@@ -79,7 +79,7 @@ include '../includes/base_page/head.php';
                   <div class="col">
                     <label for="enddate" class="form-label">To</label>
                     <!-- autofill current date  -->
-                    <input type="date" name="enddate" id="enddate" class="form-control" required>
+                    <input type="date" name="enddate" id="enddate" class="form-control" onchange="setDateDifference(this.value);" required>
                   </div>
                   <!--other rows go here -->
 
@@ -88,7 +88,7 @@ include '../includes/base_page/head.php';
                   <div class="col">
                     <label for="duration" class="form-label">Duration</label>
                     <div class="input-group">
-                      <input type="number" name="duration" id="duration" class="form-control" required>
+                      <input type="number" name="duration" id="duration" class="form-control" readonly required>
                       <span class="input-group-text">
                         Days
                       </span>
@@ -148,6 +148,15 @@ include '../includes/base_page/head.php';
   </main>
 </body>
 <script>
+  const startdate = document.querySelector("#startdate");
+  const enddate = document.querySelector("#enddate");
+  const duration = document.querySelector("#duration");
+
+  let setDateDifference = val => {
+    const diff = ((new Date(val)).getTime() - (new Date(startdate.value)).getTime()) / (1000 * 60 * 60 * 24)
+    duration.value = diff;
+  }
+
   const employee_name = document.querySelector("#employee_name");
   const employee = document.querySelector("#employee");
   const leave_category = document.querySelector("#leave_category");
