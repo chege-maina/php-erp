@@ -61,14 +61,13 @@ include '../includes/base_page/head.php';
                   <button type="button" class="btn btn-primary input-group-btn" data-toggle="modal" data-target="#addBenefit">
                     Add
                   </button>
-                  <select class="form-select" name="branch" id="benefit_select">
+                  <select class="form-select" name="branch" id="benefit_select" onchange="addItem();">
                     <option value disabled selected>
                       -- Select Leave Category --
                     </option>
                   </select>
                   <div class="invalid-tooltip">This field cannot be left blank.</div>
                   <!-- Button trigger modal -->
-                  <input type="button" value="+" class="btn btn-primary" onclick="addItem();">
                 </div>
               </div>
             </div>
@@ -382,15 +381,38 @@ include '../includes/base_page/head.php';
         const employee_name = document.querySelector("#employee_name");
         const benefits = [];
 
+        let error_found = false;
+
+        if (table_body.childNodes.length == 0) {
+          const b_sel = document.querySelector("#benefit_select");
+          b_sel.focus();
+          error_found = true;
+        }
+
         table_body.childNodes.forEach(row => {
           const k_leave = row.childNodes[0].innerHTML;
           const k_num_days = row.childNodes[1].childNodes[0].value;
           const k_opening = row.childNodes[2].childNodes[0].value;
+
+
+          if (Number(k_num_days && k_opening) <= 0) {
+            row.childNodes[1].childNodes[0].focus()
+            row.childNodes[2].childNodes[0].focus()
+            error_found = true;
+            return;
+          }
+
           benefits.push({
             empleave: k_leave,
             num_days: k_num_days,
             opening_balance: k_opening
           });
+
+          // if () {
+          //   benefit_select.focus();
+          //   error_found = true
+          // }
+
         });
 
         for (let key in all_employees[employee_name.value]) {
@@ -406,6 +428,13 @@ include '../includes/base_page/head.php';
       }
 
       function submitForm() {
+
+        if (!employee_name.value) {
+          employee_name.focus();
+          return;
+        }
+
+
         let tmp_obj = getItems();
 
         const formData = new FormData();
