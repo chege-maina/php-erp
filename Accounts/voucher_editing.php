@@ -115,6 +115,13 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <script>
           let v_id;
+          const v_no = document.querySelector("#v_no");
+          const v_type = document.querySelector("#v_type");
+          const v_date = document.querySelector("#v_date");
+          const remarks = document.querySelector("#remarks");
+          const total_credit = document.querySelector("#total_credit");
+          const total_debit = document.querySelector("#total_debit");
+
           window.addEventListener('DOMContentLoaded', (event) => {
             v_id = window.sessionStorage.getItem("Voucher_No");
             if (v_id == null) {
@@ -130,6 +137,16 @@ include '../includes/base_page/head.php';
               .then(response => response.json())
               .then(result => {
                 console.log('Success:', result);
+                if (result.length <= 0) {
+                  return;
+                }
+                result = result[0];
+                v_no.value = result.voucher_no;
+                v_type.value = result.voucher_type;
+                v_date.value = result.date;
+                remarks.value = result.remarks;
+                total_credit.value = result.total_credit;
+                total_debit.value = result.total_debit;
               })
               .catch(error => {
                 console.error('Error:', error);
