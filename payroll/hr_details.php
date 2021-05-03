@@ -50,7 +50,7 @@ include '../base_page/data_list_select.php';
       <div class="col">
         <label for="branch" class="form-label">Branch</label>
         <select name="branch" id="branch_id" class="form-select">
-          <option value="" disabled selected>Select Branch</option>
+          <option value disabled selected>Select Branch</option>
         </select>
       </div>
     </div>

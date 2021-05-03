@@ -51,7 +51,7 @@
     </div>
     <div class="col">
       <label class="form-label" for="pin_no">PIN NO.*</label>
-      <input type="text" class="form-control" name="pin_no" maxlength="11" pattern="/^a\d{9}[a-z]$/iD" id="pin_no" title="Wrong input please rewrite">required>
+      <input type="text" class="form-control" name="pin_no" pattern="/^a\d{9}[a-z]$/iD" id="pin_no" title="Wrong input please rewrite" required>
       <div class="invalid-feedback">This field cannot be left blank.</div>
     </div>
   </div>
