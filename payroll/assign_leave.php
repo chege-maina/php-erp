@@ -314,7 +314,8 @@ include '../includes/base_page/head.php';
       }
 
       function addItem() {
-        if (!benefit_select.value) {
+        if (!employee_name.value) {
+          employee_name.focus();
           return;
         }
 
@@ -395,8 +396,13 @@ include '../includes/base_page/head.php';
           const k_opening = row.childNodes[2].childNodes[0].value;
 
 
-          if (Number(k_num_days && k_opening) <= 0) {
+          if (Number(k_num_days) <= 0) {
             row.childNodes[1].childNodes[0].focus()
+            error_found = true;
+            return;
+          }
+
+          if (Number(k_opening) <= 0) {
             row.childNodes[2].childNodes[0].focus()
             error_found = true;
             return;
@@ -408,10 +414,6 @@ include '../includes/base_page/head.php';
             opening_balance: k_opening
           });
 
-          // if () {
-          //   benefit_select.focus();
-          //   error_found = true
-          // }
 
         });
 
@@ -461,8 +463,6 @@ include '../includes/base_page/head.php';
           .catch(error => {
             console.error('Error:', error);
           });
-
-        return false;
       }
 
       function validateQuantity(elmt, value, max) {

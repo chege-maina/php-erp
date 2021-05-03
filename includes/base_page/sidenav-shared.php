@@ -215,7 +215,11 @@ function genSideBar()
       </li>
       <li class="nav-item"><a class="nav-link" href="../payroll/nhif.php">Define NHIF Rates</a>
       </li>
+      <li class="nav-item"><a class="nav-link" href="../payroll/nhif_listing_ui.php">NHIF LIsting</a>
+      </li>
       <li class="nav-item"><a class="nav-link" href="../payroll/paye.php">Define P.A.Y.E Rates</a>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="../payroll/paye_listing_ui.php">P.A.Y.E LIsting</a>
       </li>
       <li class="nav-item"><a class="nav-link" href="../payroll/shift_listing_ui.php">Shifts Listing</a>
       </li>
