@@ -135,6 +135,7 @@ include '../includes/base_page/head.php';
           function SearchItem() {
 
             if (!benefit_select.value) {
+              benefit_select.focus()
               return;
             }
             const benefit_var = employee_benefits[benefit_select.value].benefit;

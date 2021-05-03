@@ -44,7 +44,7 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <h5 class="mb-0">NHIF Rates Listings</h5>
+        <h5 class="mb-0">Loans and Deductions </h5>
         <!-- ===============================================-->
         <!--    COMPONENT:: Add it -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ -->
@@ -73,15 +73,15 @@ include '../includes/base_page/head.php';
             elem.setAttribute("json_header", JSON.stringify(getHeaders(data)));
             elem.setAttribute("json_items", JSON.stringify(getItems(data)));
 
-            elem.setAttribute("manage_key", "From");
-            elem.setAttribute("redirect", getBaseUrl() + "/payroll/edit-nhif-ui.php");
+            elem.setAttribute("manage_key", "Category");
+            elem.setAttribute("redirect", getBaseUrl() + "/payroll/edit-loans-deduct-ui.php");
             // elem.classList.add("is-fullwidth");
             datatable.appendChild(elem);
           };
 
           window.addEventListener('DOMContentLoaded', (event) => {
 
-            fetch('../payroll/nhif_listing.php')
+            fetch('../payroll/loans_deduct_list.php')
               .then(response => response.json())
               .then(data => {
                 updateTable(data);

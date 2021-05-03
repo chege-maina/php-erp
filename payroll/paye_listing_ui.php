@@ -44,13 +44,13 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
-        <h5 class="mb-0">Shift Listing</h5>
+        <h5 class="mb-0">P.A.Y.E Rates Listing</h5>
         <!-- ===============================================-->
         <!--    COMPONENT:: Add it -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ -->
         <div class="card mt-1">
           <div class="card-header bg-light">
-            <h6 class="mb-0">Shifts</h6>
+            <h6 class="mb-0">Listings</h6>
           </div>
           <div class="card-body fs--1 p-2">
             <!-- Content is to start here -->

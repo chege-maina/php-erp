@@ -199,6 +199,10 @@ function genSideBar()
   </li>
   <li class="nav-item"><a class="nav-link" href="../payroll/expense_mngt.php">Company Loans</a>
   </li>
+  <li class="nav-item"><a class="nav-link" href="../payroll/loans_deduct_ui.php">Company Loans Listings</a>
+  </li>
+  <li class="nav-item"><a class="nav-link" href="../payroll/loans_deduct_ui.php">Listing of Loans</a>
+  </li>
   <li class="nav-item"><a class="nav-link" href="../payroll/payroll_muster.php">Payroll Master</a>
   </li>
   <li class="nav-item"><a class="nav-link" href="../payroll/assign_leave.php">Leave Assignement</a>
