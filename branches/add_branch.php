@@ -96,8 +96,34 @@ include '../includes/base_page/head.php';
         <!-- =========================================================== -->
 
         <script>
+          const branch_name = document.querySelector("#branch_name");
+          const email_address = document.querySelector("#email_address");
+          const tel_no = document.querySelector("#tel_no");
+          const postal_address = document.querySelector("#postal_address");
+          const physical_address = document.querySelector("#physical_address");
+
           function submitForm() {
             console.log("Submitting");
+
+            const formData = new FormData();
+            formData.append("branch_name", branch_name.value);
+            formData.append("email_address", email_address.value);
+            formData.append("tel_no", tel_no.value);
+            formData.append("postal_address", postal_address.value);
+            formData.append("physical_address", physical_address.value);
+
+            fetch('./add_branch_to_db.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+                console.log('Success:', result);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+
             return false;
           }
         </script>
