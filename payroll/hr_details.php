@@ -152,7 +152,6 @@ include '../base_page/data_list_select.php';
   const duration = document.querySelector("#duration");
   const job_title = document.querySelector("#job_title");
   const department = document.querySelector("#department");
-  const head_of = document.querySelector("#head_of");
   const report_to = document.querySelector("#report_to");
   const region = document.querySelector("#region");
 
@@ -183,7 +182,6 @@ include '../base_page/data_list_select.php';
       duration: duration.value,
       job_title: job_title.value,
       department: department.value,
-      head_of: head_of.value,
       report_to: report_to.value,
       region: region.value,
     }

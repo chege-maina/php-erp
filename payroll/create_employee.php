@@ -106,23 +106,62 @@ include '../includes/base_page/head.php';
           function submitForm() {
 
             if (!job_number.value) {
+              job_number.focus()
               return;
             }
 
             if (!nhif_no.value) {
+              nhif_no.focus()
               return;
             }
             if (!nssf_no.value) {
+              nssf_no.focus()
               return;
             }
             if (!pin_no.value) {
+              pin_no.focus()
               return;
             }
             if (!national_id.value) {
+              national_id.focus()
               return;
             }
-
-
+            if (!off_mail.value) {
+              off_mail.focus()
+              return;
+            }
+            if (!pers_mail.value) {
+              pers_mail.focus()
+              return;
+            }
+            if (!country.value) {
+              country.focus()
+              return;
+            }
+            if (!mobile_no.value) {
+              mobile_no.focus()
+              return;
+            }
+            if (!official_no.value) {
+              official_no.focus()
+              return;
+            }
+            if (!ext_no.value) {
+              ext_no.focus()
+              return;
+            }
+            if (!city_town.value) {
+              city_town.focus()
+              return;
+            }
+            if (!county.value) {
+              county.focus()
+              return;
+            }
+            if (!p_code.value) {
+              p_code.focus()
+              return;
+            }
 
             const formData = new FormData();
 
