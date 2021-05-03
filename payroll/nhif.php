@@ -68,7 +68,7 @@ include '../includes/base_page/head.php';
                     <tr>
                       <th scope="col">From</th>
                       <th scope="col">To</th>
-                      <th scope="col">Rate(%)</th>
+                      <th scope="col">Rate</th>
                       <th scope="col" class="col-md-2">Action</th>
                     </tr>
                   </thead>
@@ -267,6 +267,7 @@ include '../includes/base_page/head.php';
   function submitForm() {
 
     if (!adv_year.value) {
+      adv_year.focus()
       return;
     }
 
@@ -288,9 +289,9 @@ include '../includes/base_page/head.php';
       .then(result => {
         console.log('Success:', result);
 
-        //  setTimeout(function() {
-        //    location.reload();
-        //  }, 2500);
+        setTimeout(function() {
+          location.reload();
+        }, 2500);
 
       })
       .catch(error => {
