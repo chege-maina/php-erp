@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2021 at 02:57 PM
+-- Generation Time: May 03, 2021 at 10:09 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -29,11 +29,32 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tbl_paye` (
   `id` int(11) NOT NULL,
-  `from` varchar(50) NOT NULL,
-  `to` varchar(50) NOT NULL,
+  `fromnhif` varchar(50) NOT NULL,
+  `tonhif` varchar(50) NOT NULL,
   `rate` varchar(50) NOT NULL,
-  `desc` varchar(50) NOT NULL
+  `descnhif` varchar(50) NOT NULL,
+  `relief` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_paye`
+--
+
+INSERT INTO `tbl_paye` (`id`, `fromnhif`, `tonhif`, `rate`, `descnhif`, `relief`) VALUES
+(6, '77', '59', '69', '2014', '2400'),
+(7, '50', '35', '21', '2014', '2400'),
+(8, '85', '35', '22', '2014', '2400'),
+(9, '39', '29', '50', '2014', '2400'),
+(10, '1', '10164', '10', '2012', '2400'),
+(11, '10165', '19740', '15', '2012', '2400'),
+(12, '19741', '29316', '20', '2012', '2400'),
+(13, '29317', '38892', '25', '2012', '2400'),
+(14, '38893', '99999999', '30', '2012', '2400'),
+(15, '61', '61', '25', '2008', '1200'),
+(16, '68', '93', '0', '2008', '1200'),
+(17, '46', '13', '35', '2008', '1200'),
+(18, '44', '13', '15', '2008', '1200'),
+(19, '23', '83', '51', '2008', '1200');
 
 --
 -- Indexes for dumped tables
@@ -43,7 +64,17 @@ CREATE TABLE `tbl_paye` (
 -- Indexes for table `tbl_paye`
 --
 ALTER TABLE `tbl_paye`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`,`fromnhif`,`tonhif`,`rate`,`descnhif`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tbl_paye`
+--
+ALTER TABLE `tbl_paye`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
