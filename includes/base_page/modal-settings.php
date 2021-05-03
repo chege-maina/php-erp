@@ -1,4 +1,4 @@
-<div class="modal fade modal-fixed-right modal-theme overflow-hidden" id="settings-modal" tabindex="-1" role="dialog" aria-labelledby="settings-modal-label" aria-hidden="true" data-options='{"autoShow":true,"autoShowDelay":3000,"showOnce":true}'>
+<div class="modal fade modal-fixed-right modal-theme overflow-hidden" id="settings-modal" tabindex="-1" role="dialog" aria-labelledby="settings-modal-label" aria-hidden="true" data-options='{"autoShow":false,"autoShowDelay":3000,"showOnce":true}'>
   <div class="modal-dialog modal-dialog-vertical" role="document">
     <div class="modal-content border-0 vh-100 scrollbar">
       <div class="modal-header modal-header-settings bg-shape">
