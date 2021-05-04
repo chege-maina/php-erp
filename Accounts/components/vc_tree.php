@@ -23,15 +23,37 @@ include 'category_crud_modal.php';
       <template v-slot:append="{ item }">
         <a>
           <span>
-            <span v-if="!item.type"></span>
-            <span v-else>
-              {{ item.type }}
-            </span>
+            <small><strong>opening</strong></small>
+            <span>oX</span>
           </span>
+
+
+          <span style="margin-left: 1em">
+            <small><strong>debit</strong></small>
+            <span>oX</span>
+          </span>
+
+          <span style="margin-left: 1em">
+            <small><strong>credit</strong></small>
+            <span>oX</span>
+          </span>
+
+          <span style="margin-left: 1em">
+            <small><strong>closing</strong></small>
+            <span>oX</span>
+          </span>
+
           <span>
             <span v-if="!item.value"> 0 </span>
             <span v-else>
               {{ item.value }}
+            </span>
+          </span>
+
+          <span>
+            <span v-if="!item.type"></span>
+            <span v-else>
+              {{ item.type }}
             </span>
           </span>
         </a>

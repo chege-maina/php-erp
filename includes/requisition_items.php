@@ -10,6 +10,7 @@ $branch = $_SESSION['branch'];
 $query = "SELECT * FROM tbl_branch_levels WHERE branch='$branch'";
 
 
+
 $result = mysqli_query($conn, $query);
 $response = array();
 

@@ -29,7 +29,7 @@
     <!--vertical navbar-->
     <?php
     require 'sidenav-shared.php';
-    genSideBar();
+    //    genSideBar();
     ?>
   </div>
 </nav>
