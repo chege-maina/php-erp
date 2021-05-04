@@ -20,7 +20,8 @@ while ($row = mysqli_fetch_assoc($result)) {
       'National_Id' => $row['nat_id'],
       'Mobile_No' => $row['mobile_no'],
       'Official_Mail' => $row['off_mail'],
-      'Status' => $row['status']
+      'Description' => $row['status'],
+      'Status' => $row['description']
     )
   );
 }

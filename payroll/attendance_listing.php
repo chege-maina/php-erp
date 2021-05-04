@@ -18,7 +18,8 @@ while ($row = mysqli_fetch_assoc($result)) {
       'Employee_No' => $row['employee_no'],
       'Branch' => $row['branch'],
       'Designation' => $row['job_title'],
-      'Status' => $row['status'],
+      'Description' => $row['status'],
+      'Status' => $row['description']
     )
   );
 }
