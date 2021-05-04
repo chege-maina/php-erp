@@ -20,6 +20,7 @@
   </div>
 </div>
 
+
 <script>
   const category_list = document.querySelector("#category_list");
   const product_category = document.querySelector("#product_category");
