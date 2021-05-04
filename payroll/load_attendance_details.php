@@ -18,13 +18,13 @@ function sanitize_input($data)
   return $data;
 }
 
-function get_supplier($con, $emp_no)
+function get_supplier($con, $s_id)
 {
   $to_return = "";
   $query = "SELECT * FROM tbl_attendance WHERE employee_no = ?;";
   $sttmt = "";
   if ($sttmt = $con->prepare($query)) {
-    $sttmt->bind_param('s', $emp_no);
+    $sttmt->bind_param('s', $s_id);
     if ($sttmt->execute()) {
       // Get result
       $result = $sttmt->get_result();
@@ -60,10 +60,10 @@ function get_supplier($con, $emp_no)
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // 1. Get the post fields
-  $emp_no = sanitize_input($_POST["emp_no"]);
+  $s_id = sanitize_input($_POST["s_id"]);
 
   // Echo whatever is returned from the function
-  echo json_encode(get_supplier($con, $emp_no));
+  echo json_encode(get_supplier($con, $s_id));
 } else {
   echo json_encode(array(
     "message" => "error",

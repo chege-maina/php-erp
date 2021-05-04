@@ -131,7 +131,7 @@ include '../includes/base_page/head.php';
         const employee_no = document.querySelector("#employee_no");
         const branch_name = document.querySelector("#branch_name");
         const job_title = document.querySelector("#job_title");
-        const status = document.querySelector("#status");
+        const description = document.querySelector("#status");
         const late_entry = document.querySelector("#late_entry");
         const early_exit = document.querySelector("#early_exit");
 
@@ -145,7 +145,7 @@ include '../includes/base_page/head.php';
             employee_no: employee_no.value,
             branch: branch_name.value,
             job_title: job_title.value,
-            status: status.value,
+            description: description.value,
             late_entry: late_entry.checked,
             early_exit: early_exit.checked,
           }
@@ -219,8 +219,8 @@ include '../includes/base_page/head.php';
             return;
           }
 
-          if (!status.value) {
-            status.focus();
+          if (!description.value) {
+            description.focus();
             return;
           }
 
