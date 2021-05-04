@@ -35,7 +35,7 @@ include '../includes/base_page/head.php';
         <!-- body begins here -->
         <!-- -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- -->
         <h5 class="mb-2">Chart of Accounts</h5>
-        <form action="#" onsubmit="return filterForm()">
+        <form action="#" onsubmit="return filterData()">
           <div class="card mb-1">
             <div class="card-body p-2 px-4">
               <div class="row">
@@ -80,7 +80,24 @@ include '../includes/base_page/head.php';
         <!-- Footer End -->
         <!-- =========================================================== -->
         <script>
-          function filterForm() {
+          const start_date = document.querySelector("#start_date");
+          const end_date = document.querySelector("#end_date");
+
+          function filterData() {
+            const formData = new FormData();
+            formData.append("from", start_date.value);
+            formData.append("to", end_date.value);
+            fetch('../includes/load_ledgers.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(result => {
+                console.log('Success:', result);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
             return false;
           }
         </script>
