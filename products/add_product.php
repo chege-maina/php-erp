@@ -18,6 +18,7 @@ function sanitize_input($data)
 
 
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $user_name = sanitize_input($_POST["user_name"]);
 
