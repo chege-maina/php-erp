@@ -24,18 +24,23 @@ include 'category_crud_modal.php';
         <a>
           <span>
             <small><strong>opening</strong></small>
+            <span>oX</span>
           </span>
 
-          <span>
+
+          <span style="margin-left: 1em">
             <small><strong>debit</strong></small>
+            <span>oX</span>
           </span>
 
-          <span>
+          <span style="margin-left: 1em">
             <small><strong>credit</strong></small>
+            <span>oX</span>
           </span>
 
-          <span>
+          <span style="margin-left: 1em">
             <small><strong>closing</strong></small>
+            <span>oX</span>
           </span>
 
           <span>
