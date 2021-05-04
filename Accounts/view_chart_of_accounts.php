@@ -137,7 +137,7 @@ include '../includes/base_page/head.php';
                   });
                 });
 
-                // At this point tmp_array is ready to be added to the session raw_data
+                // 5. At this point tmp_array is ready to be added to the session raw_data
               })
               .catch(error => {
                 console.error('Error:', error);
