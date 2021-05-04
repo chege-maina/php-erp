@@ -138,6 +138,11 @@ include '../includes/base_page/head.php';
                 });
 
                 // 5. At this point tmp_array is ready to be added to the session raw_data
+                window.sessionStorage.setItem("raw_data", JSON.stringify(tmp_array));
+                const ev = new StorageEvent("storage", {
+                  key: "raw_data"
+                });
+                window.dispatchEvent(ev);
               })
               .catch(error => {
                 console.error('Error:', error);
