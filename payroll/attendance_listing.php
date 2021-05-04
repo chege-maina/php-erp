@@ -14,11 +14,12 @@ while ($row = mysqli_fetch_assoc($result)) {
     $response,
     array(
       'Employee_Name' => $row['employee_name'],
-      'Attendance Date' => $row['att_date'],
+      'Attendance_Date' => $row['att_date'],
       'Employee_No' => $row['employee_no'],
       'Branch' => $row['branch'],
       'Designation' => $row['job_title'],
-      'Status' => $row['status'],
+      'Description' => $row['description'],
+      'Status' => $row['status']
     )
   );
 }

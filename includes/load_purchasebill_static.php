@@ -47,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             array_push(
                 $response2,
+
                 array(
                     'product_code' => $prod_code,
                     'product_name' => $prod_name,

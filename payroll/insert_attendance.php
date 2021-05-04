@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $employee_no = sanitize_input($_POST["employee_no"]);
   $branch = sanitize_input($_POST["branch"]);
   $job_title = sanitize_input($_POST["job_title"]);
-  $status = sanitize_input($_POST["status"]);
+  $description = sanitize_input($_POST["description"]);
   $late_entry = sanitize_input($_POST["late_entry"]);
   $early_exit = sanitize_input($_POST["early_exit"]);
 
@@ -35,8 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Store the result so we can check if the account exists in the database.
     $stmt->store_result();
     if ($stmt->num_rows == 0) {
-      if ($stmt = $con->prepare('INSERT INTO tbl_attendance (employee_name,att_date,employee_no,branch,job_title,status,late_entry,early_exit) VALUES (?,?,?,?,?,?,?,?)')) {
-        $stmt->bind_param('ssssssss', $employee_name, $att_date, $employee_no, $branch, $job_title, $status, $late_entry, $early_exit);
+      if ($stmt = $con->prepare('INSERT INTO tbl_attendance (employee_name,att_date,employee_no,branch,job_title,description,late_entry,early_exit) VALUES (?,?,?,?,?,?,?,?)')) {
+        $stmt->bind_param('ssssssss', $employee_name, $att_date, $employee_no, $branch, $job_title, $description, $late_entry, $early_exit);
 
         if ($stmt->execute()) {
           $responseArray = array(

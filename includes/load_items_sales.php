@@ -60,6 +60,7 @@ while ($row8 = mysqli_fetch_assoc($result8)) {
             $totalpo = $row4['sum(qty)'];
         }
 
+
         $query5 = "SELECT sum(qty) FROM tbl_invoice_items WHERE product_name = '$product' and branch = '$branch' and (status='partial' or status='done')";
         $result5 = mysqli_query($conn, $query5);
         if ($row5 = mysqli_fetch_assoc($result5)) {

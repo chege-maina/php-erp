@@ -17,6 +17,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   $terms = $row['payment_terms'];
   $limit = $row['credit_limit'];
 
+
   $query2 = "SELECT sum(amount_due) FROM tbl_receiptadv_items WHERE customer_name='$cust_name' and (status='pending' or status='approved')";
   $result2 = mysqli_query($conn, $query2);
   if ($row2 = mysqli_fetch_assoc($result2)) {
