@@ -14,6 +14,7 @@ $credit_now = 0;
 $debit_now = 0;
 
 
+
 $query = "SELECT * FROM tbl_ledger_amounts WHERE date>='$start_date' and date<= '$end_date' GROUP BY ledger";
 $result = mysqli_query($conn, $query);
 $response = array();
