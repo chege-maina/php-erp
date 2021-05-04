@@ -252,6 +252,18 @@
       </ul>
     </li>
 
+    <li class="nav-item"><a class="nav-link dropdown-indicator" href="#e-branches" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="e-commerce">
+        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-store" style="color:#Fb870c;"></span></span><span class="nav-link-text">Branches</span>
+        </div>
+      </a>
+      <ul class="nav collapse" id="e-branches" data-parent="#navbarVerticalCollapse">
+        <li class="nav-item"><a class="nav-link" href="../branches/add_branch.php">Add Branch</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="../branches/branch_listing.php">Manage Branches</a>
+        </li>
+      </ul>
+    </li>
+
 
     <!-- End of Qubes Working  -->
 
