@@ -4,8 +4,8 @@ header("Content-type:application/json");
 
 include_once 'dbconnect.php';
 session_start();
-$start_date = "2021-04-30"; //$_POST["date1"];
-$end_date = "2021-05-30"; //$_POST["date2"];
+$start_date = $_POST["date1"];
+$end_date = $_POST["date2"];
 
 $opening_bal = 0;
 $opening_credit = 0;
