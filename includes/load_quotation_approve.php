@@ -18,6 +18,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     array_push(
         $response,
         array(
+
             'req_no' => $row['quote_no'],
             'customer' => $row['customer_name'],
             'date' => $row['date'],
