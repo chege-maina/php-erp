@@ -112,11 +112,14 @@
 
   window.sessionStorage.setItem("items", JSON.stringify(parent_children));
 
+
+  let updated_items;
+
   function calculateTreeTotals(index) {
     console.log("Calculting totals");
     // 1. Get the index and items we can calculate totals.
     index = JSON.parse(index);
-    const items = JSON.parse(sessionStorage.getItem("raw_data"));
+    updated_items = JSON.parse(sessionStorage.getItem("raw_data"));
 
     let max = 0;
     // 2. Get the longest path in the index
@@ -125,16 +128,70 @@
         max = index[key].length;
       }
     }
-    console.log(max);
+    // console.log(max);
 
     // 3. With the longest path, calculate totals of in descending order
     for (let i = max; i > 0; i--) {
       // Calculate totals only for elements with length i
       for (let key in index) {
-        if (index[key].length == i) {
-          console.log(key, index[key]);
+        // Only those elements with a length >= 2 can be calculating on
+        if (index[key].length >= 2) {
+          if (index[key].length == i) {
+            // Get this node's index
+            const parent_index = index[key][i - 2];
+            // console.log(key, index[key], parent_index);
+
+            // 4. With the node's index, see everywhere it appears and set its total
+            updated_items.forEach(item => {
+              // HACK: I realize that I should make all names unique
+              // Or set the index to a numerical value if available and fallback to name
+              if (item.child_title == key) {
+                // We have found the item, get it's specifics
+                // console.log("Haile sellasie", item);
+                addValuesToParent(
+                  item.parent_number,
+                  'child_debit_val' in item ? item.child_debit_val : 0,
+                  'child_credit_val' in item ? item.child_credit_val : 0,
+                  'child_opening_bal' in item ? item.child_opening_bal : 0,
+                  'child_closing_bal' in item ? item.child_closing_bal : 0,
+                );
+              }
+            });
+          }
         }
       }
     }
+
+    // 5. Now update the session stored value
+    window.sessionStorage.setItem("raw_data", JSON.stringify(updated_items));
+    const ev = new StorageEvent("storage", {
+      key: "raw_data"
+    });
+    window.dispatchEvent(ev);
+
+    raw_data.forEach(row =>
+      console.log(JSON.stringify(row, null, "  "))
+    )
+  }
+
+
+  function addValuesToParent(parent_id, debit, credit, opening, closing) {
+    // Look for all instances of this parent
+    let i = 0;
+    updated_items.forEach(item => {
+      // If the parent is a child
+      if (item.child_number == parent_id) {
+        updated_items[i]['child_debit_val'] = 'child_debit_val' in updated_items[i] ?
+          updated_items[i].child_debit_val + debit : 0;
+        updated_items[i]['child_credit_val'] = 'child_credit_val' in updated_items[i] ?
+          updated_items[i].child_credit_val + credit : 0;
+        updated_items[i]['child_opening_bal'] = 'child_opening_bal' in updated_items[i] ?
+          updated_items[i].child_opening_bal + opening : 0;
+        updated_items[i]['child_closing_bal'] = 'child_closing_bal' in updated_items[i] ?
+          updated_items[i].child_closing_bal + closing : 0;
+        console.log("foundh", updated_items[i]);
+      }
+      i++;
+    });
   }
 </script>
