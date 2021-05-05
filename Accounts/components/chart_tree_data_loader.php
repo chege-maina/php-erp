@@ -74,6 +74,8 @@
       raw_data = JSON.parse(raw_data);
       [...global_raw_data] = raw_data;
       convertRawDataToMap(raw_data);
+    } else if (event.key == "index") {
+      calculateTreeTotals(window.sessionStorage.getItem("index"));
     }
   });
 
@@ -109,4 +111,30 @@
   }
 
   window.sessionStorage.setItem("items", JSON.stringify(parent_children));
+
+  function calculateTreeTotals(index) {
+    console.log("Calculting totals");
+    // 1. Get the index and items we can calculate totals.
+    index = JSON.parse(index);
+    const items = JSON.parse(sessionStorage.getItem("raw_data"));
+
+    let max = 0;
+    // 2. Get the longest path in the index
+    for (let key in index) {
+      if (index[key].length > max) {
+        max = index[key].length;
+      }
+    }
+    console.log(max);
+
+    // 3. With the longest path, calculate totals of in descending order
+    for (let i = max; i > 0; i--) {
+      // Calculate totals only for elements with length i
+      for (let key in index) {
+        if (index[key].length == i) {
+          console.log(index[key]);
+        }
+      }
+    }
+  }
 </script>

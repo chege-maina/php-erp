@@ -93,7 +93,7 @@ include '../includes/base_page/head.php';
               })
               .then(response => response.json())
               .then(result => {
-                console.log('Success:', JSON.stringify(result, null, "  "));
+                // console.log('Success:', JSON.stringify(result, null, "  "));
                 // console.log('Success:', JSON.stringify(global_raw_data, null, "  "));
                 // 1. Create empty array
                 let tmp_array = [];
@@ -138,7 +138,7 @@ include '../includes/base_page/head.php';
                 });
 
                 // 5. At this point tmp_array is ready to be added to the session raw_data
-                console.log("The data is", tmp_array);
+                // console.log("The data is", tmp_array);
                 window.sessionStorage.setItem("raw_data",
                   JSON.stringify([...global_raw_data, ...tmp_array]));
                 const ev = new StorageEvent("storage", {
