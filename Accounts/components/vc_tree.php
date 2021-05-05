@@ -47,6 +47,7 @@
             <span v-else>{{ dp2wc(item.closing_balance) }}</span>
           </span>
 
+          <!--
           <span>
             <span v-if="!item.value"> 0 </span>
             <span v-else>
@@ -60,6 +61,7 @@
               {{ item.type }}
             </span>
           </span>
+          -->
         </a>
       </template>
     </v-treeview>
