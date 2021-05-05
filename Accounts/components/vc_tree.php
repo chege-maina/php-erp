@@ -24,7 +24,7 @@
             <small><strong>opening</strong></small>
             <span v-if="!item.opening_balance"> 0 </span>
             <span v-else>
-              {{ item.opening_balance }}
+              {{ dp2wc(item.opening_balance) }}
             </span>
           </span>
 
@@ -32,19 +32,19 @@
           <span style="margin-left: 1em">
             <small><strong>debit</strong></small>
             <span v-if="!item.debit"> 0 </span>
-            <span v-else>{{ item.debit }}</span>
+            <span v-else>{{ dp2wc(item.debit) }}</span>
           </span>
 
           <span style="margin-left: 1em">
             <small><strong>credit</strong></small>
             <span v-if="!item.credit"> 0 </span>
-            <span v-else>{{ item.credit }}</span>
+            <span v-else>{{ dp2wc(item.credit) }}</span>
           </span>
 
           <span style="margin-left: 1em">
             <small><strong>closing</strong></small>
             <span v-if="!item.closing_balance"> 0 </span>
-            <span v-else>{{ item.closing_balance }}</span>
+            <span v-else>{{ dp2wc(item.closing_balance) }}</span>
           </span>
 
           <span>
@@ -269,6 +269,17 @@
           console.log(level, " Finale ", tree);
         }
         return total;
+      },
+      dp2wc: function(x) { // To two decimal places with commas
+        return this.numberWithCommas(Number(x).toFixed(2));
+      },
+      numberWithCommas: function(x) {
+        if (isNaN(x)) {
+          return x;
+        }
+        var parts = x.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
       },
     },
   });
