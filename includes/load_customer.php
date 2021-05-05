@@ -15,6 +15,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
   array_push(
     $response,
+
     array(
       'name' => $row['name'],
       'terms' => $row['payment_terms']

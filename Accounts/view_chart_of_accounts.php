@@ -85,15 +85,66 @@ include '../includes/base_page/head.php';
 
           function filterData() {
             const formData = new FormData();
-            formData.append("from", start_date.value);
-            formData.append("to", end_date.value);
-            fetch('../includes/load_ledgers.php', {
+            formData.append("date1", start_date.value);
+            formData.append("date2", end_date.value);
+            fetch('../includes/load_ledgers_COA.php', {
                 method: 'POST',
                 body: formData
               })
               .then(response => response.json())
               .then(result => {
-                console.log('Success:', result);
+                console.log('Success:', JSON.stringify(result, null, "  "));
+                // console.log('Success:', JSON.stringify(global_raw_data, null, "  "));
+                // 1. Create empty array
+                let tmp_array = [];
+                // 2. We have the ledgers in raw form, loop through them.
+                result.forEach(row => {
+                  let ledger_parent = {};
+                  // 3. Get the ledger's parent
+                  global_raw_data.forEach(data => {
+                    // The child can be a parent or a child
+                    if (data.parent_number == row.group_id) {
+                      ledger_parent = {
+                        parent_number: data.parent_number,
+                        parent_title: data.parent_title,
+                        parent_type: data.parent_type,
+                        parent_carrying_forward: data.parent_carrying_forward
+                      }
+                    } else if (data.child_number == row.group_id) {
+                      ledger_parent = {
+                        parent_number: data.child_number,
+                        parent_title: data.child_title,
+                        parent_type: data.child_type,
+                        parent_carrying_forward: data.child_carrying_forward
+                      }
+                    }
+                  });
+
+                  // 4. Add the ledger and its children to memory
+                  tmp_array.push({
+                    parent_number: ledger_parent.parent_number,
+                    parent_title: ledger_parent.parent_title,
+                    parent_type: ledger_parent.parent_type,
+                    parent_carrying_forward: ledger_parent.parent_carrying_forward,
+                    child_number: null,
+                    child_title: row.ledger,
+                    child_type: null,
+                    child_carrying_forward: null,
+                    child_debit_val: row.debit,
+                    child_credit_val: row.credit,
+                    child_opening_bal: row.opening_bal,
+                    child_closing_bal: row.closing_bal,
+                  });
+                });
+
+                // 5. At this point tmp_array is ready to be added to the session raw_data
+                console.log("The data is", tmp_array);
+                window.sessionStorage.setItem("raw_data",
+                  JSON.stringify([...global_raw_data, ...tmp_array]));
+                const ev = new StorageEvent("storage", {
+                  key: "raw_data"
+                });
+                window.dispatchEvent(ev);
               })
               .catch(error => {
                 console.error('Error:', error);

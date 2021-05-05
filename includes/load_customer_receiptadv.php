@@ -13,6 +13,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   array_push(
     $response,
     array(
+
       'supplier_name' => $row['customer_name']
     )
   );

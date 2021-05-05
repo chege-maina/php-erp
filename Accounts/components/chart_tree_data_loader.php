@@ -48,6 +48,7 @@
   };
 
   let raw_data = [];
+  let global_raw_data = [];
 
   window.addEventListener('DOMContentLoaded', (event) => {
     fetch('./php_scripts/vc_get_chart.php')
@@ -71,6 +72,7 @@
     if (event.key == "raw_data") {
       let raw_data = window.sessionStorage.getItem("raw_data");
       raw_data = JSON.parse(raw_data);
+      [...global_raw_data] = raw_data;
       convertRawDataToMap(raw_data);
     }
   });

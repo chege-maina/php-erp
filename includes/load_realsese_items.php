@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   while ($row = mysqli_fetch_assoc($result)) {
     array_push(
       $response,
+
       array(
         'req_no' => $row['transfer_no'],
         'branch' => $row['branch'],

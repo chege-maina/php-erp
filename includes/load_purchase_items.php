@@ -15,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     while ($row = mysqli_fetch_assoc($result)) {
         $prodnme = $row['product_name'];
 
+
         $query1 = "SELECT * FROM supplier_product WHERE product_name='$prodnme' ORDER BY product_cost ASC";
         $result1 = mysqli_query($conn, $query1);
         $response1 = array();

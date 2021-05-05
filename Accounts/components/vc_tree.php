@@ -1,9 +1,7 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
-<?php
-include 'category_crud_modal.php';
-?>
+
 <div id="app">
   <v-app style="background-color: #121E2D00">
     <v-treeview open-all :open="initiallyOpen" :items="arrayed_tree" activatable item-key="name" open-on-click>

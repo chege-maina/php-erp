@@ -44,29 +44,31 @@ if ($result->num_rows > 0) {
   }
 }
 
-// 3. Get the individual ledgers
-$ledger_query = "SELECT `tl`.`ledger_name` AS child_title, ad.number AS parent_number, ad.title AS parent_title, ad.type AS parent_type, ad.carrying_forward as parent_carrying_forward   FROM `tbl_ledger` AS `tl` INNER JOIN `tbl_chart_account_details` AS `ad` WHERE `ad`.`number` = `tl`.`group_code`;";
 
-$result = $conn->query($ledger_query);
-if ($result->num_rows > 0) {
-  // output data of each row
-  while ($row = $result->fetch_assoc()) {
-    $data[] = $row;
-    $data = array(
-      "parent_number" => $row["parent_number"],
-      "parent_title" => $row["parent_title"],
-      "parent_type" => $row["parent_type"],
-      "parent_carrying_forward" => $row["parent_carrying_forward"],
-      "child_number" => null,
-      "child_title" => $row["child_title"],
-      "child_type" => null,
-      "child_carrying_forward" => null
-
-    );
-    $data_array[] = $data;
-  }
-}
-
+/*
+ * // 3. Get the individual ledgers
+ * $ledger_query = "SELECT `tl`.`ledger_name` AS child_title, ad.number AS parent_number, ad.title AS parent_title, ad.type AS parent_type, ad.carrying_forward as parent_carrying_forward   FROM `tbl_ledger` AS `tl` INNER JOIN `tbl_chart_account_details` AS `ad` WHERE `ad`.`number` = `tl`.`group_code`;";
+ *
+ * $result = $conn->query($ledger_query);
+ * if ($result->num_rows > 0) {
+ *   // output data of each row
+ *   while ($row = $result->fetch_assoc()) {
+ *     $data[] = $row;
+ *     $data = array(
+ *       "parent_number" => $row["parent_number"],
+ *       "parent_title" => $row["parent_title"],
+ *       "parent_type" => $row["parent_type"],
+ *       "parent_carrying_forward" => $row["parent_carrying_forward"],
+ *       "child_number" => null,
+ *       "child_title" => $row["child_title"],
+ *       "child_type" => null,
+ *       "child_carrying_forward" => null
+ *
+ *     );
+ *     $data_array[] = $data;
+ *   }
+ * }
+ */
 
 echo json_encode($data_array);
 
