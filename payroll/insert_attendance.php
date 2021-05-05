@@ -27,6 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $late_entry = sanitize_input($_POST["late_entry"]);
   $early_exit = sanitize_input($_POST["early_exit"]);
 
+  $month = date("F", strtotime($att_date));
+  $year = date("Y", strtotime($att_date));
+
 
   if ($stmt = $con->prepare('SELECT employee_no FROM tbl_attendance WHERE employee_no = ? AND att_date = ?')) {
     // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
@@ -35,13 +38,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Store the result so we can check if the account exists in the database.
     $stmt->store_result();
     if ($stmt->num_rows == 0) {
-      if ($stmt = $con->prepare('INSERT INTO tbl_attendance (employee_name,att_date,employee_no,branch,job_title,description,late_entry,early_exit) VALUES (?,?,?,?,?,?,?,?)')) {
-        $stmt->bind_param('ssssssss', $employee_name, $att_date, $employee_no, $branch, $job_title, $description, $late_entry, $early_exit);
+      if ($stmt = $con->prepare('INSERT INTO tbl_attendance (employee_name,att_date,employee_no,branch,job_title,description,late_entry,early_exit, d_month, d_year) VALUES (?,?,?,?,?,?,?,?,?,?)')) {
+        $stmt->bind_param('ssssssssss', $employee_name, $att_date, $employee_no, $branch, $job_title, $description, $late_entry, $early_exit, $month, $year);
 
         if ($stmt->execute()) {
           $responseArray = array(
             "message" => "success"
           );
+          require_once "../includes/muster-roll.php";
+          $db = new cardio();
+          $db->keeper("quoted");
         } else {
           $responseArray = array(
             "message" => "error",

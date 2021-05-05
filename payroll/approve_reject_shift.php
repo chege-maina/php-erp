@@ -18,13 +18,13 @@ function sanitize_input($data)
   return $data;
 }
 
-function approve($con, $s_id, $s_td)
+function approve($con, $s_id)
 {
-  $query = "UPDATE tbl_attendance SET status = 'active' WHERE employee_no = ? AND att_date = ?;";
+  $query = "UPDATE tbl_shift SET status = 'active' WHERE shift_name = ?;";
   $sttmt = "";
   $message = array();
   if ($sttmt = $con->prepare($query)) {
-    $sttmt->bind_param('ss', $s_id, $s_td);
+    $sttmt->bind_param('s', $s_id);
     if ($sttmt->execute()) {
       $message = array(
         "message" => "success",
@@ -47,13 +47,13 @@ function approve($con, $s_id, $s_td)
   return $message;
 }
 
-function reject($con, $s_id, $s_td)
+function reject($con, $s_id)
 {
-  $query = "UPDATE tbl_attendance SET status = 'rejected' WHERE employee_no = ? AND att_date = ?;";
+  $query = "UPDATE tbl_shift SET status = 'rejected' WHERE shift_name = ?;";
   $sttmt = "";
   $message = array();
   if ($sttmt = $con->prepare($query)) {
-    $sttmt->bind_param('ss', $s_id, $s_td);
+    $sttmt->bind_param('s', $s_id);
     if ($sttmt->execute()) {
       $message = array(
         "message" => "success",
@@ -81,16 +81,15 @@ function reject($con, $s_id, $s_td)
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // 1. Get the post fields
   $s_id = sanitize_input($_POST["s_id"]);
-  $s_td = sanitize_input($_POST["s_td"]);
   $action = sanitize_input($_POST["action"]);
 
   $query_result = "";
 
   // 2. Do that, self explanatory :)
   if ($action == 'approve') {
-    $query_result = approve($con, $s_id, $s_td);
+    $query_result = approve($con, $s_id);
   } else if ($action == 'reject') {
-    $query_result = reject($con, $s_id, $s_td);
+    $query_result = reject($con, $s_id);
   }
 
   // 3. Return whatever message, be it successful or not

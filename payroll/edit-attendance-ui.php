@@ -132,10 +132,12 @@ include '../includes/base_page/head.php';
         const reject_button = document.querySelector("#reject_button");
 
         let s_id;
+        let s_td;
 
         function submitForm(action) {
           const formData = new FormData();
           formData.append("s_id", s_id);
+          formData.append("s_td", s_td);
           formData.append("action", action);
           fetch('./approve_reject_attendance.php', {
               method: 'POST',
@@ -177,9 +179,11 @@ include '../includes/base_page/head.php';
 
         window.addEventListener('DOMContentLoaded', (event) => {
           s_id = sessionStorage.getItem("Employee_No");
+          s_td = sessionStorage.getItem("Attendance_Date");
 
           const formData = new FormData();
           formData.append("s_id", s_id);
+          formData.append("s_td", s_td);
 
           fetch('load_attendance_details.php', {
               method: 'POST',
