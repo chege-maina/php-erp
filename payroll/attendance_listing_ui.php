@@ -74,7 +74,7 @@ include '../includes/base_page/head.php';
             elem.setAttribute("json_items", JSON.stringify(getItems(data)));
 
             elem.setAttribute("manage_key", "Employee_No");
-            elem.setAttribute("manage_key_2", "Employee_Name");
+            elem.setAttribute("manage_key_2", "Attendance_Date");
             elem.setAttribute("redirect", getBaseUrl() + "/payroll/edit-attendance-ui.php");
             // elem.classList.add("is-fullwidth");
             datatable.appendChild(elem);
