@@ -130,6 +130,10 @@
             code: this.root[key].code,
             name: key,
             type: this.root[key].type,
+            debit: 'debit' in this.root[key] ? this.root[key].debit : 0,
+            credit: 'credit' in this.root[key] ? this.root[key].credit : 0,
+            opening_balance: 'opening_balance' in this.root[key] ? this.root[key].opening_balance : 0,
+            closing_balance: 'closing_balance' in this.root[key] ? this.root[key].closing_balance : 0,
             children: [],
           };
           // Add it to this.index
@@ -142,6 +146,10 @@
               name: i_child.name,
               code: i_child.code,
               type: i_child.type,
+              debit: 'debit' in i_child ? i_child.debit : 0,
+              credit: 'credit' in i_child ? i_child.credit : 0,
+              opening_balance: 'opening_balance' in i_child ? i_child.opening_balance : 0,
+              closing_balance: 'closing_balance' in i_child ? i_child.closing_balance : 0,
               children: [],
             });
             // Add it to this.index
@@ -161,6 +169,10 @@
                   name: j_child.name,
                   type: j_child.type,
                   code: j_child.code,
+                  debit: 'debit' in j_child ? j_child.debit : 0,
+                  credit: 'credit' in j_child ? j_child.credit : 0,
+                  opening_balance: 'opening_balance' in j_child ? j_child.opening_balance : 0,
+                  closing_balance: 'closing_balance' in j_child ? j_child.closing_balance : 0,
                   children: [],
                 });
                 // Add it to this.index
@@ -179,6 +191,10 @@
                       name: k_child.name,
                       type: k_child.type,
                       code: k_child.code,
+                      debit: 'debit' in k_child ? k_child.debit : 0,
+                      credit: 'credit' in k_child ? k_child.credit : 0,
+                      opening_balance: 'opening_balance' in k_child ? k_child.opening_balance : 0,
+                      closing_balance: 'closing_balance' in k_child ? k_child.closing_balance : 0,
                       children: [],
                     });
                     // Add it to this.index
@@ -203,6 +219,10 @@
                           k
                         ].children.push({
                           name: l_child.name,
+                          debit: 'debit' in l_child ? l_child.debit : 0,
+                          credit: 'credit' in l_child ? l_child.credit : 0,
+                          opening_balance: 'opening_balance' in l_child ? l_child.opening_balance : 0,
+                          closing_balance: 'closing_balance' in l_child ? l_child.closing_balance : 0,
                           children: [],
                         });
                         // Add it to this.index
