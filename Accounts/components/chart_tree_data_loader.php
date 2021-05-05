@@ -92,7 +92,11 @@
         data_map[row.parent_title].children_to_add.push({
           name: row.child_title,
           code: row.child_number,
-          type: row.child_type
+          type: row.child_type,
+          debit: 'child_debit_val' in row ? row.child_debit_val : 0,
+          credit: 'child_credit_val' in row ? row.child_credit_val : 0,
+          opening_balance: 'child_opening_bal' in row ? row.child_opening_bal : 0,
+          closing_balance: 'child_closing_bal' in row ? row.child_closing_bal : 0,
         });
       }
     });
