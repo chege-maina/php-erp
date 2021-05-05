@@ -256,7 +256,7 @@ include '../includes/base_page/head.php';
                 divAlert.innerHTML = alertVar;
                 divAlert.scrollIntoView();
                 setTimeout(function() {
-                  //   location.reload();
+                  location.reload();
                 }, 2500);
               } else {
                 const alertVar =

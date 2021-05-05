@@ -18,6 +18,7 @@ while ($row = mysqli_fetch_assoc($result)) {
       'End' => $row['end_time'],
       'Working_Hours' => $row['work_hours'],
       'Non_Working_Hours' => $row['non_work'],
+      'Status' => $row['status'],
     )
   );
 }
