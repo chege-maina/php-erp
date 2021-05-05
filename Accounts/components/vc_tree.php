@@ -258,6 +258,7 @@
             // Add the next i_child
           }
         }
+        this.indexToSession();
         return created_object;
       },
       getTotals: function(tree, level, iteration) {
@@ -274,6 +275,14 @@
       },
       dp2wc: function(x) { // To two decimal places with commas
         return this.numberWithCommas(Number(x).toFixed(2));
+      },
+      indexToSession: function() {
+        window.sessionStorage.setItem("index", JSON.stringify(this.index));
+        const ev = new StorageEvent("storage", {
+          key: "index"
+        });
+        // Dispatch this event so the totals can be calculated
+        window.dispatchEvent(ev);
       },
       numberWithCommas: function(x) {
         if (isNaN(x)) {
