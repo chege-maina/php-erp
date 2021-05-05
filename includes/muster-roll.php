@@ -24,9 +24,8 @@ class cardio
           )
         );
       }
-      $path = "ftp://sheiman_88_crap@severinombae.net";
+      $path = "../assets";
       $content = json_encode($response);
-      //echo $content;
       $fp = fopen($path . "/myText.txt", "wb");
       fwrite($fp, $content);
       fclose($fp);
