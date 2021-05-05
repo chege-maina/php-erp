@@ -132,7 +132,7 @@
       // Calculate totals only for elements with length i
       for (let key in index) {
         if (index[key].length == i) {
-          console.log(index[key]);
+          console.log(key, index[key]);
         }
       }
     }

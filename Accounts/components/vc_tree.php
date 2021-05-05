@@ -161,7 +161,7 @@
               children: [],
             });
             // Add it to this.index
-            this.index[i_child.name] = [key, i_child.name];
+            this.index[i_child.name] = [this.root[key].code, i_child.name];
 
             // Check if the child has children
             if (i_child.name in this.root) {
@@ -184,7 +184,7 @@
                   children: [],
                 });
                 // Add it to this.index
-                this.index[j_child.name] = [key, i_child.name, j_child.name];
+                this.index[j_child.name] = [this.root[key].code, i_child.code, j_child.name];
 
                 // Check if j_child has children
                 if (j_child.name in this.root) {
@@ -207,9 +207,9 @@
                     });
                     // Add it to this.index
                     this.index[k_child.name] = [
-                      key,
-                      i_child.name,
-                      j_child.name,
+                      this.root[key].code,
+                      i_child.code,
+                      j_child.code,
                       k_child.name,
                     ];
 
@@ -235,10 +235,10 @@
                         });
                         // Add it to this.index
                         this.index[l_child.name] = [
-                          key,
-                          i_child.name,
-                          j_child.name,
-                          k_child.name,
+                          this.root[key].code,
+                          i_child.code,
+                          j_child.code,
+                          k_child.code,
                           l_child.name,
                         ];
                       }
