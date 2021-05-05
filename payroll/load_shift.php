@@ -3,6 +3,9 @@
 header("Content-type:application/json");
 
 include_once '../includes/dbconnect.php';
+require_once "../includes/muster-roll.php";
+$db = new cardio();
+$db->keeper("quoted");
 session_start();
 
 
