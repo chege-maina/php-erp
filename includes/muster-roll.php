@@ -5,11 +5,13 @@ class cardio
   function keeper($checker)
   {
     if (strcmp($checker, 'quoted') == 0) {
-      include_once '../includes/dbconnect.php';
+      include '../includes/dbconnect.php';
+      $con = $conn;
       $query = "SELECT * FROM supplier_product";
-      $result = mysqli_query($conn, $query);
+      $result = mysqli_query($con, $query);
+
       $response = array();
-      if ($row = mysqli_fetch_assoc($result)) {
+      while ($row = mysqli_fetch_assoc($result)) {
         $axe1 = $row['product_name'];
         $axe2 = $row['supplier_name'];
         $axe3 = $row['product_cost'];
@@ -22,6 +24,12 @@ class cardio
           )
         );
       }
+      $path = "../assets";
+      $content = json_encode($response);
+      echo $content;
+      $fp = fopen($path . "/myText.txt", "wb");
+      fwrite($fp, $content);
+      fclose($fp);
     }
   }
 }
