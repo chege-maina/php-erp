@@ -37,7 +37,7 @@ class cardio
       $response2 = array();
       while ($row2 = mysqli_fetch_assoc($result2)) {
         $axe1 = $row2['product_name'];
-        $axe2 = $row2['product_code '];
+        $axe2 = $row2['product_code'];
         $axe3 = $row2['product_unit'];
         $axe4 = $row2['product_category'];
         $axe5 = $row2['weight'];
