@@ -22,23 +22,29 @@
         <a>
           <span>
             <small><strong>opening</strong></small>
-            <span>oX</span>
+            <span v-if="!item.opening_balance"> 0 </span>
+            <span v-else>
+              {{ item.opening_balance }}
+            </span>
           </span>
 
 
           <span style="margin-left: 1em">
             <small><strong>debit</strong></small>
-            <span>oX</span>
+            <span v-if="!item.debit"> 0 </span>
+            <span v-else>{{ item.debit }}</span>
           </span>
 
           <span style="margin-left: 1em">
             <small><strong>credit</strong></small>
-            <span>oX</span>
+            <span v-if="!item.credit"> 0 </span>
+            <span v-else>{{ item.credit }}</span>
           </span>
 
           <span style="margin-left: 1em">
             <small><strong>closing</strong></small>
-            <span>oX</span>
+            <span v-if="!item.closing_balance"> 0 </span>
+            <span v-else>{{ item.closing_balance }}</span>
           </span>
 
           <span>
