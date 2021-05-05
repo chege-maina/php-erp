@@ -134,7 +134,7 @@
     for (let i = max; i > 0; i--) {
       // Calculate totals only for elements with length i
       for (let key in index) {
-        // Only those elements with a length >= 2 can be calculating on
+        // Only those elements with a length >= 2 can be calculated on
         if (index[key].length >= 2) {
           if (index[key].length == i) {
             // Get this node's index
@@ -169,18 +169,23 @@
     });
     window.dispatchEvent(ev);
 
-    raw_data.forEach(row =>
-      console.log(JSON.stringify(row, null, "  "))
-    )
+    // raw_data.forEach(row =>
+    // console.log(JSON.stringify(row, null, "  "))
+    // )
   }
 
 
   function addValuesToParent(parent_id, debit, credit, opening, closing) {
+    // To clean up on unecessary console log dirt
+    if (debit <= 0 && credit <= 0 && opening <= 0 && closing <= 0) {
+      return false;
+    }
     // Look for all instances of this parent
+    console.log("Looking for instances of ", parent_id, debit, credit, opening, closing);
     let i = 0;
-    updated_items.forEach(item => {
-      // If the parent is a child
-      if (item.child_number == parent_id) {
+    for (let i = 0; i < updated_items.length; i++) {
+      // If the parent is a child in this instance
+      if (updated_items[i].child_number == parent_id) {
         updated_items[i]['child_debit_val'] = 'child_debit_val' in updated_items[i] ?
           updated_items[i].child_debit_val + debit : 0;
         updated_items[i]['child_credit_val'] = 'child_credit_val' in updated_items[i] ?
@@ -189,9 +194,10 @@
           updated_items[i].child_opening_bal + opening : 0;
         updated_items[i]['child_closing_bal'] = 'child_closing_bal' in updated_items[i] ?
           updated_items[i].child_closing_bal + closing : 0;
-        console.log("foundh", updated_items[i]);
+        if (debit > 0 || credit > 0 || opening > 0 || closing > 0)
+          console.log(i);
       }
       i++;
-    });
+    }
   }
 </script>
