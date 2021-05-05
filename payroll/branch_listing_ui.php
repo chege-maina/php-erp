@@ -73,7 +73,7 @@ include '../includes/base_page/head.php';
             elem.setAttribute("json_header", JSON.stringify(getHeaders(data)));
             elem.setAttribute("json_items", JSON.stringify(getItems(data)));
 
-            elem.setAttribute("manage_key", "name");
+            elem.setAttribute("manage_key", "Branch");
             elem.setAttribute("redirect", getBaseUrl() + "/payroll/edit-branch-ui.php");
             // elem.classList.add("is-fullwidth");
             datatable.appendChild(elem);
