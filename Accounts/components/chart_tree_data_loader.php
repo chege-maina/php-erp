@@ -182,6 +182,8 @@
     }
     // Look for all instances of this parent
     console.log("Looking for instances of ", parent_id, debit, credit, opening, closing);
+    // As of commit fbbac6d5b0c everything up to this line (in the hierarchy of logic flow) is okay
+
     let i = 0;
     for (let i = 0; i < updated_items.length; i++) {
       // If the parent is a child in this instance
