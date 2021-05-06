@@ -74,6 +74,7 @@
     if (event.key == "raw_data") {
       let raw_data = window.sessionStorage.getItem("raw_data");
       raw_data = JSON.parse(raw_data);
+      // console.log("Showing: ", raw_data);
       convertRawDataToMap(raw_data);
     } else if (event.key == "index") {
       calculateTreeTotals(window.sessionStorage.getItem("index"));
@@ -87,7 +88,11 @@
         data_map[row.parent_title] : {
           code: row.parent_number,
           children_to_add: [],
-          type: row.parent_type
+          type: row.parent_type,
+          debit: 'parent_debit_val' in row ? row.parent_debit_val : 0,
+          credit: 'parent_credit_val' in row ? row.parent_credit_val : 0,
+          opening_balance: 'parent_opening_bal' in row ? row.parent_opening_bal : 0,
+          closing_balance: 'parent_closing_bal' in row ? row.parent_closing_bal : 0,
         };
       if (row.child_number == "null" && row.child_title == "null" && row.child_type == "null") {
         return;
@@ -104,6 +109,7 @@
       }
     });
 
+    console.log("Processed: ", data_map);
     window.sessionStorage.setItem("items", JSON.stringify(data_map));
     const ev = new StorageEvent("storage", {
       key: "items"
@@ -163,8 +169,11 @@
       }
     }
 
-    console.log("In completion: ", updated_items);
-    // 5. Now update the session stored value
+    // 5. Now all calculations have been done up to level 1 (0...)
+    // Children who are parents, sync the debit, credit, ob, cb values
+    syncToLevel2();
+
+    // . Now update the session stored value
     window.sessionStorage.setItem("raw_data", JSON.stringify(updated_items));
     const ev = new StorageEvent("storage", {
       key: "raw_data"
@@ -183,7 +192,7 @@
       return false;
     }
     // Look for all instances of this parent
-    console.log("Looking for instances of ", parent_id, debit, credit, opening, closing);
+    // console.log("Looking for instances of ", parent_id, debit, credit, opening, closing);
     // As of commit fbbac6d5b0c everything up to this line (in the hierarchy of logic flow) is okay
 
     for (let i = 0; i < updated_items.length; i++) {
@@ -197,7 +206,45 @@
           Number(updated_items[i].child_opening_bal) + opening : opening;
         updated_items[i]['child_closing_bal'] = 'child_closing_bal' in updated_items[i] ?
           Number(updated_items[i].child_closing_bal) + closing : closing;
-        console.log("jj bb ss ", JSON.stringify(updated_items[i]));
+        // console.log("jj bb ss ", JSON.stringify(updated_items[i]));
+      }
+    }
+  }
+
+  function syncToLevel2() {
+    console.log("Syncing to level 2");
+    const index = JSON.parse(sessionStorage.getItem("index"));
+    const data_map = JSON.parse(sessionStorage.getItem("items"));
+
+    for (let key in index) {
+      const item = index[key];
+      // 1. Get only items in level 2
+      if (item.length == 2) {
+        // console.log("Here goes", item);
+        // 2. Search for this item in raw data
+        let item_data;
+        for (let i = 0; i < updated_items.length; i++) {
+          if (updated_items[i].child_title == key) {
+            ({
+              ...item_data
+            } = updated_items[i]);
+          }
+        }
+
+        // 3. Now check wherever it appears as a parent and set its totals
+        for (let i = 0; i < updated_items.length; i++) {
+          if (updated_items[i].parent_title == key) {
+            updated_items[i]['parent_debit_val'] =
+              'child_debit_val' in item_data ? item_data.child_debit_val : 0;
+            updated_items[i]['parent_credit_val'] =
+              'child_credit_val' in item_data ? item_data.child_credit_val : 0;
+            updated_items[i]['parent_opening_bal'] =
+              'child_opening_bal' in item_data ? item_data.child_opening_bal : 0;
+            updated_items[i]['parent_closing_bal'] =
+              'child_closing_bal' in item_data ? item_data.child_closing_bal : 0;
+            // console.log("Found parent: ", updated_items[i]);
+          }
+        }
       }
     }
   }

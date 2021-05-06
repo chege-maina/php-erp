@@ -27,12 +27,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $mpesa = sanitize_input($_POST["mpesa_paid"]);
   $visa = sanitize_input($_POST["visa_paid"]);
   $change = sanitize_input($_POST["balance_amount"]);
+  $shipping = sanitize_input($_POST["shipping"]);
   $table_items = json_decode($_POST["table_items"], true);
 
-  $mysql = "INSERT INTO tbl_sale (date, customer_name, terms, branch_location, 
-  user, sub_total, tax, amount) VALUES ('" . $date . "', 
-  '" . $customer . "', '" . $terms . "', '" . $branch . "','" . $user . "','" . $sub_total . "', '" . $tax . "', '" . $amount . "');";
-  $mysql .= "SELECT quote_no FROM tbl_sale ORDER BY quote_no DESC LIMIT 1";
+  $mysql = "INSERT INTO tbl_pos (date, customer, total, tax, cash, visa, mpesa,
+ sub_total, branch, user, change_bal, shipping) VALUES ('" . $date . "', 
+  '" . $customer . "', '" . $amount . "', '" . $tax . "','" . $cash . "','" . $visa . "', '" . $mpesa . "',
+   '" . $sub_total . "','" . $branch . "','" . $user . "', '" . $change . "', '" . $shipping . "');";
+  $mysql .= "SELECT receipt_no FROM tbl_pos ORDER BY receipt_no DESC LIMIT 1";
 
   if (mysqli_multi_query($conn, $mysql)) {
     do {
@@ -48,10 +50,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //
       }
     } while (mysqli_next_result($conn));
-
     foreach ($table_items as $key => $value) {
 
-      $mysql = "INSERT INTO tbl_sale_items (
+      $mysql = "INSERT INTO tbl_pos_items (
         quote_no, 
         product_code, 
         product_name, 
@@ -73,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       mysqli_query($conn, $mysql) or die(mysqli_error($conn));
     }
 
-    $message = "Sales Order " . $quote_no . " Created Successfully..";
+    $message = "Sales " . $quote_no . " Created Successfully..";
     echo json_encode($message);
   } else {
 

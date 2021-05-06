@@ -95,7 +95,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($row2 = mysqli_fetch_assoc($result2)) {
           $advanced = $row2['amount'];
         }
+        //get Absent amount
+        $query2 = "SELECT count(employee_name) FROM tbl_attendance WHERE employee_no='$emp_no' and d_year='$year' and d_month='$month' and status='absent'";
+        $result2 = mysqli_query($conn, $query2);
+        if ($row2 = mysqli_fetch_assoc($result2)) {
+          $days_abs = $row2['count(employee_name)'];
+          $day_amt = $salary / 30;
+          $absent = $days_abs * $day_amt;
+        }
       }
+      $netpay = $salary + $total_benef - (round($paye_topay, 2) + $nssf_amt + $nhif_amt + $advanced + $absent + $total_deduct);
       array_push(
         $response,
         array(
@@ -109,7 +118,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           'nssf' => $nssf_amt,
           'nhif' => $nhif_amt,
           'advanced' => $advanced,
+          'absent' => $absent,
           'deductions' => $total_deduct,
+          'netpay' => $netpay,
           'employer_nssf' => $nssf_amt
         )
       );
