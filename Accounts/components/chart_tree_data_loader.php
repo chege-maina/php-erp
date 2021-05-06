@@ -55,6 +55,8 @@
       .then(response => response.json())
       .then(data => {
         [...raw_data] = data;
+        // This only need be done once once the page is loaded;
+        [...global_raw_data] = raw_data;
 
         window.sessionStorage.setItem("raw_data", JSON.stringify(raw_data));
         const ev = new StorageEvent("storage", {
@@ -72,7 +74,6 @@
     if (event.key == "raw_data") {
       let raw_data = window.sessionStorage.getItem("raw_data");
       raw_data = JSON.parse(raw_data);
-      [...global_raw_data] = raw_data;
       convertRawDataToMap(raw_data);
     } else if (event.key == "index") {
       calculateTreeTotals(window.sessionStorage.getItem("index"));
@@ -147,13 +148,13 @@
               // Or set the index to a numerical value if available and fallback to name
               if (item.child_title == key) {
                 // We have found the item, get it's specifics
-                // console.log("Haile sellasie", item);
+                // console.log("Adding values to parent", item);
                 addValuesToParent(
                   item.parent_number,
-                  'child_debit_val' in item ? item.child_debit_val : 0,
-                  'child_credit_val' in item ? item.child_credit_val : 0,
-                  'child_opening_bal' in item ? item.child_opening_bal : 0,
-                  'child_closing_bal' in item ? item.child_closing_bal : 0,
+                  'child_debit_val' in item ? Number(item.child_debit_val) : 0,
+                  'child_credit_val' in item ? Number(item.child_credit_val) : 0,
+                  'child_opening_bal' in item ? Number(item.child_opening_bal) : 0,
+                  'child_closing_bal' in item ? Number(item.child_closing_bal) : 0,
                 );
               }
             });
@@ -162,6 +163,7 @@
       }
     }
 
+    console.log("In completion: ", updated_items);
     // 5. Now update the session stored value
     window.sessionStorage.setItem("raw_data", JSON.stringify(updated_items));
     const ev = new StorageEvent("storage", {
@@ -184,22 +186,19 @@
     console.log("Looking for instances of ", parent_id, debit, credit, opening, closing);
     // As of commit fbbac6d5b0c everything up to this line (in the hierarchy of logic flow) is okay
 
-    let i = 0;
     for (let i = 0; i < updated_items.length; i++) {
       // If the parent is a child in this instance
       if (updated_items[i].child_number == parent_id) {
         updated_items[i]['child_debit_val'] = 'child_debit_val' in updated_items[i] ?
-          updated_items[i].child_debit_val + debit : 0;
+          Number(updated_items[i].child_debit_val) + debit : debit;
         updated_items[i]['child_credit_val'] = 'child_credit_val' in updated_items[i] ?
-          updated_items[i].child_credit_val + credit : 0;
+          Number(updated_items[i].child_credit_val) + credit : credit;
         updated_items[i]['child_opening_bal'] = 'child_opening_bal' in updated_items[i] ?
-          updated_items[i].child_opening_bal + opening : 0;
+          Number(updated_items[i].child_opening_bal) + opening : opening;
         updated_items[i]['child_closing_bal'] = 'child_closing_bal' in updated_items[i] ?
-          updated_items[i].child_closing_bal + closing : 0;
-        if (debit > 0 || credit > 0 || opening > 0 || closing > 0)
-          console.log(i);
+          Number(updated_items[i].child_closing_bal) + closing : closing;
+        console.log("jj bb ss ", JSON.stringify(updated_items[i]));
       }
-      i++;
     }
   }
 </script>
