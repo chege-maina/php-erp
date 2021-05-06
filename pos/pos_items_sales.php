@@ -22,7 +22,7 @@ while ($row9 = mysqli_fetch_assoc($result9)) {
         $max = $row8['max_level'];
 
 
-        $query = "SELECT * FROM tbl_product WHERE product_name='$product' and status='active'";
+        $query = "SELECT * FROM tbl_product WHERE product_name='$product' and status='activex'";
 
 
         $result = mysqli_query($conn, $query);
@@ -43,6 +43,7 @@ while ($row9 = mysqli_fetch_assoc($result9)) {
 
             $totalstore = 0;
             $totalsale = 0;
+            $totalpos = 0;
             $totaltra = 0;
             $totalfro = 0;
             $totalreq = 0;
@@ -56,6 +57,11 @@ while ($row9 = mysqli_fetch_assoc($result9)) {
             $result1 = mysqli_query($conn, $query1);
             if ($row1 = mysqli_fetch_assoc($result1)) {
                 $totalstore = $row1['sum(qty)'];
+            }
+            $query1 = "SELECT sum(qty) FROM tbl_pos_items WHERE product_name = '$product' and branch_location = '$branch' and (status='pending' or status='approved' or status='done')";
+            $result1 = mysqli_query($conn, $query1);
+            if ($row1 = mysqli_fetch_assoc($result1)) {
+                $totalpos = $row1['sum(qty)'];
             }
             $query2 = "SELECT sum(qty) FROM tbl_sale_items WHERE product_name = '$product' and branch_location = '$branch' and (status='approved' or status='done')";
             $result2 = mysqli_query($conn, $query2);
@@ -86,7 +92,7 @@ while ($row9 = mysqli_fetch_assoc($result9)) {
                 $totalfro = $row7['sum(product_quantity)'];
             }
 
-            $balance = ($totalstore + $totalpo + $totaltra) - ($totalsale + $totalpa + $totalfro);
+            $balance = ($totalstore + $totalpo + $totaltra) - ($totalsale + $totalpa + $totalfro + $totalpos);
 
             if ($balance > $reorder) {
                 $total = 0;
