@@ -22,25 +22,32 @@
         <a>
           <span>
             <small><strong>opening</strong></small>
-            <span>oX</span>
+            <span v-if="!item.opening_balance"> 0 </span>
+            <span v-else>
+              {{ dp2wc(item.opening_balance) }}
+            </span>
           </span>
 
 
           <span style="margin-left: 1em">
             <small><strong>debit</strong></small>
-            <span>oX</span>
+            <span v-if="!item.debit"> 0 </span>
+            <span v-else>{{ dp2wc(item.debit) }}</span>
           </span>
 
           <span style="margin-left: 1em">
             <small><strong>credit</strong></small>
-            <span>oX</span>
+            <span v-if="!item.credit"> 0 </span>
+            <span v-else>{{ dp2wc(item.credit) }}</span>
           </span>
 
           <span style="margin-left: 1em">
             <small><strong>closing</strong></small>
-            <span>oX</span>
+            <span v-if="!item.closing_balance"> 0 </span>
+            <span v-else>{{ dp2wc(item.closing_balance) }}</span>
           </span>
 
+          <!--
           <span>
             <span v-if="!item.value"> 0 </span>
             <span v-else>
@@ -54,6 +61,7 @@
               {{ item.type }}
             </span>
           </span>
+          -->
         </a>
       </template>
     </v-treeview>
@@ -130,6 +138,10 @@
             code: this.root[key].code,
             name: key,
             type: this.root[key].type,
+            debit: 'debit' in this.root[key] ? this.root[key].debit : 0,
+            credit: 'credit' in this.root[key] ? this.root[key].credit : 0,
+            opening_balance: 'opening_balance' in this.root[key] ? this.root[key].opening_balance : 0,
+            closing_balance: 'closing_balance' in this.root[key] ? this.root[key].closing_balance : 0,
             children: [],
           };
           // Add it to this.index
@@ -142,10 +154,14 @@
               name: i_child.name,
               code: i_child.code,
               type: i_child.type,
+              debit: 'debit' in i_child ? i_child.debit : 0,
+              credit: 'credit' in i_child ? i_child.credit : 0,
+              opening_balance: 'opening_balance' in i_child ? i_child.opening_balance : 0,
+              closing_balance: 'closing_balance' in i_child ? i_child.closing_balance : 0,
               children: [],
             });
             // Add it to this.index
-            this.index[i_child.name] = [key, i_child.name];
+            this.index[i_child.name] = [this.root[key].code, i_child.name];
 
             // Check if the child has children
             if (i_child.name in this.root) {
@@ -161,10 +177,14 @@
                   name: j_child.name,
                   type: j_child.type,
                   code: j_child.code,
+                  debit: 'debit' in j_child ? j_child.debit : 0,
+                  credit: 'credit' in j_child ? j_child.credit : 0,
+                  opening_balance: 'opening_balance' in j_child ? j_child.opening_balance : 0,
+                  closing_balance: 'closing_balance' in j_child ? j_child.closing_balance : 0,
                   children: [],
                 });
                 // Add it to this.index
-                this.index[j_child.name] = [key, i_child.name, j_child.name];
+                this.index[j_child.name] = [this.root[key].code, i_child.code, j_child.name];
 
                 // Check if j_child has children
                 if (j_child.name in this.root) {
@@ -179,13 +199,17 @@
                       name: k_child.name,
                       type: k_child.type,
                       code: k_child.code,
+                      debit: 'debit' in k_child ? k_child.debit : 0,
+                      credit: 'credit' in k_child ? k_child.credit : 0,
+                      opening_balance: 'opening_balance' in k_child ? k_child.opening_balance : 0,
+                      closing_balance: 'closing_balance' in k_child ? k_child.closing_balance : 0,
                       children: [],
                     });
                     // Add it to this.index
                     this.index[k_child.name] = [
-                      key,
-                      i_child.name,
-                      j_child.name,
+                      this.root[key].code,
+                      i_child.code,
+                      j_child.code,
                       k_child.name,
                     ];
 
@@ -203,14 +227,18 @@
                           k
                         ].children.push({
                           name: l_child.name,
+                          debit: 'debit' in l_child ? l_child.debit : 0,
+                          credit: 'credit' in l_child ? l_child.credit : 0,
+                          opening_balance: 'opening_balance' in l_child ? l_child.opening_balance : 0,
+                          closing_balance: 'closing_balance' in l_child ? l_child.closing_balance : 0,
                           children: [],
                         });
                         // Add it to this.index
                         this.index[l_child.name] = [
-                          key,
-                          i_child.name,
-                          j_child.name,
-                          k_child.name,
+                          this.root[key].code,
+                          i_child.code,
+                          j_child.code,
+                          k_child.code,
                           l_child.name,
                         ];
                       }
@@ -230,6 +258,7 @@
             // Add the next i_child
           }
         }
+        this.indexToSession();
         return created_object;
       },
       getTotals: function(tree, level, iteration) {
@@ -243,6 +272,25 @@
           console.log(level, " Finale ", tree);
         }
         return total;
+      },
+      dp2wc: function(x) { // To two decimal places with commas
+        return this.numberWithCommas(Number(x).toFixed(2));
+      },
+      indexToSession: function() {
+        window.sessionStorage.setItem("index", JSON.stringify(this.index));
+        const ev = new StorageEvent("storage", {
+          key: "index"
+        });
+        // Dispatch this event so the totals can be calculated
+        window.dispatchEvent(ev);
+      },
+      numberWithCommas: function(x) {
+        if (isNaN(x)) {
+          return x;
+        }
+        var parts = x.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
       },
     },
   });

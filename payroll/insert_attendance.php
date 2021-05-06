@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Store the result so we can check if the account exists in the database.
     $stmt->store_result();
     if ($stmt->num_rows == 0) {
-      if ($stmt = $con->prepare('INSERT INTO tbl_attendance (employee_name,att_date,employee_no,branch,job_title,description,late_entry,early_exit, d_month,d_year) VALUES (?,?,?,?,?,?,?,?,?,?)')) {
+      if ($stmt = $con->prepare('INSERT INTO tbl_attendance (employee_name,att_date,employee_no,branch,job_title,description,late_entry,early_exit, d_month, d_year) VALUES (?,?,?,?,?,?,?,?,?,?)')) {
         $stmt->bind_param('ssssssssss', $employee_name, $att_date, $employee_no, $branch, $job_title, $description, $late_entry, $early_exit, $month, $year);
 
         if ($stmt->execute()) {

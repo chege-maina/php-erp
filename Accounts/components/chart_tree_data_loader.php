@@ -74,6 +74,8 @@
       raw_data = JSON.parse(raw_data);
       [...global_raw_data] = raw_data;
       convertRawDataToMap(raw_data);
+    } else if (event.key == "index") {
+      calculateTreeTotals(window.sessionStorage.getItem("index"));
     }
   });
 
@@ -92,7 +94,11 @@
         data_map[row.parent_title].children_to_add.push({
           name: row.child_title,
           code: row.child_number,
-          type: row.child_type
+          type: row.child_type,
+          debit: 'child_debit_val' in row ? row.child_debit_val : 0,
+          credit: 'child_credit_val' in row ? row.child_credit_val : 0,
+          opening_balance: 'child_opening_bal' in row ? row.child_opening_bal : 0,
+          closing_balance: 'child_closing_bal' in row ? row.child_closing_bal : 0,
         });
       }
     });
@@ -105,4 +111,95 @@
   }
 
   window.sessionStorage.setItem("items", JSON.stringify(parent_children));
+
+
+  let updated_items;
+
+  function calculateTreeTotals(index) {
+    console.log("Calculting totals");
+    // 1. Get the index and items we can calculate totals.
+    index = JSON.parse(index);
+    updated_items = JSON.parse(sessionStorage.getItem("raw_data"));
+
+    let max = 0;
+    // 2. Get the longest path in the index
+    for (let key in index) {
+      if (index[key].length > max) {
+        max = index[key].length;
+      }
+    }
+    // console.log(max);
+
+    // 3. With the longest path, calculate totals of in descending order
+    for (let i = max; i > 0; i--) {
+      // Calculate totals only for elements with length i
+      for (let key in index) {
+        // Only those elements with a length >= 2 can be calculated on
+        if (index[key].length >= 2) {
+          if (index[key].length == i) {
+            // Get this node's index
+            const parent_index = index[key][i - 2];
+            // console.log(key, index[key], parent_index);
+
+            // 4. With the node's index, see everywhere it appears and set its total
+            updated_items.forEach(item => {
+              // HACK: I realize that I should make all names unique
+              // Or set the index to a numerical value if available and fallback to name
+              if (item.child_title == key) {
+                // We have found the item, get it's specifics
+                // console.log("Haile sellasie", item);
+                addValuesToParent(
+                  item.parent_number,
+                  'child_debit_val' in item ? item.child_debit_val : 0,
+                  'child_credit_val' in item ? item.child_credit_val : 0,
+                  'child_opening_bal' in item ? item.child_opening_bal : 0,
+                  'child_closing_bal' in item ? item.child_closing_bal : 0,
+                );
+              }
+            });
+          }
+        }
+      }
+    }
+
+    // 5. Now update the session stored value
+    window.sessionStorage.setItem("raw_data", JSON.stringify(updated_items));
+    const ev = new StorageEvent("storage", {
+      key: "raw_data"
+    });
+    window.dispatchEvent(ev);
+
+    // raw_data.forEach(row =>
+    // console.log(JSON.stringify(row, null, "  "))
+    // )
+  }
+
+
+  function addValuesToParent(parent_id, debit, credit, opening, closing) {
+    // To clean up on unecessary console log dirt
+    if (debit <= 0 && credit <= 0 && opening <= 0 && closing <= 0) {
+      return false;
+    }
+    // Look for all instances of this parent
+    console.log("Looking for instances of ", parent_id, debit, credit, opening, closing);
+    // As of commit fbbac6d5b0c everything up to this line (in the hierarchy of logic flow) is okay
+
+    let i = 0;
+    for (let i = 0; i < updated_items.length; i++) {
+      // If the parent is a child in this instance
+      if (updated_items[i].child_number == parent_id) {
+        updated_items[i]['child_debit_val'] = 'child_debit_val' in updated_items[i] ?
+          updated_items[i].child_debit_val + debit : 0;
+        updated_items[i]['child_credit_val'] = 'child_credit_val' in updated_items[i] ?
+          updated_items[i].child_credit_val + credit : 0;
+        updated_items[i]['child_opening_bal'] = 'child_opening_bal' in updated_items[i] ?
+          updated_items[i].child_opening_bal + opening : 0;
+        updated_items[i]['child_closing_bal'] = 'child_closing_bal' in updated_items[i] ?
+          updated_items[i].child_closing_bal + closing : 0;
+        if (debit > 0 || credit > 0 || opening > 0 || closing > 0)
+          console.log(i);
+      }
+      i++;
+    }
+  }
 </script>
