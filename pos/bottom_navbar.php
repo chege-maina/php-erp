@@ -196,7 +196,6 @@
       formData.append(key, sendableTable[key]);
     }
 
-    return;
     fetch('./add_pos_sale.php', {
         method: 'POST',
         body: formData
