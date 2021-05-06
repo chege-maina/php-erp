@@ -17,7 +17,7 @@ $response = array();
 while ($row = mysqli_fetch_assoc($result)) {
 
     $product = $row['product_name'];
-    $query8 = "SELECT * FROM tbl_product WHERE product_name='$product' and status='activex'";
+    $query8 = "SELECT * FROM tbl_product WHERE product_name='$product' and status='active'";
     $result8 = mysqli_query($conn, $query8);
     if ($row8 = mysqli_fetch_assoc($result8)) {
         $productcode = $row8['product_code'];

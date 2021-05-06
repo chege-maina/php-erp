@@ -22,7 +22,7 @@ while ($row9 = mysqli_fetch_assoc($result9)) {
         $max = $row8['max_level'];
 
 
-        $query = "SELECT * FROM tbl_product WHERE product_name='$product' and status='activex'";
+        $query = "SELECT * FROM tbl_product WHERE product_name='$product' and status='active'";
 
 
         $result = mysqli_query($conn, $query);
