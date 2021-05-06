@@ -263,14 +263,14 @@ include '../includes/base_page/head.php';
           .then(result => {
             const alertVar =
               `<div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Success!</strong> ${result}
+              <strong>Success!</strong> Quotation created successfully
               <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
               </div>`;
             var divAlert = document.querySelector("#alert-div");
             divAlert.innerHTML = alertVar;
             divAlert.scrollIntoView();
 
-            return;
+            // return;
             window.setTimeout(() => {
               divAlert.innerHTML = "";
               location.reload();
