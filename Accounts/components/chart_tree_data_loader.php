@@ -88,7 +88,11 @@
         data_map[row.parent_title] : {
           code: row.parent_number,
           children_to_add: [],
-          type: row.parent_type
+          type: row.parent_type,
+          debit: 'parent_debit_val' in row ? row.parent_debit_val : 0,
+          credit: 'parent_credit_val' in row ? row.parent_credit_val : 0,
+          opening_balance: 'parent_opening_bal' in row ? row.parent_opening_bal : 0,
+          closing_balance: 'parent_closing_bal' in row ? row.parent_closing_bal : 0,
         };
       if (row.child_number == "null" && row.child_title == "null" && row.child_type == "null") {
         return;
@@ -105,7 +109,7 @@
       }
     });
 
-    // console.log("Processed: ", data_map);
+    console.log("Processed: ", data_map);
     window.sessionStorage.setItem("items", JSON.stringify(data_map));
     const ev = new StorageEvent("storage", {
       key: "items"
@@ -216,7 +220,7 @@
       const item = index[key];
       // 1. Get only items in level 2
       if (item.length == 2) {
-        console.log("Here goes", item);
+        // console.log("Here goes", item);
         // 2. Search for this item in raw data
         let item_data;
         for (let i = 0; i < updated_items.length; i++) {
@@ -228,7 +232,6 @@
         }
 
         // 3. Now check wherever it appears as a parent and set its totals
-        console.log(item_data);
         for (let i = 0; i < updated_items.length; i++) {
           if (updated_items[i].parent_title == key) {
             updated_items[i]['parent_debit_val'] =
@@ -239,7 +242,7 @@
               'child_opening_bal' in item_data ? item_data.child_opening_bal : 0;
             updated_items[i]['parent_closing_bal'] =
               'child_closing_bal' in item_data ? item_data.child_closing_bal : 0;
-            console.log("Found parent: ", updated_items[i]);
+            // console.log("Found parent: ", updated_items[i]);
           }
         }
       }
