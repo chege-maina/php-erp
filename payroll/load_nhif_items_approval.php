@@ -9,6 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $result = mysqli_query($conn, $query);
   $response = array();
+  $response2 = array();
 
   while ($row = mysqli_fetch_assoc($result)) {
     array_push(
@@ -20,7 +21,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       )
     );
   }
-  echo json_encode($response);
+  array_push(
+    $response2,
+    array(
+      'year' => $year,
+      'tablesitems' => $response
+    )
+  );
+  echo json_encode($response2);
 
   mysqli_close($conn);
 } else {
