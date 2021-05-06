@@ -63,9 +63,16 @@ include '../includes/base_page/head.php';
               </div>
             </div>
 
+            <hr>
+            <div class="col col-auto mt-2">
+              <small><strong>Status:</strong></small>
+              <span id="supplier_status"></span>
+            </div>
+            <hr>
+
             <div class="row">
               <div class="col">
-                <table class="table table-striped" id="data_table">
+                <table class="table table-striped">
                   <thead>
                     <tr>
                       <th scope="col">From</th>
@@ -82,11 +89,11 @@ include '../includes/base_page/head.php';
         </div>
         <div class="card mt-1">
           <div class="card-body fs--1 p-3 px-4">
-            <button type="button" class="btn btn-falcon-success btn-sm mr-2" id="approve_button">
+            <button type="button" class="btn btn-falcon-success btn-sm mr-2" id="approve_button" onclick="submitForm('approve')">
               <span class="fas fa-check mr-1" data-fa-transform="shrink-3"></span>
               Approve
             </button>
-            <button type="button" class="btn btn-falcon-danger btn-sm" id="reject_button">
+            <button type="button" class="btn btn-falcon-danger btn-sm" id="reject_button" onclick="submitForm('reject')">
               <span class="fas fa-times mr-1" data-fa-transform="shrink-3"></span>
               Reject
             </button>
@@ -106,13 +113,7 @@ include '../includes/base_page/head.php';
   const c_table_body = document.querySelector("#c_table_body");
   let table_items = [];
   const adv_year = document.querySelector("#adv_year");
-
-  window.addEventListener('DOMContentLoaded', (event) => {
-    s_id = sessionStorage.getItem("Description");
-
-    populateSelectElement("#adv_year", '../payroll/load_nhif_year.php', "year");
-  });
-
+  const supplier_status = document.querySelector("#supplier_status");
 
 
   let updateTable = (data) => {
@@ -175,5 +176,102 @@ include '../includes/base_page/head.php';
       .catch(error => {
         console.error('Error:', error);
       });
+
   }
+
+
+  window.addEventListener('DOMContentLoaded', (event) => {
+    populateSelectElement("#adv_year", '../payroll/load_nhif_year.php', "year");
+
+
+  });
+
+  let s_id;
+
+  function submitForm(action) {
+    const formData = new FormData();
+    formData.append("s_id", s_id);
+    formData.append("action", action);
+    fetch('./approve_reject_nhif.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log('Server says:', result);
+
+        if (result["message"] == "success") {
+          const alertVar =
+            `<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> Saved changes.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+          var divAlert = document.querySelector("#alert-div");
+          divAlert.innerHTML = alertVar;
+          divAlert.scrollIntoView();
+          setTimeout(function() {
+            location.href = "./nhif_listing_ui.php";
+          }, 2500);
+        } else {
+          const alertVar =
+            `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Error!</strong> Could not save changes.
+              <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+          var divAlert = document.querySelector("#alert-div");
+          divAlert.innerHTML = alertVar;
+          divAlert.scrollIntoView();
+        }
+
+        return false;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+
+
+  window.addEventListener('DOMContentLoaded', (event) => {
+
+    s_id = sessionStorage.getItem("Description");
+
+    const formData = new FormData();
+    formData.append("s_id", s_id);
+
+    fetch('load_nhif_items_approval.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log(result);
+        if ('message' in result) {
+          // If we are getting a message means there is an error
+          return;
+        }
+        console.log('Success:', result);
+        result = result[0];
+        // About to show status
+
+        switch (result.status) {
+          case "pending":
+            supplier_status.innerHTML = `<span class="badge badge-soft-secondary">Pending</span>`;
+            break;
+          case "active":
+            supplier_status.innerHTML = `<span class="badge badge-soft-success">Active</span>`;
+            approve_button.disabled = true;
+            reject_button.disabled = true;
+            break;
+          case "rejected":
+            supplier_status.innerHTML = `<span class="badge badge-soft-warning">Rejected</span>`;
+            reject_button.disabled = true;
+            break;
+        }
+
+
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  });
 </script>
