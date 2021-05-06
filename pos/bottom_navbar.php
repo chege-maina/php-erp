@@ -151,6 +151,7 @@
       groupedByBranch[item.branch].push({
         p_code: item.code,
         p_name: item.name,
+        p_branch: item.branch,
         p_tax_pc: item.tax_pc,
         // This is the bulk unit
         p_units: item.bulk_units,
