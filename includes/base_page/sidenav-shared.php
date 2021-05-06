@@ -132,6 +132,8 @@
         </li>
         <li class="nav-item"><a class="nav-link" href="../Accounts/chart_of_accounts.php">Edit Chart of Accounts</a>
         </li>
+        <li class="nav-item"><a class="nav-link" href="../Accounts/view_chart_of_accounts.php">View Chart of Accounts</a>
+        </li>
         <li class="nav-item"><a class="nav-link" href="../Accounts/add_ledger_ui.php">Add Ledger</a>
         </li>
         <li class="nav-item"><a class="nav-link" href="../Accounts/ledger_listing_ui.php">Ledger Listing</a>
