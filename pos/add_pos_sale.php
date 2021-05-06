@@ -27,12 +27,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $mpesa = sanitize_input($_POST["mpesa_paid"]);
   $visa = sanitize_input($_POST["visa_paid"]);
   $change = sanitize_input($_POST["balance_amount"]);
+  $shipping = sanitize_input($_POST["shipping"]);
   $table_items = json_decode($_POST["table_items"], true);
 
   $mysql = "INSERT INTO tbl_pos (date, customer, total, tax, cash, visa, mpesa,
- sub_total, branch, user, change_bal) VALUES ('" . $date . "', 
+ sub_total, branch, user, change_bal, shipping) VALUES ('" . $date . "', 
   '" . $customer . "', '" . $amount . "', '" . $tax . "','" . $cash . "','" . $visa . "', '" . $mpesa . "',
-   '" . $sub_total . "','" . $branch . "','" . $user . "', '" . $change . "');";
+   '" . $sub_total . "','" . $branch . "','" . $user . "', '" . $change . "', '" . $shipping . "');";
   $mysql .= "SELECT receipt_no FROM tbl_pos ORDER BY receipt_no DESC LIMIT 1";
 
   if (mysqli_multi_query($conn, $mysql)) {
@@ -49,8 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //
       }
     } while (mysqli_next_result($conn));
-
     foreach ($table_items as $key => $value) {
+      echo $value["p_name"];
 
       $mysql = "INSERT INTO tbl_pos_items (
         quote_no, 
@@ -74,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       mysqli_query($conn, $mysql) or die(mysqli_error($conn));
     }
 
-    $message = "Sales " . $quote_no . " Created Successfully..";
+    $message = "Sales " . $table_items . " Created Successfully..";
     echo json_encode($message);
   } else {
 
