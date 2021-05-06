@@ -150,10 +150,10 @@
                 // console.log("Haile sellasie", item);
                 addValuesToParent(
                   item.parent_number,
-                  'child_debit_val' in item ? item.child_debit_val : 0,
-                  'child_credit_val' in item ? item.child_credit_val : 0,
-                  'child_opening_bal' in item ? item.child_opening_bal : 0,
-                  'child_closing_bal' in item ? item.child_closing_bal : 0,
+                  'child_debit_val' in item ? Number(item.child_debit_val) : 0,
+                  'child_credit_val' in item ? Number(item.child_credit_val) : 0,
+                  'child_opening_bal' in item ? Number(item.child_opening_bal) : 0,
+                  'child_closing_bal' in item ? Number(item.child_closing_bal) : 0,
                 );
               }
             });
@@ -184,22 +184,19 @@
     console.log("Looking for instances of ", parent_id, debit, credit, opening, closing);
     // As of commit fbbac6d5b0c everything up to this line (in the hierarchy of logic flow) is okay
 
-    let i = 0;
     for (let i = 0; i < updated_items.length; i++) {
       // If the parent is a child in this instance
       if (updated_items[i].child_number == parent_id) {
         updated_items[i]['child_debit_val'] = 'child_debit_val' in updated_items[i] ?
-          updated_items[i].child_debit_val + debit : 0;
+          Number(updated_items[i].child_debit_val) + debit : debit;
         updated_items[i]['child_credit_val'] = 'child_credit_val' in updated_items[i] ?
-          updated_items[i].child_credit_val + credit : 0;
+          Number(updated_items[i].child_credit_val) + credit : credit;
         updated_items[i]['child_opening_bal'] = 'child_opening_bal' in updated_items[i] ?
-          updated_items[i].child_opening_bal + opening : 0;
+          Number(updated_items[i].child_opening_bal) + opening : opening;
         updated_items[i]['child_closing_bal'] = 'child_closing_bal' in updated_items[i] ?
-          updated_items[i].child_closing_bal + closing : 0;
-        if (debit > 0 || credit > 0 || opening > 0 || closing > 0)
-          console.log(i);
+          Number(updated_items[i].child_closing_bal) + closing : opening;
+        console.log("jj bb ss ", updated_items[i]);
       }
-      i++;
     }
   }
 </script>
