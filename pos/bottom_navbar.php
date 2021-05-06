@@ -197,7 +197,7 @@
     }
 
     return;
-    fetch('#', {
+    fetch('./add_pos_sale.php', {
         method: 'POST',
         body: formData
       })
