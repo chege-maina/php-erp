@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2021 at 02:22 PM
+-- Generation Time: May 06, 2021 at 02:32 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -1049,16 +1049,21 @@ CREATE TABLE `tbl_pos` (
   `change_bal` varchar(100) NOT NULL,
   `date` date NOT NULL,
   `status` varchar(15) NOT NULL DEFAULT 'pending',
-  `customer` varchar(200) NOT NULL
+  `customer` varchar(200) NOT NULL,
+  `shipping` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_pos`
 --
 
-INSERT INTO `tbl_pos` (`receipt_no`, `total`, `tax`, `cash`, `visa`, `mpesa`, `sub_total`, `branch`, `user`, `change_bal`, `date`, `status`, `customer`) VALUES
-(1, '49403.00', '1708.00', '20000.00', '0.00', '29403.00', '47695.00', 'MM2', 'Jael Joel', '0.00', '2021-05-06', 'pending', 'walk-in-customer'),
-(2, '7099.00', '0.00', '2399.00', '800.00', '4000.00', '7099.00', 'MM2', 'Jael Joel', '0.00', '2021-05-06', 'pending', 'walk-in-customer');
+INSERT INTO `tbl_pos` (`receipt_no`, `total`, `tax`, `cash`, `visa`, `mpesa`, `sub_total`, `branch`, `user`, `change_bal`, `date`, `status`, `customer`, `shipping`) VALUES
+(1, '49403.00', '1708.00', '20000.00', '0.00', '29403.00', '47695.00', 'MM2', 'Jael Joel', '0.00', '2021-05-06', 'pending', 'walk-in-customer', ''),
+(2, '7099.00', '0.00', '2399.00', '800.00', '4000.00', '7099.00', 'MM2', 'Jael Joel', '0.00', '2021-05-06', 'pending', 'walk-in-customer', ''),
+(3, '7099.00', '0.00', '2399.00', '800.00', '4000.00', '7099.00', 'MM2', 'Jael Joel', '0.00', '2021-05-06', 'pending', 'walk-in-customer', ''),
+(4, '7099.00', '0.00', '2399.00', '800.00', '4000.00', '7099.00', 'MM2', 'Jael Joel', '0.00', '2021-05-06', 'pending', 'walk-in-customer', ''),
+(5, '7099.00', '0.00', '2399.00', '800.00', '4000.00', '7099.00', 'MM2', 'Jael Joel', '0.00', '2021-05-06', 'pending', 'walk-in-customer', ''),
+(6, '7099.00', '0.00', '2399.00', '800.00', '4000.00', '7099.00', 'MM2', 'Jael Joel', '0.00', '2021-05-06', 'pending', 'walk-in-customer', '');
 
 -- --------------------------------------------------------
 
@@ -2460,7 +2465,7 @@ ALTER TABLE `tbl_paye`
 -- AUTO_INCREMENT for table `tbl_pos`
 --
 ALTER TABLE `tbl_pos`
-  MODIFY `receipt_no` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `receipt_no` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_prdmapping`
