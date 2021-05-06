@@ -73,7 +73,7 @@ include '../includes/base_page/head.php';
             elem.setAttribute("json_header", JSON.stringify(getHeaders(data)));
             elem.setAttribute("json_items", JSON.stringify(getItems(data)));
 
-            elem.setAttribute("manage_key", "From");
+            elem.setAttribute("manage_key", "Description");
             elem.setAttribute("redirect", getBaseUrl() + "/payroll/edit-nhif-ui.php");
             // elem.classList.add("is-fullwidth");
             datatable.appendChild(elem);
@@ -84,6 +84,7 @@ include '../includes/base_page/head.php';
             fetch('../payroll/nhif_listing.php')
               .then(response => response.json())
               .then(data => {
+                console.log("data", data);
                 updateTable(data);
               })
               .catch((error) => {
