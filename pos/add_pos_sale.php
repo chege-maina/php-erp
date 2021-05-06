@@ -29,10 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $change = sanitize_input($_POST["balance_amount"]);
   $table_items = json_decode($_POST["table_items"], true);
 
-  $mysql = "INSERT INTO tbl_sale (date, customer_name, terms, branch_location, 
-  user, sub_total, tax, amount) VALUES ('" . $date . "', 
-  '" . $customer . "', '" . $terms . "', '" . $branch . "','" . $user . "','" . $sub_total . "', '" . $tax . "', '" . $amount . "');";
-  $mysql .= "SELECT quote_no FROM tbl_sale ORDER BY quote_no DESC LIMIT 1";
+  $mysql = "INSERT INTO tbl_sale (date, customer, total, tax, cash, visa, mpesa,
+ sub_total, branch, user, change_bal) VALUES ('" . $date . "', 
+  '" . $customer . "', '" . $amount . "', '" . $tax . "','" . $cash . "','" . $visa . "', '" . $mpesa . "',
+   '" . $sub_total . "','" . $branch . "','" . $user . "', '" . $change . "');";
+  $mysql .= "SELECT receipt_no FROM tbl_sale ORDER BY quote_no DESC LIMIT 1";
 
   if (mysqli_multi_query($conn, $mysql)) {
     do {
