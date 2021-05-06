@@ -182,7 +182,7 @@
     const user_branch = "<?= $_SESSION['branch'] ?>";
 
     // sendableTable["table_items"] = groupedByBranch;
-    sendableTable["table_items"] = ungroupedTable;
+    sendableTable["table_items"] = JSON.stringify(ungroupedTable);
     sendableTable["user_name"] = user_name;
     sendableTable["user_branch"] = user_branch;
 
