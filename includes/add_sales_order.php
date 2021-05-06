@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
       /* print divider */
       if (mysqli_more_results($conn)) {
-        // echo "-----------------\n";
+        //
       }
     } while (mysqli_next_result($conn));
 
@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = "Sales Order " . $quote_no . " Created Successfully..";
     echo json_encode($message);
   } else {
-    // echo "Multiquery failed: " . $mysql;
+
     echo "Multi query failed: (" . $conn->errno . ") " . $conn->error . "sql: " . $mysql;
   }
 }
