@@ -55,6 +55,8 @@
       .then(response => response.json())
       .then(data => {
         [...raw_data] = data;
+        // This only need be done once once the page is loaded;
+        [...global_raw_data] = raw_data;
 
         window.sessionStorage.setItem("raw_data", JSON.stringify(raw_data));
         const ev = new StorageEvent("storage", {
@@ -72,7 +74,6 @@
     if (event.key == "raw_data") {
       let raw_data = window.sessionStorage.getItem("raw_data");
       raw_data = JSON.parse(raw_data);
-      [...global_raw_data] = raw_data;
       convertRawDataToMap(raw_data);
     } else if (event.key == "index") {
       calculateTreeTotals(window.sessionStorage.getItem("index"));
@@ -119,7 +120,7 @@
     console.log("Calculting totals");
     // 1. Get the index and items we can calculate totals.
     index = JSON.parse(index);
-    updated_items = JSON.parse(sessionStorage.getItem("raw_data"));
+    [...updated_items] = global_raw_data;
 
     let max = 0;
     // 2. Get the longest path in the index
