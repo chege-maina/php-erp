@@ -120,7 +120,7 @@
     console.log("Calculting totals");
     // 1. Get the index and items we can calculate totals.
     index = JSON.parse(index);
-    [...updated_items] = global_raw_data;
+    updated_items = JSON.parse(sessionStorage.getItem("raw_data"));
 
     let max = 0;
     // 2. Get the longest path in the index
@@ -148,7 +148,7 @@
               // Or set the index to a numerical value if available and fallback to name
               if (item.child_title == key) {
                 // We have found the item, get it's specifics
-                // console.log("Haile sellasie", item);
+                // console.log("Adding values to parent", item);
                 addValuesToParent(
                   item.parent_number,
                   'child_debit_val' in item ? Number(item.child_debit_val) : 0,
@@ -163,6 +163,7 @@
       }
     }
 
+    console.log("In completion: ", updated_items);
     // 5. Now update the session stored value
     window.sessionStorage.setItem("raw_data", JSON.stringify(updated_items));
     const ev = new StorageEvent("storage", {
@@ -195,8 +196,8 @@
         updated_items[i]['child_opening_bal'] = 'child_opening_bal' in updated_items[i] ?
           Number(updated_items[i].child_opening_bal) + opening : opening;
         updated_items[i]['child_closing_bal'] = 'child_closing_bal' in updated_items[i] ?
-          Number(updated_items[i].child_closing_bal) + closing : opening;
-        console.log("jj bb ss ", updated_items[i]);
+          Number(updated_items[i].child_closing_bal) + closing : closing;
+        console.log("jj bb ss ", JSON.stringify(updated_items[i]));
       }
     }
   }
