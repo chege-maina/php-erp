@@ -51,7 +51,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
     } while (mysqli_next_result($conn));
     foreach ($table_items as $key => $value) {
-      echo $value["p_name"];
 
       $mysql = "INSERT INTO tbl_pos_items (
         quote_no, 
@@ -75,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       mysqli_query($conn, $mysql) or die(mysqli_error($conn));
     }
 
-    $message = "Sales " . $table_items . " Created Successfully..";
+    $message = "Sales " . $quote_no . " Created Successfully..";
     echo json_encode($message);
   } else {
 
