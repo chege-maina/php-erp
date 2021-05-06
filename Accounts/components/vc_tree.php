@@ -169,6 +169,19 @@
               created_object[key].children[i]["code"] = this.root[
                 i_child.name
               ].code;
+              created_object[key].children[i]["debit"] = this.root[
+                i_child.name
+              ].debit;
+              created_object[key].children[i]["credit"] = this.root[
+                i_child.name
+              ].credit;
+              created_object[key].children[i]["opening_balance"] = this.root[
+                i_child.name
+              ].opening_balance;
+              created_object[key].children[i]["closing_balance"] = this.root[
+                i_child.name
+              ].closing_balance;
+
               for (
                 let j = 0; j < this.root[i_child.name].children_to_add.length; j++
               ) {

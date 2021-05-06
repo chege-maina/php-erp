@@ -110,6 +110,15 @@
     });
 
     console.log("Processed: ", data_map);
+    console.log(JSON)
+
+    /*
+    for (let key in data_map) {
+      const row = data_map[key];
+      console.log(JSON.stringify(row, null, "  "))
+    }
+       */
+
     window.sessionStorage.setItem("items", JSON.stringify(data_map));
     const ev = new StorageEvent("storage", {
       key: "items"
@@ -235,13 +244,13 @@
         for (let i = 0; i < updated_items.length; i++) {
           if (updated_items[i].parent_title == key) {
             updated_items[i]['parent_debit_val'] =
-              'child_debit_val' in item_data ? item_data.child_debit_val : 0;
+              'child_debit_val' in item_data ? item_data.child_debit_val : -2;
             updated_items[i]['parent_credit_val'] =
-              'child_credit_val' in item_data ? item_data.child_credit_val : 0;
+              'child_credit_val' in item_data ? item_data.child_credit_val : -2;
             updated_items[i]['parent_opening_bal'] =
-              'child_opening_bal' in item_data ? item_data.child_opening_bal : 0;
+              'child_opening_bal' in item_data ? item_data.child_opening_bal : -2;
             updated_items[i]['parent_closing_bal'] =
-              'child_closing_bal' in item_data ? item_data.child_closing_bal : 0;
+              'child_closing_bal' in item_data ? item_data.child_closing_bal : -2;
             // console.log("Found parent: ", updated_items[i]);
           }
         }
