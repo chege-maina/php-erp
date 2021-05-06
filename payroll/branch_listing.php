@@ -18,6 +18,7 @@ while ($row = mysqli_fetch_assoc($result)) {
       'Telephone_NO' => $row['tel_no'],
       'Postal_Address' => $row['postal_address'],
       'Physical_Address' => $row['physical_address'],
+      'Status' => $row['status'],
     )
   );
 }

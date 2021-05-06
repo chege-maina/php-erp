@@ -1,1 +1,1 @@
-[{"product_name":"Christopher Fulton","supplier_name":"Quinn Kaufman","product_cost":"20009"},{"product_name":"Eden Cline","supplier_name":"Kuame Johns","product_cost":"5000"},{"product_name":"Georgia Frye","supplier_name":"Dolan Mendoza","product_cost":"10000"},{"product_name":"Georgia Frye","supplier_name":"Leila Stokes","product_cost":"6000"},{"product_name":"Kaden Dawson","supplier_name":"Leila Stokes","product_cost":"5100"}]
+[{"product_name":"Pencil","supplier_name":"Walker Church","product_cost":"100"}]
