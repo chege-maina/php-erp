@@ -202,7 +202,7 @@ include '../includes/base_page/head.php';
               method: 'POST',
               body: formData
             })
-            .then(response => response.json())
+            .then(response => response.text())
             .then(result => {
               console.log('Success:', result);
               updateTable(result);
